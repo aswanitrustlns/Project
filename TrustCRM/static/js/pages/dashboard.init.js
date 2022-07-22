@@ -538,7 +538,7 @@ var options = {
     }],
     colors: splneAreaColors,
     xaxis: {
-        type: 'datetime',
+        type: 'month',
         categories: month,                
     },
     grid: {
@@ -546,7 +546,7 @@ var options = {
     },
     tooltip: {
         x: {
-            format: month
+            format: 'MM'
         },
     }
 }

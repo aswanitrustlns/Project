@@ -163,7 +163,7 @@ def dashboard(request):
         for data in halfyearly_data:
            halfyearly_bar.append({
 
-                'month': data[0],
+                'month': data[1],
                 'live_account':data[3],
                 'pending_account':data[4],
                 'funded_account':data[5]
