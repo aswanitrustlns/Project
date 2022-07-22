@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8" />
+    <title>Login | Minia - Minimal Admin & Dashboard Template</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
+    <meta content="Themesbrand" name="author" />
+    <!-- App favicon -->
+    {% load  static %}
+    {% include "common/link.html" %}
+    {% include "common/scripts.html" %}
+
+
+    <!-- preloader css -->
+   
+</head>
+
+<body data-layout-mode="dark">
+
+<!-- <body data-layout="horizontal"> -->
+<div class="auth-page ">
+    <!--<ul class="bg-bubbles">
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>-->
+    <!-- end bubble effect -->
+    <div class="container p-0">
+        <div class="row g-0">
+
+        <div class="col-xxl-12">
+            <div class="mt-4 mt-md-5 text-center">
+                <a href="index.html" class="d-block auth-logo">
+                    
+                        
+                    <img src="{%static 'images/logo-sm.svg' %}" alt="" height="80"> <!--<span
+                        class="logo-txt">Minia</span>-->
+                </a>
+            </div>  
+
+
+        </div>   
+       
+    </div>
+    <div class="row  align-items-md-center"><!---->
+        <div class="col-xxl-7 col-lg-7 col-md-7 order-1 order-md-0 d-none d-md-block">
+            <div class=" pt-0 px-4 py-md-4"> <!--auth-bg  d-flex-->
+                <div class="authimage "> <img src="{%static 'images/login.png' %}" alt="" class="w-100 position-absolute top-0"></div><!--bg-overlay bg-primary-->
+            </div>
+            <h2 class="almarenamonolight-type fs-30">Turn every rep<br>
+                into a top performer</h2>
+        </div>
+        <div class="col-xxl-5 col-lg-5 col-md-5  ">      
+                <div class="auth-full-page-content  pt-0 pt-sm-0 p-sm-5 p-4 d-md-flex flex-column justify-content-md-center"> <!---->
+                    <div class="w-100">
+                        <div class="d-flex  flex-column h-100"><!--flex-column  -->
+                        
+                            <div class="auth-content my-auto">
+                                <!--<div class="text-center">
+                                                <h5 class="mb-0">Welcome Back !</h5>
+                                                <p class="text-muted mt-2">Sign in to continue to Minia.</p>
+                                </div>-->
+                                <form class="mt-4 pt-2 needs-validation" action="{% url 'Admin:Check' %}" novalidate method="post">
+                                    {% csrf_token %}
+                                    <div class="mb-3">
+                                        <label class="form-label">Username</label>
+                                        <input type="text" class="form-control" id="username" placeholder="Enter username" required id="validationCustom01" name="username">
+                                        <div class="valid-feedback">
+                                            Looks good!
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <div class="d-flex align-items-start">
+                                            <div class="flex-grow-1">
+                                                <label class="form-label">Password</label>
+                                            </div>
+                                            <div class="flex-shrink-0">
+                                                <div class="">
+                                                    <a href="auth-recoverpw.html" class="text-muted">Forgot password?</a>
+                                                </div>
+                                            </div>
+                                            <div class="valid-feedback">
+                                                Looks good!
+                                            </div>
+                                        </div>
+        
+                                        <div class="input-group auth-pass-inputgroup">
+                                            <input type="password" class="form-control" placeholder="Enter password"
+                                                aria-label="Password" aria-describedby="password-addon" name="password" required>
+                                            <button class="btn btn-light shadow-none ms-0" type="button"
+                                                id="password-addon"><i class="mdi mdi-eye-outline"></i></button>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <!--<label class="form-label">Select</label>-->
+                                        <select class="form-select">
+                                            <option>50.57.14.225:443 </option>
+                                            <!-- <option>user</option> -->
+                                            <!-- {% for roles in role  %}
+                                            <option value="{{roles.0}}">{{roles.1}}</option>
+                                            {% endfor %} -->
+                                            <!-- <option>Large select</option>
+                                            <option>Small select</option> -->
+                                        </select>
+                                        <div class="valid-feedback">
+                                            Looks good!
+                                        </div>
+                                    </div>
+                                    <div class="row mb-4">
+                                        <div class="col">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="remember-check">
+                                                <label class="form-check-label" for="remember-check">
+                                                    Remember me
+                                                </label>
+                                            </div>
+                                        </div>
+        
+                                    </div>
+                                    <div class="mb-3">
+                                        <button class="btn btn-primary w-100 waves-effect waves-light" type="submit">Log
+                                            In</button>
+                                    </div>
+                                </form>
+        
+                                <!--<div class="mt-5 text-center">
+                                    <p class="text-muted mb-0">Don't have an account ? <a href="auth-register.html"
+                                            class="text-primary fw-semibold"> Signup now </a> </p>
+                                </div>-->
+                            </div>
+                           <!-- <div class="mt-4 mt-md-5 text-center">
+                                <p class="mb-0">© <script>
+                                        document.write(new Date().getFullYear())
+                                    </script> Trust Capital TC
+                                </p>
+                            </div>-->
+                        </div>
+                    </div>
+                </div>
+
+
+           
+        
+        <!-- end auth full page content -->
+    </div>
+
+    </div>
+    <!-- end row -->
+</div>
+<!-- end container fluid -->
+</div>
+<!-- JAVASCRIPT -->
+
+<!-- pace js -->
+
+<!-- password addon init -->
+<script src="{%static 'js/pages/pass-addon.init.js' %}"></script>
+<script src="{%static 'js/pages/form-validation.init.js' %}"></script>
+</body>
+
+</html>

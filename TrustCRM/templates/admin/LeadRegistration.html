@@ -1,0 +1,282 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8" />
+    <title>Dashboard | Minia - Minimal Admin & Dashboard Template</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
+    <meta content="Themesbrand" name="author" />
+    {% load  static %}
+    {% include "common/link.html" %}
+    {% include "common/scripts.html" %}
+    <!-- App favicon -->
+    
+
+    <!-- plugin css -->
+    <!--<link href="assets/libs/admin-resources/jquery.vectormap/jquery-jvectormap-1.2.2.css" rel="stylesheet"
+        type="text/css" />-->
+
+    <!-- preloader css -->
+  
+</head>
+
+<body data-layout-mode="dark">
+
+<!-- <body data-layout="horizontal"> -->
+
+<!-- Begin page -->
+<div id="layout-wrapper">
+
+    {% include "common/header.html" %}
+  
+
+    <!-- ========== Left Sidebar Start ========== -->
+    {% include "common/sidebar.html" %}
+    <!-- Left Sidebar End -->
+
+    
+
+    <!-- ============================================================== -->
+    <!-- Start right Content here -->
+    <!-- ============================================================== -->
+    <div class="main-content">
+
+        <div class="page-content">
+            <div class="container"> <!--container-fluid px-md-5 me-md5-->
+
+                
+                <!--Analytics overview-->
+                <div class="row">
+
+                    <div class="col-xl-12">
+                        <div class="card">
+                         
+                            <div class="card-body">
+                                <div class="d-flex flex-wrap align-items-center mb-4">
+                                    <h4 class="card-title fs-23 almarenamonolight-type">New Lead Registration
+                                    </h4>
+
+                                </div>
+                           
+                            
+                                <form class="needs-validation" novalidate>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="mb-3">
+                                                <label class="form-label" for="title">Title<span class="color-orange">*</span></label>
+                                                <select  class="form-select" id="title"  value="" required>
+                                                    <option value="">Mr</option>
+                                                    <option value="">Mrs</option>
+                                                </select>
+                                                <div class="invalid-feedback">
+                                                    Please provide a valid entry.
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="mb-3">
+                                                <label class="form-label" for="firstname*">Name<span class="color-orange">*</span></label>
+                                                <input type="text" class="form-control" id="firstname" placeholder="both name(s) e.g Jon Doe" value="" required>
+                                                <div class="invalid-feedback">
+                                                    Please provide a valid entry.
+                                                </div>
+                                            </div>
+                                        </div>
+                                  
+                                        <div class="col-md-6">
+                                            <div class="mb-3">
+                                                <div class="d-flex justify-content-between">
+                                                    <label class="form-label" for="email1">Email 1 <span class="color-orange">*</span></label>
+                                                    <div class="">
+                                                        <div class="form-check">
+                                                            <input type="checkbox" class="form-check-input" id="emailUav" required>
+                                                            <label class="form-check-label fs-12" for="emailUav">Email Unavailable*</label>
+                                                            <div class="invalid-feedback fs-10 py-1 ">
+                                                                You must agree before submitting.
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                
+                                                <input type="email" class="form-control" id="email2" placeholder="e.g Steve@gmail.com" required>
+                                                <div class="invalid-feedback">
+                                                    Please provide a valid  Email.
+                                                </div>
+                                            </div>
+                                        </div>
+                                       
+                                        <div class="col-md-6">
+                                            <div class="mb-3">
+                                                <label class="form-label" for="email2">Email 2</label>
+                                                <input type="email" class="form-control" id="email2" placeholder="e.g Steve@gmail.com" >
+                                                <div class="invalid-feedback">
+                                                    Please provide avalid  Email.
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 ">
+                                            <div class="mb-3">
+                                                <label class="form-label" for="age">Age</label>
+                                                <input type="number" class="form-control" id="age" placeholder="" >
+                                                <div class="invalid-feedback">
+                                                    Please provide a valid Age.
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                      
+
+                                        <div class="col-md-6 ">
+                                            <div class="mb-3">
+                                                <label class="form-label" for="mobile">Mobile<span class="color-orange"></label>
+                                                <input type="tel" class="form-control" id="mobile" placeholder="e.g + 971 553 445 22" required>
+                                                <div class="invalid-feedback">
+                                                    Please provide a valid Number.
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6 ">
+                                            <div class="mb-3">
+                                                <label class="form-label" for="profession">Profession*</label>
+                                                <input type="tel" class="form-control" id="profession" placeholder="" >
+                                                <div class="invalid-feedback">
+                                                    Please provide a Profession.
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="col-md-6 ">
+                                            <div class="mb-3">
+                                                <label class="form-label" for="Subject">Subject</label>
+                                                <input type="tel" class="form-control" id="Subject" placeholder="" >
+                                                <div class="invalid-feedback">
+                                                    Please provide a Profession.
+                                                </div>
+                                            </div>
+                                            
+                                        </div>
+                                        <div class="col-md-6 ">
+                                            <div class="mb-3">
+                                                <label class="form-label" for="Source">Source</label>
+                                                <input type="tel" class="form-control" id="Source" placeholder="" value="Admin"  disabled>
+                                                <div class="invalid-feedback">
+                                                    Please provide a Profession.
+                                                </div>
+                                            </div>
+                                            
+                                        </div>
+                                        <div class="col-md-6 ">
+                                            <div class="mb-3">
+                                                <label class="form-label" for="State*">State</label>
+                                                <input type="tel" class="form-control" id="State" placeholder="" >
+                                                <div class="invalid-feedback">
+                                                    Please provide a Profession.
+                                                </div>
+                                            </div>
+                                            
+                                        </div>
+                                        <div class="col-md-6 ">
+                                            <div class="mb-3">
+                                                <label class="form-label" for="Address">Address</label>
+                                                <input type="tel" class="form-control" id="Address" placeholder="" >
+                                                <div class="invalid-feedback">
+                                                    Please provide a Profession.
+                                                </div>
+                                            </div>
+                                            
+                                        </div>
+                                        <div class="col-md-6 ">
+                                            <div class="mb-3">
+                                                <label class="form-label" for="City">City</label>
+                                                <input type="tel" class="form-control" id="City" placeholder="" >
+                                                <div class="invalid-feedback">
+                                                    Please provide a Profession.
+                                                </div>
+                                            </div>
+                                            
+                                        </div>
+                                        <div class="col-md-6 ">
+                                            <div class="mb-3">
+                                                <label class="form-label" for="Zipcode">Zip code</label>
+                                                <input type="tel" class="form-control" id="Zipcode" placeholder="" >
+                                                <div class="invalid-feedback">
+                                                    Please provide a Profession.
+                                                </div>
+                                            </div>
+                                            
+                                        </div>
+                                        <div class="col-md-6 ">
+                                            <div class="mb-3">
+                                                <label class="form-label" for="Telephone">Telephone</label>
+                                                <input type="tel" class="form-control" id="Telephone" placeholder="e.g + 971 553 445 22" >
+                                                <div class="invalid-feedback">
+                                                    Please provide a Profession.
+                                                </div>
+                                            </div>
+                                            
+                                        </div>
+                                    </div>
+                                    <!--<div class="row">
+                                        <div class="col-lg-12">
+                                            <div class="mb-3">
+                                                <div class="form-check">
+                                                    <input type="checkbox" class="form-check-input" id="invalidCheck" required>
+                                                    <label class="form-check-label" for="invalidCheck">Agree to terms and conditions</label>
+                                                    <div class="invalid-feedback">
+                                                        You must agree before submitting.
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>-->
+                                    <button class="btn btn-primary btn-lg mt-3" type="submit">Submit form</button>
+                                </form>
+                            </div>
+                        </div>
+                        <!-- end card -->
+                    </div> <!-- end col -->
+
+
+
+                </div>
+                <!-- end row-->
+
+                </div>
+                <!-- container -->
+            </div>
+            <!-- End Page-content -->
+
+            
+        </div>
+        <!-- end main content-->
+
+    </div>
+    <!-- END layout-wrapper -->
+
+    
+    {% include "common/right-sidebar.html" %}
+
+    <!-- Right bar overlay-->
+    <div class="rightbar-overlay"></div>
+
+    <!-- JAVASCRIPT -->
+    
+  
+
+    <!-- Plugins js-->
+    <!--<script src="assets/libs/admin-resources/jquery.vectormap/jquery-jvectormap-1.2.2.min.js"></script>
+    <script src="assets/libs/admin-resources/jquery.vectormap/maps/jquery-jvectormap-world-mill-en.js"></script>-->
+    <!-- dashboard init -->
+  
+    <!-- form validation -->
+    <script src="{% static 'js/pages/form-validation.init.js' %}"></script>    
+
+    <script src="{% static 'js/app.js' %}"></script>
+
+    </body>
+
+    </html>

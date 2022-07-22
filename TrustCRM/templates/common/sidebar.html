@@ -1,0 +1,242 @@
+{% load  static %}
+<!-- ========== Left Sidebar Start ========== -->
+<div class="vertical-menu">
+
+    <div data-simplebar class="h-100">
+
+        <!--- Sidemenu -->
+        <div id="sidebar-menu">
+            <!-- Left Menu Start -->
+            <ul class="metismenu list-unstyled gilroymedium-type fs-15" id="side-menu">
+                <!--<li class="menu-title" data-key="t-menu">Menu</li>-->
+
+                <li>
+                    <a href="{% url 'Admin:Dashboard' %}">
+                        <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M20.1667 7.81004V3.64837C20.1667 2.35587 19.58 1.83337 18.1225 1.83337H14.4192C12.9617 1.83337 12.375 2.35587 12.375 3.64837V7.80087C12.375 9.10254 12.9617 9.61587 14.4192 9.61587H18.1225C19.58 9.62504 20.1667 9.10254 20.1667 7.81004Z" fill="#00A54F"/>
+                            <path d="M20.1667 18.1225V14.4192C20.1667 12.9617 19.58 12.375 18.1225 12.375H14.4192C12.9617 12.375 12.375 12.9617 12.375 14.4192V18.1225C12.375 19.58 12.9617 20.1667 14.4192 20.1667H18.1225C19.58 20.1667 20.1667 19.58 20.1667 18.1225Z" fill="#00A54F"/>
+                            <path d="M9.62498 7.81004V3.64837C9.62498 2.35587 9.03831 1.83337 7.58081 1.83337H3.87748C2.41998 1.83337 1.83331 2.35587 1.83331 3.64837V7.80087C1.83331 9.10254 2.41998 9.61587 3.87748 9.61587H7.58081C9.03831 9.62504 9.62498 9.10254 9.62498 7.81004Z" fill="#00A54F"/>
+                            <path d="M9.62498 18.1225V14.4192C9.62498 12.9617 9.03831 12.375 7.58081 12.375H3.87748C2.41998 12.375 1.83331 12.9617 1.83331 14.4192V18.1225C1.83331 19.58 2.41998 20.1667 3.87748 20.1667H7.58081C9.03831 20.1667 9.62498 19.58 9.62498 18.1225Z" fill="#00A54F"/>
+                        </svg>
+                            
+                    
+                        <span data-key="t-dashboard">Dashboard</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="javascript: void(0);" class="has-arrow">
+                     
+                        <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M16.5 6.56338C16.445 6.55421 16.3808 6.55421 16.3258 6.56338C15.0608 6.51754 14.0525 5.48171 14.0525 4.19838C14.0525 2.88754 15.1067 1.83337 16.4175 1.83337C17.7283 1.83337 18.7825 2.89671 18.7825 4.19838C18.7733 5.48171 17.765 6.51754 16.5 6.56338Z" stroke="#989898" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M15.5558 13.2367C16.8117 13.4476 18.1958 13.2276 19.1675 12.5767C20.46 11.7151 20.46 10.3034 19.1675 9.44173C18.1867 8.7909 16.7842 8.57089 15.5283 8.79089" stroke="#989898" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M5.4725 6.56338C5.5275 6.55421 5.59167 6.55421 5.64667 6.56338C6.91167 6.51754 7.92 5.48171 7.92 4.19838C7.92 2.88754 6.86584 1.83337 5.555 1.83337C4.24417 1.83337 3.19 2.89671 3.19 4.19838C3.19917 5.48171 4.2075 6.51754 5.4725 6.56338Z" stroke="#989898" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M6.41667 13.2367C5.16084 13.4476 3.77667 13.2276 2.80501 12.5767C1.51251 11.7151 1.51251 10.3034 2.80501 9.44173C3.78584 8.7909 5.18834 8.57089 6.44417 8.79089" stroke="#989898" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M11 13.4108C10.945 13.4016 10.8808 13.4016 10.8258 13.4108C9.56082 13.365 8.55249 12.3291 8.55249 11.0458C8.55249 9.73495 9.60666 8.68079 10.9175 8.68079C12.2283 8.68079 13.2825 9.74412 13.2825 11.0458C13.2733 12.3291 12.265 13.3741 11 13.4108Z" stroke="#989898" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M8.33247 16.2983C7.03997 17.16 7.03997 18.5717 8.33247 19.4333C9.79914 20.4142 12.2008 20.4142 13.6675 19.4333C14.96 18.5717 14.96 17.16 13.6675 16.2983C12.21 15.3267 9.79914 15.3267 8.33247 16.2983Z" stroke="#989898" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                            
+                        <span data-key="t-clients">All Clients</span>
+                    </a>
+                    <ul class="sub-menu" aria-expanded="false">
+                        <li><a href="#" data-key="t-liveaccounts">Live Accounts</a></li>
+                        <li><a href="#" data-key="t-pendingaccounts">Pending Accounts</a></li>
+                        <li><a href="#" data-key="t-rejectedaccounts">Rejected Accounts</a></li>
+                        <li><a href="#" data-key="t-terminatedaccounts">Terminated Accounts</a></li>
+                        <li><a href="#" data-key="t-closedaccounts">Closed Accounts</a></li>
+                    </ul>
+                </li>
+
+                <li>
+                    <a href="javascript: void(0);" class="has-arrow">
+                     
+                        <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M3.28168 4.72998H15.9684C17.49 4.72998 18.7184 5.95831 18.7184 7.47998V10.5233" stroke="#989898" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M6.17835 1.83337L3.28168 4.73002L6.17835 7.62671" stroke="#989898" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M18.7184 17.27H6.03168C4.51001 17.27 3.28168 16.0417 3.28168 14.52V11.4767" stroke="#989898" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M15.8217 20.1668L18.7184 17.2701L15.8217 14.3734" stroke="#989898" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            
+                            
+                        <span data-key="t-backOffice">Back Office</span>
+                    </a>
+                    <ul class="sub-menu" aria-expanded="false">
+                        <!--<li><a href="auth-login.html" data-key="t-login">Login</a></li>-->
+                        
+                    </ul>
+                </li>
+
+                <li>
+                    <a href="javascript: void(0);" class="has-arrow">
+                        
+                        <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M14.2847 17.6459H5.88193C2.52082 17.6459 1.68054 16.8056 1.68054 13.4445V6.72226C1.68054 3.36115 2.52082 2.52087 5.88193 2.52087H14.2847C17.6458 2.52087 18.4861 3.36115 18.4861 6.72226V13.4445C18.4861 16.8056 17.6458 17.6459 14.2847 17.6459Z" stroke="#989898" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M11.7639 6.72217H15.9653" stroke="#989898" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M12.6042 10.0834H15.9653" stroke="#989898" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M14.2847 13.4445H15.9653" stroke="#989898" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M7.14236 9.48675C7.98233 9.48675 8.66327 8.80582 8.66327 7.96585C8.66327 7.12588 7.98233 6.44495 7.14236 6.44495C6.30239 6.44495 5.62146 7.12588 5.62146 7.96585C5.62146 8.80582 6.30239 9.48675 7.14236 9.48675Z" stroke="#989898" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M10.0834 13.7217C9.96572 12.5033 8.9994 11.5454 7.781 11.4362C7.36086 11.3942 6.93232 11.3942 6.50378 11.4362C5.28537 11.5538 4.31905 12.5033 4.20142 13.7217" stroke="#989898" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            
+                        <span data-key="t-affiliates">Affiliates</span>
+                    </a>
+                    <ul class="sub-menu" aria-expanded="false">
+                        <li><a href="#" data-key="t-liveaffiliates">Live Affiliates</a></li>
+                        <li><a href="#" data-key="t-pendingaffiliates">Pending Affiliates</a></li>
+                        <li><a href="#" data-key="t-rejectedaffiliates">Rejected Affiliates</a></li>
+                        <!--<li><a href="pages-starter.html" data-key="t-starter-page">Starter Page</a></li>-->
+                        
+                    </ul>
+                </li>
+
+                <li>
+                    <a  href="javascript: void(0);" class="has-arrow">
+                        
+                        <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M6.30664 16.6375V14.74" stroke="#989898" stroke-width="1.5" stroke-linecap="round"/>
+                            <path d="M11 16.6375V12.8425" stroke="#989898" stroke-width="1.5" stroke-linecap="round"/>
+                            <path d="M15.6934 16.6375V10.9358" stroke="#989898" stroke-width="1.5" stroke-linecap="round"/>
+                            <path d="M15.6933 5.36255L15.2716 5.85755C12.9341 8.58922 9.79914 10.5234 6.30664 11.3942" stroke="#989898" stroke-width="1.5" stroke-linecap="round"/>
+                            <path d="M13.0075 5.36255H15.6933V8.03922" stroke="#989898" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M8.24998 20.1667H13.75C18.3333 20.1667 20.1666 18.3334 20.1666 13.75V8.25004C20.1666 3.66671 18.3333 1.83337 13.75 1.83337H8.24998C3.66665 1.83337 1.83331 3.66671 1.83331 8.25004V13.75C1.83331 18.3334 3.66665 20.1667 8.24998 20.1667Z" stroke="#989898" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            
+                        <span data-key="t-sales">Sales</span>
+                    </a>
+                    <ul class="sub-menu" aria-expanded="false">
+                        <li><a  href="{% url 'Admin:Leads' %}" data-key="t-leads">Leads</a></li>
+                        <li><a  href="{% url 'Admin:LeadRegistration' %}" data-key="t-LeadRegistration">Ticket Registration</a></li>
+                        
+                    </ul>
+                </li>
+                <li>
+                    <a  href="javascript: void(0);" class="has-arrow">
+                        
+                        <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M20.1666 8.25004V13.75C20.1666 13.9609 20.1666 14.1625 20.1483 14.3642C20.1116 14.3092 20.0658 14.2542 20.02 14.2084C20.0108 14.1992 20.0016 14.1809 19.9925 14.1717C19.25 13.3467 18.1591 12.8334 16.9583 12.8334C15.8033 12.8334 14.7492 13.31 13.9975 14.08C13.2733 14.8225 12.8333 15.84 12.8333 16.9584C12.8333 17.7284 13.0533 18.4617 13.4291 19.085C13.6308 19.4242 13.8875 19.7359 14.1808 19.9925C14.1991 20.0017 14.2083 20.0109 14.2175 20.0201C14.2633 20.0659 14.3091 20.1025 14.3641 20.1484C14.1716 20.1667 13.9608 20.1667 13.75 20.1667H8.24998C3.66665 20.1667 1.83331 18.3334 1.83331 13.75V8.25004C1.83331 3.66671 3.66665 1.83337 8.24998 1.83337H13.75C18.3333 1.83337 20.1666 3.66671 20.1666 8.25004Z" stroke="#989898" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M2.31 6.51746H19.69" stroke="#989898" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M7.81 1.9342V6.38919" stroke="#989898" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M14.19 1.9342V5.97674" stroke="#989898" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M21.0833 16.9584C21.0833 17.2884 21.0466 17.6092 20.9641 17.9209C20.8633 18.3334 20.6983 18.7275 20.4875 19.085C19.7725 20.2767 18.4616 21.0834 16.9583 21.0834C15.9683 21.0834 15.07 20.735 14.3733 20.1484C14.3641 20.1484 14.3641 20.1484 14.3641 20.1484C14.3091 20.1025 14.2633 20.0659 14.2175 20.0201C14.2083 20.0109 14.1991 20.0017 14.1808 19.9925C13.8875 19.7359 13.6308 19.4242 13.4291 19.085C13.0533 18.4617 12.8333 17.7284 12.8333 16.9584C12.8333 15.84 13.2733 14.8225 13.9975 14.08C14.7492 13.31 15.8033 12.8334 16.9583 12.8334C18.1591 12.8334 19.25 13.3467 19.9925 14.1717C20.0016 14.1809 20.0108 14.1992 20.02 14.2084C20.0658 14.2542 20.1116 14.3092 20.1483 14.3642C20.735 15.07 21.0833 15.9775 21.0833 16.9584Z" stroke="#989898" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M18.4983 16.9399H15.4183" stroke="#989898" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M16.9583 15.4366V18.5166" stroke="#989898" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            
+                            
+                        <span data-key="t-seminars">Seminars</span>
+                    </a>
+                    <ul class="sub-menu" aria-expanded="false">
+                        <!--<li><a  href="Leads.html" data-key="t-leads">Leads</a></li>
+                        <li><a  href="LeadRegistration.html" data-key="t-LeadRegistration">Ticket Registration</a></li>-->
+                        
+                    </ul>
+                </li>
+                <li>
+                    <a  href="javascript: void(0);" class="has-arrow">
+                        <!--<i data-feather="layout"></i>-->
+                        <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M8.39666 9.96421C8.30499 9.95504 8.19499 9.95504 8.09416 9.96421C5.91249 9.89087 4.17999 8.10337 4.17999 5.90337C4.17999 3.65754 5.99499 1.83337 8.24999 1.83337C10.4958 1.83337 12.32 3.65754 12.32 5.90337C12.3108 8.10337 10.5783 9.89087 8.39666 9.96421Z" stroke="#989898" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M15.0425 3.66663C16.8208 3.66663 18.2508 5.10579 18.2508 6.87496C18.2508 8.60746 16.8758 10.0191 15.1617 10.0833C15.0883 10.0741 15.0058 10.0741 14.9233 10.0833" stroke="#989898" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M3.81335 13.3466C1.59501 14.8316 1.59501 17.2516 3.81335 18.7275C6.33418 20.4141 10.4683 20.4141 12.9892 18.7275C15.2075 17.2425 15.2075 14.8225 12.9892 13.3466C10.4775 11.6691 6.34335 11.6691 3.81335 13.3466Z" stroke="#989898" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M16.8116 18.3334C17.4716 18.1959 18.095 17.93 18.6083 17.5359C20.0383 16.4634 20.0383 14.6942 18.6083 13.6217C18.1041 13.2367 17.49 12.98 16.8391 12.8334" stroke="#989898" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            
+                            
+                            
+                        <span data-key="t-management">Management</span>
+                    </a>
+                    <ul class="sub-menu" aria-expanded="false">
+                        <!--<li><a  href="Leads.html" data-key="t-leads">Leads</a></li>
+                        <li><a  href="LeadRegistration.html" data-key="t-LeadRegistration">Ticket Registration</a></li>-->
+                        
+                    </ul>
+                </li>       
+                <li>
+                    <a  href="javascript: void(0);" class="has-arrow">
+                        <!--<i data-feather="layout"></i>-->
+                        <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M14.6666 1.83337H7.33331C3.66665 1.83337 1.83331 3.66671 1.83331 7.33337V19.25C1.83331 19.7542 2.24581 20.1667 2.74998 20.1667H14.6666C18.3333 20.1667 20.1666 18.3334 20.1666 14.6667V7.33337C20.1666 3.66671 18.3333 1.83337 14.6666 1.83337Z" stroke="#989898" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M6.41669 8.70837H15.5834" stroke="#989898" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M6.41669 13.2917H12.8334" stroke="#989898" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            
+                            
+                            
+                            
+                        <span data-key="t-compliance">Compliance</span>
+                    </a>
+                    <ul class="sub-menu" aria-expanded="false">
+                        <!--<li><a  href="Leads.html" data-key="t-leads">Leads</a></li>
+                        <li><a  href="LeadRegistration.html" data-key="t-LeadRegistration">Ticket Registration</a></li>-->
+                        
+                    </ul>
+                </li>
+
+                <li>
+                    <a  href="#" >
+                        <!--<i data-feather="layout"></i>-->
+                        <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M8.24998 20.1667H13.75C18.3333 20.1667 20.1666 18.3334 20.1666 13.75V8.25004C20.1666 3.66671 18.3333 1.83337 13.75 1.83337H8.24998C3.66665 1.83337 1.83331 3.66671 1.83331 8.25004V13.75C1.83331 18.3334 3.66665 20.1667 8.24998 20.1667Z" stroke="#989898" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M14.9233 12.4758C13.8875 13.5116 12.4025 13.8325 11.0916 13.42L8.71748 15.785C8.55248 15.9591 8.21331 16.0691 7.96581 16.0325L6.86581 15.8858C6.49914 15.84 6.16914 15.4916 6.11414 15.1341L5.96748 14.0341C5.93081 13.7958 6.04998 13.4566 6.21498 13.2825L8.57998 10.9175C8.17664 9.60663 8.48831 8.12163 9.52414 7.0858C11.0091 5.6008 13.4291 5.6008 14.9233 7.0858C16.4083 8.56163 16.4083 10.9816 14.9233 12.4758Z" stroke="#989898" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M9.57915 14.9233L8.79999 14.135" stroke="#989898" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M12.2783 9.80831H12.2865" stroke="#989898" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            
+                            
+                            
+                            
+                            
+                        <span data-key="t-changepassword">Change Password</span>
+                    </a>
+                    
+                </li>
+                <li>
+                    <a  href="javascript: void(0);" class="has-arrow" >
+                        <!--<i data-feather="layout"></i>-->
+                        <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M11 13.75C12.5188 13.75 13.75 12.5188 13.75 11C13.75 9.48122 12.5188 8.25 11 8.25C9.48122 8.25 8.25 9.48122 8.25 11C8.25 12.5188 9.48122 13.75 11 13.75Z" stroke="#989898" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M1.83331 11.8066V10.1933C1.83331 9.23998 2.61248 8.45165 3.57498 8.45165C5.23415 8.45165 5.91248 7.27832 5.07831 5.83915C4.60165 5.01415 4.88581 3.94165 5.71998 3.46498L7.30581 2.55748C8.02998 2.12665 8.96498 2.38332 9.39581 3.10748L9.49665 3.28165C10.3216 4.72082 11.6783 4.72082 12.5125 3.28165L12.6133 3.10748C13.0441 2.38332 13.9791 2.12665 14.7033 2.55748L16.2891 3.46498C17.1233 3.94165 17.4075 5.01415 16.9308 5.83915C16.0966 7.27832 16.775 8.45165 18.4341 8.45165C19.3875 8.45165 20.1758 9.23082 20.1758 10.1933V11.8066C20.1758 12.76 19.3966 13.5483 18.4341 13.5483C16.775 13.5483 16.0966 14.7216 16.9308 16.1608C17.4075 16.995 17.1233 18.0583 16.2891 18.535L14.7033 19.4425C13.9791 19.8733 13.0441 19.6166 12.6133 18.8925L12.5125 18.7183C11.6875 17.2791 10.3308 17.2791 9.49665 18.7183L9.39581 18.8925C8.96498 19.6166 8.02998 19.8733 7.30581 19.4425L5.71998 18.535C4.88581 18.0583 4.60165 16.9858 5.07831 16.1608C5.91248 14.7216 5.23415 13.5483 3.57498 13.5483C2.61248 13.5483 1.83331 12.76 1.83331 11.8066Z" stroke="#989898" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            
+                            
+                            
+                            
+                            
+                            
+                        <span data-key="t-settings">Settings</span>
+                    </a>
+                    
+                </li>
+                <li>
+                    <a  href="auth-login.html" >
+                    
+                        <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M8.15833 6.92997C8.44249 3.62997 10.1383 2.28247 13.8508 2.28247H13.97C18.0675 2.28247 19.7083 3.9233 19.7083 8.0208V13.9975C19.7083 18.095 18.0675 19.7358 13.97 19.7358H13.8508C10.1658 19.7358 8.46999 18.4066 8.16749 15.1616" stroke="#989898" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M1.83331 11H13.64" stroke="#989898" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M11.5958 7.9292L14.6667 11L11.5958 14.0709" stroke="#989898" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg> 
+                            
+                        <span data-key="t-logout">Logout</span>
+                    </a>
+                    
+                </li>
+
+
+
+            </ul>
+
+            <!--<div class="card sidebar-alert border-0 text-center mx-4 mb-0 mt-5">
+                <div class="card-body">
+                    <img src="assets/images/giftbox.png" alt="">
+                    <div class="mt-4">
+                        <h5 class="alertcard-title font-size-16">Unlimited Access</h5>
+                        <p class="font-size-13">Upgrade your plan from a Free trial, to select ‘Business Plan’.</p>
+                        <a href="#!" class="btn btn-primary mt-2">Upgrade Now</a>
+                    </div>
+                </div>
+            </div>-->
+        </div>
+        <!-- Sidebar -->
+    </div>
+</div>
+<!-- Left Sidebar End -->
