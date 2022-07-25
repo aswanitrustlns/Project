@@ -32,14 +32,17 @@ def login_check(request):
     if request.method == 'POST':
         username=request.POST.get('username')
         password=request.POST.get('password')
-        Cursor.execute("set nocount on;exec SP_GetLoginDetails %s",[username])
-        UserId=Cursor.fetchone()
-        request.session['UserId'] = UserId[0] 
-        print(UserId)
-        subprocess.call(["C:\\Aswani\\pythonmanager\\manager_python.exe","1","50.57.14.224:443",'601','Tc2022'])
-        
-        
-    return redirect('dashboard/')
+    Cursor.execute("set nocount on;exec SP_GetLoginDetails %s",[username])
+    UserId=Cursor.fetchone()
+    request.session['UserId'] = UserId[0] 
+    
+        # pwd -- Tc2022
+    connect=subprocess.call(["C:\\Aswani\\pythonmanager\\manager_python.exe","1","50.57.14.224:443",'601',password])
+    print(connect)
+    if(connect==0):    
+            return redirect('dashboard/')
+    else:
+        return redirect('login/')
 
 
 def dashboard(request):
@@ -193,7 +196,14 @@ def lead(request):
     return render(request,'admin/Leads.html')
 
 def lead_registration(request):
-    return render(request,'admin/LeadRegistration.html')
+    UserId=request.session.get('UserId')
+    print(UserId)
+    Cursor.execute(''' SELECT * FROM tbl_Country''')
+    country_code=Cursor.fetchall()
+    Cursor.execute("SELECT UserName FROM tbl_User where UserID=%s",[UserId])
+    UserName=Cursor.fetchone()
+    print(UserName[0])
+    return render(request,'admin/LeadRegistration.html',{"source":UserName[0]})
 
 def logout(request):
     UserId=request.session['UserId']

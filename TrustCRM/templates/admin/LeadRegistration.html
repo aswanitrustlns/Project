@@ -61,11 +61,11 @@
                                 </div>
                            
                             
-                                <form class="needs-validation" novalidate>
+                                <form class="needs-validation" novalidate >
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="mb-3">
-                                                <label class="form-label" for="title">Title<span class="color-orange">*</span></label>
+                                                <label class="form-label" for="title">Title<span class="color-orange"></span></label>
                                                 <select  class="form-select" id="title"  value="" required>
                                                     <option value="">Mr</option>
                                                     <option value="">Mrs</option>
@@ -88,10 +88,10 @@
                                         <div class="col-md-6">
                                             <div class="mb-3">
                                                 <div class="d-flex justify-content-between">
-                                                    <label class="form-label" for="email1">Email 1 <span class="color-orange">*</span></label>
+                                                    <label class="form-label" for="email1">Email 1 <span class="color-orange"></span></label>
                                                     <div class="">
                                                         <div class="form-check">
-                                                            <input type="checkbox" class="form-check-input" id="emailUav" required>
+                                                            <input type="checkbox" class="form-check-input" id="email_check" >
                                                             <label class="form-check-label fs-12" for="emailUav">Email Unavailable*</label>
                                                             <div class="invalid-feedback fs-10 py-1 ">
                                                                 You must agree before submitting.
@@ -100,7 +100,7 @@
                                                     </div>
                                                 </div>
                                                 
-                                                <input type="email" class="form-control" id="email2" placeholder="e.g Steve@gmail.com" required>
+                                                <input type="email" class="form-control" id="emailerr" placeholder="e.g Steve@gmail.com" required>
                                                 <div class="invalid-feedback">
                                                     Please provide a valid  Email.
                                                 </div>
@@ -120,8 +120,8 @@
                                             <div class="mb-3">
                                                 <label class="form-label" for="age">Age</label>
                                                 <input type="number" class="form-control" id="age" placeholder="" >
-                                                <div class="invalid-feedback">
-                                                    Please provide a valid Age.
+                                                <div class="invalid-feedback" id="age_err">
+                                                    Please provide a valid Age  
                                                 </div>
                                             </div>
                                         </div>
@@ -162,7 +162,7 @@
                                         <div class="col-md-6 ">
                                             <div class="mb-3">
                                                 <label class="form-label" for="Source">Source</label>
-                                                <input type="tel" class="form-control" id="Source" placeholder="" value="Admin"  disabled>
+                                                <input type="tel" class="form-control" id="Source" placeholder="" value={{source}}  disabled>
                                                 <div class="invalid-feedback">
                                                     Please provide a Profession.
                                                 </div>
@@ -233,7 +233,7 @@
                                             </div>
                                         </div>
                                     </div>-->
-                                    <button class="btn btn-primary btn-lg mt-3" type="submit">Submit form</button>
+                                    <button class="btn btn-primary btn-lg mt-3" type="submit" id="lead_register">Submit form</button>
                                 </form>
                             </div>
                         </div>

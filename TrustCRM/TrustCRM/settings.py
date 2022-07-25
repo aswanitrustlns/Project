@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-x98$y6+al)ej+^0$jq99v%uwi31@)(ctb!deq#6qtq$j*w2lz%'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
 
@@ -78,9 +78,9 @@ DATABASES = {
     'default': {
         'ENGINE': 'sql_server.pyodbc',
         'NAME': 'SVGTcCRM',
-        'USER': 'tccrm22',
-        'PASSWORD': 'Tr786@2022#',
-        'HOST': '185.4.178.133',
+        'USER': 'tinstcrm',
+        'PASSWORD': 'Trust_2021',
+        'HOST': '213.175.205.19',
         'PORT': '1433',
          'OPTIONS': {
             'driver': 'ODBC Driver 17 for SQL Server',
@@ -125,6 +125,8 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATICFILES_DIRS = (os.path.join(BASE_DIR, "static"),)
 MEDIA_URL = 'audio/'
+
+    
 
 
 # Default primary key field type
