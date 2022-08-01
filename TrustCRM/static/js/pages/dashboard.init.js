@@ -387,8 +387,8 @@ var options = {
       type: 'donut',
       verticalAlign: 'center',
   }, 
-  series: [20, 54, 6, 10,0,3],
-  labels: ['Yara Hajji Youssef', 'Amra Osman', 'Fatima Omar', 'Firas Hachache', 'Firas Monzer','Jad'],
+  series: [],
+  labels: [],
   colors: donutColors,
   legend: {
       show: true,
@@ -579,14 +579,14 @@ var options = {
         enabled: false
     },
     series: [{
-        data: [380, 430, 450, 475, 550, 584]
+        data: []
     }],
     colors: barColors,
     grid: {
         borderColor: 'transparent',
     },
     xaxis: {
-        categories: ['Yara Hajji Youssef', 'Amra Osman', 'Fatima Omar', 'Firas Hachache', 'Firas Monzer', 'Jad Khodor'],
+        categories: [],
     }
 }
 

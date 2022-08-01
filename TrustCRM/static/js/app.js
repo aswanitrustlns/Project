@@ -19,15 +19,15 @@ File: Main Js File
     function setLanguage(lang) {
         if (document.getElementById("header-lang-img")) {
             if (lang == 'en') {
-                document.getElementById("header-lang-img").src = "static/images/flags/us.jpg";
+                document.getElementById("header-lang-img").src = "assets/images/flags/us.jpg";
             } else if (lang == 'sp') {
-                document.getElementById("header-lang-img").src = "static/images/flags/spain.jpg";
+                document.getElementById("header-lang-img").src = "assets/images/flags/spain.jpg";
             } else if (lang == 'gr') {
-                document.getElementById("header-lang-img").src = "static/images/flags/germany.jpg";
+                document.getElementById("header-lang-img").src = "assets/images/flags/germany.jpg";
             } else if (lang == 'it') {
-                document.getElementById("header-lang-img").src = "static/images/flags/italy.jpg";
+                document.getElementById("header-lang-img").src = "assets/images/flags/italy.jpg";
             } else if (lang == 'ru') {
-                document.getElementById("header-lang-img").src = "static/images/flags/russia.jpg";
+                document.getElementById("header-lang-img").src = "assets/images/flags/russia.jpg";
             }
             localStorage.setItem('minia-language', lang);
             language = localStorage.getItem('minia-language');
@@ -38,7 +38,7 @@ File: Main Js File
     // Multi language setting
     function getLanguage() {
         (language == null) ? setLanguage(default_lang): false;
-        $.getJSON('static/lang/' + language + '.json', function (lang) {
+        $.getJSON('assets/lang/' + language + '.json', function (lang) {
             $('html').attr('lang', language);
             $.each(lang, function (index, val) {
                 (index === 'head') ? $(document).attr("title", val['title']): false;
@@ -354,11 +354,11 @@ File: Main Js File
         $("input[name='layout-direction']").on('change', function () {
             if($(this).val() == "ltr") {
                 document.getElementsByTagName("html")[0].removeAttribute("dir");
-                document.getElementById('bootstrap-style').setAttribute('href', 'static/css/bootstrap.min.css');
-                document.getElementById('app-style').setAttribute('href', 'static/css/app.min.css');
+                document.getElementById('bootstrap-style').setAttribute('href', 'assets/css/bootstrap.min.css');
+                document.getElementById('app-style').setAttribute('href', 'assets/css/app.min.css');
             } else {
-                document.getElementById('bootstrap-style').setAttribute('href', 'static/css/bootstrap-rtl.min.css');
-                document.getElementById('app-style').setAttribute('href', 'static/css/app-rtl.min.css');
+                document.getElementById('bootstrap-style').setAttribute('href', 'assets/css/bootstrap-rtl.min.css');
+                document.getElementById('app-style').setAttribute('href', 'assets/css/app-rtl.min.css');
                 document.getElementsByTagName("html")[0].setAttribute("dir", "rtl");
             }
         });

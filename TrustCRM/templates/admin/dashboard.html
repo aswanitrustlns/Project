@@ -25,9 +25,199 @@
 <div id="layout-wrapper">
 
     
-    <div id="layout-wrapper">
+    <!-- <div id="layout-wrapper"> -->
 
-        {% include "common/header.html" %}
+        <header id="page-topbar">
+            <div class="navbar-header">
+                <div class="d-flex">
+                    <!-- LOGO -->
+                    <div class="navbar-brand-box border-none border-0 border-bottom mt-0">
+                        <a href="{% url 'Admin:Dashboard' %}" class="logo logo-dark">
+                            <span class="logo-sm">
+                                <img src="{% static 'images/logo-sm.svg' %}" alt="" height="48">
+                            </span>
+                            <span class="logo-lg">
+                                <img src="{% static 'images/logo-sm.svg' %}" alt="" height="48"> <!--<span class="logo-txt">Minia</span>-->
+                            </span>
+                        </a>
+        
+                        <a href="{% url 'Admin:Dashboard' %}" class="logo logo-light">
+                            <span class="logo-sm">
+                                <img src="{% static 'images/logo-sm.svg' %}" alt="" height="24">
+                            </span>
+                            <span class="logo-lg">
+                                <img src="{% static 'images/logo-sm.svg' %}" alt="" height="24"> <span class="logo-txt">Minia</span>
+                            </span>
+                        </a>
+                    </div>
+        
+                    <button type="button" class="btn btn-sm px-3 font-size-16 header-item" id="vertical-menu-btn">
+                        <i class="fa fa-fw fa-bars"></i>
+                    </button>
+        
+                    <!-- App Search-->
+                    <!--<form class="app-search d-none d-lg-block">
+                        <div class="position-relative">
+                            <input type="text" class="form-control" placeholder="Search...">
+                            <button class="btn btn-primary" type="button"><i class="bx bx-search-alt align-middle"></i></button>
+                        </div>
+                    </form>-->
+                </div>
+        
+                <div class="d-flex">
+        
+                    <div class=" d-flex align-items-center me-2 me-md-4">
+                        <!-- <span class="badge bg-danger rounded-pill">5</span> -->
+                        <!-- <a href=""><img src="{% static 'images/social-icons/instagram.png' %}" alt="instagram" class="me-2 me-md-3" height="16"></a>
+                        <a href=""><img src="{% static 'images/social-icons/linkedin.png' %}" alt="linkedin" class="me-2 me-md-3"  height="16"></a>
+                        <a href=""><img src="{% static 'images/social-icons/twitter.png' %}" alt="twitter" class="me-2 me-md-3"  height="16"></a>
+                        <a href=""><img src="{% static 'images/social-icons/facebook.png' %}" alt="facebook" class="me-2 me-md-3"  height="16"></a>
+                        <a href=""><img src="{% static 'images/social-icons/yt.png' %}" alt="youtube" class="me-2 me-md-3"  height="16"></a> -->
+                        <div class=" d-inline-block  ">
+                            <button  type="button"  class="btn position-relative"  
+                            data-bs-toggle="modal" data-bs-target=".bs-example-modal-insta"  >
+                            
+                                    <img src="{% static 'images/social-icons/instagram.png' %}" alt="instagram" class=" badge-to-show" height="16"  >
+                                    <span class="badge position-absolute translate-middle bg-success rounded-pill top-0 gilroysemibold-type fs-11">5</span>
+                                
+                            
+                            
+                            
+                            </button>
+                            <button  type="button"  class="btn position-relative"  
+                            data-bs-toggle="modal" data-bs-target=".bs-example-modal-linkedin"  >
+                            
+                                    <img src="{% static 'images/social-icons/linkedin.png' %}" alt="linkedin" class="badge-to-show " height="16"  >
+                                    <span class="badge position-absolute translate-middle bg-success rounded-pill top-0 gilroysemibold-type fs-11"> 5</span>
+                               
+                            
+                            
+                            </button>
+                            <button  type="button"  class="btn position-relative"  
+                            data-bs-toggle="modal" data-bs-target=".bs-example-modal-twitter"  >
+                            
+                                    <img src="{% static 'images/social-icons/twitter.png' %}" alt="instagram" class=" badge-to-show" height="16"  >
+                                    <span class="badge position-absolute translate-middle bg-success rounded-pill top-0 gilroysemibold-type fs-11"> 5</span>
+                                
+                            
+                            
+                            
+                            </button>
+    
+                            <button  type="button"  class="btn position-relative"  
+                            data-bs-toggle="modal" data-bs-target=".bs-example-modal-facebook"  >
+                            
+                                    <img src="{% static 'images/social-icons/facebook.png' %}" alt="facebook" class=" badge-to-show" height="16"  >
+                                    <span class="badge position-absolute translate-middle bg-success rounded-pill top-0 gilroysemibold-type fs-11"> 5</span>
+                               
+                            
+                            
+                            
+                            </button>
+    
+                            <button  type="button"  class="btn position-relative"  
+                            data-bs-toggle="modal" data-bs-target=".bs-example-modal-yt"  >
+                            
+                                    <img src="{% static 'images/social-icons/yt.png' %}" alt="yt" class=" badge-to-show" height="16"  >
+                                    <span class="badge position-absolute translate-middle bg-success rounded-pill top-0 gilroysemibold-type fs-11"> 5</span>
+                                
+                            
+                            
+                            
+                            </button>
+    
+                       
+                        
+                        
+                    
+                        </div>
+                    </div>
+        
+        
+                    <div class="dropdown d-inline-block">
+                        <button type="button" class="btn header-item " id="page-header-user-dropdown"
+                        data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><!--bg-soft-light border-start border-end-->
+                            <span class="d-none d-xl-inline-block me-2 fw-medium">Hi, Shibu Kizhepat</span>
+                            <img class="rounded-circle header-profile-user" src="{% static 'images/users/avatar-1.jpg' %}"
+                                alt="Header Avatar">
+                        
+                            <i class="mdi mdi-chevron-down d-none d-xl-inline-block"></i>
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-end">
+                            <!-- item-->
+                            <a class="dropdown-item" href="apps-contacts-profile.html"><i class="mdi mdi-face-profile font-size-16 align-middle me-1"></i> Profile</a>
+                            <a class="dropdown-item" href="auth-lock-screen.html"><i class="mdi mdi-lock font-size-16 align-middle me-1"></i> Lock Screen</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="{% url 'Admin:Logout' %}"><i class="mdi mdi-logout font-size-16 align-middle me-1"></i> Logout</a>
+                        </div>
+                    </div>
+        
+                    <div class="dropdown d-inline-block">
+                        <button type="button" class="btn header-item noti-icon position-relative" id="page-header-notifications-dropdown"
+                        data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i data-feather="bell" class="icon-lg"></i>
+                            <span class="badge bg-danger rounded-pill">{{notification_count}}</span>
+                        </button>
+                        {% if not notification %}
+                        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end p-0"
+                            aria-labelledby="page-header-notifications-dropdown">
+                            <div class="p-3">
+                                <div class="row align-items-center">
+                                    <div class="col">
+                                        <h6 class="m-0"> Notifications </h6>
+                                    </div>
+                                    <div class="col-auto">
+                                        <a href="#!" class="small text-reset text-decoration-underline"> Unread (3)</a>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div data-simplebar style="max-height: 230px;">
+                                <!-- <a href="#!" class="text-reset notification-item">
+                                    <div class="d-flex">
+                                        <div class="flex-shrink-0 me-3">
+                                            <img src="{% static 'images/users/avatar-3.jpg' %}" class="rounded-circle avatar-sm" alt="user-pic">
+                                        </div>
+
+                                        <div class="flex-grow-1">
+                                            <h6 class="mb-1">James Lemire</h6>
+                                            <div class="font-size-13 text-muted">
+                                                <p class="mb-1">{{notification}}</p>
+                                                <p class="mb-0"><i class="mdi mdi-clock-outline"></i> <span>1 hour ago</span></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                             -->
+        
+                                <!-- <a href="#!" class="text-reset notification-item">
+                                    <div class="d-flex">
+                                        <div class="flex-shrink-0 me-3">
+                                            <img src="{% static 'images/users/avatar-6.jpg' %}" class="rounded-circle avatar-sm" alt="user-pic">
+                                        </div>
+                                        <div class="flex-grow-1">
+                                            <h6 class="mb-1">Salena Layfield</h6>
+                                            <div class="font-size-13 text-muted">
+                                                <p class="mb-1">As a skeptical Cambridge friend of mine occidental.</p>
+                                                <p class="mb-0"><i class="mdi mdi-clock-outline"></i> <span>1 hour ago</span></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a> -->
+                            </div>
+                            
+                            <!-- <div class="p-2 border-top d-grid">
+                                <a class="btn btn-sm btn-link font-size-14 text-center" href="javascript:void(0)">
+                                    <i class="mdi mdi-arrow-right-circle me-1"></i> <span>View More..</span> 
+                                </a>
+                            </div> -->
+                        </div>
+                        {% endif %}
+                    </div>
+        
+                </div>
+            </div>
+        </header>
         
     
         <!-- ========== Left Sidebar Start ========== -->
@@ -1213,6 +1403,8 @@
                                         </div>
                                     </div>
                                 </div>
+                                {%for tickets in ticket_processed %}
+                                
                                 <div class="row   justify-content-between align-items-center m-0 mb-3">
                                     <div class="progress  col-lg-8 p-0 progress-xl bg-soft-gunmetal">
                                         <div class="progress-bar progress-bar-striped" role="progressbar  "
@@ -1229,87 +1421,8 @@
                                     </div>
 
                                 </div>
-                                <div class="row   justify-content-between align-items-center m-0 mb-3">
-                                    <div class="progress  col-lg-8 p-0 progress-xl bg-soft-gunmetal">
-                                        <div class="progress-bar  progress-bar-striped" role="progressbar  "
-                                            style="width: 25%;background-color:#FF9364;" aria-valuenow="25"
-                                            aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                    <div class=" col-lg-4   px-0  ps-lg-2 d-flex align-items-center">
-                                        <svg width="10" height="11" viewBox="0 0 10 11" fill="none"
-                                            xmlns="http://www.w3.org/2000/svg">
-                                            <circle cx="4.77273" cy="5.73769" r="4.77273" fill="#FF9364" />
-                                        </svg>
-
-
-                                        <span class="  ms-1 "> Amra Osman</span>
-                                    </div>
-
-                                </div>
-                                <div class="row   justify-content-between align-items-center m-0 mb-3">
-                                    <div class="progress  col-lg-8 p-0 progress-xl progress-xl bg-soft-gunmetal">
-                                        <div class="progress-bar progress-bar-striped" role="progressbar  "
-                                            style="width: 35%;background-color:#B09FFF;" aria-valuenow="35"
-                                            aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                    <div class=" col-lg-4   px-0  ps-lg-2 d-flex align-items-center">
-                                        <svg width="10" height="11" viewBox="0 0 10 11" fill="none"
-                                            xmlns="http://www.w3.org/2000/svg">
-                                            <circle cx="4.77273" cy="5.73769" r="4.77273" fill="#B09FFF" />
-                                        </svg>
-
-
-                                        <span class="  ms-1 "> Fatima Omar</span>
-                                    </div>
-
-                                </div>
-                                <div class="row   justify-content-between align-items-center m-0 mb-3">
-                                    <div class="progress  col-lg-8 p-0 progress-xl bg-soft-gunmetal">
-                                        <div class="progress-bar progress-bar-striped" role="progressbar  "
-                                            style="width: 45%;background-color:#FE6C6C" aria-valuenow="25"
-                                            aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                    <div class=" col-lg-4   px-0  ps-lg-2 d-flex align-items-center">
-                                        <svg width="10" height="11" viewBox="0 0 10 11" fill="none"
-                                            xmlns="http://www.w3.org/2000/svg">
-                                            <circle cx="4.77273" cy="5.73769" r="4.77273" fill="#FE6C6C" />
-                                        </svg>
-
-                                        <span class="  ms-1 "> Firas Hachache</span>
-                                    </div>
-
-                                </div>
-                                <div class="row   justify-content-between align-items-center m-0 mb-3">
-                                    <div class="progress  col-lg-8 p-0 progress-xl bg-soft-gunmetal">
-                                        <div class="progress-bar progress-bar-striped" role="progressbar  "
-                                            style="width: 65%;background-color:#99FFA3" aria-valuenow="25"
-                                            aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                    <div class=" col-lg-4   px-0  ps-lg-2 d-flex align-items-center">
-                                        <svg width="10" height="11" viewBox="0 0 10 11" fill="none"
-                                            xmlns="http://www.w3.org/2000/svg">
-                                            <circle cx="4.77273" cy="5.73769" r="4.77273" fill="#99FFA3" />
-                                        </svg>
-
-                                        <span class="  ms-1 "> Firas Monzer</span>
-                                    </div>
-
-                                </div>
-
-                                <div class="row   justify-content-between align-items-center m-0 mb-3">
-                                    <div class="progress  col-lg-8 p-0 progress-xl bg-soft-gunmetal">
-                                        <div class="progress-bar progress-bar-striped" role="progressbar  "
-                                            style="width: 65%;background-color:#FFD572" aria-valuenow="25"
-                                            aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                    <div class=" col-lg-4   px-0  ps-lg-2 d-flex align-items-center">
-                                        <svg width="10" height="11" viewBox="0 0 10 11" fill="none"
-                                            xmlns="http://www.w3.org/2000/svg">
-                                            <circle cx="4.77273" cy="5.73769" r="4.77273" fill="#FFD572" />
-                                        </svg>
-
-                                        <span class="  ms-1 ">Jad Khodor</span>
-                                    </div>
+                                {%endfor%}
+                               
 
                                 </div>
 
@@ -1349,11 +1462,127 @@
             <!-- End Page-content -->
 
             
-        </div>
+        <!-- </div> -->
         <!-- end main content-->
 
     </div>
     <!-- END layout-wrapper -->
+  <!-- Instagram pop-up -->
+
+  <div class="modal fade bs-example-modal-insta" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered"   style="z-index: 10555;">
+        <div class="modal-content">
+            <div class="modal-header border-0">
+                <!--<h5 class="modal-title fs-21">@title</h5>-->
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+                                    
+            <div class="modal-body" >
+
+
+                <div data-simplebar style="max-height: 230px;">
+
+                     <!--User-->
+                <div class="d-flex align-items-center  border-bottom py-3">
+                
+                    <div class="flex-shrink-0 me-3">
+                        <div class="avatar-sm align-self-center">
+                            <span class="avatar-title rounded-circle bg-soft-primary text-primary">
+                                J
+                            </span>
+                        </div>
+                    </div>
+                    <div class="flex-grow-1">
+                        <h6 class="mb-0">James Lemire</h6>
+                        <!--<div class="font-size-13 text-muted">
+                            <p class="mb-1">It will seem like simplified English.</p>
+                            <p class="mb-0"><i class="mdi mdi-clock-outline"></i> <span>1 hour ago</span></p>
+                        </div>-->
+                    </div>
+                </div>
+                <!--User-->
+                <div class="d-flex align-items-center  border-bottom py-3">
+                
+                    <div class="flex-shrink-0 me-3">
+                        <div class="avatar-sm align-self-center">
+                            <span class="avatar-title rounded-circle bg-soft-primary text-primary">
+                                J
+                            </span>
+                        </div>
+                    </div>
+                    <div class="flex-grow-1">
+                        <h6 class="mb-0">James Lemire</h6>
+                        <!--<div class="font-size-13 text-muted">
+                            <p class="mb-1">It will seem like simplified English.</p>
+                            <p class="mb-0"><i class="mdi mdi-clock-outline"></i> <span>1 hour ago</span></p>
+                        </div>-->
+                    </div>
+                </div>
+
+                <!--User-->
+                <div class="d-flex align-items-center  border-bottom py-3">
+                
+                    <div class="flex-shrink-0 me-3">
+                        <div class="avatar-sm align-self-center">
+                            <span class="avatar-title rounded-circle bg-soft-primary text-primary">
+                                J
+                            </span>
+                        </div>
+                    </div>
+                    <div class="flex-grow-1">
+                        <h6 class="mb-0">James Lemire</h6>
+                        <!--<div class="font-size-13 text-muted">
+                            <p class="mb-1">It will seem like simplified English.</p>
+                            <p class="mb-0"><i class="mdi mdi-clock-outline"></i> <span>1 hour ago</span></p>
+                        </div>-->
+                    </div>
+                </div>
+
+                <!--User-->
+                <div class="d-flex align-items-center  border-bottom py-3">
+                
+                    <div class="flex-shrink-0 me-3">
+                        <div class="avatar-sm align-self-center">
+                            <span class="avatar-title rounded-circle bg-soft-primary text-primary">
+                                J
+                            </span>
+                        </div>
+                    </div>
+                    <div class="flex-grow-1">
+                        <h6 class="mb-0">James Lemire</h6>
+                        <!--<div class="font-size-13 text-muted">
+                            <p class="mb-1">It will seem like simplified English.</p>
+                            <p class="mb-0"><i class="mdi mdi-clock-outline"></i> <span>1 hour ago</span></p>
+                        </div>-->
+                    </div>
+                </div>
+
+                <!--User-->
+                <div class="d-flex align-items-center  border-bottom py-3">
+                
+                    <div class="flex-shrink-0 me-3">
+                        <div class="avatar-sm align-self-center">
+                            <span class="avatar-title rounded-circle bg-soft-primary text-primary">
+                                J
+                            </span>
+                        </div>
+                    </div>
+                    <div class="flex-grow-1">
+                        <h6 class="mb-0">James Lemire</h6>
+                        <!--<div class="font-size-13 text-muted">
+                            <p class="mb-1">It will seem like simplified English.</p>
+                            <p class="mb-0"><i class="mdi mdi-clock-outline"></i> <span>1 hour ago</span></p>
+                        </div>-->
+                    </div>
+                </div>
+
+                </div>
+           
+            </div>
+        </div>
+    </div>
+</div>
+
 
     {% include "common/right-sidebar.html" %}
    
