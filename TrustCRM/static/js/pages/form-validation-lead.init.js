@@ -14,11 +14,87 @@ File: Form validation Js File
         var forms = document.getElementsByClassName('needs-validation');
         // Loop over them and prevent submission
         var validation = Array.prototype.filter.call(forms, function (form) {
+
+            form.addEventListener('input', function(event) {
+                const formData = new FormData(form);
+                
+                const age = formData.get('age');
+                const is_agree=formData.get('email_agree');
+                const mobile=formData.get('mobile')
+                if(mobile){
+                    $("#invalid_mobile").hide()
+                }
+                
+                if(age>18){
+                    $("#invalid_age").hide();
+                    $("#age").prop('required',false);
+                    
+                }
+                else{
+                    $("#invalid_age").show();
+                    $("#age").attr('required','required');                 
+                    console.log("else");
+                }
+                if(is_agree=="on"){
+                    console.log("agree check")
+                    $('#email1').attr('readonly', true);
+                    $('#email2').attr('readonly', true);
+                    $("#email_agree").hide();
+                    $("#invalid_mobile").show()
+                    $("#phone").attr('required','required');
+                }
+                else{
+                    console.log("agree check else")
+                    $('#email1').attr('readonly', false);
+                    $('#email2').attr('readonly', false);
+                    $("#email_agree").hide();
+                    $("#invalid_mobile").hide()
+                    $("#phone").prop('required',false);
+                }
+              
+                // Validate the pattern again. 
+                
+              
+                // This will either be true or false based on if the values are the same or not.
+                
+              });     
+
+
+
+
             form.addEventListener('submit', function (event) {
-                if (form.checkValidity() === false) {
+                const formData = new FormData(form);
+                const email1=formData.get('email1');
+                const email2=formData.get('email2');
+                const is_agree=formData.get('email_agree');
+                const mobile=formData.get('mobile')
+                console.log(mobile)
+                if(!email1&&!email2){
+                    console.log("no email")
+                    if(is_agree=="on"){
+                        console.log("agree check")
+                        $('#email1').attr('readonly', true);
+                        $('#email2').attr('readonly', true);
+                        $("#email_agree").hide();
+                        if(!mobile){
+                            $("#phone").attr('required','required');
+                            $("#invalid_mobile").show()
+                        }
+                        else{
+                            $("#invalid_mobile").hide()
+                        }
+                    }
+                     else{
+                        $("#invalid_mobile").hide()
+                        $("#email_agree").show();
+                        $("#email_unav").attr('required','required');
+                     }
+                }
+                if (form.checkValidity() === false ) {
                     event.preventDefault();
                     event.stopPropagation();
                 }
+             
                 form.classList.add('was-validated');
             }, false);
         });
@@ -29,8 +105,8 @@ File: Form validation Js File
 
 var intTel = function () {
 
-    var input = document.querySelector("#phone"),
-    input2 = document.querySelector("#phone2"),
+    var input = document.querySelector("#phone");
+    var input2 = document.querySelector("#phone2");
     errorMsg = document.querySelector("#error-msg"),
     validMsg = document.querySelector("#valid-msg"),
     errorMsg2 = document.querySelector("#error-msg2"),
@@ -65,10 +141,11 @@ var intTel = function () {
             }
         });
     }
-
+ 
     var iti = window.intlTelInput(input, {
         // any initialisation o,ptions go here
         //nationalMode: true,
+        // separateDialCode: true,
         initialCountry: "auto",
         geoIpLookup: function (callback) {
             $.get('https://ipinfo.io', function () { }, "jsonp").always(function (resp) {
@@ -79,7 +156,7 @@ var intTel = function () {
         placeholderNumberType: 'MOBILE',
         utilsScript: "assets/js/pages/utils.init.js?1638200991544"
     });
-
+    
     // on blur: validate
     blur(input, errorMsg, validMsg, iti);
     // on keyup / change flag: reset
@@ -109,6 +186,19 @@ var intTel = function () {
     input.addEventListener('keyup', reset(input2, errorMsg2, validMsg2));
     // on blur: validate
 
+    input.addEventListener('input', function() { 
+        var mobileCountryName = iti.getSelectedCountryData().dialCode; 
+        document.getElementById('mobile_country').value = mobileCountryName;   
+        console.log("Country NAme"+mobileCountryName)
+       
+      });
+      input2.addEventListener('input', function() {     
+        var teleCountryName=iti2.getSelectedCountryData().dialcode;   
+        document.getElementById('tel_country').value = teleCountryName;  
+        console.log("Country NAme"+teleCountryName)
+      });
+
 }
+
 
 intTel();

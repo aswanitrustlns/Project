@@ -61,14 +61,15 @@
                                 </div>
                            
                             
-                                <form class="needs-validation" novalidate >
+                                <form class="needs-validation" novalidate method="post" action="{% url 'Admin:LeadSubmit' %}">
+                                    {% csrf_token %}
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="mb-3">
-                                                <label class="form-label" for="title">Title<span class="color-orange"></span></label>
-                                                <select  class="form-select" id="title"  value="" required>
-                                                    <option value="">Mr</option>
-                                                    <option value="">Mrs</option>
+                                                <label class="form-label" for="title">Title<span class="color-orange">*</span></label>
+                                                <select  class="form-select" id="title"  value="" name="title">
+                                                    <option value="Mr">Mr</option>
+                                                    <option value="Mrs">Mrs</option>
                                                 </select>
                                                 <div class="invalid-feedback">
                                                     Please provide a valid entry.
@@ -78,9 +79,9 @@
                                         <div class="col-md-6">
                                             <div class="mb-3">
                                                 <label class="form-label" for="firstname*">Name<span class="color-orange">*</span></label>
-                                                <input type="text" class="form-control" id="firstname" placeholder="both name(s) e.g Jon Doe" value="" required>
+                                                <input type="text" class="form-control" id="firstname" placeholder="both name(s) e.g Jon Doe" name="name" value="" required>
                                                 <div class="invalid-feedback">
-                                                    Please provide a valid entry.
+                                                    Please provide a valid name.
                                                 </div>
                                             </div>
                                         </div>
@@ -88,19 +89,21 @@
                                         <div class="col-md-6">
                                             <div class="mb-3">
                                                 <div class="d-flex justify-content-between">
-                                                    <label class="form-label" for="email1">Email 1 <span class="color-orange"></span></label>
+                                                    <label class="form-label" for="email1">Email 1 <span class="color-orange">*</span></label>
                                                     <div class="">
+
+
                                                         <div class="form-check">
-                                                            <input type="checkbox" class="form-check-input" id="email_check" >
+                                                            <input type="checkbox" class="form-check-input" id="email_unav" name="email_agree">
                                                             <label class="form-check-label fs-12" for="emailUav">Email Unavailable*</label>
-                                                            <div class="invalid-feedback fs-10 py-1 ">
+                                                            <div class="invalid-feedback fs-10 py-1 " id="email_agree">
                                                                 You must agree before submitting.
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 
-                                                <input type="email" class="form-control" id="email1" placeholder="e.g Steve@gmail.com" required>
+                                                <input type="email" class="form-control" id="email1" placeholder="Steve@gmail.com" name="email1">
                                                 <div class="invalid-feedback">
                                                     Please provide a valid  Email.
                                                 </div>
@@ -110,18 +113,18 @@
                                         <div class="col-md-6">
                                             <div class="mb-3">
                                                 <label class="form-label" for="email2">Email 2</label>
-                                                <input type="email" class="form-control" id="email2" placeholder="e.g Steve@gmail.com" >
+                                                <input type="email" class="form-control" id="email2" placeholder="Steve@gmail.com" name="email2">
                                                 <div class="invalid-feedback">
-                                                    Please provide avalid  Email.
+                                                    Please provide a valid  Email.
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-md-6 ">
                                             <div class="mb-3">
                                                 <label class="form-label" for="age">Age</label>
-                                                <input type="number" class="form-control" id="age" placeholder="" >
-                                                <div class="invalid-feedback" id="age_err">
-                                                    Please provide a valid Age  
+                                                <input type="number" class="form-control" id="age" placeholder="" name="age" >
+                                                <div class="invalid-feedback" id="invalid_age">
+                                                    Please provide a valid Age.
                                                 </div>
                                             </div>
                                         </div>
@@ -131,9 +134,19 @@
                                         <div class="col-md-6 ">
                                             <div class="mb-3">
                                                 <label class="form-label" for="mobile">Mobile<span class="color-orange"></label>
-                                                <input type="tel" class="form-control" id="mobile" placeholder="e.g + 971 553 445 22" required>
-                                                <div class="invalid-feedback">
-                                                    Please provide a valid Number.
+
+                                                   <!--<input type="tel" id="phone">-->
+                                                   
+
+
+
+                                                <input type="tel" class="form-control" id="phone" name="mobile">
+                                                <input type="hidden" name="mobile_country" id="mobile_country">
+                                                <span id="error-msg" class="hide"></span>
+                                                <span id="valid-msg" class="hide">✓ Valid</span>
+                                                <div class="invalid-feedback" id="invalid_mobile">
+                                                    Please provide your mobile number.
+                                                   
                                                 </div>
                                             </div>
                                         </div>
@@ -141,7 +154,7 @@
                                         <div class="col-md-6 ">
                                             <div class="mb-3">
                                                 <label class="form-label" for="profession">Profession*</label>
-                                                <input type="tel" class="form-control" id="profession" placeholder="" >
+                                                <input type="tel" class="form-control" id="profession" placeholder="" name="profession">
                                                 <div class="invalid-feedback">
                                                     Please provide a Profession.
                                                 </div>
@@ -152,7 +165,7 @@
                                         <div class="col-md-6 ">
                                             <div class="mb-3">
                                                 <label class="form-label" for="Subject">Subject</label>
-                                                <input type="tel" class="form-control" id="Subject" placeholder="" >
+                                                <input type="tel" class="form-control" id="Subject" placeholder="" name="subject">
                                                 <div class="invalid-feedback">
                                                     Please provide a Profession.
                                                 </div>
@@ -162,7 +175,7 @@
                                         <div class="col-md-6 ">
                                             <div class="mb-3">
                                                 <label class="form-label" for="Source">Source</label>
-                                                <input type="tel" class="form-control" id="Source" placeholder="" value={{source}}  disabled>
+                                                <input type="tel" class="form-control" id="Source" placeholder="" value="{{source}}" name="source" disabled>
                                                 <div class="invalid-feedback">
                                                     Please provide a Profession.
                                                 </div>
@@ -172,7 +185,7 @@
                                         <div class="col-md-6 ">
                                             <div class="mb-3">
                                                 <label class="form-label" for="State*">State</label>
-                                                <input type="tel" class="form-control" id="State" placeholder="" >
+                                                <input type="tel" class="form-control" id="State" placeholder="" name="state">
                                                 <div class="invalid-feedback">
                                                     Please provide a Profession.
                                                 </div>
@@ -182,7 +195,7 @@
                                         <div class="col-md-6 ">
                                             <div class="mb-3">
                                                 <label class="form-label" for="Address">Address</label>
-                                                <input type="tel" class="form-control" id="Address" placeholder="" >
+                                                <input type="tel" class="form-control" id="Address" placeholder="" name="address">
                                                 <div class="invalid-feedback">
                                                     Please provide a Profession.
                                                 </div>
@@ -192,7 +205,7 @@
                                         <div class="col-md-6 ">
                                             <div class="mb-3">
                                                 <label class="form-label" for="City">City</label>
-                                                <input type="tel" class="form-control" id="City" placeholder="" >
+                                                <input type="tel" class="form-control" id="City" placeholder="" name="city">
                                                 <div class="invalid-feedback">
                                                     Please provide a Profession.
                                                 </div>
@@ -202,7 +215,7 @@
                                         <div class="col-md-6 ">
                                             <div class="mb-3">
                                                 <label class="form-label" for="Zipcode">Zip code</label>
-                                                <input type="tel" class="form-control" id="Zipcode" placeholder="" >
+                                                <input type="tel" class="form-control" id="Zipcode" placeholder="" name="zipcode">
                                                 <div class="invalid-feedback">
                                                     Please provide a Profession.
                                                 </div>
@@ -211,8 +224,17 @@
                                         </div>
                                         <div class="col-md-6 ">
                                             <div class="mb-3">
-                                                <label class="form-label" for="Telephone">Telephone</label>
-                                                <input type="tel" class="form-control" id="Telephone" placeholder="e.g + 971 553 445 22" >
+                                                <label class="form-label" for="phone2">Telephone</label>
+                                                <!--<input type="tel" class="form-control" id="Telephone" placeholder="e.g + 971 553 445 22" >-->
+
+                                                <input type="tel" class="form-control" id="phone2" name="telephone">
+                                                <input type="hidden" name="tel_country" id="tel_country">
+                                                <span id="error-msg2" class="hide"></span>
+                                                <span id="valid-msg2" class="hide">✓ Valid</span>
+                                                <div class="invalid-feedback">
+                                                    
+                                                   
+                                                </div>
                                                 <div class="invalid-feedback">
                                                     Please provide a Profession.
                                                 </div>
@@ -233,7 +255,7 @@
                                             </div>
                                         </div>
                                     </div>-->
-                                    <button class="btn btn-primary btn-lg mt-3" type="submit" id="lead_register">Submit form</button>
+                                    <button class="btn btn-primary btn-lg mt-3" type="submit">Submit form</button>
                                 </form>
                             </div>
                         </div>
@@ -251,8 +273,7 @@
             <!-- End Page-content -->
 
             
-        </div>
-        <!-- end main content-->
+        </div>    <!-- end main content-->
 
     </div>
     <!-- END layout-wrapper -->
@@ -273,7 +294,14 @@
     <!-- dashboard init -->
   
     <!-- form validation -->
-    <script src="{% static 'js/pages/lead-registration-validation.js' %}"></script> 
+    <script src="{% static 'js/pages/data.init.js' %}"></script> 
+    <script src="{% static 'js/pages/intTellinput.init.js' %}"></script>   
+    <script src="{% static 'js/pages/utils.init.js' %}"></script>  
+
+
+    <!-- form validation -->
+    <script src="{% static 'js/pages/form-validation-lead.init.js' %}"></script>    
+    <!-- <script src="{% static 'js/pages/lead-registration-validation.js' %}"></script>  -->
     <!-- <script src="{% static 'js/pages/form-validation.init.js' %}"></script>     -->
 
     <script src="{% static 'js/app.js' %}"></script>

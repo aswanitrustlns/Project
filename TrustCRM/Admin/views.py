@@ -1,3 +1,4 @@
+from ipaddress import ip_address
 from sqlite3 import Cursor
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
@@ -10,6 +11,8 @@ import ctypes as ctypes
 import instaloader
 import os
 import subprocess
+import datetime
+import socket
 
 insta_username = "Tc_limited"
 insta_password = "T@Cmited21!!"
@@ -251,12 +254,52 @@ def lead(request):
 def lead_registration(request):
     UserId=request.session.get('UserId')
     print(UserId)
-    Cursor.execute(''' SELECT * FROM tbl_Country''')
-    country_code=Cursor.fetchall()
+    # Cursor.execute(''' SELECT * FROM tbl_Country''')
+    # country_code=Cursor.fetchall()
     Cursor.execute("SELECT UserName FROM tbl_User where UserID=%s",[UserId])
     UserName=Cursor.fetchone()
     print(UserName[0])
     return render(request,'admin/LeadRegistration.html',{"source":UserName[0]})
+
+def lead_registration_check(request):
+    UserId=request.session.get('UserId')
+    if request.method == 'POST':
+        title=request.POST['title']
+        name=request.POST.get('name')
+        age=request.POST.get('age')
+        email_avl=request.POST.getlist('email_agree')
+        email1=request.POST.get('email1')
+        email2=request.POST.get('email2')
+        mobile=request.POST.get('mobile')
+        telephone=request.POST.get('telephone')
+        profession=request.POST.get('profession')
+        subject=request.POST.get('subject')
+        source=request.POST.get('source')
+        state=request.POST.get('state')
+        address=request.POST.get('address')
+        city=request.POST.get('city')
+        zip_code=request.POST.get('zipcode')
+        mobile_country_code=request.POST.get('mobile_country')#Get ContryID
+        Cursor.execute("SELECT ID FROM tbl_Country where CCode=%s",[mobile_country_code])
+        country1=Cursor.fetchone()
+        telephone_country_code=request.POST.get('tel_country')#Get ContryID
+        Cursor.execute("SELECT ID FROM tbl_Country where CCode=%s",[telephone_country_code])
+        country2=Cursor.fetchone()
+        
+        reg_date=datetime.date.today() 
+        updated_date=datetime.date.today() 
+        hostname=socket.gethostname()   
+        IPAddr=socket.gethostbyname(hostname)
+        print("print------",title,name,email_avl,email1,email2,profession,subject,source,state,address,city,zip_code,mobile,telephone,mobile_country_code,telephone_country_code,country1,country2,IPAddr)
+        print(reg_date)
+        print(updated_date)
+        print("Lead submit ")
+        # lead_register="EXEC SP_InsertSalesLeadReg_CRM @Name=?,@Phone1=?,@Phone2=?,@Email1=?,@Email2=?,@Address=?,@City=?,@ZipCode=?,@Source=?,@SalesRepID=?,@RegDate=?,@UpdatedDate=?,@Title=?,@Occupation=?,@Status=?,@state=?,@Country=?,@Country2=?,@Subject=?,@Age=?,@IP=?"
+        # params=(name,mobile,telephone,email1,email2,address,city,zip_code,source,UserId,reg_date,updated_date,title,profession,"Pending",state,mobile_country_code,telephone_country_code,subject,age,IPAddr)        
+        # ticket=Cursor.execute(lead_register,params)
+        # print(ticket)
+    return render(request,'admin/Leads.html')
+   
 
 def logout(request):
     UserId=request.session['UserId']
