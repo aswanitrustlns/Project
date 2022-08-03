@@ -33,7 +33,7 @@ File: Form validation Js File
                 else{
                     $("#invalid_age").show();
                     $("#age").attr('required','required');                 
-                    console.log("else");
+                    
                 }
                 if(is_agree=="on"){
                     console.log("agree check")
@@ -193,7 +193,7 @@ var intTel = function () {
        
       });
       input2.addEventListener('input', function() {     
-        var teleCountryName=iti2.getSelectedCountryData().dialcode;   
+        var teleCountryName=iti2.getSelectedCountryData().dialCode;           
         document.getElementById('tel_country').value = teleCountryName;  
         console.log("Country NAme"+teleCountryName)
       });

@@ -4,14 +4,14 @@ from django.http import HttpResponse
 from django.shortcuts import redirect, render
 from django.db import connection
 from django.views.decorators.csrf import csrf_exempt
-from datetime import datetime
+from datetime import date, datetime, timedelta
 from django.contrib.sessions.models import Session
 import json
 import ctypes as ctypes
 import instaloader
 import os
 import subprocess
-import datetime
+
 import socket
 
 insta_username = "Tc_limited"
@@ -52,9 +52,7 @@ def login_check(request):
         msg="User not Found"
         request.session["message"]=msg
     
-    print(password)
-    print(server_name)
-    print(type(username))
+ 
         # pwd -- Tc2022
     connect=subprocess.call(["C:\\Aswani\\pythonmanager\\manager_python.exe","1",server_name,username,password])
     print(connect)
@@ -68,8 +66,7 @@ def login_check(request):
 def dashboard(request):
     print("dashboard-start",datetime.now().time())
     UserId=request.session.get('UserId')
-    print("USer Iddd")
-    print(UserId)
+    
     seminar_weekly_pie=[]
     meeting_daily_pie=[]
     meeting_weekly_pie=[]
@@ -80,60 +77,160 @@ def dashboard(request):
     halfyearly_bar=[]
     insta_follwers_list=[]
     count=0
+    date_today=datetime.today().date()
+    week_day=datetime.today().weekday() # Monday is 0 and Sunday is 6
+    date_today=date_today.strftime("%Y-%m-%d")
+    date_yesterday = datetime.today()-timedelta(1)
+    date_yesterday=date_yesterday.strftime("%Y-%m-%d")
+    print (date_yesterday)
 
     try:
-        print("procedurecall-start1",datetime.now().time())
-        Cursor.execute("{call dbo.SP_GetDashboardCount(%s,%s,%s)}", [UserId,'2022-07-01','2022-07-19'])
+        Cursor.execute("SELECT UserName FROM tbl_User where UserID=%s",[UserId])
+        UserName=Cursor.fetchone()
+        if(week_day==0):
+            date_yesterday = datetime.today()-timedelta(3)
+            date_yesterday=date_yesterday.strftime("%Y-%m-%d")
+
+       
+        Cursor.execute("{call dbo.SP_GetDashboardCount(%s,%s,%s)}", [UserId,date_yesterday,date_today])
              
-        result_set = Cursor.fetchall()
-        print("procedurecall-start2",datetime.now().time())
-        Cursor.execute("set nocount on;exec SP_OwnLeadsCount_PY %s",[UserId])
-        leads=Cursor.fetchone()
-        print("procedurecall-start3",datetime.now().time())
-        Cursor.execute("set nocount on;exec SP_LiveAccountsCountByRepWeekly_PY %s,%s",['w',UserId])           
-        live_account = Cursor.fetchone()
-        print("procedurecall-start3",datetime.now().time())      
+        result_set = Cursor.fetchall()        
+       
+        
         Cursor.execute("set nocount on;exec SP_LiveAccountsCountByRepWeekly %s",'w')           
         weekly_live_account = Cursor.fetchall()  
-        print("procedurecall-start4",datetime.now().time())
+        
         Cursor.execute("set nocount on;exec SP_LiveAccountsCountByRepWeekly %s",'d')           
         livecount_daily = Cursor.fetchall()
-        print("procedurecall-start5",datetime.now().time())
-        Cursor.execute("set nocount on;exec SP_MeetingsCountByRepWeekly_PY %s,%s",['w',UserId])           
-        meetingcount = Cursor.fetchone()
-        print("procedurecall-start6",datetime.now().time())
+
+        Cursor.execute("set nocount on;exec SP_GetPermissions %s",[UserId])
+        permission_check=Cursor.fetchone()
+        # manager=permission_check[11]
+        manager=permission_check[11]
+        salesRep=permission_check[22]
+        # salesRep=True
+        print("Permision manager",manager)
+        print("Permision",salesRep)
+        if manager:
+            Cursor.execute("set nocount on; exec SP_OwnLeadsCountTotal")
+            leads=Cursor.fetchone()
+            leads=leads[1]
+            
+            Cursor.execute("set nocount on; exec SP_LiveAccountsCountByRepTotalD")           
+            live_account = Cursor.fetchone()
+            live_account=live_account[1]
+            
+            
+            Cursor.execute("set nocount on;exec SP_MeetingsCountByRepTotal")           
+            meetingcount = Cursor.fetchone()
+            meetingcount=meetingcount[1]
+            
+            Cursor.execute("set nocount on; exec SP_SpokenCallsTotal")
+            spokencall_one=Cursor.fetchone()
+            spokencall_one=spokencall_one[1]
+            
+            
+            
+            # UserName="Firaz Monzer"
+            
+
+            
+
+        if salesRep:
+
+        # Change
+            print("Inside salesrep")
+            Cursor.execute("set nocount on;exec SP_OwnLeadsCount")
+            leads_sales=Cursor.fetchall()
+            leads_sales_len=len(leads_sales)
+            for i in range(leads_sales_len):                
+                all_leads=leads_sales[i]
+                users_name=all_leads[0]
+                print(users_name)
+                print(UserName)
+                if users_name.casefold() == UserName.casefold():
+                    print("same username-------------------------------------------------------------------------------------")
+                    leads=all_leads[1]
+                    break
+
+
+            
+            # Cursor.execute("set nocount on;exec exec SP_LiveAccountsCountByRepWeekly %s",['w'])           
+            # live_account_test = Cursor.fetchall()
+            Cursor.execute("set nocount on;exec SP_LiveAccountsCountByRepWeekly %s",['w'])           
+            live_account_sales = Cursor.fetchall()
+            live_account_sales_len=len(live_account_sales)          
+            for i in range(live_account_sales_len):
+                print(live_account_sales[i])
+                all_names=live_account_sales[i]
+                users_name=all_names[0]
+                if users_name==UserName:
+                    live_account=all_names[1]
+                    
+            
+            Cursor.execute("set nocount on;exec SP_MeetingsCountByRepWeekly %s",['w'])           
+
+            meetingcount_sales = Cursor.fetchall()
+            meetingcount_sales_len=len(meetingcount_sales)          
+            for i in range(meetingcount_sales_len):
+                print(meetingcount_sales[i])
+                all_names=meetingcount_sales[i]
+                users_name=all_names[0]
+                if users_name==UserName:
+                    meetingcount=all_names[1]
+
+
+
+            Cursor.execute("set nocount on;exec SP_SpokenCallsCount")
+            spokencall_one_sales=Cursor.fetchall()
+            spokencall_one_sales_len=len(spokencall_one_sales)          
+            for i in range(spokencall_one_sales_len):
+                print(spokencall_one_sales[i])
+                all_names=spokencall_one_sales[i]
+                users_name=all_names[0]
+                if users_name==UserName:
+                    spokencall_one=all_names[1]
+        # 88888888888888888888888888888888888888888888888888888
+        
         Cursor.execute("set nocount on;exec SP_MeetingsCountByRepWeekly %s",'d')           
         meetingcount_daily = Cursor.fetchall()
-        print("procedurecall-start7",datetime.now().time())
+        
         Cursor.execute("set nocount on;exec SP_MeetingsCountByRepWeekly %s",'w')           
         meetingcount_weekly = Cursor.fetchall()
-        print("procedurecall-start8",datetime.now().time())
+        
         Cursor.execute("set nocount on;exec SP_SeminarsCountByRepWeekly %s",'D')           
         seminarcount_daily = Cursor.fetchall()
-        print("procedurecall-start9",datetime.now().time())
+        
         Cursor.execute("set nocount on;exec SP_SeminarsCountByRepWeekly %s",'W')           
         seminarcount_weekly = Cursor.fetchall()
-        print("procedurecall-start10",datetime.now().time())
-        Cursor.execute("set nocount on;exec SP_SpokenCallsCount_PY %s",[UserId])
-        spokencall_one=Cursor.fetchone()
-        print("procedurecall-start11",datetime.now().time())
+        
+        
+        
         Cursor.execute("set nocount on;exec SP_GetActivityLogsDB %s",[UserId])
         journel=Cursor.fetchall()
-        print("procedurecall-start12",datetime.now().time())
+        
         Cursor.execute("set nocount on;exec SP_SalesCallsSummary %s",[UserId])
         leads_pie=Cursor.fetchone()
         leads_pie=leads_pie[:-1]
-        print("procedurecall-start13",datetime.now().time())
-        Cursor.execute("set nocount on;exec SP_GetSummaryListToday  %s",[UserId])
+        
+        Cursor.execute("exec SP_GetSummaryToday  %s",[UserId])
+        # notification1=Cursor.fetchone()
+        # notification2=Cursor.nextset()
+       
         notification=Cursor.fetchall()
-        notification_count=len(notification)
-        notification_count=0
-        notification=json.dumps(notification)
-        notification_data="You dont have any reminders set for today"
-        print("procedurecall-start14",datetime.now().time())
+        print("Notification-------------",notification)
+        while (Cursor.nextset()):
+            notification_count = Cursor.fetchall()
+        
+       
+        notify_count=notification_count[0]
+        # notification_count=len(notification)
+        # print("notifiaction",notification,notification_count)
+        notification_count=notify_count[0]
+        print("notification counrttttt",notification_count[0])
         Cursor.execute("set nocount on;exec SP_SpokenCallsCount")
         spokencall=Cursor.fetchall()
-        print("procedurecall-start15",datetime.now().time())
+        print("procedurecall-start",datetime.now().time())
         Cursor.execute("set nocount on;exec SP_GetMeetings")
         all_meetings=Cursor.fetchall()
         Cursor.execute("set nocount on;exec SP_GetMonthlyCount")
@@ -228,10 +325,10 @@ def dashboard(request):
     
     # return HttpResponse(result_set,200)
     print("notification")
-    print(notification_count)
+  
     print("template-render",datetime.now().time())
-    return render(request,'admin/dashboard.html',{'overview':result_set,'livecount_daily':json.dumps(livecount_daily),'leads':leads[2],
-    'live_account':live_account[2],'meeting_count':meetingcount[2],'spoken_call_one':spokencall_one[2],
+    return render(request,'admin/dashboard.html',{'username':UserName[0],'overview':result_set,'livecount_daily':json.dumps(livecount_daily),'leads':leads,
+    'live_account':live_account,'meeting_count':meetingcount,'spoken_call_one':spokencall_one,
     'spoken_call':spokencall,'all_meetings':all_meetings,'meetingcount_daily':meetingcount_daily,
     'seminarcount_daily':seminarcount_daily,'monthly_count':monthly_count,'status_graph':status_graph,'active_users':active_users,
     'seminarcount_weekly':seminarcount_weekly,'seminar_weekly_pie': seminar_weekly_pie,'seminar_daily_pie':seminar_daily_pie,'meeting_daily_pie': meeting_daily_pie,'meeting_weekly_pie':meeting_weekly_pie,
@@ -274,30 +371,42 @@ def lead_registration_check(request):
         telephone=request.POST.get('telephone')
         profession=request.POST.get('profession')
         subject=request.POST.get('subject')
-        source=request.POST.get('source')
+        
         state=request.POST.get('state')
         address=request.POST.get('address')
         city=request.POST.get('city')
         zip_code=request.POST.get('zipcode')
         mobile_country_code=request.POST.get('mobile_country')#Get ContryID
+        Cursor.execute("SELECT UserName FROM tbl_User where UserID=%s",[UserId])
+        source=Cursor.fetchone()
+        source=source[0]
+        
+        print("Source222",source)
         Cursor.execute("SELECT ID FROM tbl_Country where CCode=%s",[mobile_country_code])
         country1=Cursor.fetchone()
+        if country1:
+            country1=country1[0]
         telephone_country_code=request.POST.get('tel_country')#Get ContryID
         Cursor.execute("SELECT ID FROM tbl_Country where CCode=%s",[telephone_country_code])
         country2=Cursor.fetchone()
+        if country2:
+            country2=country2[0]
         
-        reg_date=datetime.date.today() 
-        updated_date=datetime.date.today() 
+        reg_date=datetime.today().date()
+        reg_date=reg_date.strftime("%m-%d-%Y")
+        updated_date=datetime.today().date()
+        updated_date=updated_date.strftime("%m-%d-%Y")
         hostname=socket.gethostname()   
         IPAddr=socket.gethostbyname(hostname)
+        print(type(IPAddr))
         print("print------",title,name,email_avl,email1,email2,profession,subject,source,state,address,city,zip_code,mobile,telephone,mobile_country_code,telephone_country_code,country1,country2,IPAddr)
-        print(reg_date)
-        print(updated_date)
-        print("Lead submit ")
-        # lead_register="EXEC SP_InsertSalesLeadReg_CRM @Name=?,@Phone1=?,@Phone2=?,@Email1=?,@Email2=?,@Address=?,@City=?,@ZipCode=?,@Source=?,@SalesRepID=?,@RegDate=?,@UpdatedDate=?,@Title=?,@Occupation=?,@Status=?,@state=?,@Country=?,@Country2=?,@Subject=?,@Age=?,@IP=?"
-        # params=(name,mobile,telephone,email1,email2,address,city,zip_code,source,UserId,reg_date,updated_date,title,profession,"Pending",state,mobile_country_code,telephone_country_code,subject,age,IPAddr)        
-        # ticket=Cursor.execute(lead_register,params)
-        # print(ticket)
+     
+        print("Lead submit ")        
+        Cursor.execute("EXEC SP_InsertSalesLeadReg_CRM %s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s",[name,mobile,telephone,email1,email2,address,city,zip_code,source,UserId,reg_date,updated_date,title,profession,"Pending",state,country1,country2,subject,age,IPAddr])
+        
+        ticket=Cursor.fetchone()
+        print(ticket)
+        print("done")
     return render(request,'admin/Leads.html')
    
 

@@ -86,16 +86,16 @@
                     
                     </button>
 
-                    <button  type="button"  class="btn position-relative"  
+                    <!-- <button  type="button"  class="btn position-relative"  
                     data-bs-toggle="modal" data-bs-target=".bs-example-modal-yt"  >
                     
                             <img src="{% static 'images/social-icons/yt.png' %}" alt="yt" class=" badge-to-show" height="16"  >
-                            <!-- <span class="badge position-absolute translate-middle bg-success rounded-pill top-0 gilroysemibold-type fs-11"> 5</span> -->
+                            <span class="badge position-absolute translate-middle bg-success rounded-pill top-0 gilroysemibold-type fs-11"> 5</span>
                         
                     
                     
                     
-                    </button>
+                    </button> -->
 
                
                 
@@ -108,7 +108,7 @@
             <div class="dropdown d-inline-block">
                 <button type="button" class="btn header-item " id="page-header-user-dropdown"
                 data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><!--bg-soft-light border-start border-end-->
-                    <span class="d-none d-xl-inline-block me-2 fw-medium">Hi, Shibu Kizhepat</span>
+                    <span class="d-none d-xl-inline-block me-2 fw-medium">{{username}}</span>
                     <img class="rounded-circle header-profile-user" src="{% static 'images/users/avatar-1.jpg' %}"
                         alt="Header Avatar">
                 
@@ -117,7 +117,7 @@
                 <div class="dropdown-menu dropdown-menu-end">
                     <!-- item-->
                     <a class="dropdown-item" href="apps-contacts-profile.html"><i class="mdi mdi-face-profile font-size-16 align-middle me-1"></i> Profile</a>
-                    <a class="dropdown-item" href="auth-lock-screen.html"><i class="mdi mdi-lock font-size-16 align-middle me-1"></i> Lock Screen</a>
+                    <!-- <a class="dropdown-item" href="auth-lock-screen.html"><i class="mdi mdi-lock font-size-16 align-middle me-1"></i> Lock Screen</a> -->
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="{% url 'Admin:Logout' %}"><i class="mdi mdi-logout font-size-16 align-middle me-1"></i> Logout</a>
                 </div>

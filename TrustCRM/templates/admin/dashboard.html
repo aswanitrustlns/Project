@@ -118,16 +118,16 @@
                             
                             </button>
     
-                            <button  type="button"  class="btn position-relative"  
+                            <!-- <button  type="button"  class="btn position-relative"  
                             data-bs-toggle="modal" data-bs-target=".bs-example-modal-yt"  >
                             
                                     <img src="{% static 'images/social-icons/yt.png' %}" alt="yt" class=" badge-to-show" height="16"  >
-                                    <!-- <span class="badge position-absolute translate-middle bg-success rounded-pill top-0 gilroysemibold-type fs-11"> 5</span> -->
+                                    <span class="badge position-absolute translate-middle bg-success rounded-pill top-0 gilroysemibold-type fs-11"> 5</span>
                                 
                             
                             
                             
-                            </button>
+                            </button> -->
     
                        
                         
@@ -140,7 +140,7 @@
                     <div class="dropdown d-inline-block">
                         <button type="button" class="btn header-item " id="page-header-user-dropdown"
                         data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><!--bg-soft-light border-start border-end-->
-                            <span class="d-none d-xl-inline-block me-2 fw-medium">Hi, Shibu Kizhepat</span>
+                            <span class="d-none d-xl-inline-block me-2 fw-medium">{{username}}</span>
                             <img class="rounded-circle header-profile-user" src="{% static 'images/users/avatar-1.jpg' %}"
                                 alt="Header Avatar">
                         
@@ -149,7 +149,7 @@
                         <div class="dropdown-menu dropdown-menu-end">
                             <!-- item-->
                             <a class="dropdown-item" href="apps-contacts-profile.html"><i class="mdi mdi-face-profile font-size-16 align-middle me-1"></i> Profile</a>
-                            <a class="dropdown-item" href="auth-lock-screen.html"><i class="mdi mdi-lock font-size-16 align-middle me-1"></i> Lock Screen</a>
+                            <!-- <a class="dropdown-item" href="auth-lock-screen.html"><i class="mdi mdi-lock font-size-16 align-middle me-1"></i> Lock Screen</a> -->
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="{% url 'Admin:Logout' %}"><i class="mdi mdi-logout font-size-16 align-middle me-1"></i> Logout</a>
                         </div>
@@ -304,7 +304,7 @@
                                 </div>
                                 <div class="text-nowrap">
                                     <!--<span class="badge bg-soft-success text-success">+$20.9k</span>-->
-                                    <span class="ms-1 text-muted fs-14 gilroysemibold-type">New Account</span>
+                                    <span class="ms-1 text-muted fs-14 gilroysemibold-type">New Accounts</span>
                                 </div>
                             </div><!-- end card body -->
                         </div>
@@ -668,7 +668,7 @@
                                             <div class="flex-grow-1 ">
                                                 <h5 class="mb-1 fs-15 gilroymedium-type">{{call.0}}</h5>
                                                 <div class="progress progress-md">
-                                                    <div class="progress-bar bg-soft-orange" role="progressbar" style="width: 40%" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
+                                                    <div class="progress-bar bg-soft-orange" role="progressbar" style="{{call.2}}" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
                                                 </div>
                                                 <div class="d-flex justify-content-between">
                                                     <p class="mb-0 mt-1 fs-12 text-muted  gilroymedium-type">Below Average</p>
@@ -825,7 +825,7 @@
                             <!-- card body -->
                             <div class="card-body">
                                 <div class="d-flex flex-wrap align-items-center mb-4">
-                                    <h5 class="card-title me-2 almarenamonolight-type fs-21">Weekly Seminar</h5>
+                                    <h5 class="card-title me-2 almarenamonolight-type fs-21">Seminars</h5>
                                     <div class="ms-auto">
                                         <div>
                                             <button type="button" class="btn btn-soft-secondary btn-sm fs-13 gilroymedium-type" onclick="switchtab('#tab03','#tab04')" >
@@ -895,7 +895,7 @@
 
                             <div class="card-body">
                                 <div class="d-flex flex-wrap align-items-center mb-4">
-                                    <h5 class="card-title me-2 fs-21 almarenamonolight-type">Weekly Live Accounts</h5>
+                                    <h5 class="card-title me-2 fs-21 almarenamonolight-type">Live Accounts</h5>
                                     <div class="ms-auto">
                                         <div>
                                             <!-- 
@@ -1437,7 +1437,7 @@
                         <!--end card-->
                     </div>
 
-                </div>
+                <!-- </div> -->
                 <!-- end row-->
 
                 <div class="row">
@@ -1459,7 +1459,7 @@
                 </div>
                     <!-- end row -->
 
-                </div>
+            </div>
                 <!-- container-fluid -->
             </div>
             <!-- End Page-content -->

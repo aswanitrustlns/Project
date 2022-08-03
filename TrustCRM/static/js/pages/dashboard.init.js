@@ -428,14 +428,15 @@ var chart = new ApexCharts(
 // Donut chart
 
 var data_d = meeting_daily_pie.map((item) => item.value);
-data_d=Object.values(data_d)
+
+// data_d=Object.values(data_d)
+
 var username_d = meeting_daily_pie.map((item) => item.name);
-username_d=Object.values(username_d)
+// username_d=Object.values(username_d)
 var data_w = meeting_weekly_pie.map((item) => item.value);
 data_w=Object.values(data_w)
 var username_w = meeting_weekly_pie.map((item) => item.name);
 username_w=Object.values(username_w)
-
 function renderMeetingDonut($series,$id,$label){
 
 var donutColors = getChartColorsArray($id);
