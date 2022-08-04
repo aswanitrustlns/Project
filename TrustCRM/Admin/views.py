@@ -16,6 +16,7 @@ import socket
 
 insta_username = "Tc_limited"
 insta_password = "T@Cmited21!!"
+all_data={}
 
 # Load_Insta=instaloader.Instaloader()
 Cursor=connection.cursor()
@@ -66,7 +67,7 @@ def login_check(request):
 def dashboard(request):
     print("dashboard-start",datetime.now().time())
     UserId=request.session.get('UserId')
-    
+    global all_data
     seminar_weekly_pie=[]
     meeting_daily_pie=[]
     meeting_weekly_pie=[]
@@ -241,10 +242,10 @@ def dashboard(request):
         active_users=Cursor.fetchall()
         Cursor.execute("set nocount on;exec SP_GetActiveCampaigns")
         active_campaigns=Cursor.fetchall()
-        Cursor.execute("set nocount on;exec SP_TicketsDialedSummary")
-        ticket_dialed=Cursor.fetchall()
-        Cursor.execute("set nocount on;exec SP_TicketsInterestedSummary")
-        ticket_processed=Cursor.fetchall()
+        # Cursor.execute("set nocount on;exec SP_TicketsDialedSummary")
+        # ticket_dialed=Cursor.fetchall()
+        # Cursor.execute("set nocount on;exec SP_TicketsInterestedSummary")
+        # ticket_processed=Cursor.fetchall()
         Cursor.execute("set nocount on;exec SP_GetHalfyearlySummary")
         halfyearly_data=Cursor.fetchall()
         print("procedurecall-end",datetime.now().time())
@@ -255,7 +256,9 @@ def dashboard(request):
         # for follower in profile.get_followers():
         #     insta_follwers_list.append(follower.username)    
         #     count = count + 1
-       
+        print("Seminar count-----------")
+        print(seminarcount_daily)
+        print(seminarcount_weekly)
         
         for obj in seminarcount_weekly:            
             seminar_weekly_pie.append(
@@ -325,16 +328,17 @@ def dashboard(request):
     
     # return HttpResponse(result_set,200)
     print("notification")
-  
+    print(type(all_meetings))
     print("template-render",datetime.now().time())
-    return render(request,'admin/dashboard.html',{'username':UserName[0],'overview':result_set,'livecount_daily':json.dumps(livecount_daily),'leads':leads,
+    all_data={'username':UserName[0],'overview':result_set,'livecount_daily':json.dumps(livecount_daily),'leads':leads,
     'live_account':live_account,'meeting_count':meetingcount,'spoken_call_one':spokencall_one,
     'spoken_call':spokencall,'all_meetings':all_meetings,'meetingcount_daily':meetingcount_daily,
     'seminarcount_daily':seminarcount_daily,'monthly_count':monthly_count,'status_graph':status_graph,'active_users':active_users,
     'seminarcount_weekly':seminarcount_weekly,'seminar_weekly_pie': seminar_weekly_pie,'seminar_daily_pie':seminar_daily_pie,'meeting_daily_pie': meeting_daily_pie,'meeting_weekly_pie':meeting_weekly_pie,
     'weekly_live_account':weekly_live_bar,'daily_live_account':daily_live_bar,'leads_status':status_bar,'journels':journel,'active_campaigns':active_campaigns,
-    'leads_pie':json.dumps(leads_pie),'ticket_dialed':ticket_dialed,'ticket_processed':ticket_processed,'halfyearly_bar':halfyearly_bar,'insta_followers':insta_follwers_list,'insta_count':count,
-    'notification':notification,'notification_count':notification_count})
+    'leads_pie':json.dumps(leads_pie),'halfyearly_bar':halfyearly_bar,'insta_followers':insta_follwers_list,'insta_count':count,
+    'notification':notification,'notification_count':notification_count}
+    return render(request,'admin/dashboard.html',all_data)
 
 def lead(request):
     UserId=request.session.get('UserId')
@@ -359,7 +363,9 @@ def lead_registration(request):
     return render(request,'admin/LeadRegistration.html',{"source":UserName[0]})
 
 def lead_registration_check(request):
-    UserId=request.session.get('UserId')
+    
+    UserId=request.session.get('UserId') # Read Session data
+    
     if request.method == 'POST':
         title=request.POST['title']
         name=request.POST.get('name')
@@ -376,6 +382,9 @@ def lead_registration_check(request):
         address=request.POST.get('address')
         city=request.POST.get('city')
         zip_code=request.POST.get('zipcode')
+        if not zip_code:
+            zip_code=0
+        
         mobile_country_code=request.POST.get('mobile_country')#Get ContryID
         Cursor.execute("SELECT UserName FROM tbl_User where UserID=%s",[UserId])
         source=Cursor.fetchone()
@@ -398,15 +407,31 @@ def lead_registration_check(request):
         updated_date=updated_date.strftime("%m-%d-%Y")
         hostname=socket.gethostname()   
         IPAddr=socket.gethostbyname(hostname)
+        print(country1)
+        print(type(country1))
+        print(country2)
+        print(type(country2))
         print(type(IPAddr))
         print("print------",title,name,email_avl,email1,email2,profession,subject,source,state,address,city,zip_code,mobile,telephone,mobile_country_code,telephone_country_code,country1,country2,IPAddr)
-     
+
         print("Lead submit ")        
         Cursor.execute("EXEC SP_InsertSalesLeadReg_CRM %s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s",[name,mobile,telephone,email1,email2,address,city,zip_code,source,UserId,reg_date,updated_date,title,profession,"Pending",state,country1,country2,subject,age,IPAddr])
-        
-        ticket=Cursor.fetchone()
+        ticket=Cursor.fetchone() 
+           
+        ticket=ticket[0]
+        hash_check=ticket.find("#")
+        print(hash_check)
+        if hash_check>=0:
+            ticket=ticket.replace('#','')  
+            print("TTTTTTTTTTTTTTTTTicket",ticket)
+            Cursor.execute("set nocount on;exec SP_MergeTicket %s,%s,%s,%s",[ticket,email1,email2,mobile,telephone])
+            merge_ticket=Cursor.fetchone()
+            # Cursor.execute("set nocount on;exec SP_CheckUserPermission %s,%s,%s,%s",[ticket,email1,email2,mobile,telephone])
+            # merge_ticket=Cursor.fetchone()
         print(ticket)
+        print(hash_check)
         print("done")
+
     return render(request,'admin/Leads.html')
    
 

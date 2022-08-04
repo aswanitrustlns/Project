@@ -370,60 +370,60 @@ var chart = new ApexCharts(
 chart.render();
 
 // Donut chart
-var donutColors = getChartColorsArray("#donut_chart_ticketdialed");
-var options = {
-    dataLabels: {
-        enabled:false,
-    },
-    plotOptions: {
-        pie: {
-          expandOnClick: false
-        }
-    },
-  chart: {
+// var donutColors = getChartColorsArray("#donut_chart_ticketdialed");
+// var options = {
+//     dataLabels: {
+//         enabled:false,
+//     },
+//     plotOptions: {
+//         pie: {
+//           expandOnClick: false
+//         }
+//     },
+//   chart: {
      
-      height: 186,
-      //width: 186,
-      type: 'donut',
-      verticalAlign: 'center',
-  }, 
-  series: [],
-  labels: [],
-  colors: donutColors,
-  legend: {
-      show: true,
-      position: 'right',
-      horizontalAlign: 'center',
-      verticalAlign: 'center',
-      floating: false,
-      fontSize: '14px',
-      fontFamily: 'Helvetica, Arial',
-      offsetX: 0,
+//       height: 186,
+//       //width: 186,
+//       type: 'donut',
+//       verticalAlign: 'center',
+//   }, 
+//   series: [],
+//   labels: [],
+//   colors: donutColors,
+//   legend: {
+//       show: true,
+//       position: 'right',
+//       horizontalAlign: 'center',
+//       verticalAlign: 'center',
+//       floating: false,
+//       fontSize: '14px',
+//       fontFamily: 'Helvetica, Arial',
+//       offsetX: 0,
 
-      itemMargin: {
+//       itemMargin: {
         
-        vertical: 4,
-    },
-  },
-  responsive: [{
-      breakpoint: 600,
-      options: {
-          chart: {
-              height: 240
-          },
-          legend: {
+//         vertical: 4,
+//     },
+//   },
+//   responsive: [{
+//       breakpoint: 600,
+//       options: {
+//           chart: {
+//               height: 240
+//           },
+//           legend: {
               
-              position: 'bottom'
-          },
-      }
-  }]
+//               position: 'bottom'
+//           },
+//       }
+//   }]
 
-}
-var chart = new ApexCharts(
-    document.querySelector("#donut_chart_ticketdialed"),
-    options
-  );
-  chart.render()
+// }
+// var chart = new ApexCharts(
+//     document.querySelector("#donut_chart_ticketdialed"),
+//     options
+//   );
+//   chart.render()
 
 // Donut chart
 
@@ -434,9 +434,13 @@ var data_d = meeting_daily_pie.map((item) => item.value);
 var username_d = meeting_daily_pie.map((item) => item.name);
 // username_d=Object.values(username_d)
 var data_w = meeting_weekly_pie.map((item) => item.value);
+console.log(data_w)
 data_w=Object.values(data_w)
+console.log(data_w)
 var username_w = meeting_weekly_pie.map((item) => item.name);
+console.log(username_w)
 username_w=Object.values(username_w)
+console.log(username_w)
 function renderMeetingDonut($series,$id,$label){
 
 var donutColors = getChartColorsArray($id);

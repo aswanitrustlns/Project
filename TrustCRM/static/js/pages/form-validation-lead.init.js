@@ -17,31 +17,54 @@ File: Form validation Js File
 
             form.addEventListener('input', function(event) {
                 const formData = new FormData(form);
-                
+                const name=formData.get('name')
                 const age = formData.get('age');
                 const is_agree=formData.get('email_agree');
                 const mobile=formData.get('mobile')
+                if(name){
+                    var regName = /^[a-zA-Z]+ [a-zA-Z]+$/;
+                    
+                    if(!regName.test(name)){
+                        // alert('Please enter your full name (first & last name).');
+                        // document.getElementById('fullname').focus();
+                        console.log("Invalid name")
+                        $("#valid_name").show();
+                        
+                        
+                    }else{
+                        console.log("valid name")
+                        $("#valid_name").hide();
+                    }
+                }
                 if(mobile){
                     $("#invalid_mobile").hide()
                 }
+                if(age){
+                    if(age>18){
+                        $("#invalid_age").hide();
+                        $("#age").prop('required',false);
+                        
+                    }
+                    else{
+                        $("#invalid_age").show();
+                        $("#age").attr('required','required');                 
+                        
+                    }
+
+                }
                 
-                if(age>18){
-                    $("#invalid_age").hide();
-                    $("#age").prop('required',false);
-                    
-                }
-                else{
-                    $("#invalid_age").show();
-                    $("#age").attr('required','required');                 
-                    
-                }
                 if(is_agree=="on"){
                     console.log("agree check")
                     $('#email1').attr('readonly', true);
                     $('#email2').attr('readonly', true);
                     $("#email_agree").hide();
-                    $("#invalid_mobile").show()
-                    $("#phone").attr('required','required');
+                    if(!mobile){
+                        $("#invalid_mobile").show()
+
+                        $("#phone").attr('required','required');
+
+                    }
+                   
                 }
                 else{
                     console.log("agree check else")
@@ -77,10 +100,12 @@ File: Form validation Js File
                         $('#email2').attr('readonly', true);
                         $("#email_agree").hide();
                         if(!mobile){
+                            console.log("No mobile")
                             $("#phone").attr('required','required');
                             $("#invalid_mobile").show()
                         }
                         else{
+                            console.log("mobile is present")
                             $("#invalid_mobile").hide()
                         }
                     }
@@ -134,6 +159,7 @@ var intTel = function () {
                 } else {
                     $input.classList.add("error");
                     var errorCode = iti.getValidationError();
+                    
                     $errorMsg.innerHTML = errorMap[errorCode];
                     $errorMsg.classList.remove("hide");
 
@@ -197,6 +223,12 @@ var intTel = function () {
         document.getElementById('tel_country').value = teleCountryName;  
         console.log("Country NAme"+teleCountryName)
       });
+
+      $('#reset').click(function(){
+        const formData = new FormData(form);
+        $("#lead_form")[0].reset()
+
+      })
 
 }
 
