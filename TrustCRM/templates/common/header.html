@@ -50,8 +50,10 @@
                     <button  type="button"  class="btn position-relative"  
                     data-bs-toggle="modal" data-bs-target=".bs-example-modal-insta"  >
                     
-                    <a href="https://www.instagram.com/tc_limited/" target="_blank"><img src="{% static 'images/social-icons/instagram.png' %}" alt="instagram" class=" badge-to-show" height="16"  ></a>
-                            <!-- <span class="badge position-absolute translate-middle bg-success rounded-pill top-0 gilroysemibold-type fs-11">5</span>                       -->
+                           <a href="https://www.instagram.com/tc_limited/" target="_blank"> <img src="{% static 'images/social-icons/instagram.png' %}" alt="instagram" class=" badge-to-show" height="16"  ></a>
+                            <!-- <span class="badge position-absolute translate-middle bg-success rounded-pill top-0 gilroysemibold-type fs-11">5</span> -->
+                        
+                    
                     
                     
                     </button>
@@ -59,17 +61,20 @@
                     data-bs-toggle="modal" data-bs-target=".bs-example-modal-linkedin"  >
                     <a href="https://www.linkedin.com/company/tc-limited" target="_blank">
                             <img src="{% static 'images/social-icons/linkedin.png' %}" alt="linkedin" class="badge-to-show " height="16"  >
+                        </a>
                             <!-- <span class="badge position-absolute translate-middle bg-success rounded-pill top-0 gilroysemibold-type fs-11"> 5</span> -->
-                     </a>  
+                       
                     
                     
                     </button>
                     <button  type="button"  class="btn position-relative"  
                     data-bs-toggle="modal" data-bs-target=".bs-example-modal-twitter"  >
                     <a href="https://twitter.com/limited_tc" target="_blank">
+                    
                             <img src="{% static 'images/social-icons/twitter.png' %}" alt="twitter" class=" badge-to-show" height="16"  >
+                        </a>
                             <!-- <span class="badge position-absolute translate-middle bg-success rounded-pill top-0 gilroysemibold-type fs-11"> 5</span> -->
-                    </a>
+                        
                     
                     
                     
@@ -80,8 +85,8 @@
                     <a href="https://www.facebook.com/TC-Limited-102728182309354/" target="_blank">
                             <img src="{% static 'images/social-icons/facebook.png' %}" alt="facebook" class=" badge-to-show" height="16"  >
                             <!-- <span class="badge position-absolute translate-middle bg-success rounded-pill top-0 gilroysemibold-type fs-11"> 5</span> -->
-                       
-                    </a>
+                    </a> 
+                    
                     
                     
                     </button>
@@ -108,7 +113,7 @@
             <div class="dropdown d-inline-block">
                 <button type="button" class="btn header-item " id="page-header-user-dropdown"
                 data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><!--bg-soft-light border-start border-end-->
-                    <span class="d-none d-xl-inline-block me-2 fw-medium">{{username}}</span>
+                    <span class="d-none d-xl-inline-block me-2 fw-medium">{{request.session.UserName}}</span>
                     <img class="rounded-circle header-profile-user" src="{% static 'images/users/avatar-1.jpg' %}"
                         alt="Header Avatar">
                 
@@ -127,8 +132,9 @@
                 <button type="button" class="btn header-item noti-icon position-relative" id="page-header-notifications-dropdown"
                 data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <i data-feather="bell" class="icon-lg"></i>
-                    <span class="badge bg-danger rounded-pill">5</span>
+                    <span class="badge bg-danger rounded-pill">{{request.session.notification}}</span>
                 </button>
+                {% if not notification %}
                 <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end p-0"
                     aria-labelledby="page-header-notifications-dropdown">
                     <div class="p-3">
@@ -141,55 +147,26 @@
                             </div>
                         </div>
                     </div>
+                    
                     <div data-simplebar style="max-height: 230px;">
-                        <a href="#!" class="text-reset notification-item">
+                        <!-- <a href="#!" class="text-reset notification-item">
                             <div class="d-flex">
                                 <div class="flex-shrink-0 me-3">
                                     <img src="{% static 'images/users/avatar-3.jpg' %}" class="rounded-circle avatar-sm" alt="user-pic">
                                 </div>
+
                                 <div class="flex-grow-1">
                                     <h6 class="mb-1">James Lemire</h6>
                                     <div class="font-size-13 text-muted">
-                                        <p class="mb-1">It will seem like simplified English.</p>
+                                        <p class="mb-1">{{notification}}</p>
                                         <p class="mb-0"><i class="mdi mdi-clock-outline"></i> <span>1 hour ago</span></p>
                                     </div>
                                 </div>
                             </div>
                         </a>
-                        <a href="#!" class="text-reset notification-item">
-                            <div class="d-flex">
-                                <div class="flex-shrink-0 avatar-sm me-3">
-                                    <span class="avatar-title bg-primary rounded-circle font-size-16">
-                                        <i class="bx bx-cart"></i>
-                                    </span>
-                                </div>
-                                <div class="flex-grow-1">
-                                    <h6 class="mb-1">Your order is placed</h6>
-                                    <div class="font-size-13 text-muted">
-                                        <p class="mb-1">If several languages coalesce the grammar</p>
-                                        <p class="mb-0"><i class="mdi mdi-clock-outline"></i> <span>3 min ago</span></p>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                        <a href="#!" class="text-reset notification-item">
-                            <div class="d-flex">
-                                <div class="flex-shrink-0 avatar-sm me-3">
-                                    <span class="avatar-title bg-success rounded-circle font-size-16">
-                                        <i class="bx bx-badge-check"></i>
-                                    </span>
-                                </div>
-                                <div class="flex-grow-1">
-                                    <h6 class="mb-1">Your item is shipped</h6>
-                                    <div class="font-size-13 text-muted">
-                                        <p class="mb-1">If several languages coalesce the grammar</p>
-                                        <p class="mb-0"><i class="mdi mdi-clock-outline"></i> <span>3 min ago</span></p>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
+                     -->
 
-                        <a href="#!" class="text-reset notification-item">
+                        <!-- <a href="#!" class="text-reset notification-item">
                             <div class="d-flex">
                                 <div class="flex-shrink-0 me-3">
                                     <img src="{% static 'images/users/avatar-6.jpg' %}" class="rounded-circle avatar-sm" alt="user-pic">
@@ -202,17 +179,18 @@
                                     </div>
                                 </div>
                             </div>
-                        </a>
+                        </a> -->
                     </div>
-                    <div class="p-2 border-top d-grid">
+                    
+                    <!-- <div class="p-2 border-top d-grid">
                         <a class="btn btn-sm btn-link font-size-14 text-center" href="javascript:void(0)">
                             <i class="mdi mdi-arrow-right-circle me-1"></i> <span>View More..</span> 
                         </a>
-                    </div>
+                    </div> -->
                 </div>
+                {% endif %}
             </div>
 
         </div>
     </div>
 </header>
-

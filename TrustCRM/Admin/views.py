@@ -1,11 +1,12 @@
 from ipaddress import ip_address
 from sqlite3 import Cursor
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import redirect, render
 from django.db import connection
 from django.views.decorators.csrf import csrf_exempt
 from datetime import date, datetime, timedelta
 from django.contrib.sessions.models import Session
+from django.template import Context
 import json
 import ctypes as ctypes
 import instaloader
@@ -88,6 +89,7 @@ def dashboard(request):
     try:
         Cursor.execute("SELECT UserName FROM tbl_User where UserID=%s",[UserId])
         UserName=Cursor.fetchone()
+        request.session['UserName']=UserName[0]
         if(week_day==0):
             date_yesterday = datetime.today()-timedelta(3)
             date_yesterday=date_yesterday.strftime("%Y-%m-%d")
@@ -225,10 +227,13 @@ def dashboard(request):
         
        
         notify_count=notification_count[0]
+        print("Notification Count------------",notify_count)
         # notification_count=len(notification)
         # print("notifiaction",notification,notification_count)
         notification_count=notify_count[0]
-        print("notification counrttttt",notification_count[0])
+        print("**************************",notification_count)
+        request.session['notification'] = notification_count
+       
         Cursor.execute("set nocount on;exec SP_SpokenCallsCount")
         spokencall=Cursor.fetchall()
         print("procedurecall-start",datetime.now().time())
@@ -242,6 +247,8 @@ def dashboard(request):
         active_users=Cursor.fetchall()
         Cursor.execute("set nocount on;exec SP_GetActiveCampaigns")
         active_campaigns=Cursor.fetchall()
+        active_campaigns_count=len(active_campaigns)
+        
         # Cursor.execute("set nocount on;exec SP_TicketsDialedSummary")
         # ticket_dialed=Cursor.fetchall()
         # Cursor.execute("set nocount on;exec SP_TicketsInterestedSummary")
@@ -328,14 +335,14 @@ def dashboard(request):
     
     # return HttpResponse(result_set,200)
     print("notification")
-    print(type(all_meetings))
+    
     print("template-render",datetime.now().time())
     all_data={'username':UserName[0],'overview':result_set,'livecount_daily':json.dumps(livecount_daily),'leads':leads,
     'live_account':live_account,'meeting_count':meetingcount,'spoken_call_one':spokencall_one,
     'spoken_call':spokencall,'all_meetings':all_meetings,'meetingcount_daily':meetingcount_daily,
     'seminarcount_daily':seminarcount_daily,'monthly_count':monthly_count,'status_graph':status_graph,'active_users':active_users,
     'seminarcount_weekly':seminarcount_weekly,'seminar_weekly_pie': seminar_weekly_pie,'seminar_daily_pie':seminar_daily_pie,'meeting_daily_pie': meeting_daily_pie,'meeting_weekly_pie':meeting_weekly_pie,
-    'weekly_live_account':weekly_live_bar,'daily_live_account':daily_live_bar,'leads_status':status_bar,'journels':journel,'active_campaigns':active_campaigns,
+    'weekly_live_account':weekly_live_bar,'daily_live_account':daily_live_bar,'leads_status':status_bar,'journels':journel,'active_campaigns':active_campaigns,'active_campaigns_count':active_campaigns_count,
     'leads_pie':json.dumps(leads_pie),'halfyearly_bar':halfyearly_bar,'insta_followers':insta_follwers_list,'insta_count':count,
     'notification':notification,'notification_count':notification_count}
     return render(request,'admin/dashboard.html',all_data)
@@ -366,7 +373,7 @@ def lead_registration_check(request):
     
     UserId=request.session.get('UserId') # Read Session data
     
-    if request.method == 'POST':
+    if request.is_ajax():
         title=request.POST['title']
         name=request.POST.get('name')
         age=request.POST.get('age')
@@ -424,15 +431,34 @@ def lead_registration_check(request):
         if hash_check>=0:
             ticket=ticket.replace('#','')  
             print("TTTTTTTTTTTTTTTTTicket",ticket)
-            Cursor.execute("set nocount on;exec SP_MergeTicket %s,%s,%s,%s",[ticket,email1,email2,mobile,telephone])
-            merge_ticket=Cursor.fetchone()
-            # Cursor.execute("set nocount on;exec SP_CheckUserPermission %s,%s,%s,%s",[ticket,email1,email2,mobile,telephone])
+            print(type(ticket))
+            print("email------",email1,type(email1))
+            print("email2",email2,type(email2))
+            print("mobile----",mobile,type(mobile))
+            print("telephone-----",telephone,type(telephone))
+
+            Cursor.execute("set nocount on;exec SP_MergeTicket %s,%s,%s,%s,%s",[ticket,email1,email2,mobile,telephone])
             # merge_ticket=Cursor.fetchone()
+            login=0
+            Cursor.execute("set nocount on;exec SP_CheckUserPermission_PY %s,%s,%s",[UserId,ticket,login])
+            user_permission=Cursor.fetchone() 
+            user_permission=user_permission[0]
+           
         print(ticket)
         print(hash_check)
-        print("done")
+        
+        if user_permission:
+            print("No permission")
+            return HttpResponse("No Permission")
+        else:
+            
+            return render(request,'admin/Leads.html')
+            
+        # print(merge_ticket)
+        
+ 
 
-    return render(request,'admin/Leads.html')
+    
    
 
 def logout(request):

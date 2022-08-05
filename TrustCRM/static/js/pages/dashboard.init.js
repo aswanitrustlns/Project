@@ -49,6 +49,25 @@ function renderSeminarPie($series,$id,$label){
         height: 227,
         type: 'pie',
     },
+    dataLabels: {
+        enabled: true,
+        textAnchor: 'middle',
+        offsetX: 0,
+        offsetY: 0,
+        style: {
+            fontSize: '12px',
+            fontFamily: 'giloryregular',
+           
+        },
+        dropShadow: {
+            enabled: false,
+            top: 0,
+            left: 0,
+            blur: 0,
+            color: 'transparent',
+            opacity: 0.45
+        }
+    },
     series:$series,
     labels: $label,
     colors: piechartColors,
@@ -182,12 +201,27 @@ var options = {
     colors: columnColors,
     xaxis: {
         categories: $catogories,
+        labels: {
+            trim: true,
+            rotate: -45,
+            rotateAlways: false,
+            hideOverlappingLabels: true,
+            maxHeight: 60,
+    
+            style: {
+                //colors: '#5B5B5B',
+                fontSize: '12px',
+                fontFamily: 'gilroymedium',
+                
+                //cssClass: 'gilroymedium-type text-muted',
+            },
+            }
     },
     yaxis: {
         title: {
             text: ' ',
             style: {
-                fontWeight:  '500',
+                fontFamily: 'gilroymedium',
               },
         }
     },
@@ -219,7 +253,7 @@ var data_value_w = weekly_live.map((item) => item.value);
 
 var username_w =weekly_live.map((item) => item.name);
 username_w=Object.values(username_w)
-renderChart([{data:data_value_w}], '#column_chart_live_accounts_w',username_w);
+renderChart([{name: ' ',data:data_value_w}], '#column_chart_live_accounts_w',username_w);
 
 
 
@@ -227,7 +261,7 @@ var data_value_d = daily_live.map((item) => item.value);
 
 var username_d =daily_live.map((item) => item.name);
 username_d=Object.values(username_d)
-renderChart([{data:data_value_d}], '#column_chart_live_accounts_d',username_d);
+renderChart([{name: ' ',data:data_value_d}], '#column_chart_live_accounts_d',username_d);
 
 
 
@@ -338,13 +372,28 @@ var options = {
     colors: columnColors,
     xaxis: {
     categories: username,
+    labels: {
+        trim: true,
+        rotate: -45,
+        rotateAlways: false,
+        hideOverlappingLabels: true,
+        maxHeight: 60,
+
+        style: {
+            //colors: '#5B5B5B',
+            fontSize: '12px',
+            fontFamily: 'gilroyregular',
+            
+            //cssClass: 'gilroymedium-type text-muted',
+        },
+    }
     },
     yaxis: {
         title: {
             text: ' ',
             style: {
-                //fontWeight:  '500',
-                fontFamily: 'gilorymedium'
+                fontSize: '12px',
+                fontFamily: 'gilroyregular',
               },
         }
     },
@@ -368,6 +417,14 @@ var chart = new ApexCharts(
     options
 );
 chart.render();
+
+
+
+
+
+
+
+
 
 // Donut chart
 // var donutColors = getChartColorsArray("#donut_chart_ticketdialed");

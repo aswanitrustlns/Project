@@ -21,6 +21,8 @@ File: Form validation Js File
                 const age = formData.get('age');
                 const is_agree=formData.get('email_agree');
                 const mobile=formData.get('mobile')
+                const email1=formData.get('email1');
+                const email2=formData.get('email2');
                 if(name){
                     var regName = /^[a-zA-Z]+ [a-zA-Z]+$/;
                     
@@ -35,6 +37,9 @@ File: Form validation Js File
                         console.log("valid name")
                         $("#valid_name").hide();
                     }
+                }
+                if(email1 || email2){
+                    $("#email_unav").attr('required',false);
                 }
                 if(mobile){
                     $("#invalid_mobile").hide()
@@ -87,11 +92,15 @@ File: Form validation Js File
 
             form.addEventListener('submit', function (event) {
                 const formData = new FormData(form);
+                const name=formData.get('name')
                 const email1=formData.get('email1');
                 const email2=formData.get('email2');
                 const is_agree=formData.get('email_agree');
                 const mobile=formData.get('mobile')
                 console.log(mobile)
+                if(!name){
+                    $("#fullname").attr('required','required');
+                }
                 if(!email1&&!email2){
                     console.log("no email")
                     if(is_agree=="on"){
@@ -119,8 +128,11 @@ File: Form validation Js File
                     event.preventDefault();
                     event.stopPropagation();
                 }
+               
+                    form.classList.add('was-validated');
+               
              
-                form.classList.add('was-validated');
+                
             }, false);
         });
     }, false);
@@ -225,8 +237,9 @@ var intTel = function () {
       });
 
       $('#reset').click(function(){
-        const formData = new FormData(form);
-        $("#lead_form")[0].reset()
+        $(".invalid-feedback").hide();
+        $("#lead_form")[0].reset();
+        
 
       })
 

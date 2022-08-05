@@ -42,38 +42,7 @@ window.onload = function () {
 	var lead_registration=document.getElementById("lead_register")
 	lead_registration.addEventListener('click',lead_validation)
 
-	function lead_validation(e){
-		e.preventDefault()
-		console.log("lead validation")
-		age=parseInt(document.getElementById("age").value)
-		console.log(age)
-		email1=document.getElementById("email1")
-		email2=document.getElementById("email2")
-		console.log(email1)
-		console.log(email2)
-		if(email1==" "&& email2==""){
-			$('#email_check').prop('checked', true);
-		}
-
-		var phoneno = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/;
-		if(mobile.value.match(phoneno)) {
-		  return true;
-		}
-		else {
-		 console.log("error")
-		  return false;
-		}
-		console.log(typeof(age))
-		if(age>18){
-			
-			return true
-			
-		}
-		else{
-			return false
-		}
-	}
-
+	
 
 	// pristinejs common validation
 	// var commonform = document.getElementById("pristine-valid-common");

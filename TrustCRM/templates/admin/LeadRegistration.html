@@ -62,7 +62,7 @@
                                 </div>
                            
                             
-                                <form class="needs-validation" id="lead_form" novalidate method="post" action="{% url 'Admin:LeadSubmit' %}">
+                                <form class="needs-validation" id="lead_form" novalidate  >
                                     {% csrf_token %}
                                     <div class="row">
                                         <div class="col-md-6">
@@ -81,7 +81,7 @@
                                         <div class="col-md-6">
                                             <div class="mb-3">
                                                 <label class="form-label" for="firstname*">Name<span class="color-orange">*</span></label>
-                                                <input type="text" class="form-control" id="fullname" placeholder="both name(s) e.g Jon Doe" name="name" value="" required>
+                                                <input type="text" class="form-control" id="fullname" placeholder="both name(s) e.g Jon Doe" name="name"  required>
                                                 <div class="invalid-feedback" id="valid_name">
                                                     Please provide a valid name.
                                                 </div>
@@ -281,6 +281,48 @@
     </div>
     <!-- END layout-wrapper -->
 
+    <div class="modal fade bs-example-modal-insta" tabindex="-1" role="dialog" aria-hidden="true" id="permission_model">
+        <div class="modal-dialog modal-dialog-centered"   style="z-index: 10555;">
+            <div class="modal-content">
+                <div class="modal-header border-0">
+                    <!--<h5 class="modal-title fs-21">@title</h5>-->
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                                        
+                <div class="modal-body" >
+    
+    
+                    <div data-simplebar style="max-height: 230px;">
+    
+                         <!--User-->
+                    <div class="d-flex align-items-center">
+                    
+                        <!-- <div class="flex-shrink-0 me-3">
+                            <div class="avatar-sm align-self-center">
+                                <span class="avatar-title rounded-circle bg-soft-primary text-primary">
+                                    J
+                                </span>
+                            </div>
+                        </div> -->
+                        <div class="flex-grow-1">
+                            <h6 class="mb-0">You dont have permission to view this Ticket</h6>
+                            <!--<div class="font-size-13 text-muted">
+                                <p class="mb-1">It will seem like simplified English.</p>
+                                <p class="mb-0"><i class="mdi mdi-clock-outline"></i> <span>1 hour ago</span></p>
+                            </div>-->
+                        </div>
+                    </div>
+                  
+                  
+    
+                    </div>
+               
+                </div>
+            </div>
+        </div>
+    </div>
+    
+
     
     {% include "common/right-sidebar.html" %}
 
@@ -304,6 +346,43 @@
 
     <!-- form validation -->
     <script src="{% static 'js/pages/form-validation-lead.init.js' %}"></script>    
+    <script>
+        
+        $('#lead_form').on('submit', function(e){
+          
+        e.preventDefault();
+        if($(this).hasClass("was-validated")){
+            console.log("Submit function happend")
+        var form_data=$('#lead_form')
+       
+        $.ajax({
+               type : "POST", 
+               url: "{% url 'Admin:LeadSubmit' %}",
+               data: form_data.serialize(),
+               
+               success: function(data){
+                  
+                  $('#permission_model').modal('show')
+                  console.log("Success message'")
+               },
+        
+               failure: function() {
+                   console.log("Error message")
+               }
+        
+        
+           });
+
+        }else{
+            console.log("No validations done")
+        }
+        
+        
+        
+     
+        
+                });    
+     </script>
     <!-- <script src="{% static 'js/pages/lead-registration-validation.js' %}"></script>  -->
     <!-- <script src="{% static 'js/pages/form-validation.init.js' %}"></script>     -->
 
