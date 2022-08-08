@@ -1,3 +1,4 @@
+from distutils.log import error
 from ipaddress import ip_address
 from sqlite3 import Cursor
 from django.http import HttpResponse, JsonResponse
@@ -94,7 +95,7 @@ def dashboard(request):
             date_yesterday = datetime.today()-timedelta(3)
             date_yesterday=date_yesterday.strftime("%Y-%m-%d")
 
-       
+        
         Cursor.execute("{call dbo.SP_GetDashboardCount(%s,%s,%s)}", [UserId,date_yesterday,date_today])
              
         result_set = Cursor.fetchall()        
@@ -224,6 +225,7 @@ def dashboard(request):
         print("Notification-------------",notification)
         while (Cursor.nextset()):
             notification_count = Cursor.fetchall()
+            print("Notification count-------",notification_count)
         
        
         notify_count=notification_count[0]
@@ -236,24 +238,32 @@ def dashboard(request):
        
         Cursor.execute("set nocount on;exec SP_SpokenCallsCount")
         spokencall=Cursor.fetchall()
-        print("procedurecall-start",datetime.now().time())
+     
         Cursor.execute("set nocount on;exec SP_GetMeetings")
         all_meetings=Cursor.fetchall()
+       
+        
         Cursor.execute("set nocount on;exec SP_GetMonthlyCount")
         monthly_count=Cursor.fetchall()
-        Cursor.execute("set nocount on;exec SP_GetLeadsStatusGraph")
-        status_graph=Cursor.fetchall()
+       
+        
+        # Cursor.execute("set nocount on;exec SP_GetLeadsStatusGraph")
+        # status_graph=Cursor.fetchall()
         Cursor.execute("set nocount on;exec SP_GetActiveUsers")
         active_users=Cursor.fetchall()
+       
+        
         Cursor.execute("set nocount on;exec SP_GetActiveCampaigns")
         active_campaigns=Cursor.fetchall()
+      
+        
         active_campaigns_count=len(active_campaigns)
         
         # Cursor.execute("set nocount on;exec SP_TicketsDialedSummary")
         # ticket_dialed=Cursor.fetchall()
         # Cursor.execute("set nocount on;exec SP_TicketsInterestedSummary")
         # ticket_processed=Cursor.fetchall()
-        Cursor.execute("set nocount on;exec SP_GetHalfyearlySummary")
+        Cursor.execute("set nocount on;exec SP_GetHalfyearlySummary_PY")
         halfyearly_data=Cursor.fetchall()
         print("procedurecall-end",datetime.now().time())
         
@@ -264,8 +274,12 @@ def dashboard(request):
         #     insta_follwers_list.append(follower.username)    
         #     count = count + 1
         print("Seminar count-----------")
-        print(seminarcount_daily)
-        print(seminarcount_weekly)
+        seminarcount_daily_data=[x[1] for x in seminarcount_daily]
+        print("seminar daily data1111111111111111111111",seminarcount_daily_data)
+        if all([x[1]==0 for x in seminarcount_daily]):
+            print("No Count")
+        print("Meeting count")
+        print(meetingcount_daily)
         
         for obj in seminarcount_weekly:            
             seminar_weekly_pie.append(
@@ -307,21 +321,24 @@ def dashboard(request):
                 'value':daily_report[1]
 
             })
-        for status in status_graph:
-           status_bar.append({
-                'name': status[0],
-                'src_count':status[1],
-                'ticket_count':status[2]
+        # for status in status_graph:
+        #    status_bar.append({
+        #         'name': status[0],
+        #         'src_count':status[1],
+        #         'ticket_count':status[2]
 
 
-            })
+        #     })
+       
         for data in halfyearly_data:
            halfyearly_bar.append({
 
                 'month': data[1],
                 'live_account':data[3],
                 'pending_account':data[4],
-                'funded_account':data[5]
+                'funded_account':data[5],
+                'tickets':data[6],
+                'leads':data[7]
 
 
             })
@@ -329,8 +346,8 @@ def dashboard(request):
         
         
         
-    except:
-        print("Exception")    
+    except Exception:
+        print("!!!!!!!!!!!!!!!!!!!!!!Exception!!!!!!!!!!!!!!!!!!!!!!!!!!",Exception)    
    
     
     # return HttpResponse(result_set,200)
@@ -340,7 +357,7 @@ def dashboard(request):
     all_data={'username':UserName[0],'overview':result_set,'livecount_daily':json.dumps(livecount_daily),'leads':leads,
     'live_account':live_account,'meeting_count':meetingcount,'spoken_call_one':spokencall_one,
     'spoken_call':spokencall,'all_meetings':all_meetings,'meetingcount_daily':meetingcount_daily,
-    'seminarcount_daily':seminarcount_daily,'monthly_count':monthly_count,'status_graph':status_graph,'active_users':active_users,
+    'seminarcount_daily':seminarcount_daily,'monthly_count':monthly_count,'active_users':active_users,
     'seminarcount_weekly':seminarcount_weekly,'seminar_weekly_pie': seminar_weekly_pie,'seminar_daily_pie':seminar_daily_pie,'meeting_daily_pie': meeting_daily_pie,'meeting_weekly_pie':meeting_weekly_pie,
     'weekly_live_account':weekly_live_bar,'daily_live_account':daily_live_bar,'leads_status':status_bar,'journels':journel,'active_campaigns':active_campaigns,'active_campaigns_count':active_campaigns_count,
     'leads_pie':json.dumps(leads_pie),'halfyearly_bar':halfyearly_bar,'insta_followers':insta_follwers_list,'insta_count':count,
@@ -452,12 +469,12 @@ def lead_registration_check(request):
             return HttpResponse("No Permission")
         else:
             
-            return render(request,'admin/Leads.html')
+            return render(request,'admin/LeadProcessing.html')
             
         # print(merge_ticket)
         
- 
-
+def lead_processing(request):
+    return render(request,'admin/LeadProcessing.html')
     
    
 

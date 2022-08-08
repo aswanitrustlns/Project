@@ -570,6 +570,10 @@ var pending_account = halfyearly_bar.map((item) => item.pending_account);
 pending_account=Object.values(pending_account)
 var funded_account = halfyearly_bar.map((item) => item.funded_account);
 funded_account=Object.values(funded_account)
+var tickets=halfyearly_bar.map((item)=>item.tickets);
+tickets=Object.values(tickets);
+var leads=halfyearly_bar.map((item)=>item.leads);
+leads=Object.values(leads);
 var splneAreaColors = getChartColorsArray("#spline_area");
 var options = {
     chart: {
@@ -597,7 +601,19 @@ var options = {
         name: 'Funded Account',
         data: funded_account
 
-    }],
+    },
+    {
+        name: 'Tickets',
+        data: tickets
+
+    },
+    {
+        name: 'Leads',
+        data: leads
+
+    }
+
+],
     colors: splneAreaColors,
     xaxis: {
         type: 'month',

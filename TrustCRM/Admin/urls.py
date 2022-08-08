@@ -10,6 +10,7 @@ urlpatterns=[
     path('Leads/',lead,name="Leads"),
     path('LeadRegistration/',lead_registration,name="LeadRegistration"),
     path('LeadSubmit',lead_registration_check,name="LeadSubmit"),
+    path('LeadProcessing',lead_processing,name="LeadProcessing"),
     path('logout',logout,name="Logout")
    
  

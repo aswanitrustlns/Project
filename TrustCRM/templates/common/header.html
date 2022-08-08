@@ -113,7 +113,7 @@
             <div class="dropdown d-inline-block">
                 <button type="button" class="btn header-item " id="page-header-user-dropdown"
                 data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><!--bg-soft-light border-start border-end-->
-                    <span class="d-none d-xl-inline-block me-2 fw-medium">{{request.session.UserName}}</span>
+                    <span class="d-none d-xl-inline-block me-2 fw-medium">Hi, {{request.session.UserName}}</span>
                     <img class="rounded-circle header-profile-user" src="{% static 'images/users/avatar-1.jpg' %}"
                         alt="Header Avatar">
                 
@@ -134,7 +134,7 @@
                     <i data-feather="bell" class="icon-lg"></i>
                     <span class="badge bg-danger rounded-pill">{{request.session.notification}}</span>
                 </button>
-                {% if not notification %}
+                {% ifequal request.session.notification 0 %}
                 <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end p-0"
                     aria-labelledby="page-header-notifications-dropdown">
                     <div class="p-3">
@@ -188,7 +188,7 @@
                         </a>
                     </div> -->
                 </div>
-                {% endif %}
+                {% endifequal %}
             </div>
 
         </div>

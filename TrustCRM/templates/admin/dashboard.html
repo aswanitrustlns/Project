@@ -546,7 +546,12 @@
                                         <div class="d-flex align-items-center">
 
                                             <div class="flex-shrink-0 me-3">
-                                                <img class="rounded-circle  avatar-md" src="{%static 'images/users/avatar-5.jpg' %}" alt="Generic placeholder image">
+                                                
+  
+  
+                                                <img class="rounded-circle  avatar-md" src="{%static 'images/users/'%}{{call.0}}.png" onerror='this.src="{% static 'images/users/user.png' %}"' alt="Generic placeholder image">
+                                                
+                                           
                                             </div>
                                             <div class="flex-grow-1 ">
                                                 <h5 class="mb-1 fs-15 gilroymedium-type">{{call.0}}</h5>
@@ -598,6 +603,7 @@
                                     <div class="col-xl-5 col-lg-5  d-flex flex-column  h1-00 justify-content-start"  data-simplebar="" style="max-height: 252px ;">
 
                                         {%if all_meetings %}
+                                        {%for meeting in all_meetings%}
 
                                         <div class="d-flex align-items-center mb-3 px-2 py-2 rounded-3" style="background-color:#141527 ;">
                                             <div class="flex-shrink-0 me-3">
@@ -605,9 +611,9 @@
                                             </div>
                                             <div class="flex-grow-1 d-flex justify-content-between align-items-center ">
                                                 <div>
-                                                    <h5 class="mb-0 fs-14 gilroymedium-type">Meeting with client</h5>
+                                                    <h5 class="mb-0 fs-14 gilroymedium-type">{{meeting.1}}</h5>
                                                
-                                                    <p class="mb-0  fs-12  gilroymedium-type">9:00 - 9:30</p>
+                                                    <p class="mb-0  fs-12  gilroymedium-type">{{meeting.3}}</p>
                                                 </div>
                                                 <a class="me-2" href="#">
                                                     <svg width="7" height="12" viewBox="0 0 7 12" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -618,6 +624,7 @@
                                                 
                                             </div>
                                         </div>
+                                        {%endfor%}
                                         {% else %}
                                             <div>
                                                 No meetings today
@@ -693,7 +700,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div id="tab03" class="d-block">
+                                <div id="tab03" class="d-block">  
 
                                     <div class="row align-items-center card-h-100">
                                         <div class="col-xl-6">
@@ -870,8 +877,15 @@
                                 <div class="d-flex  align-items-center">
                                     <div class="flex-shrink-0 position-relative">
                                         <!--position-absolute top-0 start-100 translate-middle badge border border-light rounded-circle bg-danger p-->
+                                        {%if users.2 == 'Online'%}
                                         <span
-                                            class="position-absolute top-0 start-100 translate-middle badge border border-light rounded-circle bg-danger p-1 d-block" style="top: 10px!important;left: 95%!important;"></span>
+                                            class="position-absolute top-0 start-100 translate-middle badge border border-light rounded-circle bg-success p-1 d-block" style="top: 10px!important;left: 95%!important;">
+                                        </span>
+                                        {% else %}
+                                        <span
+                                            class="position-absolute top-0 start-100 translate-middle badge border border-light rounded-circle bg-danger p-1 d-block" style="top: 10px!important;left: 95%!important;">
+                                        </span>
+                                        {%endif%}
                                         <img class="rounded-circle avatar-md" src="{%static 'images/users/avatar-1.jpg' %}"
                                             alt="Generic placeholder image">
 
@@ -915,59 +929,7 @@
 
                 </div>
                 <!-- end row-->
-                <!---Monthly Summary table-->
-                <div class="row">
-
-                    <div class="col-xl-12">
-                        <div class="card">
-
-
-                            <div class="card-body ">
-
-
-                                <div class="d-flex flex-wrap align-items-center mb-4">
-                                    <h5 class="card-title me-2 almarenamonolight-type fs-21">Monthly Summary</h5>
-                                    <div class="ms-auto">
-                                        <div>
-                                            <!-- <a href="" class=" mb-0 my-n1">View all</a> -->
-
-                                        </div>
-                                    </div>
-                                </div>
-
-
-
-                                <div class="table-responsive" data-simplebar="" style="max-height: 352px ;">
-                                    <table class="table mb-0 ">
-
-                                        <thead>
-                                            <tr class="almarenamonolight-type fs-14">
-                                                <th>Date</th>
-                                                <th>Live accounts</th>
-                                                <th>Tickets</th>
-                                                <th class="text-end">Leads</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody class="gilroymedium-type fs-15">
-                                            {% for monthly in monthly_count %}
-                                            
-                                            <tr>
-                                                <th scope="row">{{monthly.0}}{{monthly.7}}</th>
-                                                <td>{{monthly.5}}</td>
-                                                <td>{{monthly.2}}</td>
-                                                <td class="text-end">{{monthly.3}}</td>
-                                            </tr>
-                                            {%endfor%}
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                            <!-- end card body -->
-                        </div>
-                        <!-- end card -->
-                    </div>
-
-                </div>
+            
                 <!-- end row-->
                 <!---Active Campaigns+ -->
                 <div class="row">
@@ -1220,7 +1182,7 @@
                                     Sales Team</h4>
                             </div>
                             <div class="card-body">
-                                <div id="spline_area" data-colors='["#5156be", "#2ab57d","#FFD572"]' class="apex-charts"
+                                <div id="spline_area" data-colors='["#5156be", "#2ab57d","#FFD572","#FF4929","#ED589D"]' class="apex-charts"
                                     dir="ltr"></div>
                             </div>
                         </div>
@@ -1379,7 +1341,8 @@
         var meeting_weekly_pie={{meeting_weekly_pie|safe}}
         var leads_pie={{leads_pie|safe}}
         var halfyearly_bar={{halfyearly_bar|safe}}
-        console.log(halfyearly_bar)
+        console.log("Leads Pie222222222222222222222222222222")
+        console.log(leads_pie)
       
 </script>
 
