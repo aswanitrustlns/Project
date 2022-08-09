@@ -1,4 +1,5 @@
 from distutils.log import error
+import email
 from ipaddress import ip_address
 from sqlite3 import Cursor
 from django.http import HttpResponse, JsonResponse
@@ -247,8 +248,8 @@ def dashboard(request):
         monthly_count=Cursor.fetchall()
        
         
-        # Cursor.execute("set nocount on;exec SP_GetLeadsStatusGraph")
-        # status_graph=Cursor.fetchall()
+        Cursor.execute("set nocount on;exec SP_GetLeadsStatusGraph")
+        status_graph=Cursor.fetchall()
         Cursor.execute("set nocount on;exec SP_GetActiveUsers")
         active_users=Cursor.fetchall()
        
@@ -273,42 +274,55 @@ def dashboard(request):
         # for follower in profile.get_followers():
         #     insta_follwers_list.append(follower.username)    
         #     count = count + 1
-        print("Seminar count-----------")
-        seminarcount_daily_data=[x[1] for x in seminarcount_daily]
-        print("seminar daily data1111111111111111111111",seminarcount_daily_data)
+       
         if all([x[1]==0 for x in seminarcount_daily]):
             print("No Count")
-        print("Meeting count")
-        print(meetingcount_daily)
+        else:
+             for seminar in seminarcount_daily:            
+                seminar_daily_pie.append(
+                        {                
+                        'name':seminar[0],
+                        'value':seminar[1]
+                        }
+                    
+                )
+        if all([x[1]==0 for x in seminarcount_weekly]):
+            print("No weekly data")
+        else:
+             for obj in seminarcount_weekly:            
+                seminar_weekly_pie.append(
+                        {                
+                        'name':obj[0],
+                        'value':obj[1]
+                        }
+                    
+                )
         
-        for obj in seminarcount_weekly:            
-            seminar_weekly_pie.append(
-                    {                
-                    'name':obj[0],
-                    'value':obj[1]
-                    }
-                
-            )
-        for seminar in seminarcount_daily:            
-            seminar_daily_pie.append(
-                    {                
-                    'name':seminar[0],
-                    'value':seminar[1]
-                    }
-                
-            )
-        for meeting in meetingcount_daily:
-            meeting_daily_pie.append({
-                'name': meeting[0],
-                'value':meeting[1]
+        
+        if all([x[1]==0 for x in meetingcount_daily]):
+            print("No weekly data")
+        else:
+             for meeting in meetingcount_daily:
+                meeting_daily_pie.append({
+                    'name': meeting[0],
+                    'value':meeting[1]
 
-            })
-        for meetings in meetingcount_weekly:
-            meeting_weekly_pie.append({
-                'name': meetings[0],
-                'value':meetings[1]
+                })
 
-            })
+        if all([x[1]==0 for x in meetingcount_weekly]):
+            print("No weekly data")
+        else:
+            for meetings in meetingcount_weekly:
+                meeting_weekly_pie.append({
+                    'name': meetings[0],
+                    'value':meetings[1]
+
+                })
+        
+       
+       
+       
+        
         for report in weekly_live_account:
             weekly_live_bar.append({
                 'name': report[0],
@@ -321,14 +335,14 @@ def dashboard(request):
                 'value':daily_report[1]
 
             })
-        # for status in status_graph:
-        #    status_bar.append({
-        #         'name': status[0],
-        #         'src_count':status[1],
-        #         'ticket_count':status[2]
+        for status in status_graph:
+           status_bar.append({
+                'name': status[0],
+                'src_count':status[1],
+                'ticket_count':status[2]
 
 
-        #     })
+            })
        
         for data in halfyearly_data:
            halfyearly_bar.append({
@@ -427,8 +441,10 @@ def lead_registration_check(request):
         
         reg_date=datetime.today().date()
         reg_date=reg_date.strftime("%m-%d-%Y")
-        updated_date=datetime.today().date()
-        updated_date=updated_date.strftime("%m-%d-%Y")
+        updated_date=datetime.now()
+        
+        updated_date=updated_date.strftime("%m-%d-%Y %H:%M:%S")
+        
         hostname=socket.gethostname()   
         IPAddr=socket.gethostbyname(hostname)
         print(country1)
@@ -439,14 +455,15 @@ def lead_registration_check(request):
         print("print------",title,name,email_avl,email1,email2,profession,subject,source,state,address,city,zip_code,mobile,telephone,mobile_country_code,telephone_country_code,country1,country2,IPAddr)
 
         print("Lead submit ")        
-        Cursor.execute("EXEC SP_InsertSalesLeadReg_CRM %s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s",[name,mobile,telephone,email1,email2,address,city,zip_code,source,UserId,reg_date,updated_date,title,profession,"Pending",state,country1,country2,subject,age,IPAddr])
+        Cursor.execute("EXEC SP_InsertSalesLeadReg_CRM %s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s",[name,mobile,telephone,email1,email2,address,city,zip_code,source,UserId,updated_date,updated_date,title,profession,"Pending",state,country1,country2,subject,age,IPAddr])
         ticket=Cursor.fetchone() 
            
         ticket=ticket[0]
         hash_check=ticket.find("#")
+        ticket=ticket.replace('#','')
         print(hash_check)
         if hash_check>=0:
-            ticket=ticket.replace('#','')  
+              
             print("TTTTTTTTTTTTTTTTTicket",ticket)
             print(type(ticket))
             print("email------",email1,type(email1))
@@ -459,22 +476,59 @@ def lead_registration_check(request):
             login=0
             Cursor.execute("set nocount on;exec SP_CheckUserPermission_PY %s,%s,%s",[UserId,ticket,login])
             user_permission=Cursor.fetchone() 
+            print("User Permissio-------",user_permission)
+
             user_permission=user_permission[0]
-           
-        print(ticket)
-        print(hash_check)
+                
+                
+            
+            print("User Permissio-------",user_permission)
+            if user_permission:
+                print("No permission")
+                return JsonResponse({'success':True,'ticket':ticket})
+            else:
+                return JsonResponse({'success':False,'ticket':ticket})
+            
         
-        if user_permission:
-            print("No permission")
-            return HttpResponse("No Permission")
         else:
             
-            return render(request,'admin/LeadProcessing.html')
+             return render(request,'admin/LeadProcessing.html')
             
         # print(merge_ticket)
         
 def lead_processing(request):
-    return render(request,'admin/LeadProcessing.html')
+    UserId=request.session['UserId']
+    search_email_phone=[]
+    search_email_phone1=[]
+    search_email_phone2=[]
+    search_email_phone3=[]
+    ticket=" "
+    try:
+        ticket=request.GET.get('ticket')
+        email1=request.GET.get('email1')
+        email2=request.GET.get('email2')
+        mobile=request.GET.get('mobile')
+        phone=request.GET.get('telephone')
+        print("email1",email1,"email2",email2,"mobile",mobile,"phone",phone)
+        if email1 or email2 or mobile or phone:
+            Cursor.execute("set nocount on;exec SP_SearchPhoneEmail_PY %s,%s,%s,%s,%s",[mobile,phone,email1,email2,UserId])
+            search_email_phone=Cursor.fetchall() 
+            print("--------------------------",search_email_phone,type(search_email_phone))
+            while (Cursor.nextset()):
+                search_email_phone1 = Cursor.fetchall()
+                print("next data set----------------",search_email_phone1)
+            while (Cursor.nextset()):
+                search_email_phone2 = Cursor.fetchall()
+                print("next data set----------------",search_email_phone2)
+            while (Cursor.nextset()):
+                search_email_phone3 = Cursor.fetchall()
+                print("next data set----------------",search_email_phone3)
+        if ticket is None:
+            ticket=" "
+        print("ticket1111111111111111111",ticket)
+    except:
+        print("Error")
+    return render(request,'admin/LeadProcessing.html',{'ticket':ticket,'email_phone':json.dumps(search_email_phone),'email_phone1':search_email_phone1,'email_phone2':search_email_phone2,'email_phone3':search_email_phone3})
     
    
 

@@ -700,6 +700,7 @@
                                         </div>
                                     </div>
                                 </div>
+                                
                                 <div id="tab03" class="d-block">  
 
                                     <div class="row align-items-center card-h-100">
@@ -708,6 +709,7 @@
                                             <div id="weekly-seminar_d" data-colors='["#FF4929","#19BDB4","#5D62AB","#2C2E57","#ED589D","#E9BBD5"]'  
                                                 class="apex-charts"></div> 
                                         </div>
+                                        {%if seminar_daily_pie %}
                                         <div class="col-xl-6 align-self-center">
                                             <div class="mt-4 mt-sm-0 mb-3 mb-xl-0 d-flex d-xl-block justify-content-center flex-wrap ">
                                                 {% for seminar in seminarcount_daily %}
@@ -723,8 +725,12 @@
                                                
                                             </div>
                                         </div>
+                                        {%endif%}
                                     </div>
                                 </div>
+                             
+                                
+                             
                                 <div id="tab04" class="d-none">
 
                                 <div class="row align-items-center card-h-100">
@@ -733,6 +739,7 @@
                                         <div id="weekly-seminar_w" data-colors='["#FF4929","#19BDB4","#5D62AB","#2C2E57","#ED589D","#E9BBD5"]'  
                                             class="apex-charts"></div> 
                                     </div>
+                                    {%if seminar_weekly_pie %} 
                                     <div class="col-xl-6 align-self-center">
                                         <div class="mt-4 mt-sm-0 mb-3 mb-xl-0 d-flex d-xl-block justify-content-center flex-wrap ">
                                             {% for seminar in seminarcount_weekly %}
@@ -747,8 +754,10 @@
                                            
                                         </div>
                                     </div>
+                                    {%endif%}
                                 </div>
                             </div>
+                           
                             </div>
                         </div>
                         <!-- end card -->
@@ -1087,7 +1096,7 @@
 
                                 <div class="row align-items-center flex-column">
                                     <div class="col-sm">
-                                        <div id="leads" data-colors='["#6354C5","#2A99FF","#fff","#4ABC8C","#E8651B"]'
+                                        <div id="leads" data-colors='["#6354C5","#2A99FF","#ED589D","#4ABC8C","#E8651B"]'
                                             class="apex-charts"></div>
                                     </div>
                                     <div class="col-sm align-self-center">
@@ -1111,7 +1120,7 @@
                                                 <div class="  col-6  col-md-3 pt-2  col-lg-5 col-xl--5">
                                                     <p class="mb-1  gilroymedium-type fs-15"><i
                                                             class="mdi mdi-circle align-middle font-size-10 me-2 "
-                                                            style="color:#fff"></i> NoReply</p>
+                                                            style="color:#ED589D"></i> NoReply</p>
 
                                                 </div>
                                                 <div class=" col-6  col-md-3 pt-2  col-lg-5 col-xl-5">
@@ -1237,82 +1246,6 @@
                         </div>-->
                     </div>
                 </div>
-                <!--User-->
-                <div class="d-flex align-items-center  border-bottom py-3">
-                
-                    <div class="flex-shrink-0 me-3">
-                        <div class="avatar-sm align-self-center">
-                            <span class="avatar-title rounded-circle bg-soft-primary text-primary">
-                                J
-                            </span>
-                        </div>
-                    </div>
-                    <div class="flex-grow-1">
-                        <h6 class="mb-0">James Lemire</h6>
-                        <!--<div class="font-size-13 text-muted">
-                            <p class="mb-1">It will seem like simplified English.</p>
-                            <p class="mb-0"><i class="mdi mdi-clock-outline"></i> <span>1 hour ago</span></p>
-                        </div>-->
-                    </div>
-                </div>
-
-                <!--User-->
-                <div class="d-flex align-items-center  border-bottom py-3">
-                
-                    <div class="flex-shrink-0 me-3">
-                        <div class="avatar-sm align-self-center">
-                            <span class="avatar-title rounded-circle bg-soft-primary text-primary">
-                                J
-                            </span>
-                        </div>
-                    </div>
-                    <div class="flex-grow-1">
-                        <h6 class="mb-0">James Lemire</h6>
-                        <!--<div class="font-size-13 text-muted">
-                            <p class="mb-1">It will seem like simplified English.</p>
-                            <p class="mb-0"><i class="mdi mdi-clock-outline"></i> <span>1 hour ago</span></p>
-                        </div>-->
-                    </div>
-                </div>
-
-                <!--User-->
-                <div class="d-flex align-items-center  border-bottom py-3">
-                
-                    <div class="flex-shrink-0 me-3">
-                        <div class="avatar-sm align-self-center">
-                            <span class="avatar-title rounded-circle bg-soft-primary text-primary">
-                                J
-                            </span>
-                        </div>
-                    </div>
-                    <div class="flex-grow-1">
-                        <h6 class="mb-0">James Lemire</h6>
-                        <!--<div class="font-size-13 text-muted">
-                            <p class="mb-1">It will seem like simplified English.</p>
-                            <p class="mb-0"><i class="mdi mdi-clock-outline"></i> <span>1 hour ago</span></p>
-                        </div>-->
-                    </div>
-                </div>
-
-                <!--User-->
-                <div class="d-flex align-items-center  border-bottom py-3">
-                
-                    <div class="flex-shrink-0 me-3">
-                        <div class="avatar-sm align-self-center">
-                            <span class="avatar-title rounded-circle bg-soft-primary text-primary">
-                                J
-                            </span>
-                        </div>
-                    </div>
-                    <div class="flex-grow-1">
-                        <h6 class="mb-0">James Lemire</h6>
-                        <!--<div class="font-size-13 text-muted">
-                            <p class="mb-1">It will seem like simplified English.</p>
-                            <p class="mb-0"><i class="mdi mdi-clock-outline"></i> <span>1 hour ago</span></p>
-                        </div>-->
-                    </div>
-                </div>
-
                 </div>
            
             </div>
@@ -1341,8 +1274,8 @@
         var meeting_weekly_pie={{meeting_weekly_pie|safe}}
         var leads_pie={{leads_pie|safe}}
         var halfyearly_bar={{halfyearly_bar|safe}}
-        console.log("Leads Pie222222222222222222222222222222")
-        console.log(leads_pie)
+        console.log("daily00000000000000000"+seminar_daily_pie);
+        console.log("Weekly11111111111111111111"+seminar_weekly_pie);
       
 </script>
 

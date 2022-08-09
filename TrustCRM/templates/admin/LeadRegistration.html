@@ -229,7 +229,7 @@
                                                 <label class="form-label" for="phone2">Telephone</label>
                                                 <!--<input type="tel" class="form-control" id="Telephone" placeholder="e.g + 971 553 445 22" >-->
 
-                                                <input type="tel" class="form-control" id="phone2" name="telephone">
+                                                <input type="tel" class="form-control" id="phone2" name="telephone" >
                                                 <input type="hidden" name="tel_country" id="tel_country">
                                                 <span id="error-msg2" class="hide"></span>
                                                 <span id="valid-msg2" class="hide">✓ Valid</span>
@@ -305,6 +305,8 @@
                             </div>
                         </div> -->
                         <div class="flex-grow-1">
+                            <div id="ticket"></div>
+                            <br>
                             <h6 class="mb-0">You dont have permission to view this Ticket</h6>
                             <!--<div class="font-size-13 text-muted">
                                 <p class="mb-1">It will seem like simplified English.</p>
@@ -349,32 +351,54 @@
     <script>
         
         $('#lead_form').on('submit', function(e){
+            
+        
           
         e.preventDefault();
         
             console.log("Submit function happend")
-        var form_data=$('#lead_form')
-       
+            var email1=$("#email1").val()
+            var email2=$("#email2").val()
+            var mobile=$("#phone").val()
+            var phone=$("#phone2").val()
+            console.log("email1"+email1+"email2"+email2+"mobile"+mobile+"phone"+phone)
+            var form_data=$('#lead_form')
+            var form=$('#lead_form')[0]
+            var isValid = form.checkValidity();
+            console.log("Issssssssssss validddddddddddddd"+isValid)
+            
+       if(isValid){
         $.ajax({
                type : "POST", 
                url: "{% url 'Admin:LeadSubmit' %}",
                data: form_data.serialize(),
                
                success: function(data){
-                  
-                  $('#permission_model').modal('show')
-                  console.log("Success message'")
+                  console.log(data.success)
+                  var ticket=data.ticket;
+                  if(data.success){
+                    console.log("ticket"+ticket)
+                    console.log("Success message'")
+                    document.getElementById("ticket").innerHTML="<h6 class='mb-0'>Ticket already exists : "+ticket+"</h6>"
+                    $('#permission_model').modal('show')
+                  }else{
+                    console.log("Error message'")
+                    var url="{% url 'Admin:LeadProcessing'%}"
+                    window.location.href=url+"?&ticket="+ticket+"&email1="+email1+"&email2="+email2+"&mobile="+mobile+"&telephone="+phone
+                  }
+                 
+                 
                },
         
                failure: function() {
-                   console.log("Error message")
+                   console.log("Functional error")
                }
         
         
            });
 
        
-        
+       }
         
         
      

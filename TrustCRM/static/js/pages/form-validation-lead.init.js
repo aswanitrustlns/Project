@@ -125,6 +125,7 @@ File: Form validation Js File
                      }
                 }
                 if (form.checkValidity() === false ) {
+                    console.log("validity check")
                     event.preventDefault();
                     event.stopPropagation();
                 }

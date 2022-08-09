@@ -5,7 +5,8 @@
     {% load  static %}
     {% include "common/link.html" %}
     {% include "common/scripts.html" %}
-    
+    <link href="{% static 'css/input-tel.min.css' %}" rel="stylesheet"     type="text/css" />
+    <link rel="stylesheet" href="{% static 'libs/flatpickr/flatpickr.min.css' %}">
 
 </head>
 
@@ -53,7 +54,7 @@
 
                             <div class="mb-3 d-flex align-items-center justify-content-start">
                                 <label class="form-label  flex-shrink-0 " for="age">Ticket No:</label>
-                                <input type="text" class="form-control 0 ms-3 py-2" id="age"  value="180922" required="" style="width:91px ;">
+                                <input type="text" class="form-control 0 ms-3 py-2" id="age"  value={{ticket}} required="" style="width:91px ;">
                                 <button class="btn btn-lg btn-info  ms-3" type="submit">Load</button>
         
                              </div>
@@ -814,7 +815,7 @@
                                                             <div class="flex-grow-1 overflow-hidden me-4 gilroyregular-type">
                                                                 <p class="font-size-14 mb-1 text-muted">May 19, 2022</p>
                                                                 <div class="mt-2 bg-soft-boxgray1 px-3 py-3 fs-13 rounded-3 d-flex flex-wrap">
-                                                                    <img class="rounded-circle avatar-md mb-2" alt="200x200" src="assets/images/users/avatar-4.jpg" data-holder-rendered="true">
+                                                                    <img class="rounded-circle avatar-md mb-2" alt="200x200" src="{%static 'images/users/avatar-4.jpg' %}" data-holder-rendered="true">
                                                                     <div class="ms-2">
                                                                         <p class="text-truncate text-muted  mb-0 ">Admin</p>
                                                                         <p class="text-truncate text-white  mb-0 fs-15"><span class="me-2 d-inline-block">Register ticket</span> <svg width="10" height="8" viewBox="0 0 10 8" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -847,7 +848,7 @@
                                                             <div class="flex-grow-1 overflow-hidden me-4 gilroyregular-type">
                                                                 <p class="font-size-14 mb-1 text-muted">May 19, 2022</p>
                                                                 <div class="mt-2 bg-soft-boxgray1 px-3 py-3 fs-13 rounded-3 d-flex flex-wrap">
-                                                                    <img class="rounded-circle avatar-md mb-2" alt="200x200" src="assets/images/users/avatar-4.jpg" data-holder-rendered="true">
+                                                                    <img class="rounded-circle avatar-md mb-2" alt="200x200" src="{%static 'images/users/avatar-4.jpg' %}" data-holder-rendered="true">
                                                                     <div class="ms-2">
                                                                         <p class="text-truncate text-muted  mb-0 ">Admin</p>
                                                                         <p class="text-truncate text-white  mb-0 fs-15"><span class="me-2 d-inline-block">Register ticket</span> <svg width="10" height="8" viewBox="0 0 10 8" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -2178,7 +2179,7 @@
                                                                                             <div class="d-flex align-items-start">
                                             
                                                                                                 <div class="flex-shrink-0 user-img online align-self-center me-3">
-                                                                                                    <img src="{%static 'assets/images/users/avatar-2.jpg' %}" class="rounded-circle avatar-sm" alt="">
+                                                                                                    <img src="{%static 'images/users/avatar-2.jpg' %}" class="rounded-circle avatar-sm" alt="">
                                                                                                     <span class="user-status"></span>
                                                                                                 </div>
                                             
@@ -2302,7 +2303,7 @@
                                                                                             <div class="d-flex align-items-start">
                                             
                                                                                                 <div class="flex-shrink-0 user-img align-self-center me-3">
-                                                                                                    <img src="{%static 'assets/images/users/avatar-6.jpg' %}" class="rounded-circle avatar-sm" alt="">
+                                                                                                    <img src="{%static 'images/users/avatar-6.jpg' %}" class="rounded-circle avatar-sm" alt="">
                                                                                                     <span class="user-status"></span>
                                                                                                 </div>
                                             
@@ -3478,10 +3479,192 @@
 
     </div> <!-- end slimscroll-menu-->
 </div>
+
+<div class="modal fade  bs-example-modal-insta" tabindex="-1" role="dialog" aria-hidden="true" id="phone_model">
+    <div class="modal-dialog modal-dialog-centered modal-lg d-block"   style="z-index: 10555;">
+        <div class="modal-content mb-4">
+            <div class="modal-header border-0">
+                <h5 class="modal-title fs-21">Search Phone</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+                                                
+                                                   
+                                          
+            <div class="modal-body">        
+
+              
+                 
+             
+
+                 <div class="table-responsive" data-simplebar style="max-height: 352px;">
+                     <table class="table mb-0 ">
+
+                         <thead>
+                             <tr class="almarenamonolight-type fs-14">
+                                 <th>Seminars</th>
+                                 <th>Level</th>
+                                 <th>Invited</th>
+                                 <th>App form</th>
+                                 <th>Status</th>
+                                 <th>Feedback</th>
+                                 <th class="text-end">Edit</th>
+                             </tr>
+                         </thead>
+                         <tbody class="gilroyregular-type fs-15">
+                             <tr>
+                                 <th scope="row">02</th>
+                                 <td>26-05-2022</td>
+                                 <td>13:00</td>
+                                 <td>TC Limitted office</td>
+                                 <td>Introduce</td>
+                                 <td  class="text-success">Attended</td>
+                                 <td class="text-end">77</td>
+                             </tr>
+                             <tr>
+                                 <th scope="row">02</th>
+                                 <td>26-05-2022</td>
+                                 <td>13:00</td>
+                                 <td>TC Limitted office</td>
+                                 <td>Introduce</td>
+                                 <td  class="text-danger">Not attended</td>
+                                 <td class="text-end">77</td>
+                             </tr>
+                             <tr>
+                                 <th scope="row">02</th>
+                                 <td>26-05-2022</td>
+                                 <td>13:00</td>
+                                 <td>TC Limitted office</td>
+                                 <td>Introduce</td>
+                                 <td  class="text-warning">Pending</td>
+                                 <td class="text-end">77</td>
+                             </tr>
+
+
+
+
+
+
+                         </tbody>
+                     </table>
+                 </div> 
+             
+             
+
+
+             
+            
+                
+            </div>
+
+            
+        </div>
+    </div>
+</div>
+<div class="modal fade  bs-example-modal-insta" tabindex="-1" role="dialog" aria-hidden="true" id="email_model">
+    <div class="modal-dialog modal-dialog-centered modal-lg d-block"   style="z-index: 10555;">
+        <div class="modal-content mb-4">
+                                                
+                                                   
+                                          
+            <div class="modal-body">
+
+            
+
+              
+                 <div class="modal-header border-0">
+                     <h5 class="modal-title fs-21">Email</h5>
+                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                 </div>
+             
+
+                 <div class="table-responsive" data-simplebar style="max-height: 352px;">
+                     <table class="table mb-0 ">
+
+                         <thead>
+                             <tr class="almarenamonolight-type fs-14">
+                                 <th>Seminars</th>
+                                 <th>Level</th>
+                                 <th>Invited</th>
+                                 <th>App form</th>
+                                 <th>Status</th>
+                                 <th>Feedback</th>
+                                 <th class="text-end">Edit</th>
+                             </tr>
+                         </thead>
+                         <tbody class="gilroyregular-type fs-15">
+                             <tr>
+                                 <th scope="row">02</th>
+                                 <td>26-05-2022</td>
+                                 <td>13:00</td>
+                                 <td>TC Limitted office</td>
+                                 <td>Introduce</td>
+                                 <td  class="text-success">Attended</td>
+                                 <td class="text-end">77</td>
+                             </tr>
+                             <tr>
+                                 <th scope="row">02</th>
+                                 <td>26-05-2022</td>
+                                 <td>13:00</td>
+                                 <td>TC Limitted office</td>
+                                 <td>Introduce</td>
+                                 <td  class="text-danger">Not attended</td>
+                                 <td class="text-end">77</td>
+                             </tr>
+                             <tr>
+                                 <th scope="row">02</th>
+                                 <td>26-05-2022</td>
+                                 <td>13:00</td>
+                                 <td>TC Limitted office</td>
+                                 <td>Introduce</td>
+                                 <td  class="text-warning">Pending</td>
+                                 <td class="text-end">77</td>
+                             </tr>
+
+
+
+
+
+
+                         </tbody>
+                     </table>
+                 </div> 
+             
+             
+
+
+             
+            
+                
+            </div>
+
+            
+        </div>
+    </div>
+</div>
 {% include "common/right-sidebar.html" %}
    
     <!-- Right bar overlay-->
     <div class="rightbar-overlay"></div>
+    <script>
+        var table={{email_phone|safe}}
+        console.log("table dataaaaaaa"+table);
+        $(document).ready(function() {
+
+                        console.log("Pop up show called")   
+                        $("#phone_model").modal('show');
+                        console.log("called pop up")
+        });
+
+    
+    </script>
+  
+    <script src="{%static 'libs/flatpickr/flatpickr.min.js' %}"></script>
+
+    <!-- form intTel -->
+    <script src="{%static 'js/pages/data.init.js' %}"></script> 
+    <script src="{%static 'js/pages/intTellinput.init.js' %}"></script>   
+    <script src="{%static 'js/pages/utils.init.js' %}"></script> 
+    
     <script src="{%static 'js/pages/leadprocessing.init.js' %}"></script>
     <script src="{%static 'js/app.js' %}"></script>
     

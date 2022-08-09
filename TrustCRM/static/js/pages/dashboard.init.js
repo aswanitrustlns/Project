@@ -70,6 +70,31 @@ function renderSeminarPie($series,$id,$label){
     },
     series:$series,
     labels: $label,
+    noData: {
+
+       
+
+        text: 'No semiars',
+
+        align: "center",
+
+        verticalAlign: "middle",
+
+
+
+        style: {
+
+            color: undefined,
+
+            background: 'red',
+
+            fontSize: '14px',
+
+            fontFamily: 'giloryregular',
+
+          }
+
+    },
     colors: piechartColors,
     stroke: {
         width: 0,
@@ -520,6 +545,31 @@ var options = {
   }, 
   series: $series,
   labels: $label,
+  noData: {
+
+       
+
+    text: 'No meetings',
+
+    align: "center",
+
+    verticalAlign: "middle",
+
+
+
+    style: {
+
+        color: undefined,
+
+        background: 'red',
+
+        fontSize: '14px',
+
+        fontFamily: 'giloryregular',
+
+      }
+
+},
   colors: donutColors,
   legend: {
       show: true,
