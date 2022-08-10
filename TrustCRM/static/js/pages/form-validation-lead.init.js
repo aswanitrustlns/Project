@@ -24,7 +24,7 @@ File: Form validation Js File
                 const email1=formData.get('email1');
                 const email2=formData.get('email2');
                 if(name){
-                    var regName = /^[a-zA-Z]+ [a-zA-Z]+$/;
+                    var regName = /^[a-zA-Z]+ [a-zA-Z]+ ?[a-zA-Z]+$/;
                     
                     if(!regName.test(name)){
                         // alert('Please enter your full name (first & last name).');

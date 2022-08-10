@@ -376,8 +376,12 @@
                success: function(data){
                   console.log(data.success)
                   var ticket=data.ticket;
+                  if(ticket === undefined){
+                    ticket=" ";
+                  }
                   if(data.success){
-                    console.log("ticket"+ticket)
+                    console.log("ticket"+ticket);
+                 
                     console.log("Success message'")
                     document.getElementById("ticket").innerHTML="<h6 class='mb-0'>Ticket already exists : "+ticket+"</h6>"
                     $('#permission_model').modal('show')

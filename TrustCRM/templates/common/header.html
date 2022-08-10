@@ -1,10 +1,10 @@
 {% load  static %}
 
-<header id="page-topbar">
+<header id="page-topbar" class="border-0">
     <div class="navbar-header">
         <div class="d-flex">
             <!-- LOGO -->
-            <div class="navbar-brand-box border-none border-0 border-bottom mt-0">
+            <div class="navbar-brand-box border-0  mt-0">
                 <a href="{% url 'Admin:Dashboard' %}" class="logo logo-dark">
                     <span class="logo-sm">
                         <img src="{% static 'images/logo-sm.svg' %}" alt="" height="48">
@@ -134,7 +134,7 @@
                     <i data-feather="bell" class="icon-lg"></i>
                     <span class="badge bg-danger rounded-pill">{{request.session.notification}}</span>
                 </button>
-                {% ifequal request.session.notification 0 %}
+                {% ifnotequal request.session.notification 0 %}
                 <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end p-0"
                     aria-labelledby="page-header-notifications-dropdown">
                     <div class="p-3">
@@ -143,13 +143,13 @@
                                 <h6 class="m-0"> Notifications </h6>
                             </div>
                             <div class="col-auto">
-                                <a href="#!" class="small text-reset text-decoration-underline"> Unread (3)</a>
+                                <!-- <a href="#!" class="small text-reset text-decoration-underline"> Unread (3)</a> -->
                             </div>
                         </div>
                     </div>
                     
-                    <div data-simplebar style="max-height: 230px;">
-                        <!-- <a href="#!" class="text-reset notification-item">
+                    <!-- <div data-simplebar style="max-height: 230px;">
+                        <a href="#!" class="text-reset notification-item">
                             <div class="d-flex">
                                 <div class="flex-shrink-0 me-3">
                                     <img src="{% static 'images/users/avatar-3.jpg' %}" class="rounded-circle avatar-sm" alt="user-pic">
@@ -158,7 +158,7 @@
                                 <div class="flex-grow-1">
                                     <h6 class="mb-1">James Lemire</h6>
                                     <div class="font-size-13 text-muted">
-                                        <p class="mb-1">{{notification}}</p>
+                                        <p class="mb-1">{{request.session.notification_data}}</p>
                                         <p class="mb-0"><i class="mdi mdi-clock-outline"></i> <span>1 hour ago</span></p>
                                     </div>
                                 </div>
@@ -188,7 +188,7 @@
                         </a>
                     </div> -->
                 </div>
-                {% endifequal %}
+                {% endifnotequal %}
             </div>
 
         </div>

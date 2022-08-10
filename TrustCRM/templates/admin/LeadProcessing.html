@@ -54,7 +54,7 @@
 
                             <div class="mb-3 d-flex align-items-center justify-content-start">
                                 <label class="form-label  flex-shrink-0 " for="age">Ticket No:</label>
-                                <input type="text" class="form-control 0 ms-3 py-2" id="age"  value={{ticket}} required="" style="width:91px ;">
+                                <input type="text" class="form-control 0 ms-3 py-2" id="age"  value="{{ticket}}" required="" style="width:91px ;">
                                 <button class="btn btn-lg btn-info  ms-3" type="submit">Load</button>
         
                              </div>
@@ -3480,7 +3480,7 @@
     </div> <!-- end slimscroll-menu-->
 </div>
 
-<div class="modal fade  bs-example-modal-insta" tabindex="-1" role="dialog" aria-hidden="true" id="phone_model">
+<div class="modal fade  bs-example-modal-insta" tabindex="-1" role="dialog" aria-hidden="true" id="phone_email_model">
     <div class="modal-dialog modal-dialog-centered modal-lg d-block"   style="z-index: 10555;">
         <div class="modal-content mb-4">
             <div class="modal-header border-0">
@@ -3497,53 +3497,18 @@
              
 
                  <div class="table-responsive" data-simplebar style="max-height: 352px;">
-                     <table class="table mb-0 ">
+                     <table class="table mb-0 " id="">
 
                          <thead>
                              <tr class="almarenamonolight-type fs-14">
-                                 <th>Seminars</th>
-                                 <th>Level</th>
-                                 <th>Invited</th>
-                                 <th>App form</th>
-                                 <th>Status</th>
-                                 <th>Feedback</th>
-                                 <th class="text-end">Edit</th>
+                                 <th>Ticket No</th>
+                                 <th>Name</th>
+                                 <th>Sales Rep</th>
+                                 <th class="text-end">Reassigned</th>
+                                 
                              </tr>
                          </thead>
-                         <tbody class="gilroyregular-type fs-15">
-                             <tr>
-                                 <th scope="row">02</th>
-                                 <td>26-05-2022</td>
-                                 <td>13:00</td>
-                                 <td>TC Limitted office</td>
-                                 <td>Introduce</td>
-                                 <td  class="text-success">Attended</td>
-                                 <td class="text-end">77</td>
-                             </tr>
-                             <tr>
-                                 <th scope="row">02</th>
-                                 <td>26-05-2022</td>
-                                 <td>13:00</td>
-                                 <td>TC Limitted office</td>
-                                 <td>Introduce</td>
-                                 <td  class="text-danger">Not attended</td>
-                                 <td class="text-end">77</td>
-                             </tr>
-                             <tr>
-                                 <th scope="row">02</th>
-                                 <td>26-05-2022</td>
-                                 <td>13:00</td>
-                                 <td>TC Limitted office</td>
-                                 <td>Introduce</td>
-                                 <td  class="text-warning">Pending</td>
-                                 <td class="text-end">77</td>
-                             </tr>
-
-
-
-
-
-
+                         <tbody class="gilroyregular-type fs-15" id="search_body">
                          </tbody>
                      </table>
                  </div> 
@@ -3560,99 +3525,32 @@
         </div>
     </div>
 </div>
-<div class="modal fade  bs-example-modal-insta" tabindex="-1" role="dialog" aria-hidden="true" id="email_model">
-    <div class="modal-dialog modal-dialog-centered modal-lg d-block"   style="z-index: 10555;">
-        <div class="modal-content mb-4">
-                                                
-                                                   
-                                          
-            <div class="modal-body">
 
-            
-
-              
-                 <div class="modal-header border-0">
-                     <h5 class="modal-title fs-21">Email</h5>
-                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                 </div>
-             
-
-                 <div class="table-responsive" data-simplebar style="max-height: 352px;">
-                     <table class="table mb-0 ">
-
-                         <thead>
-                             <tr class="almarenamonolight-type fs-14">
-                                 <th>Seminars</th>
-                                 <th>Level</th>
-                                 <th>Invited</th>
-                                 <th>App form</th>
-                                 <th>Status</th>
-                                 <th>Feedback</th>
-                                 <th class="text-end">Edit</th>
-                             </tr>
-                         </thead>
-                         <tbody class="gilroyregular-type fs-15">
-                             <tr>
-                                 <th scope="row">02</th>
-                                 <td>26-05-2022</td>
-                                 <td>13:00</td>
-                                 <td>TC Limitted office</td>
-                                 <td>Introduce</td>
-                                 <td  class="text-success">Attended</td>
-                                 <td class="text-end">77</td>
-                             </tr>
-                             <tr>
-                                 <th scope="row">02</th>
-                                 <td>26-05-2022</td>
-                                 <td>13:00</td>
-                                 <td>TC Limitted office</td>
-                                 <td>Introduce</td>
-                                 <td  class="text-danger">Not attended</td>
-                                 <td class="text-end">77</td>
-                             </tr>
-                             <tr>
-                                 <th scope="row">02</th>
-                                 <td>26-05-2022</td>
-                                 <td>13:00</td>
-                                 <td>TC Limitted office</td>
-                                 <td>Introduce</td>
-                                 <td  class="text-warning">Pending</td>
-                                 <td class="text-end">77</td>
-                             </tr>
-
-
-
-
-
-
-                         </tbody>
-                     </table>
-                 </div> 
-             
-             
-
-
-             
-            
-                
-            </div>
-
-            
-        </div>
-    </div>
-</div>
 {% include "common/right-sidebar.html" %}
    
     <!-- Right bar overlay-->
     <div class="rightbar-overlay"></div>
     <script>
-        var table={{email_phone|safe}}
-        console.log("table dataaaaaaa"+table);
+        var table_data={{email_phone|safe}}
+        var count = Object.keys(table_data).length;
+        console.log("lenght---------------------"+count);
+        console.log("table dataaaaaaa"+table_data);
         $(document).ready(function() {
+                    if(count>1){
 
-                        console.log("Pop up show called")   
-                        $("#phone_model").modal('show');
+                        console.log("Pop up show called")  
+                        table_data.forEach(element => {
+                            console.log("Table data is-------------")
+                            console.log(element[0]);
+                            $("#search_body").append(
+                            '<tr><th scope="row">'+element[0]+'</th><td>'+element[1]+'</td><td>'+element[2]+'</td><td class="text-end">'+element[3]+'</td></tr>'                            
+                        )
+                        }); 
+                      
+                        $("#phone_email_model").modal('show');
                         console.log("called pop up")
+                    }
+                     
         });
 
     

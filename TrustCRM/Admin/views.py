@@ -230,12 +230,16 @@ def dashboard(request):
         
        
         notify_count=notification_count[0]
+        # notification_data=notify_count[1]
         print("Notification Count------------",notify_count)
+        # print("Notification data-----------",notification_data)
         # notification_count=len(notification)
         # print("notifiaction",notification,notification_count)
         notification_count=notify_count[0]
         print("**************************",notification_count)
+        
         request.session['notification'] = notification_count
+        # request.session['notification_data'] = notification_data
        
         Cursor.execute("set nocount on;exec SP_SpokenCallsCount")
         spokencall=Cursor.fetchall()
@@ -360,8 +364,8 @@ def dashboard(request):
         
         
         
-    except Exception:
-        print("!!!!!!!!!!!!!!!!!!!!!!Exception!!!!!!!!!!!!!!!!!!!!!!!!!!",Exception)    
+    except Exception as e:
+        print("!!!!!!!!!!!!!!!!!!!!!!Exception!!!!!!!!!!!!!!!!!!!!!!!!!!",e.__class__)    
    
     
     # return HttpResponse(result_set,200)
@@ -381,14 +385,24 @@ def dashboard(request):
 def lead(request):
     UserId=request.session.get('UserId')
     print(UserId)
-    Cursor.execute("exec SP_GetSummaryListToday  %s",[UserId])
-    notification=Cursor.fetchall()   
-    print(notification[0])  
-    notification=json.dumps(notification) 
-    print(notification) 
-    print(notification[0])
-    
-    return render(request,'admin/Leads.html')
+    date_today=datetime.today().date()    
+    date_today=date_today.strftime("%Y-%m-%d")
+    week_day=datetime.today().weekday() # Monday is 0 and Sunday is 6
+    if(week_day==0):
+            date_yesterday = datetime.today()-timedelta(3)
+    else:
+        date_yesterday = datetime.today()-timedelta(1)
+            
+    date_yesterday=date_yesterday.strftime("%Y-%m-%d")
+    # Cursor.execute("exec SP_GetTotalLeadsCount %s,%s,%s,%s,%s,%s,%s",[date_yesterday,date_today,'','',0,0,1])
+    # leads_count_list=Cursor.fetchall()  
+    # leads_count=leads_count_list[0] 
+    # leads_count=leads_count[0]
+    # print(leads_count)
+    Cursor.execute("exec SP_GetNewSalesLeadsPaginate_PY %s,%s,%s,%s,%s,%s,%s",[date_yesterday,date_today,'',0,0,'',0])
+    leads_data=Cursor.fetchall()
+    # print("Leads data---------------------",leads_data)
+    return render(request,'admin/Leads.html',{'leads_data':leads_data})
 
 def lead_registration(request):
     UserId=request.session.get('UserId')
@@ -447,6 +461,7 @@ def lead_registration_check(request):
         
         hostname=socket.gethostname()   
         IPAddr=socket.gethostbyname(hostname)
+        print("Updated date---------------",updated_date)
         print(country1)
         print(type(country1))
         print(country2)
@@ -510,24 +525,31 @@ def lead_processing(request):
         mobile=request.GET.get('mobile')
         phone=request.GET.get('telephone')
         print("email1",email1,"email2",email2,"mobile",mobile,"phone",phone)
+                                                                                                                            
         if email1 or email2 or mobile or phone:
-            Cursor.execute("set nocount on;exec SP_SearchPhoneEmail_PY %s,%s,%s,%s,%s",[mobile,phone,email1,email2,UserId])
+            Cursor.execute("set nocount on;exec SP_SearchPhoneEmail_PY %s,%s,%s,%s,%s",[mobile,phone,email1,email2,UserId]) # To test exec SP_SearchPhone '4588',21
             search_email_phone=Cursor.fetchall() 
             print("--------------------------",search_email_phone,type(search_email_phone))
             while (Cursor.nextset()):
                 search_email_phone1 = Cursor.fetchall()
-                print("next data set----------------",search_email_phone1)
+                print("next data set1----------------",search_email_phone1)
+            if search_email_phone1:
+                search_email_phone=search_email_phone+search_email_phone1
             while (Cursor.nextset()):
                 search_email_phone2 = Cursor.fetchall()
-                print("next data set----------------",search_email_phone2)
+                print("next data set2----------------",search_email_phone2)
+            if search_email_phone2:
+                search_email_phone=search_email_phone+search_email_phone2
             while (Cursor.nextset()):
                 search_email_phone3 = Cursor.fetchall()
-                print("next data set----------------",search_email_phone3)
+                print("next data set3----------------",search_email_phone3)
+            if search_email_phone3:
+                search_email_phone=search_email_phone+search_email_phone3
         if ticket is None:
             ticket=" "
         print("ticket1111111111111111111",ticket)
-    except:
-        print("Error")
+    except Exception as e:
+        print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!Exception!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!",e.__class__)
     return render(request,'admin/LeadProcessing.html',{'ticket':ticket,'email_phone':json.dumps(search_email_phone),'email_phone1':search_email_phone1,'email_phone2':search_email_phone2,'email_phone3':search_email_phone3})
     
    
