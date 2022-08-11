@@ -8,9 +8,13 @@ urlpatterns=[
     path('login_check',login_check,name="Check"),
     path('dashboard/',dashboard,name="Dashboard"),
     path('Leads/',lead,name="Leads"),
+    path('LoadAll',lead_load_all,name="LoadAll"),
     path('LeadRegistration/',lead_registration,name="LeadRegistration"),
     path('LeadSubmit',lead_registration_check,name="LeadSubmit"),
     path('LeadProcessing',lead_processing,name="LeadProcessing"),
+    path('pendingtickets',pending_tickets,name='PendingTickets'),
+
+    path('resolvedtickets',resolved_tickets,name='ResolvedTickets'),
     path('logout',logout,name="Logout")
    
  

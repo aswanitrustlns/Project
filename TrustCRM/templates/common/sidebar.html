@@ -108,6 +108,15 @@
                         <li><a  href="{% url 'Admin:LeadRegistration'%}" data-key="t-LeadRegistration">Ticket Registration</a></li>
                         <li><a  href="{% url 'Admin:LeadProcessing'%}" data-key="t-LeadRegistration">Manage Tickets</a></li>
                         
+                        <li><a href="javascript: void(0);" class="has-arrow" data-key="t-level-1-2" aria-expanded="false">Tickets</a>
+                            <ul class="sub-menu mm-collapse" aria-expanded="false" >
+                                <li><a  href="{% url 'Admin:PendingTickets'%}" data-key="t-LeadRegistration">Pending Tickets</a></li>
+                                <li><a  href="{% url 'Admin:ResolvedTickets'%}" data-key="t-LeadRegistration">Resolved Tickets</a></li>
+                            </ul>
+                        </li>
+
+                        
+                        
                     </ul>
                 </li>
                 <li>

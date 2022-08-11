@@ -22,11 +22,19 @@ function getChartColorsArray(chartId) {
         }
     })
 }
-function switchtab($displaytab,$hiddentab) {
+function switchtab($this,$displaytab,$hiddentab) {
     $($displaytab).addClass('d-block');
     $($displaytab).removeClass('d-none');
     $($hiddentab).addClass('d-none');
     $($hiddentab).removeClass('d-block');  
+      //btnactive change color
+      if($($this).hasClass('bg-soft-gunmetal')){
+
+    }else{  
+        $($this).addClass('bg-soft-gunmetal');
+        $($this).siblings().removeClass('bg-soft-gunmetal');
+    }
+
 }
 
 
