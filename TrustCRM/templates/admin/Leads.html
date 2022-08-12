@@ -156,34 +156,29 @@
             $('#datatableleads').dataTable().fnClearTable();
             $('#datatableleads').dataTable().fnDestroy();
             $("#datatableleads").DataTable({
-                'processing' : true,
-                'serverSide' : true,
+                // 'processing' : true,
+                
+                'paging':true,               
                 'ajax':{
                    "url": "{% url 'Admin:LoadAll' %}",
-                   dataSrc:"",
-                },
-                'coloumns':[
-                    {'data':'DATE'},
-                  
-                    {'data':'EMAIL'},
-                    {'data':'NAME'},
-                    {'data':'PHONE'},
-                    {'data':'SOURCE'},
-                    {'data':'COUNTRY'},
+                   "dataSrc":function(json_data){
+                    
+               
+                    var items = [];
+                    for ( var i=0, ien=json_data.length ; i<ien ; i++ ) {
 
-                ]
+                        items[i] = [json_data[i][0],json_data[i][2],json_data[i][3],json_data[i][4],json_data[i][5],json_data[i][7]]; 
+                            
+                        }
+                        console.log(items);
+                        return items;
+                   }
+                },
+                
+               
             });
 
-//             function ( json ) {
-
-// for ( var i=0, ien=json.data.length ; i<ien ; i++ ) {
-
-//     json.data[i][0] = '<td >'+json.data[i][0]+'</td><td>'+json.data[i][2]+'</td><td>'+json.data[i][3]+'</td><td>'+json.data[i][4]+'</td>'+
-//                         '<td>'+json.data[i][5]+'</td><td>'+json.data[i][7]+'</td>';
-// }
-// return json.data;
-
-// },
+//             function ( json ) {},
             
             // var all_data=$('#datatableleads').dataTable();
             // all_data.fnClearTable();

@@ -66,10 +66,10 @@
                                         <thead>
                                             <tr  class="bg-soft-carlestongreen ">
                                                 <th >Date</th>
-                                                <th >Id</th>
-                                                <th  >Email</th>
+                                                <!-- <th >Ticket No</th> -->
                                                 <th  >Name</th>
                                                 <th  >Phone</th>
+                                                <!-- <th  >Email</th> -->
                                                 <th  >Source</th>
                                                 <th  class="text-end">Country</th>
                                             </tr>
@@ -86,15 +86,15 @@
                                             <th  data-type="text" >Source</th>
                                             <th  data-type="text" >Country</th>
                                         </tr>    -->
-                                        {%for data in leads_data %}
+                                        {%for data in pending_tickets %}
                                         <tr ondblclick='checkticket("{{data.2}}","{{data.4}}")' style="cursor: pointer;">
                                             <td >{{data.0}}</td>
-                                            <td>{{data.1}}</td>
+                                            <!-- <td>{{data.1}}</td> -->
                                             <td>{{data.2}}</td>
                                             <td>{{data.3}}</td>
-                                            <td>{{data.4}}</td>
+                                            <!-- <td>{{data.4}}</td> -->
+                                            <td>{{data.6}}</td>
                                             <td>{{data.5}}</td>
-                                            <td>{{data.7}}</td>
                                         </tr>
                                         
                                         {%endfor%}
@@ -150,6 +150,34 @@
             
             console.log("email----lead"+lead_phone)
         }
+        function loadAll(){
+
+                $('#datatableleads').dataTable().fnClearTable();
+                $('#datatableleads').dataTable().fnDestroy();
+                $("#datatableleads").DataTable({
+                    // 'processing' : true,
+                    
+                    'paging':true,               
+                    'ajax':{
+                    "url": "{% url 'Admin:LoadAll' %}",
+                    "dataSrc":function(json_data){
+                        
+                
+                        var items = [];
+                        for ( var i=0, ien=json_data.length ; i<ien ; i++ ) {
+
+                            items[i] = [json_data[i][0],json_data[i][2],json_data[i][3],json_data[i][4],json_data[i][5],json_data[i][7]]; 
+                                
+                            }
+                            console.log(items);
+                            return items;
+                    }
+                    },
+                    
+                
+            });
+        }
+
     </script>
     
     <!-- Required datatable js -->

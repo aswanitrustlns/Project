@@ -417,9 +417,11 @@ def lead_load_all(request):
     date_today=date_today.strftime("%Y-%m-%d")
     Cursor.execute("exec SP_GetNewSalesLeadsPaginate_PY %s,%s,%s,%s,%s,%s,%s",["1900-01-01",date_today,'',0,0,'',0])
     load_data=Cursor.fetchall()    
-   
+    # paginator = Paginator(load_data, 10)
     print("load data-------------------------",len(load_data))
-    return HttpResponse(json.dumps(load_data))
+    return JsonResponse(list(load_data), safe=False)
+
+
 
     
 
@@ -458,76 +460,81 @@ def lead_registration_check(request):
         zip_code=request.POST.get('zipcode')
         if not zip_code:
             zip_code=0
-        
+      
         mobile_country_code=request.POST.get('mobile_country')#Get ContryID
-        Cursor.execute("SELECT UserName FROM tbl_User where UserID=%s",[UserId])
-        source=Cursor.fetchone()
-        source=source[0]
-        
-        print("Source222",source)
-        Cursor.execute("SELECT ID FROM tbl_Country where CCode=%s",[mobile_country_code])
-        country1=Cursor.fetchone()
-        if country1:
-            country1=country1[0]
-        telephone_country_code=request.POST.get('tel_country')#Get ContryID
-        Cursor.execute("SELECT ID FROM tbl_Country where CCode=%s",[telephone_country_code])
-        country2=Cursor.fetchone()
-        if country2:
-            country2=country2[0]
-        
-        reg_date=datetime.today().date()
-        reg_date=reg_date.strftime("%m-%d-%Y")
-        updated_date=datetime.now()
-        
-        updated_date=updated_date.strftime("%m-%d-%Y %H:%M:%S")
-        
-        hostname=socket.gethostname()   
-        IPAddr=socket.gethostbyname(hostname)
-        print("Updated date---------------",updated_date)
-        print(country1)
-        print(type(country1))
-        print(country2)
-        print(type(country2))
-        print(type(IPAddr))
-        print("print------",title,name,email_avl,email1,email2,profession,subject,source,state,address,city,zip_code,mobile,telephone,mobile_country_code,telephone_country_code,country1,country2,IPAddr)
+        try:  
+            Cursor.execute("SELECT UserName FROM tbl_User where UserID=%s",[UserId])
+            source=Cursor.fetchone()
+            source=source[0]
+            
+            print("Source222",source)
+            Cursor.execute("SELECT ID FROM tbl_Country where CCode=%s",[mobile_country_code])
+            country1=Cursor.fetchone()
+            if country1:
+                country1=country1[0]
+            telephone_country_code=request.POST.get('tel_country')#Get ContryID
+            Cursor.execute("SELECT ID FROM tbl_Country where CCode=%s",[telephone_country_code])
+            country2=Cursor.fetchone()
+            if country2:
+                country2=country2[0]
+            
+            reg_date=datetime.today().date()
+            reg_date=reg_date.strftime("%m-%d-%Y")
+            updated_date=datetime.now()
+            
+            updated_date=updated_date.strftime("%m-%d-%Y %H:%M:%S")
+            
+            hostname=socket.gethostname()   
+            IPAddr=socket.gethostbyname(hostname)
+            print("Updated date---------------",updated_date)
+            print(country1)
+            print(type(country1))
+            print(country2)
+            print(type(country2))
+            print(type(IPAddr))
+            print("print------",title,name,email_avl,email1,email2,profession,subject,source,state,address,city,zip_code,mobile,telephone,mobile_country_code,telephone_country_code,country1,country2,IPAddr)
 
-        print("Lead submit ")        
-        Cursor.execute("EXEC SP_InsertSalesLeadReg_CRM %s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s",[name,mobile,telephone,email1,email2,address,city,zip_code,source,UserId,updated_date,updated_date,title,profession,"Pending",state,country1,country2,subject,age,IPAddr])
-        ticket=Cursor.fetchone() 
-           
-        ticket=ticket[0]
-        hash_check=ticket.find("#")
-        ticket=ticket.replace('#','')
-        print(hash_check)
-        if hash_check>=0:
-              
-            print("TTTTTTTTTTTTTTTTTicket",ticket)
-            print(type(ticket))
-            print("email------",email1,type(email1))
-            print("email2",email2,type(email2))
-            print("mobile----",mobile,type(mobile))
-            print("telephone-----",telephone,type(telephone))
-
-            Cursor.execute("set nocount on;exec SP_MergeTicket %s,%s,%s,%s,%s",[ticket,email1,email2,mobile,telephone])
-            # merge_ticket=Cursor.fetchone()
-            login=0
-            Cursor.execute("set nocount on;exec SP_CheckUserPermission_PY %s,%s,%s",[UserId,ticket,login])
-            user_permission=Cursor.fetchone() 
-            print("User Permissio-------",user_permission)
-
-            user_permission=user_permission[0]
+            print("Lead submit ")        
+            Cursor.execute("EXEC SP_InsertSalesLeadReg_CRM %s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s",[name,mobile,telephone,email1,email2,address,city,zip_code,source,UserId,updated_date,updated_date,title,profession,"Pending",state,country1,country2,subject,age,IPAddr])
+            ticket=Cursor.fetchone() 
+            
+            ticket=ticket[0]
+            hash_check=ticket.find("#")
+            ticket=ticket.replace('#','')
+            print(hash_check)
+            if hash_check>=0:
                 
+                print("TTTTTTTTTTTTTTTTTicket",ticket)
+                print(type(ticket))
+                print("email------",email1,type(email1))
+                print("email2",email2,type(email2))
+                print("mobile----",mobile,type(mobile))
+                print("telephone-----",telephone,type(telephone))
+
+                Cursor.execute("set nocount on;exec SP_MergeTicket %s,%s,%s,%s,%s",[ticket,email1,email2,mobile,telephone])
+                # merge_ticket=Cursor.fetchone()
+                login=0
+                Cursor.execute("set nocount on;exec SP_CheckUserPermission_PY %s,%s,%s",[UserId,ticket,login])
+                user_permission=Cursor.fetchone() 
+                print("User Permissio-------",user_permission)
+
+                user_permission=user_permission[0]
+                    
+                    
+                
+                print("User Permissio-------",user_permission)
+                if user_permission:
+                    print("No permission")
+                    return JsonResponse({'success':True,'ticket':ticket})
+                else:
+                    return JsonResponse({'success':False,'ticket':ticket})
+        except:
+            print("Error")
+        finally:
+            print("Error")
                 
             
-            print("User Permissio-------",user_permission)
-            if user_permission:
-                print("No permission")
-                return JsonResponse({'success':True,'ticket':ticket})
-            else:
-                return JsonResponse({'success':False,'ticket':ticket})
-            
-        
-        else:
+    else:
             
              return render(request,'admin/LeadProcessing.html')
             
@@ -581,18 +588,76 @@ def lead_processing(request):
    
 
 def logout(request):
-    UserId=request.session['UserId']
-    del request.session['UserId']
-    print("logout")
-    print(UserId)
-    Cursor.execute("set nocount on;exec SP_SetUserStatus %s",[UserId])
-
+    try:
+        UserId=request.session['UserId']
+        del request.session['UserId']
+        print("logout")
+        print(UserId)
+        Cursor.execute("set nocount on;exec SP_SetUserStatus %s",[UserId])
+    except:
+        print("Exception")
+    finally:
+        print("cursor close here")
     return redirect('login/')
 
 def pending_tickets(request):
-    print("Pending")
-    return render(request,'admin/pendingtickets.html')
+    if 'UserId' in request.session:
+        UserId=request.session.get('UserId')
+        print(UserId)
+        date_today=datetime.today().date()    
+        date_today=date_today.strftime("%Y-%m-%d")
+        week_day=datetime.today().weekday() # Monday is 0 and Sunday is 6
+        if(week_day==0):
+                date_yesterday = datetime.today()-timedelta(3)
+        else:
+            date_yesterday = datetime.today()-timedelta(1)
+                
+        date_yesterday=date_yesterday.strftime("%Y-%m-%d")      
+        Cursor.execute("exec SP_GetSalesLeadsListPaginate_PY %s,%s,%s,%s,%s",[UserId,date_yesterday,date_today,'P',0])
+        pending_tickets=Cursor.fetchall()
+        
+        return render(request,'admin/pendingtickets.html',{'pending_tickets':pending_tickets})
+    else:
+         return redirect('/login') 
+
+def pending_tckts_load_all(request):
+    UserId=request.session.get('UserId')
+    date_today=datetime.today().date()    
+    date_today=date_today.strftime("%Y-%m-%d")
+    Cursor.execute("exec SP_GetSalesLeadsListPaginate_PY %s,%s,%s,%s,%s",[UserId,"1900-01-01",date_today,'P',0])
+    pending_tickets=Cursor.fetchall()    
+    # paginator = Paginator(load_data, 10)
+    print("load data-------------------------",len(pending_tickets))
+    return JsonResponse(list(pending_tickets), safe=False)
+    
 
 def resolved_tickets(request):
-    print("resolved")
-    return render(request,'admin/resolvedtickets.html')
+    if 'UserId' in request.session:
+        UserId=request.session.get('UserId')
+        print(UserId)
+        date_today=datetime.today().date()    
+        date_today=date_today.strftime("%Y-%m-%d")
+        week_day=datetime.today().weekday() # Monday is 0 and Sunday is 6
+        if(week_day==0):
+                date_yesterday = datetime.today()-timedelta(3)
+        else:
+            date_yesterday = datetime.today()-timedelta(1)
+                
+        date_yesterday=date_yesterday.strftime("%Y-%m-%d")      
+        Cursor.execute("exec SP_GetSalesLeadsListPaginate_PY %s,%s,%s,%s,%s",[UserId,date_yesterday,date_today,'R',0])
+        resolved_tickets=Cursor.fetchall()
+        
+        return render(request,'admin/resolvedtickets.html',{'resolved_tickets':resolved_tickets})
+    else:
+         return redirect('/login') 
+
+def resolved_tckts_load_all(request):
+    UserId=request.session.get('UserId')
+    date_today=datetime.today().date()    
+    date_today=date_today.strftime("%Y-%m-%d")
+    Cursor.execute("exec SP_GetSalesLeadsListPaginate_PY %s,%s,%s,%s,%s",[UserId,"1900-01-01",date_today,'R',0])
+    resolved_tickets=Cursor.fetchall()    
+    # paginator = Paginator(load_data, 10)
+    print("load data-------------------------",len(resolved_tickets))
+    return JsonResponse(list(resolved_tickets), safe=False)
+   

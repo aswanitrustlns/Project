@@ -13,8 +13,9 @@ urlpatterns=[
     path('LeadSubmit',lead_registration_check,name="LeadSubmit"),
     path('LeadProcessing',lead_processing,name="LeadProcessing"),
     path('pendingtickets',pending_tickets,name='PendingTickets'),
-
+    path('load_all_pending',pending_tckts_load_all,name="PendingTktsAll"),
     path('resolvedtickets',resolved_tickets,name='ResolvedTickets'),
+    path('load_all_resolved',resolved_tckts_load_all,name="ResolvedTktsAll"),
     path('logout',logout,name="Logout")
    
  
