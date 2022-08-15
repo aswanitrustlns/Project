@@ -1,0 +1,287 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8" />
+    <title>Trust Capital CRM</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
+    <meta content="Themesbrand" name="author" />
+    {% load  static %}
+    {% include "common/link.html" %}
+    {% include "common/scripts.html" %}
+    
+</head>
+<body data-layout-mode="dark">
+
+    <!-- <body data-layout="horizontal"> -->
+    
+    <!-- Begin page -->
+    <div id="layout-wrapper">
+        {% include "common/header.html" %}
+        
+    
+        <!-- ========== Left Sidebar Start ========== -->
+        {% include "common/sidebar.html" %}
+        <!-- Left Sidebar End -->
+        <!-- ============================================================== -->
+    <!-- Start right Content here -->
+    <!-- ============================================================== -->
+    <div class="main-content">
+
+        <div class="page-content" id="sales">
+            <div class="container-fluid">
+                <!--container-fluid px-md-5 me-md5-->
+
+                <!-- start page title -->
+                <div class="row">
+                    <div class="col-12">
+                        <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                            <h4 class="mb-sm-0 fs-23 almarenamonolight-type">Analytics Overview</h4><!--font-size-18-->
+
+                            <!--<div class="page-title-right">
+                                <ol class="breadcrumb m-0">
+                                    <li class="breadcrumb-item"><a href="javascript: void(0);">Dashboard</a></li>
+                                    <li class="breadcrumb-item active">Analytics Overview</li>
+                                </ol>
+                            </div>-->
+
+                        </div>
+                    </div>
+                </div>
+                <!-- end page title -->
+                <!--Analytics overview-->
+
+                <!--Row1-->
+                <div class="row">
+                    <!--New Accounts-->
+                    <div class="col-xl-6">
+                        <div class="card card-h-100">
+
+
+
+                            <div class="card-body">
+
+
+                                <div class="d-flex flex-wrap align-items-center mb-4">
+                                    <h5 class="card-title me-2 almarenamonolight-type fs-21">New Accounts</h5>
+                                    <div class="ms-auto">
+                                        <div>
+                                            <a href="" class=" mb-0 my-n1  gilorymedium-type fs-15"
+                                                style="color: var(--color1);">Sales graph this week</a>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div id="spline_area_new_accounts"
+                                    data-colors='["#FF0000", "#06C3FF","#DD9406","#39AA7B"]'
+                                    class="apex-charts d-flex card-h-100 align-items-center" dir="ltr"></div>
+                            </div>
+                        </div>
+                        <!--end card-->
+                    </div>
+
+                    <div class="col-xl-6">
+
+
+                        <div class="row">
+
+                            <!--Tickets-->
+                            <div class="col-xl-6 col-lg-6  ">
+
+                                <div class="card card-h-100">
+                                    <div class="card-body">
+
+                                        <h5 class="card-title  fs-21 almarenamonolight-type">
+                                            Tickets</h5>
+                                            <div>
+                                                <button type="button" class="btn btn-sm fs-13 gilroymedium-type text-white bg-soft-gunmetal" onclick="switchtab(this,'#tickets_tab01','#tickets_tab02')">
+                                                    Daily
+                                                </button>
+                                                <button type="button" class="btn btn-sm fs-13 gilroymedium-type text-white" onclick="switchtab(this,'#tickets_tab02','#tickets_tab01')">
+                                                    Weekly
+                                                </button>
+    
+                                            </div>
+                                        <div id="tickets_tab01" data-colors='["#B750BE","#DD9406","#3AACFF"]'
+                                            class="apex-charts" dir="ltr">
+                                        </div>
+                                        <div id="tickets_tab02" data-colors='["#B750BE","#DD9406","#3AACFF"]'
+                                            class="apex-charts" dir="ltr">
+                                        </div>
+                                    </div>
+
+                                </div>
+
+
+                            </div>
+                            <!--Leads Converted-->
+                            <div class="col-xl-6 col-lg-6">
+                                <div class="card card-h-100">
+
+                                    <div class="card-body">
+                                        <div class="d-flex flex-wrap align-items-center mb-4">
+                                            <h5 class="card-title me-2 fs-21 almarenamonolight-type">Leads Converted
+                                            </h5>
+                                            <!--<div class="ms-auto">
+                                                <div>
+                                                    <button type="button"
+                                                        class="btn bg-soft-gunmetal btn-sm fs-13 gilroymedium-type text-white"
+                                                        onclick="switchtab(this,'#tab01','#tab02')">
+                                                        Daily
+                                                    </button>
+                                                    <button type="button"
+                                                        class="btn  btn-sm fs-13 gilroymedium-type text-white"
+                                                        onclick="switchtab(this,'#tab02','#tab01')">
+                                                        Weekly
+                                                    </button>
+        
+                                                </div>
+                                            </div>-->
+                                        </div>
+                                        <div id="tab01" class="d-block">
+
+                                            <div id="column_chart_new_accounts" data-colors='["#E33399","#2D8CFF"]'
+                                                class="apex-charts" dir="ltr">
+                                            </div>
+                                        </div>
+
+
+
+                                    </div>
+                                </div>
+                                <!--end card-->
+                            </div>
+                            <!--Journal-->
+                            <div class="col-xl-12 col-lg-12">
+                                <div class="card">
+
+
+
+
+                                    <div class="card-body ">
+
+                                        <div class="d-flex flex-wrap align-items-left flex-column mb-3 ">
+                                            <h5 class="card-title me-2 almarenamonolight-type fs-21 mb-0">Journal</h5>
+
+
+                                        </div>
+                                        <span class="mb-2  gilroymedium-type fs-13 color-color1">Recent
+                                            activities</span>
+                                        <div class="px-3 pt-2" data-simplebar style="max-height: 145px;">
+                                            <ul class="list-unstyled activity-wid mb-0 journel2 ">
+                                            {% for journels in journel %}
+                                                
+                                                <li class="activity-list activity-border">
+                                                    <div class="activity-icon avatar-sm me-3">
+                                                        <span class="avatar-title   rounded-circle">
+                                                            <!--<i class="bx bx-bitcoin font-size-24"></i>-->
+                                                            <img class="rounded-circle avatar-md"
+                                                                src="{%static 'images/users/firasmonzer.png' %}" 
+                                                                onerror='this.src="{% static 'images/users/user.png' %}"'
+                                                                alt="">
+                                                        </span>
+                                                    </div>
+                                                    <div class="timeline-list-item flex-grow-1">
+                                                        <div class="d-flex">
+                                                            <div class="flex-grow-1 overflow-hidden me-4">
+                                                                <h5 class="font-size-14 mb-1 gilroymedium-type fs-15">
+                                                                    {{journels.0}}</h5>
+                                                                <p
+                                                                    class="text-truncate color-color1 font-size-13 gilroymedium-type fs-12 d-flex justify-content-between mb-0">
+                                                                    {{journels.1}}
+
+                                                                    <span class="flex-shrink-0 text-end me-3">
+                                                                        <svg width="15" height="15" viewBox="0 0 15 15"
+                                                                            fill="none"
+                                                                            xmlns="http://www.w3.org/2000/svg">
+                                                                            <path
+                                                                                d="M13.75 7.5C13.75 10.95 10.95 13.75 7.5 13.75C4.05 13.75 1.25 10.95 1.25 7.5C1.25 4.05 4.05 1.25 7.5 1.25C10.95 1.25 13.75 4.05 13.75 7.5Z"
+                                                                                stroke="#9C9C9C" stroke-width="1.5"
+                                                                                stroke-linecap="round"
+                                                                                stroke-linejoin="round" />
+                                                                            <path
+                                                                                d="M9.81875 9.48751L7.88125 8.33126C7.54375 8.13126 7.26875 7.65001 7.26875 7.25626V4.69376"
+                                                                                stroke="var(--color1)"
+                                                                                stroke-width="1.5"
+                                                                                stroke-linecap="round"
+                                                                                stroke-linejoin="round" />
+                                                                        </svg> <span class="ms-1 color-color1">{{journels.2}}
+                                                                        </span>
+                                                                    </span>
+
+                                                                </p>
+                                                            </div>
+
+
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                                {%endfor%}
+
+
+
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <!-- end card body -->
+                                </div>
+                                <!-- end card -->
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+                <!--Row2-->
+
+                <div class="row">
+
+
+                    
+                    
+                </div>
+                <!-- end col -->
+
+
+
+            </div>
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+    <!-- container-fluid -->
+</div>
+<!-- End Page-content -->
+
+
+
+
+</div>
+<!-- end main content-->
+
+</div>
+{% include "common/right-sidebar.html" %}
+<div class="rightbar-overlay"></div>
+<script type="text/javascript">
+    var weekly_summary={{weekly_summary|safe}}
+    var ticket_count_daily={{ticket_count_daily|safe}}
+    var ticket_count_weekly={{ticket_count_weekly|safe}}
+    var weekly_lead_bar={{weekly_lead_bar|safe}}
+    console.log(weekly_lead_bar)
+</script>
+<script src="{%static 'libs/apexcharts/apexcharts.min.js' %}"></script>
+<script src="{%static 'js/pages/dashboardsales.init.js' %}"></script>
+<script src="{%static 'js/app.js' %}"></script>

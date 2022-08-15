@@ -76,7 +76,7 @@ WSGI_APPLICATION = 'TrustCRM.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'sql_server.pyodbc',
+        'ENGINE': 'mssql',
         'NAME': 'SVGTcCRM',
         'USER': 'tinstcrm',
         'PASSWORD': 'Trust_2021',

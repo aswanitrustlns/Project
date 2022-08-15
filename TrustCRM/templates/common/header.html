@@ -134,7 +134,7 @@
                     <i data-feather="bell" class="icon-lg"></i>
                     <span class="badge bg-danger rounded-pill">{{request.session.notification}}</span>
                 </button>
-                {% ifnotequal request.session.notification 0 %}
+                {% if request.session.notification == 0 %}
                 <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end p-0"
                     aria-labelledby="page-header-notifications-dropdown">
                     <div class="p-3">
@@ -188,7 +188,7 @@
                         </a>
                     </div> -->
                 </div>
-                {% endifnotequal %}
+                {% endif %}
             </div>
 
         </div>
