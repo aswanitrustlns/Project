@@ -66,10 +66,12 @@ def login_check(request):
 def salesdashboard(request):
     if 'UserId' in request.session:
         UserId=request.session.get('UserId')
-        dashbord_data=sales_dash.sales_dashboard(UserId)
-        
-
-    return render(request,'sales/dashboard.html',dashbord_data)
+        print("sales dashboard procedure start",datetime.now().time())
+        dashbord_data=sales_dash.sales_dashboard(UserId)     
+        print("sales dashboard procedure end",datetime.now().time()) 
+        return render(request,'sales/dashboard.html',dashbord_data)
+    else:
+        return redirect('/login')
 
 
 def dashboard(request):

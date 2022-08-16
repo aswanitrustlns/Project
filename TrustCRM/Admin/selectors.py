@@ -37,6 +37,7 @@ class Selector:
     # Method to find the logged in user role(admin,salesrep etc)
 
     def user_role_selection(self,userId):
+        
         try:
             Cursor=connection.cursor()
             Cursor.execute("set nocount on;exec SP_GetPermissions %s",[userId])

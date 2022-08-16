@@ -191,6 +191,7 @@ renderChart([{
 
 
 function switchtab($this, $displaytab, $hiddentab) {
+    console.log("switch tab clicked -------------------------------------------")
     $($displaytab).addClass('d-block');
 
     $($displaytab).removeClass('d-none');
@@ -210,12 +211,19 @@ function switchtab($this, $displaytab, $hiddentab) {
 }
 
 // Donut chart Tickets
-function renderSeminarPie($series,$id,$label){}
-var donutColors = getChartColorsArray("#tickets_tab01");
-// var donutColors = getChartColorsArray("#tickets_tab02");
-var spoken=Object.values(ticket_count_weekly)[1];
-var overdue=Object.values(ticket_count_weekly)[2];
-var resolved=Object.values(ticket_count_weekly)[3];
+var spoken_d=Object.values(ticket_count_daily)[1];
+var overdue_d=Object.values(ticket_count_daily)[2];
+var resolved_d=Object.values(ticket_count_daily)[3];
+var spoken_w=Object.values(ticket_count_weekly)[1];
+var overdue_w=Object.values(ticket_count_weekly)[2];
+var resolved_w=Object.values(ticket_count_weekly)[3];
+
+
+function ticketDonut($id,$spoken,$overdue,$resolved){
+
+var donutColors = getChartColorsArray($id);
+console.log("iddddddddddddddddddddddddddddddd",$id)
+
 var options = {
     dataLabels: {
         enabled: false,
@@ -237,7 +245,7 @@ var options = {
         show: false,
         width: 0
     },
-    series: [spoken,overdue,resolved],
+    series: [$spoken,$overdue,$resolved],
     labels: ['Spoken', 'Overdue', 'Resolved'],
     colors: donutColors,
     legend: {
@@ -320,17 +328,12 @@ var options = {
     ]
 
 }
-var chart = new ApexCharts(
-    document.querySelector("#tickets_tab01"),
-    options
-);
-var chart = new ApexCharts(
-    document.querySelector("#tickets_tab02"),
-    options
-);
-chart.render()
+var chart = new ApexCharts(document.querySelector($id), options);
+chart.render();
+}
 
-
+ticketDonut("#tickets_tab01",spoken_d,overdue_d,resolved_d);
+ticketDonut("#tickets_tab02",spoken_w,overdue_w,resolved_w);
 //   spline_area_new_accounts
 var funded=weekly_summary.map((item) => item.funded);
 var nonfunded=weekly_summary.map((item) => item.nonfunded);
