@@ -98,7 +98,7 @@ class DashboardSelector:
             print("procedure-end",datetime.now().time())
             sales_data={'weekly_summary':weekly_summary_bar,'ticket_count_daily':json.dumps(ticket_count_daily),'ticket_count_weekly':json.dumps(ticket_count_weekly),
             'journel':journel_data,'weekly_lead_bar':weekly_lead_bar,'meeting_today':meeting_today,'active_campaigns':active_campaigns,'campaign_count':active_campaigns_count,
-            'live_chat':live_chat,'weekly_webinar':weekly_webinar}
+            'live_chat':live_chat,'weekly_webinar':weekly_webinar,'reminders':reminders}
             print("redirect start",datetime.now().time())
         except Exception as e:
             print("Exception----",e)

@@ -317,9 +317,9 @@
 
                                                 </div>
                                                 <span
-                                                    class="badge  rounded-pill fs-16 gilory-semibold-type text-success"
+                                                    class="badge  rounded-pill fs-16 gilory-semibold-type {% cycle 'text-success' 'text-danger' 'text-info' %}"
                                                     style="background-color:
-                                                rgba(33, 150, 83, 0.2) ;">{{fund.2}}</span>
+                                                {%cycle 'rgba(33, 150, 83, 0.2)' 'rgba(255, 124, 72, 0.2)' 'rgba(27, 169, 234, 0.2)' %} ;">{{fund.2}}</span>
                                             </div>
                                             {%endif%}
                                             {%endfor%}
@@ -372,9 +372,9 @@
 
                                                 </div>
                                                 <span
-                                                    class="badge  rounded-pill fs-16 gilory-semibold-type text-success"
+                                                    class="badge  rounded-pill fs-16 gilory-semibold-type {% cycle 'text-success' 'text-danger' 'text-info' %}"
                                                     style="background-color:
-                                                rgba(33, 150, 83, 0.2) ;">{{lives.3}}</span>
+                                                {%cycle 'rgba(33, 150, 83, 0.2)' 'rgba(255, 124, 72, 0.2)' 'rgba(27, 169, 234, 0.2)' %} ;">{{lives.3}}</span>
                                             </div>
                                             {%endif%}
                                             {%endfor%}
@@ -424,14 +424,13 @@
 
                                                 </div>
                                                 <span
-                                                    class="badge  rounded-pill fs-16 gilory-semibold-type text-success"
-                                                    style="background-color:
-                                                rgba(33, 150, 83, 0.2) ;">{{speaks.4}}</span>
+                                                    class="badge  rounded-pill fs-16 gilory-semibold-type {% cycle 'text-success' 'text-danger' 'text-info' %}"
+                                                    style="background-color: {%cycle 'rgba(33, 150, 83, 0.2)' 'rgba(255, 124, 72, 0.2)' 'rgba(27, 169, 234, 0.2)' %} ;">{{speaks.4}}</span> 
                                             </div>
                                             {%endif%}
                                             {%endfor%}
 
-                                        
+                                        <!-- {%cycle 'rgba(33, 150, 83, 0.2)' 'rgba(255, 124, 72, 0.2)' 'rgba(27, 169, 234, 0.2)' %} -->
 
                                         </div>
 
@@ -478,9 +477,9 @@
 
                                                 </div>
                                                 <span
-                                                    class="badge  rounded-pill fs-16 gilory-semibold-type text-success"
+                                                    class="badge  rounded-pill fs-16 gilory-semibold-type {% cycle 'text-success' 'text-danger' 'text-info' %}"
                                                     style="background-color:
-                                                rgba(33, 150, 83, 0.2) ;">{{updates.5}}</span>
+                                                {%cycle 'rgba(33, 150, 83, 0.2)' 'rgba(255, 124, 72, 0.2)' 'rgba(27, 169, 234, 0.2)' %} ;">{{updates.5}}</span>
                                             </div>
 
                                             {%endif%}

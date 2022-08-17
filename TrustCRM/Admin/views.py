@@ -84,10 +84,11 @@ def dashboard(request):
         salesRep=permission_check[22]
         dashbord_data={}
         UserName=selector.get_user_name(UserId)
-        notification=selector.get_notification_data(UserId)
+        notification_count,notification=selector.get_notification_data(UserId)
         request.session['UserName']=UserName
-        request.session['notification'] = notification
-        
+        request.session['notification'] = notification_count
+        request.session['notification_data']=notification
+     
         if manager:
              dashbord_data=sales_dash.admin_dashboard(UserId)  
              print("dashboard procedure ",datetime.now().time()) 

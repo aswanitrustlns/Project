@@ -134,7 +134,7 @@
                     <i data-feather="bell" class="icon-lg"></i>
                     <span class="badge bg-danger rounded-pill">{{request.session.notification}}</span>
                 </button>
-                {% if request.session.notification == 0 %}
+                {% if request.session.notification != 0 %}
                 <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end p-0"
                     aria-labelledby="page-header-notifications-dropdown">
                     <div class="p-3">
@@ -147,8 +147,8 @@
                             </div>
                         </div>
                     </div>
-                    
-                    <!-- <div data-simplebar style="max-height: 230px;">
+                    {%for notify in request.session.notification_data%}
+                    <div data-simplebar style="max-height: 230px;">
                         <a href="#!" class="text-reset notification-item">
                             <div class="d-flex">
                                 <div class="flex-shrink-0 me-3">
@@ -156,15 +156,15 @@
                                 </div>
 
                                 <div class="flex-grow-1">
-                                    <h6 class="mb-1">James Lemire</h6>
+                                    <h6 class="mb-1">{{notify.0}}</h6>
                                     <div class="font-size-13 text-muted">
-                                        <p class="mb-1">{{request.session.notification_data}}</p>
-                                        <p class="mb-0"><i class="mdi mdi-clock-outline"></i> <span>1 hour ago</span></p>
+                                        <p class="mb-1">{{notify.1}}</p>
+                                        <p class="mb-0"><i class="mdi mdi-clock-outline"></i> <span>{{notify.2}}</span></p>
                                     </div>
                                 </div>
                             </div>
                         </a>
-                     -->
+                    
 
                         <!-- <a href="#!" class="text-reset notification-item">
                             <div class="d-flex">
@@ -181,6 +181,7 @@
                             </div>
                         </a> -->
                     </div>
+                    {%endfor%}
                     
                     <!-- <div class="p-2 border-top d-grid">
                         <a class="btn btn-sm btn-link font-size-14 text-center" href="javascript:void(0)">

@@ -293,6 +293,9 @@
 
 
                 <!-- </div> -->
+                    
+                    
+                </div>
                 <!--Row2-->
 
                 <div class="row">
@@ -407,95 +410,56 @@
 
                                 <div data-simplebar="" style="max-height:320px ;">
                                     <!--Up Coming-->
-                                    <h4 class="fs-14 gilroymedium-type text-info">Pinned</h4>
+                                    <!-- <h4 class="fs-14 gilroymedium-type text-info">Pinned</h4> -->
 
 
 
 
                                     <!--Reminder-->
+                                    {%if reminders%}
+                                    {%for reminder in reminders%} 
                                     <div class=" mb-3 px-2 py-2 card ">
 
-
+                                       
                                         <div>
 
 
-                                            <h5 class=" fs-15  mb-1 gilory-semibold-type">Appointment</h5>
+                                            <h5 class=" fs-15  mb-1 gilory-semibold-type">{{reminder.0}}</h5>
                                             <div
                                                 class="d-flex justify-content-between align-items-center  gilroymedium-type flex-wrap  flex-xxl-nowrap">
 
                                                 <p class="mb-0  fs-14  color-color1 me-2">
-                                                    <span class=" ">Lorem Ipsum has been the industry's standard dummy
-                                                        text</span>
+                                                    <span class=" ">{{reminder.1}}</span>
                                                 </p>
                                                 <a href=""
-                                                    class="btn btn-sm btn-outline-success gilroymedium-type flex-shrink-0  mt-2 mt-xxl-0">5
-                                                    Sep, 5:00</a>
+                                                    class="btn btn-sm btn-outline-success gilroymedium-type flex-shrink-0  mt-2 mt-xxl-0">
+                                                    {{reminder.2}}</a>
 
                                             </div>
 
                                         </div>
 
-
-
-                                    </div>
-
-
-                                    <h4 class="fs-14 gilroymedium-type text-warning">Up Coming </h4>
-
-
-                                    <!--Reminder-->
-                                    <div class=" mb-3 px-2 py-2 card ">
-
-
-                                        <div>
-
-
-                                            <h5 class=" fs-15  mb-1 gilory-semibold-type">Appointment</h5>
-                                            <div
-                                                class="d-flex justify-content-between align-items-center  gilroymedium-type flex-wrap  flex-xxl-nowrap">
-
-                                                <p class="mb-0  fs-14  color-color1 me-2">
-                                                    <span class=" ">Lorem Ipsum has been the industry's standard dummy
-                                                        text</span>
-                                                </p>
-                                                <a href=""
-                                                    class="btn btn-sm btn-outline-danger gilroymedium-type flex-shrink-0  mt-2 mt-xxl-0">5
-                                                    Sep, 5:00</a>
-
-                                            </div>
-
-                                        </div>
-
-
+                                       
 
                                     </div>
-                                    <!--Reminder-->
-                                    <div class=" mb-3 px-2 py-2 card ">
+                                    {%endfor%}
+                                    {%else%}
+                                    <div class="  text-center  d-block">
+                                        <img src="{% static 'images/nodata/nodata.png' %}" alt="" style="max-height: 120px;">                                                   
+                                           
+    
+                                        <p class="gilory-regular-type fs-20 mt-2">No Reminders</p>
+                                    
+                                    
+                                     </div>
+
+                                    {%endif%}
+
+                                    <!-- <h4 class="fs-14 gilroymedium-type text-warning">Up Coming </h4> -->
 
 
-                                        <div>
-
-
-                                            <h5 class=" fs-15  mb-1 gilory-semibold-type">Appointment</h5>
-                                            <div
-                                                class="d-flex justify-content-between align-items-center  gilroymedium-type flex-wrap  flex-xxl-nowrap">
-
-                                                <p class="mb-0  fs-14  color-color1 me-2">
-                                                    <span class=" ">Lorem Ipsum has been the industry's standard dummy
-                                                        text</span>
-                                                </p>
-                                                <a href=""
-                                                    class="btn btn-sm btn-outline-danger gilroymedium-type flex-shrink-0  mt-2 mt-xxl-0">5
-                                                    Sep, 5:00</a>
-
-                                            </div>
-
-                                        </div>
-
-
-
-                                    </div>
-
+                                    
+                              
 
 
 
@@ -717,9 +681,7 @@
 
                 </div>
 
-                    
-                    
-                </div>
+                
                 <!-- end col -->
 
 

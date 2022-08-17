@@ -69,9 +69,10 @@ class Selector:
         try:
             Cursor=connection.cursor()
             Cursor.execute("exec SP_GetSummaryToday  %s",[userId])
+            notifications = Cursor.fetchall()
+            
             while (Cursor.nextset()):
-                notification_count = Cursor.fetchall()
-                print("Notification count-------",notification_count)
+                notification_count = Cursor.fetchall()                
                 notify_count=notification_count[0]
                 notification_count=notify_count[0]
                 print("**************************",notification_count)
@@ -79,7 +80,7 @@ class Selector:
             print("Exception---",e)
         finally:
             Cursor.close()
-        return notification_count
+        return notification_count,notifications
 
     #Get phone number country code
 
