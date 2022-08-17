@@ -234,14 +234,14 @@
 
 
             </ul>
-            <div class="card  border-0 text-center mx-4 mb-0 mt-5"><!--.sidebar-alert-->
+            <div class="card  sidebar-alert border-0 text-center mx-4 mb-0 mt-5"><!--.sidebar-alert-->
                 <div class="card-body">
                     <img src="{% static 'images/sales/sales.png' %}" alt="" class="w-100">
                     <div class="mt-1">
                         <h5 class=" font-size-16 almarenamonolight-type fs-18">Sales Performers
                             of the month</h5>
                         <!--<p class="font-size-13">Upgrade your plan from a Free trial, to select ‘Business Plan’.</p>-->
-                        <a href="#!" class="btn btn-primary mt-2 gilory-semibold-type">View </a>
+                        <a href="#!" class="btn btn-primary mt-2 gilory-semibold-type" data-bs-toggle="modal" data-bs-target=".bs-example-modal-salesperfomance" type="button">View </a>
                     </div>
                 </div>
             </div>
@@ -261,3 +261,268 @@
     </div>
 </div>
 <!-- Left Sidebar End -->
+<!--Popup salesperfomance-->
+<div class="modal fade bs-example-modal-salesperfomance" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered  modal-xl " style="z-index: 10555;">
+        <div class="modal-content bg-soft-white">
+            <div class="modal-header border-0">
+                <h5 class="modal-title fs-28">Top performers of the month</h5>
+                <a data-bs-dismiss="modal" aria-label="Close">
+
+                    <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M10.6982 17.3017L17.3016 10.6984" stroke="#141527" stroke-width="1.5"
+                            stroke-linecap="round" stroke-linejoin="round" />
+                        <path d="M17.3016 17.3017L10.6982 10.6984" stroke="#141527" stroke-width="1.5"
+                            stroke-linecap="round" stroke-linejoin="round" />
+                        <path
+                            d="M10.5002 25.6667H17.5002C23.3335 25.6667 25.6668 23.3334 25.6668 17.5V10.5C25.6668 4.66671 23.3335 2.33337 17.5002 2.33337H10.5002C4.66683 2.33337 2.3335 4.66671 2.3335 10.5V17.5C2.3335 23.3334 4.66683 25.6667 10.5002 25.6667Z"
+                            stroke="#141527" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+
+
+                </a>
+            </div>
+
+            <div class="modal-body">
+
+                <div class="row">
+                    <div class="col-lg-7">
+
+                        <div class="row">
+
+                            <div class="col-xl-6  col-md-6">
+                                <!-- card -->
+                                <div class="card card-h-100">
+                                    <!-- card body -->
+                                    <div class="card-body">
+                                        <div class="d-flex flex-wrap align-items-center mb-4">
+                                            <h5 class="card-title me-2 almarenamonolight-type fs-20">Funded accounts
+                                            </h5>
+                                        </div>
+
+                                        <div data-simplebar style="max-height: 320px ;">
+
+                                            {%for fund in funded%}
+                                            {%if forloop.counter < 4 %}
+                                            <!--Sale Person-->
+                                            <div class="d-flex align-items-center mb-3">
+                                                <div class="flex-shrink-0 me-3">
+                                                    <img class="rounded-circle avatar-sm"
+                                                        src="{%static 'images/users/'%}{{fund.1}}.png"
+                                                        onerror='this.src="{% static 'images/users/user.png' %}"'
+                                                        alt="Generic placeholder image">
+                                                </div>
+                                                <div class="flex-grow-1">
+                                                    <h5 class="gilory-medium-type fs-18 color-black">{{fund.1}}</h5>
+
+                                                </div>
+                                                <span
+                                                    class="badge  rounded-pill fs-16 gilory-semibold-type text-success"
+                                                    style="background-color:
+                                                rgba(33, 150, 83, 0.2) ;">{{fund.2}}</span>
+                                            </div>
+                                            {%endif%}
+                                            {%endfor%}
+
+                                        
+                                         
+
+                                        </div>
+
+
+
+
+                                    </div>
+
+
+
+
+
+
+
+
+
+
+
+                                </div><!-- end card body -->
+                            </div>
+                            <div class="col-xl-6  col-md-6">
+                                <!-- card -->
+                                <div class="card card-h-100">
+                                    <!-- card body -->
+                                    <div class="card-body">
+                                        <div class="d-flex flex-wrap align-items-center mb-4">
+                                            <h5 class="card-title me-2 almarenamonolight-type fs-20">Live accounts</h5>
+                                        </div>
+
+                                        <div data-simplebar style="max-height: 320px ;">
+
+                                            {%for lives in live%}
+                                            {%if forloop.counter < 4 %}
+                                            <!--Sale Person-->
+                                            <div class="d-flex align-items-center mb-3">
+                                                <div class="flex-shrink-0 me-3">
+                                                    <img class="rounded-circle avatar-sm"
+                                                        src="{%static 'images/users/'%}{{lives.1}}.png"
+                                                        onerror='this.src="{% static 'images/users/user.png' %}"'
+                                                        alt="Generic placeholder image">
+                                                </div>
+                                                <div class="flex-grow-1">
+                                                    <h5 class="gilory-medium-type fs-18 color-black">{{lives.1}}</h5>
+
+                                                </div>
+                                                <span
+                                                    class="badge  rounded-pill fs-16 gilory-semibold-type text-success"
+                                                    style="background-color:
+                                                rgba(33, 150, 83, 0.2) ;">{{lives.3}}</span>
+                                            </div>
+                                            {%endif%}
+                                            {%endfor%}
+
+                                        </div>
+
+
+
+
+                                    </div>
+
+
+
+
+
+
+
+
+
+
+
+                                </div><!-- end card body -->
+                            </div>
+                            <div class="col-xl-6  col-md-6">
+                                <!-- card -->
+                                <div class="card card-h-100">
+                                    <!-- card body -->
+                                    <div class="card-body">
+                                        <div class="d-flex flex-wrap align-items-center mb-4">
+                                            <h5 class="card-title me-2 almarenamonolight-type fs-20">Spoken</h5>
+                                        </div>
+
+                                        <div data-simplebar style="max-height: 320px ;">
+
+                                            {%for speaks in spoken%}
+                                            {%if forloop.counter < 4 %}
+                                            <!--Sale Person-->
+                                            <div class="d-flex align-items-center mb-3">
+                                                <div class="flex-shrink-0 me-3">
+                                                    <img class="rounded-circle avatar-sm"
+                                                        src="{%static 'images/users/' %}{{speaks.1}}.png"
+                                                        onerror='this.src="{% static 'images/users/user.png' %}"'
+                                                        alt="Generic placeholder image">
+                                                </div>
+                                                <div class="flex-grow-1">
+                                                    <h5 class="gilory-medium-type fs-18 color-black">{{speaks.1}}</h5>
+
+                                                </div>
+                                                <span
+                                                    class="badge  rounded-pill fs-16 gilory-semibold-type text-success"
+                                                    style="background-color:
+                                                rgba(33, 150, 83, 0.2) ;">{{speaks.4}}</span>
+                                            </div>
+                                            {%endif%}
+                                            {%endfor%}
+
+                                        
+
+                                        </div>
+
+
+
+
+                                    </div>
+
+
+
+
+
+
+
+
+
+
+
+                                </div><!-- end card body -->
+                            </div>
+                            <div class="col-xl-6  col-md-6">
+                                <!-- card -->
+                                <div class="card card-h-100">
+                                    <!-- card body -->
+                                    <div class="card-body">
+                                        <div class="d-flex flex-wrap align-items-center mb-4">
+                                            <h5 class="card-title me-2 almarenamonolight-type fs-20">Updated Tickets</h5>
+                                        </div>
+
+                                        <div data-simplebar style="max-height: 320px ;">
+                                            {%for updates in updated%}
+                                            {%if forloop.counter < 4 %}
+
+                                            <!--Sale Person-->
+                                            <div class="d-flex align-items-center mb-3">
+                                                <div class="flex-shrink-0 me-3">
+                                                    <img class="rounded-circle avatar-sm"
+                                                        src="{%static 'images/users/' %}{{updates.1}}.png"
+                                                        onerror='this.src="{% static 'images/users/user.png' %}"'
+                                                        alt="Generic placeholder image">
+                                                </div>
+                                                <div class="flex-grow-1">
+                                                    <h5 class="gilory-medium-type fs-18 color-black">{{updates.1}}</h5>
+
+                                                </div>
+                                                <span
+                                                    class="badge  rounded-pill fs-16 gilory-semibold-type text-success"
+                                                    style="background-color:
+                                                rgba(33, 150, 83, 0.2) ;">{{updates.5}}</span>
+                                            </div>
+
+                                            {%endif%}
+                                            {%endfor%}
+
+
+                                        </div>
+
+
+
+
+                                    </div>
+
+
+
+
+
+
+
+
+
+
+
+                                </div><!-- end card body -->
+                            </div>
+
+
+                        </div>
+
+
+
+
+
+                    </div>
+                    <div class=" col-lg-5 d-flex align-items-center ">
+
+                        <img src="{%static 'images/sales/perfomance-bg.png' %}" alt="" class="w-100">
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</div>

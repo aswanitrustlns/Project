@@ -268,9 +268,7 @@
                                                 </li>
                                                 {%endfor%}
                                             {%else%}
-                                                <div id="column_chart_new_accounts" data-colors='["#E33399","#2D8CFF"]'
-                                                class="apex-charts d-none" dir="ltr">
-                                                </div>
+                                               
                                                 <div class="  text-center  d-block">
                                                     <img src="{% static 'images/nodata/nodata.png' %}" alt="" style="max-height: 80px;">                                                   
                                                     
@@ -367,9 +365,7 @@
                                     </div>
                                     {%endfor%}
                                     {%else%}
-                                    <div id="column_chart_new_accounts" data-colors='["#E33399","#2D8CFF"]'
-                                                class="apex-charts d-none" dir="ltr">
-                                                </div>
+                                    
                                                 <div class="  text-center  d-block">
                                                     <img src="{% static 'images/nodata/nodata.png' %}" alt="" style="max-height: 120px;">                                                   
                                                        
@@ -578,9 +574,7 @@
                                                 {%endif%}
                                                 {%endfor%}
                                         {%else%}
-                                        <div id="column_chart_new_accounts" data-colors='["#E33399","#2D8CFF"]'
-                                                class="apex-charts d-none" dir="ltr">
-                                                </div>
+                                       
                                                 <div class="  text-center  d-block">
                                                     <img src="{% static 'images/nodata/nodata.png' %}" alt="" style="max-height: 120px;">                                                   
                                                        
@@ -616,7 +610,8 @@
                     <!---->
                     <div class="col-xl-3 col-md-6">
 
-                        <div class="card-h-100 ">
+                        <div class="card border-left-0 border-right-0  card-h-100 "
+                            style="border-left: 1px solid transparent;border-right: 1px solid transparent;">
 
 
                              <!--Live chats this week-->
@@ -648,7 +643,7 @@
                         <!-- end card -->
 
                         <!--Active Campaigns-->
-                        <div class="card  " style="height:calc(100% - 95px)">
+                        <div class="card   border-bottom-0 h-100 mb-0">
 
 
                             <div class="card-body ">
@@ -694,9 +689,8 @@
                                             
                                             {%endfor%}
                                         {%else%}
-                                            <div id="column_chart_new_accounts" data-colors='["#E33399","#2D8CFF"]'
-                                            class="apex-charts d-none" dir="ltr">
-                                            </div>
+                                            
+                                            
                                             <div class="  text-center  d-block">
                                                 <img src="{% static 'images/nodata/nodata.png' %}" alt="" style="max-height: 80px;">                                                   
                                                 
@@ -735,7 +729,7 @@
 
     </div>
     <!-- container-fluid -->
-</div>
+<!-- </div> -->
 <!-- End Page-content -->
 
 <!-- </div> -->
@@ -743,6 +737,14 @@
 <!-- </div> -->
 {% include "common/right-sidebar.html" %}
 <div class="rightbar-overlay"></div>
+
+
+            
+
+
+
+
+
 <script type="text/javascript">
     var weekly_summary={{weekly_summary|safe}}
     var ticket_count_daily={{ticket_count_daily|safe}}

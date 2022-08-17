@@ -11,45 +11,49 @@ class DashboardSelector:
         journel_data=[]
         weekly_lead_bar=[]
         try:
+            print("procedure-start1",datetime.now().time())
             Cursor=connection.cursor()
             Cursor.execute("set nocount on;exec SP_GetWeeklySummary_PY  %s",[userId])
             weekly_summary=Cursor.fetchall()
             print("--------------------------------------------------------------------------------")
+            print("procedure-start2",datetime.now().time())
             Cursor.execute("set nocount on;exec SP_SalesTicketCountByRepWeekly %s,%s",['D',userId])
             ticket_count_daily=Cursor.fetchone()
-            print("ticket count daily-----------------------",type(ticket_count_daily))    
+            
             # if all([(x[1]==0 and x[2]==0 and x[3]==0)for x in ticket_count_daily]):
             #     ticket_count_daily=[]
-            
+            print("procedure-start3",datetime.now().time())
             Cursor.execute("set nocount on;exec SP_SalesTicketCountByRepWeekly %s,%s",['W',userId])
             ticket_count_weekly=Cursor.fetchone()
-            print("ticket count daily-----------------------",type(ticket_count_weekly))    
-            # if all([(x[1]==0 and x[2]==0 and x[3]==0)for x in ticket_count_weekly]):
-            #     ticket_count_weekly=[]
-            
+           
+            print("procedure-start4",datetime.now().time()) 
             Cursor.execute("set nocount on;exec SP_GetActivityLogsDB %s",[userId])
             journels=Cursor.fetchall()
-                        
+            print("procedure-start5",datetime.now().time())                        
             Cursor.execute("set nocount on;exec SP_GetWeeklyLeads_PY")
             leads_converted=Cursor.fetchall()  
             #Meetingsss
+            print("procedure-start6",datetime.now().time())
             Cursor.execute("set nocount on;exec SP_GetMeetings")
             meeting_today=Cursor.fetchall() 
               
             #Reminders....
+            print("procedure-start7",datetime.now().time())
             Cursor.execute("set nocount on;exec SP_GetSummaryToday %s",[userId])
             reminders=Cursor.fetchall()
             print("Reminders---------------------------------",reminders)
             #weekly webinar info list---
+            print("procedure-start8",datetime.now().time())
             Cursor.execute("set nocount on;exec SP_GetSeminarInfolist")
             weekly_webinar=Cursor.fetchall() 
            
             #Live chat
+            print("procedure-start9",datetime.now().time())
             date_to=datetime.today().date()
             # date_to=date_to.strftime("%Y-%m-%d")
             date_from=date_to-timedelta(days=date_to.weekday())
             print("date from---------------------------------------------------------",date_from)   
-            print("date from---------------------------------------------------------",date_to)                   
+            print("date to---------------------------------------------------------",date_to)                   
             Cursor.execute("set nocount on;exec SP_LiveChatLogSummary %s,%s,%s,%s",[date_from,date_to,'S',userId])
             live_chat=Cursor.fetchone()
             if live_chat:
@@ -57,6 +61,8 @@ class DashboardSelector:
             else:
                 live_chat=0
             print("Live chat=============================",live_chat)
+            print("procedure-start10",datetime.now().time())
+            
             Cursor.execute("set nocount on;exec SP_GetActiveCampaigns")
             active_campaigns=Cursor.fetchall()        
             
@@ -89,10 +95,11 @@ class DashboardSelector:
                         'closed':weekly_leads[3]
                     })
 
-           
+            print("procedure-end",datetime.now().time())
             sales_data={'weekly_summary':weekly_summary_bar,'ticket_count_daily':json.dumps(ticket_count_daily),'ticket_count_weekly':json.dumps(ticket_count_weekly),
             'journel':journel_data,'weekly_lead_bar':weekly_lead_bar,'meeting_today':meeting_today,'active_campaigns':active_campaigns,'campaign_count':active_campaigns_count,
             'live_chat':live_chat,'weekly_webinar':weekly_webinar}
+            print("redirect start",datetime.now().time())
         except Exception as e:
             print("Exception----",e)
         finally:
@@ -110,6 +117,7 @@ class DashboardSelector:
     #----------------------------------------- Admin Dashboard ------------------------------------------------------------------
     
     def admin_dashboard(self,UserId):
+        all_data={}
         seminar_weekly_pie=[]
         meeting_daily_pie=[]
         meeting_weekly_pie=[]
@@ -145,15 +153,9 @@ class DashboardSelector:
             weekly_live_account = Cursor.fetchall()  
             
             Cursor.execute("set nocount on;exec SP_LiveAccountsCountByRepWeekly %s",'d')           
-            livecount_daily = Cursor.fetchall()
-
-            
-            
-            manager=permission_check[11]
-            salesRep=permission_check[22]
-            # salesRep=True
-            print("Permision manager",manager)
-            print("Permision",salesRep)
+            livecount_daily = Cursor.fetchall()         
+           
+                     
            
             Cursor.execute("set nocount on; exec SP_OwnLeadsCountTotal")
             leads=Cursor.fetchone()
@@ -348,6 +350,7 @@ class DashboardSelector:
 
         return all_data
     
+  
 
 
 

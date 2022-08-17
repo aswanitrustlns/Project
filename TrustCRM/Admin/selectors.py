@@ -5,7 +5,7 @@ import subprocess
 
 class Selector:    
     
-
+    #Get logged in user info
     def get_loged_user_info(self,username):
        
         try:
@@ -20,6 +20,7 @@ class Selector:
             Cursor.close()
         return UserId
 
+    #DLL connection in server
     def dll_connection(self,username,server_name,password):
         hllDll = CDLL(r"C:\\pyenv\\TrustManagerAPI.dll") 
         ConnectToServer_Login = hllDll.ConnectToServer_Login
@@ -30,9 +31,11 @@ class Selector:
         connect=ConnectToServer_Login(c_char_p(server_name.encode('utf-8')).value,login.value,c_char_p(password.encode('utf-8')).value)
         return connect
 
+    #Exe connectivity in local
     def exe_connection(self,username,server_name,password):        
         connect=subprocess.call(["C:\\Aswani\\pythonmanager\\manager_python.exe","1",server_name,username,password])
         return connect
+
 
     # Method to find the logged in user role(admin,salesrep etc)
 
@@ -41,26 +44,43 @@ class Selector:
         try:
             Cursor=connection.cursor()
             Cursor.execute("set nocount on;exec SP_GetPermissions %s",[userId])
-            permission_check=Cursor.fetchone()
+            user_role=Cursor.fetchone()
         except Exception as e:
             print("Exception---",e)
         finally:
             Cursor.close()
-        return permission_check
+        return user_role
 
     # User name from table
     def get_user_name(self,userId):
         try:  
             Cursor=connection.cursor()
             Cursor.execute("SELECT UserName FROM tbl_User where UserID=%s",[userId])
-            source=Cursor.fetchone()
-            source=source[0]            
+            UserName=Cursor.fetchone()
+            UserName=UserName[0]            
         except Exception as e:
             print("Exception---",e)
         finally:
             Cursor.close()
-        return source
-        
+        return UserName
+    
+    # Get Notification
+    def get_notification_data(self,userId):
+        try:
+            Cursor=connection.cursor()
+            Cursor.execute("exec SP_GetSummaryToday  %s",[userId])
+            while (Cursor.nextset()):
+                notification_count = Cursor.fetchall()
+                print("Notification count-------",notification_count)
+                notify_count=notification_count[0]
+                notification_count=notify_count[0]
+                print("**************************",notification_count)
+        except Exception as e:
+            print("Exception---",e)
+        finally:
+            Cursor.close()
+        return notification_count
+
     #Get phone number country code
 
     def get_country_code(self,phone_num):
@@ -159,11 +179,8 @@ class Selector:
             print("Exception---",e)
         finally:
             Cursor.close()
-        return _tickets
-
+        return _tickets  
     
-    
-
 
     
     
