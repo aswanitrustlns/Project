@@ -42,11 +42,14 @@ class DashboardSelector:
             Cursor.execute("set nocount on;exec SP_GetSummaryToday %s",[userId])
             reminders=Cursor.fetchall()
             print("Reminders---------------------------------",reminders)
+            while (Cursor.nextset()):
+                reminder_count = Cursor.fetchall()
+                print("Notification count-------",reminder_count)
             #weekly webinar info list---
             print("procedure-start8",datetime.now().time())
             Cursor.execute("set nocount on;exec SP_GetSeminarInfolist")
             weekly_webinar=Cursor.fetchall() 
-           
+            weekly_webinar=len(weekly_webinar)
             #Live chat
             print("procedure-start9",datetime.now().time())
             date_to=datetime.today().date()
@@ -98,7 +101,7 @@ class DashboardSelector:
             print("procedure-end",datetime.now().time())
             sales_data={'weekly_summary':weekly_summary_bar,'ticket_count_daily':json.dumps(ticket_count_daily),'ticket_count_weekly':json.dumps(ticket_count_weekly),
             'journel':journel_data,'weekly_lead_bar':weekly_lead_bar,'meeting_today':meeting_today,'active_campaigns':active_campaigns,'campaign_count':active_campaigns_count,
-            'live_chat':live_chat,'weekly_webinar':weekly_webinar,'reminders':reminders}
+            'live_chat':live_chat,'weekly_webinar':weekly_webinar,'reminders':reminders,'reminder_count':reminder_count}
             print("redirect start",datetime.now().time())
         except Exception as e:
             print("Exception----",e)

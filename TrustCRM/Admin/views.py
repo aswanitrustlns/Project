@@ -76,7 +76,7 @@ def login_check(request):
 
 def dashboard(request):
 
-     if 'UserId' in request.session:
+    if 'UserId' in request.session:
         UserId=request.session.get('UserId')
         UserId=56
         permission_check=selector.user_role_selection(UserId)          
@@ -97,6 +97,8 @@ def dashboard(request):
              dashbord_data=sales_dash.sales_dashboard(UserId)     
              print("sales dashboard procedure end",datetime.now().time()) 
              return render(request,'sales/dashboard.html',dashbord_data)
+    else:
+         return redirect('/login') 
 
 
     # print("dashboard-start",datetime.now().time())
@@ -427,6 +429,40 @@ def lead_load_all(request):
     # paginator = Paginator(load_data, 10)
     print("load data-------------------------",len(load_data))
     return JsonResponse(list(load_data), safe=False)
+
+def new_accounts(request):
+    if 'UserId' in request.session:
+        new_accounts_data=selector.get_new_accounts()
+        print("New Accounts page data")
+        # return render(request,'admin/newaccounts.html',{'page_data':new_accounts_data})
+    else:
+         return redirect('/login')
+
+def lead_duplicate_check(request):
+    print("Duplicate check-----------------------")
+    phone=request.GET.get('phone')
+    email=request.GET.get('email')
+    print("Duplicate check-----------------------",phone,email)
+    duplicate=selector.check_duplicate(phone,email)
+    print("duplicate dataaaaaaaaaaaaa",duplicate)
+    if duplicate:
+        return JsonResponse({"success":True,"duplicate":duplicate})
+    else:
+        return JsonResponse({"success":False})
+def view_merge(request):
+    print("Request---------------------------")
+    demoid=request.GET.get('demoid')
+    ticket=request.GET.get('ticket')
+    email1=request.GET.get('email1')
+    email2=request.GET.get('email2')
+    mobile=request.GET.get('mobile')
+    telephone=request.GET.get('telephone') 
+    print("Request---------------------------",demoid,ticket,email1,email2,mobile,telephone)
+    selector.merge_ticket(ticket,email1,email2,mobile,telephone) 
+    selector.close_lead(demoid,ticket)
+    return JsonResponse({'success':True})
+
+
 
 
 

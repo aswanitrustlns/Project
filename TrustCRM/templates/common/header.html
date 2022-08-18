@@ -134,7 +134,7 @@
                     <i data-feather="bell" class="icon-lg"></i>
                     <span class="badge bg-danger rounded-pill">{{request.session.notification}}</span>
                 </button>
-                {% if request.session.notification != 0 %}
+                {% if request.session.notification%}
                 <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end p-0"
                     aria-labelledby="page-header-notifications-dropdown">
                     <div class="p-3">

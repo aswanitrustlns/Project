@@ -337,7 +337,7 @@ ticketDonut("#tickets_tab02",spoken_w,overdue_w,resolved_w);
 //   spline_area_new_accounts
 var funded=weekly_summary.map((item) => item.funded);
 var nonfunded=weekly_summary.map((item) => item.nonfunded);
-var temp=weekly_summary.map((item) => item.temp);
+var temprory=weekly_summary.map((item) => item.temp);
 var waiting=weekly_summary.map((item) => item.waiting);
 var splneAreaColors = getChartColorsArray("#spline_area_new_accounts");
 var options = {
@@ -348,12 +348,19 @@ var options = {
             show: false,
         }
     },
+    fill: {
+
+        type: "solid",
+
+        opacity: 0,
+
+  },
     dataLabels: {
         enabled: false
     },
     stroke: {
         curve: 'smooth',
-        width: 3,
+        width: 4,
     },
     series: [{
         name: 'Funded',
@@ -363,11 +370,11 @@ var options = {
         data: nonfunded
     }, {
         name: 'Approved Temporarily',
-        data: temp
+        data: temprory
     }, {
         name: 'Waiting for approval',
         data: waiting
-    }],
+    },],
     colors: splneAreaColors,
     xaxis: {
         type: ' ',
@@ -404,15 +411,22 @@ var options = {
 
     },
     grid: {
-        borderColor: '#73759D',
+
+        //show: true,
+
+        borderColor: '#333550',
+
+        strokeDashArray: 7, 
+     
+
     },
 
 
     legend: {
         show: true,
         showForSingleSeries: true,
-        showForNullSeries: false,
-        showForZeroSeries: false,
+        showForNullSeries: true,
+        showForZeroSeries: true,
         position: 'bottom',
         horizontalAlign: 'center',
         floating: false,
@@ -443,8 +457,8 @@ var options = {
             offsetY: 0
         },
         itemMargin: {
-            horizontal: 5,
-            vertical: 0
+            horizontal: 20,
+            vertical: 10,
         },
         onItemClick: {
             toggleDataSeries: true
@@ -458,27 +472,20 @@ var options = {
             //format: 'dd/MM/yy HH:mm'
         },
     },
-    noData: {
-
-        text: 'No New Accounts ',
-
-        align: "center",
-        verticalAlign: "middle",
-
-        style: {
-            color: undefined,
-            fontSize: '14px',
-            fontFamily: 'giloryregular',
-        },
-
-
-    },
+   
     responsive: [{
         breakpoint: 1550,
         options: {
             chart: {
                 height: 420,
             },
+            legend: {
+                itemMargin: {
+                    horizontal: 5,
+                    vertical: 10,
+                },
+
+            }
         },
     },
     {

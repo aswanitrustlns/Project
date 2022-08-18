@@ -182,14 +182,50 @@ class Selector:
             Cursor.close()
         return _tickets  
     
+    # Get New Accounts page data
+    def get_new_accounts(self):
+        try:
+           Cursor=connection.cursor()
+           date_today=datetime.today().date()    
+           date_today=date_today.strftime("%Y-%m-%d")
+           Cursor.execute("set nocount on;exec SP_GetNewAccountsList %s,%s,%s",["1900-01-01",date_today,'Live'])  
+           live_accounts=Cursor.fetchall()
+           print("Live Accounts",live_accounts)
+        except Exception as e:
+            print("Exception---",e)
+        finally:
+            Cursor.close()
+        return live_accounts
 
-    
+    def check_duplicate(self,phone,email):
+        try:
+           Cursor=connection.cursor()
+           Cursor.execute("set nocount on;exec TC_GetDuplicatePhoneList %s,%s",[phone,email])
+           duplicate=Cursor.fetchone()
+        except Exception as e:
+            print("Exception---",e)
+        finally:
+            Cursor.close()
+        return duplicate
+    def close_lead(self,demoid,ticket):
+        try:
+           Cursor=connection.cursor()
+           Cursor.execute("set nocount on;exec SP_CloseLead %s,%s",[demoid,ticket])
+           
+        except Exception as e:
+            print("Exception---",e)
+        finally:
+            Cursor.close()
+        
+
+
     
     # Logout Procedure call
 
     def user_logout(self,userId):
         try:
            Cursor=connection.cursor()
+           
            Cursor.execute("set nocount on;exec SP_SetUserStatus %s",[userId])           
         except Exception as e:
             print("Exception---",e)

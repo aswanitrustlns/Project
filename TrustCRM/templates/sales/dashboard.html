@@ -215,9 +215,9 @@
 
 
                                         </div>
-                                        <span class="mb-2  gilroymedium-type fs-13 color-color1">Recent
+                                        <span class="mb-4  gilroymedium-type fs-13 color-color1">Recent
                                             activities</span>
-                                        <div class="px-3 pt-2" data-simplebar style="max-height: 145px;">
+                                        <div class="px-3 pt-2" data-simplebar style="max-height: 145px; margin-left: -20px;">
                                             <ul class="list-unstyled activity-wid mb-0 journel2 ">
                                         {%if journel%}        
                                             {% for journels in journel %}
@@ -308,13 +308,13 @@
                                 <div class="d-flex flex-wrap align-items-center mb-4">
                                     <h5 class="card-title me-2 almarenamonolight-type fs-21">Today’s Meetings</h5>
                                 </div>
-                                <div data-simplebar="" style="max-height: 320px;">
+                                <div data-simplebar="" style="max-height: 350px;">
 
 
                                     <!--Meetings-->
                                     {% if meeting_today%}
                                     {%for meeting in meeting_today%}
-                                    <div class=" mb-3 px-2 py-2 card-inside ">
+                                    <div class=" mb-3 px-2 py-3 card-inside ">
 
 
                                         <div>
@@ -343,7 +343,7 @@
                                             <div
                                                 class="d-flex justify-content-between align-items-center  gilroymedium-type flex-wrap flex-xxl-nowrap">
 
-                                                <p class="mb-0  fs-12 flex-grow-1 color-color1"><svg width="20"
+                                                <p class="mb-0  flex-grow-1 color-color1"><svg width="20"
                                                         height="21" viewBox="0 0 20 21" fill="none"
                                                         xmlns="http://www.w3.org/2000/svg">
                                                         <path
@@ -356,7 +356,7 @@
                                                     <span class="   fs-14 ">{{meeting.4}}</span>
                                                 </p>
                                                 <span
-                                                    class="fs-12 d-block ms-xxl-2 mt-xxl-0 ms-0 mt-2 text-xxl-end">Ticket
+                                                    class="fs-14 d-block ms-xxl-2 mt-xxl-0 ms-0 mt-2 text-xxl-end">Ticket
                                                     : {{meeting.2}}</span>
 
                                             </div>
@@ -399,7 +399,7 @@
                     </div><!-- end card -->
 
                     <!--Reminders-->
-                    <div class="col-xl-3  col-md-6">
+                    <div class="col-xl-3  col-md-6 ">
                         <!-- card -->
                         <div class="card card-h-100">
                             <!-- card body -->
@@ -408,7 +408,7 @@
                                     <h5 class="card-title me-2 almarenamonolight-type fs-21">Reminders</h5>
                                 </div>
 
-                                <div data-simplebar="" style="max-height:320px ;">
+                                <div data-simplebar="" style="max-height:350px ;">
                                     <!--Up Coming-->
                                     <!-- <h4 class="fs-14 gilroymedium-type text-info">Pinned</h4> -->
 
@@ -416,9 +416,9 @@
 
 
                                     <!--Reminder-->
-                                    {%if reminders%}
+                                    {%if reminder_count%}
                                     {%for reminder in reminders%} 
-                                    <div class=" mb-3 px-2 py-2 card ">
+                                    <div class=" mb-3 px-3 py-3 card ">
 
                                        
                                         <div>
@@ -484,7 +484,7 @@
                         </div><!-- end card body -->
                     </div><!-- end card -->
                     <!--Webinars this week-->
-                    <div class="col-xl-3  col-md-6 ">
+                    <div class="col-xl-3  col-md-6 d-none">
                         <!-- card -->
                         <div class="card card-h-100">
                             <!-- card body -->
@@ -512,42 +512,7 @@
 
                                         </div>
                                         <!--webinar-->
-                                        {%if weekly_webinar%}
-                                                {%for webinar in weekly_webinar%}
-                                                {%if forloop.counter <= 4 %}
-                                                <div class="  col-xxl-6  col-xl-12  col-md-6 mb-3   ">
-
-                                                    <div class="position-relative rounded-3"
-                                                        style="height: 150px;overflow:hidden;background-image: url({%static 'images/webinars/web'%}{{forloop.counter}}.png);">
-
-                                                        <div class="fade-overlay d-flex align-items-end ">
-                                                            <div class="px-2 py-2">
-
-                                                                <span class="color-color1 fs-12 gilory-medium-type">{{webinar.1}}</span>
-                                                                <h2 class="gilory-semibold-type fs-14">{{webinar.2}}</h2>
-                                                            </div>
-
-
-
-                                                        </div>
-
-                                                    </div>
-
-
-                                                </div>  
-                                                {%endif%}
-                                                {%endfor%}
-                                        {%else%}
-                                       
-                                                <div class="  text-center  d-block">
-                                                    <img src="{% static 'images/webinars/web2.png' %}" alt="" style="max-height: 120px;">                                                   
-                                                       
-                
-                                                    <p class="gilory-regular-type fs-20 mt-2">No Webinars This Week</p>
-                                                
-                                                
-                                                 </div>
-                                        {%endif%}                               
+                                        <!--                         -->
                                      
                                     </div>
                                 </div>
@@ -572,14 +537,86 @@
                     </div><!-- end card -->
 
                     <!---->
-                    <div class="col-xl-3 col-md-6">
+                    <div class="col-xl-6 col-md-6">
 
                         <div class="card border-left-0 border-right-0  card-h-100 "
                             style="border-left: 1px solid transparent;border-right: 1px solid transparent;">
+                            <div class="row">
+
+                                <div class="col-xxl-6 col-md-6">
+                                    <!--Live chats this week-->
+                                    <div class="card card-h-100">
+
+
+                                        <div class="card-body ">
+
+
+                                            <div class="d-flex flex-wrap align-items-center ">
+                                                <h5 class="card-title me-2 almarenamonolight-type fs-21">Webinars this week
+                                                </h5>
+                                                <div class="ms-auto">
+                                                    <div class="dropdown d-inline-block">
+                                                        <a class="  position-relative " id="live-chats-dropdown"
+                                                            data-bs-toggle="dropdown" aria-haspopup="true"
+                                                            aria-expanded="false">
+
+                                                            <span class="badge bg-info rounded-pill">{{weekly_webinar}}</span>
+                                                        </a>
+                                                  
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+
+
+                                        </div>
+                                        <!-- end card body -->
+                                    </div>
+
+                                </div>
+                                <div class="col-xxl-6 col-md-6">
+                                    <!--Live chats this week-->
+                                    <div class="card card-h-100">
+
+
+                                        <div class="card-body ">
+
+
+                                            <div class="d-flex flex-wrap align-items-center ">
+                                                <h5 class="card-title me-2 almarenamonolight-type fs-21">Live chats this
+                                                    week
+                                                </h5>
+                                                <div class="ms-auto">
+                                                    <div class="dropdown d-inline-block">
+                                                        <a class="  position-relative " id="live-chats-dropdown"
+                                                            data-bs-toggle="dropdown" aria-haspopup="true"
+                                                            aria-expanded="false">
+
+                                                            <span class="badge bg-success rounded-pill">{{live_chat}}</span>
+                                                        </a>
+                                                     
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+
+
+                                        </div>
+                                        <!-- end card body -->
+                                    </div>
+
+                                </div>
+                            </div>
+
+
+
+
 
 
                              <!--Live chats this week-->
-                        <div class="card">
+                        <!-- <div class="card">
 
 
                             <div class="card-body ">
@@ -602,8 +639,8 @@
 
                                
                             </div>
-                            <!-- end card body -->
-                        </div>
+                            
+                        </div> -->
                         <!-- end card -->
 
                         <!--Active Campaigns-->

@@ -88,7 +88,7 @@
                                             <th  data-type="text" >Country</th>
                                         </tr>    -->
                                         {%for data in leads_data %}
-                                        <tr ondblclick='checkticket("{{data.2}}","{{data.4}}")' style="cursor: pointer;">
+                                        <tr ondblclick='checkticket("{{data.1}}","{{data.2}}","{{data.4}}")' style="cursor: pointer;">
                                             <td >{{data.0}}</td>
                                             <!-- <td>{{data.1}}</td> -->
                                             <td>{{data.2}}</td>
@@ -135,6 +135,103 @@
     <!-- Right bar overlay-->
     <div class="rightbar-overlay"></div>
 
+    
+    <div class="modal fade bs-example-modal-insta" tabindex="-1" role="dialog" aria-hidden="true" id="permission_model">
+        <div class="modal-dialog modal-dialog-centered"   style="z-index: 10555;">
+            <div class="modal-content">
+                <div class="modal-header border-0">
+                    <!--<h5 class="modal-title fs-21">@title</h5>-->
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                                        
+                <div class="modal-body" >
+    
+    
+                    <div data-simplebar style="max-height: 230px;">
+    
+                         <!--User-->
+                    <div class="d-flex align-items-center">
+                    
+                        <!-- <div class="flex-shrink-0 me-3">
+                            <div class="avatar-sm align-self-center">
+                                <span class="avatar-title rounded-circle bg-soft-primary text-primary">
+                                    J
+                                </span>
+                            </div>
+                        </div> -->
+                        <div class="flex-grow-1">
+                            <div id="ticket"></div>
+                            <br>
+                            <h6 class="mb-0">You dont have permission to view this Ticket</h6>
+                            <!--<div class="font-size-13 text-muted">
+                                <p class="mb-1">It will seem like simplified English.</p>
+                                <p class="mb-0"><i class="mdi mdi-clock-outline"></i> <span>1 hour ago</span></p>
+                            </div>-->
+                        </div>
+                    </div>
+                  
+                  
+    
+                    </div>
+               
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="modal fade  bs-example-modal-insta" tabindex="-1" role="dialog" aria-hidden="true" id="duplicate_model">
+        <div class="modal-dialog modal-dialog-centered modal-xl d-block"   style="z-index: 10555;">
+            <div class="modal-content mb-4">
+                <div class="modal-header border-0">
+                    <h5 class="modal-title fs-21">Duplicate Phone</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                                                    
+                                                       
+                                              
+                <div class="modal-body">        
+    
+                  
+                     
+                 
+    
+                     <div class="table-responsive" data-simplebar style="max-height: 352px;">
+                         <table class="table mb-0 " id="">
+    
+                             <thead>
+                                 <tr class="almarenamonolight-type fs-14">
+                                     <th> </th>
+                                     <th> </th>
+                                     <th>Name</th>
+                                     <th>Ticket</th>
+                                     <th>Phone</th>
+                                     <th>Phone2</th>                                     
+                                     <th>User Name</th>
+                                     <th class="text-end">Email</th>
+                                     
+                                 </tr>
+                             </thead>
+                             <tbody class="gilroyregular-type fs-15" id="duplicate_body">
+                             </tbody>
+                         </table>
+                     </div> 
+                 
+                 
+    
+    
+                 
+                
+                    
+                </div>
+    
+                
+            </div>
+        </div>
+    </div>
+
+
+
     <!-- JAVASCRIPT -->
   
   
@@ -144,13 +241,81 @@
     <script src="assets/libs/admin-resources/jquery.vectormap/maps/jquery-jvectormap-world-mill-en.js"></script>-->
     <!-- dashboard init -->
     <script>
-        function checkticket(lead_email,lead_phone){
+        function checkticket(demo_id,lead_email,lead_phone){
             console.log("Double clicked")
             
             console.log("email----lead"+lead_email)
             
             console.log("email----lead"+lead_phone)
+            $.ajax({
+               type : "GET", 
+               url: "{% url 'Admin:Duplicate' %}",
+               dataType: 'json',
+               data: {
+                'phone':lead_phone,
+                'email':lead_email
+               },
+               
+               success: function(data){
+                console.log(data)
+                if(data.success){
+                    $("#duplicate_model tbody").empty();
+                    var element=data.duplicate;
+                    
+                    var duplicate_data=new Array();
+                   
+                    
+                    console.log("duplicate arrayyyyyyyyyyyyyyyyyyyyyy"+duplicate_data)
+                    var duplicates="<tr><th scope='row'><td><button class='btn btn-primary btn-md mt-3' onclick=viewticket('"+element[1]+"','"+element[2]+"','"+element[3]+"','"+element[5]+"')>View Ticket</button></td><td><button class='btn btn-primary btn-md mt-3' onClick=merge('"+demo_id+"','"+element[1]+"','"+element[2]+"','"+element[3]+"','"+element[5]+"')>View and Merge</button></td>"+
+                                element[0]+"</th><td>"+element[1]+"</td><td>"+element[2]+"</td><td>"+element[3]+"</td><td>"+element[4]+"</td><td class='text-end'>"+element[5]+"</td></tr>";                            
+                    var hidden_name="<input type='hidden' name='name' id='ticket_name' value='"+element[0]+"'>";
+
+                    $("#duplicate_body").append(duplicates)
+                    $("#duplicate_body").append(hidden_name)   
+                        $("#duplicate_model").modal('show');
+                }
+                else{
+                    var url="{% url 'Admin:LeadProcessing'%}"
+                    window.location.href=url
+                }
+               }
+            })
+
+
+
         }
+        
+        function viewticket(ticket,phone1,phone2,email){
+            var tick_name=document.getElementById("ticket_name").value
+            console.log("View Ticket Leads data---------"+tick_name);
+            var url="{% url 'Admin:LeadProcessing'%}"
+            window.location.href=url+"?&ticket="+ticket+"&email1="+email+"&email2=''&mobile="+phone1+"&telephone="+phone2
+        }
+        function merge(demo_id,ticket,phone1,phone2,email){
+            $.ajax({
+               type : "GET", 
+               url: "{% url 'Admin:ViewMerge' %}",
+               dataType: 'json',
+               data: {
+                'demoid':demo_id,
+                'ticket':ticket,
+                'email1':email,
+                'email2':'',
+                'mobile':phone1,
+                'telephone':phone2
+               },
+               
+               success: function(data){
+                    console.log("Sucess------ ",data)
+                    var url="{% url 'Admin:LeadProcessing'%}"
+                    window.location.href=url+"?&ticket="+ticket+"&email1="+email+"&email2=''&mobile="+phone1+"&telephone="+phone2
+               }
+            });
+           
+        }
+
+
+
         function loadAll(){
 
             $('#datatableleads').dataTable().fnClearTable();
@@ -178,21 +343,6 @@
                
             });
 
-//             function ( json ) {},
-            
-            // var all_data=$('#datatableleads').dataTable();
-            // all_data.fnClearTable();
-       
-            // console.log("Load All data")
-            // $.ajax({
-            //    type : "GET", 
-            //    url: "{% url 'Admin:LoadAll' %}",
-            //    success: function(data){
-            //     // console.log("all data"+data.all_data)
-             
-
-            //    }
-            // });
         }
     </script>
     
