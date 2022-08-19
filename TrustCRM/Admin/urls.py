@@ -13,6 +13,7 @@ urlpatterns=[
     path('LoadAll',lead_load_all,name="LoadAll"),
     path('duplicate',lead_duplicate_check,name="Duplicate"),
     path('viewMerge',view_merge,name="ViewMerge"),
+    path('createticket',create_ticket,name="CreateTicket"),
     path('LeadRegistration/',lead_registration,name="LeadRegistration"),
     path('LeadSubmit',lead_registration_check,name="LeadSubmit"),
     path('LeadProcessing',lead_processing,name="LeadProcessing"),

@@ -196,7 +196,8 @@ class Selector:
         finally:
             Cursor.close()
         return live_accounts
-
+        
+#Duplicate lead check
     def check_duplicate(self,phone,email):
         try:
            Cursor=connection.cursor()
@@ -207,6 +208,7 @@ class Selector:
         finally:
             Cursor.close()
         return duplicate
+#close lead 
     def close_lead(self,demoid,ticket):
         try:
            Cursor=connection.cursor()
@@ -217,6 +219,17 @@ class Selector:
         finally:
             Cursor.close()
         
+#create new ticket
+    def create_new_ticket(self,demoid):
+        try:
+           Cursor=connection.cursor()
+           Cursor.execute("set nocount on;exec SP_GetLeadDetailsByID %s",[demoid])
+           ticket_data=Cursor.fetchone()
+        except Exception as e:
+            print("Exception---",e)
+        finally:
+            Cursor.close()
+        return ticket_data
 
 
     

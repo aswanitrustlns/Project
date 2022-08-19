@@ -2,14 +2,15 @@ from django.db import connection
 from .selectors import Selector
 from datetime import datetime, timedelta
 import socket
+selector=Selector()
 
 class Services:
-   
+
 
     def lead_registration(self,request,UserId):
         try:
             Cursor=connection.cursor()
-            selector=Selector()
+            
             title=request.POST.get('title')
             name=request.POST.get('name')
             age=request.POST.get('age')
@@ -24,8 +25,14 @@ class Services:
             address=request.POST.get('address')
             city=request.POST.get('city')
             zip_code=request.POST.get('zipcode')
+            income=request.POST.get('income')
+            hear_bout=request.POST.get('hearabout')
+            experience=request.POST.get('experience')
+            experience=int(str(experience))
+            dob=request.POST.get('dob')
+            print("Test-----------------------------",income,hear_bout,experience,dob,type(experience))
             if not zip_code:
-                zip_code=0
+                zip_code=None
             mobile_country_code=request.POST.get('mobile_country') #Get ContryID
             source=selector.get_user_name(UserId)
             
@@ -56,11 +63,34 @@ class Services:
             print("print------",title,name,email_avl,email1,email2,profession,subject,source,state,address,city,zip_code,mobile,telephone,mobile_country_code,telephone_country_code,country1,country2,IPAddr)
 
             print("Lead submit ")        
-            Cursor.execute("EXEC SP_InsertSalesLeadReg_CRM %s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s",[name,mobile,telephone,email1,email2,address,city,zip_code,source,UserId,updated_date,updated_date,title,profession,"Pending",state,country1,country2,subject,age,IPAddr])
+            Cursor.execute("EXEC SP_InsertSalesLeadReg_CRM_PY %s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s",[name,mobile,telephone,email1,email2,address,city,zip_code,source,UserId,updated_date,updated_date,title,profession,"Pending",state,country1,country2,subject,age,IPAddr,experience,hear_bout,dob,income])
             ticket=Cursor.fetchone() 
-          
+           
         except Exception as e:
                 print("Exception---",e)
         finally:
             Cursor.close()
         return ticket
+
+    def create_ticket_service(self,request):
+        try:
+            Cursor=connection.cursor()
+            demoid=request.GET.get('id')
+            UserId=request.session.get('UserId')
+            print("demo iddd nd user id-----",demoid,UserId)
+            ticket_data=selector.create_new_ticket(demoid)
+            print("Demo id-----",ticket_data[0],type(ticket_data[0]))
+
+            print("Ticket data after ----------",ticket_data)
+            email=ticket_data[2]
+            phone=ticket_data[4]
+            print("Inserted data----",ticket_data[1],ticket_data[4],ticket_data[2],ticket_data[3],ticket_data[5],ticket_data[6],ticket_data[7],ticket_data[13],ticket_data[10],ticket_data[15],ticket_data[16],ticket_data[18],ticket_data[11],ticket_data[22],UserId,ticket_data[1])
+            Cursor.execute("EXEC SP_CreateTicket %s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s",[ticket_data[1],ticket_data[4],ticket_data[2],ticket_data[3],ticket_data[5],ticket_data[6],ticket_data[7],ticket_data[13],ticket_data[10],ticket_data[15],ticket_data[16],ticket_data[18],ticket_data[11],ticket_data[22],UserId,ticket_data[0]])
+           
+            print("Ticket created successfully-----")
+        except Exception as e:
+            print("Exception---",e)
+        finally:
+            Cursor.close()
+        return email,phone
+

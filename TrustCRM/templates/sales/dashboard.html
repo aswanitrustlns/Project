@@ -205,19 +205,31 @@
                             <div class="col-xl-12 col-lg-12">
                                 <div class="card">
 
-
+                               
 
 
                                     <div class="card-body ">
 
-                                        <div class="d-flex flex-wrap align-items-left flex-column mb-3 ">
+                                        <div class="d-flex flex-no-wrap align-items-left flex-column mb-3 ">
                                             <h5 class="card-title me-2 almarenamonolight-type fs-21 mb-0">Journal</h5>
-
+                                            <div class="ms-auto">
+                                                <div class="dropdown d-inline-block">
+                                                    <a class="  position-relative " id="live-chats-dropdown"
+                                                        data-bs-toggle="dropdown" aria-haspopup="true"
+                                                        aria-expanded="false">
+    
+                                                        <span class="mb-4  gilroymedium-type fs-13 color-color1">Recent
+                                                            activities</span>
+                                                    </a>
+                                              
+                                                </div>
+                                            </div>
 
                                         </div>
-                                        <span class="mb-4  gilroymedium-type fs-13 color-color1">Recent
-                                            activities</span>
-                                        <div class="px-3 pt-2" data-simplebar style="max-height: 145px; margin-left: -20px;">
+
+                                        
+                                       
+                                        <div class="ps-3 pt-2" data-simplebar style="max-height: 145px; margin-left: -20px;">
                                             <ul class="list-unstyled activity-wid mb-0 journel2 ">
                                         {%if journel%}        
                                             {% for journels in journel %}
@@ -241,7 +253,7 @@
                                                                     {{journels.1}}
 
                                                                     <span class="flex-shrink-0 text-end me-3">
-                                                                        <svg width="15" height="15" viewBox="0 0 15 15"
+                                                                        <!-- <svg width="15" height="15" viewBox="0 0 15 15"
                                                                             fill="none"
                                                                             xmlns="http://www.w3.org/2000/svg">
                                                                             <path
@@ -255,7 +267,8 @@
                                                                                 stroke-width="1.5"
                                                                                 stroke-linecap="round"
                                                                                 stroke-linejoin="round" />
-                                                                        </svg> <span class="ms-1 color-color1">{{journels.2}}
+                                                                        </svg> <span class="ms-1 color-color1"> -->
+                                                                            {{journels.2}}
                                                                         </span>
                                                                     </span>
 
@@ -314,7 +327,7 @@
                                     <!--Meetings-->
                                     {% if meeting_today%}
                                     {%for meeting in meeting_today%}
-                                    <div class=" mb-3 px-2 py-3 card-inside ">
+                                    <div class=" mb-3 px-3 py-3 card-inside ">
 
 
                                         <div>
@@ -416,7 +429,7 @@
 
 
                                     <!--Reminder-->
-                                    {%if reminder_count%}
+                                    {%if reminder_count > 0%}
                                     {%for reminder in reminders%} 
                                     <div class=" mb-3 px-3 py-3 card ">
 
@@ -539,7 +552,7 @@
                     <!---->
                     <div class="col-xl-6 col-md-6">
 
-                        <div class="card border-left-0 border-right-0  card-h-100 "
+                        <div class="card border-top-0  card-h-100 "
                             style="border-left: 1px solid transparent;border-right: 1px solid transparent;">
                             <div class="row">
 
@@ -551,7 +564,7 @@
                                         <div class="card-body ">
 
 
-                                            <div class="d-flex flex-wrap align-items-center ">
+                                            <div class="d-flex flex-no-wrap align-items-center ">
                                                 <h5 class="card-title me-2 almarenamonolight-type fs-21">Webinars this week
                                                 </h5>
                                                 <div class="ms-auto">
@@ -560,7 +573,7 @@
                                                             data-bs-toggle="dropdown" aria-haspopup="true"
                                                             aria-expanded="false">
 
-                                                            <span class="badge bg-info rounded-pill">{{weekly_webinar}}</span>
+                                                            <span class="badge bg-info rounded-circle p-2" >{{weekly_webinar}}</span>
                                                         </a>
                                                   
                                                     </div>
@@ -583,7 +596,7 @@
                                         <div class="card-body ">
 
 
-                                            <div class="d-flex flex-wrap align-items-center ">
+                                            <div class="d-flex flex-no-wrap align-items-center ">
                                                 <h5 class="card-title me-2 almarenamonolight-type fs-21">Live chats this
                                                     week
                                                 </h5>
@@ -593,7 +606,7 @@
                                                             data-bs-toggle="dropdown" aria-haspopup="true"
                                                             aria-expanded="false">
 
-                                                            <span class="badge bg-success rounded-pill">{{live_chat}}</span>
+                                                            <span class="badge bg-success rounded-circle p-2">{{live_chat}}</span>
                                                         </a>
                                                      
                                                     </div>
@@ -656,7 +669,7 @@
                                         <div class="dropdown d-inline-block">
                                             <a  class="  position-relative " id="live-chats-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                
-                                                <span class="badge bg-danger rounded-pill">{{campaign_count}}</span>
+                                                <span class="badge bg-danger rounded-circle p-2">{{campaign_count}}</span>
                                             </a>
                                             
                                         </div>
@@ -682,7 +695,8 @@
                                         {%if active_campaigns %}
                                             {%for campaigns in active_campaigns %}
                                             <tr>
-                                                <th scope="row">{{campaigns.0| wordwrap:1 | truncatechars:20}}</th>
+                                                <th scope="row" style="width:300px;">{{campaigns.0}}</th>
+                                                <!-- | wordwrap:1 | truncatechars:20 -->
                                                 <td>{{campaigns.1|date:"M d,Y"}}-{{campaigns.2|date:"M d,Y"}}</td>
                                           
                                                 <td class="text-end">{{campaigns.3}}</td>

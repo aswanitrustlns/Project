@@ -224,6 +224,12 @@
                 
                     
                 </div>
+                <div class=" col-md-12" >
+       
+                    <button type="button" class="btn btn-success" onclick="create_new_ticket()">Create New Ticket</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal" id="close">Close</button>
+                  
+                </div>
     
                 
             </div>
@@ -242,11 +248,7 @@
     <!-- dashboard init -->
     <script>
         function checkticket(demo_id,lead_email,lead_phone){
-            console.log("Double clicked")
-            
-            console.log("email----lead"+lead_email)
-            
-            console.log("email----lead"+lead_phone)
+          
             $.ajax({
                type : "GET", 
                url: "{% url 'Admin:Duplicate' %}",
@@ -265,11 +267,11 @@
                     var duplicate_data=new Array();
                    
                     
-                    console.log("duplicate arrayyyyyyyyyyyyyyyyyyyyyy"+duplicate_data)
-                    var duplicates="<tr><th scope='row'><td><button class='btn btn-primary btn-md mt-3' onclick=viewticket('"+element[1]+"','"+element[2]+"','"+element[3]+"','"+element[5]+"')>View Ticket</button></td><td><button class='btn btn-primary btn-md mt-3' onClick=merge('"+demo_id+"','"+element[1]+"','"+element[2]+"','"+element[3]+"','"+element[5]+"')>View and Merge</button></td>"+
-                                element[0]+"</th><td>"+element[1]+"</td><td>"+element[2]+"</td><td>"+element[3]+"</td><td>"+element[4]+"</td><td class='text-end'>"+element[5]+"</td></tr>";                            
-                    var hidden_name="<input type='hidden' name='name' id='ticket_name' value='"+element[0]+"'>";
-
+                    
+                    var duplicates="<tr><th scope='row'><td><button class='btn btn-primary btn-md mt-3' onclick=viewticket('"+element[1]+"','"+element[2]+"','"+element[3]+"','"+element[5]+"')>View Ticket</button></th><td><button class='btn btn-primary btn-md mt-3' onClick=merge('"+demo_id+"','"+element[1]+"','"+element[2]+"','"+element[3]+"','"+element[5]+"')>View and Merge</button></td><td>"+
+                                element[0]+"</td><td>"+element[1]+"</td><td>"+element[2]+"</td><td>"+element[3]+"</td><td>"+element[4]+"</td><td class='text-end'>"+element[5]+"</td></tr>";                            
+                    var hidden_name="<input type='hidden' name='name' id='ticket_name' value='"+element[0]+"'><input type='hidden' name='demoid' value='"+demo_id+"' id='demo_id'>";
+                   
                     $("#duplicate_body").append(duplicates)
                     $("#duplicate_body").append(hidden_name)   
                         $("#duplicate_model").modal('show');
@@ -287,7 +289,7 @@
         
         function viewticket(ticket,phone1,phone2,email){
             var tick_name=document.getElementById("ticket_name").value
-            console.log("View Ticket Leads data---------"+tick_name);
+            
             var url="{% url 'Admin:LeadProcessing'%}"
             window.location.href=url+"?&ticket="+ticket+"&email1="+email+"&email2=''&mobile="+phone1+"&telephone="+phone2
         }
@@ -306,12 +308,38 @@
                },
                
                success: function(data){
-                    console.log("Sucess------ ",data)
+                    
                     var url="{% url 'Admin:LeadProcessing'%}"
                     window.location.href=url+"?&ticket="+ticket+"&email1="+email+"&email2=''&mobile="+phone1+"&telephone="+phone2
                }
             });
            
+        }
+
+        function create_new_ticket(){
+            var demo_id=document.getElementById("demo_id").value
+            
+
+            $.ajax({
+               type : "GET", 
+               url: "{% url 'Admin:CreateTicket' %}",
+               dataType: 'json',
+               data: {
+              'id':demo_id                
+               },
+               
+               success: function(data){
+                
+                if(data.success){
+                    email=data.email
+                    phone=data.phone
+                    var url="{% url 'Admin:LeadProcessing'%}"
+                    window.location.href=url+"?&email1="+email+"&email2=''&mobile="+phone
+
+                }
+               }
+            })
+
         }
 
 
@@ -335,7 +363,7 @@
                         items[i] = [json_data[i][0],json_data[i][2],json_data[i][3],json_data[i][4],json_data[i][5],json_data[i][7]]; 
                             
                         }
-                        console.log(items);
+                        
                         return items;
                    }
                 },
@@ -344,6 +372,11 @@
             });
 
         }
+
+
+
+
+
     </script>
     
     <!-- Required datatable js -->

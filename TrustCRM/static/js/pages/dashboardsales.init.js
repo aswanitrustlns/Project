@@ -339,6 +339,10 @@ var funded=weekly_summary.map((item) => item.funded);
 var nonfunded=weekly_summary.map((item) => item.nonfunded);
 var temprory=weekly_summary.map((item) => item.temp);
 var waiting=weekly_summary.map((item) => item.waiting);
+console.log("Type of funded-------"+funded.length)
+fun_sum=data_sum(funded)
+
+
 var splneAreaColors = getChartColorsArray("#spline_area_new_accounts");
 var options = {
     chart: {
@@ -526,7 +530,14 @@ chart.render();
 
 
 
-
+function data_sum(ar) {
+    var sum = 0;
+    for (var i = 0; i < ar.length; i++) {
+      if(typeof ar[i] == `number`) sum += ar[i];
+    }
+    console.log("Data sum-----------------------"+sum)
+    return sum;
+  }
 
 
 

@@ -449,6 +449,7 @@ def lead_duplicate_check(request):
         return JsonResponse({"success":True,"duplicate":duplicate})
     else:
         return JsonResponse({"success":False})
+
 def view_merge(request):
     print("Request---------------------------")
     demoid=request.GET.get('demoid')
@@ -461,6 +462,14 @@ def view_merge(request):
     selector.merge_ticket(ticket,email1,email2,mobile,telephone) 
     selector.close_lead(demoid,ticket)
     return JsonResponse({'success':True})
+
+def create_ticket(request):
+    print("create ticket")
+    demoid=request.GET.get('id')
+    print("demo iddd-----",demoid)
+    email,phone=service.create_ticket_service(request)
+    print("Ticket data---------------------------------")
+    return JsonResponse({"success":True,"email":email,"phone":phone})
 
 
 
@@ -539,29 +548,45 @@ def lead_processing(request):
             email2=request.GET.get('email2')
             mobile=request.GET.get('mobile')
             phone=request.GET.get('telephone')
+            
             print("email1",email1,"email2",email2,"mobile",mobile,"phone",phone)
-                                                                                                                                
+            if ticket is None:
+                ticket=" "                                                                                                                    
             if email1 or email2 or mobile or phone:
                 Cursor.execute("set nocount on;exec SP_SearchPhoneEmail_PY %s,%s,%s,%s,%s",[mobile,phone,email1,email2,UserId]) # To test exec SP_SearchPhone '4588',21
-                search_email_phone=Cursor.fetchall() 
+                search_email_phone=Cursor.fetchone() 
                 print("--------------------------",search_email_phone,type(search_email_phone))
-                while (Cursor.nextset()):
-                    search_email_phone1 = Cursor.fetchall()
-                    print("next data set1----------------",search_email_phone1)
-                if search_email_phone1:
-                    search_email_phone=search_email_phone+search_email_phone1
-                while (Cursor.nextset()):
-                    search_email_phone2 = Cursor.fetchall()
-                    print("next data set2----------------",search_email_phone2)
-                if search_email_phone2:
-                    search_email_phone=search_email_phone+search_email_phone2
-                while (Cursor.nextset()):
-                    search_email_phone3 = Cursor.fetchall()
-                    print("next data set3----------------",search_email_phone3)
-                if search_email_phone3:
-                    search_email_phone=search_email_phone+search_email_phone3
-            if ticket is None:
-                ticket=" "
+                if(Cursor.nextset()):
+                    search_email_phone1 = Cursor.fetchone() 
+                    if search_email_phone1:
+                        search_email_phone =search_email_phone1  
+                                        
+                    print("next data set1datas----------------",search_email_phone)
+                # Cursor.nextset()
+                # search_email_phone2 = Cursor.fetchone() 
+                # print("next data set2----------------",search_email_phone1)
+                # if search_email_phone2:
+                #     search_email_phone =search_email_phone2
+                # Cursor.nextset()
+                # search_email_phone3 = Cursor.fetchone() 
+                # print("next data set2----------------",search_email_phone1)
+                # if search_email_phone3:
+                #     search_email_phone =search_email_phone3
+                # while (Cursor.nextset()):
+                #     search_email_phone = Cursor.fetchone()
+                #     print("next data set2----------------",search_email_phone2)
+                # if search_email_phone2:
+                #     search_email_phone=search_email_phone2
+                # while (Cursor.nextset()):
+                #     search_email_phone3 = Cursor.fetchone()
+                #     print("next data set3----------------",search_email_phone3)
+                # if search_email_phone3:
+                #     search_email_phone=search_email_phone3
+                print("dataaaaaaaaaaaaaa",search_email_phone)
+                get_ticket=search_email_phone[0]
+                print("Get ticket--------------------",get_ticket)
+                ticket=get_ticket
+
             print("ticket1111111111111111111",ticket)
         except Exception as e:
             print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!Exception!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!",e.__class__)
