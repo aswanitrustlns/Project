@@ -428,7 +428,7 @@ def lead_load_all(request):
     load_data=selector.get_leads(lead)   
     # paginator = Paginator(load_data, 10)
     print("load data-------------------------",len(load_data))
-    return JsonResponse(list(load_data), safe=False)
+    return JsonResponse(load_data, safe=False)
 
 def new_accounts(request):
     if 'UserId' in request.session:
@@ -640,6 +640,7 @@ def resolved_tickets(request):
     else:
          return redirect('/login') 
 
+
 def resolved_tckts_load_all(request):
     UserId=request.session.get('UserId')
     
@@ -647,4 +648,21 @@ def resolved_tckts_load_all(request):
     # paginator = Paginator(load_data, 10)
     print("load data-------------------------",len(resolved_tickets))
     return JsonResponse(list(resolved_tickets), safe=False)
+
+def new_accounts(request):
+
+    if 'UserId' in request.session:
+        change=request.GET.get("change")
+        if(change):
+            accounts_data=selector.get_new_accounts(change)
+            print("change is---------------",change)
+            return JsonResponse(list(accounts_data), safe=False)
+        else:
+            
+            accounts_data=selector.get_new_accounts("Live")
+            return render(request,'admin/newAccounts.html',{'accounts_data':accounts_data})
+                
+    else:
+        return redirect('/login')
+
    

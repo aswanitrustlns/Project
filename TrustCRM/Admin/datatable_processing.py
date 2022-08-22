@@ -1,4 +1,5 @@
 
+from http.client import HTTPResponse
 from django_serverside_datatable.views import ServerSideDatatableView
 from django.db import connection
 from datetime import datetime, timedelta
@@ -16,9 +17,17 @@ class ItemListView(ServerSideDatatableView):
                 print("Exception----",e)
         finally:
                 Cursor.close()
+        return HTTPResponse(_tickets,content_type="application/json")
 
 
-# urls.py
-# add the following line to urlpatterns
+    def get_paginate_data(self):
 
-# path('data/', views.ItemListView.as_view()), 
+        try:
+            Cursor=connection.cursor() 
+            
+        except Exception as e:
+                print("Exception----",e)
+        finally:
+                Cursor.close()
+
+       

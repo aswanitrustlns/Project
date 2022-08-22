@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8" />
+    <title>Trust Capital CRM</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
+    <meta content="Themesbrand" name="author" />
+
+    {% load  static %}
+    <link href="{% static 'libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css' %}" rel="stylesheet" type="text/css" />
+    <link href="{% static 'libs/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css' %}" rel="stylesheet" type="text/css" />
+    <!-- plugin css -->
+    <!--<link href="assets/libs/admin-resources/jquery.vectormap/jquery-jvectormap-1.2.2.css" rel="stylesheet"
+        type="text/css" />-->
+     <!-- datepicker css -->
+     <link rel="stylesheet" href="{% static 'libs/flatpickr/flatpickr.min.css' %}">
+    {% include "common/link.html" %}
+    
+    {% include "common/scripts.html" %}
+    
+</head>
+<body data-layout-mode="dark">
+
+    <!-- <body data-layout="horizontal"> -->
+    
+    <!-- Begin page -->
+    <div id="layout-wrapper">
+        {% include "common/header.html" %}
+        
+    
+        <!-- ========== Left Sidebar Start ========== -->
+        {% include "common/sidebar.html" %}
+        <!-- Left Sidebar End -->
+        <!-- ============================================================== -->
+    <!-- Start right Content here -->
+    <!-- ============================================================== -->
+    <div class="main-content">
+        
+        <div class="page-content" id="sales">
+            <div class="container-fluid"> <!--container-fluid px-md-5 me-md5-->
+
+                <!-- start page title -->
+                <div class="row">
+                    <div class="col-12">
+                        <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                            <h4 class="mb-sm-0 fs-23 almarenamonolight-type">New Accounts</h4><!--font-size-18-->
+
+                            <!--<div class="page-title-right">
+                                <ol class="breadcrumb m-0">
+                                    <li class="breadcrumb-item"><a href="javascript: void(0);">Dashboard</a></li>
+                                    <li class="breadcrumb-item active">New Accounts</li>
+                                </ol>
+                            </div>-->
+
+                        </div>
+                    </div>
+                </div>
+                <!-- end page title -->
+                <!--Analytics overview-->
+                <div class="row">
+
+                    <div class="col-12">
+                        <div class="card">
+                           
+                            <div class="card-body ">
+                                <!--<h4 class="card-title almarenamonolight-type mb-4 fs-23">Leads</h4>
+                                <p class="gilroymedium-type fs-15 color-spanishgray">This page allows you to view details of leads<br>
+                                    from website and social sites.</p>-->
+                                <div class=" d-flex justify-content-between align-items-start">
+                                    <div>
+                                        <button type="button" class="btn btn-lg btn-primary   mb-3  mx-1 gilory-semibold-type bg-soft-purple text-white"  style="background-color: var(--bs-card-bg) ;" onclick="addColor(this,'bg-soft-purple text-white', 'color-color1');changeAccount('Live')">Live</button>
+                                        <button type="button" class="btn btn-lg btn-primary  color-color1 mb-3 mx-1 gilory-semibold-type"  style="background-color: var(--bs-card-bg); "  onclick="addColor(this,'bg-soft-purple text-white', 'color-color1');changeAccount('Pending')">Pending</button>
+                                        <button type="button" class="btn btn-lg btn-primary  color-color1 mb-3 mx-1 gilory-semibold-type"  style="background-color: var(--bs-card-bg) ;" onclick="addColor(this,'bg-soft-purple text-white','color-color1'); changeAccount('Rejected')">Rejected</button>
+                                        <button type="button" class="btn btn-lg btn-primary  color-color1 mb-3 mx-1 gilory-semibold-type"  style="background-color: var(--bs-card-bg) ;"  onclick="addColor(this,'bg-soft-purple text-white','color-color1');changeAccount('Terminated')">Terminated</button>
+                                        <button type="button" class="btn btn-lg btn-primary  color-color1 mb-3 mx-1 gilory-semibold-type"  style="background-color: var(--bs-card-bg) ;"  onclick="addColor(this,'bg-soft-purple text-white','color-color1');changeAccount('Closed')">Closed</button>
+                                    </div>
+                                    <button type="button" class="btn  btn-lg   btn-success  px-3 py-1 gilory-semibold-type" onclick="changeAccount('loadall')">Load all</button>
+                                    
+                                </div>
+
+                                <div class="mb-4 mt-3 ">
+
+                                    <ul class="gilory-medium-type list-unstyled color-color1 fs-18 d-flex ">
+
+                                        <li > <span class="rounded-circle  bg-danger d-inline-block me-1 "  style="height:13px ;width:13px"></span><span>Funded</span> | <span class="text-white">15</span></li>
+                                        <li class="ms-5"> <span class="rounded-circle  bg-info d-inline-block me-1" style="height:13px ;width:13px"></span> <span>Non Funded </span> | <span class="text-white">15</span></li>
+                                    </ul>
+                                </div>
+
+                                <hr class="my-0">
+                                
+                                <div class=" px-1 table-responsive mt-4" id="accounts_table">
+                                    <table id="datatableleads" class="table dt-responsive  nowrap  w-100">
+                                        <thead>
+                                            <tr  class=" ">
+                                                <th  data-text="text" class="filterhead">Promo</th>
+                                                <th data-id="datepicker-range" class="filterhead">RegDate</th>
+                                                <th  data-timer="option" class="filterhead">Login</th>
+                                                <th  data-text="text" class="filterhead">Name</th>
+                                                <th  data-text="text" class="filterhead">Email</th>
+                                                <th  data-text="text" class="filterhead">Source</th>
+                                                <th  data-text="text" class="filterhead">SalesRep</th>
+                                                <th  data-text="text" class="filterhead">Ticket</th>
+                                                <th  data-text="text" class="filterhead text-end">Country</th>
+                                            </tr>
+                                        </thead>
+
+
+                                        <tbody id="newaccounts_data">
+                                            {%for data in accounts_data %}   
+                                        <tr>
+                                            <td>{{data.0}} </td>
+                                            <td>{{data.1}}</td>
+                                            <td>{{data.2}}</td>
+                                            <td>{{data.3}}</td>
+                                            <td>{{data.4}}</td>
+                                            <td>{{data.5}}</td>
+                                            <td>{{data.6}}</td>
+                                            <td>{{data.9}}</td>
+                                            
+                                            <td class="text-end">{{data.8}}</td>
+                                        </tr>
+                                            {%endfor%}
+                                        
+                                        </tbody>
+                                        <tfoot>
+                                            
+                                        </tfoot>
+                                    </table>
+                                </div>
+                                
+
+                            </div>
+                        </div>
+                    </div> <!-- end col -->
+
+
+
+                </div>
+                <!-- end row-->
+
+                </div>
+                <!-- container -->
+            </div>
+            <!-- End Page-content -->
+
+            
+        </div>
+ {% include "common/right-sidebar.html" %}
+ <div class="rightbar-overlay"></div>
+    <script>
+
+jQuery( document ).ready( function( $ ) {
+        // Code using $ as usual goes here.
+        $('#demo').html( '<table id="example" class="display" cellspacing="0" width="100%"></table>' );
+        $.ajax( {
+            "url": 'objects-dynamic.txt',
+            "success": function ( json ) {
+                $('#example').dataTable( json );
+            },
+            "dataType": "json"
+        } );
+    });
+
+
+            function changeAccount(change){
+                console.log("Onclick change----------------------"+change)
+                $('#datatableleads').dataTable().fnClearTable();
+                $('#datatableleads').dataTable().fnDestroy();
+                $("#datatableleads").DataTable({
+                // 'processing' : true,
+                
+                'paging':true,               
+                'ajax':{
+                   "url": "{% url 'Admin:NewAccounts' %}",
+                   "type": "GET",
+                   "data":{
+                    "change":change,
+                   },
+                   "dataSrc":function(json_data){
+                    
+               
+                    var items = [];
+                    for ( var i=0, ien=json_data.length ; i<ien ; i++ ) {
+
+                        items[i] = [json_data[i][0],json_data[i][1],json_data[i][2],json_data[i][3],json_data[i][4],json_data[i][5],json_data[i][6],json_data[i][9],json_data[i][8]]; 
+                            
+                        }
+                        
+                        return items;
+                   }
+                },
+                
+               
+            });
+            }
+    </script>    
+
+
+    <!-- Required datatable js -->
+    <script src="{%static 'libs/datatables.net/js/jquery.dataTables.min.js' %}"></script>
+    <script src="{%static 'libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js' %}"></script>
+
+
+    <!-- Responsive examples -->
+       <!---Commmented Now Later might needed
+ 
+    <script src="assets/libs/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="assets/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js"></script>
+       -->  
+
+    <!-- Datatable init js -->
+    <script src="{%static 'js/pages/datatables-filtercolumn-nwaccountsales.init.js' %}"></script> 
+
+    <!-- init js -->
+    <!--<script src="assets/js/pages/form-advancedcustom.init.js"></script>-->
+
+    <script src="{%static 'js/app.js' %}"></script>
+
+    </body>
+
+    </html>

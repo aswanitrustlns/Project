@@ -19,6 +19,7 @@ $(document).ready(function () {
         .appendTo('#datatableleads thead');
  
     var table = $('#datatableleads').DataTable({
+        //"dom": "lfprti",
         responsive: true,
         orderCellsTop: true,  
 
@@ -165,12 +166,24 @@ $(document).ready(function () {
         }
     });
 
-  
- 
-   
-    
-
+    //addColor($class);
     
 
     
 });
+var addColor=function ($this,$class,$textcolor){
+    
+    console.log($this);
+    if($($this).hasClass($class)){
+        $($this).removeClass($class);
+        $($this).addClass($textcolor);
+    }
+    else{
+        $($this).addClass($class);
+        $($this).removeClass($textcolor);
+        $($this).siblings().removeClass($class);
+        $($this).siblings().addClass($textcolor);
+    }
+
+}
+//addColor();

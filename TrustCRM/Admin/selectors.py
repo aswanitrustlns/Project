@@ -183,14 +183,18 @@ class Selector:
         return _tickets  
     
     # Get New Accounts page data
-    def get_new_accounts(self):
+    def get_new_accounts(self,change):
         try:
            Cursor=connection.cursor()
            date_today=datetime.today().date()    
            date_today=date_today.strftime("%Y-%m-%d")
-           Cursor.execute("set nocount on;exec SP_GetNewAccountsList %s,%s,%s",["1900-01-01",date_today,'Live'])  
-           live_accounts=Cursor.fetchall()
-           print("Live Accounts",live_accounts)
+           if(change == "loadall"):
+                Cursor.execute("set nocount on;exec SP_GetNewAccountsList %s,%s",["1900-01-01",date_today])  
+                live_accounts=Cursor.fetchall()
+           else: 
+                Cursor.execute("set nocount on;exec SP_GetNewAccountsList %s,%s,%s",["1900-01-01",date_today,change])  
+                live_accounts=Cursor.fetchall()
+           
         except Exception as e:
             print("Exception---",e)
         finally:
@@ -231,9 +235,19 @@ class Selector:
             Cursor.close()
         return ticket_data
 
-
+#Get Leads Count
+    def get_leads_count(self):
+        try:
+            Cursor=connection.cursor()
+            Cursor.execute("set nocount on;exec SP_LeadsCount_PY")
+            leads_count=Cursor.fetchone()
+        except Exception as e:
+            print("Exception---",e)
+        finally:
+            Cursor.close()
+        return leads_count
     
-    # Logout Procedure call
+# Logout Procedure call
 
     def user_logout(self,userId):
         try:

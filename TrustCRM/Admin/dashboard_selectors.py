@@ -1,9 +1,12 @@
 from django.db import connection
 from datetime import datetime, timedelta
 import json
+
+
 class DashboardSelector:
 
     #----------------------------------------- Sales Dashboard ------------------------------------------------------------------
+    
     def sales_dashboard(self,userId):
         userId=56
         sales_data={}
@@ -36,6 +39,9 @@ class DashboardSelector:
             print("procedure-start6",datetime.now().time())
             Cursor.execute("set nocount on;exec SP_GetMeetings")
             meeting_today=Cursor.fetchall() 
+            meeting_count=len(meeting_today)
+            if(meeting_count < 9):
+                meeting_count=str(meeting_count).zfill(2)
               
             #Reminders....
             print("procedure-start7",datetime.now().time())
@@ -48,6 +54,8 @@ class DashboardSelector:
                 reminder_count=reminder_count[0]
                 reminder_count=reminder_count[0]
             print("Reminder count-------",reminder_count)
+            if(reminder_count<9):
+                reminder_count_show=str(reminder_count).zfill(2)
             #weekly webinar info list---
             print("procedure-start8",datetime.now().time())
             Cursor.execute("set nocount on;exec SP_GetSeminarInfolist")
@@ -108,7 +116,7 @@ class DashboardSelector:
             print("procedure-end",datetime.now().time())
             sales_data={'weekly_summary':weekly_summary_bar,'ticket_count_daily':json.dumps(ticket_count_daily),'ticket_count_weekly':json.dumps(ticket_count_weekly),
             'journel':journel_data,'weekly_lead_bar':weekly_lead_bar,'meeting_today':meeting_today,'active_campaigns':active_campaigns,'campaign_count':active_campaigns_count,
-            'live_chat':live_chat,'weekly_webinar':weekly_webinar,'reminders':reminders,'reminder_count':reminder_count}
+            'live_chat':live_chat,'weekly_webinar':weekly_webinar,'reminders':reminders,'reminder_count':reminder_count,'reminder_count_show':reminder_count_show,'meeting_count':meeting_count}
             print("redirect start",datetime.now().time())
         except Exception as e:
             print("Exception----",e)

@@ -15,6 +15,7 @@ urlpatterns=[
     path('viewMerge',view_merge,name="ViewMerge"),
     path('createticket',create_ticket,name="CreateTicket"),
     path('LeadRegistration/',lead_registration,name="LeadRegistration"),
+    path('NewAccounts',new_accounts,name="NewAccounts"),
     path('LeadSubmit',lead_registration_check,name="LeadSubmit"),
     path('LeadProcessing',lead_processing,name="LeadProcessing"),
     path('pendingtickets',pending_tickets,name='PendingTickets'),
