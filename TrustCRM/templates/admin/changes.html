@@ -51,3 +51,18 @@
         </div>
 
     </div>
+
+
+
+    $(function(){
+    
+        $('#datatableleads tbody').on('dblclick', 'tr', function (e) {
+            var table = $("#datatableleads").DataTable();
+            console.log("row clicked----")
+            var data = table.row( this ).data();
+            console.log("dtaaaaaaaaaaa"+data)
+            console.log("first data111111111111"+data[1]+data[2]+data[4])
+            checkticket(data[1],data[2],data[4])
+        })
+    })
+    

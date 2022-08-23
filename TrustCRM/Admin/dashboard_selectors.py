@@ -53,15 +53,25 @@ class DashboardSelector:
                 print("Reminder count-------",reminder_count)
                 reminder_count=reminder_count[0]
                 reminder_count=reminder_count[0]
-            print("Reminder count-------",reminder_count)
-            if(reminder_count<9):
-                reminder_count_show=str(reminder_count).zfill(2)
+            print("Reminder count-------",type(reminder_count))
+            reminder_count=int(reminder_count)
+            if(reminder_count == 0):
+                 reminder_count_show="00"
+                 print("reminder count is zero")
+            else:
+                if(reminder_count < 9 ):
+                    reminder_count_show=str(reminder_count)
+                    reminder_count_show=reminder_count_show.zfill(2)
+                else:
+                    reminder_count_show=str(reminder_count)
+            print("Reminders done")
+
             #weekly webinar info list---
             print("procedure-start8",datetime.now().time())
             Cursor.execute("set nocount on;exec SP_GetSeminarInfolist")
             weekly_webinar=Cursor.fetchall() 
             weekly_webinar=len(weekly_webinar)            
-            if(weekly_webinar<9):
+            if(weekly_webinar < 9):
                 weekly_webinar=str(weekly_webinar).zfill(2)
             #Live chat
             print("procedure-start9",datetime.now().time())

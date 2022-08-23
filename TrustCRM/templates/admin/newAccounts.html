@@ -153,17 +153,6 @@
  <div class="rightbar-overlay"></div>
     <script>
 
-jQuery( document ).ready( function( $ ) {
-        // Code using $ as usual goes here.
-        $('#demo').html( '<table id="example" class="display" cellspacing="0" width="100%"></table>' );
-        $.ajax( {
-            "url": 'objects-dynamic.txt',
-            "success": function ( json ) {
-                $('#example').dataTable( json );
-            },
-            "dataType": "json"
-        } );
-    });
 
 
             function changeAccount(change){
@@ -193,13 +182,240 @@ jQuery( document ).ready( function( $ ) {
                         return items;
                    }
                 },
+                responsive: true,
+        orderCellsTop: true,  
+
+       
+        fixedHeader: true,
+        initComplete: function () {
+            var api = this.api();
+ 
+            // For each column
+            api
+                .columns()
+                .eq(0)
+                
+                .each(function (colIdx) {
+                   
+                    // Set the header cell to contain the input element
+                  
+                    var cell = $('.filters th').eq(
+                        $(api.column(colIdx).header()).index()
+                    );
+                    var title = $(cell).text();
+                    var id = $(cell).attr('data-id');
+                    
+                    $(cell).html('<input type="text" id="'+id+'" placeholder="' + title + '"  class="fs-14"   />');
+                    
+                    // On every keypress in this input
+                    $(
+                        'input',
+                        $('.filters th').eq($(api.column(colIdx).header()).index())
+                    )
+                        .off('keyup change')
+                        .on('change', function (e) {
+
+                            console.log($(this).attr('id'));
+
+                            if($(this).attr('id')=='datepicker-range'){
+                                
+                                api
+                                .column(colIdx)
+                                .search(
+                                        function( data, colIdx ) {
+                                            //var min = minDate;
+                                            // var max = maxDate;
+                                            // console.log(min);
+                                                //date = new Date( colIdx[0] );
+                                            var min = minDate;
+                                            var max = maxDate;
+                                            var date = new Date(data[0]);
+                                            
+
+                                            //colIdx
+                                     
+                                            if (
+                                                ( min === null && max === null ) ||
+                                                ( min === null && date <= max ) ||
+                                                ( min <= date   && max === null ) ||
+                                                ( min <= date   && date <= max )
+                                            ) {
+                                                return true;
+                                                console.log('searching-date-start' +min  );
+                                                console.log('searching-date-endt' +max  );
+                                            }
+                                            return false;
+                                            console.log('searching-date-start' +min  );
+                                            console.log('searching-date-endt' +max  );
+                                        }
+                                    
+                                ).draw();
+                               
+
+                                
+                            }
+                            else{
+
+                                    // Get the search value
+                                $(this).attr('title', $(this).val());
+                                var regexr = '({search})'; //$(this).parents('th').find('select').val();
+                                var cursorPosition = this.selectionStart;
+                                // Search the column for that value
+                                api
+                                .column(colIdx)
+                                .search(
+                                    this.value != ''
+                                        ? regexr.replace('{search}', '(((' + this.value + ')))')
+                                        : '',
+                                    this.value != '',
+                                    this.value == ''
+                                )
+                                .draw();
+
+
+                            }
+                            
+                        })
+                        .on('keyup', function (e) {
+                            e.stopPropagation();
+ 
+                            $(this).trigger('change');
+                            $(this)
+                                .focus()[0]
+                                .setSelectionRange(cursorPosition, cursorPosition);
+                        });
+                });
+                
+        },
                 
                
-            });
+            });     
+            
+           
+
             }
+
+        function datatableSearch(){
+            var minDate,maxDate;
+
+    
+    // Setup - add a text input to each footer cell
+  
+ 
+    var table = $('#datatableleads').DataTable({
+        //"dom": "lfprti",
+        responsive: true,
+        orderCellsTop: true,  
+
+       
+        fixedHeader: true,
+        initComplete: function () {
+            var api = this.api();
+ 
+            // For each column
+            api
+                .columns()
+                .eq(0)
+                
+                .each(function (colIdx) {
+                   
+                    // Set the header cell to contain the input element
+                  
+                    var cell = $('.filters th').eq(
+                        $(api.column(colIdx).header()).index()
+                    );
+                    var title = $(cell).text();
+                    var id = $(cell).attr('data-id');
+                    
+                    $(cell).html('<input type="text" id="'+id+'" placeholder="' + title + '"  class="fs-14"   />');
+                    
+                    // On every keypress in this input
+                    $(
+                        'input',
+                        $('.filters th').eq($(api.column(colIdx).header()).index())
+                    )
+                        .off('keyup change')
+                        .on('change', function (e) {
+
+                            console.log($(this).attr('id'));
+
+                            if($(this).attr('id')=='datepicker-range'){
+                                
+                                api
+                                .column(colIdx)
+                                .search(
+                                        function( data, colIdx ) {
+                                            //var min = minDate;
+                                            // var max = maxDate;
+                                            // console.log(min);
+                                                //date = new Date( colIdx[0] );
+                                            var min = minDate;
+                                            var max = maxDate;
+                                            var date = new Date(data[0]);
+                                            
+
+                                            //colIdx
+                                     
+                                            if (
+                                                ( min === null && max === null ) ||
+                                                ( min === null && date <= max ) ||
+                                                ( min <= date   && max === null ) ||
+                                                ( min <= date   && date <= max )
+                                            ) {
+                                                return true;
+                                                console.log('searching-date-start' +min  );
+                                                console.log('searching-date-endt' +max  );
+                                            }
+                                            return false;
+                                            console.log('searching-date-start' +min  );
+                                            console.log('searching-date-endt' +max  );
+                                        }
+                                    
+                                ).draw();
+                               
+
+                                
+                            }
+                            else{
+
+                                    // Get the search value
+                                $(this).attr('title', $(this).val());
+                                var regexr = '({search})'; //$(this).parents('th').find('select').val();
+                                var cursorPosition = this.selectionStart;
+                                // Search the column for that value
+                                api
+                                .column(colIdx)
+                                .search(
+                                    this.value != ''
+                                        ? regexr.replace('{search}', '(((' + this.value + ')))')
+                                        : '',
+                                    this.value != '',
+                                    this.value == ''
+                                )
+                                .draw();
+
+
+                            }
+                            
+                        })
+                        .on('keyup', function (e) {
+                            e.stopPropagation();
+ 
+                            $(this).trigger('change');
+                            $(this)
+                                .focus()[0]
+                                .setSelectionRange(cursorPosition, cursorPosition);
+                        });
+                });
+                
+        },
+
+    
+    });
+        }
     </script>    
 
-
+    <script src="{%static 'libs/flatpickr/flatpickr.min.js' %}"></script>
     <!-- Required datatable js -->
     <script src="{%static 'libs/datatables.net/js/jquery.dataTables.min.js' %}"></script>
     <script src="{%static 'libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js' %}"></script>

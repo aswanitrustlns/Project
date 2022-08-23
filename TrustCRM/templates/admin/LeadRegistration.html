@@ -9,6 +9,7 @@
     <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
     <meta content="Themesbrand" name="author" />
     {% load  static %}
+    <link rel="stylesheet" href="{% static 'libs/flatpickr/flatpickr.min.css' %}">
     {% include "common/link.html" %}
     <link href="{% static 'css/input-tel.min.css' %}" rel="stylesheet" type="text/css" />
     {% include "common/scripts.html" %}
@@ -229,7 +230,7 @@
                                         <div class="col-md-4 ">
                                             <div class="mb-3">
                                                 <label class="form-label" for="Zipcode">Dob</label>
-                                                <input type="text" class="form-control" id="dob" placeholder="" name="dob">
+                                                <input class="form-control" id="dob" placeholder="" name="dob"  data-id="datepicker-range">
                                                 <div class="invalid-feedback">
                                                     Please provide a valid date.
                                                 </div>
@@ -509,8 +510,8 @@
         
                 });    
      </script>
-    <!-- <script src="{% static 'js/pages/lead-registration-validation.js' %}"></script>  -->
-    <!-- <script src="{% static 'js/pages/form-validation.init.js' %}"></script>     -->
+  
+    <script src="{%static 'libs/flatpickr/flatpickr.min.js' %}"></script>
 
     <script src="{% static 'js/app.js' %}"></script>
 
