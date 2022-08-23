@@ -446,7 +446,9 @@ $(function(){
         var data = table.row( this ).data();
         console.log("dtaaaaaaaaaaa"+data)
         console.log("first data111111111111"+data[2]+data[3])
-        // checkticket(data[1],data[2],data[4])
+        demo=document.getElementById("id_demo"+data[0]).value
+        console.log("dynamic demo idddddddddddddddd",demo)
+        checkticket(demo,data[2],data[3])
     })
 })
 
@@ -564,7 +566,7 @@ $(function(){
                     var items = [];
                     for ( var i=0, ien=json_data.length ; i<ien ; i++ ) {
 
-                         items[i] = [json_data[i][0],json_data[i][3],json_data[i][2],json_data[i][4],json_data[i][5],json_data[i][7]]; 
+                         items[i] =[json_data[i][0],json_data[i][3],json_data[i][2],json_data[i][4],json_data[i][5],json_data[i][7]+"<input type='hidden' name='id' id='id_demo"+json_data[i][0]+"' value='"+json_data[i][1]+"'>"]; 
                         
                             
                         }

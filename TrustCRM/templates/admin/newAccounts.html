@@ -71,11 +71,11 @@
                                     from website and social sites.</p>-->
                                 <div class=" d-flex justify-content-between align-items-start">
                                     <div>
-                                        <button type="button" class="btn btn-lg btn-primary   mb-3  mx-1 gilory-semibold-type bg-soft-purple text-white"  style="background-color: var(--bs-card-bg) ;" onclick="addColor(this,'bg-soft-purple text-white', 'color-color1');changeAccount('Live')">Live</button>
-                                        <button type="button" class="btn btn-lg btn-primary  color-color1 mb-3 mx-1 gilory-semibold-type"  style="background-color: var(--bs-card-bg); "  onclick="addColor(this,'bg-soft-purple text-white', 'color-color1');changeAccount('Pending')">Pending</button>
-                                        <button type="button" class="btn btn-lg btn-primary  color-color1 mb-3 mx-1 gilory-semibold-type"  style="background-color: var(--bs-card-bg) ;" onclick="addColor(this,'bg-soft-purple text-white','color-color1'); changeAccount('Rejected')">Rejected</button>
-                                        <button type="button" class="btn btn-lg btn-primary  color-color1 mb-3 mx-1 gilory-semibold-type"  style="background-color: var(--bs-card-bg) ;"  onclick="addColor(this,'bg-soft-purple text-white','color-color1');changeAccount('Terminated')">Terminated</button>
-                                        <button type="button" class="btn btn-lg btn-primary  color-color1 mb-3 mx-1 gilory-semibold-type"  style="background-color: var(--bs-card-bg) ;"  onclick="addColor(this,'bg-soft-purple text-white','color-color1');changeAccount('Closed')">Closed</button>
+                                        <button type="button" class="btn btn-lg btn-primary   mb-3  mx-1 gilory-semibold-type bg-soft-purple text-white"  style="background-color: var(--bs-card-bg) ;" onclick="addColor(this,'bg-soft-purple text-white', 'color-color1');changeAccount('Live');switchtab(this,'#accounts_table','#rejected_table','#terminated_table','#closed_table')">Live</button>
+                                        <button type="button" class="btn btn-lg btn-primary  color-color1 mb-3 mx-1 gilory-semibold-type"  style="background-color: var(--bs-card-bg); "  onclick="addColor(this,'bg-soft-purple text-white', 'color-color1');changeAccount('Pending');switchtab(this,'#accounts_table','#rejected_table','#terminated_table','#closed_table')">Pending</button>
+                                        <button type="button" class="btn btn-lg btn-primary  color-color1 mb-3 mx-1 gilory-semibold-type"  style="background-color: var(--bs-card-bg) ;" onclick="addColor(this,'bg-soft-purple text-white','color-color1'); changeAccount('Rejected');switchtab(this,'#rejected_table','#accounts_table','#terminated_table','#closed_table')">Rejected</button>
+                                        <button type="button" class="btn btn-lg btn-primary  color-color1 mb-3 mx-1 gilory-semibold-type"  style="background-color: var(--bs-card-bg) ;"  onclick="addColor(this,'bg-soft-purple text-white','color-color1');changeAccount('Terminated');switchtab(this,'#terminated_table','#rejected_table','#accounts_table','#closed_table')">Terminated</button>
+                                        <button type="button" class="btn btn-lg btn-primary  color-color1 mb-3 mx-1 gilory-semibold-type"  style="background-color: var(--bs-card-bg) ;"  onclick="addColor(this,'bg-soft-purple text-white','color-color1');changeAccount('Closed');switchtab(this,'#closed_table','#accounts_table','#terminated_table','#rejected_table')">Closed</button>
                                     </div>
                                     <button type="button" class="btn  btn-lg   btn-success  px-3 py-1 gilory-semibold-type" onclick="changeAccount('loadall')">Load all</button>
                                     
@@ -92,7 +92,7 @@
 
                                 <hr class="my-0">
                                 
-                                <div class=" px-1 table-responsive mt-4" id="accounts_table">
+                                <div class=" px-1 table-responsive mt-4 d-block" id="accounts_table">
                                     <table id="datatableleads" class="table dt-responsive  nowrap  w-100">
                                         <thead>
                                             <tr  class=" ">
@@ -131,6 +131,95 @@
                                         </tfoot>
                                     </table>
                                 </div>
+                                <div class=" px-1 table-responsive mt-4 d-none" id="rejected_table">
+                                    <table id="datatableleads2" class="table dt-responsive  nowrap  w-100">
+                                        <thead>
+                                            <tr  class=" ">
+                                                <th  data-text="text" class="filterhead">Promo</th>
+                                                <th  data-text="text" class="filterhead">Subscribe</th>
+                                                <th data-id="datepicker-range" class="filterhead">RegDate</th>
+                                                <th  data-text="text" class="filterhead">Rejectd</th>
+                                                <th  data-timer="option" class="filterhead">Login</th>
+                                                <th  data-text="text" class="filterhead">Name</th>
+                                                <th  data-text="text" class="filterhead">Email</th>
+                                                <th  data-text="text" class="filterhead">Source</th>
+                                                <th  data-text="text" class="filterhead">Currency</th>
+                                                <th  data-text="text" class="filterhead">Country</th>                                                
+                                                <th  data-text="text" class="filterhead">Ticket</th>
+                                                <th  data-text="text" class="filterhead text-end">IP</th>
+                                            </tr>
+                                        </thead>
+
+
+                                        <tbody id="newaccounts_data">
+                                      
+                                        
+                                        </tbody>
+                                        <tfoot>
+                                            
+                                        </tfoot>
+                                    </table>
+                                </div>
+                                <div class=" px-1 table-responsive mt-4 d-none" id="terminated_table">
+                                    <table id="datatableleads3" class="table dt-responsive  nowrap  w-100">
+                                        <thead>
+                                            <tr  class=" ">
+                                                <th  data-text="text" class="filterhead">Promo</th>
+                                                <th  data-text="text" class="filterhead">Subscribe</th>
+                                                <th data-id="datepicker-range" class="filterhead">RegDate</th>
+                                                <th  data-text="text" class="filterhead">Terminated</th>
+                                                <th  data-timer="option" class="filterhead">Login</th>
+                                                <th  data-text="text" class="filterhead">Name</th>
+                                                <th  data-text="text" class="filterhead">Email</th>
+                                                <th  data-text="text" class="filterhead">Source</th>
+                                                <th  data-text="text" class="filterhead">Currency</th>
+                                                <th  data-text="text" class="filterhead">Country</th>
+                                                <th  data-text="text" class="filterhead">Ticket</th>
+                                                <th  data-text="text" class="filterhead text-end">IP</th>
+                                            </tr>
+                                        </thead>
+
+
+                                        <tbody id="newaccounts_data">
+                                      
+                                        
+                                        </tbody>
+                                        <tfoot>
+                                            
+                                        </tfoot>
+                                    </table>
+                                </div>
+                                <div class=" px-1 table-responsive mt-4 d-none" id="closed_table">
+                                    <table id="datatableleads4" class="table dt-responsive  nowrap  w-100">
+                                        <thead>
+                                            <tr  class=" ">
+                                                <th  data-text="text" class="filterhead">Promo</th>
+                                                <th  data-text="text" class="filterhead">Subscribe</th>
+                                                <th data-id="datepicker-range" class="filterhead">RegDate</th>
+                                                <th  data-text="text" class="filterhead">Closed</th>
+                                                <th  data-text="text" class="filterhead">Closed By</th>
+                                                <th  data-timer="option" class="filterhead">Login</th>
+                                                <th  data-text="text" class="filterhead">Name</th>
+                                                <th  data-text="text" class="filterhead">Email</th>
+                                                <th  data-text="text" class="filterhead">Source</th>
+                                                <th  data-text="text" class="filterhead">Currency</th>
+                                                <th  data-text="text" class="filterhead">Country</th>
+                                                <th  data-text="text" class="filterhead">Ticket</th>
+                                                <th  data-text="text" class="filterhead text-end">IP</th>
+                                            </tr>
+                                        </thead>
+
+
+                                        <tbody id="newaccounts_data">
+                                      
+                                        
+                                        </tbody>
+                                        <tfoot>
+                                            
+                                        </tfoot>
+                                    </table>
+                                </div>
+
                                 
 
                             </div>
@@ -154,10 +243,442 @@
     <script>
 
 
-
+        
             function changeAccount(change){
                 console.log("Onclick change----------------------"+change)
-                $('#datatableleads').dataTable().fnClearTable();
+                if(change=="Rejected"){
+                    rejectedAccount(change);
+                }
+                if(change=="Closed"){
+                    closedAccount(change)
+                }
+                if(change=="Terminated"){
+                    terminateAccount(change)
+                }
+                if(change=="Live" || change =="Pending" || change =="All"){
+                    liveAccount(change)
+                }                
+                
+
+            }
+            function rejectedAccount(change){
+                
+            $('#datatableleads2').dataTable().fnClearTable();
+                $('#datatableleads2').dataTable().fnDestroy();
+            
+                $("#datatableleads2").DataTable({
+                // 'processing' : true,
+                
+                'paging':true,               
+                'ajax':{
+                   "url": "{% url 'Admin:NewAccounts' %}",
+                   "type": "GET",
+                   "data":{
+                    "change":change,
+                   },
+                   "dataSrc":function(json_data){
+                    
+               
+                    var items = [];
+                    for ( var i=0, ien=json_data.length ; i<ien ; i++ ) {
+
+                        items[i] = [json_data[i][0],json_data[i][1],json_data[i][2],json_data[i][3],json_data[i][4],json_data[i][5],json_data[i][6],json_data[i][7],json_data[i][8],json_data[i][9],json_data[i][10],json_data[i][11],json_data[i][12]]; 
+                            
+                        }
+                        
+                        return items;
+                   }
+                },
+                responsive: true,
+        orderCellsTop: true,  
+
+       
+        fixedHeader: true,
+        initComplete: function () {
+            var api = this.api();
+ 
+            // For each column
+            api
+                .columns()
+                .eq(0)
+                
+                .each(function (colIdx) {
+                   
+                    // Set the header cell to contain the input element
+                  
+                    var cell = $('.filters th').eq(
+                        $(api.column(colIdx).header()).index()
+                    );
+                    var title = $(cell).text();
+                    var id = $(cell).attr('data-id');
+                    
+                    $(cell).html('<input type="text" id="'+id+'" placeholder="' + title + '"  class="fs-14"   />');
+                    
+                    // On every keypress in this input
+                    $(
+                        'input',
+                        $('.filters th').eq($(api.column(colIdx).header()).index())
+                    )
+                        .off('keyup change')
+                        .on('change', function (e) {
+
+                            console.log($(this).attr('id'));
+
+                            if($(this).attr('id')=='datepicker-range'){
+                                
+                                api
+                                .column(colIdx)
+                                .search(
+                                        function( data, colIdx ) {
+                                            //var min = minDate;
+                                            // var max = maxDate;
+                                            // console.log(min);
+                                                //date = new Date( colIdx[0] );
+                                            var min = minDate;
+                                            var max = maxDate;
+                                            var date = new Date(data[0]);
+                                            
+
+                                            //colIdx
+                                     
+                                            if (
+                                                ( min === null && max === null ) ||
+                                                ( min === null && date <= max ) ||
+                                                ( min <= date   && max === null ) ||
+                                                ( min <= date   && date <= max )
+                                            ) {
+                                                return true;
+                                                console.log('searching-date-start' +min  );
+                                                console.log('searching-date-endt' +max  );
+                                            }
+                                            return false;
+                                            console.log('searching-date-start' +min  );
+                                            console.log('searching-date-endt' +max  );
+                                        }
+                                    
+                                ).draw();
+                               
+
+                                
+                            }
+                            else{
+
+                                    // Get the search value
+                                $(this).attr('title', $(this).val());
+                                var regexr = '({search})'; //$(this).parents('th').find('select').val();
+                                var cursorPosition = this.selectionStart;
+                                // Search the column for that value
+                                api
+                                .column(colIdx)
+                                .search(
+                                    this.value != ''
+                                        ? regexr.replace('{search}', '(((' + this.value + ')))')
+                                        : '',
+                                    this.value != '',
+                                    this.value == ''
+                                )
+                                .draw();
+
+
+                            }
+                            
+                        })
+                        .on('keyup', function (e) {
+                            e.stopPropagation();
+ 
+                            $(this).trigger('change');
+                            $(this)
+                                .focus()[0]
+                                .setSelectionRange(cursorPosition, cursorPosition);
+                        });
+                });
+                
+        },
+                
+               
+            });     
+            
+        }
+
+
+
+        function closedAccount(change){
+            $('#datatableleads4').dataTable().fnClearTable();
+                $('#datatableleads4').dataTable().fnDestroy();
+                $("#datatableleads4").DataTable({
+                // 'processing' : true,
+                
+                'paging':true,               
+                'ajax':{
+                   "url": "{% url 'Admin:NewAccounts' %}",
+                   "type": "GET",
+                   "data":{
+                    "change":change,
+                   },
+                   "dataSrc":function(json_data){
+                    
+               
+                    var items = [];
+                    for ( var i=0, ien=json_data.length ; i<ien ; i++ ) {
+
+                        items[i] = [json_data[i][0],json_data[i][1],json_data[i][2],json_data[i][3],json_data[i][4],json_data[i][5],json_data[i][6],json_data[i][7],json_data[i][8],json_data[i][9],json_data[i][10],json_data[i][11]]; 
+                            
+                        }
+                        
+                        return items;
+                   }
+                },
+                responsive: true,
+        orderCellsTop: true,  
+
+       
+        fixedHeader: true,
+        initComplete: function () {
+            var api = this.api();
+ 
+            // For each column
+            api
+                .columns()
+                .eq(0)
+                
+                .each(function (colIdx) {
+                   
+                    // Set the header cell to contain the input element
+                  
+                    var cell = $('.filters th').eq(
+                        $(api.column(colIdx).header()).index()
+                    );
+                    var title = $(cell).text();
+                    var id = $(cell).attr('data-id');
+                    
+                    $(cell).html('<input type="text" id="'+id+'" placeholder="' + title + '"  class="fs-14"   />');
+                    
+                    // On every keypress in this input
+                    $(
+                        'input',
+                        $('.filters th').eq($(api.column(colIdx).header()).index())
+                    )
+                        .off('keyup change')
+                        .on('change', function (e) {
+
+                            console.log($(this).attr('id'));
+
+                            if($(this).attr('id')=='datepicker-range'){
+                                
+                                api
+                                .column(colIdx)
+                                .search(
+                                        function( data, colIdx ) {
+                                            //var min = minDate;
+                                            // var max = maxDate;
+                                            // console.log(min);
+                                                //date = new Date( colIdx[0] );
+                                            var min = minDate;
+                                            var max = maxDate;
+                                            var date = new Date(data[0]);
+                                            
+
+                                            //colIdx
+                                     
+                                            if (
+                                                ( min === null && max === null ) ||
+                                                ( min === null && date <= max ) ||
+                                                ( min <= date   && max === null ) ||
+                                                ( min <= date   && date <= max )
+                                            ) {
+                                                return true;
+                                                console.log('searching-date-start' +min  );
+                                                console.log('searching-date-endt' +max  );
+                                            }
+                                            return false;
+                                            console.log('searching-date-start' +min  );
+                                            console.log('searching-date-endt' +max  );
+                                        }
+                                    
+                                ).draw();
+                               
+
+                                
+                            }
+                            else{
+
+                                    // Get the search value
+                                $(this).attr('title', $(this).val());
+                                var regexr = '({search})'; //$(this).parents('th').find('select').val();
+                                var cursorPosition = this.selectionStart;
+                                // Search the column for that value
+                                api
+                                .column(colIdx)
+                                .search(
+                                    this.value != ''
+                                        ? regexr.replace('{search}', '(((' + this.value + ')))')
+                                        : '',
+                                    this.value != '',
+                                    this.value == ''
+                                )
+                                .draw();
+
+
+                            }
+                            
+                        })
+                        .on('keyup', function (e) {
+                            e.stopPropagation();
+ 
+                            $(this).trigger('change');
+                            $(this)
+                                .focus()[0]
+                                .setSelectionRange(cursorPosition, cursorPosition);
+                        });
+                });
+                
+        },
+                
+               
+            });     
+            
+           
+        }    
+        function terminateAccount(change){
+
+            $('#datatableleads3').dataTable().fnClearTable();
+                $('#datatableleads3').dataTable().fnDestroy();
+                $("#datatableleads3").DataTable({
+                // 'processing' : true,
+                
+                'paging':true,               
+                'ajax':{
+                   "url": "{% url 'Admin:NewAccounts' %}",
+                   "type": "GET",
+                   "data":{
+                    "change":change,
+                   },
+                   "dataSrc":function(json_data){
+                    
+               
+                    var items = [];
+                    for ( var i=0, ien=json_data.length ; i<ien ; i++ ) {
+
+                        items[i] = [json_data[i][0],json_data[i][1],json_data[i][2],json_data[i][3],json_data[i][4],json_data[i][5],json_data[i][6],json_data[i][7],json_data[i][8],json_data[i][9],json_data[i][10],json_data[i][11]]; 
+                            
+                        }
+                        
+                        return items;
+                   }
+                },
+                responsive: true,
+        orderCellsTop: true,  
+
+       
+        fixedHeader: true,
+        initComplete: function () {
+            var api = this.api();
+ 
+            // For each column
+            api
+                .columns()
+                .eq(0)
+                
+                .each(function (colIdx) {
+                   
+                    // Set the header cell to contain the input element
+                  
+                    var cell = $('.filters th').eq(
+                        $(api.column(colIdx).header()).index()
+                    );
+                    var title = $(cell).text();
+                    var id = $(cell).attr('data-id');
+                    
+                    $(cell).html('<input type="text" id="'+id+'" placeholder="' + title + '"  class="fs-14"   />');
+                    
+                    // On every keypress in this input
+                    $(
+                        'input',
+                        $('.filters th').eq($(api.column(colIdx).header()).index())
+                    )
+                        .off('keyup change')
+                        .on('change', function (e) {
+
+                            console.log($(this).attr('id'));
+
+                            if($(this).attr('id')=='datepicker-range'){
+                                
+                                api
+                                .column(colIdx)
+                                .search(
+                                        function( data, colIdx ) {
+                                            //var min = minDate;
+                                            // var max = maxDate;
+                                            // console.log(min);
+                                                //date = new Date( colIdx[0] );
+                                            var min = minDate;
+                                            var max = maxDate;
+                                            var date = new Date(data[0]);
+                                            
+
+                                            //colIdx
+                                     
+                                            if (
+                                                ( min === null && max === null ) ||
+                                                ( min === null && date <= max ) ||
+                                                ( min <= date   && max === null ) ||
+                                                ( min <= date   && date <= max )
+                                            ) {
+                                                return true;
+                                                console.log('searching-date-start' +min  );
+                                                console.log('searching-date-endt' +max  );
+                                            }
+                                            return false;
+                                            console.log('searching-date-start' +min  );
+                                            console.log('searching-date-endt' +max  );
+                                        }
+                                    
+                                ).draw();
+                               
+
+                                
+                            }
+                            else{
+
+                                    // Get the search value
+                                $(this).attr('title', $(this).val());
+                                var regexr = '({search})'; //$(this).parents('th').find('select').val();
+                                var cursorPosition = this.selectionStart;
+                                // Search the column for that value
+                                api
+                                .column(colIdx)
+                                .search(
+                                    this.value != ''
+                                        ? regexr.replace('{search}', '(((' + this.value + ')))')
+                                        : '',
+                                    this.value != '',
+                                    this.value == ''
+                                )
+                                .draw();
+
+
+                            }
+                            
+                        })
+                        .on('keyup', function (e) {
+                            e.stopPropagation();
+ 
+                            $(this).trigger('change');
+                            $(this)
+                                .focus()[0]
+                                .setSelectionRange(cursorPosition, cursorPosition);
+                        });
+                });
+                
+        },
+                
+               
+            });     
+            
+           
+        }    
+        function liveAccount(change){
+            $('#datatableleads').dataTable().fnClearTable();
                 $('#datatableleads').dataTable().fnDestroy();
                 $("#datatableleads").DataTable({
                 // 'processing' : true,
@@ -292,8 +813,7 @@
             });     
             
            
-
-            }
+        }
 
         function datatableSearch(){
             var minDate,maxDate;

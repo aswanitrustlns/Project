@@ -17,6 +17,7 @@ $(document).ready(function () {
         .clone(true)
         .addClass('filters')
         .appendTo('#datatableleads thead');
+        
  
     var table = $('#datatableleads').DataTable({
         //"dom": "lfprti",
@@ -171,6 +172,23 @@ $(document).ready(function () {
 
     
 });
+function switchtab($this, $displaytab, $hiddentab1,$hiddentab2,$hiddentab3) {
+    console.log("switch tab clicked -------------------------------------------")
+    $($displaytab).addClass('d-block');
+
+    $($displaytab).removeClass('d-none');
+    $($hiddentab1).addClass('d-none');
+    $($hiddentab1).removeClass('d-block');
+    $($hiddentab2).addClass('d-none');
+    $($hiddentab2).removeClass('d-block');
+    $($hiddentab3).addClass('d-none');
+    $($hiddentab3).removeClass('d-block');
+    
+
+
+}
+
+
 var addColor=function ($this,$class,$textcolor){
     
     console.log($this);
