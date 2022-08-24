@@ -2,6 +2,9 @@ from django.db import connection
 from datetime import datetime, timedelta
 from ctypes import *
 import subprocess
+from django.template.loader import render_to_string
+from django.core.mail import BadHeaderError, send_mail
+from django.conf import settings
 
 class Selector:    
     
@@ -258,7 +261,71 @@ class Selector:
             print("Exception---",e)
         finally:
             Cursor.close()
+#Email template rendering and send Mail
 
+    def mailSend(self,token):
+        try:
+            Cursor=connection.cursor()
+            Cursor.execute("set nocount on;exec SP_GetLastMeetingDetails %s",[token])
+            meeting_details=Cursor.fetchone()
+            Cursor.execute("set nocount on;exec SP_GetTicket_PY %s",[token])
+            client_details=Cursor.fetchone()
+            print("Meeting details--------------------------",meeting_details)
+            print("Client details----------------",client_details[2])
+            subject="Trust Capital – Meeting Reminder"
+            email_from = 'Trust Capital cs@trusttc.com'
+            receiver=client_details[2]
+            # receiver='aswani.technology@gmail.com'
+            template_data={
+                "title":client_details[0],
+                "name":client_details[1],
+                "sender":client_details[3],
+                "date":meeting_details[0],
+                "time":meeting_details[1],
+                "location":meeting_details[2],
+                "purpose":meeting_details[3]
+            }
+            email_template_render=render_to_string("email/MeetingReminder.html",template_data)
+            try:
+                send_mail(subject," ",email_from,[receiver],fail_silently=False,html_message=email_template_render)
+            except BadHeaderError:
+                print("EXCEPTION-----------------------")       
+        except Exception as e:
+            print("Exception--------------------------",e)
+        finally:
+            Cursor.close()
+#cancel Meeting
+    def cancel_meeting_mail(self,token):
+        try:
+            Cursor=connection.cursor()
+            Cursor.execute("set nocount on;exec SP_GetLastMeetingDetails %s",[token])
+            meeting_details=Cursor.fetchone()
+            Cursor.execute("set nocount on;exec SP_GetTicket_PY %s",[token])
+            client_details=Cursor.fetchone()
+            print("Meeting details--------------------------",meeting_details)
+            print("Client details----------------",client_details[2])
+            subject="Trust Capital – Meeting Reminder"
+            email_from = settings.EMAIL_HOST_USER
+            receiver=client_details[2]
+            # receiver='aswani.technology@gmail.com'
+            template_data={
+                "title":client_details[0],
+                "name":client_details[1],
+                "sender":client_details[3],
+                "date":meeting_details[0],
+                "time":meeting_details[1],
+                "location":meeting_details[2],
+                "purpose":meeting_details[3]
+            }
+            email_template_render=render_to_string("email/MeetingReminder.html",template_data)
+            try:
+                send_mail(subject," ",email_from,[receiver],fail_silently=False,html_message=email_template_render)
+            except BadHeaderError:
+                print("EXCEPTION-----------------------")       
+        except Exception as e:
+            print("Exception--------------------------",e)
+        finally:
+            Cursor.close()
     
         
 

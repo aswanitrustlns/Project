@@ -11,15 +11,19 @@ $(document).ready(function () {
 
     var minDate,maxDate;
 
-    
+    $('#datatableleads3 thead tr')
+        .clone(true)
+        .addClass('filters')
+        .appendTo('#datatableleads3 thead');
     // Setup - add a text input to each footer cell
     $('#datatableleads thead tr')
         .clone(true)
         .addClass('filters')
         .appendTo('#datatableleads thead');
+       
         
  
-    var table = $('#datatableleads').DataTable({
+    var table = $('#datatableleads3').DataTable({
         //"dom": "lfprti",
         responsive: true,
         orderCellsTop: true,  
@@ -129,6 +133,7 @@ $(document).ready(function () {
 
     
     });
+    
     
 
     //Flat Picker Date

@@ -71,7 +71,7 @@
                                             </h4>
         
                                         </div>
-                                        <div class="col-md-3">
+                                        <div class="col-md-2">
                                             <div class="mb-3">
                                                 <label class="form-label" for="title">Title<span class="color-orange">*</span></label>
                                                 <select  class="form-select" id="title"  value="" name="title">
@@ -94,7 +94,7 @@
                                             </div>
                                         </div>
                                   
-                                        <div class="col-md-3">
+                                        <div class="col-md-4">
                                             <div class="mb-3">
                                                 
                                                     <label class="form-label" for="email1">Email 1 <span class="color-orange">*</span></label>
@@ -108,7 +108,7 @@
                                             </div>
                                         </div>
                                        
-                                        <div class="col-md-3">
+                                        <div class="col-md-4">
                                             <div class="mb-3">
                                                 <label class="form-label" for="email2">Email 2</label>
                                                 <input type="email" class="form-control" id="email2" placeholder="Steve@gmail.com" name="email2">
@@ -117,7 +117,26 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-md-2 ">
+                                        <div class="col-md-3">
+                                            
+                                            <div class="mb-3">
+
+                                                
+                                                    <label class="form-label" >&nbsp;</label>
+
+                                                    <div class="form-check">
+                                                        <input type="checkbox" class="form-check-input" id="email_unav" name="email_agree">
+                                                        <label class="form-check-label fs-12" for="emailUav">Email Unavailable*</label>
+                                                        <div class="invalid-feedback fs-10 py-0 " id="email_agree">
+                                                            You must agree before submitting.
+                                                        </div>
+                                                    </div>
+                                                
+                                            </div>
+                                        
+                                    </div>
+                               
+                                        <div class="col-md-1 ">
                                             <div class="mb-3">
                                                 <label class="form-label" for="age">Age</label>
                                                 <input type="number" class="form-control" id="age" placeholder="" name="age" >
@@ -127,25 +146,7 @@
                                             </div>
                                         </div>
 
-                                        <div class="col-md-3">
-                                            <div class=" card-h-100">
-                                                <div class="d-flex align-items-end h-100">
-
-                                                        <div class="">
-
-
-                                                            <div class="form-check">
-                                                                <input type="checkbox" class="form-check-input" id="email_unav" name="email_agree">
-                                                                <label class="form-check-label fs-12" for="emailUav">Email Unavailable*</label>
-                                                                <div class="invalid-feedback fs-10 py-1 " id="email_agree">
-                                                                    You must agree before submitting.
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                       
+                                            
                                       
 
                                         <div class="col-md-4 ">
@@ -230,7 +231,7 @@
                                         <div class="col-md-4 ">
                                             <div class="mb-3">
                                                 <label class="form-label" for="Zipcode">Dob</label>
-                                                <input class="form-control" id="dob" placeholder="" name="dob"  data-id="datepicker-range">
+                                                <input type="tel" class="form-control" id="dob" placeholder="Date of birth" name="dob"  data-id="datepicker-range">
                                                 <div class="invalid-feedback">
                                                     Please provide a valid date.
                                                 </div>
@@ -311,10 +312,10 @@
                                             <div class="mb-3">
                                                 <label class="form-label" for="Source">Experience</label>
                                                 <select  class="form-select" id="experience"  value="" name="experience">
-                                                    <option value="noexperience">No Experience</option>
-                                                    <option value="beginner">Beginner</option>
-                                                    <option value="intermediate">Intermediate</option>
-                                                    <option value="expert">Expert</option>
+                                                    <option value="0">No Experience</option>
+                                                    <option value="1">Beginner</option>
+                                                    <option value="2">Intermediate</option>
+                                                    <option value="3">Expert</option>
                                                 </select>
                                                 <div class="invalid-feedback">
                                                     Please provide a Profession.
@@ -349,7 +350,7 @@
                         <!-- end card -->
                     </div> <!-- end col -->
                     <div class="col-xl-4 col-lg-4">
-                        <div class=" card-inside card-h-100">
+                        <div class=" card  border-0 card-h-100" style="background-color:#1B1D36 ;">
                          
                             <div class="card-body">
                                 <div class=" ">
@@ -357,8 +358,9 @@
                                         <br>  <span class="text-success">more sales!</span>
                                     </h4>
                                     <p class="fs-16 color-color1">Enhance Your Sales with Better Data</p>
-                                    <img src="{%static 'images/db/newleads.png' %}" class="mt-4" alt="" style="width: 100%;">
-
+                                    <div class="  pt-5">
+                                        <img src="{%static 'images/db/newleads.png' %}" class="mt-4" alt="" style="width: 100%;">
+                                    </div>
 
                                 </div>
                             </div>

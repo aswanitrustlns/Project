@@ -248,3 +248,20 @@ var intTel = function () {
 
 
 intTel();
+$(document).ready(function () {
+
+    //Flat Picker Date
+    flatpickr('#dob', {
+
+       
+        "allowInput":true,
+        dateFormat: "Y-m-d",
+        maxDate: "today",
+        altInput: true, // Human Readable
+        
+
+       
+    });
+
+
+});

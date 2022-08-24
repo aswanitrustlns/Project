@@ -30,6 +30,7 @@ class Services:
             experience=request.POST.get('experience')
             experience=int(str(experience))
             dob=request.POST.get('dob')
+            print("Date of birth------------------------",dob)
             print("Test-----------------------------",income,hear_bout,experience,dob,type(experience))
             if not zip_code:
                 zip_code=None
@@ -65,7 +66,7 @@ class Services:
             print("Lead submit ")        
             Cursor.execute("EXEC SP_InsertSalesLeadReg_CRM_PY %s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s",[name,mobile,telephone,email1,email2,address,city,zip_code,source,UserId,updated_date,updated_date,title,profession,"Pending",state,country1,country2,subject,age,IPAddr,experience,hear_bout,dob,income])
             ticket=Cursor.fetchone() 
-           
+            
         except Exception as e:
                 print("Exception---",e)
         finally:

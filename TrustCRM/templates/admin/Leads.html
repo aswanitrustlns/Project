@@ -269,7 +269,7 @@
                                                 <!-- <th  data-text="text" class="filterhead">ID</th> -->
                                                 <th  data-text="text" class="filterhead">Phone</th>
                                                 <th  data-text="text" class="filterhead">Source</th>
-                                                <th  data-text="text" class="filterhead text-end">Country</th>
+                                                <th  data-text="text" class="filterhead">Country</th>
                                             </tr>
                                         </thead>
     
@@ -398,7 +398,7 @@
                                      <th>Phone</th>
                                      <th>Phone2</th>                                     
                                      <th>User Name</th>
-                                     <th class="text-end">Email</th>
+                                     <th>Email</th>
                                      
                                  </tr>
                              </thead>
@@ -687,50 +687,50 @@ $(function(){
             });
 
         }
-        function load_data(){
-            $('#datatableleads').dataTable().fnClearTable();
-            $('#datatableleads').dataTable().fnDestroy();
+        // function load_data(){
+        //     $('#datatableleads').dataTable().fnClearTable();
+        //     $('#datatableleads').dataTable().fnDestroy();
 
-           var row;
-            $.ajax({
-               type : "GET", 
-               url: "{% url 'Admin:LoadAll' %}",
+        //    var row;
+        //     $.ajax({
+        //        type : "GET", 
+        //        url: "{% url 'Admin:LoadAll' %}",
                          
                
-               success: function(json_data){
+        //        success: function(json_data){
                 
-                console.log("Suces------------------------------------------------",typeof(json_data))
-                console.log("Load ajax data"+json_data[0][0]);   
-                var grouptable=$('#datatableleads').dataTable();
+        //         console.log("Suces------------------------------------------------",typeof(json_data))
+        //         console.log("Load ajax data"+json_data[0][0]);   
+        //         var grouptable=$('#datatableleads').dataTable();
 
-                $.each(json_data,function(key,value){
-                    console.log("Value is---------------------------"+value)
-                })
+        //         $.each(json_data,function(key,value){
+        //             console.log("Value is---------------------------"+value)
+        //         })
 
 
-                // for ( var i=0,k=1, ien=json_data.length ; i<ien ; i++ ) {
-                //     console.log("for loop------")
+        //         // for ( var i=0,k=1, ien=json_data.length ; i<ien ; i++ ) {
+        //         //     console.log("for loop------")
 
            
-                //     grouptable.fnAddData([
+        //         //     grouptable.fnAddData([
                   
-                //     "<tr><td >"+json_data[i][0]+"</td>"+"<td>"+json_data[i][1]+"</td><td>"+json_data[i][2]+"</td><td>"+json_data[i][3]+"</td><td>"+json_data[i][4]+"</td><td>"+
-                //                             json_data[i][5]+"</td>"                  
+        //         //     "<tr><td >"+json_data[i][0]+"</td>"+"<td>"+json_data[i][1]+"</td><td>"+json_data[i][2]+"</td><td>"+json_data[i][3]+"</td><td>"+json_data[i][4]+"</td><td>"+
+        //         //                             json_data[i][5]+"</td>"                  
                                   
-                //     ])
+        //         //     ])
                        
-                // k++;
+        //         // k++;
                 
-                // }
+        //         // }
                 
                 
                 
                    
           
-               }
-            })
+        //        }
+        //     })
 
-        }
+        // }
 
 
 

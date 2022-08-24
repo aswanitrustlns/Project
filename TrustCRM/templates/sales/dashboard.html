@@ -369,7 +369,7 @@
                                                 style="background-color: var(--bs-card-bg);">
                                                 <div class=" py-2 px-2 d-flex flex-column">
                                                     <button type="button"
-                                                        class="btn btn-md btn-bg-soft-color1 mb-2 fs-14 gilory-semibold-type bg-soft-purple text-white ">Send
+                                                        class="btn btn-md btn-bg-soft-color1 mb-2 fs-14 gilory-semibold-type bg-soft-purple text-white " onclick="reminderSendMail({{meeting.2}})">Send
                                                         Reminder</button>
                                                     <button type="button"
                                                         class="btn btn-md btn-bg-soft-color1   fs-14 gilory-semibold-type bg-soft-purple text-white">Cancel
@@ -804,7 +804,22 @@
     var ticket_count_daily={{ticket_count_daily|safe}}
     var ticket_count_weekly={{ticket_count_weekly|safe}}
     var weekly_lead_bar={{weekly_lead_bar|safe}}
-    console.log(weekly_lead_bar)
+
+    function reminderSendMail(ticket){
+        console.log(ticket)
+        $.ajax({
+               type : "GET", 
+               url: "{% url 'Admin:SendReminder' %}",
+               data: {
+                        "ticket":ticket
+                        },
+               
+               success: function(data){
+
+               }
+        })
+
+    }
 </script>
 <script src="{%static 'libs/apexcharts/apexcharts.min.js' %}"></script>
 <script src="{%static 'js/pages/dashboardsales.init.js' %}"></script>

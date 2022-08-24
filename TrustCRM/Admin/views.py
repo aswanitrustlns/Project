@@ -665,4 +665,11 @@ def new_accounts(request):
     else:
         return redirect('/login')
 
+def sendRemiderMail(request):
+    if 'UserId' in request.session:
+        ticket=request.GET.get('ticket')
+        selector.mailSend(ticket)
+        return JsonResponse({'success':True})
+    else:
+        return redirect('/login')
    

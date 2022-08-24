@@ -22,6 +22,7 @@ urlpatterns=[
     path('load_all_pending',pending_tckts_load_all,name="PendingTktsAll"),
     path('resolvedtickets',resolved_tickets,name='ResolvedTickets'),
     path('load_all_resolved',resolved_tckts_load_all,name="ResolvedTktsAll"),
+    path('SendReminder',sendRemiderMail,name="SendReminder"),
     path('logout',logout,name="Logout")
    
  
