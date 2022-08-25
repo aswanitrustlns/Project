@@ -87,7 +87,7 @@
                                                    total leads</span>
                                             </div>
                                             
-                                            <h2 class=" gilory-semibold-type fs-40 mb-0 text-xl-center text-xxl-start" data-target="12">12</h2>
+                                            <h2 class=" gilory-semibold-type fs-40 mb-0 text-xl-center text-xxl-start" data-target="12">{{leads_count.0}}</h2>
                                             
                                         </div>
                                         
@@ -129,7 +129,7 @@
                                                     unconverted leads</span>
                                             </div>
                                             
-                                            <h2 class=" gilory-semibold-type fs-40 mb-0 text-xl-center text-xxl-start" data-target="12">12</h2>
+                                            <h2 class=" gilory-semibold-type fs-40 mb-0 text-xl-center text-xxl-start" data-target="12">{{leads_count.1}}</h2>
                                             
                                         </div>
                                         
@@ -173,7 +173,7 @@
                                                     converted leads</span>
                                             </div>
                                             
-                                            <h2 class=" gilory-semibold-type fs-40 mb-0 text-xl-center text-xxl-start" data-target="12">12</h2>
+                                            <h2 class=" gilory-semibold-type fs-40 mb-0 text-xl-center text-xxl-start" data-target="12">{{leads_count.2}}</h2>
                                             
                                         </div>
                                         
@@ -214,11 +214,11 @@
                                            
                                             <div class="text-wrap mb-1 text-xl-center text-xxl-start" >
                                                 <!--<span class="badge bg-soft-success text-success">+$20.9k</span>-->
-                                                <span class=" color-color1 fs-20 almarenamonolight-type">Today’s <br>
+                                                <span class=" color-color1 fs-20 almarenamonolight-type">Total <br>
                                                     unconverted leads</span>
                                             </div>
                                             
-                                            <h2 class="  gilory-semibold-type fs-40 mb-0 text-xl-center text-xxl-start" data-target="12">12</h2>
+                                            <h2 class="  gilory-semibold-type fs-40 mb-0 text-xl-center text-xxl-start" data-target="12">{{leads_count.3}}</h2>
                                             
                                         </div>
                                         
@@ -269,6 +269,8 @@
                                                 <!-- <th  data-text="text" class="filterhead">ID</th> -->
                                                 <th  data-text="text" class="filterhead">Phone</th>
                                                 <th  data-text="text" class="filterhead">Source</th>
+                                                <th  data-text="text" class="filterhead">Ticket</th>
+                                                <th  data-text="text" class="filterhead">Account</th>
                                                 <th  data-text="text" class="filterhead">Country</th>
                                             </tr>
                                         </thead>
@@ -285,6 +287,8 @@
                                             <!-- <td>{{data.1}}</td> -->
                                             <td>{{data.4}}</td>
                                             <td>{{data.5}}</td>
+                                            <td>{{data.10}}</td>
+                                            <td>{{data.11}}</td>
                                             <td>{{data.7}}</td>
                                         </tr>
                                         
@@ -370,7 +374,7 @@
     </div>
 
 
-    <div class="modal fade  bs-example-modal-insta" tabindex="-1" role="dialog" aria-hidden="true" id="duplicate_model">
+    <div class="modal fade  bs-example-modal-insta" tabindex="-1" role="dialog" aria-hidden="true" >
         <div class="modal-dialog modal-dialog-centered modal-xl d-block"   style="z-index: 10555;">
             <div class="modal-content mb-4">
                 <div class="modal-header border-0">
@@ -402,7 +406,7 @@
                                      
                                  </tr>
                              </thead>
-                             <tbody class="gilroyregular-type fs-15" id="duplicate_body">
+                             <tbody class="gilroyregular-type fs-15" >
                              </tbody>
                          </table>
                      </div> 
@@ -426,7 +430,93 @@
         </div>
     </div>
 
+    <div class="col-12">
+     
 
+        <div class="modal fade  bs-example-modal-leads" tabindex="-1" role="dialog" aria-hidden="true" id="duplicate_model"> 
+              
+               <div class="modal-dialog modal-dialog-centered  modal-xl d-block">
+                
+
+            
+
+                   <div class="modal-content">
+                    
+                       
+              
+                    <div class="modal-body ">
+
+                        <!--<button class="btn btn-lg btn-info  ms-3" type="submit">Load</button>-->
+
+                      <div class="border rounded-3 px-2 py-2">
+                        <div class="modal-header border-0 ">
+                            <h5 class="modal-title fs-21 ">Duplicate phone   <a href="" class="btn btn-md btn-success  ms-3" onclick="create_new_ticket()">Create new ticket</a> </h5>
+                            
+                            <a href="" data-bs-dismiss="modal" aria-label="Close">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M9.16992 14.83L14.8299 9.17" stroke="var(--white)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M14.8299 14.83L9.16992 9.17" stroke="var(--white)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M9 22H15C20 22 22 20 22 15V9C22 4 20 2 15 2H9C4 2 2 4 2 9V15C2 20 4 22 9 22Z" stroke="white" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                    
+                                </a>
+                        </div>
+                     
+
+                        <div class="table-responsive mx-3 my-2" data-simplebar style="max-height: 352px;">
+                            <table class="table mb-0 ">
+
+                                <thead>
+                                    <tr class="almarenamonolight-type fs-12">
+                                        <th>
+    
+                                                <span>User Name</span>
+
+                                            </div>
+                                            </th>
+                                        <th>Ticket</th>
+                                        <th>Phone1</th>
+                                        <th>Phone2</th>
+                                        <th>Email</th>
+                                        <th>&nbsp;</th>
+                                        <th class="text-end">&nbsp;</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="gilroyregular-type fs-15 text-white" style="vertical-align:middle ;" id="duplicate_body">
+                                 
+
+
+
+
+
+
+
+                                </tbody>
+                            </table>
+                        </div> 
+
+                      </div>
+                        
+                     
+                     
+
+
+                     
+                    
+                        
+                    </div>
+
+                    
+                </div><!-- /.modal-content -->
+
+                  
+
+               </div><!-- /.modal-dialog -->
+        </div>
+    </div>    
+        <!-- /.modal -->
+
+        
 
     <!-- JAVASCRIPT -->
   
@@ -435,7 +525,7 @@
     <!-- Plugins js-->
     <!--<script src="assets/libs/admin-resources/jquery.vectormap/jquery-jvectormap-1.2.2.min.js"></script>
     <script src="assets/libs/admin-resources/jquery.vectormap/maps/jquery-jvectormap-world-mill-en.js"></script>-->
-    <!-- dashboard init -->
+    <!-- dashboard init -->demo_id
     <script>
 
 $(function(){
@@ -454,7 +544,7 @@ $(function(){
 
 
         function checkticket(demo_id,lead_email,lead_phone){
-          
+          console.log("check list clicked---------------------")
             $.ajax({
                type : "GET", 
                url: "{% url 'Admin:Duplicate' %}",
@@ -467,21 +557,27 @@ $(function(){
                success: function(data){
                 console.log(data)
                 if(data.success){
-                    $("#duplicate_model tbody").empty();
+                    // $("#duplicate_model tbody").empty();
                     var element=data.duplicate;
                     
                     var duplicate_data=new Array();
+
+                    var duplicates="<tr><th scope='row'><div class='d-flex my-1 ms-2 align-items-center'><div class='activity-icon avatar-sm me-3'><span class='avatar-title   rounded-circle'>"+
+                        "<img class='rounded-circle avatar-md' src='../static/images/users/"+element[4]+".png' onerror=this.src='../static/images/users/user.png'  >"+
+                        "</span></div>"+element[4]+"</th><td>"+element[1]+"</td><td>"+element[2]+"</td><td>"+element[3]+"</td><td>"+element[5]+"</td>"+
+                        "<td  class='text-success'><a  style='color:rgba(114, 212, 171, 1); cursor: pointer' onclick=viewticket('"+element[1]+"','"+element[2]+"','"+element[3]+"','"+element[5]+"')>View ticket</a></td><td class='text-end'>"+
+                            "<a style='color:rgba(85, 206, 215, 1) ; cursor: pointer' onClick=merge('"+demo_id+"','"+element[1]+"','"+element[2]+"','"+element[3]+"','"+element[5]+"')>View n merge</a></td></tr>";
                    
+                    console.log("duplicate rows created")
                     
-                    
-                    var duplicates="<tr><th scope='row'><td><button class='btn btn-primary btn-md mt-3' onclick=viewticket('"+element[1]+"','"+element[2]+"','"+element[3]+"','"+element[5]+"')>View Ticket</button></th><td><button class='btn btn-primary btn-md mt-3' onClick=merge('"+demo_id+"','"+element[1]+"','"+element[2]+"','"+element[3]+"','"+element[5]+"')>View and Merge</button></td><td>"+
-                                element[0]+"</td><td>"+element[1]+"</td><td>"+element[2]+"</td><td>"+element[3]+"</td><td>"+element[4]+"</td><td class='text-end'>"+element[5]+"</td></tr>";                            
+                    // var duplicate="<tr><th scope='row'><td><button class='btn btn-primary btn-md mt-3' onclick=viewticket('"+element[1]+"','"+element[2]+"','"+element[3]+"','"+element[5]+"')>View Ticket</button></th><td><button class='btn btn-primary btn-md mt-3' onClick=merge('"+demo_id+"','"+element[1]+"','"+element[2]+"','"+element[3]+"','"+element[5]+"')>View and Merge</button></td><td>"+
+                    //             element[0]+"</td><td>"+element[1]+"</td><td>"+element[2]+"</td><td>"+element[3]+"</td><td>"+element[4]+"</td><td class='text-end'>"+element[5]+"</td></tr>";                            
                     var hidden_name="<input type='hidden' name='name' id='ticket_name' value='"+element[0]+"'><input type='hidden' name='demoid' value='"+demo_id+"' id='demo_id'>";
                    
                     $("#duplicate_body").append(duplicates)
                     $("#duplicate_body").append(hidden_name)   
-                        $("#duplicate_model").modal('show');
-                }
+                   $("#duplicate_model").modal('show');
+                    }
                 else{
                     var url="{% url 'Admin:LeadProcessing'%}"
                     window.location.href=url
@@ -556,8 +652,14 @@ $(function(){
             $('#datatableleads').dataTable().fnDestroy();
             $("#datatableleads").DataTable({
                 // 'processing' : true,
+                "language": {
+                                    'loadingRecords': "<span class='fa-stack fa-lg'>\n\
+                            <i class='fa fa-spinner fa-spin fa-stack-2x fa-fw'></i>\n\
+                       </span>&emsp;Loading Details ...",
+                                },
                 
-                "paging":true,               
+                "paging":true,   
+                // "pagingType":"simple",            
                 "ajax":{
                    url: "{% url 'Admin:LoadAll' %}",
                   dataSrc:function(json_data){
@@ -566,7 +668,7 @@ $(function(){
                     var items = [];
                     for ( var i=0, ien=json_data.length ; i<ien ; i++ ) {
 
-                         items[i] =[json_data[i][0],json_data[i][3],json_data[i][2],json_data[i][4],json_data[i][5],json_data[i][7]+"<input type='hidden' name='id' id='id_demo"+json_data[i][0]+"' value='"+json_data[i][1]+"'>"]; 
+                         items[i] =[json_data[i][0],json_data[i][3],json_data[i][2],json_data[i][4],json_data[i][5],json_data[i][10],json_data[i][11],json_data[i][7]+"<input type='hidden' name='id' id='id_demo"+json_data[i][0]+"' value='"+json_data[i][1]+"'>"]; 
                         
                             
                         }

@@ -5,29 +5,47 @@ Website: https://themesbrand.com/
 Contact: themesbrand@gmail.com
 File: Datatables Js File
 */
+$(function(){
+    $('#datatableleads thead tr')
+    .clone(true)
+    .addClass('filters')
+    .appendTo('#datatableleads thead');
 
+$('#datatableleadsR thead tr')
+    .clone(true)
+    .addClass('filters')
+    .appendTo('#datatableleadsR thead');
+
+$('#datatableleadsT thead tr')
+    .clone(true)
+    .addClass('filters')
+    .appendTo('#datatableleadsT thead');
+
+$('#datatableleadsC thead tr')
+    .clone(true)
+    .addClass('filters')
+    .appendTo('#datatableleadsC thead');
+
+});
 
 $(document).ready(function () {
 
     var minDate,maxDate;
 
-    $('#datatableleads3 thead tr')
-        .clone(true)
-        .addClass('filters')
-        .appendTo('#datatableleads3 thead');
-    // Setup - add a text input to each footer cell
-    $('#datatableleads thead tr')
-        .clone(true)
-        .addClass('filters')
-        .appendTo('#datatableleads thead');
+   
+    
+  
+    
        
         
- 
-    var table = $('#datatableleads3').DataTable({
+   function tableInit($id){ 
+
+    console.log("Idddddddddddddddddddddddddddddddddddddddd"+$id)
+    var table = $($id).DataTable({
         //"dom": "lfprti",
         responsive: true,
         orderCellsTop: true,  
-
+        
        
         fixedHeader: true,
         initComplete: function () {
@@ -134,7 +152,11 @@ $(document).ready(function () {
     
     });
     
-    
+}
+tableInit("#datatableleads");
+// tableInit("#datatableleadsR");
+// tableInit("#datatableleadsT");
+// tableInit("#datatableleadsC");
 
     //Flat Picker Date
 

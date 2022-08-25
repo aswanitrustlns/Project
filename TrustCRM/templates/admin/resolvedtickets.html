@@ -4,7 +4,7 @@
 <head>
 
     <meta charset="utf-8" />
-    <title>Dashboard | Minia - Minimal Admin & Dashboard Template</title>
+    <title>Trust Capital CRM</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
     <meta content="Themesbrand" name="author" />
@@ -59,16 +59,16 @@
                             <div class="card-body ">
                                 <h4 class="card-title almarenamonolight-type mb-4 fs-23">SALES TICKETS</h4>
                                 <div class="d-flex flex-no-wrap justify-content-between align-items-start  mb-4">
-                                <p class="gilroymedium-type fs-15 color-spanishgray">This page allows you to view the Sales Inquiries assigned to you and the inquiries that are not assigned.
+                                    <p class="gilroymedium-type fs-15 color-color1 mb-0">This page allows you to view the Sales Inquiries assigned to you and the inquiries that are not assigned.
                                    </p>
-                                   <button class="btn btn-primary btn-lg mt-3" onclick="loadAll()">Load All</button>
+                                   <button type="button" class="btn  btn-lg   btn-success  px-3  gilory-semibold-type flex-grow-0" onclick="loadAll()">Load All</button>
                                 </div>
-                                <div class=" px-1">
+                                <div class=" px-1 table-responsive">
                                     <table id="datatableleads" class="table dt-responsive  nowrap w-100 ">
                                         <thead>
-                                            <tr  class="bg-soft-carlestongreen ">
+                                            <tr  class=" ">
                                                 <th >Date</th>
-                                                <!-- <th >Id</th> -->
+                                                <th >Ticket</th>
                                                 
                                                 <th  >Name</th>
                                                 <!-- <th  >Email</th> -->
@@ -92,7 +92,7 @@
                                         {%for data in resolved_tickets %}
                                         <tr ondblclick='checkticket("{{data.2}}","{{data.4}}")' style="cursor: pointer;">
                                             <td >{{data.0}}</td>
-                                            <!-- <td>{{data.1}}</td> -->
+                                            <td>{{data.1}}</td>
                                             <td>{{data.2}}</td>
                                             <!-- <td>{{data.3}}</td> -->
                                             <td>{{data.3}}</td>
@@ -158,18 +158,24 @@
                 $('#datatableleads').dataTable().fnClearTable();
                 $('#datatableleads').dataTable().fnDestroy();
                 $("#datatableleads").DataTable({
-                    // 'processing' : true,
-                    
+                    //  'processing' : "<span class='fa-stack fa-lg'>\n\
+                    //                     <i class='fa fa-spinner fa-spin fa-stack-2x fa-fw'></i>\n\
+                    //                     </span>&nbsp;&nbsp;&nbsp;&nbsp;",
+                    "language": {
+                                    'loadingRecords': "<span class='fa-stack fa-lg'>\n\
+                            <i class='fa fa-spinner fa-spin fa-stack-2x fa-fw'></i>\n\
+                       </span>&emsp;Loading Details ...",
+                                },
                     'paging':true,               
                     'ajax':{
-                    "url": "{% url 'Admin:LoadAll' %}",
+                    "url": "{% url 'Admin:ResolvedTktsAll' %}",
                     "dataSrc":function(json_data){
                         
 
                         var items = [];
                         for ( var i=0, ien=json_data.length ; i<ien ; i++ ) {
 
-                            items[i] = [json_data[i][0],json_data[i][2],json_data[i][3],json_data[i][4],json_data[i][5],json_data[i][7]]; 
+                            items[i] = [json_data[i][0],json_data[i][1],json_data[i][2],json_data[i][3],json_data[i][6],json_data[i][5]]; 
                                 
                             }
                             console.log(items);
@@ -288,6 +294,7 @@
     </script>
     
     <!-- Required datatable js -->
+    <script src="{%static 'libs/flatpickr/flatpickr.min.js' %}"></script>
     <script src="{% static 'libs/datatables.net/js/jquery.dataTables.min.js' %}"></script>
     <script src="{% static 'libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js' %}"></script>
 

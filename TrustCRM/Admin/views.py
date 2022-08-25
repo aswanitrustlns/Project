@@ -416,17 +416,18 @@ def lead(request):
         print(UserId)
              
         lead="lead"
-        leads_data=selector.get_leads(lead)
+        leads_data,leads_count=selector.get_leads(lead)
         # print("Leads data---------------------",leads_data)
-        return render(request,'admin/Leads.html',{'leads_data':leads_data})
+        return render(request,'admin/Leads.html',{'leads_data':leads_data,'leads_count':leads_count})
     else:
          return redirect('/login') 
 
 def lead_load_all(request): 
     
     lead="all"
-    load_data=selector.get_leads(lead)   
+    load_data,leads_count=selector.get_leads(lead)   
     # paginator = Paginator(load_data, 10)
+    print("Load all data-------")
     print("load data-------------------------",len(load_data))
     return JsonResponse(load_data, safe=False)
 
@@ -621,13 +622,15 @@ def pending_tickets(request):
          return redirect('/login') 
 
 def pending_tckts_load_all(request):
-    UserId=request.session.get('UserId')   
-    
-    pending_tickets=selector.get_tickets(UserId,"pending","all")
-    # paginator = Paginator(load_data, 10)
-    print("load data-------------------------",len(pending_tickets))
-    return JsonResponse(list(pending_tickets), safe=False)
-    
+    if 'UserId' in request.session:
+        UserId=request.session.get('UserId')   
+        
+        pending_tickets=selector.get_tickets(UserId,"pending","all")
+        # paginator = Paginator(load_data, 10)
+        print("load data-------------------------",len(pending_tickets))
+        return JsonResponse(list(pending_tickets), safe=False)
+    else:
+         return redirect('/login') 
 
 def resolved_tickets(request):
     if 'UserId' in request.session:
@@ -640,19 +643,34 @@ def resolved_tickets(request):
     else:
          return redirect('/login') 
 
+def dormant_ticket(request):
+    if 'UserId' in request.session:
+        UserId=request.session.get('UserId')
+        print("USer iddddddddddddddddddddd",UserId)
+        # salesrepId=0
+        dormant_tickets=selector.get_tickets(UserId,"dormant",UserId)        
+        return render(request,'sales/dormanttickets.html',{'dormant_tickets':dormant_tickets})
+    else:
+         return redirect('/login') 
+
+
 
 def resolved_tckts_load_all(request):
-    UserId=request.session.get('UserId')
-    
-    resolved_tickets=selector.get_tickets(UserId,"resolved","load")
-    # paginator = Paginator(load_data, 10)
-    print("load data-------------------------",len(resolved_tickets))
-    return JsonResponse(list(resolved_tickets), safe=False)
+    if 'UserId' in request.session:
+        UserId=request.session.get('UserId')
+        
+        resolved_tickets=selector.get_tickets(UserId,"resolved","all")
+        # paginator = Paginator(load_data, 10)
+        print("load data-------------------------",len(resolved_tickets))
+        return JsonResponse(list(resolved_tickets), safe=False)
+    else:
+        return redirect('/login')
 
 def new_accounts(request):
 
     if 'UserId' in request.session:
         change=request.GET.get("change")
+       
         if(change):
             accounts_data=selector.get_new_accounts(change)
             print("change is---------------",change)
@@ -660,15 +678,26 @@ def new_accounts(request):
         else:
             
             accounts_data=selector.get_new_accounts("Live")
+            # terminated_data=selector.get_new_accounts("Terminated")
             return render(request,'admin/newAccounts.html',{'accounts_data':accounts_data})
                 
     else:
         return redirect('/login')
 
 def sendRemiderMail(request):
-    if 'UserId' in request.session:
+    if 'UserId' in request.session:        
         ticket=request.GET.get('ticket')
         selector.mailSend(ticket)
+        
+        return JsonResponse({'success':True})
+    else:
+        return redirect('/login')
+def sendCancelMail(request):
+    if 'UserId' in request.session:
+        print("Cancel meetingg-----")
+        UserId=request.session.get('UserId')
+        ticket=request.GET.get('ticket')
+        selector.cancel_meeting_mail(UserId,ticket)
         return JsonResponse({'success':True})
     else:
         return redirect('/login')

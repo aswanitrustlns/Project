@@ -135,23 +135,28 @@ class Selector:
                 date_yesterday = datetime.today()-timedelta(1)
                 
             date_yesterday=date_yesterday.strftime("%Y-%m-%d")  
+            Cursor.execute("set nocount on;exec SP_LeadsCount_PY")
+            leads_count = Cursor.fetchone()
             if lead=="all":
-                Cursor.execute("exec SP_GetNewSalesLeadsPaginate_PY %s,%s,%s,%s,%s,%s,%s",["1900-01-01",date_today,'',0,0,'',0])
+                print("Load all data----")
+                Cursor.execute("SET NOCOUNT ON;exec SP_GetNewSalesLeadsPaginate_PY %s,%s,%s,%s,%s,%s,%s",["1900-01-01",date_today,'',0,0,'',1])
+                print("statement executed-----------------------------------------------")
                 leads_data=Cursor.fetchall() 
             else:
-                Cursor.execute("exec SP_GetNewSalesLeadsPaginate_PY %s,%s,%s,%s,%s,%s,%s",[date_yesterday,date_today,'',0,0,'',0])
+                Cursor.execute("SET NOCOUNT ON;exec SP_GetNewSalesLeadsPaginate_PY %s,%s,%s,%s,%s,%s,%s",[date_yesterday,date_today,'',0,0,'',1])
                 leads_data=Cursor.fetchall()
         except Exception as e:
             print("Exception---",e)
         finally:
             Cursor.close()
-        return leads_data
+        return leads_data,leads_count
     
     #Get Tickets
     def get_tickets(self,userId,ticket,load):
         try:
             Cursor=connection.cursor()
             print("GET Tickets--------------------- ",load)
+            print("------------------------------",ticket)
             date_today=datetime.today().date()    
             date_today=date_today.strftime("%Y-%m-%d")
             week_day=datetime.today().weekday() # Monday is 0 and Sunday is 6
@@ -179,6 +184,11 @@ class Selector:
                     print()
                     Cursor.execute("exec SP_GetSalesLeadsListPaginate_PY %s,%s,%s,%s,%s",[userId,date_yesterday,date_today,'R',0])
                     _tickets=Cursor.fetchall()
+            if(ticket=="dormant"):
+                print("LOad datas---------------------",load)
+                print("dormant tickets")
+                Cursor.execute("exec SP_GetDormantSalesLeadsPaginate_PY %s,%s,%s",[userId,"P",userId])
+                _tickets=Cursor.fetchall()
         except Exception as e:
             print("Exception---",e)
         finally:
@@ -295,29 +305,28 @@ class Selector:
         finally:
             Cursor.close()
 #cancel Meeting
-    def cancel_meeting_mail(self,token):
+    def cancel_meeting_mail(self,userId,token):
         try:
             Cursor=connection.cursor()
             Cursor.execute("set nocount on;exec SP_GetLastMeetingDetails %s",[token])
             meeting_details=Cursor.fetchone()
+            Cursor.execute("set nocount on;exec SP_InsertMeeting  %s,%s,%s,%s,%s,%s,%s,%s,%s",[meeting_details[0],meeting_details[1],meeting_details[2],meeting_details[3],meeting_details[4],2,userId,token,meeting_details[6]])
             Cursor.execute("set nocount on;exec SP_GetTicket_PY %s",[token])
             client_details=Cursor.fetchone()
             print("Meeting details--------------------------",meeting_details)
             print("Client details----------------",client_details[2])
-            subject="Trust Capital – Meeting Reminder"
+            subject="Trust Capital – Meeting Cancelled"
             email_from = settings.EMAIL_HOST_USER
             receiver=client_details[2]
-            # receiver='aswani.technology@gmail.com'
+            # receiver='aswani@trustlns.ae'
             template_data={
                 "title":client_details[0],
                 "name":client_details[1],
                 "sender":client_details[3],
-                "date":meeting_details[0],
-                "time":meeting_details[1],
-                "location":meeting_details[2],
-                "purpose":meeting_details[3]
+                
             }
-            email_template_render=render_to_string("email/MeetingReminder.html",template_data)
+            print("Meeting cancelled-------")
+            email_template_render=render_to_string("email/MeetingCancelled.html",template_data)
             try:
                 send_mail(subject," ",email_from,[receiver],fail_silently=False,html_message=email_template_render)
             except BadHeaderError:

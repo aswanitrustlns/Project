@@ -18,8 +18,9 @@
      <!-- datepicker css -->
      <link rel="stylesheet" href="{% static 'libs/flatpickr/flatpickr.min.css' %}">
     {% include "common/link.html" %}
-    
+   
     {% include "common/scripts.html" %}
+    <script src="{%static 'js/pages/datatables-filtercolumn-nwaccountsales.init.js' %}"></script> 
     
 </head>
 <body data-layout-mode="dark">
@@ -71,12 +72,17 @@
                                     from website and social sites.</p>-->
                                 <div class=" d-flex justify-content-between align-items-start">
                                     <div>
-                                        <button type="button" class="btn btn-lg btn-primary   mb-3  mx-1 gilory-semibold-type bg-soft-purple text-white"  style="background-color: var(--bs-card-bg) ;" onclick="addColor(this,'bg-soft-purple text-white', 'color-color1');changeAccount('Live');switchtab(this,'#accounts_table','#rejected_table','#terminated_table','#closed_table')">Live</button>
+                                        <button type="button" class="btn btn-lg btn-primary   mb-3  mx-1 gilory-semibold-type bg-soft-purple text-white"  style="background-color: var(--bs-card-bg) ;" onclick="addColor(this,'bg-soft-purple text-white', 'color-color1');switchtab(this,'#accounts_table','#rejected_table','#terminated_table','#closed_table')">Live</button>
                                         <button type="button" class="btn btn-lg btn-primary  color-color1 mb-3 mx-1 gilory-semibold-type"  style="background-color: var(--bs-card-bg); "  onclick="addColor(this,'bg-soft-purple text-white', 'color-color1');changeAccount('Pending');switchtab(this,'#accounts_table','#rejected_table','#terminated_table','#closed_table')">Pending</button>
-                                        <button type="button" class="btn btn-lg btn-primary  color-color1 mb-3 mx-1 gilory-semibold-type"  style="background-color: var(--bs-card-bg) ;" onclick="addColor(this,'bg-soft-purple text-white','color-color1'); changeAccount('Rejected');switchtab(this,'#rejected_table','#accounts_table','#terminated_table','#closed_table')">Rejected</button>
+                                        <button type="button" class="btn btn-lg btn-primary  color-color1 mb-3 mx-1 gilory-semibold-type"  style="background-color: var(--bs-card-bg) ;" onclick="addColor(this,'bg-soft-purple text-white','color-color1');changeAccount('Rejected');switchtab(this,'#rejected_table','#accounts_table','#terminated_table','#closed_table')">Rejected</button>
                                         <button type="button" class="btn btn-lg btn-primary  color-color1 mb-3 mx-1 gilory-semibold-type"  style="background-color: var(--bs-card-bg) ;"  onclick="addColor(this,'bg-soft-purple text-white','color-color1');changeAccount('Terminated');switchtab(this,'#terminated_table','#rejected_table','#accounts_table','#closed_table')">Terminated</button>
                                         <button type="button" class="btn btn-lg btn-primary  color-color1 mb-3 mx-1 gilory-semibold-type"  style="background-color: var(--bs-card-bg) ;"  onclick="addColor(this,'bg-soft-purple text-white','color-color1');changeAccount('Closed');switchtab(this,'#closed_table','#accounts_table','#terminated_table','#rejected_table')">Closed</button>
                                     </div>
+                                    <!-- changeAccount('Live');
+                                    changeAccount('Pending');
+                                    changeAccount('Rejected');
+                                    changeAccount('Terminated');
+                                    changeAccount('Closed'); -->
                                     <button type="button" class="btn  btn-lg   btn-success  px-3 py-1 gilory-semibold-type" onclick="changeAccount('loadall')">Load all</button>
                                     
                                 </div>
@@ -132,7 +138,7 @@
                                     </table>
                                 </div>
                                 <div class=" px-1 table-responsive mt-4 d-none" id="rejected_table">
-                                    <table id="datatableleads2" class="table dt-responsive  nowrap  w-100">
+                                    <table id="datatableleadsR" class="table dt-responsive  nowrap  w-100">
                                         <thead>
                                             <tr  class=" ">
                                                 <th  data-text="text" class="filterhead">Promo</th>
@@ -151,7 +157,7 @@
                                         </thead>
 
 
-                                        <tbody id="newaccounts_data">
+                                        <tbody>
                                       
                                         
                                         </tbody>
@@ -161,7 +167,7 @@
                                     </table>
                                 </div>
                                 <div class=" px-1 table-responsive mt-4 d-none" id="terminated_table">
-                                    <table id="datatableleads3" class="table dt-responsive  nowrap  w-100">
+                                    <table id="datatableleadsT" class="table dt-responsive  nowrap  w-100">
                                         <thead>
                                             <tr  class=" ">
                                                 <th  data-text="text" class="filterhead">Promo</th>
@@ -215,8 +221,8 @@
                                         </thead>
 
 
-                                        <tbody id="newaccounts_data">
-                                      
+                                        <tbody>
+                                           
                                         
                                         </tbody>
                                         <tfoot>
@@ -225,7 +231,7 @@
                                     </table>
                                 </div>
                                 <div class=" px-1 table-responsive mt-4 d-none" id="closed_table">
-                                    <table id="datatableleads4" class="table dt-responsive  nowrap  w-100">
+                                    <table id="datatableleadsC" class="table dt-responsive  nowrap  w-100">
                                         <thead>
                                             <tr  class=" ">
                                                 <th  data-text="text" class="filterhead">Promo</th>
@@ -275,6 +281,7 @@
         </div>
  {% include "common/right-sidebar.html" %}
  <div class="rightbar-overlay"></div>
+
     <script>
 
 
@@ -298,10 +305,10 @@
             }
             function rejectedAccount(change){
            
-            $('#datatableleads2').dataTable().fnClearTable();
-                $('#datatableleads2').dataTable().fnDestroy();
+            $('#datatableleadsR').dataTable().fnClearTable();
+                $('#datatableleadsR').dataTable().fnDestroy();
             
-                $("#datatableleads2").DataTable({
+                $("#datatableleadsR").DataTable({
                 // 'processing' : true,
                 
                 'paging':true,               
@@ -438,9 +445,9 @@
 
 
         function closedAccount(change){
-            $('#datatableleads4').dataTable().fnClearTable();
-                $('#datatableleads4').dataTable().fnDestroy();
-                $("#datatableleads4").DataTable({
+            $('#datatableleadsC').dataTable().fnClearTable();
+                $('#datatableleadsC').dataTable().fnDestroy();
+                $("#datatableleadsC").DataTable({
                 // 'processing' : true,
                 
                 'paging':true,               
@@ -577,15 +584,16 @@
         function terminateAccount(change){
             
 
-            $('#datatableleads3').dataTable().fnClearTable();
-                $('#datatableleads3').dataTable().fnDestroy();
-                $("#datatableleads3").DataTable({
+            $('#datatableleadsT').dataTable().fnClearTable();
+                $('#datatableleadsT').dataTable().fnDestroy();
+                $("#datatableleadsT").DataTable({
                 // 'processing' : true,
                 
                 'paging':true,               
                 'ajax':{
                    "url": "{% url 'Admin:NewAccounts' %}",
                    "type": "GET",
+                   "async":false,
                    "data":{
                     "change":change,
                    },
@@ -872,7 +880,7 @@
        -->  
 
     <!-- Datatable init js -->
-    <script src="{%static 'js/pages/datatables-filtercolumn-nwaccountsales.init.js' %}"></script> 
+    
 
     <!-- init js -->
     <!--<script src="assets/js/pages/form-advancedcustom.init.js"></script>-->

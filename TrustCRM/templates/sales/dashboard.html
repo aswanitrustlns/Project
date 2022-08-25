@@ -372,7 +372,7 @@
                                                         class="btn btn-md btn-bg-soft-color1 mb-2 fs-14 gilory-semibold-type bg-soft-purple text-white " onclick="reminderSendMail({{meeting.2}})">Send
                                                         Reminder</button>
                                                     <button type="button"
-                                                        class="btn btn-md btn-bg-soft-color1   fs-14 gilory-semibold-type bg-soft-purple text-white">Cancel
+                                                        class="btn btn-md btn-bg-soft-color1   fs-14 gilory-semibold-type bg-soft-purple text-white" onclick="cancelSendMail({{meeting.2}})">Cancel
                                                         Meeting</button>
                                                 </div>
 
@@ -810,6 +810,21 @@
         $.ajax({
                type : "GET", 
                url: "{% url 'Admin:SendReminder' %}",
+               data: {
+                        "ticket":ticket
+                        },
+               
+               success: function(data){
+
+               }
+        })
+
+    }
+    function cancelSendMail(ticket){
+        console.log(ticket)
+        $.ajax({
+               type : "GET", 
+               url: "{% url 'Admin:CancelMail' %}",
                data: {
                         "ticket":ticket
                         },
