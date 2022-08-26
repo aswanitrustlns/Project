@@ -275,17 +275,18 @@ class Selector:
 
     def mailSend(self,token):
         try:
+            print("token--------------",token)
             Cursor=connection.cursor()
             Cursor.execute("set nocount on;exec SP_GetLastMeetingDetails %s",[token])
             meeting_details=Cursor.fetchone()
             Cursor.execute("set nocount on;exec SP_GetTicket_PY %s",[token])
             client_details=Cursor.fetchone()
             print("Meeting details--------------------------",meeting_details)
-            print("Client details----------------",client_details[2])
-            subject="Trust Capital – Meeting Reminder"
-            email_from = 'Trust Capital cs@trusttc.com'
+            print("Client details----------------",client_details)
+            subject="Trust Capital - Meeting Reminder"
+            email_from = 'cs@trusttc.com'
             receiver=client_details[2]
-            # receiver='aswani.technology@gmail.com'
+            #receiver='aswani.technology@gmail.com'
             template_data={
                 "title":client_details[0],
                 "name":client_details[1],
@@ -315,10 +316,10 @@ class Selector:
             client_details=Cursor.fetchone()
             print("Meeting details--------------------------",meeting_details)
             print("Client details----------------",client_details[2])
-            subject="Trust Capital – Meeting Cancelled"
+            subject="Trust Capital - Meeting Cancelled"
             email_from = settings.EMAIL_HOST_USER
             receiver=client_details[2]
-            # receiver='aswani@trustlns.ae'
+            #receiver='aswani.technology@gmail.com'
             template_data={
                 "title":client_details[0],
                 "name":client_details[1],
