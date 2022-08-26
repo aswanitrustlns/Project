@@ -67,7 +67,7 @@
                                     <table id="datatableleads" class="table dt-responsive  nowrap w-100 ">
                                         <thead>
                                             <tr  class=" ">
-                                                <th >Date</th>
+                                                <th data-id="datepicker-range">Date</th>
                                                 <th >Ticket</th>
                                                 
                                                 <th  >Name</th>
@@ -90,7 +90,7 @@
                                             <th  data-type="text" >Country</th>
                                         </tr>    -->
                                         {%for data in resolved_tickets %}
-                                        <tr ondblclick='checkticket("{{data.2}}","{{data.4}}")' style="cursor: pointer;">
+                                        <tr ondblclick='checkticket("{{data.1}}")' style="cursor: pointer;">
                                             <td >{{data.0}}</td>
                                             <td>{{data.1}}</td>
                                             <td>{{data.2}}</td>
@@ -146,12 +146,10 @@
     <script src="assets/libs/admin-resources/jquery.vectormap/maps/jquery-jvectormap-world-mill-en.js"></script>-->
     <!-- dashboard init -->
     <script>
-        function checkticket(lead_email,lead_phone){
+         function checkticket(ticket){
             console.log("Double clicked")
-            
-            console.log("email----lead"+lead_email)
-            
-            console.log("email----lead"+lead_phone)
+            var url="{% url 'Admin:LeadProcessing'%}"
+            window.location.href=url+"?&ticket="+ticket+"&email1=''&email2=''&mobile=&telephone="
         }
         function loadAll(){
 

@@ -25,6 +25,9 @@ urlpatterns=[
     path('dormant',dormant_ticket,name="DormantTicket"),
     path('SendReminder',sendRemiderMail,name="SendReminder"),
     path('CancelMail',sendCancelMail,name="CancelMail"),
+    path('assessment',meetingScore,name="Score"),
+    path('saveScore',saveMeeting,name='SaveMeeting'),
+    path('livelogs',liveChatLogs,name="LiveLogs"),
     path('logout',logout,name="Logout")
    
  

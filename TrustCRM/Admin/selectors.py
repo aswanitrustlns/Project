@@ -4,6 +4,7 @@ from ctypes import *
 import subprocess
 from django.template.loader import render_to_string
 from django.core.mail import BadHeaderError, send_mail
+from django.core.mail import EmailMessage
 from django.conf import settings
 
 class Selector:    
@@ -285,8 +286,9 @@ class Selector:
             print("Client details----------------",client_details)
             subject="Trust Capital - Meeting Reminder"
             email_from = 'cs@trusttc.com'
-            receiver=client_details[2]
-            #receiver='aswani.technology@gmail.com'
+            # receiver=client_details[2]
+            receiver='aswani.technology@gmail.com'
+
             template_data={
                 "title":client_details[0],
                 "name":client_details[1],
@@ -299,6 +301,8 @@ class Selector:
             email_template_render=render_to_string("email/MeetingReminder.html",template_data)
             try:
                 send_mail(subject," ",email_from,[receiver],fail_silently=False,html_message=email_template_render)
+                # msg=EmailMessage(subject," ",email_from,[receiver],[receiver],email_template_render)
+                # msg.send()
             except BadHeaderError:
                 print("EXCEPTION-----------------------")       
         except Exception as e:
@@ -336,6 +340,51 @@ class Selector:
             print("Exception--------------------------",e)
         finally:
             Cursor.close()
+    #Set Assesement Score
+    def get_meeting_score(self,ticket):
+        try:
+            Cursor=connection.cursor()
+            Cursor.execute("set nocount on;exec SP_GetMeetingScore %s",[ticket])
+            meeting_score=Cursor.fetchone()
+            print("Meeting Score-----------------------------",meeting_score)
+        except Exception as e:
+            print("Exception------",e)
+        finally:
+            Cursor.close()
+        return meeting_score
+    
+    #Set live chat logs
+
+    def get_livechat_logs(self,ticket):
+        try:
+            Cursor=connection.cursor()
+            Cursor.execute("set nocount on;exec SP_GetLiveChatLogs %s",[ticket])
+            chat_log=Cursor.fetchone()
+            print("Chat Logs-----------------------------",chat_log)
+        except Exception as e:
+            print("Exception------",e)
+        finally:
+            Cursor.close()
+        return chat_log
+
+    # Get leads details by ticket and userid
+    def get_leads_details(self,ticket,mailId):
+        try:
+            Cursor=connection.cursor()
+            Cursor.execute("set nocount on;exec SP_GetLeadDetailsByTicket %s,%s",[ticket,mailId])
+            leads_details=Cursor.fetchone()
+            print("Leads details-----------------------------",leads_details)
+        except Exception as e:
+            print("Exception------",e)
+        finally:
+            Cursor.close()
+        return leads_details
+
+    #Open demo account
+    def open_demo_account(self):
+        pass
+    
+
     
         
 

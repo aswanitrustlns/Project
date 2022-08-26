@@ -592,7 +592,7 @@ def lead_processing(request):
         except Exception as e:
             print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!Exception!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!",e.__class__)
     
-        return render(request,'admin/LeadProcessing.html',{'ticket':ticket,'email_phone':json.dumps(search_email_phone)})
+        return render(request,'sales/LeadProcessing.html',{'ticket':ticket,'email_phone':json.dumps(search_email_phone)})
     else:
          return redirect('/login') 
         
@@ -692,6 +692,7 @@ def sendRemiderMail(request):
         return JsonResponse({'success':True})
     else:
         return redirect('/login')
+
 def sendCancelMail(request):
     if 'UserId' in request.session:
         print("Cancel meetingg-----")
@@ -701,4 +702,39 @@ def sendCancelMail(request):
         return JsonResponse({'success':True})
     else:
         return redirect('/login')
+
+def meetingScore(request):
+    if 'UserId' in request.session:
+        print("Meeting Score")
+        UserId=request.session.get('UserId')
+        # ticket=request.GET.get('ticket')
+        ticket=499015
+        meeting_score=selector.get_meeting_score(UserId)
+        return JsonResponse({'score':meeting_score})
+    else:
+        return redirect('/login')
+
+def saveMeeting(request):
+    if 'UserId' in request.session:
+        score=service.save_meeting_score(request)
+        return JsonResponse({"score":score})
+    else:
+        return redirect('/login')
+
+def liveChatLogs(request):
+    if 'UserId' in request.session:
+        
+        UserId=request.session.get('UserId')
+        # ticket=request.GET.get('ticket')
+        ticket=499015
+        chat_logs=selector.get_livechat_logs(ticket)
+        return JsonResponse({'logs':chat_logs})
+    else:
+        return redirect('/login')
+
+
+
+
+
+
    

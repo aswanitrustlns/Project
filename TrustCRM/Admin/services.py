@@ -1,3 +1,4 @@
+from unittest import result
 from django.db import connection
 from .selectors import Selector
 from datetime import datetime, timedelta
@@ -94,4 +95,35 @@ class Services:
         finally:
             Cursor.close()
         return email,phone
+
+
+    #Save meeting score
+    def save_meeting_score(self,request):
+        try:
+            ticket=499015
+            userId=request.session.get('UserId')
+            experience=request.GET.get('experience')
+            meeting=request.GET.get('meeting')
+            forex=request.GET.get('forex')
+            seminar=request.GET.get('seminar')
+            questions=request.GET.get('questions')
+            voice=request.GET.get('voice')
+            trading=request.GET.get('trading')
+            profession=request.GET.get('profession')
+            refernce=request.GET.get('refernce')
+            total=request.GET.get('total')
+            Cursor=connection.cursor()
+            print("experience",experience,"meeting",meeting,"forex",forex,"seminar",seminar,"questions",questions,"voice",voice,"trading",trading,"profession",profession,"ref",refernce,"total",total)
+            Cursor.execute("set nocount on;exec SP_SaveMeetingScore %s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s",[ticket,experience,meeting,forex,seminar,questions,voice,trading,profession,refernce,userId,total,'a'])
+            meeting_score=Cursor.fetchone()
+            # if(Cursor.nextset()):
+            #     result=Cursor.fetchone()
+            #     print("Result-----------------------",result)
+            print("Meeting Score-----------------------------",meeting_score)
+        except Exception as e:
+            print("Exception------",e)
+        finally:
+            Cursor.close()
+        return meeting_score
+       
 

@@ -1,0 +1,712 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8" />
+    <title>Trust Capital CRM</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
+    <meta content="Themesbrand" name="author" />
+    <!-- App favicon -->
+    {% load  static %}
+     <!-- DataTables -->
+     <link href="{% static 'libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css' %}" rel="stylesheet" type="text/css" />
+     <link href="{% static 'libs/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css' %}" rel="stylesheet" type="text/css" />
+     <!-- plugin css -->
+     <!--<link href="assets/libs/admin-resources/jquery.vectormap/jquery-jvectormap-1.2.2.css" rel="stylesheet"
+         type="text/css" />-->
+      <!-- datepicker css -->
+      <link rel="stylesheet" href="{% static 'libs/flatpickr/flatpickr.min.css' %}">
+    {% include "common/link.html" %}
+    {% include "common/scripts.html" %}
+
+   
+
+ 
+</head>
+
+<body data-layout-mode="dark">
+
+    <div id="layout-wrapper">  
+    {% include "common/header.html" %}
+    
+
+    <!-- ========== Left Sidebar Start ========== -->
+    {% include "common/sidebar.html" %}
+    <!-- Left Sidebar End -->
+            <div class="main-content">
+
+                <div class="page-content" >
+                    <div class="container-fluid">
+                        <!--container-fluid px-md-5 me-md5-->
+
+                        <!-- start page title -->
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                                    <h4 class="mb-sm-0 fs-23 almarenamonolight-type">Manage Ticket</h4><!--font-size-18-->
+
+                                    <!--<div class="page-title-right">
+                                        <ol class="breadcrumb m-0">
+                                            <li class="breadcrumb-item"><a href="javascript: void(0);">Dashboard</a></li>
+                                            <li class="breadcrumb-item active">Manage Ticket</li>
+                                        </ol>
+                                    </div>-->
+
+                                </div>
+                            </div>
+                        </div>
+                        <!-- end page title -->
+                    
+                        
+
+                        <div class="row">
+                            
+                            
+                            <!--Mange Tickets to show here-->
+                        
+                            <!--Action buttons & modals-->
+                            <div class="col-lg-12">
+                                <div class="">
+
+                                    <div class="card-body px-0">
+                                        <!--<div class="d-flex flex-wrap align-items-center mb-4">
+                                            <h5 class="card-title me-2 almarenamonolight-type fs-21">Potential Leads</h5>
+                                        
+                                        </div>-->
+                                        <div>
+                                            <!-- modal-temp -->
+                                            <button type="button" class="btn bg-soft-secondarycolor text-white me-2" data-bs-toggle="modal" data-bs-target=".bs-example-modal-assessment" style="background-color: var(--bs-card-bg) ;" >Assessment</button>
+                                                <div class="modal fade  bs-example-modal-assessment clearmodel" tabindex="-1" role="dialog" aria-hidden="true" id="score-model"> 
+                                                    <div class="modal-dialog modal-dialog-centered  modal-lg  r">
+                                                        <div class="modal-content bg-soft-secondarycolor">
+                                                            <div class="modal-header border-0 ">
+                                                                <h5 class="modal-title fs-21 ">Set Assessment Score  </h5>
+            
+                                                                <a href="" data-bs-dismiss="modal" aria-label="Close">
+                                                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                        <path d="M9.16992 14.83L14.8299 9.17" stroke="var(--white)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                                        <path d="M14.8299 14.83L9.16992 9.17" stroke="var(--white)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                                        <path d="M9 22H15C20 22 22 20 22 15V9C22 4 20 2 15 2H9C4 2 2 4 2 9V15C2 20 4 22 9 22Z" stroke="white" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                                        </svg>
+                    
+                                                                    </a>
+                                                            </div>
+                                                
+                                                            <div class="modal-body">
+                                                            <form class="needs-validation pt-3" novalidate="" id="action-assessment">
+                                                                <div class="row">
+                                                                    <!--rowX-->
+                                                                    <div class="col-md-6">
+                                                                        <div class="mb-3">
+
+                                                                            <div class="form-check">
+                                                                                <input type="checkbox" class="form-check-input" id="experience">
+                                                                                <label class="form-check-label " for="experience">Previous Trading Experience</label>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-6">
+                                                                        <div class="mb-3">
+                                                                            <!-- #$('#experienceselect').attr("disabled", true);  -->
+                                                                            <select class="form-select" id="experienceselect" value="" required="" disabled="disabled">
+                                                                                <option value="0">No experince</option>
+                                                                                <option value="10">Negative</option>
+                                                                                <option value="50">Positive</option>
+                                                                            </select>
+                        
+                                                                            <div class="invalid-feedback">
+                                                                                Please provide a valid entry.
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <!--rowXEnd-->
+
+                                                                    <!--rowX-->
+                                                                    <div class="col-md-6">
+                                                                        <div class="mb-3">
+
+                                                                            <div class="form-check">
+                                                                                <input type="checkbox" class="form-check-input" id="meeting">
+                                                                                <label class="form-check-label" for="meeting">Meeting</label>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-6">
+                                                                        <div class="mb-3">
+                    
+                                                                            <select class="form-select" id="meetingselect" value="" required="" disabled="disabled">
+                                                                                <option value="0">Select</option>
+                                                                                <option value="10">Meeting-Far</option>
+                                                                                <option value="25">Meeting-Near</option>
+                                                                                <option value="50">Meeting-Indoor</option>
+                                                                            </select>
+                        
+                                                                            <div class="invalid-feedback">
+                                                                                Please provide a valid entry.
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <!--rowXEnd-->
+
+                                                                    <!--rowX-->
+                                                                    <div class="col-md-6">
+                                                                        <div class="mb-3">
+
+                                                                            <div class="form-check">
+                                                                                <input type="checkbox" class="form-check-input" id="forex">
+                                                                                <label class="form-check-label" for="forex">Has Sound Knowledge About Forex</label>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-6">
+                                                                        <div class="mb-3">
+                    
+                                                                            <select class="form-select" id="forexselect" value="" required="" disabled="disabled">
+                                                                                <option value="0">Select</option>
+                                                                                <option value="10">Indirect Knowledge</option>
+                                                                                <option value="30">Direct Knowledge</option>
+                                                                            </select>
+                        
+                                                                            <div class="invalid-feedback">
+                                                                                Please provide a valid entry.
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <!--rowXEnd-->
+
+                                                                    <!--rowX-->
+                                                                    <div class="col-md-6">
+                                                                        <div class="mb-3">
+
+                                                                                <div class="form-check">
+                                                                                    <input type="checkbox" class="form-check-input" id="questions">
+                                                                                    <label class="form-check-label" for="questions">Asks Questions Over the Phone</label>
+                                                                                </div>
+                                                                            </div>
+                                                                    </div>
+                                                                    <div class="col-md-6">
+                                                                        <div class="mb-3">
+                    
+                                                                            <select class="form-select" id="questionsselect" value="" required="" disabled="disabled">
+                                                                                <option value="0">Select</option>
+                                                                                <option value="10">General</option>
+                                                                                <option value="30">Detailed</option>
+                                                                                
+                                                                            </select>
+                        
+                                                                            <div class="invalid-feedback">
+                                                                                Please provide a valid entry.
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <!--rowXEnd-->
+
+                                                                    <!--rowX-->
+                                                                    <div class="col-md-6">
+                                                                        <div class="mb-3">
+
+                                                                                <div class="form-check">
+                                                                                    <input type="checkbox" class="form-check-input" id="voice">
+                                                                                    <label class="form-check-label" for="voice">Analyzing his voice</label>
+                                                                                </div>
+                                                                            </div>
+                                                                    </div>
+                                                                    <div class="col-md-6">
+                                                                        <div class="mb-3">
+                        
+                                                                            <select class="form-select" id="voiceselect" value="" required="" disabled="disabled">
+                                                                                <option value="0">Not Interested</option>
+                                                                                <option value="25">Interested</option>
+                                                                                <option value="50">Strongly Interested</option>
+                                                                            </select>
+                        
+                                                                            <div class="invalid-feedback">
+                                                                                Please provide a valid entry.
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <!--rowXEnd-->
+
+                                                                    <!--rowX-->
+            
+            
+                                                                    <div class="col-md-6">
+                                                                        <div class="mb-3">
+
+                                                                                <div class="form-check">
+                                                                                    <input type="checkbox" class="form-check-input" id="training">
+                                                                                    <label class="form-check-label" for="training">Interested in Training / Seminar</label>
+                                                                                </div>
+                                                                            </div>
+                                                                    </div>
+                                                                    <div class="col-md-6">
+                                                                        <div class="mb-3">
+
+                                                                                <div class="form-check">
+                                                                                    <input type="checkbox" class="form-check-input" id="hedging">
+                                                                                    <label class="form-check-label" for="hedging">Trading/Hedging</label>
+                                                                                </div>
+                                                                            </div>
+                                                                    </div>
+                                                                    <!--rowXEnd-->
+
+                                                                    <!--rowX-->
+                                                                    <div class="col-md-6">
+                                                                        <div class="mb-3">
+
+                                                                                <div class="form-check">
+                                                                                    <input type="checkbox" class="form-check-input" id="profession">
+                                                                                    <label class="form-check-label" for="profession">Related Job / Profession</label>
+                                                                                </div>
+                                                                            </div>
+                                                                    </div>
+                                                                    <!-- <div class="col-md-6">
+                                                                        <div class="mb-3">
+
+                                                                                <div class="form-check">
+                                                                                    <input type="checkbox" class="form-check-input" id="profession">
+                                                                                    <label class="form-check-label" for="profession">Related Job / Profession</label>
+                                                                                </div>
+                                                                            </div>
+                                                                    </div> -->
+                                                                    <!--rowXEnd-->
+                                                                    <!--rowX-->
+                
+                                                                    <div class="col-md-12">
+                                                                        <div class="mb-3">
+
+                                                                                <div class="form-check">
+                                                                                    <input type="checkbox" class="form-check-input" id="highlypotential">
+                                                                                    <label class="form-check-label" for="highlypotential">He is a reference, we know he is trader or highly potential</label>
+                                                                                </div>
+                                                                            </div>
+                                                                    </div>
+                                                                    <!--rowXEnd-->
+                                                                    <hr class="pt-0">
+                                                                    <div class="col-md-6">
+                                                                        <div class="mb-3">
+                                                                            <p class="gilory-medium-type fs-22">Total score <b id="total">0</b> Points</p>
+                                                                        </div>
+                    
+                                                                    </div> 
+                                                                </div>
+        
+                                                                <button type="button" class="btn btn-primary btn-lg mt-3"  onclick="saveMeeting()">Save</button>
+                                                            </form> 
+                                                                
+                                                            </div>
+                                                        </div><!-- /.modal-content -->
+                                                    </div><!-- /.modal-dialog -->
+                                            </div>
+                                            <!-- /.modal -->
+                                            
+                                            
+                                            <!-- /.modal -->
+
+                                            <!-- modal-Assessment -->
+                                            <button type="button" class="btn bg-soft-secondarycolor text-white me-2 " >Open demo account</button>
+
+
+                                            <!-- modal-Chat Logs -->
+                                            <button type="button" class="btn bg-soft-secondarycolor text-white me-2" data-bs-toggle="modal" data-bs-target=".bs-example-modal-chatlogs" style="background-color: var(--bs-card-bg) ;" onclick="liveLogs()">Live chat logs</button>
+
+                                            <div class="modal fade  bs-example-modal-chatlogs" tabindex="-1" role="dialog" aria-hidden="true">
+                                                
+                                                <div class="modal-dialog modal-dialog-centered  ">
+                                                        <!---->
+
+                                                
+                                                    <div class="modal-content ">
+                                                        
+                                                        
+                                                
+                                                        <div class="modal-body ">
+
+                                                            
+                                                            <div class="mx-2 my-1 border rounded-3">
+
+                                                                <div class="modal-header border-0 ">
+                                                                    <h5 class="modal-title fs-21 ">Live Chat Logs  </h5>
+            
+                                                                    <a href="" data-bs-dismiss="modal" aria-label="Close">
+                                                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                            <path d="M9.16992 14.83L14.8299 9.17" stroke="var(--white)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                                            <path d="M14.8299 14.83L9.16992 9.17" stroke="var(--white)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                                            <path d="M9 22H15C20 22 22 20 22 15V9C22 4 20 2 15 2H9C4 2 2 4 2 9V15C2 20 4 22 9 22Z" stroke="white" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                                            </svg>
+                    
+                                                                        </a>
+                                                                </div>
+                                                            
+
+                                                                
+                                                            
+                                                                <div class="chat-logs mx-3" data-simplebar style="max-height: 372px;">
+            
+
+                                                                        <!--Chat-->
+                                                                        <div class="border rounded-3 px-3 py-3 mb-3 ">
+
+                                                                            <div class="d-flex justify-content-between mb-2 align-items-center">
+
+
+                                                                                <div class="d-flex my-0  align-items-center flex-shrink-0">
+                                                                                    <div class="activity-icon avatar-sm ms-2 me-3">
+                                                                                        <span class="avatar-title   rounded-circle">
+                                                                                            <!--<i class="bx bx-bitcoin font-size-24"></i>-->
+                                                                                            <img class="rounded-circle avatar-md" src="{%static 'images/users/'%}usesr.png"
+                                                                                            onerror='this.src="{% static 'images/users/user.png' %}"' alt="">
+                                                                                        </span>
+                                                                                    </div>
+                                                                                    <p class="fs-16 gilorysemibold-type color-color m-0"> Firas Monzer</p>
+                                                                            </div>
+                                                                            <span class="fs-14 color-color1">May-24-2022 - 01:05 Pm</span>
+                                                                            </div>
+                    
+                                                                            <div class="">
+                                                                                <p class="mb-0  fs-13  color-color1 me-2">
+                                                                                Lorem Ipsum has been the industry's standard dummy
+                                                                                        text
+                                                                                </p>
+                                                                            </div>
+
+                                                                        </div>
+                                                                   
+            
+
+
+
+            
+                                                                </div> 
+                                                            </div>
+
+                                                        
+
+
+                                                            
+                                                        
+                                                            
+                                                        </div>
+                                                    </div><!-- /.modal-content -->
+
+                                                    
+
+                                                </div><!-- /.modal-dialog -->
+                                            </div>
+                                            <!-- /.modal -->
+
+                                            <div class="modal fade bs-example-modal-insta" tabindex="-1" role="dialog" aria-hidden="true" id="alertpopup">
+                                                <div class="modal-dialog modal-dialog-centered"   style="z-index: 10555;">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header border-0">
+                                                            <!--<h5 class="modal-title fs-21">@title</h5>-->
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                                                
+                                                        <div class="modal-body" >
+                                            
+                                            
+                                                            <div data-simplebar style="max-height: 230px;">
+                                            
+                                                                 <!--User-->
+                                                                <div>Meeting Score saved successfully</div>
+                                                            </div>
+                                                            </div>
+                                                       
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+                                        
+
+
+                                    
+
+                                            
+
+                                        
+                                        </div>
+                                    </div><!-- end card body -->
+
+                                </div>
+
+                                
+                            </div>
+                            
+
+
+                        </div>
+                        <!-- end row-->
+
+                    </div>
+                    <!-- container -->
+                </div>
+                <!-- End Page-content -->
+
+                
+            </div>
+    </div>
+    {% include "common/right-sidebar.html" %}
+
+    <!-- Right bar overlay-->
+    <div class="rightbar-overlay"></div>
+     <!-- Required datatable js -->
+
+    <script>
+        let total=0;
+        let experienceselect=0;
+        let meetingselect=0;
+        let forexselect=0;
+        let questionsselect=0;
+        let voiceselect=0;
+        let training=0;
+        let hedging=0;
+        let profession=0;
+        let highlypotential=0;
+
+    $(function() {
+        
+            $("#experience").change(function(){
+                let isChecked=$("#experience").is(':checked')
+                console.log("Check box state---------------------"+isChecked)
+                if(isChecked){
+                    $('#experienceselect').attr("disabled",false);
+                    console.log("Selection on------")
+                }
+                else{
+                    console.log("selection false-----------")
+                    $('#experienceselect').attr("disabled", true);
+                    $('#experienceselect').val("0");
+                    experienceselect=0
+                    totalPoints()
+                }
+            })
+            $("#meeting").change(function(){
+                let isChecked=$("#meeting").is(':checked')
+                console.log("Check box state---------------------"+isChecked)
+                if(isChecked){
+                    $('#meetingselect').attr("disabled",false);
+                    console.log("Selection on------")
+                }
+                else{
+                    console.log("selection false-----------")
+                    $('#meetingselect').attr("disabled", true);
+                    $('#meetingselect').val("0");
+                    meetingselect=0
+                    totalPoints()
+                }
+            })
+            $("#forex").change(function(){
+                let isChecked=$("#forex").is(':checked')
+                console.log("Check box state---------------------"+isChecked)
+                if(isChecked){
+                    $('#forexselect').attr("disabled",false);
+                    console.log("Selection on------")
+                }
+                else{
+                    console.log("selection false-----------")
+                    $('#forexselect').attr("disabled", true);
+                    $('#forexselect').val("0");
+                    forexselect=0
+                    totalPoints()
+                }
+            })
+            $("#questions").change(function(){
+                let isChecked=$("#questions").is(':checked')
+                console.log("Check box state---------------------"+isChecked)
+                if(isChecked){
+                    $('#questionsselect').attr("disabled",false);
+                    console.log("Selection on------")
+                }
+                else{
+                    console.log("selection false-----------")
+                    $('#questionsselect').attr("disabled", true);
+                    $('#questionsselect').val("0");
+                    questionsselect=0
+                    totalPoints()
+                }
+            })
+            $("#voice").change(function(){
+                let isChecked=$("#voice").is(':checked')
+                console.log("Check box state---------------------"+isChecked)
+                if(isChecked){
+                    $('#voiceselect').attr("disabled",false);
+                    console.log("Selection on------")
+                }
+                else{
+                    console.log("selection false-----------")
+                    
+                    $('#voiceselect').attr("disabled", true);
+                    $('#voiceselect').val("0");
+                    voiceselect=0
+                    totalPoints()
+                }
+            })
+            $("#training").change(function(){
+                let isChecked=$("#training").is(':checked')
+                console.log("Check box state---------------------"+isChecked)
+                if(isChecked){
+                    training=10
+                    totalPoints()
+                }
+                else{
+                   
+                    training=0
+                    totalPoints()
+                }
+            })
+            $("#hedging").change(function(){
+                let isChecked=$("#hedging").is(':checked')
+                console.log("Check box state---------------------"+isChecked)
+                if(isChecked){
+                    hedging=30
+                    totalPoints()
+                }
+                else{
+                   
+                    hedging=0
+                    totalPoints()
+                }
+            })
+            $("#profession").change(function(){
+                let isChecked=$("#profession").is(':checked')
+                console.log("Check box state---------------------"+isChecked)
+                if(isChecked){
+                    profession=20
+                    totalPoints()
+                }
+                else{
+                   
+                    profession=0
+                    totalPoints()
+                }
+            })
+            $("#highlypotential").change(function(){
+                let isChecked=$("#highlypotential").is(':checked')
+                console.log("Check box state---------------------"+isChecked)
+                if(isChecked){
+                    highlypotential=50
+                    totalPoints()
+                }
+                else{
+                   
+                    highlypotential=0
+                    totalPoints()
+                }
+            })
+
+            $('#experienceselect').change(function(){
+                value=$(this).val()
+                experienceselect=value;
+                console.log("value---------------------------"+experienceselect)
+                totalPoints();
+            })
+            $('#meetingselect').change(function(){
+                value=$(this).val()
+                meetingselect=value;              
+                totalPoints();
+            })
+            $('#forexselect').change(function(){
+                value=$(this).val()
+                forexselect=value;              
+                totalPoints();
+            })
+            $('#questionsselect').change(function(){
+                value=$(this).val()
+                questionsselect=value;              
+                totalPoints();
+            })
+            $('#voiceselect').change(function(){
+                value=$(this).val()
+                voiceselect=value;              
+                totalPoints();
+            })
+
+
+        function totalPoints(){
+            total=parseInt(experienceselect)+parseInt(forexselect)+parseInt(meetingselect)+parseInt(questionsselect)+parseInt(voiceselect)+parseInt(training)+parseInt(hedging)+parseInt(profession)+parseInt(highlypotential);
+            console.log("total points called"+total)
+            var total_div=document.getElementById("total")
+            total_div.innerHTML=total
+            
+        }
+ 
+
+
+    });
+    function saveMeeting(){
+        console.log("save meeting clicked-------------------------------------")
+            $.ajax({
+               type : "GET", 
+               url: "{% url 'Admin:SaveMeeting' %}",
+               dataType: 'json',
+               data: {
+                        // 'ticket': ticket,
+                        'experience':parseInt(experienceselect),
+                        'meeting':parseInt(meetingselect),
+                        'forex':parseInt(forexselect),
+                        'seminar':parseInt(training),
+                        'questions':parseInt(questionsselect),
+                        'voice':parseInt(voiceselect),
+                        'trading':parseInt(hedging),
+                        'profession':parseInt(profession),
+                        'refernce':parseInt(highlypotential),
+                        'total':total
+               },
+               
+               success: function(data){
+                console.log("Success Function------",data)
+                score=data.score
+                scorePopupclear()
+                $("#score-model").modal('hide')
+                if(score==null || score < 2){
+                    $("#alertpopup").modal('show')    
+                }
+               }
+            })
+
+        }
+
+    function scorePopupclear(){
+        $(".clearmodel").find(':input').each(function() {
+    
+                if(this.type == 'checkbox' || this.type == 'radio') {
+                    this.checked = false;
+                }
+             
+                    $('#experienceselect').val("0");
+                    $('#meetingselect').val("0");
+                    $('#forexselect').val("0");
+                    $('#questionsselect').val("0");
+                    $('#voiceselect').val("0");
+                    var total_div=document.getElementById("total")
+                    total_div.innerHTML=0
+              
+            });
+    }
+    function liveLogs(){
+
+    }
+
+           
+
+    </script>
+
+    <script src="{%static 'libs/flatpickr/flatpickr.min.js' %}"></script>
+    <script src="{% static 'libs/datatables.net/js/jquery.dataTables.min.js' %}"></script>
+    <script src="{% static 'libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js' %}"></script>
+ 
+   
+ 
+     <!-- Datatable init js -->
+     <script src="{% static 'js/pages/leadprocessing.init.js' %}"></script>
+    <script src="{% static 'js/app.js' %}"></script>
+ 
+    </body>
+ 
+    </html>
+
