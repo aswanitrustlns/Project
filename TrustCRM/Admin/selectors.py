@@ -286,8 +286,8 @@ class Selector:
             print("Client details----------------",client_details)
             subject="Trust Capital - Meeting Reminder"
             email_from = 'cs@trusttc.com'
-            # receiver=client_details[2]
-            receiver='aswani.technology@gmail.com'
+            receiver=client_details[2]
+            # receiver='aswani.technology@gmail.com'
 
             template_data={
                 "title":client_details[0],
