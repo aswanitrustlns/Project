@@ -28,6 +28,8 @@ urlpatterns=[
     path('assessment',meetingScore,name="Score"),
     path('saveScore',saveMeeting,name='SaveMeeting'),
     path('livelogs',liveChatLogs,name="LiveLogs"),
+    path('Inbox',emailInbox,name="Inbox"),
+    path('Read',emailRead,name="Read"),
     path('logout',logout,name="Logout")
    
  

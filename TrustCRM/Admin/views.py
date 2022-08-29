@@ -647,8 +647,8 @@ def dormant_ticket(request):
     if 'UserId' in request.session:
         UserId=request.session.get('UserId')
         print("USer iddddddddddddddddddddd",UserId)
-        # salesrepId=0
-        dormant_tickets=selector.get_tickets(UserId,"dormant",UserId)        
+        salesrepId=56
+        dormant_tickets=selector.get_tickets(salesrepId,"dormant",salesrepId)        
         return render(request,'sales/dormanttickets.html',{'dormant_tickets':dormant_tickets})
     else:
          return redirect('/login') 
@@ -731,6 +731,25 @@ def liveChatLogs(request):
         return JsonResponse({'logs':chat_logs})
     else:
         return redirect('/login')
+
+def emailInbox(request):
+    if 'UserId' in request.session:        
+        UserId=request.session.get('UserId')
+        inbox_count,inbox_data=selector.get_mail_inbox()
+        return render(request,'sales/inbox.html',{'count':inbox_count,'mails':inbox_data})
+    else:
+        return redirect('/login')
+def emailRead(request):
+    if 'UserId' in request.session:        
+        UserId=request.session.get('UserId')
+        message=request.GET.get('message')
+        
+        message_data,subject,sender,count=selector.read_mail_inbox(message)
+        return render(request,'sales/inboxread.html',{'message':message_data,'subject':subject,'sender':sender,'count':count})
+    else:
+        return redirect('/login')
+
+
 
 
 

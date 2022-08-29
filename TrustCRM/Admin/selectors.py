@@ -1,11 +1,16 @@
+from audioop import reverse
 from django.db import connection
 from datetime import datetime, timedelta
 from ctypes import *
 import subprocess
+import win32com.client
 from django.template.loader import render_to_string
 from django.core.mail import BadHeaderError, send_mail
-from django.core.mail import EmailMessage
+from django.core.mail import EmailMessage,EmailMultiAlternatives
 from django.conf import settings
+import imaplib
+import email
+
 
 class Selector:    
     
@@ -146,6 +151,18 @@ class Selector:
             else:
                 Cursor.execute("SET NOCOUNT ON;exec SP_GetNewSalesLeadsPaginate_PY %s,%s,%s,%s,%s,%s,%s",[date_yesterday,date_today,'',0,0,'',1])
                 leads_data=Cursor.fetchall()
+                
+               
+            for index, item in enumerate(leads_data):
+                itemlist = list(item)
+                dt=itemlist[0]
+                
+                itemlist[0]=datetime.strptime(dt, '%Y-%m-%d').date()
+                
+               
+
+                leads_data[index] = tuple(itemlist)
+          
         except Exception as e:
             print("Exception---",e)
         finally:
@@ -287,7 +304,7 @@ class Selector:
             subject="Trust Capital - Meeting Reminder"
             email_from = 'cs@trusttc.com'
             receiver=client_details[2]
-            # receiver='aswani.technology@gmail.com'
+            receiver='aswani.technology@gmail.com'
 
             template_data={
                 "title":client_details[0],
@@ -301,8 +318,12 @@ class Selector:
             email_template_render=render_to_string("email/MeetingReminder.html",template_data)
             try:
                 send_mail(subject," ",email_from,[receiver],fail_silently=False,html_message=email_template_render)
-                # msg=EmailMessage(subject," ",email_from,[receiver],[receiver],email_template_render)
+                # msg=EmailMessage(subject,email_template_render,email_from,[receiver],[receiver])
+               
+                # msg = EmailMultiAlternatives(subject,email_template_render,email_from, [receiver], bcc=["aswani.trustlns@gmail.com"], cc=["aswani@trustlns.ae"])
+                # msg.content_type="html"
                 # msg.send()
+                
             except BadHeaderError:
                 print("EXCEPTION-----------------------")       
         except Exception as e:
@@ -384,6 +405,79 @@ class Selector:
     def open_demo_account(self):
         pass
     
+    def get_mail_inbox(self):
+        inbox_list=[]
+        
+        try:
+            # outlook = win32com.client.Dispatch("Outlook.Application")
+            # mapi=outlook.GetNamespace("MAPI")
+            # inbox = mapi.GetDefaultFolder(6) # 5 for send items----
+
+            # messages = inbox.Items
+            # messages.Sort("[ReceivedTime]", True)
+            # inbox_count=len(messages)
+            # for message in messages:
+            #     subject = message.Subject
+            #     sender = message.SenderEmailAddress
+            #     received_tym=message.ReceivedTime
+            #     inbox_data=(subject,sender,received_tym)
+            #     inbox_list.append(inbox_data)
+            mail = imaplib.IMAP4_SSL(host=settings.EMAIL_HOST)
+
+            mail.login(settings.EMAIL_HOST_USER,settings.EMAIL_HOST_PASSWORD)
+            status, messages=mail.select("INBOX")
+            _, selected_mails = mail.search(None,'(FROM cs@trusttc.com)')
+            inbox_count=len(selected_mails[0].split())
+            print("length===========",len(selected_mails[0].split()))
+            for i in range(1, 20):
+                res, msg = mail.fetch(str(i), '(RFC822)')
+                for response in msg:
+                    if isinstance(response, tuple):
+                        msg = email.message_from_bytes(response[1])
+                        subject=msg["subject"]
+                        sender=msg["from"]
+                        received_tym=msg["date"]
+                        
+                        inbox_data=(subject,sender,received_tym,msg["Message-ID"])
+                        inbox_list.append(inbox_data)
+
+            
+            
+        except Exception as e:
+            print("Exception------",e)
+        finally:
+            pass
+        return inbox_count,inbox_list
+
+ # Read mail inbox
+    def read_mail_inbox(self,message):
+        print("read mail inboxxxx")
+        mail = imaplib.IMAP4_SSL(host=settings.EMAIL_HOST)
+        message_data=""
+        subject=""
+        sender=""
+        mail.login(settings.EMAIL_HOST_USER,settings.EMAIL_HOST_PASSWORD)
+        status, messages=mail.select("INBOX")
+        _, selected_mails = mail.search(None,'(FROM cs@trusttc.com)')
+        inbox_count=len(selected_mails[0].split())
+       
+        for i in range(1, 20):
+            res, msg = mail.fetch(str(i), '(RFC822)')
+            for response in msg:
+                if isinstance(response, tuple):
+                    msg = email.message_from_bytes(response[1])
+                    if(message == msg["Message-ID"]):
+                        subject=msg["subject"]
+                        sender=msg["from"]
+                        print("Equal==================")
+                        for part in msg.walk():
+                        
+                            if part.get_content_type()=="text/plain" or part.get_content_type()=="text/html":
+                                message = part.get_payload(decode=True)
+                                message_data=message.decode()                                
+                                break
+        return message_data,subject,sender,inbox_count
+
 
     
         
