@@ -304,9 +304,10 @@ class Selector:
             print("Exception---",e)
         finally:
             Cursor.close()
+
 #Email template rendering and send Mail
 
-    def mailSend(self,token):
+    def mailSend(self,token,subject,bcc,cc):
         try:
             print("token--------------",token)
             Cursor=connection.cursor()
@@ -316,10 +317,10 @@ class Selector:
             client_details=Cursor.fetchone()
             print("Meeting details--------------------------",meeting_details)
             print("Client details----------------",client_details)
-            subject="Trust Capital - Meeting Reminder"
+            
             email_from = 'cs@trusttc.com'
-            receiver=client_details[2]
-            #receiver='aswani.trustlns@gmail.com'
+            #receiver=client_details[2]
+            receiver='aswani.trustlns@gmail.com'
 
             template_data={
                 "title":client_details[0],
@@ -336,7 +337,7 @@ class Selector:
                 #send_mail(subject," ",email_from,[receiver],fail_silently=False,html_message=email_template_render)
                 # msg=EmailMessage(subject,email_template_render,email_from,[receiver],[receiver])
                
-                msg = EmailMultiAlternatives(subject,from_email=email_from,to=[receiver], bcc=["aswani.technology@gmail.com"], cc=["aswani@trustlns.ae"])
+                msg = EmailMultiAlternatives(subject,from_email=email_from,to=[receiver], bcc=[bcc], cc=[cc])
                 msg.attach_alternative(email_template_render, "text/html")
                 msg.send(fail_silently=False)
                 
@@ -529,12 +530,14 @@ class Selector:
     def view_document(self,ticket):
         try:
             Cursor=connection.cursor()
-            Cursor.execute("set nocount on;SP_GetMeetingDocs %s",[ticket])
-            all_documents=Cursor.fetchone()
+            Cursor.execute("set nocount on;exec SP_GetMeetingDocs %s",[ticket])
+            all_documents=Cursor.fetchall()
+            print("All documents-----",all_documents)
         except Exception as e:
             print("Exception------",e)
         finally:
             Cursor.close()
+        return all_documents
 
 
 

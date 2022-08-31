@@ -695,7 +695,10 @@ def new_accounts(request):
 def sendRemiderMail(request):
     if 'UserId' in request.session:        
         ticket=request.GET.get('ticket')
-        selector.mailSend(ticket)
+        subject="Trust Capital - Meeting Reminder"
+        bcc=""
+        cc=""
+        selector.mailSend(ticket,subject,bcc,cc)
         
         return JsonResponse({'success':True})
     else:
@@ -722,6 +725,53 @@ def meetingScore(request):
     else:
         return redirect('/login')
 
+def manage_meeting(request):
+    if 'UserId' in request.session:
+        ticket=request.GET.get('ticket')
+        print("Ticket--------------------------",ticket)
+       
+        all_meetings=selector.get_all_meeting(ticket)
+        return render(request,'sales/meeting.html',{'meetings':all_meetings})
+    else:
+        return redirect('/login')
+
+def send_meeting_request(request):
+    if 'UserId' in request.session:
+        ticket=request.GET.get('ticket')
+        message=service.send_meeting_request(request)
+        print("Message is@@@@@@@@@@@",message[0])
+        if(message[0]=='PROCEED'):
+            print("Proceed---")
+            subject="TC Limited – Meeting Confirmation"
+            bcc="crm@trusttc.com"
+            cc=" "
+            selector.mailSend(ticket,subject,bcc,cc)
+            print("Proceed------",message[0])
+        return JsonResponse({"message":message})
+    else:
+        return redirect('/login')
+
+
+        
+def change_meeting_request(request):
+    if 'UserId' in request.session:
+        ticket=request.GET.get('ticket')
+        message=service.send_meeting_request(request)
+        print("Message is@@@@@@@@@@@",message[0])
+        if(message[0]=='PROCEED'):
+            print("Proceed---")
+            subject="TC Limited – Meeting Confirmation"
+            bcc="crm@trusttc.com"
+            cc=" "
+            selector.mailSend(ticket,subject,bcc,cc)
+            print("Proceed------",message[0])
+        return JsonResponse({"message":message})
+    else:
+        return redirect('/login')
+
+
+
+
 def saveMeeting(request):
     if 'UserId' in request.session:
         score=service.save_meeting_score(request)
@@ -747,13 +797,20 @@ def emailInbox(request):
         return render(request,'sales/inbox.html',{'count':inbox_count,'mails':inbox_data})
     else:
         return redirect('/login')
+
 def emailRead(request):
-    if 'UserId' in request.session:        
-        UserId=request.session.get('UserId')
-        message=request.GET.get('message')
-        
+    if 'UserId' in request.session:                
+        message=request.GET.get('message')        
         message_data,subject,sender,count=selector.read_mail_inbox(message)
         return render(request,'sales/inboxread.html',{'message':message_data,'subject':subject,'sender':sender,'count':count})
+    else:
+        return redirect('/login')
+
+def viewDocument(request):
+    if 'UserId' in request.session:        
+        ticket=request.GET.get('ticket')
+        documents=selector.view_document(ticket)
+        return JsonResponse({'documents':documents})
     else:
         return redirect('/login')
 

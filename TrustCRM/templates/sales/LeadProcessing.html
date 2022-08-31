@@ -66,6 +66,52 @@
                             
                             <!--Mange Tickets to show here-->
                         
+
+
+                            
+                    <div class="col-lg-4">
+                        <div class="row  justify-content-start align-items-end">
+
+
+                            <div class="col-sm-3">
+                                <div class="mb-2">
+                                    <label class="form-label " for="ticketno">Ticket No:</label>
+                                    <input type="text" id="ticketno" class="py-1 form-control" value="{{ticket}}">
+
+                                   
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+
+                                <div class="mb-2">
+                                    <label class="form-label " for="accountno">Account No:</label>
+
+                                    <input type="text" id="accountno" class="py-1 form-control">
+                                    
+                                    
+                                </div>
+
+
+
+
+                            </div>
+                            <div class="col-sm-3 ">
+                                <button class="btn btn-info btn-md mb-2 py-1" type="button" onclick="loadTicketFuns()">Load</button>
+                                
+
+
+
+
+                            </div>
+                           
+
+
+
+
+
+                    </div>
+
+                    </div>
                             <!--Action buttons & modals-->
                             <div class="col-lg-12">
                                 <div class="">
@@ -397,6 +443,144 @@
                                             </div>
                                             <!-- /.modal -->
 
+                                            
+                                    <!-- modal-Chat Logs -->
+                                    <button type="button" class="btn bg-soft-secondarycolor text-white me-2"
+                                    data-bs-toggle="modal" data-bs-target=".bs-example-modal-meeting"
+                                    style="background-color: var(--bs-card-bg) ;">Meeting</button>
+                                <div class="modal fade  bs-example-modal-meeting" tabindex="-1" role="dialog"
+                                    aria-hidden="true">
+
+                                    <div class="modal-dialog modal-dialog-centered  ">
+
+
+
+                                        <div class="modal-content ">
+
+
+
+                                            <div class="modal-body ">
+
+
+                                                <div class="  px-3 border rounded-3">
+
+                                                    <div class="modal-header border-0 ">
+                                                        <h5 class="modal-title fs-21 ">Business Development Strategy Webinar  </h5>
+
+                                                        <a href="" data-bs-dismiss="modal" aria-label="Close">
+                                                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                <path d="M9.16992 14.83L14.8299 9.17" stroke="var(--white)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                                <path d="M14.8299 14.83L9.16992 9.17" stroke="var(--white)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                                <path d="M9 22H15C20 22 22 20 22 15V9C22 4 20 2 15 2H9C4 2 2 4 2 9V15C2 20 4 22 9 22Z" stroke="white" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                                </svg>
+        
+                                                            </a>
+                                                    </div>
+
+
+                                                    <form class="needs-validation pt-3" novalidate="" id="action-call">
+                                                        <div class="row">
+   
+    
+                                                                <div class="col-md-12">
+                                                                    <div class="mb-3">
+                                                                        <label class="form-label " for="Webinarlevel">Webinar level</label>
+                                                                        <select class="form-select" id="Webinarlevel" value="" required="">
+                                                                            <option value="Webinarlevel">Webinarlevel</option>
+                                                                            <option value="Mobile trading">Webinarlevel</option>
+                                                                        </select>
+                
+                                                                        <div class="invalid-feedback">
+                                                                            Please provide a valid entry.
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-12">
+
+                                                                    <div class="mb-3">
+                                                                        <label class="form-label " for="datepicker">Date</label>
+                
+                                                                        <input type="text" class="form-control" id="datepickerwebinar">
+                                                                        <div class="invalid-feedback">
+                                                                            Please provide a valid entry.
+                                                                        </div>
+                                                                    </div>
+
+            
+
+
+                                                                </div>
+                                                                <div class="col-md-12">
+                                                                    <div class="mb-3">
+                                                                        <label class="form-label " for="time">Time</label>
+                                                                        <input type="text" id="timepickerweb"  class="form-control">
+                
+                                                                        <div class="invalid-feedback">
+                                                                            Please provide a valid entry.
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-12">
+                                                                    <div class="mb-3">
+                                                                        <label class="form-label " for="description">Description</label>
+                                                                        <textarea name="" id="description" cols="30" rows="5" class="form-control"></textarea>
+                
+                                                                        <div class="invalid-feedback">
+                                                                            Please provide a valid entry.
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-12">
+                                                                    <div class="mb-3">
+                                                                        <label class="form-label " for="createlink">Create link</label>
+                                                                        <input class="form-control" id="createlink" value="" required="">
+                   
+                
+                                                                        <div class="invalid-feedback">
+                                                                            Please provide a valid entry.
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-12">
+                                                                    <button class="btn btn-primary btn-lg my-3 " type="submit">Submit form</button>
+        
+                                                                </div>
+        
+       
+       
+       
+    
+    
+                                                        </div>
+
+
+                                                    </form>
+
+
+
+
+
+
+
+                                                </div>
+                                            </div><!-- /.modal-content -->
+
+
+
+                                        </div><!-- /.modal-dialog -->
+                                    </div>
+                                    <!-- /.modal -->
+
+
+
+
+
+
+
+
+
+                                </div>
+
                                             <div class="modal fade bs-example-modal-insta" tabindex="-1" role="dialog" aria-hidden="true" id="alertpopup">
                                                 <div class="modal-dialog modal-dialog-centered"   style="z-index: 10555;">
                                                     <div class="modal-content">
@@ -690,6 +874,13 @@
     }
     function liveLogs(){
 
+    }
+    function loadTicketFuns(){
+        var ticket=document.getElementById("ticketno").value
+        console.log("Ticket----"+ticket)
+        if(ticket){
+            location.href="{% url 'Admin:Meeting'%}?ticket="+ticket
+        }
     }
 
            

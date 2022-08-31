@@ -1,0 +1,495 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8" />
+    <title>Trust Capital CRM</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
+    <meta content="Themesbrand" name="author" />
+    <!-- App favicon -->
+    {% load  static %}
+     <!-- DataTables -->
+     <link href="{% static 'libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css' %}" rel="stylesheet" type="text/css" />
+     <link href="{% static 'libs/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css' %}" rel="stylesheet" type="text/css" />
+     <!-- plugin css -->
+     <!--<link href="assets/libs/admin-resources/jquery.vectormap/jquery-jvectormap-1.2.2.css" rel="stylesheet"
+         type="text/css" />-->
+      <!-- datepicker css -->
+      <link rel="stylesheet" href="{% static 'libs/flatpickr/flatpickr.min.css' %}">
+    {% include "common/link.html" %}
+    {% include "common/scripts.html" %}
+
+   
+
+ 
+</head>
+
+<body data-layout-mode="dark">
+
+<!-- <body data-layout="horizontal"> -->
+
+<!-- Begin page -->
+<div id="layout-wrapper">
+
+    {% include "common/header.html" %}
+    
+
+    <!-- ========== Left Sidebar Start ========== -->
+    {% include "common/sidebar.html" %}
+    <!-- Left Sidebar End -->
+     <!-- ============================================================== -->
+    <!-- Start right Content here -->
+    <!-- ============================================================== -->
+    <div class="main-content">
+
+        <div class="page-content" id="sales">
+            <div class="container-fluid"> <!--container-fluid px-md-5 me-md5-->
+
+                
+                <!--Analytics overview-->
+                <div class="row">
+
+                    <div class="  col-md-6 col-lg-6 col-xl-6 col-xxl-5">
+                        <div class="row">
+                            <!--Book your Meeting-->
+                            <div class="col-md-12">
+
+                                <h4 class="card-title fs-20 almarenamonolight-type mb-3">Book your Meeting
+                                </h4>
+        
+                                <div class="card ">
+                                 
+                                    <div class="card-body">
+                                        
+                                   
+                                    
+                                        <form class="needs-validation" novalidate>
+                                            <div class="row">
+                                                
+                                                <div class="col-lg-12 col-xl-6">
+                                                    <div class="mb-3">
+                                                        <label class="form-label" for="bookdate">Date<span class="color-orange">*</span></label>
+                                                      
+                                                        <input type="text" id="bookdate" class="form-control" required>
+                                                        <div class="invalid-feedback" id="invalidDate">
+                                                            Please provide a valid date.
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-12 col-xl-6">
+                                                    <div class="mb-3">
+                                                        <label class="form-label" for="booktime">Time<span class="color-orange">*</span></label>
+                                                        <input type="text" id="booktime" class="form-control" required>
+                                                        <div class="invalid-feedback" id="invalidTime">
+                                                            Please provide a valid time.
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                              
+                                                <div class="col-lg-12 col-xl-6">
+                                                    <div class="mb-3">
+                                                        <label class="form-label" for="location*">Location<span class="color-orange">*</span></label>
+                                                        <input  type="text" id="location"  value="" required  class="form-control" >
+                                                            
+                                                        <div class="invalid-feedback" id="invalidLocation">
+                                                            Please provide a valid location.
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-12 col-xl-6">
+                                                    <div class="mb-3">
+                                                        <label class="form-label" for="purpose">Purpose<span class="color-orange">*</span></label>
+                                                        <select  class="form-select" id="purpose"  value="" required>
+                                                            <option value="Introducing TC">Introducing TC</option>
+                                                            <option value="Training">Training</option>
+                                                            <option value="previous meeting foolow up">Previous meeting Follow up</option>
+                                                        </select>
+                                                        <div class="invalid-feedback">
+                                                            Please provide a valid entry.
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-12 ">
+                                                    <div class="mb-3">
+                                                        <label class="form-label" for="time">Feedback<span class="color-orange">*</span></label>
+                                                       <textarea name="" id="feedback" cols="30" rows="5" class="form-control"></textarea>
+                                                        <div class="invalid-feedback">
+                                                            Please provide a valid entry.
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-10 ">
+                                                    <button class="btn btn-info btn-md mb-2 me-1" type="button" onclick="sendRequest()">Send meeting request</button>
+                                                    <button class="btn btn-outline-light btn-md me-1 mb-2">Change meeting</button>
+                                                    <button class="btn btn-outline-light btn-md me-1 mb-2" >Update feedback</button>
+                                                    <button class="btn btn-outline-light btn-md me-1 mb-2" >Cancel meeting</button>
+                                                    <button class="btn btn-outline-light btn-md me-1 mb-2"  type="reset">Reset</button>
+
+
+
+
+                                                </div>
+                                               
+                                               
+                                                
+                                            </div>
+                                           
+                                            
+                                        </form>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <!--Meeting Assessment-->
+                            <div class="col-md-12">
+
+                               
+                                <div class="d-flex flex-no-wrap align-items-center ">
+                                    <h4 class="card-title fs-20 almarenamonolight-type mb-3">Meeting Assessment
+                                    </h4>
+                                    <div class="ms-auto">
+                                       
+                                            <a class=" gilory-medium-type color-green" style="cursor: pointer;" onclick="viewdocument()">
+                                                View document
+                                            </a>
+                                    </div>       
+                                        
+                                </div>
+                                <div class="card  card-h-100">
+                                 
+                                    <div class="card-body">
+                                        
+                                   
+                                    
+                                        <form class="needs-validation" novalidate>
+                                            <div class="row">
+                                                
+                                                <div class="col-lg-12 col-xl-6">
+                                                    <div class="mb-3">
+                                                        <label class="form-label" for="feedback">Feedback<span class="color-orange">*</span></label>
+                                                        <select  class="form-select" id="feedback"  value="" required>
+                                                            <option value="Positive">Positive</option>
+                                                            <option value="Negative">Negative</option>
+                                                        </select>
+                                                        <div class="invalid-feedback">
+                                                            Please provide a valid entry.
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-12 col-xl-6">
+                                                    <div class="mb-3">
+                                                        <label class="form-label" for="installeddemo">Installed demo<span class="color-orange">*</span></label>
+                                                        <select  class="form-select" id="installeddemo"  value="" required>
+                                                            <option value="Yes">Yes</option>
+                                                            <option value="No">No</option>
+                                                        </select>
+                                                        <div class="invalid-feedback">
+                                                            Please provide a valid entry.
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                              
+                                                <div class="col-lg-12 col-xl-6">
+                                                    <div class="mb-3">
+                                                        <label class="form-label" for="training">Training*</label>
+                                                        <select  class="form-select" id="training"  value="" required>
+                                                            <option value="Yes">Yes</option>
+                                                            <option value="No">No</option>
+                                                        </select>
+                                                        <div class="invalid-feedback">
+                                                            Please provide a valid entry.
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                
+                                                <div class="col-lg-12 col-xl-6">
+                                                    <div class="mb-3">
+                                                        <label class="form-label" for="askedquestions">Asked questions<span class="color-orange">*</span></label>
+                                                        <select  class="form-select" id="questions"  value="" required>
+                                                            <option value="Detailed">Detailed</option>
+                                                            <option value="In General">In General</option>
+                                                        </select>
+                                                            
+                                                        <div class="invalid-feedback">
+                                                            Please provide a valid entry.
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                               
+                                                <div class="col-lg-12 col-xl-6">
+                                                    <div class="mb-3">
+                                                        <label class="form-label" for="attendedseminars">Attended seminars<span class="color-orange">*</span></label>
+                                                        <select  class="form-select" id="attendedseminars"  value="" required>
+                                                            <option value="Yes">Yes</option>
+                                                            <option value="No">No</option>
+                                                        </select>
+                                                        <div class="invalid-feedback">
+                                                            Please provide a valid entry.
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-12 col-xl-6">
+
+                                                    <div class="mb-3">
+                                                        <label class="form-label">&nbsp;</label>
+                                                        <div class="form-check">
+                                                            <input type="checkbox" class="form-check-input" id="minimumaccount" required="">
+                                                            <label class="form-check-label fs-12" for="minimumaccount">Asked about minimum account</label>
+                                                            <div class="invalid-feedback fs-10 py-0 ">
+                                                                You must agree before submitting.
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-12 col-xl-6">
+
+                                                    <div class="mb-3">
+                                                        <!--<label class="form-label">&nbsp;</label>-->
+                                                        <div class="form-check">
+                                                            <input type="checkbox" class="form-check-input" id="commission" required="">
+                                                            <label class="form-check-label fs-12" for="commission">Asked about commission</label>
+                                                            <div class="invalid-feedback fs-10 py-0 ">
+                                                                You must agree before submitting.
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <button class="btn btn-primary btn-md " type="submit">Update assessment</button>
+                                                    
+
+
+                                                </div>
+                                               
+                                               
+                                                
+                                            </div>
+                                           
+                                            
+                                        </form>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        
+                        <!-- end card -->
+                    </div> <!-- end col -->
+                    <!--All Meeting-->
+                    <div class="  col-md-6  col-lg-6  col-xxl-6 col-xxl-7">
+                        <h4 class="card-title fs-20 almarenamonolight-type mb-3">All Meeting</h4>
+                        <div class=" card   card-h-100" >
+                         
+                            <div class="card-body ">
+                                <div class="table-responsive" data-simplebar="" style="max-height:100%">
+                                    <table class="table mb-0 ">
+
+                                        <thead>
+                                            <tr class="almarenamonolight-type fs-12 color-color1">
+                                                <th>ID</th>
+                                                <th>Date</th>
+                                                <th>Time</th>
+                                                
+                                                <th>Location</th>
+                                                <th>Purpose</th>
+                                                <th>Feedback</th>
+                                                
+    
+                                                <th class="text-end">status</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="gilroyregular-type fs-15">
+                                            {% for meeting in meetings %}
+                                                <tr ondblclick='loadMeeting("{{meeting.6}}","{{meeting.0|date:'Y-m-d'}}","{{meeting.1|date:'H:i'}}","{{meeting.2}}","{{meeting.3}}","{{meeting.4}}")'>
+                                                    <td>{{meeting.6}}</td>
+                                                    <td>{{meeting.0|date:"d-m-Y"}}</td>
+                                                    <td>{{meeting.1|date:"H:i"}}</td>
+                                                   
+                                                    <td>{{meeting.2}}</td>
+                                                    
+                                                    <td>{{meeting.3}}</td>
+                                                    <td>{{meeting.4}}</td>
+                                                
+                                                    <td class="text-end"><button class="btn  btn-sm  color-green"  style="background-color:
+                                                        rgba(0, 165, 79, 0.15) ;">{{meeting.5}}</button></td>
+                                                    
+                                                
+                                                </tr>
+                                           {%endfor%}
+                                         
+    
+                                        </tbody>
+                                    </table>
+                                </div>
+                                </div>
+                                
+                        </div>
+                    </div>
+
+
+                </div>
+                <!-- end row-->
+
+                </div>
+                <!-- container -->
+            </div>
+            <!-- End Page-content -->
+
+            
+        </div>
+        <!-- end main content-->
+
+    </div>
+    <!-- END layout-wrapper -->
+    {% include "common/right-sidebar.html" %}
+    <div class="rightbar-overlay"></div>
+
+    <div class="modal fade bs-example-modal-insta" tabindex="-1" role="dialog" aria-hidden="true" id="msg_model">
+        <div class="modal-dialog modal-dialog-centered"   style="z-index: 10555;">
+            <div class="modal-content">
+                <div class="modal-header border-0">
+                    <!--<h5 class="modal-title fs-21">@title</h5>-->
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                                        
+                
+    
+    
+                    <div data-simplebar style="max-height: 230px;">
+    
+                        <div class="modal-body" id="message">
+                  
+                  
+    
+                        </div>
+               
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+
+    $(function(){
+            $('#bookdate').change(function() {
+                $("#invalidDate").hide()
+            });
+            $('#booktime').change(function() {
+                $("#invalidTime").hide()
+            });
+            $('#location').change(function() {
+                $("#invalidLocation").hide()
+            });
+
+    })
+
+
+
+
+        function sendRequest(){
+            let searchParams = new URLSearchParams(window.location.search)
+            let ticket = searchParams.get('ticket')
+            
+            var bookdate=document.getElementById("bookdate").value
+            var booktime=document.getElementById("booktime").value
+            var location=document.getElementById("location").value
+            var purpose=document.getElementById("purpose").value
+            var feedback=document.getElementById("feedback").value
+            if(!bookdate || !booktime || !location){
+                if(!bookdate){
+                    $("#invalidDate").show()
+                }
+                if(!booktime){
+                    $("#invalidTime").show()
+                }
+                if(!location){
+                    $("#invalidLocation").show()
+                }
+                console.log("No date-----------------")
+            }
+            else{
+                    $.ajax({
+                type : "GET", 
+                url: "{% url 'Admin:MeetingRequest' %}",
+                dataType: 'json',
+                data: {
+                    'ticket':ticket,
+                    'selectedDate':bookdate,
+                    'selectedTime':booktime,
+                    'location':location,
+                    'purpose':purpose,
+                    'feedback':feedback,
+                },
+                
+                success: function(data){
+                    console.log("Data----------------"+data)
+                }
+                })
+            }
+           
+            console.log("request details------------------"+bookdate+booktime+location+purpose+feedback)
+
+        }
+    function loadMeeting(id,date,time,location,purpose,feedback){
+        console.log("Date"+date)
+        console.log("To*****"+time)
+        console.log("Location===="+location)
+        $("#location").val(location)
+        $("#bookdate").val(date)
+        $("#booktime").val(time)
+        $("#purpose").val(purpose)
+        $("#feedback").val(feedback)
+        $("#bookdate").flatpickr({ 
+              
+                altInput: true,
+                allowInput: true,
+                minDate: "today",
+                default:date
+            });
+        $("#booktime").flatpickr({ 
+                altInput: true,
+                allowInput: true,
+                enableTime: true,
+                noCalendar: true,
+              minDate: "today",
+              default:time
+          });
+
+
+    }
+
+    function viewdocument(){
+        console.log("View documents-------------------------")
+        let searchParams = new URLSearchParams(window.location.search)
+        let ticket = searchParams.get('ticket')
+        $.ajax({
+                type : "GET", 
+                url: "{% url 'Admin:ViewDocument' %}",
+                dataType: 'json',
+                data: {
+                    'ticket':ticket,
+                },
+                success: function(data){
+                    console.log("Data----------------"+type(data.documents))
+                    var docs=data.documents;
+                    if(docs.length === 0){
+                        print("No documents----------------------")
+                    }
+                }
+                })
+
+
+    }
+
+    </script>
+    <script src="{%static 'libs/flatpickr/flatpickr.min.js' %}"></script>
+    <script src="{% static 'js/pages/manage-ticket-meeting.init.js' %}"></script> 
+    <script src="{% static 'js/app.js' %}"></script>
+
+</body>
+
+</html>
+    

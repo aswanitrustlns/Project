@@ -34,7 +34,7 @@ class Services:
             print("Date of birth------------------------",dob)
             print("Test-----------------------------",income,hear_bout,experience,dob,type(experience))
             if not zip_code:
-                zip_code=None
+                zip_code=0
             mobile_country_code=request.POST.get('mobile_country') #Get ContryID
             source=selector.get_user_name(UserId)
             
@@ -140,20 +140,22 @@ class Services:
         finally:
             Cursor.close()
 #Send meeting request
-    def send_meeting_request(self,request,ticket):
+    def send_meeting_request(self,request):
         try:
+            ticket=request.GET.get('ticket')
+            print("Ticket==============================",ticket)
             location=request.GET.get('location')
             selected_date=request.GET.get('selectedDate')
             selected_time=request.GET.get('selectedTime')
             purpose=request.GET.get('purpose')
-            feedback=request.GET.get('request')
+            feedback=request.GET.get('feedback')
             userId=request.session.get('UserId')
             flag=0
             meeting_id=0
             Cursor=connection.cursor()
             Cursor.execute("set nocount on;exec SP_InsertMeeting %s,%s,%s,%s,%s,%s,%s,%s,%s",[selected_date,selected_time,location,purpose,feedback,flag,userId,ticket,meeting_id])
             status=Cursor.fetchone()
-
+            print("status after meeting request-----",status)
         except Exception as e:
             print("Exception------",e)
         finally:
