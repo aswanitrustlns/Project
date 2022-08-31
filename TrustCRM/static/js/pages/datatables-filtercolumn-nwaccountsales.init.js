@@ -11,20 +11,7 @@ $(function(){
     .addClass('filters')
     .appendTo('#datatableleads thead');
 
-$('#datatableleadsR thead tr')
-    .clone(true)
-    .addClass('filters')
-    .appendTo('#datatableleadsR thead');
 
-$('#datatableleadsT thead tr')
-    .clone(true)
-    .addClass('filters')
-    .appendTo('#datatableleadsT thead');
-
-$('#datatableleadsC thead tr')
-    .clone(true)
-    .addClass('filters')
-    .appendTo('#datatableleadsC thead');
 
 });
 
@@ -195,6 +182,128 @@ tableInit("#datatableleads");
     });
 
     //addColor($class);
+    minDateFilter = "";
+ maxDateFilter = "";
+
+
+    //Flat Picker Date
+    flatpickr('#datepicker-range', {
+
+        //const fp = flatpickr(".test-calendar", {  altFormat: "F j, Y", dateFormat: "Y-m-d", showMonths: 3, disableMobile: true, inline: true, mode: "range", 
+        //altInput: true,
+        "allowInput": true,
+        dateFormat: "Y-m-d",//MMMM Do YYYY
+        mode: "range",
+        //enableTime: false,
+        altInput: true, // Human Readable
+        //minDate: new Date().fp_incr(-60), // 60 days from today
+        //maxDate: defaultEnd,
+        //locale: { firstDayOfWeek: 1},
+
+        onChange:
+            function (selectedDates, dateStr, instance) {
+              
+                var table = $('#datatableleads').DataTable();
+                function rangefilter(ev, picker) {
+                            minDateFilter = Date.parse(selectedDates[0]);
+                            maxDateFilter = Date.parse(selectedDates[1]);
+                            //console.log( 'maxDateFilter'+ maxDateFilter);
+                            //console.log( 'minDateFilter'+ minDateFilter);
+                           // console.log( $(this).index()+1);
+                            $.fn.dataTable.ext.search.push(function(settings, data, dataIndex) {
+                            var date = Date.parse(data[ $(this).index()+1]);
+                        
+                            if (
+                            (isNaN(minDateFilter) && isNaN(maxDateFilter)) ||
+                            (isNaN(minDateFilter) && date <= maxDateFilter) ||
+                            (minDateFilter <= date && isNaN(maxDateFilter)) ||
+                            (minDateFilter <= date && date <= maxDateFilter)
+                            ) {
+                            return true;
+                            }
+                            return false;
+                        });
+                        table.draw();
+                        }
+
+                rangefilter();
+        },
+        onReady: function (selectedDates, dateStr, instance) {
+           
+        },
+          // https://codepen.io/bintux/pen/rgYeyp
+        onClose: function (selectedDates, dateStr, instance) {
+            var table = $('#datatableleads').DataTable();
+            function rangefilter(ev, picker) {
+                            minDateFilter = Date.parse(selectedDates[0]);
+                            maxDateFilter = Date.parse(selectedDates[1]);
+                            //console.log( 'maxDateFilter'+ maxDateFilter);
+                            //console.log( 'minDateFilter'+ minDateFilter);
+                           // console.log( $(this).index()+1);
+                            $.fn.dataTable.ext.search.push(function(settings, data, dataIndex) {
+                            var date = Date.parse(data[ $(this).index()+1]);
+                        
+                            if (
+                            (isNaN(minDateFilter) && isNaN(maxDateFilter)) ||
+                            (isNaN(minDateFilter) && date <= maxDateFilter) ||
+                            (minDateFilter <= date && isNaN(maxDateFilter)) ||
+                            (minDateFilter <= date && date <= maxDateFilter)
+                            ) {
+                            return true;
+                            }
+                            return false;
+                        });
+                        table.draw();
+                        }
+
+            rangefilter();
+
+                         //console.log(selectedDates.attr('value'));
+          
+            
+        }
+
+    });
+
+
+    //Flat Picker Date
+    flatpickr('#todate', {
+
+        //const fp = flatpickr(".test-calendar", {  altFormat: "F j, Y", dateFormat: "Y-m-d", showMonths: 3, disableMobile: true, inline: true, mode: "range", 
+        //altInput: true,
+        "allowInput": true,
+        dateFormat: "Y-m-d",//MMMM Do YYYY
+        mode: "single",
+        //enableTime: false,
+        altInput: true, // Human Readable
+        //minDate: new Date().fp_incr(-60), // 60 days from today
+        //maxDate: defaultEnd,
+        //locale: { firstDayOfWeek: 1},
+
+        
+
+    });
+
+    //Flat Picker Date
+    flatpickr('#fromdate', {
+
+        //const fp = flatpickr(".test-calendar", {  altFormat: "F j, Y", dateFormat: "Y-m-d", showMonths: 3, disableMobile: true, inline: true, mode: "range", 
+        //altInput: true,
+        "allowInput": true,
+        dateFormat: "Y-m-d",//MMMM Do YYYY
+        mode: "single",
+        //enableTime: false,
+        altInput: true, // Human Readable
+        //minDate: new Date().fp_incr(-60), // 60 days from today
+        //maxDate: defaultEnd,
+        //locale: { firstDayOfWeek: 1},
+
+        
+
+    });
+
+
+
     
 
     
