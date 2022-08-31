@@ -250,11 +250,56 @@
                            
                             <div class="card-body ">
                                 <h4 class="card-title almarenamonolight-type mb-4 fs-23">Leads</h4>
-                                <div class="d-flex flex-no-wrap justify-content-between align-items-start  mb-4">
+                                <div class="d-md-flex flex-no-wrap justify-content-between align-items-start  mb-4">
 
                                     <p class="gilroymedium-type fs-15 color-color1 mb-0">This page allows you to view details of leads<br>
                                         from website and social sites.</p>
-                                        <!-- <button type="button" class="btn  btn-lg   btn-success  px-3  gilory-semibold-type flex-grow-0"  onclick="loadAll()">Load all</button> -->
+                                    <div class=" mt-2  mt-md-0">
+                                        <!--<form class="needs-validation " novalidate="" id="action-call">-->
+                                            <div class="row align-items-end justify-content-end">
+
+
+                                                    <div class="col-sm-3">
+                                                        <div class="mb-2">
+                                                            <label class="form-label " for="fromdate">From Date</label>
+                                                            <input type="text" id="fromdate" class="py-1">
+    
+                                                           
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-3">
+
+                                                        <div class="mb-2">
+                                                            <label class="form-label " for="todate">To Date</label>
+    
+                                                            <input type="text" id="todate" class="py-1">
+                                                            
+                                                        </div>
+
+
+
+
+                                                    </div>
+                                                    <div class="col-sm-3 ">
+                                                        <button class="btn btn-info btn-md mb-2 py-1" type="button" onclick="loadAll()">Load</button>
+                                                        
+
+
+
+
+                                                    </div>
+                                                   
+
+
+
+
+
+                                            </div>
+
+
+                                        
+                                    </div>
+                                       
                                 </div>
                                     
                                 
@@ -374,62 +419,7 @@
     </div>
 
 
-    <div class="modal fade  bs-example-modal-insta" tabindex="-1" role="dialog" aria-hidden="true" >
-        <div class="modal-dialog modal-dialog-centered modal-xl d-block"   style="z-index: 10555;">
-            <div class="modal-content mb-4">
-                <div class="modal-header border-0">
-                    <h5 class="modal-title fs-21">Duplicate Phone</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                                                    
-                                                       
-                                              
-                <div class="modal-body">        
     
-                  
-                     
-                 
-    
-                     <div class="table-responsive" data-simplebar style="max-height: 352px;">
-                         <table class="table mb-0 " id="">
-    
-                             <thead>
-                                 <tr class="almarenamonolight-type fs-14">
-                                     <th> </th>
-                                     <th> </th>
-                                     <th>Name</th>
-                                     <th>Ticket</th>
-                                     <th>Phone</th>
-                                     <th>Phone2</th>                                     
-                                     <th>User Name</th>
-                                     <th>Email</th>
-                                     
-                                 </tr>
-                             </thead>
-                             <tbody class="gilroyregular-type fs-15" >
-                             </tbody>
-                         </table>
-                     </div> 
-                 
-                 
-    
-    
-                 
-                
-                    
-                </div>
-                <div class=" col-md-12" >
-       
-                    <button type="button" class="btn btn-success" onclick="create_new_ticket()">Create New Ticket</button>
-                    <button type="button" class="btn btn-danger" data-dismiss="modal" id="close">Close</button>
-                  
-                </div>
-    
-                
-            </div>
-        </div>
-    </div>
-
     <div class="col-12">
      
 
@@ -554,7 +544,7 @@ $(function(){
                success: function(data){
                 console.log(data)
                 if(data.success){
-                    // $("#duplicate_model tbody").empty();
+                    $("#duplicate_model tbody").empty();
                     var element=data.duplicate;
                     
                     var duplicate_data=new Array();
@@ -641,10 +631,13 @@ $(function(){
 
         }
 
+     
+
 
 
         function loadAll(){
-
+            fromdate=document.getElementById("fromdate").value
+            todate=document.getElementById("todate").value
             $('#datatableleads').dataTable().fnClearTable();
             $('#datatableleads').dataTable().fnDestroy();
             $("#datatableleads").DataTable({
@@ -659,6 +652,10 @@ $(function(){
                 // "pagingType":"simple",            
                 "ajax":{
                    url: "{% url 'Admin:LoadAll' %}",
+                   data:{
+                    'from':fromdate,
+                    'to':todate
+                   },
                   dataSrc:function(json_data){
                     
                
@@ -773,50 +770,65 @@ $(function(){
             });
 
         }
-        // function load_data(){
-        //     $('#datatableleads').dataTable().fnClearTable();
-        //     $('#datatableleads').dataTable().fnDestroy();
+        
+        $(function(){
+    minDateFilter = "";
+    maxDateFilter = "";
+    flatpickr('#datepicker-range', {
 
-        //    var row;
-        //     $.ajax({
-        //        type : "GET", 
-        //        url: "{% url 'Admin:LoadAll' %}",
-                         
-               
-        //        success: function(json_data){
+       
+"allowInput": true,
+dateFormat: "dd.mm.yyyy",//MMMM Do YYYY
+mode: "range",
+
+altInput: true,       
+
+onChange:
+    function (selectedDates, dateStr, instance) {
+
+        var table = $('#datatableleads').DataTable();
+        if(selectedDates==''){
+
+            table.draw();
+        }
+       
+
+        //console.log("Helooo");
+    },
+onReady: function (selectedDates, dateStr, instance) {
+    
+
+},
+  
+onClose: function (selectedDates, dateStr, instance) {
+    var table = $('#datatableleads').DataTable();
+    function rangefilter(ev, picker) {
+                    minDateFilter = Date.parse(selectedDates[0]);
+                    maxDateFilter = Date.parse(selectedDates[1]);
+                    
+                    $.fn.dataTable.ext.search.push(function(settings, data, dataIndex) {
+                    var date = Date.parse(data[ $(this).index()+1]);
                 
-        //         console.log("Suces------------------------------------------------",typeof(json_data))
-        //         console.log("Load ajax data"+json_data[0][0]);   
-        //         var grouptable=$('#datatableleads').dataTable();
+                    if (
+                    (isNaN(minDateFilter) && isNaN(maxDateFilter)) ||
+                    (isNaN(minDateFilter) && date <= maxDateFilter) ||
+                    (minDateFilter <= date && isNaN(maxDateFilter)) ||
+                    (minDateFilter <= date && date <= maxDateFilter)
+                    ) {
+                    return true;
+                    }
+                    return false;
+                });
+                table.draw();
+                }
 
-        //         $.each(json_data,function(key,value){
-        //             console.log("Value is---------------------------"+value)
-        //         })
+                rangefilter();
+}
 
+});
 
-        //         // for ( var i=0,k=1, ien=json_data.length ; i<ien ; i++ ) {
-        //         //     console.log("for loop------")
+        });
 
-           
-        //         //     grouptable.fnAddData([
-                  
-        //         //     "<tr><td >"+json_data[i][0]+"</td>"+"<td>"+json_data[i][1]+"</td><td>"+json_data[i][2]+"</td><td>"+json_data[i][3]+"</td><td>"+json_data[i][4]+"</td><td>"+
-        //         //                             json_data[i][5]+"</td>"                  
-                                  
-        //         //     ])
-                       
-        //         // k++;
-                
-        //         // }
-                
-                
-                
-                   
-          
-        //        }
-        //     })
-
-        // }
 
 
 

@@ -98,32 +98,91 @@ $(document).ready(function () {
           });
       },
     });
-    (minDateFilter = ""),
-      (maxDateFilter = ""),
-      flatpickr("#datepicker-range", {
-        allowInput: !0,
-        dateFormat: "dd.mm.yyyy",
-        mode: "range",
-        altInput: !0,
-        onChange: function (e, t, a) {
-          var i = $("#datatableleads").DataTable();
-          "" == e && i.draw();
-        },
-        onReady: function (e, t, a) {},
-        onClose: function (e, t, a) {
-          var i = $("#datatableleads").DataTable();
-          (minDateFilter = Date.parse(e[0])),
-            (maxDateFilter = Date.parse(e[1])),
-            $.fn.dataTable.ext.search.push(function (e, t, a) {
-              t = Date.parse(t[$(this).index() + 1]);
-              return !!(
-                (isNaN(minDateFilter) && isNaN(maxDateFilter)) ||
-                (isNaN(minDateFilter) && t <= maxDateFilter) ||
-                (minDateFilter <= t && isNaN(maxDateFilter)) ||
-                (minDateFilter <= t && t <= maxDateFilter)
-              );
-            }),
-            i.draw();
-        },
-      });
+
+
+    minDateFilter = "";
+    maxDateFilter = "";
+
+
+    flatpickr('#datepicker-range', {
+
+       
+      "allowInput": true,
+      dateFormat: "dd.mm.yyyy",//MMMM Do YYYY
+      mode: "range",
+     
+      altInput: true,       
+
+      onChange:
+          function (selectedDates, dateStr, instance) {
+
+              var table = $('#datatableleads').DataTable();
+              if(selectedDates==''){
+
+                  table.draw();
+              }
+             
+
+              //console.log("Helooo");
+          },
+      onReady: function (selectedDates, dateStr, instance) {
+          
+
+      },
+        
+      onClose: function (selectedDates, dateStr, instance) {
+          var table = $('#datatableleads').DataTable();
+          function rangefilter(ev, picker) {
+                          minDateFilter = Date.parse(selectedDates[0]);
+                          maxDateFilter = Date.parse(selectedDates[1]);
+                          
+                          $.fn.dataTable.ext.search.push(function(settings, data, dataIndex) {
+                          var date = Date.parse(data[ $(this).index()+1]);
+                      
+                          if (
+                          (isNaN(minDateFilter) && isNaN(maxDateFilter)) ||
+                          (isNaN(minDateFilter) && date <= maxDateFilter) ||
+                          (minDateFilter <= date && isNaN(maxDateFilter)) ||
+                          (minDateFilter <= date && date <= maxDateFilter)
+                          ) {
+                          return true;
+                          }
+                          return false;
+                      });
+                      table.draw();
+                      }
+
+                      rangefilter();
+      }
+
+  });
+
+
+  flatpickr('#todate', {
+
+  
+      "allowInput": true,
+      dateFormat: "Y-m-d",//MMMM Do YYYY
+      mode: "single",
+     
+      altInput: true, // Human Readable
+     
+
+      
+
+  });
+
+  
+  flatpickr('#fromdate', {
+
+      "allowInput": true,
+      dateFormat: "Y-m-d",//MMMM Do YYYY
+      mode: "single",
+     
+      altInput: true, // Human Readable
+  
+      
+
+  });
+
   });

@@ -414,22 +414,31 @@ def lead(request):
     if 'UserId' in request.session:
         UserId=request.session.get('UserId')
         print(UserId)
+        from_date=request.GET.get('from')
+        to_date=request.GET.get('to')
+        print("From date-----------------",from_date)
+        print("To date------------------",to_date)
              
         lead="lead"
-        leads_data,leads_count=selector.get_leads(lead)
+        leads_data,leads_count=selector.get_leads(lead,from_date,to_date)
         # print("Leads data---------------------",leads_data)
-        return render(request,'admin/Leads.html',{'leads_data':leads_data,'leads_count':leads_count})
+        return render(request,'sales/Leads.html',{'leads_data':leads_data,'leads_count':leads_count})
     else:
          return redirect('/login') 
 
 def lead_load_all(request): 
     
     lead="all"
-    load_data,leads_count=selector.get_leads(lead)   
+    from_date=request.GET.get('from')
+    to_date=request.GET.get('to')
+    print("From date-----------------",from_date)
+    print("To date------------------",to_date)
+    load_data,leads_count=selector.get_leads(lead,from_date,to_date)   
     # paginator = Paginator(load_data, 10)
     print("Load all data-------")
     print("load data-------------------------",len(load_data))
     return JsonResponse(load_data, safe=False)
+   
 
 def new_accounts(request):
     if 'UserId' in request.session:
@@ -470,19 +479,13 @@ def create_ticket(request):
     print("demo iddd-----",demoid)
     email,phone=service.create_ticket_service(request)
     print("Ticket data---------------------------------")
-    return JsonResponse({"success":True,"email":email,"phone":phone})
-
-
-
-
-
-    
+    return JsonResponse({"success":True,"email":email,"phone":phone})    
 
 def lead_registration(request):
     if 'UserId' in request.session:
         UserId=request.session.get('UserId')      
         UserName=selector.get_user_name(UserId)        
-        return render(request,'admin/LeadRegistration.html',{"source":UserName})
+        return render(request,'sales/LeadRegistration.html',{"source":UserName})
     else:
          return redirect('/login') 
 
@@ -615,17 +618,21 @@ def pending_tickets(request):
     if 'UserId' in request.session:
         UserId=request.session.get('UserId')
         
-        pending_tickets=selector.get_tickets(UserId,"pending","load")
+        pending_tickets=selector.get_tickets(UserId,"pending")
         
-        return render(request,'admin/pendingtickets.html',{'pending_tickets':pending_tickets})
+        return render(request,'sales/pendingtickets.html',{'pending_tickets':pending_tickets})
     else:
          return redirect('/login') 
 
 def pending_tckts_load_all(request):
     if 'UserId' in request.session:
         UserId=request.session.get('UserId')   
+        from_date=request.GET.get('from')
+        to_date=request.GET.get('to')
+        print("From date-----------------",from_date)
+        print("To date------------------",to_date)
         
-        pending_tickets=selector.get_tickets(UserId,"pending","all")
+        pending_tickets=selector.get_all_tickets(UserId,"pending",from_date,to_date)
         # paginator = Paginator(load_data, 10)
         print("load data-------------------------",len(pending_tickets))
         return JsonResponse(list(pending_tickets), safe=False)
@@ -637,9 +644,9 @@ def resolved_tickets(request):
         UserId=request.session.get('UserId')
         print(UserId)
         
-        resolved_tickets=selector.get_tickets(UserId,"resolved","load")
+        resolved_tickets=selector.get_tickets(UserId,"resolved")
         
-        return render(request,'admin/resolvedtickets.html',{'resolved_tickets':resolved_tickets})
+        return render(request,'sales/resolvedtickets.html',{'resolved_tickets':resolved_tickets})
     else:
          return redirect('/login') 
 
@@ -648,7 +655,7 @@ def dormant_ticket(request):
         UserId=request.session.get('UserId')
         print("USer iddddddddddddddddddddd",UserId)
         salesrepId=56
-        dormant_tickets=selector.get_tickets(salesrepId,"dormant",salesrepId)        
+        dormant_tickets=selector.get_tickets(salesrepId,"dormant")        
         return render(request,'sales/dormanttickets.html',{'dormant_tickets':dormant_tickets})
     else:
          return redirect('/login') 
@@ -658,8 +665,9 @@ def dormant_ticket(request):
 def resolved_tckts_load_all(request):
     if 'UserId' in request.session:
         UserId=request.session.get('UserId')
-        
-        resolved_tickets=selector.get_tickets(UserId,"resolved","all")
+        from_date=request.GET.get('from')
+        to_date=request.GET.get('to')
+        resolved_tickets=selector.get_all_tickets(UserId,"resolved",from_date,to_date)
         # paginator = Paginator(load_data, 10)
         print("load data-------------------------",len(resolved_tickets))
         return JsonResponse(list(resolved_tickets), safe=False)

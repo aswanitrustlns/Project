@@ -125,5 +125,82 @@ class Services:
         finally:
             Cursor.close()
         return meeting_score
+
+    #Assign Button Click
+    def assign_ticket(request):
+        try:
+            Cursor=connection.cursor()
+            tiket=request.GET.get('ticket')
+            sales_rep=request.GET.get('salesrep')
+            percentage=request.GET.get('percentage')
+            reassined=request.GET.get('reassined')
+            userid=request.session.get('UserId')
+        except Exception as e:
+            print("Exception------",e)
+        finally:
+            Cursor.close()
+#Send meeting request
+    def send_meeting_request(self,request,ticket):
+        try:
+            location=request.GET.get('location')
+            selected_date=request.GET.get('selectedDate')
+            selected_time=request.GET.get('selectedTime')
+            purpose=request.GET.get('purpose')
+            feedback=request.GET.get('request')
+            userId=request.session.get('UserId')
+            flag=0
+            meeting_id=0
+            Cursor=connection.cursor()
+            Cursor.execute("set nocount on;exec SP_InsertMeeting %s,%s,%s,%s,%s,%s,%s,%s,%s",[selected_date,selected_time,location,purpose,feedback,flag,userId,ticket,meeting_id])
+            status=Cursor.fetchone()
+
+        except Exception as e:
+            print("Exception------",e)
+        finally:
+            Cursor.close()
+        return status
+#Update meeting feedback
+def update_meeting_feedback(self,request,ticket):
+        try:
+            location=request.GET.get('location')
+            selected_date=request.GET.get('selectedDate')
+            selected_time=request.GET.get('selectedTime')
+            purpose=request.GET.get('purpose')
+            feedback=request.GET.get('request')
+            userId=request.session.get('UserId')            
+            meeting_id=0
+            Cursor=connection.cursor()
+            Cursor.execute("set nocount on;exec SP_UpdateMeetingFeedback  %s,%s,%s,%s,%s,%s,%s,%s,%s",[ticket,selected_date,selected_time,location,purpose,feedback,"0","0",meeting_id,userId])
+            status=Cursor.fetchone()
+
+        except Exception as e:
+            print("Exception------",e)
+        finally:
+            Cursor.close()
+        return status
+# Assign salesRep
+
+
+def assign_salesRep(self,request):
+    try:
+        userId=request.session.get('UserId')
+        assign_flag='A' or 'M' or 'R'
+        ticket_no=request.GET.get('ticket')
+        salesrepid=request.GET.get('repid')
+        percentage=request.GET.get('percentage')
+        reassignid=request.GET.get('reassign')
+        Cursor=connection.cursor()
+        Cursor.execute("set nocount on;SP_AssignSalesRep %s,%s,%s,%s,%s,%s",[ticket_no,salesrepid,assign_flag,percentage,reassignid,userId])
+        assign_rep=Cursor.fetchone()
+    except Exception as e:
+        print("Exception------",e)
+    finally:
+         Cursor.close()
+
+
+
+    
+        
+
        
 

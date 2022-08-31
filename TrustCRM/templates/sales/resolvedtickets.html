@@ -57,24 +57,70 @@
                         <div class="card">
                            
                             <div class="card-body ">
-                                <h4 class="card-title almarenamonolight-type mb-4 fs-23">SALES TICKETS</h4>
+                                <h4 class="card-title almarenamonolight-type mb-4 fs-23">RESOLVED TICKETS</h4>
                                 <div class="d-flex flex-no-wrap justify-content-between align-items-start  mb-4">
-                                    <p class="gilroymedium-type fs-15 color-color1 mb-0">This page allows you to view the Sales Inquiries assigned to you and the inquiries that are not assigned.
+                                    <p class="gilroymedium-type fs-15 color-color1 mb-0">This page allows you to view the Resolved Inquiries.
                                    </p>
+                                   <div class=" mt-2  mt-md-0">
+                                    <!--<form class="needs-validation " novalidate="" id="action-call">-->
+                                        <div class="row align-items-end justify-content-end">
+
+
+                                                <div class="col-sm-3">
+                                                    <div class="mb-2">
+                                                        <label class="form-label " for="fromdate">From Date</label>
+                                                        <input type="text" id="fromdate" class="py-1">
+
+                                                       
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-3">
+
+                                                    <div class="mb-2">
+                                                        <label class="form-label " for="todate">To Date</label>
+
+                                                        <input type="text" id="todate" class="py-1">
+                                                        
+                                                    </div>
+
+
+
+
+                                                </div>
+                                                <div class="col-sm-3 ">
+                                                    <button class="btn btn-info btn-md mb-2 py-1" type="button" onclick="loadAll()">Load</button>
+                                                    
+
+
+
+
+                                                </div>
+                                               
+
+
+
+
+
+                                        </div>
+
+
+                                    
+                                </div>
                                    <!-- <button type="button" class="btn  btn-lg   btn-success  px-3  gilory-semibold-type flex-grow-0" onclick="loadAll()">Load All</button> -->
                                 </div>
                                 <div class=" px-1 table-responsive">
                                     <table id="datatableleads" class="table dt-responsive  nowrap w-100 ">
                                         <thead>
                                             <tr  class=" ">
-                                                <th data-id="datepicker-range">Date</th>
-                                                <th >Ticket</th>
+                                                <th data-id="datepicker-range" class="filterhead">Date</th>
+                                                <th data-text="text" class="filterhead">Ticket</th>
                                                 
-                                                <th  >Name</th>
-                                                <!-- <th  >Email</th> -->
-                                                <th  >Phone</th>
-                                                <th  >Source</th>
-                                                <th >Country</th>
+                                                <th  data-text="text" class="filterhead">Name</th>
+                                                
+                                                <th  data-text="text" class="filterhead">Phone</th>
+                                                <th  data-text="text" class="filterhead">Email</th>
+                                                <th data-text="select" class="filterhead">Source</th>
+                                                <th  data-text="text" class="filterhead">Country</th>
                                             </tr>
                                         </thead>
     
@@ -93,9 +139,9 @@
                                         <tr ondblclick='checkticket("{{data.1}}")' style="cursor: pointer;">
                                             <td >{{data.0}}</td>
                                             <td>{{data.1}}</td>
-                                            <td>{{data.2}}</td>
-                                            <!-- <td>{{data.3}}</td> -->
+                                            <td>{{data.2}}</td>                                            
                                             <td>{{data.3}}</td>
+                                            <td>{{data.4}}</td>
                                             <td>{{data.6}}</td>
                                             <td>{{data.5}}</td>
                                         </tr>
@@ -152,7 +198,8 @@
             window.location.href=url+"?&ticket="+ticket+"&email1=''&email2=''&mobile=&telephone="
         }
         function loadAll(){
-
+            fromdate=document.getElementById("fromdate").value
+            todate=document.getElementById("todate").value
                 $('#datatableleads').dataTable().fnClearTable();
                 $('#datatableleads').dataTable().fnDestroy();
                 $("#datatableleads").DataTable({
@@ -166,125 +213,117 @@
                                 },
                     'paging':true,               
                     'ajax':{
-                    "url": "{% url 'Admin:ResolvedTktsAll' %}",
-                    "dataSrc":function(json_data){
+                    url: "{% url 'Admin:ResolvedTktsAll' %}",
+                    data:{
+                    'from':fromdate,
+                    'to':todate
+                   },
+                    dataSrc:function(json_data){
                         
 
                         var items = [];
                         for ( var i=0, ien=json_data.length ; i<ien ; i++ ) {
 
-                            items[i] = [json_data[i][0],json_data[i][1],json_data[i][2],json_data[i][3],json_data[i][6],json_data[i][5]]; 
+                            items[i] = [json_data[i][0],json_data[i][1],json_data[i][2],json_data[i][3],json_data[i][4],json_data[i][6],json_data[i][5]]; 
                                 
                             }
                             console.log(items);
                             return items;
                     }
                     },
-                    responsive: true,
-        orderCellsTop: true,  
-
-       
-        fixedHeader: true,
-        initComplete: function () {
-            var api = this.api();
- 
-            // For each column
-            api
-                .columns()
-                .eq(0)
-                
-                .each(function (colIdx) {
-                   
-                    // Set the header cell to contain the input element
-                  
-                    var cell = $('.filters th').eq(
-                        $(api.column(colIdx).header()).index()
-                    );
-                    var title = $(cell).text();
-                    var id = $(cell).attr('data-id');
-                    
-                    $(cell).html('<input type="text" id="'+id+'" placeholder="' + title + '"  class="fs-14"   />');
-                    
-                    // On every keypress in this input
-                    $(
-                        'input',
-                        $('.filters th').eq($(api.column(colIdx).header()).index())
-                    )
-                        .off('keyup change')
-                        .on('change', function (e) {
-
-                            console.log($(this).attr('id'));
-
-                            if($(this).attr('id')=='datepicker-range'){
-                                
-                                api
-                                .column(colIdx)
-                                .search(
-                                        function( data, colIdx ) {
-                                            //var min = minDate;
-                                            // var max = maxDate;
-                                            // console.log(min);
-                                                //date = new Date( colIdx[0] );
-                                            var min = minDate;
-                                            var max = maxDate;
-                                            var date = new Date(data[0]);
-                                            
-
-                                            //colIdx
-                                     
-                                            if (
-                                                ( min === null && max === null ) ||
-                                                ( min === null && date <= max ) ||
-                                                ( min <= date   && max === null ) ||
-                                                ( min <= date   && date <= max )
-                                            ) {
-                                                return true;
-                                                console.log('searching-date-start' +min  );
-                                                console.log('searching-date-endt' +max  );
-                                            }
-                                            return false;
-                                            console.log('searching-date-start' +min  );
-                                            console.log('searching-date-endt' +max  );
-                                        }
-                                    
-                                ).draw();
-                               
-
-                                
-                            }
-                            else{
-
-                                    // Get the search value
-                                $(this).attr('title', $(this).val());
-                                var regexr = '({search})'; //$(this).parents('th').find('select').val();
-                                var cursorPosition = this.selectionStart;
-                                // Search the column for that value
-                                api
-                                .column(colIdx)
-                                .search(
-                                    this.value != ''
-                                        ? regexr.replace('{search}', '(((' + this.value + ')))')
-                                        : '',
-                                    this.value != '',
-                                    this.value == ''
-                                )
-                                .draw();
-
-
-                            }
-                            
-                        })
-                        .on('keyup', function (e) {
-                            e.stopPropagation();
- 
-                            $(this).trigger('change');
-                            $(this)
-                                .focus()[0]
-                                .setSelectionRange(cursorPosition, cursorPosition);
-                        });
+                    responsive: !0,
+      orderCellsTop: !0,
+      fixedHeader: !0,
+      initComplete: function () {
+        var o = this.api();
+        o.columns()
+          .eq(0)
+          .each(function (t) {
+            var e = $(".filters th").eq($(o.column(t).header()).index()),
+              a = $(e).text(),
+              i = $(e).attr("data-id"),
+              n = $(
+                '<select   id="' +
+                  i +
+                  '" placeholder="' +
+                  a +
+                  '"  class="fs-14 form-control w-100"><option value=""></option></select>'
+              );
+            "select" == $(e).attr("data-text")
+              ? (o
+                  .column($(e).index())
+                  .data()
+                  .unique()
+                  .sort()
+                  .each(function (e, t) {
+                    n.append('<option value="' + e + '">' + e + "</option>");
+                  }),
+                $(e).html(n))
+              : $(e).html(
+                  '<input type="text" id="' +
+                    i +
+                    '" placeholder="' +
+                    a +
+                    '"  class="fs-14"   />'
+                ),
+              $("input", $(".filters th").eq($(o.column(t).header()).index()))
+                .off("keyup change")
+                .on("change", function (e) {
+                  "datepicker-range" == $(this).attr("id")
+                    ? console.log("Heloooo")
+                    : ($(this).attr("title", $(this).val()),
+                      this.selectionStart,
+                      o
+                        .column(t)
+                        .search(
+                          "" != this.value
+                            ? "({search})".replace(
+                                "{search}",
+                                "(((" + this.value + ")))"
+                              )
+                            : "",
+                          "" != this.value,
+                          "" == this.value
+                        )
+                        .draw());
+                })
+                .on("keyup", function (e) {
+                  e.stopPropagation(),
+                    $(this).trigger("change"),
+                    $(this)
+                      .focus()[0]
+                      .setSelectionRange(cursorPosition, cursorPosition);
+                }),
+              $("select", $(".filters th").eq($(o.column(t).header()).index()))
+                .off("keyup change")
+                .on("change", function (e) {
+                  "datepicker-range" == $(this).attr("id")
+                    ? console.log("Heloooo")
+                    : ($(this).attr("title", $(this).val()),
+                      this.selectionStart,
+                      o
+                        .column(t)
+                        .search(
+                          "" != this.value
+                            ? "({search})".replace(
+                                "{search}",
+                                "(((" + this.value + ")))"
+                              )
+                            : "",
+                          "" != this.value,
+                          "" == this.value
+                        )
+                        .draw());
+                })
+                .on("keyup", function (e) {
+                  e.stopPropagation(),
+                    $(this).trigger("change"),
+                    $(this)
+                      .focus()[0]
+                      .setSelectionRange(cursorPosition, cursorPosition);
                 });
-                
-        },
+          });
+      },
                     
 
                 });

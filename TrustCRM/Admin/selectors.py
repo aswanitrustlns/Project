@@ -7,6 +7,7 @@ import win32com.client
 from django.template.loader import render_to_string
 from django.core.mail import BadHeaderError, send_mail
 from django.core.mail import EmailMessage,EmailMultiAlternatives
+from django.template.loader import get_template
 from django.conf import settings
 import imaplib
 import email
@@ -129,11 +130,13 @@ class Selector:
         return user_permission
     
     #Get leads
-    def get_leads(self,lead):
+    def get_leads(self,lead,from_date,to_date):
         try:
             Cursor=connection.cursor()
-            date_today=datetime.today().date()    
+            date_today=datetime.today().date()  
+
             date_today=date_today.strftime("%Y-%m-%d")
+           
             week_day=datetime.today().weekday() # Monday is 0 and Sunday is 6
             if(week_day==0):
                 date_yesterday = datetime.today()-timedelta(3)
@@ -145,7 +148,7 @@ class Selector:
             leads_count = Cursor.fetchone()
             if lead=="all":
                 print("Load all data----")
-                Cursor.execute("SET NOCOUNT ON;exec SP_GetNewSalesLeadsPaginate_PY %s,%s,%s,%s,%s,%s,%s",["1900-01-01",date_today,'',0,0,'',1])
+                Cursor.execute("SET NOCOUNT ON;exec SP_GetNewSalesLeadsPaginate_PY %s,%s,%s,%s,%s,%s,%s",[from_date,to_date,'',0,0,'',1])
                 print("statement executed-----------------------------------------------")
                 leads_data=Cursor.fetchall() 
             else:
@@ -170,10 +173,10 @@ class Selector:
         return leads_data,leads_count
     
     #Get Tickets
-    def get_tickets(self,userId,ticket,load):
+    def get_tickets(self,userId,ticket):
         try:
             Cursor=connection.cursor()
-            print("GET Tickets--------------------- ",load)
+           
             print("------------------------------",ticket)
             date_today=datetime.today().date()    
             date_today=date_today.strftime("%Y-%m-%d")
@@ -185,25 +188,17 @@ class Selector:
                     
             date_yesterday=date_yesterday.strftime("%Y-%m-%d") 
             if(ticket == "pending"):
-                if(load=="all"):
-                    print("Load all pending")
-                    Cursor.execute("exec SP_GetSalesLeadsListPaginate_PY %s,%s,%s,%s,%s",[userId,"1900-01-01",date_today,'P',0])
-                    _tickets=Cursor.fetchall()  
-                else:
-                    print("Laod Pending")
-                    Cursor.execute("exec SP_GetSalesLeadsListPaginate_PY %s,%s,%s,%s,%s",[userId,date_yesterday,date_today,'P',0])
-                    _tickets=Cursor.fetchall()
+                
+                print("Laod Pending")
+                Cursor.execute("exec SP_GetSalesLeadsListPaginate_PY %s,%s,%s,%s,%s",[userId,date_yesterday,date_today,'P',0])
+                _tickets=Cursor.fetchall()
+
             if(ticket=="resolved"):
-                if(load=="all"):
-                    print("Load all resolved")
-                    Cursor.execute("exec SP_GetSalesLeadsListPaginate_PY %s,%s,%s,%s,%s",[userId,"1900-01-01",date_today,'R',0])
-                    _tickets=Cursor.fetchall()
-                else:
-                    print()
-                    Cursor.execute("exec SP_GetSalesLeadsListPaginate_PY %s,%s,%s,%s,%s",[userId,date_yesterday,date_today,'R',0])
-                    _tickets=Cursor.fetchall()
+                print("Load resolved")            
+                Cursor.execute("exec SP_GetSalesLeadsListPaginate_PY %s,%s,%s,%s,%s",[userId,date_yesterday,date_today,'R',0])
+                _tickets=Cursor.fetchall()
             if(ticket=="dormant"):
-                print("LOad datas---------------------",load)
+                
                 print("dormant tickets")
                 Cursor.execute("exec SP_GetDormantSalesLeadsPaginate_PY %s,%s,%s",[userId,"P",userId])
                 _tickets=Cursor.fetchall()
@@ -212,6 +207,26 @@ class Selector:
         finally:
             Cursor.close()
         return _tickets  
+    #Get all tickets
+
+    def get_all_tickets(self,userId,ticket,from_date,to_date):
+        try:
+            Cursor=connection.cursor()
+            if(ticket == "pending"):                    
+                print("Load all pending")
+                Cursor.execute("exec SP_GetSalesLeadsListPaginate_PY %s,%s,%s,%s,%s",[userId,from_date,to_date,'P',0])
+                _tickets=Cursor.fetchall()
+            if(ticket=="resolved"):
+               
+                print("Load all resolved")
+                Cursor.execute("exec SP_GetSalesLeadsListPaginate_PY %s,%s,%s,%s,%s",[userId,from_date,to_date,'R',0])
+                _tickets=Cursor.fetchall()
+            
+        except Exception as e:
+            print("Exception---",e)
+        finally:
+            Cursor.close() 
+        return _tickets
     
     # Get New Accounts page data
     def get_new_accounts(self,change):
@@ -304,7 +319,7 @@ class Selector:
             subject="Trust Capital - Meeting Reminder"
             email_from = 'cs@trusttc.com'
             receiver=client_details[2]
-            receiver='aswani.technology@gmail.com'
+            #receiver='aswani.trustlns@gmail.com'
 
             template_data={
                 "title":client_details[0],
@@ -316,13 +331,14 @@ class Selector:
                 "purpose":meeting_details[3]
             }
             email_template_render=render_to_string("email/MeetingReminder.html",template_data)
+            #email_template_render=get_template("email/MeetingReminder.html",template_data)
             try:
-                send_mail(subject," ",email_from,[receiver],fail_silently=False,html_message=email_template_render)
+                #send_mail(subject," ",email_from,[receiver],fail_silently=False,html_message=email_template_render)
                 # msg=EmailMessage(subject,email_template_render,email_from,[receiver],[receiver])
                
-                # msg = EmailMultiAlternatives(subject,email_template_render,email_from, [receiver], bcc=["aswani.trustlns@gmail.com"], cc=["aswani@trustlns.ae"])
-                # msg.content_type="html"
-                # msg.send()
+                msg = EmailMultiAlternatives(subject,from_email=email_from,to=[receiver], bcc=["aswani.technology@gmail.com"], cc=["aswani@trustlns.ae"])
+                msg.attach_alternative(email_template_render, "text/html")
+                msg.send(fail_silently=False)
                 
             except BadHeaderError:
                 print("EXCEPTION-----------------------")       
@@ -477,9 +493,55 @@ class Selector:
                                 message_data=message.decode()                                
                                 break
         return message_data,subject,sender,inbox_count
+#Get activities log    
+    def get_activity_log(self,ticket,time):
+        try:
+            Cursor=connection.cursor()
+            Cursor.execute("set nocount on;exec SP_GetTicketLogs %s,%s",[ticket,time])
+            activity_log=Cursor.fetchall()
+        except Exception as e:
+            print("Exception------",e)
+        finally:
+            Cursor.close()
+        return activity_log
+
+#Get all meetings
+    def get_all_meeting(self,ticket):
+        try:
+            Cursor=connection.cursor()
+            Cursor.execute("set nocount on;exec SP_GetAllMeetings  %s",[ticket])
+            all_meetings=Cursor.fetchall()
+        except Exception as e:
+            print("Exception------",e)
+        finally:
+            Cursor.close()
+        return all_meetings
+
+#send meeting confirmation mail
+
+    def send_meeting_mail(self):
+        pass
+
+#cancel meeting mail
+    def cancel_meeting_mail(self):
+        pass
+#view Document
+    def view_document(self,ticket):
+        try:
+            Cursor=connection.cursor()
+            Cursor.execute("set nocount on;SP_GetMeetingDocs %s",[ticket])
+            all_documents=Cursor.fetchone()
+        except Exception as e:
+            print("Exception------",e)
+        finally:
+            Cursor.close()
 
 
-    
+
+
+
+
+
         
 
 
