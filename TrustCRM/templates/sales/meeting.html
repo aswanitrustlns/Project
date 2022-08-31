@@ -122,7 +122,7 @@
                                                 </div>
                                                 <div class="col-lg-10 ">
                                                     <button class="btn btn-info btn-md mb-2 me-1" type="button" onclick="sendRequest()">Send meeting request</button>
-                                                    <button class="btn btn-outline-light btn-md me-1 mb-2">Change meeting</button>
+                                                    <button class="btn btn-outline-light btn-md me-1 mb-2" type="button" onclick="changeRequest()">Change meeting</button>
                                                     <button class="btn btn-outline-light btn-md me-1 mb-2" >Update feedback</button>
                                                     <button class="btn btn-outline-light btn-md me-1 mb-2" >Cancel meeting</button>
                                                     <button class="btn btn-outline-light btn-md me-1 mb-2"  type="reset">Reset</button>
@@ -385,11 +385,38 @@
             });
 
     })
+        function meetingValidate(){
+            let searchParams = new URLSearchParams(window.location.search)
+            let ticket = searchParams.get('ticket')
+            
+            var bookdate=document.getElementById("bookdate").value
+            var booktime=document.getElementById("booktime").value
+            var location=document.getElementById("location").value
+            var purpose=document.getElementById("purpose").value
+            var feedback=document.getElementById("feedback").value
+            if(!bookdate || !booktime || !location){
+                if(!bookdate){
+                    $("#invalidDate").show()
+                }
+                if(!booktime){
+                    $("#invalidTime").show()
+                }
+                if(!location){
+                    $("#invalidLocation").show()
+                }
+                console.log("No date-----------------")
+            }
+            else{
+                return true
+            }
 
+        }
 
 
 
         function sendRequest(){
+
+            // meetingValidate()
             let searchParams = new URLSearchParams(window.location.search)
             let ticket = searchParams.get('ticket')
             
@@ -433,6 +460,9 @@
             console.log("request details------------------"+bookdate+booktime+location+purpose+feedback)
 
         }
+
+
+
     function loadMeeting(id,date,time,location,purpose,feedback){
         console.log("Date"+date)
         console.log("To*****"+time)
@@ -460,6 +490,11 @@
 
 
     }
+
+    function changeRequest(){
+
+    }
+
 
     function viewdocument(){
         console.log("View documents-------------------------")
