@@ -1,3 +1,4 @@
+from email import message
 from unittest import result
 from django.db import connection
 from .selectors import Selector
@@ -139,20 +140,21 @@ class Services:
             print("Exception------",e)
         finally:
             Cursor.close()
-#Send meeting request
+    #Send meeting request
     def send_meeting_request(self,request):
         try:
             ticket=request.GET.get('ticket')
-            print("Ticket==============================",ticket)
+            flag=request.GET.get('flag')
             location=request.GET.get('location')
             selected_date=request.GET.get('selectedDate')
             selected_time=request.GET.get('selectedTime')
             purpose=request.GET.get('purpose')
             feedback=request.GET.get('feedback')
             userId=request.session.get('UserId')
-            flag=0
-            meeting_id=0
+            meeting_id=request.GET.get('meetingId')   
+                  
             Cursor=connection.cursor()
+           
             Cursor.execute("set nocount on;exec SP_InsertMeeting %s,%s,%s,%s,%s,%s,%s,%s,%s",[selected_date,selected_time,location,purpose,feedback,flag,userId,ticket,meeting_id])
             status=Cursor.fetchone()
             print("status after meeting request-----",status)
@@ -161,43 +163,56 @@ class Services:
         finally:
             Cursor.close()
         return status
-#Update meeting feedback
-def update_meeting_feedback(self,request,ticket):
-        try:
-            location=request.GET.get('location')
-            selected_date=request.GET.get('selectedDate')
-            selected_time=request.GET.get('selectedTime')
-            purpose=request.GET.get('purpose')
-            feedback=request.GET.get('request')
-            userId=request.session.get('UserId')            
-            meeting_id=0
-            Cursor=connection.cursor()
-            Cursor.execute("set nocount on;exec SP_UpdateMeetingFeedback  %s,%s,%s,%s,%s,%s,%s,%s,%s",[ticket,selected_date,selected_time,location,purpose,feedback,"0","0",meeting_id,userId])
-            status=Cursor.fetchone()
 
+
+
+     # Assign salesRep
+
+
+    def assign_salesRep(self,request):
+        try:
+            userId=request.session.get('UserId')
+            assign_flag='A' or 'M' or 'R'
+            ticket_no=request.GET.get('ticket')
+            salesrepid=request.GET.get('repid')
+            percentage=request.GET.get('percentage')
+            reassignid=request.GET.get('reassign')
+            Cursor=connection.cursor()
+            Cursor.execute("set nocount on;SP_AssignSalesRep %s,%s,%s,%s,%s,%s",[ticket_no,salesrepid,assign_flag,percentage,reassignid,userId])
+            assign_rep=Cursor.fetchone()
         except Exception as e:
             print("Exception------",e)
         finally:
             Cursor.close()
-        return status
-# Assign salesRep
 
+    #Update meeting feedback
 
-def assign_salesRep(self,request):
-    try:
-        userId=request.session.get('UserId')
-        assign_flag='A' or 'M' or 'R'
-        ticket_no=request.GET.get('ticket')
-        salesrepid=request.GET.get('repid')
-        percentage=request.GET.get('percentage')
-        reassignid=request.GET.get('reassign')
-        Cursor=connection.cursor()
-        Cursor.execute("set nocount on;SP_AssignSalesRep %s,%s,%s,%s,%s,%s",[ticket_no,salesrepid,assign_flag,percentage,reassignid,userId])
-        assign_rep=Cursor.fetchone()
-    except Exception as e:
-        print("Exception------",e)
-    finally:
-         Cursor.close()
+    def meeting_feedback_update(self,request):
+            try:
+                Cursor=connection.cursor()
+                ticket=request.GET.get('ticket')
+                print("Ticket",type(ticket),ticket)
+                location=request.GET.get('location')
+                selected_date=request.GET.get('selectedDate')
+                selected_time=request.GET.get('selectedTime')
+                purpose=request.GET.get('purpose')
+                feedback=request.GET.get('feedback')
+                userId=request.session.get('UserId')            
+                meeting_id=int(request.GET.get('meetingId') )
+                selected_date=datetime.strptime(selected_date,'%Y-%m-%d')
+                selected_time=datetime.strptime(selected_time,'%H:%M')
+                print("date",type(selected_date),selected_date,"time",type(selected_time),selected_time,"userid",type(userId),"meeting id",type(meeting_id))
+                latitude="0"
+                longitude="0"
+                
+                Cursor.execute("set nocount on;exec SP_UpdateMeetingFeedback %s,%s,%s,%s,%s,%s,%s,%s,%s,%s",[ticket,selected_date,selected_time,location,purpose,feedback,latitude,longitude,meeting_id,userId])
+                                 
+
+            except Exception as e:
+                print("Exception------",e)
+            finally:
+                Cursor.close()
+            
 
 
 

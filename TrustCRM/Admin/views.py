@@ -736,38 +736,61 @@ def manage_meeting(request):
         return redirect('/login')
 
 def send_meeting_request(request):
+
     if 'UserId' in request.session:
         ticket=request.GET.get('ticket')
+        flag=int(request.GET.get('flag'))
         message=service.send_meeting_request(request)
-        print("Message is@@@@@@@@@@@",message[0])
-        if(message[0]=='PROCEED'):
-            print("Proceed---")
+        message=message[0]   
+        print("Flag--------------------",type(flag))     
+        if(flag == 0 or flag == 1):
             subject="TC Limited – Meeting Confirmation"
-            bcc="crm@trusttc.com"
+        if(flag == 2):
+            print("Meeting cancelled")
+            subject = "TC Limited – Meeting Cancelled"
+        print("Subject--------------------------------------",subject)
+        if(message == 'PROCEED'):
+            print("Proceed---")          
+            # bcc="crm@trusttc.com"
+            bcc="aswani.trustlns@gmail.com"
             cc=" "
             selector.mailSend(ticket,subject,bcc,cc)
-            print("Proceed------",message[0])
+            print("Proceed------",message)
         return JsonResponse({"message":message})
     else:
         return redirect('/login')
-
-
         
-def change_meeting_request(request):
+        
+# def change_meeting_request(request):
+#     if 'UserId' in request.session:
+#         ticket=request.GET.get('ticket')
+#         flag=1
+#         message=service.send_meeting_request(request,flag)
+#         message=message[0]
+        
+#         if(message=='PROCEED'):
+
+            
+#             subject="TC Limited – Meeting Confirmation"
+#             # bcc="crm@trusttc.com"
+#             bcc="aswani.trustlns@gmail.com"
+#             cc=" "
+#             selector.mailSend(ticket,subject,bcc,cc)
+#             print("Proceed------",message)
+#         return JsonResponse({"message":message})
+#     else:
+#         return redirect('/login')
+
+def update_feedback(request):
     if 'UserId' in request.session:
+        
         ticket=request.GET.get('ticket')
-        message=service.send_meeting_request(request)
-        print("Message is@@@@@@@@@@@",message[0])
-        if(message[0]=='PROCEED'):
-            print("Proceed---")
-            subject="TC Limited – Meeting Confirmation"
-            bcc="crm@trusttc.com"
-            cc=" "
-            selector.mailSend(ticket,subject,bcc,cc)
-            print("Proceed------",message[0])
+        message=service.meeting_feedback_update(request)
+        print("Message-------------------",message)
         return JsonResponse({"message":message})
     else:
         return redirect('/login')
+
 
 
 
@@ -783,9 +806,11 @@ def liveChatLogs(request):
     if 'UserId' in request.session:
         
         UserId=request.session.get('UserId')
-        # ticket=request.GET.get('ticket')
-        ticket=499015
+        ticket=request.GET.get('ticket')
+        print("Ticket--------------------",ticket)
+        # ticket=499015
         chat_logs=selector.get_livechat_logs(ticket)
+        print("Chat logs count-------------------",len(chat_logs))
         return JsonResponse({'logs':chat_logs})
     else:
         return redirect('/login')
@@ -809,8 +834,8 @@ def emailRead(request):
 def viewDocument(request):
     if 'UserId' in request.session:        
         ticket=request.GET.get('ticket')
-        documents=selector.view_document(ticket)
-        return JsonResponse({'documents':documents})
+        docs=selector.view_document(ticket)
+        return JsonResponse({'docs':docs})
     else:
         return redirect('/login')
 

@@ -71,10 +71,10 @@
                                                 <div class="col-lg-12 col-xl-6">
                                                     <div class="mb-3">
                                                         <label class="form-label" for="bookdate">Date<span class="color-orange">*</span></label>
-                                                      
+                                                        <input type="hidden" name="meeting" id="meetingId">
                                                         <input type="text" id="bookdate" class="form-control" required>
                                                         <div class="invalid-feedback" id="invalidDate">
-                                                            Please provide a valid date.
+                                                            Cannot set meeting for previous Date.
                                                         </div>
                                                     </div>
                                                 </div>
@@ -83,7 +83,7 @@
                                                         <label class="form-label" for="booktime">Time<span class="color-orange">*</span></label>
                                                         <input type="text" id="booktime" class="form-control" required>
                                                         <div class="invalid-feedback" id="invalidTime">
-                                                            Please provide a valid time.
+                                                            Cannot set meeting for previous Time.
                                                         </div>
                                                     </div>
                                                 </div>
@@ -91,7 +91,28 @@
                                                 <div class="col-lg-12 col-xl-6">
                                                     <div class="mb-3">
                                                         <label class="form-label" for="location*">Location<span class="color-orange">*</span></label>
-                                                        <input  type="text" id="location"  value="" required  class="form-control" >
+
+                                                        <select  class="form-select" id="location"  value="" required>
+                                                            <option value="TC Limited Office">TC Limited Office</option>
+                                                            <option value="Trust Capital Office">Trust Capital Office</option>
+                                                            <option value="Dubai">Dubai</option>
+                                                            <option value="AbuDhabi">AbuDhabi</option>
+                                                            <option value="Sharjah">Sharjah</option>
+                                                            <option value="Al Ain">Al Ain</option>
+                                                            <option value="Ajman">Ajman</option>
+                                                            <option value="Kalba">Kalba</option>
+                                                            <option value="Jebel Ali">Jebel Ali</option>
+                                                            <option value="Dibba Al-Fujairah">Dibba Al-Fujairah</option>
+                                                            <option value="Al Quoz">Al Quoz</option>
+                                                            <option value="Hatta">Hatta</option>
+                                                            <option value="Al Awir">Al Awir</option>
+                                                            <option value="Al Hamriyah">Al Hamriyah</option>
+                                                            <option value="Al Khawaneej">Al Khawaneej</option>
+                                                            <option value="Al Rashidya">Al Rashidya</option>
+                                                            <option value="Masafi">Masafi</option>
+                                                            
+                                                        </select>
+                                                        
                                                             
                                                         <div class="invalid-feedback" id="invalidLocation">
                                                             Please provide a valid location.
@@ -123,8 +144,8 @@
                                                 <div class="col-lg-10 ">
                                                     <button class="btn btn-info btn-md mb-2 me-1" type="button" onclick="sendRequest()">Send meeting request</button>
                                                     <button class="btn btn-outline-light btn-md me-1 mb-2" type="button" onclick="changeRequest()">Change meeting</button>
-                                                    <button class="btn btn-outline-light btn-md me-1 mb-2" >Update feedback</button>
-                                                    <button class="btn btn-outline-light btn-md me-1 mb-2" >Cancel meeting</button>
+                                                    <button class="btn btn-outline-light btn-md me-1 mb-2" type="button" onclick="updatefeedback()">Update feedback</button>
+                                                    <button class="btn btn-outline-light btn-md me-1 mb-2" type="button" onclick="cancelMeeting()">Cancel meeting</button>
                                                     <button class="btn btn-outline-light btn-md me-1 mb-2"  type="reset">Reset</button>
 
 
@@ -282,7 +303,29 @@
                         <h4 class="card-title fs-20 almarenamonolight-type mb-3">All Meeting</h4>
                         <div class=" card   card-h-100" >
                          
-                            <div class="card-body ">
+                            <div class="card-body" id="allMeeting">
+                                <div class="d-flex flex-no-wrap align-items-center  justify-content-end">                               
+                                                            
+                                         
+                                    <div class="mb-4">
+                                        
+                                        <select class="form-select w-100 py-1" id="meetingdropdwn" value="" required="">
+                                            <option value="Last Meeting">Last Meeting</option>
+                                            <option value="All Meetings">All meetings</option>
+                                        </select>
+                                       
+                                    </div>                             
+                      
+                           
+                     
+                            
+                    </div>
+
+
+
+
+
+
                                 <div class="table-responsive" data-simplebar="" style="max-height:100%">
                                     <table class="table mb-0 ">
 
@@ -361,7 +404,7 @@
     
                         <div class="modal-body" id="message">
                   
-                  
+                            
     
                         </div>
                
@@ -374,52 +417,51 @@
     <script>
 
     $(function(){
+            
+            var today=new Date();
+            
             $('#bookdate').change(function() {
                 $("#invalidDate").hide()
             });
             $('#booktime').change(function() {
-                $("#invalidTime").hide()
+                var chosen=document.getElementById("bookdate").value+" "+document.getElementById("booktime").value
+                console.log("chosen------------------------"+chosen)
+                var dateArray = chosen.split(' ');
+                var year = dateArray[0].split('-');
+                var time = dateArray[1].split(':');     
+                var selectDate = new Date(year[0], year[1]-1, year[2], time[0], time[1])
+                
+           
+                if((selectDate.getDate() == today.getDate()) && (selectDate.getMonth() == today.getMonth())){
+                    
+                    if(selectDate.getTime() < today.getTime()){
+                        
+                        $("#invalidTime").show(); 
+
+                        }
+                        else{
+                            $("#invalidTime").hide();
+                        }
+
+                } 
+                else{
+                            $("#invalidTime").hide();
+                        }
+                
+                
             });
             $('#location').change(function() {
                 $("#invalidLocation").hide()
             });
 
     })
-        function meetingValidate(){
-            let searchParams = new URLSearchParams(window.location.search)
-            let ticket = searchParams.get('ticket')
-            
-            var bookdate=document.getElementById("bookdate").value
-            var booktime=document.getElementById("booktime").value
-            var location=document.getElementById("location").value
-            var purpose=document.getElementById("purpose").value
-            var feedback=document.getElementById("feedback").value
-            if(!bookdate || !booktime || !location){
-                if(!bookdate){
-                    $("#invalidDate").show()
-                }
-                if(!booktime){
-                    $("#invalidTime").show()
-                }
-                if(!location){
-                    $("#invalidLocation").show()
-                }
-                console.log("No date-----------------")
-            }
-            else{
-                return true
-            }
-
-        }
-
-
-
         function sendRequest(){
 
-            // meetingValidate()
+            
             let searchParams = new URLSearchParams(window.location.search)
             let ticket = searchParams.get('ticket')
-            
+            var meetingId=0
+            var flag=0
             var bookdate=document.getElementById("bookdate").value
             var booktime=document.getElementById("booktime").value
             var location=document.getElementById("location").value
@@ -443,6 +485,8 @@
                 url: "{% url 'Admin:MeetingRequest' %}",
                 dataType: 'json',
                 data: {
+                    'flag':flag,
+                    'meetingId':meetingId,
                     'ticket':ticket,
                     'selectedDate':bookdate,
                     'selectedTime':booktime,
@@ -452,21 +496,32 @@
                 },
                 
                 success: function(data){
-                    console.log("Data----------------"+data)
+                                    var message=data.message
+                                    $('#allMeeting').load(document.URL +  ' #allMeeting')
+                                    
+                                    if(message=="PROCEED"){
+                                        console.log("Data----------------"+message)
+                                        $("#message").html("Meeting scheduled successfully")
+                                        $("#msg_model").modal('show');
+                                    }
+                                    else{
+                                        console.log("Data----isss"+message)
+                                        $("#message").html(message)
+                                        $("#msg_model").modal('show');
+                                    }
                 }
                 })
             }
            
-            console.log("request details------------------"+bookdate+booktime+location+purpose+feedback)
+            
 
         }
 
 
 
-    function loadMeeting(id,date,time,location,purpose,feedback){
-        console.log("Date"+date)
-        console.log("To*****"+time)
-        console.log("Location===="+location)
+    function loadMeeting(id,date,time,location,purpose,feedback){        
+        
+        $("#meetingId").val(id)
         $("#location").val(location)
         $("#bookdate").val(date)
         $("#booktime").val(time)
@@ -487,16 +542,233 @@
               minDate: "today",
               default:time
           });
+          var today=new Date();
+          var chosen=date+" "+time
+          console.log("chosen------------------------"+chosen)
+          var dateArray = chosen.split(' ');
+          var year = dateArray[0].split('-');
+          var time = dateArray[1].split(':');     
+          var selectDate = new Date(year[0], year[1]-1, year[2], time[0], time[1])
+          $("#invalidTime").hide();
+          $("#invalidDate").hide();
 
+    }
+
+    function checkDateTime(cDate,cTime){
+        var today=new Date();
+            var chosen=cDate+" "+cTime
+            console.log("chosen------------------------"+chosen)
+            var dateArray = chosen.split(' ');
+            var year = dateArray[0].split('-');
+            var time = dateArray[1].split(':');     
+            var selectDate = new Date(year[0], year[1]-1, year[2], time[0], time[1])
+            console.log("Todayyy"+today)
+            console.log("Chosen----"+selectDate)
+                    
+            if(selectDate.getTime() < today.getTime()){
+                        
+                        $("#invalidTime").show(); 
+                        return false
+
+            }
+            else{
+                            $("#invalidTime").hide();
+                            return true
+            }
+
+                
 
     }
 
     function changeRequest(){
 
+            let searchParams = new URLSearchParams(window.location.search)
+            let ticket = searchParams.get('ticket')
+            var flag=1
+            var meetingId=document.getElementById("meetingId").value
+            var bookdate=document.getElementById("bookdate").value
+            var booktime=document.getElementById("booktime").value
+            var location=document.getElementById("location").value
+            var purpose=document.getElementById("purpose").value
+            var feedback=document.getElementById("feedback").value
+            dtcheck=checkDateTime(bookdate,booktime)
+            console.log("DT check----------------------",dtcheck)
+
+            if(!bookdate || !booktime || !location){
+                if(!bookdate){
+                    $("#invalidDate").show()
+                }
+                if(!booktime){
+                    $("#invalidTime").show()
+                }
+                if(!location){
+                    $("#invalidLocation").show()
+                }
+                
+            }
+           
+                
+            else{
+
+              if(dtcheck){ 
+
+                $("#invalidTime").hide();
+                    $.ajax({
+                                type : "GET", 
+                                url: "{% url 'Admin:MeetingRequest' %}",
+                                dataType: 'json',
+                                data: {
+                                    'flag':flag,
+                                    'meetingId':meetingId,
+                                    'ticket':ticket,
+                                    'selectedDate':bookdate,
+                                    'selectedTime':booktime,
+                                    'location':location,
+                                    'purpose':purpose,
+                                    'feedback':feedback,
+                                },
+                                
+                                success: function(data){
+                                    var message=data.message
+                                    $('#allMeeting').load(document.URL +  ' #allMeeting')
+                                    
+                                    if(message=="PROCEED"){
+                                        console.log("Data----------------"+message)
+                                        $("#message").html("Meeting Resceheduled Successfully")
+                                        $("#msg_model").modal('show');
+                                    }
+                                    else{
+                                        console.log("Data----isss"+message)
+                                        $("#message").html(message)
+                                        $("#msg_model").modal('show');
+                                    }
+                                    
+                                }
+                })
+            }
+            }
+
+    }
+
+    function cancelMeeting(){
+
+            let searchParams = new URLSearchParams(window.location.search)
+            let ticket = searchParams.get('ticket')
+            var flag=2
+            var meetingId=document.getElementById("meetingId").value
+            var bookdate=document.getElementById("bookdate").value
+            var booktime=document.getElementById("booktime").value
+            var location=document.getElementById("location").value
+            var purpose=document.getElementById("purpose").value
+            var feedback=document.getElementById("feedback").value
+            if(!bookdate || !booktime || !location){
+                if(!bookdate){
+                    $("#invalidDate").show()
+                }
+                if(!booktime){
+                    $("#invalidTime").show()
+                }
+                if(!location){
+                    $("#invalidLocation").show()
+                }
+                
+            }
+            else{
+                    $.ajax({
+                                type : "GET", 
+                                url: "{% url 'Admin:MeetingRequest' %}",
+                                dataType: 'json',
+                                data: {
+                                    'flag':flag,
+                                    'meetingId':meetingId,
+                                    'ticket':ticket,
+                                    'selectedDate':bookdate,
+                                    'selectedTime':booktime,
+                                    'location':location,
+                                    'purpose':purpose,
+                                    'feedback':feedback,
+                                },
+                                
+                                success: function(data){
+                                    var message=data.message
+                                    $('#allMeeting').load(document.URL +  ' #allMeeting')
+                                    
+                                    if(message=="PROCEED"){
+                                        console.log("Data----------------"+message)
+                                        $("#message").html("Meeting cancelled Successfully")
+                                        $("#msg_model").modal('show');
+                                    }
+                                    else{
+                                        console.log("Data----isss"+message)
+                                        $("#message").html(message)
+                                        $("#msg_model").modal('show');
+                                    }
+                                    
+                                }
+                })
+            }
+
+    }
+
+    function updatefeedback(){
+        let searchParams = new URLSearchParams(window.location.search)
+            let ticket = searchParams.get('ticket')
+            
+            var meetingId=document.getElementById("meetingId").value
+            var bookdate=document.getElementById("bookdate").value
+            var booktime=document.getElementById("booktime").value
+            var location=document.getElementById("location").value
+            var purpose=document.getElementById("purpose").value
+            var feedback=document.getElementById("feedback").value
+            if(!bookdate || !booktime || !location){
+                if(!bookdate){
+                    $("#invalidDate").show()
+                }
+                if(!booktime){
+                    $("#invalidTime").show()
+                }
+                if(!location){
+                    $("#invalidLocation").show()
+                }
+                
+            }
+            else{
+                    $.ajax({
+                                type : "GET", 
+                                url: "{% url 'Admin:FeedbackUpdate' %}",
+                                dataType: 'json',
+                                data: {
+                                    
+                                    'meetingId':meetingId,
+                                    'ticket':ticket,
+                                    'selectedDate':bookdate,
+                                    'selectedTime':booktime,
+                                    'location':location,
+                                    'purpose':purpose,
+                                    'feedback':feedback,
+                                },
+                                
+                                success: function(data){
+                                    var message=data.message
+                                    $('#allMeeting').load(document.URL +  ' #allMeeting')
+                                    
+                                    
+                                   
+                                        console.log("Data----isss"+message)
+                                        $("#message").html("Feedback updated successfully")
+                                        $("#msg_model").modal('show');
+                                    
+                                    
+                                }
+                })
+            }
+
+
     }
 
 
     function viewdocument(){
+
         console.log("View documents-------------------------")
         let searchParams = new URLSearchParams(window.location.search)
         let ticket = searchParams.get('ticket')
@@ -508,10 +780,12 @@
                     'ticket':ticket,
                 },
                 success: function(data){
-                    console.log("Data----------------"+type(data.documents))
-                    var docs=data.documents;
-                    if(docs.length === 0){
-                        print("No documents----------------------")
+                    console.log("Data----------------"+typeof(data.docs))
+                    
+                    var docs=data.docs;
+                    console.log("Length of docs------"+docs.length)
+                    if(docs.length == 0){
+                        console.log("No documents----------------------")
                     }
                 }
                 })

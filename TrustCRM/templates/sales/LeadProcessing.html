@@ -358,7 +358,7 @@
                                             <!-- modal-Chat Logs -->
                                             <button type="button" class="btn bg-soft-secondarycolor text-white me-2" data-bs-toggle="modal" data-bs-target=".bs-example-modal-chatlogs" style="background-color: var(--bs-card-bg) ;" onclick="liveLogs()">Live chat logs</button>
 
-                                            <div class="modal fade  bs-example-modal-chatlogs" tabindex="-1" role="dialog" aria-hidden="true">
+                                            <div class="modal fade  bs-example-modal-chatlogs" tabindex="-1" role="dialog" aria-hidden="true" id="chatlog">
                                                 
                                                 <div class="modal-dialog modal-dialog-centered  ">
                                                         <!---->
@@ -389,36 +389,11 @@
 
                                                                 
                                                             
-                                                                <div class="chat-logs mx-3" data-simplebar style="max-height: 372px;">
+                                                                <div class="chat-logs mx-3" data-simplebar style="max-height: 372px;" id="chatdiv">
             
 
                                                                         <!--Chat-->
-                                                                        <div class="border rounded-3 px-3 py-3 mb-3 ">
-
-                                                                            <div class="d-flex justify-content-between mb-2 align-items-center">
-
-
-                                                                                <div class="d-flex my-0  align-items-center flex-shrink-0">
-                                                                                    <div class="activity-icon avatar-sm ms-2 me-3">
-                                                                                        <span class="avatar-title   rounded-circle">
-                                                                                            <!--<i class="bx bx-bitcoin font-size-24"></i>-->
-                                                                                            <img class="rounded-circle avatar-md" src="{%static 'images/users/'%}usesr.png"
-                                                                                            onerror='this.src="{% static 'images/users/user.png' %}"' alt="">
-                                                                                        </span>
-                                                                                    </div>
-                                                                                    <p class="fs-16 gilorysemibold-type color-color m-0"> Firas Monzer</p>
-                                                                            </div>
-                                                                            <span class="fs-14 color-color1">May-24-2022 - 01:05 Pm</span>
-                                                                            </div>
-                    
-                                                                            <div class="">
-                                                                                <p class="mb-0  fs-13  color-color1 me-2">
-                                                                                Lorem Ipsum has been the industry's standard dummy
-                                                                                        text
-                                                                                </p>
-                                                                            </div>
-
-                                                                        </div>
+                                                                       
                                                                    
             
 
@@ -595,7 +570,7 @@
                                                             <div data-simplebar style="max-height: 230px;">
                                             
                                                                  <!--User-->
-                                                                <div>Meeting Score saved successfully</div>
+                                                                <div>Please enter Ticket No to continue</div>
                                                             </div>
                                                             </div>
                                                        
@@ -873,12 +848,47 @@
             });
     }
     function liveLogs(){
+        var ticket=document.getElementById("ticketno").value
+        var chats=""
+        $("#chatdiv").empty();
+        $.ajax({
+                type : "GET", 
+                url: "{% url 'Admin:LiveLogs' %}",
+                dataType: 'json',
+                data: {                   
+                    'ticket':ticket,                   
+                },
+                
+                success: function(data){
+                    var logs=data.logs
+                    console.log("Log type is----------------",logs)
+                    for(i=0;i<logs.length;i++){
+                        console.log("oth element-----"+logs[i][0])
+                        chats +="<div class='border rounded-3 px-3 py-3 mb-3'><div class='d-flex justify-content-between mb-2 align-items-center'>"+
+                                    "<div class='d-flex my-0  align-items-center flex-shrink-0'><div class='activity-icon avatar-sm ms-2 me-3'>"+
+                                    "<span class='avatar-title   rounded-circle'><img class='rounded-circle avatar-md' src='../static/images/users/"+logs[i][3]+".png' "+
+                                    "onerror=this.src='../static/images/users/user.png'></span></div><p class='fs-16 gilorysemibold-type color-color m-0'>"+logs[i][3]+"</p>"+
+                                    "</div><span class='fs-14 color-color1'>"+logs[i][0]+" - "+logs[i][1]+"</span></div><div ><p class='mb-0  fs-13  color-color1 me-2'>"+logs[i][2] +"</p></div></div>";
+
+                    }
+                    $("#chatdiv").append(chats)
+                    $("#chatlog").modal('show')
+                    console.log("Logsssssssssssssssss"+data.logs)
+
+                }
+            })
+
+
 
     }
     function loadTicketFuns(){
         var ticket=document.getElementById("ticketno").value
         console.log("Ticket----"+ticket)
-        if(ticket){
+        if(ticket == ' '){
+            $("#alertpopup").modal('show')
+            
+        }
+        else{
             location.href="{% url 'Admin:Meeting'%}?ticket="+ticket
         }
     }

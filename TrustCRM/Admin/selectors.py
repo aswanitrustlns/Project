@@ -337,7 +337,7 @@ class Selector:
                 #send_mail(subject," ",email_from,[receiver],fail_silently=False,html_message=email_template_render)
                 # msg=EmailMessage(subject,email_template_render,email_from,[receiver],[receiver])
                
-                msg = EmailMultiAlternatives(subject,from_email=email_from,to=[receiver], bcc=[bcc], cc=[cc])
+                msg = EmailMultiAlternatives(subject=subject,from_email=email_from,to=[receiver], bcc=[bcc], cc=[cc])
                 msg.attach_alternative(email_template_render, "text/html")
                 msg.send(fail_silently=False)
                 
@@ -397,8 +397,8 @@ class Selector:
         try:
             Cursor=connection.cursor()
             Cursor.execute("set nocount on;exec SP_GetLiveChatLogs %s",[ticket])
-            chat_log=Cursor.fetchone()
-            print("Chat Logs-----------------------------",chat_log)
+            chat_log=Cursor.fetchall()
+            
         except Exception as e:
             print("Exception------",e)
         finally:
