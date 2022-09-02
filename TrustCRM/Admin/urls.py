@@ -31,6 +31,7 @@ urlpatterns=[
     path('saveScore',saveMeeting,name='SaveMeeting'),
     path('MeetingRequest',send_meeting_request,name="MeetingRequest"),
     path('FeedbackUpdate',update_feedback,name='FeedbackUpdate'),
+    path('LoadFuns',viewLoadFunctions,name="LoadFuns"),
     # path('ChangeMeeting',change_meeting_request,name="ChangeMeeting"),
     path('livelogs',liveChatLogs,name="LiveLogs"),
     path('Inbox',emailInbox,name="Inbox"),

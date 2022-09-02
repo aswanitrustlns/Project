@@ -1,4 +1,5 @@
 from audioop import reverse
+from cmath import log
 from django.db import connection
 from datetime import datetime, timedelta
 from ctypes import *
@@ -227,15 +228,29 @@ class Selector:
         finally:
             Cursor.close() 
         return _tickets
+
+    #Get new accounts count
+    def get_new_accounts_count(self):
+        try:
+           Cursor=connection.cursor()
+           Cursor.execute("set nocount on;exec SP_GetNewAccountsCount %s,%s",["1900-01-01","2022-09-03"])
+           accounts_count=Cursor.fetchone()
+           print("Accounts count",accounts_count)
+        except Exception as e:
+            print("Exception---",e)
+        finally:
+            Cursor.close()
+        return accounts_count
     
     # Get New Accounts page data
-    def get_new_accounts(self,change):
+    def get_new_accounts(self,change,from_date,to_date):
         try:
            Cursor=connection.cursor()
            date_today=datetime.today().date()    
            date_today=date_today.strftime("%Y-%m-%d")
-           if(change == "loadall"):
-                Cursor.execute("set nocount on;exec SP_GetNewAccountsList %s,%s",["1900-01-01",date_today])  
+           print("Load all ---",change)
+           if(change == "All"):
+                Cursor.execute("set nocount on;exec SP_GetNewAccountsList %s,%s",[from_date,to_date])  
                 live_accounts=Cursor.fetchall()
            else: 
                 Cursor.execute("set nocount on;exec SP_GetNewAccountsList %s,%s,%s",["1900-01-01",date_today,change])  
@@ -443,10 +458,10 @@ class Selector:
 
             mail.login(settings.EMAIL_HOST_USER,settings.EMAIL_HOST_PASSWORD)
             status, messages=mail.select("INBOX")
-            _, selected_mails = mail.search(None,'(FROM cs@trusttc.com)')
+            _, selected_mails = mail.search(None,'(ALL)')
             inbox_count=len(selected_mails[0].split())
             print("length===========",len(selected_mails[0].split()))
-            for i in range(1, 20):
+            for i in range(1, inbox_count):
                 res, msg = mail.fetch(str(i), '(RFC822)')
                 for response in msg:
                     if isinstance(response, tuple):
@@ -464,6 +479,7 @@ class Selector:
             print("Exception------",e)
         finally:
             pass
+        inbox_list.reverse()
         return inbox_count,inbox_list
 
  # Read mail inbox
@@ -475,10 +491,10 @@ class Selector:
         sender=""
         mail.login(settings.EMAIL_HOST_USER,settings.EMAIL_HOST_PASSWORD)
         status, messages=mail.select("INBOX")
-        _, selected_mails = mail.search(None,'(FROM cs@trusttc.com)')
+        _, selected_mails = mail.search(None,'(ALL)')
         inbox_count=len(selected_mails[0].split())
        
-        for i in range(1, 20):
+        for i in range(1, inbox_count):
             res, msg = mail.fetch(str(i), '(RFC822)')
             for response in msg:
                 if isinstance(response, tuple):
@@ -493,6 +509,7 @@ class Selector:
                                 message = part.get_payload(decode=True)
                                 message_data=message.decode()                                
                                 break
+        print("Message date---------------",message_data)
         return message_data,subject,sender,inbox_count
 #Get activities log    
     def get_activity_log(self,ticket,time):
@@ -538,6 +555,80 @@ class Selector:
         finally:
             Cursor.close()
         return all_documents
+    
+    # Get Lead Score
+    def get_lead_score(self,ticket):
+        try:
+            Cursor=connection.cursor()
+            Cursor.execute("set nocount on;exec SP_GetLeadScore %s",[ticket])
+            lead_score=Cursor.fetchall()
+            print("Lead Score-----",lead_score)
+        except Exception as e:
+            print("Exception------",e)
+        finally:
+            Cursor.close()
+        return lead_score
+    
+    # Get Ticket Summary
+    def get_ticket_summary(self,ticket):
+        try:
+            Cursor=connection.cursor()
+            Cursor.execute("set nocount on;exec SP_GetSalesSummary %s",[ticket])
+            ticket_summary=Cursor.fetchall()
+            print("Lead Score-----",ticket_summary)
+        except Exception as e:
+            print("Exception------",e)
+        finally:
+            Cursor.close()
+        return ticket_summary
+    
+    #Get sales summary
+    def get_sales_summary(self,ticket):
+        try:
+            Cursor=connection.cursor()
+            Cursor.execute("set nocount on;exec SP_GetMeetingScore %s",[ticket])
+            sales_summary=Cursor.fetchall()
+            print("Lead Score-----",sales_summary)
+        except Exception as e:
+            print("Exception------",e)
+        finally:
+            Cursor.close()
+        return sales_summary
+
+    #Get Lead details
+    def get_lead_details(self,ticket,userid):
+        try:
+            Cursor=connection.cursor()
+            Cursor.execute("set nocount on;exec SP_GetLeadDetailsByTicket %s,%s",[ticket,userid])
+            lead_details=Cursor.fetchall()
+            print("Lead Score-----",lead_details)
+        except Exception as e:
+            print("Exception------",e)
+        finally:
+            Cursor.close()
+        return lead_details
+
+    #Get Activities log
+    def get_activities_log(self,ticket):
+        try:
+            Cursor=connection.cursor()
+            current=datetime.now()
+            ticket=str(ticket)
+            log_time=current.strftime("%H:%M:%S")
+            print("Current timeeeeeeeeeeeeeeeeeee",log_time)
+            Cursor.execute("set nocount on;exec SP_GetTicketLogs %s,%s",[ticket,log_time])
+            activity_logs=Cursor.fetchall()
+            print("Lead Score-----",activity_logs)
+        except Exception as e:
+            print("Exception------",e)
+        finally:
+            Cursor.close()
+        return activity_logs
+
+
+
+
+
 
 
 

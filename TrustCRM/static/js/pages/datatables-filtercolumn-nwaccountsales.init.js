@@ -18,7 +18,7 @@ $(function(){
 $(document).ready(function () {
 
     var minDate,maxDate;
-
+    $("#pending").hide()
    
     
   

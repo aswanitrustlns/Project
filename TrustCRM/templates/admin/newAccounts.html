@@ -84,15 +84,69 @@
                                     changeAccount('Terminated');
                                     changeAccount('Closed'); -->
                                     <!-- <button type="button" class="btn  btn-lg   btn-success  px-3 py-1 gilory-semibold-type" onclick="changeAccount('loadall')">Load all</button> -->
+                                    <div class=" mt-2  mt-md-0">
+                                        <!--<form class="needs-validation " novalidate="" id="action-call">-->
+                                            <div class="row align-items-end justify-content-end">
+
+
+                                                    <div class="col-sm-3">
+                                                        <div class="mb-2">
+                                                            <label class="form-label " for="fromdate">From Date</label>
+                                                            <input type="text" id="fromdate" class="py-1">
+    
+                                                           
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-3">
+
+                                                        <div class="mb-2">
+                                                            <label class="form-label " for="todate">To Date</label>
+    
+                                                            <input type="text" id="todate" class="py-1">
+                                                            
+                                                        </div>
+
+
+
+
+                                                    </div>
+                                                    <div class="col-sm-3 ">
+                                                        <button class="btn btn-info btn-md mb-2 py-1" type="button" onclick="changeAccount('All')">Load</button>
+                                                        
+
+
+
+
+                                                    </div>
+                                                   
+
+
+
+
+
+                                            </div>
+
+
+                                        
+                                    </div>
+                                   
                                     
                                 </div>
 
-                                <div class="mb-4 mt-3 ">
+                                <div class="mb-4 mt-3 " id="live">
 
                                     <ul class="gilory-medium-type list-unstyled color-color1 fs-18 d-flex ">
 
-                                        <li > <span class="rounded-circle  bg-danger d-inline-block me-1 "  style="height:13px ;width:13px"></span><span>Funded</span> | <span class="text-white">15</span></li>
-                                        <li class="ms-5"> <span class="rounded-circle  bg-info d-inline-block me-1" style="height:13px ;width:13px"></span> <span>Non Funded </span> | <span class="text-white">15</span></li>
+                                        <li > <span class="rounded-circle  bg-danger d-inline-block me-1 "  style="height:13px ;width:13px"></span><span>Funded</span> | <span class="text-white">{{accounts_count.0}}</span></li>
+                                        <li class="ms-5"> <span class="rounded-circle  bg-info d-inline-block me-1" style="height:13px ;width:13px"></span> <span>Non Funded </span> | <span class="text-white">{{accounts_count.1}}</span></li>
+                                    </ul>
+                                </div>
+                                <div class="mb-4 mt-3 " id="pending">
+
+                                    <ul class="gilory-medium-type list-unstyled color-color1 fs-18 d-flex ">
+
+                                        <li > <span class="rounded-circle  bg-danger d-inline-block me-1 "  style="height:13px ;width:13px"></span><span>Approved Temporarily</span> | <span class="text-white">{{accounts_count.2}}</span></li>
+                                        <li class="ms-5"> <span class="rounded-circle  bg-info d-inline-block me-1" style="height:13px ;width:13px"></span> <span>Waiting for approval</span> | <span class="text-white">{{accounts_count.3}}</span></li>
                                     </ul>
                                 </div>
 
@@ -102,7 +156,7 @@
                                     <table id="datatableleads" class="table dt-responsive  nowrap  w-100">
                                         <thead>
                                             <tr  class=" ">
-                                                <th  data-text="text" class="filterhead">Promo</th>
+                                                <!-- <th  data-text="text" class="filterhead">Promo</th> -->
                                                 <th data-id="datepicker-range" class="filterhead">RegDate</th>
                                                 <th  data-timer="option" class="filterhead">Login</th>
                                                 <th  data-text="text" class="filterhead">Name</th>
@@ -124,10 +178,10 @@
                                             <td>{{data.3}}</td>
                                             <td>{{data.4}}</td>
                                             <td>{{data.5}}</td>
-                                            <td>{{data.6}}</td>
-                                            <td>{{data.9}}</td>
+                                            <!-- <td>{{data.6}}</td> -->
+                                            <td>{{data.8}}</td>
                                             
-                                            <td class="text-end">{{data.8}}</td>
+                                            <td class="text-end">{{data.7}}</td>
                                         </tr>
                                             {%endfor%}
                                         
@@ -141,9 +195,9 @@
                                     <table id="datatableleadsR" class="table dt-responsive  nowrap  w-100">
                                         <thead>
                                             <tr  class=" ">
-                                                <th  data-text="text" class="filterhead">Promo</th>
-                                                <th  data-text="text" class="filterhead">Subscribe</th>
                                                 <th data-id="datepicker-range" class="filterhead">RegDate</th>
+                                                
+                                                
                                                 <th  data-text="text" class="filterhead">Rejectd</th>
                                                 <th  data-timer="option" class="filterhead">Login</th>
                                                 <th  data-text="text" class="filterhead">Name</th>
@@ -170,8 +224,7 @@
                                     <table id="datatableleadsT" class="table dt-responsive  nowrap  w-100">
                                         <thead>
                                             <tr  class=" ">
-                                                <th  data-text="text" class="filterhead">Promo</th>
-                                                <th  data-text="text" class="filterhead">Subscribe</th>
+                                             
                                                 <th data-text="text" class="filterhead">RegDate</th>
                                                 <th data-text="text" class="filterhead">Terminated</th>
                                                 <th  data-text="text" class="filterhead">Login</th>
@@ -234,8 +287,7 @@
                                     <table id="datatableleadsC" class="table dt-responsive  nowrap  w-100">
                                         <thead>
                                             <tr  class=" ">
-                                                <th  data-text="text" class="filterhead">Promo</th>
-                                                <th  data-text="text" class="filterhead">Subscribe</th>
+                                                
                                                 <th data-id="datepicker-range" class="filterhead">RegDate</th>
                                                 <th  data-text="text" class="filterhead">Closed</th>
                                                 <th  data-text="text" class="filterhead">Closed By</th>
@@ -289,15 +341,29 @@
             function changeAccount(change){
                 console.log("Onclick change----------------------"+change)
                 if(change=="Rejected"){
+                    $("#live").hide()
+                    $("#pending").hide()
                     rejectedAccount(change);
                 }
                 if(change=="Closed"){
+                    $("#live").hide()
+                    $("#pending").hide()
                     closedAccount(change)
                 }
                 if(change=="Terminated"){
+                    $("#live").hide()
+                    $("#pending").hide()
                     terminateAccount(change)
                 }
                 if(change=="Live" || change =="Pending" || change =="All"){
+                    if(change=="Live"){
+                        $("#live").show()
+                        $("#pending").hide()
+                    }
+                    if(change=="Pending"){
+                        $("#live").hide()
+                        $("#pending").show()
+                    }
                     liveAccount(change)
                 }                
                 
@@ -324,7 +390,7 @@
                     var items = [];
                     for ( var i=0, ien=json_data.length ; i<ien ; i++ ) {
 
-                        items[i] = [json_data[i][0],json_data[i][1],json_data[i][2],json_data[i][3],json_data[i][4],json_data[i][5],json_data[i][6],json_data[i][7],json_data[i][8],json_data[i][9],json_data[i][10],json_data[i][11],json_data[i][12]]; 
+                        items[i] = [json_data[i][0],json_data[i][1],json_data[i][2],json_data[i][3],json_data[i][4],json_data[i][5],json_data[i][6],json_data[i][7],json_data[i][8],json_data[i][9]]; 
                             
                         }
                         
@@ -463,7 +529,7 @@
                     var items = [];
                     for ( var i=0, ien=json_data.length ; i<ien ; i++ ) {
 
-                        items[i] = [json_data[i][0],json_data[i][1],json_data[i][2],json_data[i][3],json_data[i][4],json_data[i][5],json_data[i][6],json_data[i][7],json_data[i][8],json_data[i][9],json_data[i][10],json_data[i][11]]; 
+                        items[i] = [json_data[i][0],json_data[i][1],json_data[i][2],json_data[i][3],json_data[i][4],json_data[i][5],json_data[i][6],json_data[i][7],json_data[i][8],json_data[i][9]]; 
                             
                         }
                         
@@ -605,7 +671,7 @@
                     var items = [];
                     for ( var i=0, ien=json_data.length ; i<ien ; i++ ) {
 
-                        items[i] = [json_data[i][0],json_data[i][1],json_data[i][2],json_data[i][3],json_data[i][4],json_data[i][5],json_data[i][6],json_data[i][7],json_data[i][8],json_data[i][9],json_data[i][10],json_data[i][11]]; 
+                        items[i] = [json_data[i][0],json_data[i][1],json_data[i][2],json_data[i][3],json_data[i][4],json_data[i][5],json_data[i][6],json_data[i][7],json_data[i][8],json_data[i][9]]; 
                             
                         }
                         
@@ -770,10 +836,8 @@
            
         }    
         function liveAccount(change){
-            // $('#datatableleads').dataTable().fnClearTable();
-                // $('#datatableleads').dataTable().fnDestroy();
-                // $('#datatableleads').dataTable().fnDestroy()
-                //$('#datatableleads').empty()
+            fromdate=document.getElementById("fromdate").value
+            todate=document.getElementById("todate").value
                 $("#datatableleads").DataTable({
 
                 // "columns" : [{'sTitle': 'Column 1'}, {'sTitle': 'Column 2'}, {'sTitle': 'Column 3'}, {'sTitle': 'Column 4'}], 
@@ -785,7 +849,9 @@
                    "url": "{% url 'Admin:NewAccounts' %}",
                    "type": "GET",
                    "data":{
-                    "change":change,
+                    'change':change,
+                    'from':fromdate,
+                    'to':todate
                    },
                    "dataSrc":function(json_data){
                     
@@ -793,7 +859,7 @@
                     var items = [];
                     for ( var i=0, ien=json_data.length ; i<ien ; i++ ) {
 
-                        items[i] = [json_data[i][0],json_data[i][1],json_data[i][2],json_data[i][3],json_data[i][4],json_data[i][5],json_data[i][6],json_data[i][9],json_data[i][8]]; 
+                        items[i] = [json_data[i][0],json_data[i][1],json_data[i][2],json_data[i][3],json_data[i][4],json_data[i][5],json_data[i][8],json_data[i][9]]; 
                             
                         }
                         

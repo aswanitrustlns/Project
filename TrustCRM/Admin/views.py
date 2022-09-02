@@ -440,13 +440,13 @@ def lead_load_all(request):
     return JsonResponse(load_data, safe=False)
    
 
-def new_accounts(request):
-    if 'UserId' in request.session:
-        new_accounts_data=selector.get_new_accounts()
-        print("New Accounts page data")
-        # return render(request,'admin/newaccounts.html',{'page_data':new_accounts_data})
-    else:
-         return redirect('/login')
+# def new_accounts(request):
+#     if 'UserId' in request.session:
+#         new_accounts_data=selector.get_new_accounts()
+#         print("New Accounts page data")
+#         # return render(request,'admin/newaccounts.html',{'page_data':new_accounts_data})
+#     else:
+#          return redirect('/login')
 
 def lead_duplicate_check(request):
     print("Duplicate check-----------------------")
@@ -587,15 +587,18 @@ def lead_processing(request):
                 # if search_email_phone3:
                 #     search_email_phone=search_email_phone3
                 print("dataaaaaaaaaaaaaa",search_email_phone)
-                get_ticket=search_email_phone[0]
-                print("Get ticket--------------------",get_ticket)
-                ticket=get_ticket
-
+                if(search_email_phone != None):
+                    print("Check it is none")
+                    get_ticket=search_email_phone[0]
+                    print("Get ticket--------------------",get_ticket)
+                    ticket=get_ticket
+            lead_details=selector.get_lead_details(ticket,UserId)
+            print("Lead details----",lead_details)    
             print("ticket1111111111111111111",ticket)
         except Exception as e:
             print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!Exception!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!",e.__class__)
     
-        return render(request,'sales/LeadProcessing.html',{'ticket':ticket,'email_phone':json.dumps(search_email_phone)})
+        return render(request,'sales/LeadProcessing.html',{'ticket':ticket,'email_phone':json.dumps(search_email_phone),'lead_details':lead_details})
     else:
          return redirect('/login') 
         
@@ -678,16 +681,19 @@ def new_accounts(request):
 
     if 'UserId' in request.session:
         change=request.GET.get("change")
-       
+        from_date=request.GET.get("from")
+        to_date=request.GET.get("to")
         if(change):
-            accounts_data=selector.get_new_accounts(change)
+            accounts_data=selector.get_new_accounts(change,from_date,to_date)
             print("change is---------------",change)
             return JsonResponse(list(accounts_data), safe=False)
         else:
             
-            accounts_data=selector.get_new_accounts("Live")
+            accounts_data=selector.get_new_accounts("Live",from_date,to_date)
+            accounts_count=selector.get_new_accounts_count()
+            print("Accounts count-----------",accounts_count)
             # terminated_data=selector.get_new_accounts("Terminated")
-            return render(request,'admin/newAccounts.html',{'accounts_data':accounts_data})
+            return render(request,'admin/newAccounts.html',{'accounts_data':accounts_data,'accounts_count':accounts_count})
                 
     else:
         return redirect('/login')
@@ -717,20 +723,25 @@ def sendCancelMail(request):
 def meetingScore(request):
     if 'UserId' in request.session:
         print("Meeting Score")
-        UserId=request.session.get('UserId')
-        # ticket=request.GET.get('ticket')
-        ticket=499015
-        meeting_score=selector.get_meeting_score(UserId)
+        
+        ticket=request.GET.get('ticket')   
+        ticket=ticket.strip()     
+        meeting_score=selector.get_meeting_score(ticket)
+        print("Meeting score-----",meeting_score)
         return JsonResponse({'score':meeting_score})
+
     else:
         return redirect('/login')
 
 def manage_meeting(request):
+
     if 'UserId' in request.session:
         ticket=request.GET.get('ticket')
+        ticket=ticket.strip()
         print("Ticket--------------------------",ticket)
        
         all_meetings=selector.get_all_meeting(ticket)
+        print("All meeting----------------",len(all_meetings))
         return render(request,'sales/meeting.html',{'meetings':all_meetings})
     else:
         return redirect('/login')
@@ -805,10 +816,10 @@ def saveMeeting(request):
 def liveChatLogs(request):
     if 'UserId' in request.session:
         
-        UserId=request.session.get('UserId')
+        
         ticket=request.GET.get('ticket')
-        print("Ticket--------------------",ticket)
-        # ticket=499015
+        ticket=ticket.strip()
+        print("Ticket--------------------",ticket)        
         chat_logs=selector.get_livechat_logs(ticket)
         print("Chat logs count-------------------",len(chat_logs))
         return JsonResponse({'logs':chat_logs})
@@ -838,6 +849,18 @@ def viewDocument(request):
         return JsonResponse({'docs':docs})
     else:
         return redirect('/login')
+
+def viewLoadFunctions(request):
+    if 'UserId' in request.session:        
+        ticket=request.GET.get('ticket')
+        ticket=ticket.strip()
+        UserId=request.session.get('UserId')
+        activity_log=selector.get_activities_log(ticket)
+        lead_details=selector.get_lead_details(ticket,UserId)
+        return JsonResponse({'leads':lead_details,'activities':activity_log})
+    else:
+        return redirect('/login')
+
 
 
 

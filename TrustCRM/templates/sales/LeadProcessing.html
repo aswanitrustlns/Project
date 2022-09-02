@@ -18,6 +18,7 @@
          type="text/css" />-->
       <!-- datepicker css -->
       <link rel="stylesheet" href="{% static 'libs/flatpickr/flatpickr.min.css' %}">
+      <link href="{% static 'css/input-tel.min.css' %}" rel="stylesheet" type="text/css" />
     {% include "common/link.html" %}
     {% include "common/scripts.html" %}
 
@@ -37,7 +38,7 @@
     <!-- Left Sidebar End -->
             <div class="main-content">
 
-                <div class="page-content" >
+                <div class="page-content" id="sales" >
                     <div class="container-fluid">
                         <!--container-fluid px-md-5 me-md5-->
 
@@ -61,57 +62,852 @@
                     
                         
 
-                        <div class="row">
-                            
-                            
-                            <!--Mange Tickets to show here-->
+                        <div class="row">                         
+                           
                         
 
 
                             
-                    <div class="col-lg-4">
-                        <div class="row  justify-content-start align-items-end">
+                        <div class="col-lg-12">
+                            <div class="card">
+                                <div class="card-body">
+    
+                                    <!--Lead Info-->
+                                    <div class="row mb-3">
+    
+    
+                                    <div class="col-lg-6">
+    
+                                            
+                                                
+                                        <div class="row  justify-content-start align-items-end">
 
 
-                            <div class="col-sm-3">
-                                <div class="mb-2">
-                                    <label class="form-label " for="ticketno">Ticket No:</label>
-                                    <input type="text" id="ticketno" class="py-1 form-control" value="{{ticket}}">
+                                                                        <div class="col-sm-2">
+                                                                            <div class="mb-2">
+                                                                                <label class="form-label " for="ticketno">Ticket No:</label>
+                                                                                <input type="text" id="ticketno" class="py-1 form-control" value="{{ticket}}">
 
-                                   
-                                </div>
-                            </div>
-                            <div class="col-sm-4">
+                                                                            
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-sm-3">
 
-                                <div class="mb-2">
-                                    <label class="form-label " for="accountno">Account No:</label>
+                                                                            <div class="mb-2">
+                                                                                <label class="form-label " for="accountno">Account No:</label>
 
-                                    <input type="text" id="accountno" class="py-1 form-control">
-                                    
-                                    
-                                </div>
-
-
+                                                                                <input type="text" id="accountno" class="py-1 form-control">
+                                                                                
+                                                                                
+                                                                            </div>
 
 
-                            </div>
-                            <div class="col-sm-3 ">
-                                <button class="btn btn-info btn-md mb-2 py-1" type="button" onclick="loadTicketFuns()">Load</button>
+
+
+                                                                        </div>
+                                                                        <div class="col-sm-3 ">
+                                                                            <button class="btn btn-info btn-md mb-2 py-1" type="button" onclick="loadTicketFuns()">Load</button>
+                                                                            
+
+
+
+
+                                                                        </div>
+                                                                    
+
+
+
+
+
+                                         </div>
+
+                                    </div>
+                                     </div>
+                                     
+                                    <form class="needs-validation formtype_leads" novalidate="" id="formtypeleads">
+                                        <div class="row mb-3">
+
+
+                                            <!--Tickets Details-->
+                                            <div class="col-md-4">
+                                                <div class="border-dashed px-3 py-3 car-h-100 rounded-2">
+                                                    <div class="d-flex justify-content-between">
+                                                        <div class=" align-items-start px-0 flex-grow-1 d-flex flex-wrap">
+                                                            
+                                                                <div class="mb-3">
+                                                                    <label class="form-label" for="title">Title</label>
+                                                                    <select class="form-select border-0 py-1" id="title" 
+                                                                        required>
+                                                                        <option value="Mr">Mr</option>
+                                                                        <option value="Ms">Ms</option>
+                                                                        <option value="Mrs">Mrs</option>
+                                                                    </select>
+                            
+                                                                </div>
+                                                            
+                                                        
+                                                                <div class="mb-3">
+                                                                    <label class="form-label" for="firstname">Name</label>
+                                                                    <input type="text" class="form-control border-0 py-1"
+                                                                        id="firstname" placeholder="both name(s) e.g Jon Doe"
+                                                                        value="Steve Hernandez" required>
+                            
+                                                                </div>
+                                                            
+                                                        </div>
+                                                        <div class="ms-auto">
+                                                            <a class="btn   btn-soft-link  flex-shrink-0 d-flex align-items-center py-1 px-2" style="background-color:
+                                                            #1B1C2E ;"  onclick="updateEditmode('#edittext','Edit','Cancel edit','formtypeleads','editable-enabled')">
+                                                                <!--"updateInput(this,'assignv')"-->
+                                                                <svg width="11" height="11" viewBox="0 0 11 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                    <path d="M9.94776 4.14227L4.29905 11.4471C4.03981 11.7789 3.65777 11.9654 3.24844 11.9724L0.997149 12C0.874351 12 0.772019 11.9171 0.74473 11.7996L0.233072 9.58117C0.144385 9.17343 0.233072 8.75186 0.492312 8.42705L4.49689 3.24385C4.56511 3.16092 4.68791 3.14779 4.76978 3.2093L6.45484 4.55002C6.56399 4.63986 6.71408 4.68824 6.87099 4.6675C7.20527 4.62604 7.4304 4.32196 7.39629 3.99714C7.37582 3.83128 7.29396 3.69306 7.1848 3.5894C7.15069 3.56175 5.5475 2.27632 5.5475 2.27632C5.44516 2.19339 5.4247 2.04135 5.50656 1.93838L6.14102 1.11529C6.72772 0.361994 7.75104 0.292885 8.57651 0.949423L9.52479 1.70271C9.91365 2.0068 10.1729 2.40763 10.2616 2.8292C10.3639 3.29292 10.2548 3.74835 9.94776 4.14227Z" fill="#9C9C9C"></path>
+                                                                </svg>
+                                                                <span id="edittext" class="ms-1 d-inline-block fs-12">Edit</span>
+                                                                </a>
+                                                        </div>
+
+                                                    </div>
+                                                    
+            
+                                                
+
+                                                    <div class="mt-5">
+                                                        <div class="d-flex  align-items-center flex-wrap ">
+                                                            <div class="form-check form-switch " dir="ltr">
+                                                                <input type="checkbox" class="form-check-input" id="ticketstatus" checked="" >
+                                                                <label class="form-check-label " for="ticketstatus">Pending</label>
+                                                            </div>
+
+                                                            <div class=" ms-auto d-flex align-items-center justify-content-between ">
+
+                                                                <p class="gilroyregular-type fs-16 me-3 mb-0 color-color1">Reg date: <div id="regdate"> </div> </p>
+                                                                <button type="button" class="btn  text-white gilorymedium-type fs-14" style="background-color:
+                                                                #8D79F6">
+                                                                    IP : <span class="badge  ms-1"> <div id="ipaddr">103.171.224.8</div></span>
+                                                                </button>
+                                                            </div>
+
+
+                                                        </div>
+                                                        
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                                
+                                                
+                
+
+
+
+                                        </div>
+
+                                        <div class="row">
+
+                                            <div class="col-12">
+
+
+                                            <!--Navigation-->
+                                            <ul class="nav justify-content-start nav-tabs-custom  px-0 gilroymedium-type fs-25 my-3  nav-tabs-custom-after-top border-0" role="tablist">
+                                                <li class="nav-item" style=" width:calc(100% / 4 );">
+                                                    <a class="nav-link active text-center" data-bs-toggle="tab" href="#actions-leaddetails-tab" role="tab">
+                                                    
+                                                        <span class=""> Lead details</span>
+                                                    
+                                                    </a>
+                                                </li>
+                                                <li class="nav-item" style=" width:calc(100% / 4 );">
+                                                    <a class="nav-link  text-center " data-bs-toggle="tab" href="#actions-about-tab" role="tab">
+                                                    
+                                                        <span class=""> About</span>
+                                                    
+                                                    </a>
+                                                </li>
+                                                
+                                            </ul>
+                                            <!-- tab content -->
+                                            <div class="tab-content mt-4">
+                                                <div class="tab-pane active" id="actions-leaddetails-tab" role="tabpanel">
+                    
+                                                    
+                                                        <div class="row px-0">
+                                                            <div class="col-md-5">
+                                                                <div class=" px-3 py-3 rounded-3 " style="background-color: #1B1C2E;">
+
+                                                                    <div class="row">
+                                                                        <div class="  col-xl-6 col-xxl-4 ">
+                                                                            <div class="mb-3">
+                                                                                <label class="form-label" for="phone">Mobile Number</label>
+                                                                                <div class="d-flex align-items-center">
+                                                                                    <a class="me-2"><svg width="25" height="" viewBox="0 0 42 38" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                                        <rect width="42" height="38" rx="4" fill="#00A54F"/>
+                                                                                        <path d="M29.3082 24.275C29.3082 24.575 29.2415 24.8833 29.0998 25.1833C28.9582 25.4833 28.7748 25.7667 28.5332 26.0333C28.1248 26.4833 27.6748 26.8083 27.1665 27.0167C26.6665 27.225 26.1248 27.3333 25.5415 27.3333C24.6915 27.3333 23.7832 27.1333 22.8248 26.725C21.8665 26.3167 20.9082 25.7667 19.9582 25.075C18.9998 24.375 18.0915 23.6 17.2248 22.7417C16.3665 21.875 15.5915 20.9667 14.8998 20.0167C14.2165 19.0667 13.6665 18.1167 13.2665 17.175C12.8665 16.225 12.6665 15.3167 12.6665 14.45C12.6665 13.8833 12.7665 13.3417 12.9665 12.8417C13.1665 12.3333 13.4832 11.8667 13.9248 11.45C14.4582 10.925 15.0415 10.6667 15.6582 10.6667C15.8915 10.6667 16.1248 10.7167 16.3332 10.8167C16.5498 10.9167 16.7415 11.0667 16.8915 11.2833L18.8248 14.0083C18.9748 14.2167 19.0832 14.4083 19.1582 14.5917C19.2332 14.7667 19.2748 14.9417 19.2748 15.1C19.2748 15.3 19.2165 15.5 19.0998 15.6917C18.9915 15.8833 18.8332 16.0833 18.6332 16.2833L17.9998 16.9417C17.9082 17.0333 17.8665 17.1417 17.8665 17.275C17.8665 17.3417 17.8748 17.4 17.8915 17.4667C17.9165 17.5333 17.9415 17.5833 17.9582 17.6333C18.1082 17.9083 18.3665 18.2667 18.7332 18.7C19.1082 19.1333 19.5082 19.575 19.9415 20.0167C20.3915 20.4583 20.8248 20.8667 21.2665 21.2417C21.6998 21.6083 22.0582 21.8583 22.3415 22.0083C22.3832 22.025 22.4332 22.05 22.4915 22.075C22.5582 22.1 22.6248 22.1083 22.6998 22.1083C22.8415 22.1083 22.9498 22.0583 23.0415 21.9667L23.6748 21.3417C23.8832 21.1333 24.0832 20.975 24.2748 20.875C24.4665 20.7583 24.6582 20.7 24.8665 20.7C25.0248 20.7 25.1915 20.7333 25.3748 20.8083C25.5582 20.8833 25.7498 20.9917 25.9582 21.1333L28.7165 23.0917C28.9332 23.2417 29.0832 23.4167 29.1748 23.625C29.2582 23.8333 29.3082 24.0417 29.3082 24.275Z" stroke="white" stroke-width="1.5" stroke-miterlimit="10"/>
+                                                                                        <path d="M26.4167 16.5C26.4167 16 26.025 15.2333 25.4417 14.6083C24.9083 14.0333 24.2 13.5833 23.5 13.5833" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                                                                        <path d="M29.3333 16.5C29.3333 13.275 26.725 10.6667 23.5 10.6667" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                                                                        </svg>
+                                                                                        
+                                                                                        
+                                                                                    </a>
+                                                                                    <input type="tel" class="form-control " id="phone" required style="padding-left: 45px !important ;">
+                                                                                    
+                                                                                </div>
+                                                                                <span id="error-msg" class="hide"></span>
+                                                                                <span id="valid-msg" class="hide">✓ Valid</span>
+                                                                                <div class="invalid-feedback">
+                                                                                    
+                                                                                
+                                                                                </div>
+                                        
+                                        
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="  col-xl-6 col-xxl-4">
+                                                                            <div class="mb-3">
+                                                                                <label class="form-label" for="phone2">&nbsp;</label>
+                                                                                <div class="d-flex align-items-center">
+                                                                                    <a class="me-2"><svg width="25" height="" viewBox="0 0 42 38" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                                        <rect width="42" height="38" rx="4" fill="#00A54F"/>
+                                                                                        <path d="M29.3082 24.275C29.3082 24.575 29.2415 24.8833 29.0998 25.1833C28.9582 25.4833 28.7748 25.7667 28.5332 26.0333C28.1248 26.4833 27.6748 26.8083 27.1665 27.0167C26.6665 27.225 26.1248 27.3333 25.5415 27.3333C24.6915 27.3333 23.7832 27.1333 22.8248 26.725C21.8665 26.3167 20.9082 25.7667 19.9582 25.075C18.9998 24.375 18.0915 23.6 17.2248 22.7417C16.3665 21.875 15.5915 20.9667 14.8998 20.0167C14.2165 19.0667 13.6665 18.1167 13.2665 17.175C12.8665 16.225 12.6665 15.3167 12.6665 14.45C12.6665 13.8833 12.7665 13.3417 12.9665 12.8417C13.1665 12.3333 13.4832 11.8667 13.9248 11.45C14.4582 10.925 15.0415 10.6667 15.6582 10.6667C15.8915 10.6667 16.1248 10.7167 16.3332 10.8167C16.5498 10.9167 16.7415 11.0667 16.8915 11.2833L18.8248 14.0083C18.9748 14.2167 19.0832 14.4083 19.1582 14.5917C19.2332 14.7667 19.2748 14.9417 19.2748 15.1C19.2748 15.3 19.2165 15.5 19.0998 15.6917C18.9915 15.8833 18.8332 16.0833 18.6332 16.2833L17.9998 16.9417C17.9082 17.0333 17.8665 17.1417 17.8665 17.275C17.8665 17.3417 17.8748 17.4 17.8915 17.4667C17.9165 17.5333 17.9415 17.5833 17.9582 17.6333C18.1082 17.9083 18.3665 18.2667 18.7332 18.7C19.1082 19.1333 19.5082 19.575 19.9415 20.0167C20.3915 20.4583 20.8248 20.8667 21.2665 21.2417C21.6998 21.6083 22.0582 21.8583 22.3415 22.0083C22.3832 22.025 22.4332 22.05 22.4915 22.075C22.5582 22.1 22.6248 22.1083 22.6998 22.1083C22.8415 22.1083 22.9498 22.0583 23.0415 21.9667L23.6748 21.3417C23.8832 21.1333 24.0832 20.975 24.2748 20.875C24.4665 20.7583 24.6582 20.7 24.8665 20.7C25.0248 20.7 25.1915 20.7333 25.3748 20.8083C25.5582 20.8833 25.7498 20.9917 25.9582 21.1333L28.7165 23.0917C28.9332 23.2417 29.0832 23.4167 29.1748 23.625C29.2582 23.8333 29.3082 24.0417 29.3082 24.275Z" stroke="white" stroke-width="1.5" stroke-miterlimit="10"/>
+                                                                                        <path d="M26.4167 16.5C26.4167 16 26.025 15.2333 25.4417 14.6083C24.9083 14.0333 24.2 13.5833 23.5 13.5833" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                                                                        <path d="M29.3333 16.5C29.3333 13.275 26.725 10.6667 23.5 10.6667" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                                                                        </svg>
+                                                                                        
+                                                                                    </a>
+                                                                                    <input type="tel" class="form-control" id="phone2" required style="padding-left: 45px !important ;">
+                                                                                    
+                                                                                </div>
+                                                                                <span id="error-msg2" class="hide"></span>
+                                                                                    <span id="valid-msg2" class="hide">✓ Valid</span>
+                                                                                <div class="invalid-feedback">
+                                                                                    
+                                                                                
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class=" col-xl-6 col-xxl-4">
+                                                                            <div class="mb-3">
+                                        
+                                                                                <label class="form-label" for="email1">Email 1 </label>
+                                                                                <input type="email" class="form-control border-0"
+                                                                                    id="email1" placeholder="e.g Steve@gmail.com"
+                                                                                    value="steve@trusttech.in" required>
+                                        
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class=" col-xl-6 col-xxl-4">
+                                                                            <div class="mb-3">
+                                                                                <label class="form-label" for="email2">Email 2</label>
+                                                                                <input type="email" class="form-control border-0"
+                                                                                    id="email2" placeholder="e.g Steve@gmail.com"
+                                                                                    value="steve@trusttech.in">
+                                        
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class=" col-xl-6 col-xxl-4">
+                                                                            <div class="mb-3">
+                                        
+                                                                                <div class="form-check">
+                                                                                    <input type="checkbox" class="form-check-input" id="emailuav" >
+                                                                                    <label class="form-check-label " for="emailuav">
+                                                                                        <span class="text-white "> Email Unavailable</span>
+                                                                                    </label>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="  col-xl-6 col-xxl-4">
+                                                                            <div class="mb-3">
+                                                                                <label class="form-label" for="country">Country</label>
+                                                                                <input type="checkbox" class="form-check-input" id="country" >
+                                        
+                                                                                <!-- <select class="form-select border-0" id="country"
+                                                                                    required>
+                                                                                    <option value="UAE">UAE</option>
+                                                                                    <option value="Qatar">Qatar</option>
+                                                                                </select> -->
+                                        
+                                                                            </div>
+                                        
+                                                                        </div>
+                                                                        <div class="  col-xl-6 col-xxl-4">
+                                                                            <div class="mb-3">
+                                                                                <label class="form-label" for="source">Source</label>
+                                                                                <input type="tel" class="form-control border-0" id="source"
+                                                                                    placeholder="" value="Forex mentor">
+                                                                                <div class="invalid-feedback">
+                                                                                    Please provide a Profession.
+                                                                                </div>
+                                                                            </div>
+                                        
+                                                                        </div>
+                                                                            
+                                                                        <div class="  col-xl-6 col-xxl-4">
+                                                                            <div class="mb-3">
+                                                                                <label class="form-label" for="city">City</label>
+                                                                                <input type="tel" class="form-control border-0" id="city"
+                                                                                    placeholder="" value="Dubai">
+                                        
+                                                                            </div>
                                 
+                                                                        </div>
+                                                                        <div class="  col-xl-6 col-xxl-4">
+                                                                            <div class="mb-3">
+                                                                                <label class="form-label" for="subject">Subject</label>
+                                                                                <input type="tel" class="form-control border-0" id="subject"
+                                                                                    placeholder="" value="Forex trading">
+                                        
+                                                                            </div>
+                                        
+                                                                        </div>
+                                                                        <div class=" col-xl-12 col-xxl-11">
+                                                                            <div class="mb-3">
+                                                                                
+                                                                                <div class="row px-0">
+                                                                                    <label class="form-label" for="">Sales rep</label>
+                                                                                    <div class="col-xl-6 col-xxl-4">
+                            
+                                                                                        <select class="form-select border-1 px-2 py-2" id="salesrep"
+                                                                                        required>
+                                                                                            <option value="Firas monzer1">Firas monzer1</option>
+                                                                                            <option value="Firas monzer2">Firas monzer 2</option>
+                                                                                        </select>
+                                                                                    </div>
+                                                                                    <div class="col-xl-6 col-xxl-2">
+                            
+                                                                                        <select class="form-select border-1" id="count"
+                                                                                        required>
+                                                                                            <option value="Firas monzer1">25</option>
+                                                                                            <option value="Firas monzer2">50</option>
+                                                                                        </select>
+                                                                                    </div>
+                            
+                                                                                    <div class="col-xl-12 col-xxl-6 mt-xl-2">
+                            
+                                                                                        <button type="button" class="btn bg-soft-orange text-white me-2 btn-sm"  >Assign</button>
+                                                                                        <button type="button" class="btn  text-white me-2 btn-sm"   style="background-color:#2C2E45 ;">Assign to me</button>
+                                                                                    </div>
+                                                                                </div>
+                                                                                
+                                        
+                                                                            </div>
+                                        
+                                                                        </div>
+                                                                    
+                                                                        <div class=" col-xl-12 col-xxl-11">
+                                                                            <div class="mb-3">
+                                                                                
+                                                                                <div class="row px-0">
+                                                                                    <label class="form-label" for="">Sales rep</label>
+                                                                                    <div class="col-xl-6 col-xxl-4">
+                            
+                                                                                        <select class="form-select border-1" id="salesrep1"
+                                                                                        required>
+                                                                                            <option value="Firas monzer1">Firas monzer1</option>
+                                                                                            <option value="Firas monzer2">Firas monzer 2</option>
+                                                                                        </select>
+                                                                                    </div>
+                                                                                    <div class="col-xl-6 col-xxl-2">
+                            
+                                                                                        <select class="form-select border-1" id="count"
+                                                                                        required>
+                                                                                            <option value="Firas monzer1">25</option>
+                                                                                            <option value="Firas monzer2">50</option>
+                                                                                        </select>
+                                                                                    </div>
+                            
+                                                                                    <div class="col-xl-12 col-xxl-6 mt-xl-2">
+                            
+                                                                                        
+                                                                                        <button type="button" class="btn  text-white me-2 btn-sm"   style="background-color:#2C2E45 ;">ressign</button>
+                                                                                    </div>
+                                                                                </div>
+                                                                                
+                                        
+                                                                            </div>
+                                        
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            
+                                                            <div class="col-md-4 ">
+                                                                <div class=" px-3 py-3 rounded-3 h-100" style="background-color: #1B1C2E;">
+                                                                    <!--<h4 class="card-title mb-0 flex-grow-1">Recent Activity</h4>-->
+                                                                <div class="" data-simplebar style="max-height: 300px">
+                                                                    <ul class="list-unstyled activity-wid activity-wid-manage-tickets mb-0">
+                                                                        <!--activity x-->
+                                                                        <li class="activity-list activity-border">
+                                                                            <div class="activity-icon avatar-sm ms-2">
+                                                                                <span class="avatar-title bg-soft-boxgray1 text-warning rounded-circle">
+                                                                                <!--<i class="bx bx-bitcoin font-size-24"></i>-->
+                                                                                </span>
+                                                                            </div>
+                                                                            <div class="timeline-list-item">
+                                                                                <div class="d-flex">
+                                                                                    <div class="flex-grow-1 overflow-hidden me-4 gilroyregular-type">
+                                                                                        <p class="font-size-14 mb-1 color-color1">May 19, 2022</p>
+                                                                                        <div class="mt-2 bg-soft-boxgray1 px-3 py-3 fs-13 rounded-3 d-flex flex-wrap">
+                                                                                            <img class="rounded-circle avatar-md mb-2" alt="200x200" src="assets/images/users/avatar-4.jpg" data-holder-rendered="true">
+                                                                                            <div class="ms-2">
+                                                                                                <p class="text-truncate color-color1  mb-0 ">Admin</p>
+                                                                                                <p class="text-truncate text-white  mb-0 fs-15"><span class="me-2 d-inline-block">Register ticket</span> <svg width="10" height="8" viewBox="0 0 10 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                                                    <path d="M0.75 4.00004L3.58 6.83004L9.25 1.17004" stroke="#00A54F" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                                                                                    </svg>
+                                                                                                    </p>
+                                                                                                <p class="text-truncate color-color1  mb-0">12:34 Pm by admin</p>
+                                                                                                <p class="text-truncate color-color1  mb-0">New ticket opened: 180922</p>
+                                                                                            </div>
+                                                                                            
+                                                                                        </div>
+                                                                                        
+                                                                                    </div>
+                                                                                    
+                                                                                </div>
+                                                                            </div> 
+                                                                        </li>
+                                                                        <!--activity x-->
+                                                                        <li class="activity-list activity-border">
+                                                                            <div class="activity-icon avatar-sm ms-2">
+                                                                                <span class="avatar-title bg-soft-boxgray1 text-warning rounded-circle">
+                                                                                <!--<i class="bx bx-bitcoin font-size-24"></i>-->
+                                                                                </span>
+                                                                            </div>
+                                                                            <div class="timeline-list-item">
+                                                                                <div class="d-flex">
+                                                                                    <div class="flex-grow-1 overflow-hidden me-4 gilroyregular-type">
+                                                                                        <p class="font-size-14 mb-1 color-color1">May 19, 2022</p>
+                                                                                        <div class="mt-2 bg-soft-boxgray1 px-3 py-3 fs-13 rounded-3 d-flex flex-wrap">
+                                                                                            <img class="rounded-circle avatar-md mb-2" alt="200x200" src="assets/images/users/avatar-4.jpg" data-holder-rendered="true">
+                                                                                            <div class="ms-2">
+                                                                                                <p class="text-truncate color-color1  mb-0 ">Admin</p>
+                                                                                                <p class="text-truncate text-white  mb-0 fs-15"><span class="me-2 d-inline-block">Register ticket</span> <svg width="10" height="8" viewBox="0 0 10 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                                                    <path d="M0.75 4.00004L3.58 6.83004L9.25 1.17004" stroke="#00A54F" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                                                                                    </svg>
+                                                                                                    </p>
+                                                                                                <p class="text-truncate color-color1  mb-0">12:34 Pm by admin</p>
+                                                                                                <p class="text-truncate color-color1  mb-0">New ticket opened: 180922</p>
+                                                                                            </div>
+                                                                                            
+                                                                                        </div>
+                                                                                        
+                                                                                    </div>
+                                                                                    
+                                                                                </div>
+                                                                            </div> 
+                                                                        </li>
+                                                                    
+                                
+                                                                        <!--activity x-->
+                        
+                                                                        <li class="activity-list activity-border">
+                                                                            <div class="activity-icon avatar-sm ms-2">
+                                                                                <span class="avatar-title bg-soft-boxgray1 text-warning rounded-circle">
+                                                                                <!--<i class="bx bx-bitcoin font-size-24"></i>-->
+                                                                                </span>
+                                                                            </div>
+                                                                            <div class="timeline-list-item">
+                                                                                <div class="d-flex">
+                                                                                    <div class="flex-grow-1 overflow-hidden me-4 gilroyregular-type">
+                                                                                        <p class="font-size-14 mb-1 color-color1">May 19, 2022</p>
+                                                                                        <div class="mt-2 bg-soft-boxgray1 px-3 py-3 fs-13 rounded-3 d-flex flex-wrap">
+                                                                                            <img class="rounded-circle avatar-md mb-2" alt="200x200" src="assets/images/users/avatar-4.jpg" data-holder-rendered="true">
+                                                                                            <div class="ms-2">
+                                                                                                <p class="text-truncate color-color1  mb-0 ">Admin</p>
+                                                                                                <p class="text-truncate text-white  mb-0 fs-15"><span class="me-2 d-inline-block">Register ticket</span> <svg width="10" height="8" viewBox="0 0 10 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                                                    <path d="M0.75 4.00004L3.58 6.83004L9.25 1.17004" stroke="#00A54F" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                                                                                    </svg>
+                                                                                                    </p>
+                                                                                                <p class="text-truncate color-color1  mb-0">12:34 Pm by admin</p>
+                                                                                                <p class="text-truncate color-color1  mb-0">New ticket opened: 180922</p>
+                                                                                            </div>
+                                                                                            
+                                                                                        </div>
+                                                                                        
+                                                                                    </div>
+                                                                                    
+                                                                                </div>
+                                                                            </div> 
+                                                                        </li>
+                                                                        
+                                                                    
+                                                                    </ul>
+                                                                </div>
+                                                                </div>
+                        
+                                                                    
+                        
+                        
+                                                            </div>
+                        
+                                                        </div>
+                    
+                                                    
+                                                </div>
+                                                
+                                                <div class="tab-pane " id="actions-about-tab" role="tabpanel">
+                                                    <div class="row px-0">
+
+                                                        <div class="col-md-6">
+                                                            <div class=" px-4 py-3 rounded-3" style="background-color: #1B1C2E;">
+
+                                                                <div class="row">
+                                                                    <div class="col-md-3">
+                                                                        <div class="mb-3">
+                                                                            <label class="form-label" for="age">Age</label>
+                                                                            <input type="text" class="form-control border-0"
+                                                                                id="age" placeholder="" value="35" required>
+                
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-3">
+                                                                        <div class="mb-3">
+                                                                            <label class="form-label" for="dob">Date of birth</label>
+                                                                            <input type="text" class="form-control border-0"
+                                                                                id="dob" placeholder="" value="35" required>
+                
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="col-md-3">
+                                                                        <div class="mb-3">
+                                                                            <label class="form-label"
+                                                                                for="address">Address</label>
+                                                                            <input type="text" class="form-control border-0"
+                                                                                id="address" placeholder=""
+                                                                                value="Marketing manager">
+                
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-3">
+                                                                        <div class="mb-3">
+                                                                            <label class="form-label"
+                                                                                for="profession">Zipcode</label>
+                                                                            <input type="text" class="form-control border-0"
+                                                                                id="zipcode" placeholder=""
+                                                                                value="Marketing manager">
+                
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-3">
+                                                                        <div class="mb-3">
+                                                                            <label class="form-label"
+                                                                                for="state">State</label>
+                                                                            <input type="text" class="form-control border-0"
+                                                                                id="state" placeholder=""
+                                                                                value="Marketing manager">
+                
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-3">
+                                                                        <div class="mb-3">
+                                                                            <label class="form-label"
+                                                                                for="annualincome">Annual income</label>
+                                                                            <input type="text" class="form-control border-0"
+                                                                                id="annualincome" placeholder=""
+                                                                                value="Marketing manager">
+                
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-3">
+                                                                        <div class="mb-3">
+                
+                                                                            <label class="form-label" for="exp">Experience </label>
+                                                                            <input type="text" class="form-control border-0"
+                                                                                id="exp" placeholder="" value="No experience"
+                                                                                required>
+                                                                        
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-3">
+                                                                        <div class="mb-3">
+                                                                            <label class="form-label"
+                                                                                for="profession">Profession</label>
+                                                                            <input type="text" class="form-control border-0"
+                                                                                id="profession" placeholder=""
+                                                                                value="Marketing manager">
+                
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-3 ">
+                                                                        <div class="mb-3">
+                                                                            <label class="form-label" for="category">Category<span
+                                                                                    class="color-orange"></label>
+                                                                            <input type="text" class="form-control border-0"
+                                                                                id="category" value="VIP" required>
+                
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-3 ">
+                                                                        <div class="mb-3">
+                                                                            <label class="form-label" for="potential">Potential<span
+                                                                                    class="color-orange"></label>
+                                                                            <input type="text" class="form-control border-0"
+                                                                                id="potential" value="No potential" required>
+                
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-3 ">
+                                                                        <div class="mb-3">
+                                                                            <label class="form-label" for="language">Language<span
+                                                                                    class="color-orange"></label>
+                                                                            <input type="text" class="form-control border-0"
+                                                                                id="language" value="English" required>
+                
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-3 ">
+                                                                        <div class="mb-3">
+                                                                            <label class="form-label" for="hearfrom">How did you
+                                                                                hear<span class="color-orange"></label>
+                                                                            <select class="form-control border-0" name="hearfrom"
+                                                                                id="hearfrom" required >
+                                                                                <option value="Facebook">Facebook</option>
+                
+                                                                            </select>
+                
+                
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="col-md-3 ">
+                                                                        <div class="mb-3">
+                                                                            <label class="form-label"
+                                                                                for="applicationform">Application form</label>
+                                                                            <input type="tel" class="form-control border-0"
+                                                                                id="applicationform" value="No" required>
+                
+                                                                        </div>
+                                                                    </div>
+                
+
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                        <div class="col-md-6 ">
+                                                            <div class=" px-4 py-3 rounded-3 h-100" style="background-color: #1B1C2E;">
+
+                                                                <div class="table-responsive" data-simplebar=" " style="max-height: 100%;">
+                                                                    <table class="table mb-0 ">
+
+                                                                        <thead>
+                                                                            <tr class="almarenamonolight-type fs-12">
+                                                                                <th>
+                                                                                    
+                                                                                    Name
+
+                                                                                </th>
+                                                                                <th>Date</th>
+
+                                                                                <th class="text-end">Status</th>
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody class="gilroymedium-type fs-14">
+                                                                            <tr>
+                                                                                <td scope="row">
+
+                                                                                    <div class="d-flex align-items-center"> 
+
+                                                                                        <div class="activity-icon avatar-sm me-3">
+                                                                                            <span class="avatar-title   rounded-circle">
+                                                                                                <!--<i class="bx bx-bitcoin font-size-24"></i>-->
+                                                                                                <img class="rounded-circle avatar-sm" src="assets/images/users/firasmonzer.png" alt="">
+                                                                                            </span>
+        
+                                                                                        </div>
+                                                                                        <div class="flex-grow-1 overflow-hidden me-4">
+                                                                                            <h5 class="mb-1 gilroymedium-type fs-14 color-color1">
+                                                                                                Firas
+                                                                                                Monzer</h5>
+                                                                                            <p class=" gilroymedium-type fs-16 mb-0 text-white">
+                                                                                                Trading seminar
+                            
+                                                                                                
+                            
+                                                                                            </p>
+                                                                                        </div>
 
 
+                                                                                    </div>
+                                                                                    
+                                                                                    <!--<select class="form-control border-0"
+                                                                                        name="seminarname" id="seminarname"
+                                                                                        required value="Trading seminar">
+                                                                                        <option value="Trading seminar">
+                                                                                            Trading seminar
+                                                                                        
+                                                                                        
+                                                                                        </option>
+
+                                                                                    </select>-->
+                                                                                </td>
+                                                                                <td>
+                                                                                    <select class="form-control border-0"
+                                                                                        name="seminardate" id="seminadate"
+                                                                                        required value="Sept 15th -2022
+                                                                                9:00 - 9:30">
+                                                                                        <option value="Sept 15th -2022
+                                                                                    9:00 - 9:30">Sept 15th -2022
+                                                                                            9:00 - 9:30</option>
+
+                                                                                    </select>
+
+                                                                                </td>
+                                                                                <td class="text-end">
+
+                                                                                    <select class="form-control border-0"
+                                                                                        name="seminarstatus text-warning"
+                                                                                        id="seminarstatus" required 
+                                                                                    >
+                                                                                        <option  value="Attended"  > 
+                                                                                            Pending
+                                                                                        </option>
+
+                                                                                    </select>
+                                                                                
+                                                                                        
+                                                                                </td>
+
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <th scope="row">
+                                                                                    <select class="form-control border-0"
+                                                                                        name="seminarname" id="seminarname"
+                                                                                        required value="Trading seminar">
+                                                                                        <option value="Trading seminar">
+                                                                                            Trading seminar</option>
+
+                                                                                    </select>
+                                                                                </th>
+                                                                                <td>
+                                                                                    <select class="form-control border-0"
+                                                                                        name="seminardate" id="seminadate"
+                                                                                        required value="Sept 15th -2022
+                                                                                9:00 - 9:30">
+                                                                                        <option value="Sept 15th -2022
+                                                                                    9:00 - 9:30">Sept 15th -2022
+                                                                                            9:00 - 9:30</option>
+
+                                                                                    </select>
+
+                                                                                </td>
+                                                                                <td class="text-end">
+                                                                                    <select class="form-control border-0"
+                                                                                        name="seminarstatus text-danger"
+                                                                                        id="seminarstatus" required 
+                                                                                    >
+                                                                                        <option  value="Attended" class="" > 
+                                                                                            Attended
+                                                                                        </option>
+
+                                                                                    </select>
+                                                                                
+                                                                                        
+                                                                                </td>
+
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <th scope="row">
+                                                                                    <select class="form-control border-0"
+                                                                                        name="seminarname" id="seminarname"
+                                                                                        required value="Trading seminar">
+                                                                                        <option value="Trading seminar">
+                                                                                            Trading seminar</option>
+
+                                                                                    </select>
+                                                                                </th>
+                                                                                <td>
+                                                                                    <select class="form-control border-0"
+                                                                                        name="seminardate" id="seminadate"
+                                                                                        required value="Sept 15th -2022
+                                                                                9:00 - 9:30">
+                                                                                        <option value="Sept 15th -2022
+                                                                                    9:00 - 9:30">Sept 15th -2022
+                                                                                            9:00 - 9:30</option>
+
+                                                                                    </select>
+
+                                                                                </td>
+                                                                                <td class="text-end"  >
+                                                                                    <select class="form-control border-0 text-success"
+                                                                                        name="seminarstatus text-danger"
+                                                                                        id="seminarstatus" required 
+                                                                                    >
+                                                                                        <option  value="Attended" > 
+                                                                                            Cancelled
+                                                                                        </option>
+
+                                                                                    </select>
+                                                                                
+                                                                                        
+                                                                                </td>
+
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <th scope="row">
+                                                                                    <select class="form-control border-0"
+                                                                                        name="seminarname" id="seminarname"
+                                                                                        required value="Trading seminar">
+                                                                                        <option value="Trading seminar">
+                                                                                            Trading seminar</option>
+
+                                                                                    </select>
+                                                                                </th>
+                                                                                <td>
+                                                                                    <select class="form-control border-0"
+                                                                                        name="seminardate" id="seminadate"
+                                                                                        required value="Sept 15th -2022
+                                                                                9:00 - 9:30">
+                                                                                        <option value="Sept 15th -2022
+                                                                                    9:00 - 9:30">Sept 15th -2022
+                                                                                            9:00 - 9:30</option>
+
+                                                                                    </select>
+
+                                                                                </td>
+                                                                                <td class="text-end"  >
+                                                                                    <select class="form-control border-0 text-success"
+                                                                                        name="seminarstatus text-danger"
+                                                                                        id="seminarstatus" required 
+                                                                                    >
+                                                                                        <option  value="Attended" > 
+                                                                                            Cancelled
+                                                                                        </option>
+
+                                                                                    </select>
+                                                                                
+                                                                                        
+                                                                                </td>
+
+                                                                            </tr>
+                                                                        
+
+                                                                        </tbody>
+                                                                    </table>
+                                                                </div>
+                                                            
+                                                            
+                                                            </div>
 
 
+                                                        </div>
+                                                    
+
+
+                                                    </div>
+                                                </div>
+                                                    
+                                                
+                                            </div>
+                                            </div>
+
+                                        </div>
+
+                                        <!--<button id="submit" class="btn btn-md btn-primary btn-lg " type="submit" onclick="if( $('#submit').attr('data-success')=='true'){
+                                            updateEditmode('#edittext','Edit','Cancel edit','formtypeleads','editable-enabled')}" data-success="false">Update</button>-->
+                                    </form>
+                                </div>
                             </div>
-                           
-
-
-
-
-
-                    </div>
-
-                    </div>
+                        </div>
                             <!--Action buttons & modals-->
                             <div class="col-lg-12">
                                 <div class="">
@@ -123,7 +919,7 @@
                                         </div>-->
                                         <div>
                                             <!-- modal-temp -->
-                                            <button type="button" class="btn bg-soft-secondarycolor text-white me-2" data-bs-toggle="modal" data-bs-target=".bs-example-modal-assessment" style="background-color: var(--bs-card-bg) ;" >Assessment</button>
+                                            <button type="button" class="btn bg-soft-secondarycolor text-white me-2" data-bs-toggle="modal"  style="background-color: var(--bs-card-bg) ;" onclick="viewAsessment()">Assessment</button>
                                                 <div class="modal fade  bs-example-modal-assessment clearmodel" tabindex="-1" role="dialog" aria-hidden="true" id="score-model"> 
                                                     <div class="modal-dialog modal-dialog-centered  modal-lg  r">
                                                         <div class="modal-content bg-soft-secondarycolor">
@@ -356,7 +1152,7 @@
 
 
                                             <!-- modal-Chat Logs -->
-                                            <button type="button" class="btn bg-soft-secondarycolor text-white me-2" data-bs-toggle="modal" data-bs-target=".bs-example-modal-chatlogs" style="background-color: var(--bs-card-bg) ;" onclick="liveLogs()">Live chat logs</button>
+                                            <button type="button" class="btn bg-soft-secondarycolor text-white me-2" data-bs-toggle="modal"  style="background-color: var(--bs-card-bg) ;" onclick="liveLogs()">Live chat logs</button>
 
                                             <div class="modal fade  bs-example-modal-chatlogs" tabindex="-1" role="dialog" aria-hidden="true" id="chatlog">
                                                 
@@ -785,25 +1581,121 @@
             })
 
 
-        function totalPoints(){
+       
+ 
+
+
+    });
+
+    function totalPoints(){
             total=parseInt(experienceselect)+parseInt(forexselect)+parseInt(meetingselect)+parseInt(questionsselect)+parseInt(voiceselect)+parseInt(training)+parseInt(hedging)+parseInt(profession)+parseInt(highlypotential);
             console.log("total points called"+total)
             var total_div=document.getElementById("total")
             total_div.innerHTML=total
             
         }
- 
+
+    function viewAsessment(){
+
+        var ticket=document.getElementById("ticketno").value
+        if(ticket == ' '){
+            $("#alertpopup").modal('show')
+            
+        }
+        else{
+            scorePopupclear()
+            $.ajax({
+               type : "GET", 
+               url: "{% url 'Admin:Score' %}",
+               dataType: 'json',
+               data: {
+                        'ticket': ticket,
+               },
+               success: function(data){
+                var score=data.score;
+                console.log("--------------------------",)
+                if(score != null || score != undefined){
+
+                
+                console.log("Meeting score------"+score[0])
+                var trdExp=score[0]
+                var meeting=score[1]
+                var forex=score[2]
+                var seminar=score[3]
+                var qns=score[4]
+                var voice=score[5]
+                var trading=score[6]
+                var related=score[7]
+                var ref=score[8]
+                if(trdExp!=0){
+                    $("#experienceselect").val(trdExp)
+                    $("#experience").prop('checked', true)
+                    experienceselect=trdExp
+                }
+                if(meeting!=0){
+                    $("#meetingselect").val(meeting)
+                    $("#meeting").prop('checked', true);
+                    meetingselect=meeting
+                }
+                if(forex!=0){
+                    $("#forexselect").val(forex)
+                    $("#forex").prop('checked',true)
+                    forexselect=forex
+                }
+                if(qns!=0){
+                    $("#questionsselect").val(qns)
+                    $("#questions").prop('checked',true)
+                    questionsselect=qns
+                }
+                if(voice!=0){
+                    $("#voiceselect").val(voice)
+                    $("#voice").prop('checked',true)
+                    voiceselect=voice
+                }
+                if(seminar!=0){
+                    $("#training").prop('checked',true)
+                    training=10
+
+                }
+                if(trading!=0){
+                    $("#hedging").prop('checked',true)
+                    hedging=30
+
+                }
+                if(related!=0){
+                    $("#profession").prop('checked',true)
+                    profession=20
+                }
+                if(ref!=0){
+                    $("#highlypotential").prop('checked',true)
+                    highlypotential=50
+                }
+                totalPoints()
+                $("#score-model").modal('show')
+
+               }
+            }
+
+            });
 
 
-    });
+
+
+          
+        }
+    }
+
     function saveMeeting(){
+
+        var ticket=document.getElementById("ticketno").value
+      
         console.log("save meeting clicked-------------------------------------")
             $.ajax({
                type : "GET", 
                url: "{% url 'Admin:SaveMeeting' %}",
                dataType: 'json',
                data: {
-                        // 'ticket': ticket,
+                        'ticket': ticket,
                         'experience':parseInt(experienceselect),
                         'meeting':parseInt(meetingselect),
                         'forex':parseInt(forexselect),
@@ -846,39 +1738,54 @@
               
             });
     }
+    
     function liveLogs(){
+
         var ticket=document.getElementById("ticketno").value
-        var chats=""
-        $("#chatdiv").empty();
-        $.ajax({
-                type : "GET", 
-                url: "{% url 'Admin:LiveLogs' %}",
-                dataType: 'json',
-                data: {                   
-                    'ticket':ticket,                   
-                },
-                
-                success: function(data){
-                    var logs=data.logs
-                    console.log("Log type is----------------",logs)
-                    for(i=0;i<logs.length;i++){
-                        console.log("oth element-----"+logs[i][0])
-                        chats +="<div class='border rounded-3 px-3 py-3 mb-3'><div class='d-flex justify-content-between mb-2 align-items-center'>"+
-                                    "<div class='d-flex my-0  align-items-center flex-shrink-0'><div class='activity-icon avatar-sm ms-2 me-3'>"+
-                                    "<span class='avatar-title   rounded-circle'><img class='rounded-circle avatar-md' src='../static/images/users/"+logs[i][3]+".png' "+
-                                    "onerror=this.src='../static/images/users/user.png'></span></div><p class='fs-16 gilorysemibold-type color-color m-0'>"+logs[i][3]+"</p>"+
-                                    "</div><span class='fs-14 color-color1'>"+logs[i][0]+" - "+logs[i][1]+"</span></div><div ><p class='mb-0  fs-13  color-color1 me-2'>"+logs[i][2] +"</p></div></div>";
+        if(ticket == ' '){
+            $("#alertpopup").modal('show')
+            
+        }
+        else{
+            var chats=""
+            $("#chatdiv").empty();
+            $.ajax({
+                    type : "GET", 
+                    url: "{% url 'Admin:LiveLogs' %}",
+                    dataType: 'json',
+                    data: {                   
+                        'ticket':ticket,                   
+                    },
+                    
+                    success: function(data){
+                        var logs=data.logs
+                        console.log("Log type is----------------",logs)
+                        for(i=0;i<logs.length;i++){
+                            console.log("oth element-----"+logs[i][0])
+                            chats +="<div class='border rounded-3 px-3 py-3 mb-3'><div class='d-flex justify-content-between mb-2 align-items-center'>"+
+                                        "<div class='d-flex my-0  align-items-center flex-shrink-0'><div class='activity-icon avatar-sm ms-2 me-3'>"+
+                                        "<span class='avatar-title   rounded-circle'><img class='rounded-circle avatar-md' src='../static/images/users/"+logs[i][3]+".png' "+
+                                        "onerror=this.src='../static/images/users/user.png'></span></div><p class='fs-16 gilorysemibold-type color-color m-0'>"+logs[i][3]+"</p>"+
+                                        "</div><span class='fs-14 color-color1'>"+logs[i][0]+" - "+logs[i][1]+"</span></div><div ><p class='mb-0  fs-13  color-color1 me-2'>"+logs[i][2] +"</p></div></div>";
+
+                        }
+                        if(logs.length==0){
+                            $("#chatdiv").append("No Logs")    
+                        }
+                        else{
+                            $("#chatdiv").append(chats)
+                        }
+                        
+                        $("#chatlog").modal('show')
+                        console.log("Logsssssssssssssssss"+data.logs)
 
                     }
-                    $("#chatdiv").append(chats)
-                    $("#chatlog").modal('show')
-                    console.log("Logsssssssssssssssss"+data.logs)
-
-                }
-            })
+                })
 
 
 
+        }
+        
     }
     function loadTicketFuns(){
         var ticket=document.getElementById("ticketno").value
@@ -888,7 +1795,40 @@
             
         }
         else{
-            location.href="{% url 'Admin:Meeting'%}?ticket="+ticket
+            // location.href="{% url 'Admin:Meeting'%}?ticket="+ticket
+            $.ajax({
+                    type : "GET", 
+                    url: "{% url 'Admin:LoadFuns' %}",
+                    dataType: 'json',
+                    data: {                   
+                        'ticket':ticket,                   
+                    },
+                    
+                    success: function(data){
+                        var leads=data.leads
+                        var activities=data.activities
+                        console.log("View lead details-----",leads)
+                        console.log("Vie activities----",activities)
+                        var title=leads[35]
+                        var name=leads[0]
+                        var reg_date=leads[6]
+                        var ipAddr=leads[53]
+                        var phone1=leads[2]
+                        var phone2=leads[32]
+                        var email1=leads[1]
+                        var email2=leads[31]
+                        var source=leads[9]
+                        var city=leads[18]
+                        var subject=leads[3]
+                        $("#title").val(title)
+                        $("#firstname").val(name)
+                        $("#regdate").val(reg_date)
+                        $("#")
+
+
+                    }
+                })
+
         }
     }
 
@@ -903,7 +1843,8 @@
    
  
      <!-- Datatable init js -->
-     <script src="{% static 'js/pages/leadprocessing.init.js' %}"></script>
+     <script src="{% static 'js/pages/intTellinput.init.js' %}"></script>
+    <script src="{% static 'js/pages/newleadprocessing.init.js' %}"></script>
     <script src="{% static 'js/app.js' %}"></script>
  
     </body>

@@ -548,12 +548,14 @@ $(function(){
                     var element=data.duplicate;
                     
                     var duplicate_data=new Array();
+                    var phone1=element[2].replace(/[^a-zA-Z0-9]/g, '');
+                    var phone2=element[3].replace(/[^a-zA-Z0-9]/g, '');
 
                     var duplicates="<tr><th scope='row'><div class='d-flex my-1 ms-2 align-items-center'><div class='activity-icon avatar-sm me-3'><span class='avatar-title   rounded-circle'>"+
-                        "<img class='rounded-circle avatar-md' src='../static/images/users/"+element[4]+".png' onerror=this.src='../static/images/users/user.png'  >"+
-                        "</span></div>"+element[4]+"</th><td>"+element[1]+"</td><td>"+element[2]+"</td><td>"+element[3]+"</td><td>"+element[5]+"</td>"+
-                        "<td  class='text-success'><a  style='color:rgba(114, 212, 171, 1); cursor: pointer' onclick=viewticket('"+element[1]+"','"+element[2]+"','"+element[3]+"','"+element[5]+"')>View ticket</a></td><td class='text-end'>"+
-                            "<a style='color:rgba(85, 206, 215, 1) ; cursor: pointer' onClick=merge('"+demo_id+"','"+element[1]+"','"+element[2]+"','"+element[3]+"','"+element[5]+"')>View n merge</a></td></tr>";
+                        "<img class='rounded-circle avatar-md' src='../static/images/users/"+element[4]+".png' onerror=this.src='../static/images/users/user.png' >"+
+                        "</span></div>"+element[4]+"</th><td>"+element[1]+"</td><td>"+phone1+"</td><td>"+phone2+"</td><td>"+element[5]+"</td>"+
+                        "<td  class='text-success'><a  style='color:rgba(114, 212, 171, 1); cursor: pointer;' onclick=viewticket('"+element[1]+"','"+phone1+"','"+phone2+"','"+element[5]+"')>View ticket</a></td><td class='text-end'>"+
+                            "<a style='color:rgba(85, 206, 215, 1) ; cursor: pointer;' onclick=merge('"+demo_id+"','"+element[1]+"','"+phone1+"','"+phone2+"','"+element[5]+"')>View n merge</a></td></tr>";
                    
                     console.log("duplicate rows created")
                     
@@ -577,6 +579,7 @@ $(function(){
         }
         
         function viewticket(ticket,phone1,phone2,email){
+            console.log("View ticket clicked---------------------------")
             var tick_name=document.getElementById("ticket_name").value
             
             var url="{% url 'Admin:LeadProcessing'%}"

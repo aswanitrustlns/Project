@@ -192,6 +192,19 @@
     <script src="assets/libs/admin-resources/jquery.vectormap/maps/jquery-jvectormap-world-mill-en.js"></script>-->
     <!-- dashboard init -->
     <script>
+
+        
+$(function(){
+    
+    $('#datatableleads tbody').on('dblclick', 'tr', function (e) {
+        var table = $("#datatableleads").DataTable();
+        console.log("row clicked----")
+        var data = table.row( this ).data();   
+        console.log("Data----------------"+data)    
+              
+        checkticket(data[1])
+    })
+})
          function checkticket(ticket){
             console.log("Double clicked")
             var url="{% url 'Admin:LeadProcessing'%}"
