@@ -1,5 +1,6 @@
 from audioop import reverse
 from cmath import log
+from email.message import Message
 from django.db import connection
 from datetime import datetime, timedelta
 from ctypes import *
@@ -469,6 +470,9 @@ class Selector:
                         subject=msg["subject"]
                         sender=msg["from"]
                         received_tym=msg["date"]
+                        received_tym=received_tym[0:16]
+                        # received_tym=datetime.strptime(received_tym,'%d%m%y')
+                        # print("Received date===========",type(received_tym))
                         
                         inbox_data=(subject,sender,received_tym,msg["Message-ID"])
                         inbox_list.append(inbox_data)
@@ -480,11 +484,14 @@ class Selector:
         finally:
             pass
         inbox_list.reverse()
+     
         return inbox_count,inbox_list
+    
+   
 
  # Read mail inbox
     def read_mail_inbox(self,message):
-        print("read mail inboxxxx")
+        print("read mail inboxxxx",message)
         mail = imaplib.IMAP4_SSL(host=settings.EMAIL_HOST)
         message_data=""
         subject=""
@@ -499,17 +506,27 @@ class Selector:
             for response in msg:
                 if isinstance(response, tuple):
                     msg = email.message_from_bytes(response[1])
+                    
                     if(message == msg["Message-ID"]):
+                        print("Message")
                         subject=msg["subject"]
                         sender=msg["from"]
-                        print("Equal==================")
-                        for part in msg.walk():
-                        
-                            if part.get_content_type()=="text/plain" or part.get_content_type()=="text/html":
-                                message = part.get_payload(decode=True)
-                                message_data=message.decode()                                
-                                break
-        print("Message date---------------",message_data)
+                        content_type=msg["content-type"]
+                        print("Equal================== and content type",content_type)
+                        if(content_type=="text/html"):
+                            message_data=message.decode('utf-8')
+                            message_data=get_template(message_data)
+                        else:
+                            for part in msg.walk():
+                            
+                                if part.get_content_type()=="text/plain" or part.get_content_type()=="text/html":
+                                    print("Content type------",part.get_content_maintype())
+                                    message = part.get_payload(decode=True)
+                                    message_data=message.decode()                                
+                                    break
+                                
+                            
+        
         return message_data,subject,sender,inbox_count
 #Get activities log    
     def get_activity_log(self,ticket,time):

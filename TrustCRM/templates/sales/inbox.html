@@ -86,11 +86,11 @@
                                     
                                     <div class="card">
                                         
-                                        <ul class="message-list" data-simplebar style="max-height: 700px;">
+                                        <ul class="message-list" data-simplebar style="max-height: 700px;" id="mailList">
                                         {% for mail in mails%}
-                                            
+                                            {% if forloop.counter <= 20 %} 
                                             <!-- <li class="fs-16" onclick='window.location.href="{% url 'Admin:Read' %}?message={{mail.3}}"' style="cursor: pointer;"> -->
-                                            <li class="fs-16" onclick='window.location.href="{% url 'Admin:Read' %}?message={{mail.3}}"' style="cursor: pointer;">
+                                            <li class="fs-16" style="cursor: pointer;" data-id="{{mail.3}}">
                                                 <div class="col-mail col-mail-1">
                                                     <div class="checkbox-wrapper-mail">
                                                         <input type="checkbox" id="chk1">
@@ -101,12 +101,12 @@
                                                 <div class="col-mail col-mail-2">
                                                     <a class="subject color-color1 gilroyregular"><span class="teaser">{{mail.0}}</span>
                                                     </a>
-                                                    <div class="date text-white gilroymedium-type">{{mail.2}}</div>
+                                                    <div class="date text-white gilroymedium-type" style="width:250px ;">{{mail.2}}</div>
                                                 </div>
                                             </li>
                                             <hr class="mx-3 my-0">
                                             
-                                            
+                                            {%endif%}
                                            {%endfor%}
         
                                         </ul>
@@ -114,13 +114,13 @@
                                     </div> <!-- card -->
         
                                     <div class="row">
-                                        <div class="col-7 gilroymedium-type fs-16">
+                                        <div class="col-7 gilroymedium-type fs-16" id="showCount">
                                             Showing 1 - 20 of {{count}}
                                         </div>
                                         <div class="col-5">
                                             <div class="btn-group float-end">
-                                                <button type="button" class="btn btn-sm btn-success waves-effect"><i class="fa fa-chevron-left"></i></button>
-                                                <button type="button" class="btn btn-sm btn-success waves-effect"><i class="fa fa-chevron-right"></i></button>
+                                                <button type="button" class="btn btn-sm btn-success waves-effect" onclick="paginateInbox('sub')"><i class="fa fa-chevron-left"></i></button>
+                                                <button type="button" class="btn btn-sm btn-success waves-effect" onclick="paginateInbox('add')"><i class="fa fa-chevron-right"></i></button>
                                             </div>
                                         </div>
                                     </div>
@@ -171,8 +171,69 @@
     {% include "common/right-sidebar.html" %}
     <div class="rightbar-overlay"></div>
     <script>
-        function mailRead(message){
 
+
+        count=20
+        start_i=0
+        end_i=0
+        var inbox_items={{data|safe}}
+        var inbox_count={{count|safe}}
+        console.log("Inbox items----"+inbox_items)
+
+
+        $(function(){
+            $('#mailList').on('click','li', function(event){
+                event.preventDefault();
+                ms_id=$(this).data("id")
+                console.log(ms_id);
+                readMessage(ms_id)
+            });
+        })
+
+        function paginateInbox(message){
+
+            if(message=='add'){
+                count=count+20
+                count_end=count+20
+                start_i=count
+                end_i=count_end
+            }
+            if(message=='sub'){
+                count=count-20
+                count_end=count_end-20
+                if(count==0 || count < 0){
+                    count=0
+                    count_end=20
+                }
+                
+            }
+            
+            $("#mailList").empty();
+            console.log("Count--------------------"+count)
+            console.log("Items arrayyy"+typeof(inbox_items))
+            
+
+            for(var i=count;i<count_end;i++){ 
+                
+                    console.log(inbox_items[i][2]);
+                    var ms_id=inbox_items[i][3]
+                    var inboxlist="<li class='fs-16' data-id='"+ms_id+"' style='cursor: pointer' >"+
+                                "<div class='col-mail col-mail-1'><div class='checkbox-wrapper-mail'><input type='checkbox' id='chk1'><label for='chk1' class='toggle'></label>"+
+                                "</div><a class='title text-white gilroysemibold-type'>"+inbox_items[i][1]+"</a><span class='star-toggle far fa-star' style='color:var(--color1) ;''></span>"+
+                                "</div><div class='col-mail col-mail-2'><a class='subject color-color1 gilroyregular'><span class='teaser'>"+inbox_items[i][0]+"</span></a>"+
+                                "<div class='date text-white gilroymedium-type' style='width:250px ;'>"+inbox_items[i][2]+"</div></div></li><hr class='mx-3 my-0'>";
+                    $("#mailList").append(inboxlist)
+                
+            }
+            document.getElementById("showCount").innerHTML= "Showing "+count +"-"+count_end+" of "+inbox_count          
+
+        }
+        function readMessage(ms_id){
+
+            console.log("Read msg called")
+            var url="{% url 'Admin:Read'%}?message="+ms_id
+            window.location.href=url
+            return false
         }
 
     </script>

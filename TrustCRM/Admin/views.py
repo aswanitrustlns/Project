@@ -11,6 +11,7 @@ from datetime import datetime, timedelta
 from django.contrib.sessions.models import Session
 from django.template import Context
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+
 import json
 import instaloader
 
@@ -827,10 +828,34 @@ def liveChatLogs(request):
         return redirect('/login')
 
 def emailInbox(request):
-    if 'UserId' in request.session:        
-        UserId=request.session.get('UserId')
+    if 'UserId' in request.session:     
+        inbox=[]   
+        
+        page=request.GET.get('page')
+        count=request.GET.get('start')
+        count_end=request.GET.get('end')
+        if(count):
+            count=int(count)
+        if(count_end):
+            count_end=int(count_end)
         inbox_count,inbox_data=selector.get_mail_inbox()
-        return render(request,'sales/inbox.html',{'count':inbox_count,'mails':inbox_data})
+        print("Count================================",count)
+        print("Endd===================================",count_end)
+        if(page is None):                    
+            
+            inbox=inbox_data[0:20]
+            return render(request,'sales/inbox.html',{'count':inbox_count,'mails':inbox_data,'data':json.dumps(inbox_data)})
+        else:
+            if(page == 'add'):
+                inbox=inbox_data[count:count_end]
+            if(page=='sub'):
+                if(count_end==0 or count_end<0):
+                    inbox=inbox_data[0:20]
+                else:
+                    inbox=inbox_data[count:count_end]
+            return JsonResponse({'count':inbox_count,'mails':inbox_data})
+        
+        
     else:
         return redirect('/login')
 
