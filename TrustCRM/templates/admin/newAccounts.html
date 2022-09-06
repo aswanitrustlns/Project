@@ -111,7 +111,7 @@
 
                                                     </div>
                                                     <div class="col-sm-3 ">
-                                                        <button class="btn btn-info btn-md mb-2 py-1" type="button" onclick="changeAccount('All')">Load</button>
+                                                        <button class="btn btn-info btn-md mb-2 py-1" type="button" onclick="changeAccount('All');switchtab(this,'#accounts_table','#rejected_table','#terminated_table','#closed_table')" >Load</button>
                                                         
 
 
@@ -335,6 +335,45 @@
  <div class="rightbar-overlay"></div>
 
     <script>
+        $(function(){
+    
+    $('#datatableleads tbody').on('dblclick', 'tr', function (e) {
+        var table = $("#datatableleads").DataTable();
+        console.log("row clicked----")
+        var data = table.row( this ).data();       
+        console.log("Ticket----------"+data[6])  
+        var ticket=data[6]
+        var url="{% url 'Admin:LeadProcessing'%}"
+        window.location.href=url+"?&ticket="+ticket
+    })
+    $('#datatableleadsR tbody').on('dblclick', 'tr', function (e) {
+        var table = $("#datatableleadsR").DataTable();
+        console.log("row clicked----")
+        var data = table.row( this ).data();       
+        console.log("Ticket----------"+data[8])  
+        var ticket=data[8]
+        var url="{% url 'Admin:LeadProcessing'%}"
+        window.location.href=url+"?&ticket="+ticket
+    })
+    $('#datatableleadsT tbody').on('dblclick', 'tr', function (e) {
+        var table = $("#datatableleadsT").DataTable();
+        console.log("row clicked----")
+        var data = table.row( this ).data();       
+        console.log("Ticket----------"+data[8])  
+        var ticket=data[8]
+        var url="{% url 'Admin:LeadProcessing'%}"
+        window.location.href=url+"?&ticket="+ticket
+    })
+    $('#datatableleadsC tbody').on('dblclick', 'tr', function (e) {
+        var table = $("#datatableleadsC").DataTable();
+        console.log("row clicked----")
+        var data = table.row( this ).data();       
+        console.log("Ticket----------"+data[6])  
+        var ticket=data[9]
+        var url="{% url 'Admin:LeadProcessing'%}"
+        window.location.href=url+"?&ticket="+ticket
+    })
+})
 
 
         
@@ -1021,7 +1060,8 @@
            
         }
 
-        function flatpikrCall(){
+
+function flatpikrCall(){
     
     minDateFilter = "";
     maxDateFilter = "";
@@ -1046,10 +1086,12 @@
               
                 var table = $('#datatableleads').DataTable();
                 function rangefilter(ev, picker) {
+
                             minDateFilter = Date.parse(selectedDates[0]);
                             maxDateFilter = Date.parse(selectedDates[1]);
-                            //console.log( 'maxDateFilter'+ maxDateFilter);
-                            //console.log( 'minDateFilter'+ minDateFilter);
+
+                            console.log( 'maxDateFilter'+ selectedDates[1]);
+                            console.log( 'minDateFilter'+ minDateFilter);
                            // console.log( $(this).index()+1);
                             $.fn.dataTable.ext.search.push(function(settings, data, dataIndex) {
                             var date = Date.parse(data[ $(this).index()+1]);

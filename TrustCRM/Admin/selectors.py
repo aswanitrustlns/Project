@@ -13,7 +13,7 @@ from django.template.loader import get_template
 from django.conf import settings
 import imaplib
 import email
-
+import html2text
 
 class Selector:    
     
@@ -241,6 +241,7 @@ class Selector:
             print("Exception---",e)
         finally:
             Cursor.close()
+        
         return accounts_count
     
     # Get New Accounts page data
@@ -261,6 +262,15 @@ class Selector:
             print("Exception---",e)
         finally:
             Cursor.close()
+        for index, item in enumerate(live_accounts):
+                itemlist = list(item)
+                dt=itemlist[0]
+                
+                itemlist[0]=datetime.strptime(dt, '%Y-%m-%d').date()
+                
+               
+
+                live_accounts[index] = tuple(itemlist)
         return live_accounts
         
 #Duplicate lead check
@@ -519,11 +529,26 @@ class Selector:
                         else:
                             for part in msg.walk():
                             
-                                if part.get_content_type()=="text/plain" or part.get_content_type()=="text/html":
-                                    print("Content type------",part.get_content_maintype())
+                                if part.get_content_type()=="text/plain":
+                                    print("Content type------",part.get_content_type())
                                     message = part.get_payload(decode=True)
-                                    message_data=message.decode()                                
+                                    message_data=message.decode()                                                                  
                                     break
+                                if part.get_content_type()=="text/html":
+                                    text = f"{part.get_payload(decode=True)}"
+                                    html = text.replace("b'", "")
+                                    h = html2text.HTML2Text()
+                                    h.body_width = 0
+                                    h.ignore_links = False                                 
+                                    output = (h.handle(f'''{html}''').replace("\\t", " "))
+                                    output = output.replace("\\n", " ")
+                                    output = output.replace("\\r", " ")
+                                    output = output.replace("'", "")
+                                    output = output.replace("\\", "")
+                                    output = output.replace("---", "")
+                                    output = output.replace("|", "")
+                                    print("Outpu----------------",output)
+                                    message_data=output
                                 
                             
         
@@ -588,11 +613,16 @@ class Selector:
     
     # Get Ticket Summary
     def get_ticket_summary(self,ticket):
+        summary_list=[]
         try:
             Cursor=connection.cursor()
             Cursor.execute("set nocount on;exec SP_GetSalesSummary %s",[ticket])
             ticket_summary=Cursor.fetchall()
             print("Lead Score-----",ticket_summary)
+            for summary in ticket_summary:
+                summary_text=summary[0].split(":",1) 
+                summary_list.append(summary_text[0],summary_text[1])
+            print("Summary list===",summary_list)
         except Exception as e:
             print("Exception------",e)
         finally:
@@ -617,7 +647,7 @@ class Selector:
         try:
             Cursor=connection.cursor()
             Cursor.execute("set nocount on;exec SP_GetLeadDetailsByTicket %s,%s",[ticket,userid])
-            lead_details=Cursor.fetchall()
+            lead_details=Cursor.fetchone()
             print("Lead Score-----",lead_details)
         except Exception as e:
             print("Exception------",e)

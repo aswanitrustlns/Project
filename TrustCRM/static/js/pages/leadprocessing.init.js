@@ -1,36 +1,29 @@
-/*
-Template Name: Minia - Admin & Dashboard Template
-Author: Themesbrand
-Website: https://themesbrand.com/
-Contact: themesbrand@gmail.com
-File: Form validation Js File
-*/
+//update Inputrange
+function updateInput($this,$id) {  
+    var val =$this.value; 
+    //console.log(val);
+   $('#'+$id).html(val);
+    //document.getelementbyId($id).html(val);
+   
+}  
 
-// Example starter JavaScript for disabling form submissions if there are invalid fields
-(function () {
-	'use strict';
-	window.addEventListener('load', function () {
-		// Fetch all the forms we want to apply custom Bootstrap validation styles to
-		var forms = document.getElementsByClassName('needs-validation');
-		// Loop over them and prevent submission
-		var validation = Array.prototype.filter.call(forms, function (form) {
-			form.addEventListener('submit', function (event) {
-				if (form.checkValidity() === false) {
-					event.preventDefault();
-					event.stopPropagation();
-				}
-				form.classList.add('was-validated');
-			}, false);
-		});
-	}, false);
-})();
+//on edit Mode
 
 function onloadEditmode($id,$class) {
     $('#'+$id).find('select').attr("disabled", "disabled");
     $('#'+$id).find('input').attr("disabled", "disabled");
     $('#'+$id).removeClass($class);
 }
+$(document).ready(function () {
 
+    
+    onloadEditmode('formtypeleads','editable-enabled');
+});
+
+
+//adddisbled('#formtypeleads','editable-enabled');
+
+//$('#formtypeleads
 //Edit Butt
 function updateEditmode($elm,$text1,$text2,$id,$class) {  
     var $this=$('#'+$id);
@@ -50,6 +43,8 @@ function updateEditmode($elm,$text1,$text2,$id,$class) {
     }
    
 }  
+
+
 
 //intTel
 var intTel = function () {
@@ -137,29 +132,66 @@ var intTel = function () {
 }
 
 intTel();
-$(document).ready(function () {
-    onloadEditmode('formtypeleads','editable-enabled');
-    flatpickr('#datepickerwebinar', {
-        //inline: true,
-        dateFormat: "M-d-Y",
-        defaultDate: new Date(),
-    });
-    flatpickr('#timepickerweb', {
-        //inline: true,
-		"allowInput":true,
-        altInput: true,
-        mode: "single",
-        enableTime: true,
-        noCalendar: true,
-        dateFormat: "H:i",
-    });
-   
-    
 
+
+//flatpicker
+flatpickr('#datepicker-timepicker', {
+    enableTime: true,
+    noCalendar: true,
+    dateFormat: "h:i:K",
+    defaultDate: new Date()
+});
+
+flatpickr('#datepicker', {
+    //inline: true,
+    dateFormat: "M-d-Y",
+    defaultDate: new Date()
+});
+
+flatpickr('#datepicker-timepicker-meeting', {
+    enableTime: true,
+    noCalendar: true,
+    dateFormat: "h:i:K",
+    defaultDate: new Date()
+});
+
+flatpickr('#datepicker-meeting', {
+    //inline: true,
+    dateFormat: "M-d-Y",
+    defaultDate: new Date()
 });
 
 
+//TR
 
 
 
+//Scroll function update and reset btn
+var scroll= function(el){
+    $(window).scroll(function(e){ 
+        var $el= $(el); 
+        var isPositionFixed = ($el.css('position') == 'fixed');
+        if ($(this).scrollTop() > 200 && !isPositionFixed){ 
+          $el.css({'position': 'fixed', 'top': '55px', 'left': '0px', 'right': '20px',  'transform': 'translateX(0%)', 'z-index': '1053', 'margin-left': '250px'  });
+         
+          //$el.removeClass('justify-content-end');  
+          $el.addClass('page-content'); 
+          $el.find('.posfixedcontainer').addClass('container');
+          $el.find('.posfixedcol').addClass('col-lg-6 bg-soft-boxgray1 py-2');
+          
+        }
+        if ($(this).scrollTop() < 200 && isPositionFixed){
+          $el.css({'position': 'relative', 'top': '0px','transform': 'translateX(0%)', 'z-index': 'auto', 'margin-left': '0px' }); 
+          $el.removeClass('page-content'); 
+          //$el.removeClass('bg-soft-boxgray1');  
+          $el.addClass('justify-content-end'); 
+          $el.removeClass('justify-content-center');  
+          $el.find('.posfixedcontainer').removeClass('container');
+          $el.find('.posfixedcol').removeClass('col-lg-6 py-2 bg-soft-boxgray1 py-2');
+        } 
+    });
+    
 
+}
+
+scroll('.editable-enabled-btn');

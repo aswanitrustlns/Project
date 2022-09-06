@@ -6,6 +6,11 @@ Contact: themesbrand@gmail.com
 File: Form validation Js File
 */
 
+//
+// Invested Overview
+//
+// get colors array from the string
+
 // Example starter JavaScript for disabling form submissions if there are invalid fields
 (function () {
 	'use strict';
@@ -30,6 +35,34 @@ function onloadEditmode($id,$class) {
     $('#'+$id).find('input').attr("disabled", "disabled");
     $('#'+$id).removeClass($class);
 }
+
+//Table select on change
+function selectUpdate($this){
+    //$this= $(this);
+    //console.log($($this).find('option').filter(":selected").val());//Try this for value...
+
+  
+
+     if ($($this).find('option').filter(":selected").val()==0) {
+            $this.style.backgroundColor="rgba(0, 165, 79, 0.15)";
+            $this.style.color="rgba(0, 165, 79, 1)";
+      }
+      else if ($($this).find('option').filter(":selected").val()==1) {
+        $this.style.backgroundColor ="rgba(221, 174, 6, 0.15)";
+        $this.style.color="rgba(221, 174, 6, 1)";
+
+      }
+      
+      else  if($($this).find('option').filter(":selected").val()==2){
+        $this.style.backgroundColor ="rgba(255, 3, 3, 0.15)";
+        $this.style.color="rgba(255, 3, 3, 1)";
+
+      }
+
+   
+}
+
+//selectUpdate(this);
 
 //Edit Butt
 function updateEditmode($elm,$text1,$text2,$id,$class) {  
@@ -137,6 +170,8 @@ var intTel = function () {
 }
 
 intTel();
+
+//Document Ready
 $(document).ready(function () {
     onloadEditmode('formtypeleads','editable-enabled');
     flatpickr('#datepickerwebinar', {
@@ -153,10 +188,31 @@ $(document).ready(function () {
         noCalendar: true,
         dateFormat: "H:i",
     });
-   
+
+  //Load the table status btn
+   $("table  select.status").each(function(){
+        
+    if ($(this).val()==0) {
+        $(this).css( {backgroundColor: "rgba(0, 165, 79, 0.15)", color: "rgba(0, 165, 79, 1)" } );
+        
+    }
+    else if ($(this).val()==1) {
+        $(this).css( {backgroundColor: "rgba(221, 174, 6, 0.15)", color: "rgba(221, 174, 6, 1)" } );
+        
+
+    }
     
+    else  if($(this).val()==2){
+        $(this).css( {backgroundColor: "rgba(255, 3, 3, 0.15)", color: "rgba(255, 3, 3, 1)" } );
+        
+    }
+
+    });
+       
 
 });
+
+
 
 
 

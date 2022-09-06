@@ -540,6 +540,7 @@ def lead_registration_check(request):
         # print(merge_ticket)
         
 def lead_processing(request):
+
     if 'UserId' in request.session:
         UserId=request.session['UserId']
         search_email_phone=[]
@@ -594,12 +595,13 @@ def lead_processing(request):
                     print("Get ticket--------------------",get_ticket)
                     ticket=get_ticket
             lead_details=selector.get_lead_details(ticket,UserId)
-            print("Lead details----",lead_details)    
+            ticket_summary=selector.get_ticket_summary(ticket)
+            print("ticket summary----",ticket_summary)    
             print("ticket1111111111111111111",ticket)
         except Exception as e:
             print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!Exception!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!",e.__class__)
     
-        return render(request,'sales/LeadProcessing.html',{'ticket':ticket,'email_phone':json.dumps(search_email_phone),'lead_details':lead_details})
+        return render(request,'sales/LeadProcessing.html',{'ticket':ticket,'email_phone':json.dumps(search_email_phone),'lead_details':lead_details,'ticket_summary':ticket_summary})
     else:
          return redirect('/login') 
         
