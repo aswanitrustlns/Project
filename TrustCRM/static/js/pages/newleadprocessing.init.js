@@ -6,11 +6,8 @@ Contact: themesbrand@gmail.com
 File: Form validation Js File
 */
 
-//
-// Invested Overview
-//
-// get colors array from the string
 
+//$valids=1;
 // Example starter JavaScript for disabling form submissions if there are invalid fields
 (function () {
 	'use strict';
@@ -23,12 +20,57 @@ File: Form validation Js File
 				if (form.checkValidity() === false) {
 					event.preventDefault();
 					event.stopPropagation();
+                    $valids=0;
 				}
 				form.classList.add('was-validated');
 			}, false);
 		});
 	}, false);
 })();
+
+
+/* Form editor Init Js File
+*/
+ClassicEditor
+    .create( document.querySelector( '#ckeditor-classic' ),
+
+    {
+      
+        fontFamily: {
+            options: [
+                'default',
+                'Arial, Helvetica, sans-serif',
+                'Courier New, Courier, monospace',
+                'Georgia, serif',
+                'Lucida Sans Unicode, Lucida Grande, sans-serif',
+                'Tahoma, Geneva, sans-serif',
+                'Times New Roman, Times, serif',
+                'Trebuchet MS, Helvetica, sans-serif',
+                'Verdana, Geneva, sans-serif'
+            ],
+            supportAllValues: true
+        },
+        // https://ckeditor.com/docs/ckeditor5/latest/features/font.html#configuring-the-font-size-feature
+        fontSize: {
+            options: [ 10, 12, 14, 'default', 18, 20, 22 ],
+            supportAllValues: true
+        },
+    } 
+     )
+    .then( function(editor) {
+
+      
+        editor.ui.view.editable.element.style.height = '100px';
+
+       
+    } )
+    .catch( function(error) {
+        console.error(error);
+    } 
+    
+    );
+
+
 
 function onloadEditmode($id,$class) {
     $('#'+$id).find('select').attr("disabled", "disabled");
@@ -173,13 +215,23 @@ intTel();
 
 //Document Ready
 $(document).ready(function () {
-    onloadEditmode('formtypeleads','editable-enabled');
+    //onloadEditmode('formtypeleads','editable-enabled');
     flatpickr('#datepickerwebinar', {
         //inline: true,
         dateFormat: "M-d-Y",
         defaultDate: new Date(),
     });
     flatpickr('#timepickerweb', {
+        //inline: true,
+		"allowInput":true,
+        altInput: true,
+        mode: "single",
+        enableTime: true,
+        noCalendar: true,
+        dateFormat: "H:i",
+    });
+
+    flatpickr('#event-timepicker', {
         //inline: true,
 		"allowInput":true,
         altInput: true,
@@ -211,6 +263,27 @@ $(document).ready(function () {
        
 
 });
+
+
+
+function mysubmitformsset(){
+
+	$is_invalid=0;
+	 const formp = document.querySelectorAll('.formsset');
+	 Array.prototype.slice.call(formp).forEach((form) => {
+		 //alert(form.id);
+		 $s=form.checkValidity();
+		 //alert("Valid:"+$s);
+		 if(!$s){
+			 $is_invalid=1;
+			 form.reportValidity();
+             form.classList.add('was-validated');
+		 }
+	 });
+	 //alert("FinalValidity:"+$is_invalid);
+}
+
+    
 
 
 

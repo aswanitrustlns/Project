@@ -245,19 +245,26 @@ class Selector:
         return accounts_count
     
     # Get New Accounts page data
-    def get_new_accounts(self,change,from_date,to_date):
+    def get_new_accounts(self,change,status,from_date,to_date):
         try:
            Cursor=connection.cursor()
            date_today=datetime.today().date()    
            date_today=date_today.strftime("%Y-%m-%d")
+           week_day=datetime.today().weekday() # Monday is 0 and Sunday is 6
+           if(week_day==0):
+                date_yesterday = datetime.today()-timedelta(3)
+           else:
+                date_yesterday = datetime.today()-timedelta(1)
+           date_yesterday=date_yesterday.strftime("%Y-%m-%d")
            print("Load all ---",change)
            if(change == "All"):
-                Cursor.execute("set nocount on;exec SP_GetNewAccountsList %s,%s",[from_date,to_date])  
+                print("All status----------------",status)
+                Cursor.execute("set nocount on;exec SP_GetNewAccountsList %s,%s,%s",[from_date,to_date,status])  
                 live_accounts=Cursor.fetchall()
            else: 
-                Cursor.execute("set nocount on;exec SP_GetNewAccountsList %s,%s,%s",["1900-01-01",date_today,change])  
+                Cursor.execute("set nocount on;exec SP_GetNewAccountsList %s,%s,%s",[date_yesterday,date_today,change])  
                 live_accounts=Cursor.fetchall()
-           
+           print("Length of dat======================",len(live_accounts))  
         except Exception as e:
             print("Exception---",e)
         finally:
@@ -431,18 +438,18 @@ class Selector:
             Cursor.close()
         return chat_log
 
-    # Get leads details by ticket and userid
-    def get_leads_details(self,ticket,mailId):
-        try:
-            Cursor=connection.cursor()
-            Cursor.execute("set nocount on;exec SP_GetLeadDetailsByTicket %s,%s",[ticket,mailId])
-            leads_details=Cursor.fetchone()
-            print("Leads details-----------------------------",leads_details)
-        except Exception as e:
-            print("Exception------",e)
-        finally:
-            Cursor.close()
-        return leads_details
+    # # Get leads details by ticket and userid
+    # def get_leads_details(self,ticket,mailId):
+    #     try:
+    #         Cursor=connection.cursor()
+    #         Cursor.execute("set nocount on;exec SP_GetLeadDetailsByTicket %s,%s",[ticket,mailId])
+    #         leads_details=Cursor.fetchone()
+    #         print("Leads details-----------------------------",leads_details)
+    #     except Exception as e:
+    #         print("Exception------",e)
+    #     finally:
+    #         Cursor.close()
+    #     return leads_details
 
     #Open demo account
     def open_demo_account(self):
@@ -554,11 +561,17 @@ class Selector:
         
         return message_data,subject,sender,inbox_count
 #Get activities log    
-    def get_activity_log(self,ticket,time):
+    def get_activity_log(self,ticket):
+
         try:
+            
+
+            now = datetime.now()
+            current_time = now.strftime("%H:%M:%S")
             Cursor=connection.cursor()
-            Cursor.execute("set nocount on;exec SP_GetTicketLogs %s,%s",[ticket,time])
+            Cursor.execute("set nocount on;exec SP_GetTicketLogs %s,%s",[ticket,current_time])
             activity_log=Cursor.fetchall()
+            print("Activity log-----------------------------------",activity_log)
         except Exception as e:
             print("Exception------",e)
         finally:
@@ -620,14 +633,19 @@ class Selector:
             ticket_summary=Cursor.fetchall()
             print("Lead Score-----",ticket_summary)
             for summary in ticket_summary:
-                summary_text=summary[0].split(":",1) 
-                summary_list.append(summary_text[0],summary_text[1])
+                
+                summary_text=summary[1].split(":",1)  #index out of range
+               
+                summary_list.append({
+                    'summary_head':summary_text[0],
+                    'summary_text':summary_text[1]
+                })
             print("Summary list===",summary_list)
         except Exception as e:
             print("Exception------",e)
         finally:
             Cursor.close()
-        return ticket_summary
+        return summary_list
     
     #Get sales summary
     def get_sales_summary(self,ticket):
@@ -648,7 +666,7 @@ class Selector:
             Cursor=connection.cursor()
             Cursor.execute("set nocount on;exec SP_GetLeadDetailsByTicket %s,%s",[ticket,userid])
             lead_details=Cursor.fetchone()
-            print("Lead Score-----",lead_details)
+            print("Lead details-----------------",lead_details)
         except Exception as e:
             print("Exception------",e)
         finally:
@@ -671,6 +689,8 @@ class Selector:
         finally:
             Cursor.close()
         return activity_logs
+    
+    
 
 
 

@@ -13,11 +13,17 @@
      <!-- DataTables -->
      <link href="{% static 'libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css' %}" rel="stylesheet" type="text/css" />
      <link href="{% static 'libs/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css' %}" rel="stylesheet" type="text/css" />
+     
+     <link href="{% static 'libs/@fullcalendar/core/main.min.css' %}" rel="stylesheet" type="text/css" />
+     <link href="{% static 'libs/@fullcalendar/daygrid/main.min.css'%}" rel="stylesheet" type="text/css" />
+     <link href="{% static 'libs/@fullcalendar/bootstrap/main.min.css' %}" rel="stylesheet" type="text/css" />
+     <link href="{% static 'libs/@fullcalendar/timegrid/main.min.css'%}" rel="stylesheet" type="text/css" />
      <!-- plugin css -->
      <!--<link href="assets/libs/admin-resources/jquery.vectormap/jquery-jvectormap-1.2.2.css" rel="stylesheet"
          type="text/css" />-->
       <!-- datepicker css -->
       <link rel="stylesheet" href="{% static 'libs/flatpickr/flatpickr.min.css' %}">
+
       <link href="{% static 'css/input-tel.min.css' %}" rel="stylesheet" type="text/css" />
     {% include "common/link.html" %}
     {% include "common/scripts.html" %}
@@ -124,74 +130,78 @@
                                         </div>
                                      </div>
                                      
-                                    <form class="needs-validation formtype_leads" novalidate="" id="formtypeleads">
+                                    <!-- <form class="needs-validation formtype_leads" novalidate="" id="formtypeleads"> -->
                                         <div class="row mb-3">
 
 
                                             <!--Tickets Details-->
                                             <div class="col-md-4">
-                                                <div class="border-dashed px-3 py-3 car-h-100 rounded-2">
-                                                    <div class="d-flex justify-content-between">
-                                                        <div class=" align-items-start px-0 flex-grow-1 d-flex flex-wrap">
-                                                            
-                                                                <div class="mb-3">
-                                                                    <label class="form-label" for="title">Title</label>
-                                                                    <select class="form-select border-0 py-1" id="title" 
-                                                                        required>
-                                                                        <option value="Mr">Mr</option>
-                                                                        <option value="Ms">Ms</option>
-                                                                        <option value="Mrs">Mrs</option>
-                                                                    </select>
-                            
+                                                <form class="needs-validation formtype_leads formsset" novalidate="" id="formtypeleads_info"  name="formmanage" >
+                                                    <div class="card card-h-100 " style="border-style: dashed">
+                                                        <div class="card-body d-flex flex-column justify-content-between">
+                                                            <div class="d-flex justify-content-between">
+                                                                <div class=" align-items-start px-0 flex-grow-1 d-flex flex-wrap">
+                                                                    
+                                                                        <div class="mb-3">
+                                                                            <label class="form-label" for="title">Title</label>
+                                                                            <select class="form-select border-0 py-1" id="title" 
+                                                                                required>
+                                                                                <option value="Mr">Mr</option>
+                                                                                <option value="Ms">Ms</option>
+                                                                                <option value="Mrs">Mrs</option>
+                                                                            </select>
+                                    
+                                                                        </div>
+                                                                    
+                                                                
+                                                                        <div class="mb-3">
+                                                                            <label class="form-label" for="firstname">Name</label>
+                                                                            <input type="text" class="form-control border-0 py-1"
+                                                                                id="firstname" placeholder="both name(s) e.g Jon Doe"
+                                                                            required>
+                                    
+                                                                        </div>
+                                                                    
                                                                 </div>
-                                                            
-                                                        
-                                                                <div class="mb-3">
-                                                                    <label class="form-label" for="firstname">Name</label>
-                                                                    <input type="text" class="form-control border-0 py-1"
-                                                                        id="firstname" placeholder="both name(s) e.g Jon Doe"
-                                                                       required>
-                            
+                                                                <div class="ms-auto">
+                                                                    <a class="btn   btn-soft-link  flex-shrink-0 d-flex align-items-center py-1 px-2" style="background-color:
+                                                                    #1B1C2E ;" onclick="updateEditmode('#edittext','Edit','Cancel edit','formtypeleads_leads','editable-enabled')">
+                                                                        <!--"updateInput(this,'assignv')"-->
+                                                                        <svg width="11" height="11" viewBox="0 0 11 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                            <path d="M9.94776 4.14227L4.29905 11.4471C4.03981 11.7789 3.65777 11.9654 3.24844 11.9724L0.997149 12C0.874351 12 0.772019 11.9171 0.74473 11.7996L0.233072 9.58117C0.144385 9.17343 0.233072 8.75186 0.492312 8.42705L4.49689 3.24385C4.56511 3.16092 4.68791 3.14779 4.76978 3.2093L6.45484 4.55002C6.56399 4.63986 6.71408 4.68824 6.87099 4.6675C7.20527 4.62604 7.4304 4.32196 7.39629 3.99714C7.37582 3.83128 7.29396 3.69306 7.1848 3.5894C7.15069 3.56175 5.5475 2.27632 5.5475 2.27632C5.44516 2.19339 5.4247 2.04135 5.50656 1.93838L6.14102 1.11529C6.72772 0.361994 7.75104 0.292885 8.57651 0.949423L9.52479 1.70271C9.91365 2.0068 10.1729 2.40763 10.2616 2.8292C10.3639 3.29292 10.2548 3.74835 9.94776 4.14227Z" fill="#9C9C9C"></path>
+                                                                        </svg>
+                                                                        <span id="edittext" class="ms-1 d-inline-block fs-12">Edit</span>
+                                                                        </a>
                                                                 </div>
+
+                                                            </div>
                                                             
-                                                        </div>
-                                                        <div class="ms-auto">
-                                                            <a class="btn   btn-soft-link  flex-shrink-0 d-flex align-items-center py-1 px-2" style="background-color:
-                                                            #1B1C2E ;"  onclick="updateEditmode('#edittext','Edit','Cancel edit','formtypeleads','editable-enabled')">
-                                                                <!--"updateInput(this,'assignv')"-->
-                                                                <svg width="11" height="11" viewBox="0 0 11 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                    <path d="M9.94776 4.14227L4.29905 11.4471C4.03981 11.7789 3.65777 11.9654 3.24844 11.9724L0.997149 12C0.874351 12 0.772019 11.9171 0.74473 11.7996L0.233072 9.58117C0.144385 9.17343 0.233072 8.75186 0.492312 8.42705L4.49689 3.24385C4.56511 3.16092 4.68791 3.14779 4.76978 3.2093L6.45484 4.55002C6.56399 4.63986 6.71408 4.68824 6.87099 4.6675C7.20527 4.62604 7.4304 4.32196 7.39629 3.99714C7.37582 3.83128 7.29396 3.69306 7.1848 3.5894C7.15069 3.56175 5.5475 2.27632 5.5475 2.27632C5.44516 2.19339 5.4247 2.04135 5.50656 1.93838L6.14102 1.11529C6.72772 0.361994 7.75104 0.292885 8.57651 0.949423L9.52479 1.70271C9.91365 2.0068 10.1729 2.40763 10.2616 2.8292C10.3639 3.29292 10.2548 3.74835 9.94776 4.14227Z" fill="#9C9C9C"></path>
-                                                                </svg>
-                                                                <span id="edittext" class="ms-1 d-inline-block fs-12">Edit</span>
-                                                                </a>
-                                                        </div>
-
-                                                    </div>
-                                                    
-            
-                                                
-
-                                                    <div class="mt-5">
-                                                        <div class="d-flex  align-items-center flex-wrap ">
-                                                            <div class="form-check form-switch " dir="ltr">
-                                                                <input type="checkbox" class="form-check-input" id="ticketstatus" checked="" >
-                                                                <label class="form-check-label " for="ticketstatus">Pending</label>
-                                                            </div>
-
-                                                            <div class=" ms-auto d-flex align-items-center justify-content-between ">
-
-                                                                <p class="gilroyregular-type fs-16 me-3 mb-0 color-color1">Reg date: <div id="regdate"> </div> </p>
-                                                                <button type="button" class="btn  text-white gilorymedium-type fs-14" style="background-color:
-                                                                #8D79F6">
-                                                                    IP : <span class="badge  ms-1"> <div id="ipaddr"></div></span>
-                                                                </button>
-                                                            </div>
-
-
-                                                        </div>
+                    
                                                         
+
+                                                            <div class="mt-5">
+                                                                <div class="d-flex  align-items-center flex-wrap ">
+                                                                    <div class="form-check form-switch " dir="ltr">
+                                                                        <input type="checkbox" class="form-check-input" id="ticketstatus" checked="" >
+                                                                        <label class="form-check-label " for="ticketstatus">Pending</label>
+                                                                    </div>
+
+                                                                    <div class=" ms-auto d-flex align-items-center justify-content-between ">
+
+                                                                        <p class="gilroyregular-type fs-16 me-3 mb-0 color-color1">Reg date: <div id="regdate"> </div> </p>
+                                                                        <button type="button" class="btn  text-white gilorymedium-type fs-14" style="background-color:
+                                                                        #8D79F6">
+                                                                            IP : <span class="badge  ms-1"> <div id="ipaddr"></div></span>
+                                                                        </button>
+                                                                    </div>
+
+
+                                                                </div>
+                                                                
+                                                            </div>
+                                                        </div>
                                                     </div>
-                                                </div>
+                                                </form>
 
                                             </div>
                                                 
@@ -339,13 +349,15 @@
                                                                             </div>
                                                                             <div class="  col-md-6 col-xxl-4">
                                                                                 <div class="mb-3">
-                                                                                    <label class="form-label text-xxl-end w-100" for="country">Country</label>
-                                            
-                                                                                    <select class="form-select border-0 text-xxl-end" id="country"
+                                                                                    <label class="form-label  w-100" for="country">Country</label>
+                                                                                    <input type="text" class="form-control border-0" id="country"
+                                                                                        placeholder="" >
+<!--                                                                                
+                                                                                    <select class="form-select border-0 " id="country"
                                                                                         required>
                                                                                         <option value="UAE">UAE</option>
                                                                                         <option value="Qatar">Qatar</option>
-                                                                                    </select>
+                                                                                    </select> -->
                                             
                                                                                 </div>
                                             
@@ -390,23 +402,34 @@
                                 
                                                                                             <select class="form-select border-1 " id="salesrep"
                                                                                             required>
-                                                                                                <option value="Firas monzer1">Firas monzer1</option>
-                                                                                                <option value="Firas monzer2">Firas monzer 2</option>
+                                                                                                <option value="0">Select</option>
+                                                                                                <option value="20">Farah Hawilo</option>
+                                                                                                <option value="30">Firas monzer</option>
+                                                                                                <option value="31">Firas Hachache</option>
+                                                                                                <option value="56">Noura Mikati</option>
+                                                                                                <option value="57">Areej</option>
+                                                                                                <option value="58">Michella</option>
+                                                                                                <option value="59">Czarina Villaflores</option>
+                                                                                                <option value="60">Online</option>
                                                                                             </select>
                                                                                         </div>
                                                                                         <div class="col-md-4 col-xl-6 col-xxl-2">
                                 
-                                                                                            <select class="form-select border-1" id="count"
+                                                                                            <select class="form-select border-1" id="assign"
                                                                                             required>
-                                                                                                <option value="Firas monzer1">25</option>
-                                                                                                <option value="Firas monzer2">50</option>
+                                                                                            <option value="100">100</option>
+                                                                                            <option value="75">75</option>
+                                                                                            <option value="50">50</option>
+                                                                                            <option value="25">25</option>
+                                                                                            <option value="0">0</option>
+                                                                                                
                                                                                             </select>
                                                                                         </div>
                                 
                                                                                         <div class="col-xl-12 col-xxl-6 mt-3 mt-xxl-0">
                                 
-                                                                                            <button type="button" class="btn bg-soft-orange text-white me-2 btn-sm"  >Assign</button>
-                                                                                            <button type="button" class="btn  text-white me-2 btn-sm"   style="background-color:#2C2E45 ;">Assign to me</button>
+                                                                                            <button type="button" class="btn bg-soft-orange text-white me-2 btn-sm" onclick="assignFun('A')">Assign</button>
+                                                                                            <button type="button" class="btn  text-white me-2 btn-sm"   style="background-color:#2C2E45 ;" onclick="assignFun('M')">Assign to me</button>
                                                                                         </div>
                                                                                     </div>
                                                                                     
@@ -424,23 +447,33 @@
                                 
                                                                                             <select class="form-select border-1" id="salesrep1"
                                                                                             required>
-                                                                                                <option value="Firas monzer1">Firas monzer1</option>
-                                                                                                <option value="Firas monzer2">Firas monzer 2</option>
+                                                                                            <option value="0">Select</option>
+                                                                                            <option value="20">Farah Hawilo</option>
+                                                                                            <option value="30">Firas monzer</option>
+                                                                                            <option value="31">Firas Hachache</option>
+                                                                                            <option value="56">Noura Mikati</option>
+                                                                                            <option value="57">Areej</option>
+                                                                                            <option value="58">Michella</option>
+                                                                                            <option value="59">Czarina Villaflores</option>
+                                                                                            <option value="60">Online</option>
                                                                                             </select>
                                                                                         </div>
                                                                                         <div class="col-md-4 col-xl-6 col-xxl-2">
                                 
-                                                                                            <select class="form-select border-1" id="count"
+                                                                                            <select class="form-select border-1" id="reassign"
                                                                                             required>
-                                                                                                <option value="Firas monzer1">25</option>
-                                                                                                <option value="Firas monzer2">50</option>
+                                                                                            <option value="0">0</option>
+                                                                                            <option value="25">25</option>
+                                                                                            <option value="50">50</option>
+                                                                                            <option value="75">75</option>
+                                                                                            <option value="100">100</option>
                                                                                             </select>
                                                                                         </div>
                                 
                                                                                         <div class="col-xl-12 col-xxl-6 mt-3 mt-xxl-0">
                                 
                                                                                             
-                                                                                            <button type="button" class="btn  text-white me-2 btn-sm"   style="background-color:#2C2E45 ;">ressign</button>
+                                                                                            <button type="button" class="btn  text-white me-2 btn-sm"   style="background-color:#2C2E45 ;" onclick="assignFun('R')">Reassign</button>
                                                                                         </div>
                                                                                     </div>
                                                                                     
@@ -473,6 +506,7 @@
                                                                     <div class="" data-simplebar  style="max-height: 300px">
                                                                         <ul class="list-unstyled activity-wid activity-wid-manage-tickets ">
                                                                             <!--activity x-->
+                                                                        {%for log in activity_log%}
                                                                             <li class="activity-list activity-border">
                                                                                 <div class="activity-icon avatar-sm ms-2">
                                                                                     <span class="avatar-title bg-soft-boxgray1 text-warning rounded-circle">
@@ -482,17 +516,18 @@
                                                                                 <div class="timeline-list-item">
                                                                                     <div class="d-flex">
                                                                                         <div class="flex-grow-1 overflow-hidden me-4 gilroyregular-type">
-                                                                                            <p class="font-size-14 mb-1 color-color1">May 19, 2022</p>
+                                                                                            <p class="font-size-14 mb-1 color-color1">{{log.0}}</p>
                                                                                             <div class="mt-2 bg-soft-boxgray1 px-3 py-3 fs-13 rounded-3 d-flex flex-wrap">
-                                                                                                <img class="rounded-circle avatar-md mb-2" alt="200x200" src="assets/images/users/avatar-4.jpg" data-holder-rendered="true">
+                                                                                                <img class="rounded-circle avatar-md mb-2" alt="200x200" src="{%static 'images/users/'%}{{log.7}}.png"
+                                                                                                onerror='this.src="{% static 'images/users/user.png' %}"' data-holder-rendered="true">
                                                                                                 <div class="ms-2">
-                                                                                                    <p class="text-truncate color-color1  mb-0 ">Admin</p>
-                                                                                                    <p class="text-truncate text-white  mb-0 fs-15"><span class="me-2 d-inline-block">Register ticket</span> <svg width="10" height="8" viewBox="0 0 10 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                                                    <p class="text-truncate color-color1  mb-0 ">{{log.7}}</p>
+                                                                                                    <p class="text-truncate text-white  mb-0 fs-15"><span class="me-2 d-inline-block">{{log.4}}</span> <svg width="10" height="8" viewBox="0 0 10 8" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                                                                         <path d="M0.75 4.00004L3.58 6.83004L9.25 1.17004" stroke="#00A54F" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                                                                                                         </svg>
-                                                                                                        </p>
-                                                                                                    <p class="text-truncate color-color1  mb-0">12:34 Pm by admin</p>
-                                                                                                    <p class="text-truncate color-color1  mb-0">New ticket opened: 180922</p>
+                                                                                                    </p>
+                                                                                                    <p class="text-truncate color-color1  mb-0">{{log.1}} by {{log.7}}</p>
+                                                                                                    <p class="text-truncate color-color1  mb-0">{{log.3}}</p>
                                                                                                 </div>
                                                                                                 
                                                                                             </div>
@@ -502,69 +537,8 @@
                                                                                     </div>
                                                                                 </div> 
                                                                             </li>
-                                                                            <!--activity x-->
-                                                                            <li class="activity-list activity-border">
-                                                                                <div class="activity-icon avatar-sm ms-2">
-                                                                                    <span class="avatar-title bg-soft-boxgray1 text-warning rounded-circle">
-                                                                                    <!--<i class="bx bx-bitcoin font-size-24"></i>-->
-                                                                                    </span>
-                                                                                </div>
-                                                                                <div class="timeline-list-item">
-                                                                                    <div class="d-flex">
-                                                                                        <div class="flex-grow-1 overflow-hidden me-4 gilroyregular-type">
-                                                                                            <p class="font-size-14 mb-1 color-color1">May 19, 2022</p>
-                                                                                            <div class="mt-2 bg-soft-boxgray1 px-3 py-3 fs-13 rounded-3 d-flex flex-wrap">
-                                                                                                <img class="rounded-circle avatar-md mb-2" alt="200x200" src="assets/images/users/avatar-4.jpg" data-holder-rendered="true">
-                                                                                                <div class="ms-2">
-                                                                                                    <p class="text-truncate color-color1  mb-0 ">Admin</p>
-                                                                                                    <p class="text-truncate text-white  mb-0 fs-15"><span class="me-2 d-inline-block">Register ticket</span> <svg width="10" height="8" viewBox="0 0 10 8" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                                                        <path d="M0.75 4.00004L3.58 6.83004L9.25 1.17004" stroke="#00A54F" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                                                                                        </svg>
-                                                                                                        </p>
-                                                                                                    <p class="text-truncate color-color1  mb-0">12:34 Pm by admin</p>
-                                                                                                    <p class="text-truncate color-color1  mb-0">New ticket opened: 180922</p>
-                                                                                                </div>
-                                                                                                
-                                                                                            </div>
-                                                                                            
-                                                                                        </div>
-                                                                                        
-                                                                                    </div>
-                                                                                </div> 
-                                                                            </li>
-                                                                        
+                                                                        {%endfor%}   
                                     
-                                                                            <!--activity x-->
-                            
-                                                                            <li class="activity-list activity-border">
-                                                                                <div class="activity-icon avatar-sm ms-2">
-                                                                                    <span class="avatar-title bg-soft-boxgray1 text-warning rounded-circle">
-                                                                                    <!--<i class="bx bx-bitcoin font-size-24"></i>-->
-                                                                                    </span>
-                                                                                </div>
-                                                                                <div class="timeline-list-item">
-                                                                                    <div class="d-flex">
-                                                                                        <div class="flex-grow-1 overflow-hidden me-4 gilroyregular-type">
-                                                                                            <p class="font-size-14 mb-1 color-color1">May 19, 2022</p>
-                                                                                            <div class="mt-2 bg-soft-boxgray1 px-3 py-3 fs-13 rounded-3 d-flex flex-wrap">
-                                                                                                <img class="rounded-circle avatar-md mb-2" alt="200x200" src="assets/images/users/avatar-4.jpg" data-holder-rendered="true">
-                                                                                                <div class="ms-2">
-                                                                                                    <p class="text-truncate color-color1  mb-0 ">Admin</p>
-                                                                                                    <p class="text-truncate text-white  mb-0 fs-15"><span class="me-2 d-inline-block">Register ticket</span> <svg width="10" height="8" viewBox="0 0 10 8" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                                                        <path d="M0.75 4.00004L3.58 6.83004L9.25 1.17004" stroke="#00A54F" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                                                                                        </svg>
-                                                                                                        </p>
-                                                                                                    <p class="text-truncate color-color1  mb-0">12:34 Pm by admin</p>
-                                                                                                    <p class="text-truncate color-color1  mb-0">New ticket opened: 180922</p>
-                                                                                                </div>
-                                                                                                
-                                                                                            </div>
-                                                                                            
-                                                                                        </div>
-                                                                                        
-                                                                                    </div>
-                                                                                </div> 
-                                                                            </li>
                                                                             
                                                                         
                                                                         </ul>
@@ -607,6 +581,7 @@
                                                                         <div data-simplebar ></div>
 
                                                                         <!--Item1-->
+                                                                    {%for summary in ticket_summary%}    
                                                                         <div>
 
                                                                             <div class="d-flex py-2">
@@ -620,9 +595,9 @@
                                                                                             
                                                                                     </span>
                                                                                     <p class="gilroymedium-type m-0 ">
-                    
-                                                                                        <span class="color-color1 fs-15">Sales templates sent</span>
-                                                                                        <span class="text-white d-block mt-1 fs-15 ">21</span>
+                                                                                       
+                                                                                        <span class="color-color1 fs-15">{{summary.summary_head}}</span>
+                                                                                        <span class="text-white d-block mt-1 fs-15 ">{{summary.summary_text}}</span>
                                                                                     </p>
                 
                                                                                 </div>
@@ -637,6 +612,7 @@
                                                                             </div>
                                                                             <hr>
                                                                         </div>
+                                                                    {%endfor%}
                                                                         
 
                                                                     </div>
@@ -652,372 +628,395 @@
                                                 </div>
                                                 
                                                 <div class="tab-pane " id="actions-lead-tab" role="tabpanel">
-                                                    <div class="row px-0">
+                                                    <form class="needs-validation formtype_leads formsset" novalidate="" id="formtypeleads_leads" name="formmanage">
+                                                        <div class="row px-0">
 
-                                                        <div class="col-lg-6">
-                                                            <!--<div class="d-flex flex-wrap align-items-left flex-column mb-3 ">
-                                                                <h5 class="card-title me-2 almarenamonolight-type fs-21 mb-0">Personal details</h5>
-                    
-                    
-                                                            </div>-->
+                                                            <div class="col-lg-6">
+                                                                <!--<div class="d-flex flex-wrap align-items-left flex-column mb-3 ">
+                                                                    <h5 class="card-title me-2 almarenamonolight-type fs-21 mb-0">Personal details</h5>
+                        
+                        
+                                                                </div>-->
 
-                                                            <div class="card card-h-100 border-0" style="background-color: #1B1C2E;">
-                                                                <div class="card-body">
-                                                                    <div class="row px-0">
-                                                                        <div class="col-md-6 col-lg-6 col-xxl-3">
-                                                                            <div class="mb-3">
-                                                                                <label class="form-label" for="age">Age</label>
-                                                                                <input type="text" class="form-control border-0"
-                                                                                    id="age" placeholder="" value="35" required>
-                    
+                                                                <div class="card card-h-100 border-0" style="background-color: #1B1C2E;">
+                                                                    <div class="card-body">
+                                                                        <div class="row px-0">
+                                                                            <div class="col-md-6 col-lg-6 col-xxl-3">
+                                                                                <div class="mb-3">
+                                                                                    <label class="form-label" for="age">Age</label>
+                                                                                    <input type="text" class="form-control border-0"
+                                                                                        id="age" placeholder="" >
+                        
+                                                                                </div>
                                                                             </div>
-                                                                        </div>
-                                                                        <div class="col-md-6 col-lg-6 col-xxl-3">
-                                                                            <div class="mb-3">
-                                                                                <label class="form-label" for="dob">Date of birth</label>
-                                                                                <input type="text" class="form-control border-0"
-                                                                                    id="dob" placeholder="" value="35" required>
-                    
+                                                                            <div class="col-md-6 col-lg-6 col-xxl-3">
+                                                                                <div class="mb-3">
+                                                                                    <label class="form-label" for="dob">Date of birth</label>
+                                                                                    <input type="text" class="form-control border-0"
+                                                                                        id="dob" placeholder="" >
+                        
+                                                                                </div>
                                                                             </div>
-                                                                        </div>
-    
-                                                                        <div class="col-md-6 col-lg-6 col-xxl-3">
-                                                                            <div class="mb-3">
-                                                                                <label class="form-label"
-                                                                                    for="address">Address</label>
-                                                                                <input type="text" class="form-control border-0"
-                                                                                    id="address" placeholder=""
-                                                                                    value="Marketing manager">
-                    
+        
+                                                                            <div class="col-md-6 col-lg-6 col-xxl-3">
+                                                                                <div class="mb-3">
+                                                                                    <label class="form-label"
+                                                                                        for="address">Address</label>
+                                                                                    <input type="text" class="form-control border-0"
+                                                                                        id="address" placeholder=""
+                                                                                        >
+                        
+                                                                                </div>
                                                                             </div>
-                                                                        </div>
-                                                                        <div class="col-md-6 col-lg-6 col-xxl-3">
-                                                                            <div class="mb-3">
-                                                                                <label class="form-label w-100 text-xxl-end"
-                                                                                    for="profession">Zipcode</label>
-                                                                                <input type="text" class="form-control border-0  text-xxl-end"
-                                                                                    id="zipcode" placeholder=""
-                                                                                    value="Marketing manager">
-                    
+                                                                            <div class="col-md-6 col-lg-6 col-xxl-3">
+                                                                                <div class="mb-3">
+                                                                                    <label class="form-label w-100 text-xxl-end"
+                                                                                        for="profession">Zipcode</label>
+                                                                                    <input type="text" class="form-control border-0  text-xxl-end"
+                                                                                        id="zipcode" placeholder=""
+                                                                                        >
+                        
+                                                                                </div>
                                                                             </div>
-                                                                        </div>
-                                                                        <div class="col-md-6 col-lg-6 col-xxl-3">
-                                                                            <div class="mb-3">
-                                                                                <label class="form-label"
-                                                                                    for="state">State</label>
-                                                                                <input type="text" class="form-control border-0"
-                                                                                    id="state" placeholder=""
-                                                                                    value="Marketing manager">
-                    
+                                                                            <div class="col-md-6 col-lg-6 col-xxl-3">
+                                                                                <div class="mb-3">
+                                                                                    <label class="form-label"
+                                                                                        for="state">State</label>
+                                                                                    <input type="text" class="form-control border-0"
+                                                                                        id="state" placeholder=""
+                                                                                       >
+                        
+                                                                                </div>
                                                                             </div>
-                                                                        </div>
-                                                                        <div class="col-md-6 col-lg-6 col-xxl-3">
-                                                                            <div class="mb-3">
-                                                                                <label class="form-label"
-                                                                                    for="annualincome">Annual income</label>
-                                                                                <input type="text" class="form-control border-0"
-                                                                                    id="annualincome" placeholder=""
-                                                                                    value="Marketing manager">
-                    
+                                                                            <div class="col-md-6 col-lg-6 col-xxl-3">
+                                                                                <div class="mb-3">
+                                                                                    <label class="form-label"
+                                                                                        for="annualincome">Annual income</label>
+                                                                                    <input type="text" class="form-control border-0"
+                                                                                        id="annualincome" placeholder=""
+                                                                                        >
+                        
+                                                                                </div>
                                                                             </div>
-                                                                        </div>
-                                                                        <div class="col-md-6 col-lg-6 col-xxl-3">
-                                                                            <div class="mb-3">
-                    
-                                                                                <label class="form-label" for="exp">Experience </label>
-                                                                                <input type="text" class="form-control border-0"
-                                                                                    id="exp" placeholder="" value="No experience"
-                                                                                    required>
-                                                                            
+                                                                            <div class="col-md-6 col-lg-6 col-xxl-3">
+                                                                                <div class="mb-3">
+                        
+                                                                                    <label class="form-label" for="exp">Experience </label>
+                                                                                
+                                                                                        
+                                                                                        <select  class="form-control border-0" id="exp"  value="" name="experience">
+                                                                                            <option value="0">No Experience</option>
+                                                                                            <option value="1">Beginner</option>
+                                                                                            <option value="2">Intermediate</option>
+                                                                                            <option value="3">Expert</option>
+                                                                                        </select>
+                                                                                
+                                                                                </div>
                                                                             </div>
-                                                                        </div>
-                                                                        <div class="col-md-3">
-                                                                            <div class="mb-3">
-                                                                                <label class="form-label  w-100 text-xxl-end"
-                                                                                    for="profession">Profession</label>
-                                                                                <input type="text" class="form-control border-0 text-xxl-end"
-                                                                                    id="profession" placeholder=""
-                                                                                    value="Marketing manager">
-                    
+                                                                            <div class="col-md-3">
+                                                                                <div class="mb-3">
+                                                                                    <label class="form-label  w-100 text-xxl-end"
+                                                                                        for="profession">Profession</label>
+                                                                                    <input type="text" class="form-control border-0 text-xxl-end"
+                                                                                        id="profession" placeholder=""
+                                                                                       >
+                        
+                                                                                </div>
                                                                             </div>
-                                                                        </div>
-                                                                        <div class="col-md-6 col-lg-6 col-xxl-3 ">
-                                                                            <div class="mb-3">
-                                                                                <label class="form-label" for="category">Category<span
-                                                                                        class="color-orange"></label>
-                                                                                <input type="text" class="form-control border-0"
-                                                                                    id="category" value="VIP" required>
-                    
+                                                                            <div class="col-md-6 col-lg-6 col-xxl-3 ">
+                                                                                <div class="mb-3">
+                                                                                    <label class="form-label" for="category">Category<span
+                                                                                            class="color-orange"></label>
+                                                                                    <input type="text" class="form-control border-0"
+                                                                                        id="category"  required>
+                        
+                                                                                </div>
                                                                             </div>
-                                                                        </div>
-                                                                        <div class="col-md-6 col-lg-6 col-xxl-3 ">
-                                                                            <div class="mb-3">
-                                                                                <label class="form-label" for="potential">Potential<span
-                                                                                        class="color-orange"></label>
-                                                                                <input type="text" class="form-control border-0"
-                                                                                    id="potential" value="No potential" required>
-                    
+                                                                            <div class="col-md-6 col-lg-6 col-xxl-3 ">
+                                                                                <div class="mb-3">
+                                                                                    <label class="form-label" for="potential">Potential<span
+                                                                                            class="color-orange"></label>
+                                                                                    <input type="text" class="form-control border-0"
+                                                                                        id="potential"  required>
+                        
+                                                                                </div>
                                                                             </div>
-                                                                        </div>
-                                                                        <div class="col-md-6 col-lg-6 col-xxl-3 ">
-                                                                            <div class="mb-3">
-                                                                                <label class="form-label" for="language">Language<span
-                                                                                        class="color-orange"></label>
-                                                                                <input type="text" class="form-control border-0"
-                                                                                    id="language" value="English" required>
-                    
+                                                                            <div class="col-md-6 col-lg-6 col-xxl-3 ">
+                                                                                <div class="mb-3">
+                                                                                    <label class="form-label" for="language">Language<span
+                                                                                            class="color-orange"></label>
+                                                                                
+                                                                                        <select class="form-control border-0 " name="language"
+                                                                                        id="language" required >
+                                                                                        <option value="1">English</option>
+                                                                                        <option value="2">Chinese</option>
+                                                                                        </select>
+                        
+                                                                                </div>
                                                                             </div>
-                                                                        </div>
-                                                                        <div class="col-md-6 col-lg-6 col-xxl-3 ">
-                                                                            <div class="mb-3">
-                                                                                <label class="form-label text-xxl-end w-100" for="hearfrom">How did you
-                                                                                    hear<span class="color-orange"></label>
-                                                                                <select class="form-control border-0 text-xxl-end" name="hearfrom"
-                                                                                    id="hearfrom" required >
-                                                                                    <option value="Facebook">Facebook</option>
-                    
-                                                                                </select>
-                    
-                    
+                                                                            <div class="col-md-6 col-lg-6 col-xxl-3 ">
+                                                                                <div class="mb-3">
+                                                                                    <label class="form-label text-xxl-end w-100" for="hearfrom">How did you
+                                                                                        hear<span class="color-orange"></label>
+                                                                                    <select class="form-control border-0 text-xxl-end" name="hearfrom"
+                                                                                        id="hearfrom" required >
+                                                                                        <option value="facebbok">Facebook</option>
+                                                                                        <option value="friends">Friends</option>
+                                                                                        <option value="family">Family</option>
+                                                                                        <option value="IB">IB</option>
+                                                                                        <option value="offadv">Offline Advertisements</option>
+                                                                                        <option value="onadv">Online Advertisements</option>
+                                                                                        <option value="searchengine">Search Engine</option>
+                                                                                        <option value="tv">TV</option>
+                                                                                        <option value="other">Other</option>
+                        
+                                                                                    </select>
+                        
+                        
+                                                                                </div>
                                                                             </div>
-                                                                        </div>
-    
-                                                                        <div class="col-md-6 col-lg-6 col-xxl-3 ">
-                                                                            <div class="mb-3">
-                                                                                <label class="form-label"
-                                                                                    for="applicationform">Application form</label>
-                                                                                <input type="tel" class="form-control border-0"
-                                                                                    id="applicationform" value="No" required>
-                    
+        
+                                                                            <div class="col-md-6 col-lg-6 col-xxl-3 ">
+                                                                                <div class="mb-3">
+                                                                                    <label class="form-label"
+                                                                                        for="applicationform">Application form</label>
+                                                                                    
+                                                                                        <select class="form-control border-0" name="hearfrom"
+                                                                                        id="hearfrom" required >
+                                                                                        <option value="0">No</option>
+                                                                                        <option value="1">Yes</option>
+                                                                                        </select>
+                        
+                                                                                </div>
                                                                             </div>
+                        
+        
                                                                         </div>
-                    
-    
+
                                                                     </div>
+                                                                    
+                                                                    
 
                                                                 </div>
+                                                                
+
+                                                            </div>
+                                                            <div class="col-lg-6 ">
+                                                        
+
+                                                                    <div class="card card-h-100 border-0" style="background-color: #1B1C2E;">
+                                                                        <div class="card-body">
+                                                                            <div class="d-flex flex-wrap align-items-left flex-column mb-3 ">
+                                                                                <h5 class="card-title me-2 gilorymedium-type fs-23 mb-0">Webinar attended</h5>
+                                    
+                                    
+                                                                            </div>
+                                                                            <div class="table-responsive" data-simplebar=" " style="max-height: 100%;">
+                                                                                <table class="table mb-0 " style="vertical-align: middle ;">
+            
+                                                                                    <thead>
+                                                                                        <tr class="gilroyregular-type fs-12">
+                                                                                            <th>
+                                                                                                
+                                                                                                Name
+            
+                                                                                            </th>
+                                                                                            <th>Date</th>
+            
+                                                                                            <th class="text-end">Status</th>
+                                                                                        </tr>
+                                                                                    </thead>
+                                                                                    <tbody class="gilroymedium-type fs-14">
+                                                                                        <tr>
+                                                                                            <td scope="row">
+            
+                                                                                                <div class="d-flex align-items-center"> 
+            
+                                                                                                    <div class="activity-icon avatar-sm me-3">
+                                                                                                        <span class="avatar-title   rounded-circle">
+                                                                                                            <!--<i class="bx bx-bitcoin font-size-24"></i>-->
+                                                                                                            <img class="rounded-circle avatar-sm" src="assets/images/users/firasmonzer.png" alt="">
+                                                                                                        </span>
+                    
+                                                                                                    </div>
+                                                                                                    <div class="flex-grow-1 overflow-hidden me-4">
+                                                                                                        <h5 class="mb-0 gilroymedium-type fs-14 color-color1">
+                                                                                                            Firas
+                                                                                                            Monzer</h5>
+                                                                                                        <p class=" gilroymedium-type fs-16 mb-0 text-white">
+                                                                                                            Trading seminar
+                                                                                                        </p>
+                                                                                                    </div>
+            
+            
+                                                                                                </div>
+                                                                                                
+                                                                                                <!--<select class="form-control border-0"
+                                                                                                    name="seminarname" id="seminarname"
+                                                                                                    required value="Trading seminar">
+                                                                                                    <option value="Trading seminar">
+                                                                                                        Trading seminar
+                                                                                                    
+                                                                                                    
+                                                                                                    </option>
+            
+                                                                                                </select>-->
+                                                                                            </td>
+                                                                                            <td>
+                                                                                                <select class="form-control border-0"
+                                                                                                    name="seminardate" id="seminadate"
+                                                                                                    required value="Sept 15th -2022
+                                                                                            9:00 - 9:30">
+                                                                                                    <option value="Sept 15th -2022
+                                                                                                9:00 - 9:30">Sept 15th -2022
+                                                                                                        9:00 - 9:30</option>
+            
+                                                                                                </select>
+            
+                                                                                            </td>
+                                                                                            <td class="text-end">
+            
+                                                                                                <select class=" text-end btn  btn-sm  status" 
+                                                                                                    name="seminarstatus "
+                                                                                                    id="seminarstatusrow1" required  onchange="selectUpdate(this)">
+                                                                                                    <option  value=2  > 
+                                                                                                        Cancelled
+                                                                                                    </option>
+                                                                                                    <option  value=0   > 
+                                                                                                        Attended
+                                                                                                    </option>
+                                                                                                    <option  value=1  > 
+                                                                                                        Pending
+                                                                                                    </option>
+                                                                                                    
+            
+                                                                                                </select>
+                                                                                            
+                                                                                                    
+                                                                                            </td>
+            
+                                                                                        </tr>
+                                                                                        <tr>
+                                                                                            <td scope="row">
+            
+                                                                                                <div class="d-flex align-items-center"> 
+            
+                                                                                                    <div class="activity-icon avatar-sm me-3">
+                                                                                                        <span class="avatar-title   rounded-circle">
+                                                                                                            <!--<i class="bx bx-bitcoin font-size-24"></i>-->
+                                                                                                            <img class="rounded-circle avatar-sm" src="assets/images/users/firasmonzer.png" alt="">
+                                                                                                        </span>
+                    
+                                                                                                    </div>
+                                                                                                    <div class="flex-grow-1 overflow-hidden me-4">
+                                                                                                        <h5 class="mb-0 gilroymedium-type fs-14 color-color1">
+                                                                                                            Firas
+                                                                                                            Monzer</h5>
+                                                                                                        <p class=" gilroymedium-type fs-16 mb-0 text-white">
+                                                                                                            Trading seminar
+                                                                                                        </p>
+                                                                                                    </div>
+            
+            
+                                                                                                </div>
+                                                                                                
+                                                                                                <!--<select class="form-control border-0"
+                                                                                                    name="seminarname" id="seminarname"
+                                                                                                    required value="Trading seminar">
+                                                                                                    <option value="Trading seminar">
+                                                                                                        Trading seminar
+                                                                                                    
+                                                                                                    
+                                                                                                    </option>
+            
+                                                                                                </select>-->
+                                                                                            </td>
+                                                                                            <td>
+                                                                                                <select class="form-control border-0 "
+                                                                                                    name="seminardate" id="seminadate"
+                                                                                                    required value="Sept 15th -2022
+                                                                                            9:00 - 9:30">
+                                                                                                    <option value="Sept 15th -2022
+                                                                                                9:00 - 9:30">Sept 15th -2022
+                                                                                                        9:00 - 9:30</option>
+            
+                                                                                                </select>
+            
+                                                                                            </td>
+                                                                                            <td class="text-end">
+            
+                                                                                                <select class=" text-end btn  btn-sm   status"  onchange="selectUpdate(this)"
+                                                                                                    name="seminarstatus "
+                                                                                                    id="seminarstatusrow2" required >
+                                                                                                    <option  value=0   > 
+                                                                                                    Attended
+                                                                                                    </option>
+                                                                                                    <option  value=1  > 
+                                                                                                        Pending
+                                                                                                    </option>
+                                                                                                    <option  value=2  > 
+                                                                                                        Cancelled
+                                                                                                    </option>
+                                                                                                
+            
+                                                                                                </select>
+                                                                                            
+                                                                                                    
+                                                                                            </td>
+            
+                                                                                        </tr>
+                                                                                    
+                                                                                    
+            
+                                                                                    </tbody>
+                                                                                </table>
+                                                                            </div>
+
+                                                                        </div>
+                                                                    </div>
+
+                                                                
+                                                                
                                                                 
                                                                 
 
                                                             </div>
-                                                            
+                                                        
+
 
                                                         </div>
-                                                        <div class="col-lg-6 ">
-                                                       
-
-                                                                <div class="card card-h-100 border-0" style="background-color: #1B1C2E;">
-                                                                    <div class="card-body">
-                                                                        <div class="d-flex flex-wrap align-items-left flex-column mb-3 ">
-                                                                            <h5 class="card-title me-2 gilorymedium-type fs-23 mb-0">Webinar attended</h5>
-                                
-                                
-                                                                        </div>
-                                                                        <div class="table-responsive" data-simplebar=" " style="max-height: 100%;">
-                                                                            <table class="table mb-0 " style="vertical-align: middle ;">
-        
-                                                                                <thead>
-                                                                                    <tr class="gilroyregular-type fs-12">
-                                                                                        <th>
-                                                                                            
-                                                                                            Name
-        
-                                                                                        </th>
-                                                                                        <th>Date</th>
-        
-                                                                                        <th class="text-end">Status</th>
-                                                                                    </tr>
-                                                                                </thead>
-                                                                                <tbody class="gilroymedium-type fs-14">
-                                                                                    <tr>
-                                                                                        <td scope="row">
-        
-                                                                                            <div class="d-flex align-items-center"> 
-        
-                                                                                                <div class="activity-icon avatar-sm me-3">
-                                                                                                    <span class="avatar-title   rounded-circle">
-                                                                                                        <!--<i class="bx bx-bitcoin font-size-24"></i>-->
-                                                                                                        <img class="rounded-circle avatar-sm" src="assets/images/users/firasmonzer.png" alt="">
-                                                                                                    </span>
-                
-                                                                                                </div>
-                                                                                                <div class="flex-grow-1 overflow-hidden me-4">
-                                                                                                    <h5 class="mb-0 gilroymedium-type fs-14 color-color1">
-                                                                                                        Firas
-                                                                                                        Monzer</h5>
-                                                                                                    <p class=" gilroymedium-type fs-16 mb-0 text-white">
-                                                                                                        Trading seminar
-                                                                                                    </p>
-                                                                                                </div>
-        
-        
-                                                                                            </div>
-                                                                                            
-                                                                                            <!--<select class="form-control border-0"
-                                                                                                name="seminarname" id="seminarname"
-                                                                                                required value="Trading seminar">
-                                                                                                <option value="Trading seminar">
-                                                                                                    Trading seminar
-                                                                                                
-                                                                                                
-                                                                                                </option>
-        
-                                                                                            </select>-->
-                                                                                        </td>
-                                                                                        <td>
-                                                                                            <select class="form-control border-0"
-                                                                                                name="seminardate" id="seminadate"
-                                                                                                required value="Sept 15th -2022
-                                                                                        9:00 - 9:30">
-                                                                                                <option value="Sept 15th -2022
-                                                                                            9:00 - 9:30">Sept 15th -2022
-                                                                                                    9:00 - 9:30</option>
-        
-                                                                                            </select>
-        
-                                                                                        </td>
-                                                                                        <td class="text-end">
-        
-                                                                                            <select class=" text-end btn  btn-sm  status" 
-                                                                                                name="seminarstatus "
-                                                                                                id="seminarstatusrow1" required  onchange="selectUpdate(this)">
-                                                                                                <option  value=2  > 
-                                                                                                    Cancelled
-                                                                                                 </option>
-                                                                                                 <option  value=0   > 
-                                                                                                    Attended
-                                                                                                 </option>
-                                                                                                 <option  value=1  > 
-                                                                                                     Pending
-                                                                                                  </option>
-                                                                                                  
-        
-                                                                                            </select>
-                                                                                        
-                                                                                                
-                                                                                        </td>
-        
-                                                                                    </tr>
-                                                                                    <tr>
-                                                                                        <td scope="row">
-        
-                                                                                            <div class="d-flex align-items-center"> 
-        
-                                                                                                <div class="activity-icon avatar-sm me-3">
-                                                                                                    <span class="avatar-title   rounded-circle">
-                                                                                                        <!--<i class="bx bx-bitcoin font-size-24"></i>-->
-                                                                                                        <img class="rounded-circle avatar-sm" src="assets/images/users/firasmonzer.png" alt="">
-                                                                                                    </span>
-                
-                                                                                                </div>
-                                                                                                <div class="flex-grow-1 overflow-hidden me-4">
-                                                                                                    <h5 class="mb-0 gilroymedium-type fs-14 color-color1">
-                                                                                                        Firas
-                                                                                                        Monzer</h5>
-                                                                                                    <p class=" gilroymedium-type fs-16 mb-0 text-white">
-                                                                                                        Trading seminar
-                                                                                                    </p>
-                                                                                                </div>
-        
-        
-                                                                                            </div>
-                                                                                            
-                                                                                            <!--<select class="form-control border-0"
-                                                                                                name="seminarname" id="seminarname"
-                                                                                                required value="Trading seminar">
-                                                                                                <option value="Trading seminar">
-                                                                                                    Trading seminar
-                                                                                                
-                                                                                                
-                                                                                                </option>
-        
-                                                                                            </select>-->
-                                                                                        </td>
-                                                                                        <td>
-                                                                                            <select class="form-control border-0 "
-                                                                                                name="seminardate" id="seminadate"
-                                                                                                required value="Sept 15th -2022
-                                                                                        9:00 - 9:30">
-                                                                                                <option value="Sept 15th -2022
-                                                                                            9:00 - 9:30">Sept 15th -2022
-                                                                                                    9:00 - 9:30</option>
-        
-                                                                                            </select>
-        
-                                                                                        </td>
-                                                                                        <td class="text-end">
-        
-                                                                                            <select class=" text-end btn  btn-sm   status"  onchange="selectUpdate(this)"
-                                                                                                name="seminarstatus "
-                                                                                                id="seminarstatusrow2" required >
-                                                                                                <option  value=0   > 
-                                                                                                   Attended
-                                                                                                </option>
-                                                                                                <option  value=1  > 
-                                                                                                    Pending
-                                                                                                 </option>
-                                                                                                 <option  value=2  > 
-                                                                                                    Cancelled
-                                                                                                 </option>
-                                                                                            
-        
-                                                                                            </select>
-                                                                                        
-                                                                                                
-                                                                                        </td>
-        
-                                                                                    </tr>
-                                                                                
-                                                                                
-        
-                                                                                </tbody>
-                                                                            </table>
-                                                                        </div>
-
-                                                                    </div>
-                                                                </div>
-
-                                                            
-                                                            
-                                                            
-                                                            
-
-                                                        </div>
-                                                    
-
-
-                                                    </div>
+                                                    </form>
                                                 </div>
 
                                                 <div class="tab-pane" id="actions-email-tab" role="tabpanel">
 
                                                     <div class="row px-0">
 
-                                                            <div class="col-lg-3">
+                                                            <div class="col-lg-2">
                                                                  <!-- Left sidebar -->
-                                <div class="email-leftbar card border-0 w-100" style="background-color:
+                                <div class="email-leftbar card border-0 w-100 card-h-100" style="background-color:
                                 rgba(27, 28, 46, 1) ;">
                                     <!--<button type="button" class="btn btn-danger w-100 waves-effect waves-light" data-bs-toggle="modal" data-bs-target="#composemodal">
                                         Compose
                                     </button>-->
-                                     <div class="mail-list mt-0">
+                                    <div class="mail-list mt-0">
                                         <a href="#" class=" rounded-2 gilroymedium-type fs-15  mb-2 text-white text-center" style="background-color:
-                                             rgba(2, 126, 194, 1) ;">
-                                                Compose </a>
-                                                                                        <a href="#" class=" rounded-2 gilroymedium-type fs-15 color-color1 mb-2" style="background-color:
-                                                                                        rgba(32, 33, 52, 1) ;"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M16.5 7.875V11.625C16.5 14.25 15 15.375 12.75 15.375H5.25C3 15.375 1.5 14.25 1.5 11.625V6.375C1.5 3.75 3 2.625 5.25 2.625H10.5" stroke="#9295D0" stroke-width="1.2" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
-                                                <path d="M5.25 6.75L7.5975 8.625C8.37 9.24 9.6375 9.24 10.41 8.625L11.295 7.92" stroke="#9295D0" stroke-width="1.2" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
-                                                <path d="M14.625 6C15.6605 6 16.5 5.16053 16.5 4.125C16.5 3.08947 15.6605 2.25 14.625 2.25C13.5895 2.25 12.75 3.08947 12.75 4.125C12.75 5.16053 13.5895 6 14.625 6Z" stroke="#9295D0" stroke-width="1.2" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
-                                                </svg>
-                                                Inbox <span class="ms-1 me-2 fs-12 float-end ">392</span></a>
-                                                <a href="#" class=" rounded-2 gilroymedium-type fs-15 color-color1 mb-2" style="background-color:
-                                                rgba(32, 33, 52, 1) ;"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M7.13245 3.17248L13.5525 6.38248C16.4325 7.82248 16.4325 10.1775 13.5525 11.6175L7.13245 14.8275C2.81245 16.9875 1.04995 15.2175 3.20995 10.905L3.86245 9.60748C4.02745 9.27748 4.02745 8.72998 3.86245 8.39998L3.20995 7.09498C1.04995 2.78248 2.81995 1.01248 7.13245 3.17248Z" stroke="#9295D0" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
-                                                <path d="M4.08008 9H8.13008" stroke="#9295D0" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
-                                                </svg>
+                                       rgba(2, 126, 194, 1) ;">
+Compose </a>
+                                        <a href="#" class=" rounded-2 gilroymedium-type fs-15 color-color1 mb-2" style="background-color:
+                                        rgba(32, 33, 52, 1) ;"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M16.5 7.875V11.625C16.5 14.25 15 15.375 12.75 15.375H5.25C3 15.375 1.5 14.25 1.5 11.625V6.375C1.5 3.75 3 2.625 5.25 2.625H10.5" stroke="#9295D0" stroke-width="1.2" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M5.25 6.75L7.5975 8.625C8.37 9.24 9.6375 9.24 10.41 8.625L11.295 7.92" stroke="#9295D0" stroke-width="1.2" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M14.625 6C15.6605 6 16.5 5.16053 16.5 4.125C16.5 3.08947 15.6605 2.25 14.625 2.25C13.5895 2.25 12.75 3.08947 12.75 4.125C12.75 5.16053 13.5895 6 14.625 6Z" stroke="#9295D0" stroke-width="1.2" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+ Inbox <span class="ms-1 me-2 fs-12 float-end ">392</span></a>
+ <a href="#" class=" rounded-2 gilroymedium-type fs-15 color-color1 mb-2" style="background-color:
+ rgba(32, 33, 52, 1) ;"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M7.13245 3.17248L13.5525 6.38248C16.4325 7.82248 16.4325 10.1775 13.5525 11.6175L7.13245 14.8275C2.81245 16.9875 1.04995 15.2175 3.20995 10.905L3.86245 9.60748C4.02745 9.27748 4.02745 8.72998 3.86245 8.39998L3.20995 7.09498C1.04995 2.78248 2.81995 1.01248 7.13245 3.17248Z" stroke="#9295D0" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M4.08008 9H8.13008" stroke="#9295D0" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
 
-                                                Sent <span class="ms-1 me-2 fs-12 float-end ">392</span></a>
+Sent <span class="ms-1 me-2 fs-12 float-end ">392</span></a>
                                      
                                     </div>
         
@@ -1028,12 +1027,43 @@
 
                                                             <div class="col-lg-6">
 
-                                                                <div class="card">
+                                                                <div class="card card-h-100 border-0" style="background-color: 
+                                                                rgba(27, 28, 46, 1);">
 
                                                                     <div class="card-body">
-                                                                        <form action="">
+                                                                       
+                                                                            <h5 class="card-title me-2 gilorymedium-type fs-22 mb-0 py-0">Create new email</h5>
+                                
+                                
+                                                                            <hr>
+                                                                        <form action="" class="formtype_leads ">
 
+                                                                          
+                                                                                <div class="row align-items-center mb-2">
+                                                                                    <label class="form-label col-sm-2" for="">From : </label>
+                                                                                    <div class="col-sm-9">
+
+                                                                                        <input type="email" class="form-control border-0   text-start" id="emailto" placeholder="e.g Steve@gmail.com" value="steve@trusttech.in" required="" >
+
+                                                                                    </div>
+                                                                                    
+                                                                                  
+                                                                                </div>
+                                                                                <div class="row align-items-center mb-2">
+                                                                                    <label class="form-label col-sm-2" for="">Subject : </label>
+                                                                                    <div class="col-sm-9">
+
+                                                                                        <input type="subj" class="form-control border-0   text-start" id="" placeholder="e.g Steve@gmail.com" value="steve@trusttech.in" required="" >
+
+                                                                                    </div>
+                                                                                    
+                                                                                  
+                                                                                </div>
+                                                                               
+                                                                              
                                                                                 
+
+                                                                        
                                                                             <div id="ckeditor-classic"></div>
 
                                                                             <div>
@@ -1047,6 +1077,209 @@
                                                                     </div>
                                                                 </div>
                                                             </div>
+                                                            <div class="col-lg-4">
+                                                                <div class="card card-h-100 border-0" style="background-color:
+                                                                rgba(27, 28, 46, 1) ;">
+
+
+                                                                    <div class="card-body">
+                                                                        <h5 class="card-title me-2 gilorymedium-type fs-22 mb-0 py-0">Choose templates</h5>
+                                
+                                
+                                                                        <hr>
+                                                                        <form class="needs-validation  formtype_leads" novalidate="" id="action-call">
+                                                                            <div class="row">
+                       
+                                                                                    
+                                                                                <div class="col-md-12">
+                                                                                    <div class="mb-3">
+                                                                                        <label class="form-label " for="fromtemp">From</label>
+                                                                                        <input type="text" class="form-control  " id="fromtemp">
+                                
+                                                                                        <div class="invalid-feedback">
+                                                                                            Please provide a valid entry.
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                    <div class="col-md-12">
+                                                                                        <div class="mb-3">
+                                                                                            <label class="form-label " for="sub">Subject</label>
+                                                                                            <select class="form-select border-1" id="sub" value="" required="">
+                                                                                                <option value="en">English</option>
+                                                                                                <option value="ar">Arabic</option>
+                                                                                            </select>
+                                    
+                                                                                            <div class="invalid-feedback">
+                                                                                                Please provide a valid entry.
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    
+                                                                                    <div class="col-md-12">
+                                                                                        <div class="mb-3">
+                                                                                            <label class="form-label " for="temp">Template</label>
+                                                                                            <select class="form-select border-1" id="temp" value="" required="">
+                                                                                                <option value="temp1">ABC</option>
+                                                                                                <option value="temp2">EFG</option>
+                                                                                            </select>
+                                    
+                                                                                            <div class="invalid-feedback">
+                                                                                                Please provide a valid entry.
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                               
+                                                                                  
+                                                                                    <div class="col-md-12">
+                                                                                        <button class="btn  btn-md btn-info  me-1" type="submit">Send</button>
+                                                                                        <button class="btn btn-outline-light btn-md me-1" type="reset">Cancel</button>
+                                                                                        <button class="btn btn-outline-light btn-md me-1" type="">Preview</button>
+                                                                                    </div>
+                            
+                           
+                           
+                           
+                        
+                        
+                                                                            </div>
+                   
+                    
+                                                                        </form>
+
+                                                                    </div>
+                                                                </div>
+                                                             
+                                                            </div>
+                                                    </div>
+                                                </div>
+                                                <div class="tab-pane" id="actions-reminders-tab" role="tabpanel">
+
+                                                    <div class="row">
+
+                                                        <div class="col-12">
+                               
+                                                            <div class="row">
+                                                                <!--<div class="col-xl-3 col-lg-4">
+                                                                    <div class="card">
+                                                                        <div class="card-body">
+                                                                            <div class="d-grid">
+                                                                                <button class="btn font-16 btn-primary" id="btn-new-event"><i class="mdi mdi-plus-circle-outline"></i> Create
+                                                                                    New Event
+                                                                                </button>
+                                                                            </div>
+                                                                            
+                                                                            <div id="external-events" class="mt-2">
+                                                                                <br>
+                                                                                <p class="text-muted">Drag and drop your event or click in the calendar</p>
+                                                                                <div class="external-event fc-event text-success bg-soft-success" data-class="bg-success">
+                                                                                    <i class="mdi mdi-checkbox-blank-circle font-size-11 me-2"></i>New Event Planning
+                                                                                </div>
+                                                                                <div class="external-event fc-event text-info bg-soft-info" data-class="bg-info">
+                                                                                    <i class="mdi mdi-checkbox-blank-circle font-size-11 me-2"></i>Meeting
+                                                                                </div>
+                                                                                <div class="external-event fc-event text-warning bg-soft-warning" data-class="bg-warning">
+                                                                                    <i class="mdi mdi-checkbox-blank-circle font-size-11 me-2"></i>Generating Reports
+                                                                                </div>
+                                                                                <div class="external-event fc-event text-danger bg-soft-danger" data-class="bg-danger">
+                                                                                    <i class="mdi mdi-checkbox-blank-circle font-size-11 me-2"></i>Create New theme
+                                                                                </div>
+                                                                                <div class="external-event fc-event text-dark bg-soft-dark" data-class="bg-dark">
+                                                                                    <i class="mdi mdi-checkbox-blank-circle font-size-11 me-2"></i>Team Meeting
+                                                                                </div>
+                                                                            </div>
+                            
+                                                                            <div class="row justify-content-center mt-5">
+                                                                                <div class="col-lg-12 col-sm-6">
+                                                                                    <img src="assets/images/undraw-calendar.svg" alt="" class="img-fluid d-block">
+                                                                                </div>
+                                                                            </div>
+                                                                        
+                                                                        </div>
+                                                                    </div>
+                                                                </div>--><!-- end col-->
+                            
+                                                                <div class="col-xl-12 col-lg-12">
+                                                                    <div class="card border-0">
+                                                                        <div class="card-body ">
+                                                                            <div id="calendar"></div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div> <!-- end col -->
+                            
+                                                            </div>
+                                                            <!-- end row -->
+                            
+                                                            <div style='clear:both'></div>
+                            
+                                                            <!-- Add New Event MODAL -->
+                                                            <div class="modal fade" id="event-modal" tabindex="-1">
+                                                                <div class="modal-dialog modal-dialog-centered">
+                                                                    <div class="modal-content">
+                                                            
+                                                                        <div class="modal-body ">
+
+                                                                            <div class="  px-3 border rounded-3 py-4">
+
+                                                                                <div class="modal-header py-0 px-0 border-bottom-0">
+                                                                                    <h5 class="modal-title mb-3" id="modal-title">Add reminder</h5>
+                                    
+                                                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
+                                    
+                                                                                </div>
+
+                                                                                <form class="needs-validation" name="event-form" id="form-event" novalidate>
+                                                                                    <div class="row">
+                                                                                        <div class="col-12">
+                                                                                            <div class="mb-3">
+                                                                                                <label class="form-label">Choose time</label>
+                                                                                                <input class="form-control" placeholder="Insert Event Time"
+                                                                                                    type="text"  name="time" id="event-timepicker" required value="" />
+                                                                                               
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="col-12">
+                                                                                            <div class="mb-3">
+                                                                                                <!--<label class="form-label">Event Name</label>-->
+                                                                                                <textarea class="form-control" placeholder="Insert Event Name"
+                                                                                                    type="text" name="title" id="event-title" required value="" > </textarea>
+                                                                                                <div class="invalid-feedback">Please provide a valid event name</div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="col-12">
+                                                                                            <div class="mb-3">
+                                                                                                <label class="form-label">Category</label>
+                                                                                                <select class="form-control form-select" name="category" id="event-category">
+                                                                                                    <option  selected> --Select-- </option>
+                                                                                                    <option value="bg-danger">Danger</option>
+                                                                                                    <option value="bg-success">Success</option>
+                                                                                                    <option value="bg-primary">Primary</option>
+                                                                                                    <option value="bg-info">Info</option>
+                                                                                                    <option value="bg-dark">Dark</option>
+                                                                                                    <option value="bg-warning">Warning</option>
+                                                                                                </select>
+                                                                                                <div class="invalid-feedback">Please select a valid event category</div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="row mt-2">
+                                                                                        <div class="col-6">
+                                                                                            <button type="button" class="btn btn-danger" id="btn-delete-event">Delete</button>
+                                                                                        </div>
+                                                                                        <div class="col-6 text-end">
+                                                                                            <button type="button" class="btn btn-light me-1" data-bs-dismiss="modal">Close</button>
+                                                                                            <button type="submit" class="btn btn-success" id="btn-save-event">Save</button>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </form>
+                                                                            </div>
+                                                                        
+                                                                        </div>
+                                                                    </div> <!-- end modal-content-->
+                                                                </div> <!-- end modal dialog-->
+                                                            </div>
+                                                            <!-- end modal-->
+                            
+                                                        </div>
                                                     </div>
                                                 </div>
                                                     
@@ -1058,7 +1291,7 @@
 
                                         <!--<button id="submit" class="btn btn-md btn-primary btn-lg " type="submit" onclick="if( $('#submit').attr('data-success')=='true'){
                                             updateEditmode('#edittext','Edit','Cancel edit','formtypeleads','editable-enabled')}" data-success="false">Update</button>-->
-                                    </form>
+                                    
                                 </div>
                             </div>
                         </div>
@@ -1544,6 +1777,12 @@
 
                                 
                             </div>
+                            <div class="col-lg-12 mt-4">
+
+                                <button id="submitftypeleads" class="btn btn-md btn-primary btn-lg " type="submit"  onclick="mysubmitformsset()">Update</button>
+                                <button id="ftypeleadsreset" class="btn btn-md  btn-lg " type="submit" >Reset</button>
+        
+                            </div>
                             
 
 
@@ -1579,11 +1818,29 @@
             let searchParams = new URLSearchParams(window.location.search)
             let ticket = searchParams.get('ticket')
             console.log("Ticket---------"+ticket)
+            if(ticket){
+                loadTicketFuns()
+            }
             
-            loadTicketFuns()
         });
 
     $(function() {
+            $("#assign").change(function(){
+                var assign=$("#assign option:selected").val()
+                console.log("Assign----"+assign)
+                var reassign=100-assign
+                // var reassign=$("#reassign option:selected").val()
+                console.log("Reassign----"+reassign)
+                $("#reassign").val(reassign)
+            })
+            $("#reassign").change(function(){
+                var reassign=$("#reassign option:selected").val()
+                console.log("reAssign----"+reassign)
+                var assign=100-reassign
+                // 
+                console.log("assign----"+assign)
+                $("#assign").val(assign)
+            })
         
             $("#experience").change(function(){
                 let isChecked=$("#experience").is(':checked')
@@ -1747,6 +2004,34 @@
 
 
     });
+
+    function assignFun(flag){
+        console.log("Flag issssssss"+flag)
+        var ticket=document.getElementById("ticketno").value
+        var salesrepId=$("#salesrep").val()
+        var percentage=$("#assign").val()
+        var reassginid=$("#salesrep1").val()
+
+
+        $.ajax({
+               type : "GET", 
+               url: "{% url 'Admin:AssignRep' %}",
+               dataType: 'json',
+               data: {
+                        'ticket': ticket,
+                        'flag':flag,
+                        'repid':salesrepId,
+                        'percentage':percentage,
+                        'reassign':reassginid
+               },
+               success: function(data){
+               }
+            });
+
+    }
+
+
+
 
     function totalPoints(){
             total=parseInt(experienceselect)+parseInt(forexselect)+parseInt(meetingselect)+parseInt(questionsselect)+parseInt(voiceselect)+parseInt(training)+parseInt(hedging)+parseInt(profession)+parseInt(highlypotential);
@@ -1969,11 +2254,23 @@
                     success: function(data){
                         var leads=data.leads
                         var activities=data.activities
-                        
+                        console.log("Lead details--------"+leads)
                         // console.log("Vie activities----",activities)
                         var title=leads[35]
                         var name=leads[0]
-                       
+                        var age=leads[37]
+                        var dob=leads[25]
+                        var address=leads[19]
+                        var zipcode=leads[23]
+                        var state=leads[20]
+                        var annualIncome=leads[26]
+                        var experience=leads[29]
+                        var profession=leads[47]
+                        var category=leads[46]
+                        var potential=leads[16]
+                        var language=leads[14]
+                        var hearfrom=leads[30]
+                        var applForm=leads[38]
                         var reg_date=leads[6]
                         var ipAddr=leads[53]
                         var phone1=leads[2]
@@ -1985,9 +2282,22 @@
                         var subject=leads[3]
                         $("#title").val(leads[35])
                         $("#firstname").val(leads[0])
-                        console.log("Registration date------"+typeof(reg_date))
-                        $("#regdate").val(reg_date)
-                        $("#ipaddr").val(ipAddr)
+                        console.log("Registration date------"+reg_date)
+                        $("#age").val(age)
+                        $("#dob").val(dob)
+                        $("#address").val(address)
+                        $("#zipcode").val(zipcode)
+                        $("#state").val(state)
+                        $("#annualincome").val(annualIncome)
+                        $("#exp").val(experience)
+                        $("#profession").val(profession)
+                        $("#category").val(category)
+                        $("#potential").val(potential)
+                        $("#language").val(language)
+                        $("#hearfrom").val(hearfrom)
+                        $("#applicationform").val(applForm)
+                        $("#regdate").append(reg_date)
+                        $("#ipaddr").append(ipAddr)
                         $("#email1").val(email1)
                         $("#email2").val(email2)
                         $("#phone1").val(phone1)
@@ -2008,11 +2318,22 @@
     <script src="{%static 'libs/flatpickr/flatpickr.min.js' %}"></script>
     <!-- <script src="{% static 'libs/datatables.net/js/jquery.dataTables.min.js' %}"></script>
     <script src="{% static 'libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js' %}"></script> -->
- 
+    
+
+    <!-- Calendar init -->
+    
+    <script src="{% static 'libs/@ckeditor/ckeditor5-build-classic/build/ckeditor.js' %}"></script>
+    
+    <script src="{% static 'libs/@fullcalendar/core/main.min.js'%}"></script>
+    <script src="{% static 'libs/@fullcalendar/bootstrap/main.min.js' %}"></script>
+    <script src="{% static 'libs/@fullcalendar/daygrid/main.min.js' %}"></script>
+    <script src="{% static 'libs/@fullcalendar/timegrid/main.min.js'%}"></script>
+    <script src="{% static 'libs/@fullcalendar/interaction/main.min.js'%}"></script>
    
- 
+    
      <!-- Datatable init js -->
      <script src="{% static 'js/pages/intTellinput.init.js' %}"></script>
+     <script src="{% static 'js/pages/calendar.init.js' %}"></script>
     <script src="{% static 'js/pages/newleadprocessing.init.js' %}"></script>
     <script src="{% static 'js/app.js' %}"></script>
  

@@ -32,6 +32,7 @@ urlpatterns=[
     path('MeetingRequest',send_meeting_request,name="MeetingRequest"),
     path('FeedbackUpdate',update_feedback,name='FeedbackUpdate'),
     path('LoadFuns',viewLoadFunctions,name="LoadFuns"),
+    path('AssignRep',assign_rep,name="AssignRep"),
     # path('ChangeMeeting',change_meeting_request,name="ChangeMeeting"),
     path('livelogs',liveChatLogs,name="LiveLogs"),
     path('Inbox',emailInbox,name="Inbox"),

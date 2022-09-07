@@ -172,7 +172,7 @@ class Services:
     def assign_salesRep(self,request):
         try:
             userId=request.session.get('UserId')
-            assign_flag='A' or 'M' or 'R'
+            assign_flag=request.GET.get('flag')
             ticket_no=request.GET.get('ticket')
             salesrepid=request.GET.get('repid')
             percentage=request.GET.get('percentage')
@@ -184,6 +184,7 @@ class Services:
             print("Exception------",e)
         finally:
             Cursor.close()
+        return assign_rep
 
     #Update meeting feedback
 
@@ -212,6 +213,9 @@ class Services:
                 print("Exception------",e)
             finally:
                 Cursor.close()
+    
+   
+
             
 
 

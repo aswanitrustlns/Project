@@ -84,7 +84,7 @@
                                 <!-- Right Sidebar -->
                                 <div class="email-rightbar mb-3">
                                     
-                                    <div class="card">
+                                    <div class="card" id="inbox_div">
                                         
                                         <ul class="message-list" data-simplebar style="max-height: 700px;" id="mailList">
                                         {% for mail in mails%}
@@ -207,24 +207,25 @@
                 }
                 
             }
-            
+            // $('#inbox_div ul li').remove();
             $("#mailList").empty();
             console.log("Count--------------------"+count)
             console.log("Items arrayyy"+typeof(inbox_items))
-            
+            var inboxlist=""
 
             for(var i=count;i<count_end;i++){ 
                 
                     console.log(inbox_items[i][2]);
                     var ms_id=inbox_items[i][3]
-                    var inboxlist="<li class='fs-16' data-id='"+ms_id+"' style='cursor: pointer' >"+
+                    inboxlist +="<li class='fs-16' data-id='"+ms_id+"' style='cursor: pointer' >"+
                                 "<div class='col-mail col-mail-1'><div class='checkbox-wrapper-mail'><input type='checkbox' id='chk1'><label for='chk1' class='toggle'></label>"+
                                 "</div><a class='title text-white gilroysemibold-type'>"+inbox_items[i][1]+"</a><span class='star-toggle far fa-star' style='color:var(--color1) ;''></span>"+
                                 "</div><div class='col-mail col-mail-2'><a class='subject color-color1 gilroyregular'><span class='teaser'>"+inbox_items[i][0]+"</span></a>"+
                                 "<div class='date text-white gilroymedium-type' style='width:250px ;'>"+inbox_items[i][2]+"</div></div></li><hr class='mx-3 my-0'>";
-                    $("#mailList").append(inboxlist)
+                    
                 
             }
+            $("#mailList").append(inboxlist)
             document.getElementById("showCount").innerHTML= "Showing "+count +"-"+count_end+" of "+inbox_count          
 
         }

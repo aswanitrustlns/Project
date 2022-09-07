@@ -595,13 +595,13 @@ def lead_processing(request):
                     print("Get ticket--------------------",get_ticket)
                     ticket=get_ticket
             lead_details=selector.get_lead_details(ticket,UserId)
+            activity_log=selector.get_activity_log(ticket)
             ticket_summary=selector.get_ticket_summary(ticket)
-            print("ticket summary----",ticket_summary)    
-            print("ticket1111111111111111111",ticket)
+            print("Lead details-------------",lead_details)
         except Exception as e:
             print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!Exception!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!",e.__class__)
     
-        return render(request,'sales/LeadProcessing.html',{'ticket':ticket,'email_phone':json.dumps(search_email_phone),'lead_details':lead_details,'ticket_summary':ticket_summary})
+        return render(request,'sales/LeadProcessing.html',{'ticket':ticket,'email_phone':json.dumps(search_email_phone),'lead_details':lead_details,'ticket_summary':ticket_summary,'activity_log':activity_log})
     else:
          return redirect('/login') 
         
@@ -686,13 +686,15 @@ def new_accounts(request):
         change=request.GET.get("change")
         from_date=request.GET.get("from")
         to_date=request.GET.get("to")
+        status=request.GET.get("status")
+        print("Status----------------------",status)
         if(change):
-            accounts_data=selector.get_new_accounts(change,from_date,to_date)
+            accounts_data=selector.get_new_accounts(change,status,from_date,to_date)
             print("change is---------------",change)
             return JsonResponse(list(accounts_data), safe=False)
         else:
             
-            accounts_data=selector.get_new_accounts("Live",from_date,to_date)
+            accounts_data=selector.get_new_accounts("Live","",from_date,to_date)
             accounts_count=selector.get_new_accounts_count()
             print("Accounts count-----------",accounts_count)
             # terminated_data=selector.get_new_accounts("Terminated")
@@ -888,6 +890,13 @@ def viewLoadFunctions(request):
     else:
         return redirect('/login')
 
+def assign_rep(request):
+    if 'UserId' in request.session:
+        assign=service.assign_salesRep(request)
+        print("Assign-------",assign)
+        return JsonResponse({})
+    else:
+        return redirect('/login')
 
 
 
