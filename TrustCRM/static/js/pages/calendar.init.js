@@ -23,15 +23,14 @@ File: Calendar init js
             var newEventData = null;
             var eventObject = null;
             /* initialize the calendar */
-
             var date = new Date();
             var d = date.getDate();
             var m = date.getMonth();
             var y = date.getFullYear();
             var Draggable = FullCalendarInteraction.Draggable;
-            var externalEventContainerEl = document.getElementById('external-events');
+            //var externalEventContainerEl = document.getElementById('external-events');
             // init dragable
-            new Draggable(externalEventContainerEl, {
+            /*new Draggable(externalEventContainerEl, {
                 itemSelector: '.external-event',
                 eventData: function (eventEl) {
                     return {
@@ -39,7 +38,7 @@ File: Calendar init js
                         className: $(eventEl).data('class')
                     };
                 }
-            });
+            });*/
             var defaultEvents = [{
                 title: 'All Day Event',
                 start: new Date(y, m, 1)
@@ -88,11 +87,11 @@ File: Calendar init js
                     title: 'Click for Google',
                     start: new Date(y, m, 28),
                     end: new Date(y, m, 29),
-                    url: 'http://google.com/',
+                    url: '',
                     className: 'bg-dark'
             }];
 
-            var draggableEl = document.getElementById('external-events');
+           // var draggableEl = document.getElementById('external-events');
             var calendarEl = document.getElementById('calendar');
 
             function addNewEvent(info) {

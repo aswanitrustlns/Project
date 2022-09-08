@@ -569,6 +569,8 @@ class Selector:
             now = datetime.now()
             current_time = now.strftime("%H:%M:%S")
             Cursor=connection.cursor()
+            ticket=ticket.strip()
+            print("Ticket----------------------------------activity",ticket,current_time)
             Cursor.execute("set nocount on;exec SP_GetTicketLogs %s,%s",[ticket,current_time])
             activity_log=Cursor.fetchall()
             print("Activity log-----------------------------------",activity_log)
@@ -627,7 +629,9 @@ class Selector:
     # Get Ticket Summary
     def get_ticket_summary(self,ticket):
         summary_list=[]
+        
         try:
+            ticket=ticket.strip()
             Cursor=connection.cursor()
             Cursor.execute("set nocount on;exec SP_GetSalesSummary %s",[ticket])
             ticket_summary=Cursor.fetchall()
@@ -689,6 +693,102 @@ class Selector:
         finally:
             Cursor.close()
         return activity_logs
+
+    #Name search
+    def get_name_search(self,searched,userId):
+        name_search_list=0
+        try:
+            Cursor=connection.cursor()
+            Cursor.execute("set nocount on;exec SP_CheckForMultipleName %s",[searched])
+            search_count=Cursor.fetchone()
+            search_count=search_count[0]
+            print("Search count--------------------------------",search_count)
+            if(search_count>0):
+                Cursor.execute("set nocount on;exec SP_SearchName %s,%s",[searched,userId])
+                name_search_list=Cursor.fetchall()
+
+        except Exception as e:
+            print("Exception------",e)
+        finally:
+            Cursor.close()
+        return name_search_list
+
+    #Phone search
+    def get_phone_search(self,searched,userId):
+        try:
+            phone_search_list=0
+            Cursor=connection.cursor()
+            Cursor.execute("set nocount on;exec SP_CheckForMultiplePhone %s",[searched])
+            search_count=Cursor.fetchone()
+            search_count=search_count[0]
+            print("Search count--------------------------------",search_count)
+            if(search_count > 0):
+                Cursor.execute("set nocount on;exec SP_SearchPhone %s,%s",[searched,userId])
+                phone_search_list=Cursor.fetchall()
+
+        except Exception as e:
+            print("Exception------",e)
+        finally:
+            Cursor.close()
+        return phone_search_list
+    
+
+    #Email search
+    def get_mail_search(self,searched,userId):
+        try:
+            mail_search_list=0
+            Cursor=connection.cursor()
+            Cursor.execute("set nocount on;exec SP_CheckForMultipleEmail %s",[searched])
+            search_count=Cursor.fetchone()
+            search_count=search_count[0]
+            print("Search count--------------------------------",search_count)
+            if(search_count>0):
+                Cursor.execute("set nocount on;exec SP_SearchEmail %s,%s",[searched,userId])
+                mail_search_list=Cursor.fetchall()
+
+        except Exception as e:
+            print("Exception------",e)
+        finally:
+            Cursor.close()
+        return mail_search_list
+    
+    #Account no status check
+    def account_status_check_update(self,accountno):
+        try:
+            Cursor=connection.cursor()
+            Cursor.execute("set nocount on;exec SP_GetAccountStatus %s",[accountno])
+            status=Cursor.fetchone()
+            if(status=="Live" or status=="ReadOnly"):
+                msg="You dont have permission to update live account details"
+                print("You dont have permission to update live account details")
+            else:
+                Cursor.execute("set nocount on;exec SP_UpdateClientDetailsSales %s",[accountno])
+
+        except Exception as e:
+            print("Exception------",e)
+        finally:
+            Cursor.close()
+     #Ticket status check
+    def ticket_validity_check_update(self,ticket):
+        try:
+            Cursor=connection.cursor()
+            Cursor.execute("set nocount on;exec SP_IsTicketValid %s",[ticket])
+            valid=Cursor.fetchone()
+            valid=valid[0]
+            if(valid==1):
+                msg="You dont have permission to update live account details"
+                print("You dont have permission to update live account details")
+            else:
+                Cursor.execute("set nocount on;exec SP_UpdateSalesLead %s",[ticket])
+
+        except Exception as e:
+            print("Exception------",e)
+        finally:
+            Cursor.close()
+
+
+
+        
     
     
 

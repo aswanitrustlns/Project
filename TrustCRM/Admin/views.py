@@ -46,7 +46,7 @@ def login_check(request):
         server_name=request.POST['server']
     try:  
            
-        UserId=selector.get_loged_user_info(username)   
+        UserId=selector.get_loged_user_info(username)          
         request.session['UserId'] = UserId
         connect=selector.exe_connection(username,server_name,password)
         
@@ -594,9 +594,12 @@ def lead_processing(request):
                     get_ticket=search_email_phone[0]
                     print("Get ticket--------------------",get_ticket)
                     ticket=get_ticket
+            
             lead_details=selector.get_lead_details(ticket,UserId)
             activity_log=selector.get_activity_log(ticket)
+          
             ticket_summary=selector.get_ticket_summary(ticket)
+          
             print("Lead details-------------",lead_details)
         except Exception as e:
             print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!Exception!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!",e.__class__)
@@ -623,7 +626,7 @@ def logout(request):
 def pending_tickets(request):
     if 'UserId' in request.session:
         UserId=request.session.get('UserId')
-        
+        print("User idddddddddddddd",UserId)
         pending_tickets=selector.get_tickets(UserId,"pending")
         
         return render(request,'sales/pendingtickets.html',{'pending_tickets':pending_tickets})
@@ -809,8 +812,6 @@ def update_feedback(request):
 
 
 
-
-
 def saveMeeting(request):
     if 'UserId' in request.session:
         score=service.save_meeting_score(request)
@@ -894,9 +895,41 @@ def assign_rep(request):
     if 'UserId' in request.session:
         assign=service.assign_salesRep(request)
         print("Assign-------",assign)
-        return JsonResponse({})
+        return JsonResponse({'assign':assign})
     else:
         return redirect('/login')
+
+def name_search(request):
+    if 'UserId' in request.session:
+        searched_name=request.GET.get('name')
+        UserId=request.session.get('UserId')
+        name_list=selector.get_name_search(searched_name,UserId)
+        return JsonResponse({'name_list':name_list})
+     
+    else:
+        return redirect('/login')
+
+def phone_search(request):
+    if 'UserId' in request.session:
+        searched_name=request.GET.get('phone')
+        UserId=request.session.get('UserId')
+        phone_list=selector.get_phone_search(searched_name,UserId)
+        return JsonResponse({'phone_list':phone_list})
+     
+    else:
+        return redirect('/login')
+
+
+def mail_search(request):
+    if 'UserId' in request.session:
+        searched_name=request.GET.get('mail')
+        UserId=request.session.get('UserId')
+        mail_list=selector.get_mail_search(searched_name,UserId)
+        return JsonResponse({'mail_list':mail_list})
+     
+    else:
+        return redirect('/login')
+
 
 
 

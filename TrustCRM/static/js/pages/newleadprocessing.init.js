@@ -266,22 +266,22 @@ $(document).ready(function () {
 
 
 
-function mysubmitformsset(){
+// function mysubmitformsset(){
 
-	$is_invalid=0;
-	 const formp = document.querySelectorAll('.formsset');
-	 Array.prototype.slice.call(formp).forEach((form) => {
-		 //alert(form.id);
-		 $s=form.checkValidity();
-		 //alert("Valid:"+$s);
-		 if(!$s){
-			 $is_invalid=1;
-			 form.reportValidity();
-             form.classList.add('was-validated');
-		 }
-	 });
-	 //alert("FinalValidity:"+$is_invalid);
-}
+// 	$is_invalid=0;
+// 	 const formp = document.querySelectorAll('.formsset');
+// 	 Array.prototype.slice.call(formp).forEach((form) => {
+// 		 //alert(form.id);
+// 		 $s=form.checkValidity();
+// 		 //alert("Valid:"+$s);
+// 		 if(!$s){
+// 			 $is_invalid=1;
+// 			 form.reportValidity();
+//              form.classList.add('was-validated');
+// 		 }
+// 	 });
+// 	 //alert("FinalValidity:"+$is_invalid);
+// }
 
     
 

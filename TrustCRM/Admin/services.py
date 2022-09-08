@@ -1,11 +1,14 @@
 from email import message
 from unittest import result
 from django.db import connection
+
+from .emailservices import EmailServices
 from .selectors import Selector
 from datetime import datetime, timedelta
+
 import socket
 selector=Selector()
-
+emailservice=EmailServices()
 class Services:
 
 
@@ -101,8 +104,9 @@ class Services:
     #Save meeting score
     def save_meeting_score(self,request):
         try:
-            ticket=499015
+            
             userId=request.session.get('UserId')
+            ticket=request.GET.get('ticket')
             experience=request.GET.get('experience')
             meeting=request.GET.get('meeting')
             forex=request.GET.get('forex')
@@ -127,19 +131,19 @@ class Services:
             Cursor.close()
         return meeting_score
 
-    #Assign Button Click
-    def assign_ticket(request):
-        try:
-            Cursor=connection.cursor()
-            tiket=request.GET.get('ticket')
-            sales_rep=request.GET.get('salesrep')
-            percentage=request.GET.get('percentage')
-            reassined=request.GET.get('reassined')
-            userid=request.session.get('UserId')
-        except Exception as e:
-            print("Exception------",e)
-        finally:
-            Cursor.close()
+    # #Assign Button Click
+    # def assign_ticket(request):
+    #     try:
+    #         Cursor=connection.cursor()
+    #         tiket=request.GET.get('ticket')
+    #         sales_rep=request.GET.get('salesrep')
+    #         percentage=request.GET.get('percentage')
+    #         reassined=request.GET.get('reassined')
+    #         userid=request.session.get('UserId')
+    #     except Exception as e:
+    #         print("Exception------",e)
+    #     finally:
+    #         Cursor.close()
     #Send meeting request
     def send_meeting_request(self,request):
         try:
@@ -170,16 +174,30 @@ class Services:
 
 
     def assign_salesRep(self,request):
+        assign_rep=0
         try:
             userId=request.session.get('UserId')
+            username=request.session.get('UserName')
             assign_flag=request.GET.get('flag')
             ticket_no=request.GET.get('ticket')
-            salesrepid=request.GET.get('repid')
-            percentage=request.GET.get('percentage')
-            reassignid=request.GET.get('reassign')
+            print("Type-----",type(ticket_no))
+            salesrepid=int(request.GET.get('repid'))
+            percentage=int(request.GET.get('percentage'))
+            reassignid=int(request.GET.get('reassign'))
+            repname=request.GET.get('repname')
+            reassign_rep=request.GET.get('reassign_rep')
             Cursor=connection.cursor()
-            Cursor.execute("set nocount on;SP_AssignSalesRep %s,%s,%s,%s,%s,%s",[ticket_no,salesrepid,assign_flag,percentage,reassignid,userId])
-            assign_rep=Cursor.fetchone()
+            print("Data from froent end------------------------",type(ticket_no),type(salesrepid),type(assign_flag),type(percentage),type(reassignid),type(userId))
+            print("*****************************",ticket_no,salesrepid,assign_flag,percentage,reassignid,userId)
+            Cursor.execute("set nocount on;exec SP_AssignSalesRep %s,%s,%s,%s,%s,%s",[ticket_no,salesrepid,assign_flag,percentage,reassignid,userId])
+            # assign_rep=Cursor.fetchone()
+
+            if(assign_flag=="A"):
+                
+                print("Assign rep return-----------------------------",assign_rep)
+                if(assign_rep > 0):
+                    emailservice.send_SalesInquiry_Assigned(repname,username,ticket_no,salesrepid)
+            print("Assign Rep-------",assign_rep)
         except Exception as e:
             print("Exception------",e)
         finally:
