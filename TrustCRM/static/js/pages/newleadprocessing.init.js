@@ -29,10 +29,16 @@ File: Form validation Js File
 })();
 
 
+
+
+
+
+
+
 /* Form editor Init Js File
 */
 ClassicEditor
-    .create( document.querySelector( '#ckeditor-classic' ),
+    .create( document.querySelector('#ckeditorclassic'),
 
     {
       
@@ -260,27 +266,62 @@ $(document).ready(function () {
     }
 
     });
-       
+
 
 });
+function setHeight($elm,$elmIndex,$elmgetH,$elmsetH){
+
+    /// get the maxHeight using innerHeight() function
+//.getheight-container .getheight
+var MaxHeight = $($elm).map(function ()  
+{
+
+    return $(this).eq($elmIndex).find($elmgetH).innerHeight();
+}).get();
+
+//.getheight-container .getheight  .card-body
+$($elmsetH).css('height' , MaxHeight+'px' );
+
+}
+
+setHeight('#getheight-container0 .getheight', 0, 'form', '#getheight-container0 .getheight  .card-body');
+setHeight('#getheight-container1 .getheight', 0, 'row', '#getheight-container1 .getheight  .card-body');
+window.addEventListener('resize', function(event) {
+    function setHeight($elm,$elmIndex,$elmgetH,$elmsetH){
+
+        /// get the maxHeight using innerHeight() function
+    //.getheight-container .getheight
+    var MaxHeight = $($elm).map(function ()  
+    {
+
+        return $(this).eq($elmIndex).find($elmgetH).innerHeight();
+    }).get();
+
+    //.getheight-container .getheight  .card-body
+    $($elmsetH).css('height' , MaxHeight+'px' );
+
+    }
+
+    setHeight('#getheight-container0 .getheight', 0, 'form', '#getheight-container0 .getheight  .card-body');
 
 
+}, true);
 
 // function mysubmitformsset(){
 
 // 	$is_invalid=0;
 // 	 const formp = document.querySelectorAll('.formsset');
 // 	 Array.prototype.slice.call(formp).forEach((form) => {
-// 		 //alert(form.id);
+		
 // 		 $s=form.checkValidity();
-// 		 //alert("Valid:"+$s);
+		 
 // 		 if(!$s){
 // 			 $is_invalid=1;
 // 			 form.reportValidity();
 //              form.classList.add('was-validated');
 // 		 }
 // 	 });
-// 	 //alert("FinalValidity:"+$is_invalid);
+	
 // }
 
     

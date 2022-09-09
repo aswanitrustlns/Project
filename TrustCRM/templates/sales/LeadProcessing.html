@@ -25,7 +25,9 @@
       <link rel="stylesheet" href="{% static 'libs/flatpickr/flatpickr.min.css' %}">
 
       <link href="{% static 'css/input-tel.min.css' %}" rel="stylesheet" type="text/css" />
+      
     {% include "common/link.html" %}
+    <script src="{% static 'libs/@ckeditor/ckeditor5-build-classic/build/ckeditor.js' %}"></script>
     {% include "common/scripts.html" %}
 
    
@@ -79,10 +81,10 @@
                                 <div class="card-body">
     
                                     <!--Lead Info-->
-                                    <div class="row mb-3">
+                                    <div class="row mb-3 align-items-center justify-content-between flex-row-reverse flex-lg-row">
     
     
-                                        <div class="col-lg-6">
+                                        <div class="col-lg-7">
         
                                                 
                                                     
@@ -128,6 +130,28 @@
                                             </div>
 
                                         </div>
+                                        <div class="col-lg-5 text-end flex-shrink-0">
+
+
+                                            <a class="btn bg-soft-secondarycolor text-white me-1 color-color1 mb-2"  style="background-color: var(--bs-card-bg) ;"> <svg class="me-2" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M5.3335 1.33337V3.33337" stroke="#73759D" stroke-width="1.2" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                                                <path d="M10.6665 1.33337V3.33337" stroke="#73759D" stroke-width="1.2" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                                                <path d="M4.6665 7.33337H9.99984" stroke="#73759D" stroke-width="1.2" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                                                <path d="M4.6665 10H7.99984" stroke="#73759D" stroke-width="1.2" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                                                <path d="M10 14.6667H6C2.66667 14.6667 2 13.2934 2 10.5467V6.43337C2 3.30004 3.11333 2.46004 5.33333 2.33337H10.6667C12.8867 2.45337 14 3.30004 14 6.43337V10.6667" stroke="#73759D" stroke-width="1.2" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                                                <path d="M14 10.6666L10 14.6666V12.6666C10 11.3333 10.6667 10.6666 12 10.6666H14Z" stroke="#73759D" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                </svg>
+                                                Add Sticky Notes</a>
+                                            <a class="btn bg-soft-secondarycolor text-white me-2 color-color1 mb-2"  style="background-color: var(--bs-card-bg) ;">'New Webinar'
+                                                <svg class="ms-1"  width="57" height="25" viewBox="0 0 57 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M40.0922 10.607C39.4853 9.98725 38.6917 9.67737 37.8904 9.67737C37.0968 9.67737 36.2955 9.98725 35.6886 10.607C34.4749 11.8465 34.4749 13.8568 35.6886 15.1043C36.9023 16.3438 38.8707 16.3438 40.0922 15.1043C41.3059 13.8647 41.3059 11.8465 40.0922 10.607ZM39.213 14.2064C38.4817 14.9533 37.2991 14.9533 36.5755 14.2064C35.8442 13.4595 35.8442 12.2518 36.5755 11.5128C37.3069 10.7659 38.4895 10.7659 39.213 11.5128C39.9366 12.2518 39.9366 13.4595 39.213 14.2064Z" fill="#2D8CFF"/>
+                                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M46.6273 10.607C46.0205 9.98725 45.2269 9.67737 44.4255 9.67737C43.632 9.67737 42.8306 9.98725 42.2238 10.607C41.0101 11.8465 41.0101 13.8568 42.2238 15.1043C43.4375 16.3438 45.4058 16.3438 46.6273 15.1043C47.841 13.8647 47.841 11.8465 46.6273 10.607ZM45.7482 14.2064C45.0168 14.9533 43.8343 14.9533 43.1107 14.2064C42.3794 13.4595 42.3794 12.2518 43.1107 11.5128C43.842 10.7659 45.0246 10.7659 45.7482 11.5128C46.4717 12.2518 46.4717 13.4595 45.7482 14.2064ZM30.1101 16.018L30.4213 16.0339H35.0894L35.0738 15.7161C35.0349 15.1917 34.6692 14.8103 34.1557 14.7785L33.8445 14.7626H31.0437L34.7782 10.9487L34.7626 10.6309C34.7393 10.1064 34.358 9.7171 33.8445 9.69326L33.5333 9.67737H28.8652L28.8808 9.9952C28.9197 10.5117 29.2931 10.901 29.7989 10.9328L30.1101 10.9487H32.9109L29.1764 14.7626L29.192 15.0804C29.2231 15.6049 29.5966 15.9862 30.1101 16.018ZM51.4121 11.5843C51.5211 11.775 51.5522 11.9816 51.5677 12.22L51.5833 12.5378V14.7626L51.5989 15.0804C51.63 15.5969 52.0034 15.9862 52.5169 16.018L52.8281 16.0339V12.5378L52.8437 12.22C52.8592 11.9816 52.8904 11.7671 52.9993 11.5764C53.2171 11.195 53.6139 10.9487 54.0729 10.9487C54.532 10.9487 54.9365 11.2029 55.1544 11.5843C55.2633 11.775 55.2944 11.9896 55.3022 12.22L55.3178 12.5378V14.7626L55.3333 15.0804C55.3645 15.6049 55.7379 15.9862 56.2514 16.018L56.5626 16.0339V12.5378V12.22C56.5626 10.8136 55.45 9.67737 54.0729 9.67737C53.326 9.67737 52.6647 10.0111 52.2057 10.5355C51.7467 10.0111 51.0854 9.67737 50.3385 9.67737C49.825 9.67737 49.3426 9.83628 48.9458 10.1144C48.7046 9.83628 48.16 9.67737 47.8488 9.67737V16.0339L48.16 16.018C48.6813 15.9862 49.0547 15.6049 49.0781 15.0804L49.0936 14.7626V12.5378L49.1092 12.22C49.1248 11.9816 49.1559 11.7671 49.2648 11.5843C49.4827 11.2029 49.8794 10.9487 50.3385 10.9487C50.7975 10.9487 51.2021 11.2029 51.4121 11.5843Z" fill="#2D8CFF"/>
+                                                    <path d="M12.4167 0C5.55901 0 0 5.61129 0 12.5331C0.654032 29.158 24.1817 29.1533 24.8333 12.5331C24.8333 5.61129 19.2741 0 12.4167 0Z" fill="#2D8CFF"/>
+                                                    <path d="M19.8103 16.0677C19.797 16.7272 19.2721 16.9498 18.7634 16.5848C17.8147 15.9164 16.8726 15.2388 15.9269 14.5667C15.9292 14.8777 15.9251 15.6104 15.9266 15.9291C15.9264 16.5201 15.6346 16.8077 15.0352 16.808L9.92846 16.8085C9.06321 16.8088 8.19823 16.809 7.33298 16.808C5.69738 16.8062 4.59818 15.7275 4.59766 14.1235V9.06962C4.59766 8.47015 4.88023 8.19067 5.48643 8.19067C7.56485 8.23041 11.1963 8.19515 13.2339 8.19146C14.6782 8.19304 15.723 9.09725 15.8976 10.4336C16.8533 9.75461 17.8051 9.07014 18.7634 8.39462C19.2054 8.07173 19.7873 8.17541 19.8103 8.91199C19.8166 11.2241 19.8242 13.7512 19.8103 16.0677Z" fill="#F1F1F1"/>
+                                                    </svg>
+                                                    
+                                            </a>
+                                        </div>
                                      </div>
                                      
                                     <!-- <form class="needs-validation formtype_leads" novalidate="" id="formtypeleads"> -->
@@ -136,75 +160,131 @@
 
                                             <!--Tickets Details-->
                                             <div class="col-md-4">
-                                                <form class="needs-validation formtype_leads formsset" novalidate="" id="formtypeleads_info"  name="formmanage" >
-                                                    <div class="card card-h-100 " style="border-style: dashed">
-                                                        <div class="card-body d-flex flex-column justify-content-between">
-                                                            <div class="d-flex justify-content-between">
-                                                                <div class=" align-items-start px-0 flex-grow-1 d-flex flex-wrap">
-                                                                    
-                                                                        <div class="mb-3">
-                                                                            <label class="form-label" for="title">Title</label>
-                                                                            <select class="form-select border-0 py-1" id="title" 
-                                                                                required>
-                                                                                <option value="Mr">Mr</option>
-                                                                                <option value="Ms">Ms</option>
-                                                                                <option value="Mrs">Mrs</option>
-                                                                            </select>
-                                    
-                                                                        </div>
-                                                                    
+                                                <div class="card card-h-100 " style="border-style: dashed">
+                                                    <div class="card-body d-flex flex-column justify-content-between">
+                                                        <form class="needs-validation formtype_leads formsset" novalidate="" id="formtypeleads_info"  name="formmanage" >
+                                                            
                                                                 
-                                                                        <div class="mb-3">
-                                                                            <label class="form-label" for="firstname">Name</label>
-                                                                            <input type="text" class="form-control border-0 py-1"
-                                                                                id="firstname" placeholder="both name(s) e.g Jon Doe"
-                                                                            required>
-                                    
+                                                                    <div class="d-flex justify-content-between">
+                                                                        <div class=" align-items-start px-0 flex-grow-1 d-flex flex-wrap">
+                                                                            
+                                                                                <div class="mb-3">
+                                                                                    <label class="form-label" for="title">Title</label>
+                                                                                    <select class="form-select border-0 py-1" id="title" 
+                                                                                        required>
+                                                                                        <option value="Mr">Mr</option>
+                                                                                        <option value="Ms">Ms</option>
+                                                                                        <option value="Mrs">Mrs</option>
+                                                                                    </select>
+                                            
+                                                                                </div>
+                                                                            
+                                                                        
+                                                                                <div class="mb-3">
+                                                                                    <label class="form-label" for="firstname">Name</label>
+                                                                                    <input type="text" class="form-control border-0 py-1"
+                                                                                        id="firstname" placeholder="both name(s) e.g Jon Doe"
+                                                                                    required>
+                                            
+                                                                                </div>
+                                                                            
                                                                         </div>
+                                                                        <!-- <div class="ms-auto">
+                                                                            <a class="btn   btn-soft-link  flex-shrink-0 d-flex align-items-center py-1 px-2" style="background-color:
+                                                                            #1B1C2E ;" onclick="updateEditmode('#edittext','Edit','Cancel edit','formtypeleads_leads','editable-enabled')">
+                                                                                
+                                                                                <svg width="11" height="11" viewBox="0 0 11 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                                    <path d="M9.94776 4.14227L4.29905 11.4471C4.03981 11.7789 3.65777 11.9654 3.24844 11.9724L0.997149 12C0.874351 12 0.772019 11.9171 0.74473 11.7996L0.233072 9.58117C0.144385 9.17343 0.233072 8.75186 0.492312 8.42705L4.49689 3.24385C4.56511 3.16092 4.68791 3.14779 4.76978 3.2093L6.45484 4.55002C6.56399 4.63986 6.71408 4.68824 6.87099 4.6675C7.20527 4.62604 7.4304 4.32196 7.39629 3.99714C7.37582 3.83128 7.29396 3.69306 7.1848 3.5894C7.15069 3.56175 5.5475 2.27632 5.5475 2.27632C5.44516 2.19339 5.4247 2.04135 5.50656 1.93838L6.14102 1.11529C6.72772 0.361994 7.75104 0.292885 8.57651 0.949423L9.52479 1.70271C9.91365 2.0068 10.1729 2.40763 10.2616 2.8292C10.3639 3.29292 10.2548 3.74835 9.94776 4.14227Z" fill="#9C9C9C"></path>
+                                                                                </svg>
+                                                                                <span id="edittext" class="ms-1 d-inline-block fs-12">Edit</span>
+                                                                                </a>
+                                                                        </div> -->
+
+                                                                    </div>
+                                                                    
+                            
+                                                                
+
+                                                                    <div class="mt-3">
+                                                                        <div class="d-flex  align-items-center flex-wrap ">
+                                                                            <div class="form-check form-switch " dir="ltr">
+                                                                                <input type="checkbox" class="form-check-input" id="ticketstatus" checked="" >
+                                                                                <label class="form-check-label " for="ticketstatus">Pending</label>
+                                                                            </div>
+
+                                                                            <div class=" ms-auto d-flex align-items-center justify-content-between ">
+
+                                                                                <p class="gilroyregular-type fs-16 me-3 mb-0 color-color1">Reg date: <div id="regdate"> </div> </p>
+                                                                                <button type="button" class="btn  text-white gilorymedium-type fs-14" style="background-color:
+                                                                                #8D79F6">
+                                                                                    IP : <span class="badge  ms-1"> <div id="ipaddr"></div></span>
+                                                                                </button>
+                                                                            </div>
+
+
+                                                                        </div>
+                                                                        
+                                                                    </div>
+                                                            
+                                                            
+                                                        </form>
+                                                </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="card card-h-100" style="border-style: dashed">
+                                                 
+                                                    
+                                                    <div class="card-body">
+                                                     
+    
+                                                            <div class="row">
+                                                                <div class="col-xxl-4   col-lg-12">
+                                                                    <h5 class="card-title  almarenamonolight-type fs-21 mb-0 position-absolute">Lead Score</h5>
+                                                                </div>
+                                                                <div class="col-xxl-8   col-lg-12">
+                                                                    <div id="main" style="height:260px ; width: 100%">
+                                                                        <div id="gauge-chart-leadscore" data-colors='["#C4C4C4"]' class="e-charts " allowMargin="false" [margin]="margin" ></div>
+                                                                    </div>
                                                                     
                                                                 </div>
-                                                                <!-- <div class="ms-auto">
-                                                                    <a class="btn   btn-soft-link  flex-shrink-0 d-flex align-items-center py-1 px-2" style="background-color:
-                                                                    #1B1C2E ;" onclick="updateEditmode('#edittext','Edit','Cancel edit','formtypeleads_leads','editable-enabled')">
-                                                                        
-                                                                        <svg width="11" height="11" viewBox="0 0 11 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                            <path d="M9.94776 4.14227L4.29905 11.4471C4.03981 11.7789 3.65777 11.9654 3.24844 11.9724L0.997149 12C0.874351 12 0.772019 11.9171 0.74473 11.7996L0.233072 9.58117C0.144385 9.17343 0.233072 8.75186 0.492312 8.42705L4.49689 3.24385C4.56511 3.16092 4.68791 3.14779 4.76978 3.2093L6.45484 4.55002C6.56399 4.63986 6.71408 4.68824 6.87099 4.6675C7.20527 4.62604 7.4304 4.32196 7.39629 3.99714C7.37582 3.83128 7.29396 3.69306 7.1848 3.5894C7.15069 3.56175 5.5475 2.27632 5.5475 2.27632C5.44516 2.19339 5.4247 2.04135 5.50656 1.93838L6.14102 1.11529C6.72772 0.361994 7.75104 0.292885 8.57651 0.949423L9.52479 1.70271C9.91365 2.0068 10.1729 2.40763 10.2616 2.8292C10.3639 3.29292 10.2548 3.74835 9.94776 4.14227Z" fill="#9C9C9C"></path>
-                                                                        </svg>
-                                                                        <span id="edittext" class="ms-1 d-inline-block fs-12">Edit</span>
-                                                                        </a>
-                                                                </div> -->
-
+                                                                
+                                                            </div>  
+                                                        
+                                                        
+                                                    </div>
+                                                </div>
+                                             
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="card card-h-100" style="border-style: dashed">
+                                                 
+                                                    
+                                                    <div class="card-body">
+                                                     
+    
+                                                            <div class="row">
+                                                                <div class="col-xxl-4   col-lg-12">
+                                                                    <h5 class="card-title  almarenamonolight-type fs-21 mb-0 position-absolute">Meeting score</h5>
+                                                                </div>
+                                                                <div class="col-xxl-8   col-lg-12 card-h-100">
+                                                                    <div id="main2" style=" width: 100%;height:260px">
+                                                                        <div id="gauge-chart-meetingsscore" data-colors='["#FF4929","#73759D"]' class="e-charts " ></div>
+                                                                    </div>
+                                                                    
+                                                                </div>
+                                                                
                                                             </div>
                                                             
-                    
+        
+                                                           
+                                                     
                                                         
-
-                                                            <div class="mt-5">
-                                                                <div class="d-flex  align-items-center flex-wrap ">
-                                                                    <div class="form-check form-switch " dir="ltr">
-                                                                        <input type="checkbox" class="form-check-input" id="ticketstatus" checked="" >
-                                                                        <label class="form-check-label " for="ticketstatus">Pending</label>
-                                                                    </div>
-
-                                                                    <div class=" ms-auto d-flex align-items-center justify-content-between ">
-
-                                                                        <p class="gilroyregular-type fs-16 me-3 mb-0 color-color1">Reg date: <div id="regdate"> </div> </p>
-                                                                        <button type="button" class="btn  text-white gilorymedium-type fs-14" style="background-color:
-                                                                        #8D79F6">
-                                                                            IP : <span class="badge  ms-1"> <div id="ipaddr"></div></span>
-                                                                        </button>
-                                                                    </div>
-
-
-                                                                </div>
-                                                                
-                                                            </div>
-                                                        </div>
+                                                        
                                                     </div>
-                                                </form>
-
-                                            </div>
-                                                
+                                                </div>
+                                             
+                                            </div>   
                                                 
                 
 
@@ -1034,7 +1114,7 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">392</span></a>
                                                                                     <label class="form-label col-sm-2" for="">From : </label>
                                                                                     <div class="col-sm-9">
 
-                                                                                        <input type="email" class="form-control border-0   text-start" id="emailto" placeholder="e.g Steve@gmail.com"  required="" >
+                                                                                        <input type="email" class="form-control border-0   text-start" id="emailto" placeholder="e.g Steve@gmail.com"  required="" name="email_from">
 
                                                                                     </div>
                                                                                     
@@ -1044,7 +1124,7 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">392</span></a>
                                                                                     <label class="form-label col-sm-2" for="">Subject : </label>
                                                                                     <div class="col-sm-9">
 
-                                                                                        <input type="subj" class="form-control border-0   text-start" id="" placeholder="e.g Steve@gmail.com"  required="" >
+                                                                                        <input type="subj" class="form-control border-0   text-start" id="" placeholder="subject About Email"  required="" name="emailsub">
 
                                                                                     </div>
                                                                                     
@@ -1055,10 +1135,10 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">392</span></a>
                                                                                 
 
                                                                         
-                                                                            <div id="ckeditor-classic"></div>
+                                                                            <div id="ckeditorclassic"></div>
 
                                                                             <div>
-                                                                                <button class="btn btn-info btn-md mt-3 me-2 rounded-2" type="submit">Send</button>
+                                                                                <button class="btn btn-info btn-md mt-3 me-2 rounded-2" type="button" onclick="composeEmailSend()">Send</button>
                                                                                 <button class="btn btn-outline-light btn-md mt-3  rounded-2" type="reset">Cancel</button>
                                                                             </div>
 
@@ -1097,7 +1177,7 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">392</span></a>
                                                                                             <label class="form-label " for="sub">Subject</label>
                                                                                             <select class="form-select border-1" id="sub" value="" required="">
                                                                                                 <option value="en">English</option>
-                                                                                                <option value="ar">Arabic</option>
+                                                                                                <option value="ch">Chinese</option>
                                                                                             </select>
                                     
                                                                                             <div class="invalid-feedback">
@@ -1109,9 +1189,35 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">392</span></a>
                                                                                     <div class="col-md-12">
                                                                                         <div class="mb-3">
                                                                                             <label class="form-label " for="temp">Template</label>
-                                                                                            <select class="form-select border-1" id="temp" value="" required="">
-                                                                                                <option value="temp1">About Trust Capital TC</option>
-                                                                                                <option value="temp2">How To open an Account</option>
+                                                                                            <select class="form-select border-1" id="temp-english" value="" required="">
+                                                                                                <option value="About TC Limited">About TC Limited</option>
+                                                                                                <option value="How To open an Account">How To open an Account</option>
+                                                                                                <option value="Rejection Of Application">Rejection Of Application</option>
+                                                                                                <option value="Webinar Registration">Webinar Registration </option>
+                                                                                                <option value="POR And POI">POR And POI</option>
+                                                                                                <option value="Unreachable">Unreachable</option>
+                                                                                                <option value="MetaTrader 4 Advantages">MetaTrader 4 Advantages</option>
+                                                                                                <option value="Mobile Trading">Mobile Trading</option>
+                                                                                                <option value="Trading Instruments">Trading Instruments</option>
+                                                                                                <option value="Unreachable SMS">Unreachable SMS</option>
+                                                                                                <option value="Sales Call Interested SMS">Sales Call Interested SMS</option>
+                                                                                                <option value="TC Limited - Missing POR">Missing POR</option>
+                                                                                                <option value="TC Limited - Missing ID">Missing POI</option>
+                                                                                            </select>
+                                                                                            <select class="form-select border-1" id="temp-chinese" value="" required="">
+                                                                                                <option value="About TC Limited">大约 TC Limited</option>
+                                                                                                <option value="How To open an Account">如何开立账户</option>
+                                                                                                <option value="Rejection Of Application">无法继续应用程序</option>
+                                                                                                <option value="Webinar Registration">网络研讨会注册</option>
+                                                                                                <option value="POR And POI">所需文件</option>
+                                                                                                <option value="Unreachable">遥 不可 及</option>
+                                                                                                <option value="MetaTrader 4 Advantages">MetaTrader 4 优势</option>
+                                                                                                <option value="Mobile Trading">移动交易</option>
+                                                                                                <option value="Trading Instruments">交易工具</option>
+                                                                                                <option value="Unreachable SMS">Unreachable SMS</option>
+                                                                                                <option value="Sales Call Interested SMS">Sales Call Interested SMS</option>
+                                                                                                <option value="TC Limited - 缺少 POR">缺少 POR</option>
+                                                                                                <option value="TC Limited - 失踪 ID">失踪 POI</option>
                                                                                             </select>
                                     
                                                                                             <div class="invalid-feedback">
@@ -1122,9 +1228,9 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">392</span></a>
                                                                                
                                                                                   
                                                                                     <div class="col-md-12">
-                                                                                        <button class="btn  btn-md btn-info  me-1" type="submit">Send</button>
+                                                                                        <button class="btn  btn-md btn-info  me-1" type="button" onclick="templateSend()">Send</button>
                                                                                         <button class="btn btn-outline-light btn-md me-1" type="reset">Cancel</button>
-                                                                                        <button class="btn btn-outline-light btn-md me-1" type="">Preview</button>
+                                                                                        <!-- <button class="btn btn-outline-light btn-md me-1" type="">Preview</button> -->
                                                                                     </div>
                             
                            
@@ -1886,6 +1992,7 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">392</span></a>
         let profession=0;
         let highlypotential=0;
         $(document).ready(function () {
+            $("#temp-chinese").hide()
             let searchParams = new URLSearchParams(window.location.search)
             let ticket = searchParams.get('ticket')
             console.log("Ticket---------"+ticket)
@@ -1896,6 +2003,19 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">392</span></a>
         });
 
     $(function() {
+
+        $('#sub').on('change', function() {
+            
+            var chosen=this.value
+            if(chosen=="ch"){
+                $("#temp-chinese").show()
+                $("#temp-english").hide()
+            }
+            if(chosen=="en"){
+                $("#temp-chinese").hide()
+                $("#temp-english").show()
+            }
+        });
             $("#assign").change(function(){
                 var assign=$("#assign option:selected").val()
                 console.log("Assign----"+assign)
@@ -2088,7 +2208,7 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">392</span></a>
 
                 }
                     
-                });
+                })
                 $("#email2").on("keydown", function(event) {
                 if(event.which == 13){
                     event.preventDefault()
@@ -2098,7 +2218,7 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">392</span></a>
 
                 }
                     
-                });
+                })
                 $("#phone").on("keydown", function(event) {
                 if(event.which == 13){
                     event.preventDefault()
@@ -2108,7 +2228,7 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">392</span></a>
 
                 }
                     
-                });
+                })
                 $("#phone2").on("keydown", function(event) {
                 if(event.which == 13){
                     event.preventDefault()
@@ -2118,13 +2238,98 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">392</span></a>
 
                 }
                     
-                });
+                })
 
-       
- 
-
+               
 
     });
+
+
+    function templateSend(){
+        var ticket=document.getElementById("ticketno").value
+        var lang=$("#sub").val()
+        var to=""
+        var from=""
+        to=$("#email1").val()
+        from=$("#fromtemp").val()
+        title=$("#title").val()
+        name=$("#firstname").val()
+        if(to==""){
+            to=$("#email2").val()
+        }
+        console.log("From temp====="+from)
+        console.log("---------"+to)
+        console.log("Title------------------"+title)
+        console.log("Name-------"+name)
+        console.log("Language--------------------"+lang)
+        var temp=""
+        if(lang=="en"){
+            temp=$("#temp-english").val()
+            
+        }
+        if(lang=="ch"){
+            temp=$("#temp-chinese").val()            
+        }
+        console.log("template---------------"+temp)
+        var subject=temp
+        if(from==""){
+            $("#userMsg").empty()
+            $("#userMsg").append("Please enter your emailid")
+            $("#alertpopup").modal('show')
+
+        }
+        else{
+            console.log("call backend")
+           
+            sendTemplate(from,to,lang,subject,title,name)
+        }
+
+
+    }
+
+    function sendTemplate(fromadd,toadd,lang,sub,tit,fname,ticket){
+
+       
+        $.ajax({
+                    
+                    type : "GET", 
+                    url: "{% url 'Admin:TemplateEmail' %}",
+                    
+                    data:{
+                        'sub':sub,
+                        'tit':tit,
+                        'from':fromadd,
+                        'to':toadd,
+                        'lan':lang,
+                        'name':fname,
+                        'ticket':ticket,
+                        
+                    },
+                    
+                    
+                    success: function(datas){
+                    }
+        })
+     
+    }
+
+    function composeEmailSend(){
+        console.log("Compose email-------")
+        var to=""
+        var from=""
+        to=$("#email1").val()
+        from=$("#fromtemp").val()
+        title=$("#title").val()
+        name=$("#firstname").val()
+        if(to==""){
+            to=$("#email2").val()
+        }
+        console.log("From-----"+from+to)
+      
+        var email_data =CKEditor.instances.ckeditorclassic.getData();
+        console.log("Email data-----"+email_data)
+
+    }
 
     function updateDetails(){
         console.log("Updates----------------------")
@@ -2132,12 +2337,39 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">392</span></a>
        var updates=validateForm()
        if(updates==0){
         var accountno=$("#accountno").val()
-        if(accountno){
+        var ticket=document.getElementById("ticketno").value
+        var form_data1=$('#formtypeleads_info','#formtypeleads_personals','#formtypeleads_leads').serialize()
+       
 
+        if(accountno){
+            console.log("Ticket and account number")
+            $.ajax({
+               type : "GET", 
+               url: "{% url 'Admin:AccountStatus' %}",
+               dataType: 'json',
+               data:form_data1,
+               success: function(data){
+                console.log("Data-----")
+               }
+            })
+
+
+        }
+        if(ticket){
+            console.log("No ticket and account number----")
+            $.ajax({
+               type : "GET", 
+               url: "{% url 'Admin:TicketStatus' %}",
+               dataType: 'json',
+               data:form_data1,
+               success: function(data){
+                console.log("Data-----")
+               }
+            })
         }
 
        }
-       console.log("Updatesssssssssssssssssssssssssssssssssssssssssssssssssss"+updates)
+       
                 
     }
     function validateForm(){
@@ -2690,7 +2922,11 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">392</span></a>
                         $("#phone2").val(phone2)
                         $("#source").val(source)
                         $("#city").val(city)
-                        $("#subject").val(subject)                       
+                        $("#subject").val(subject)  
+                        leadscore=data.leadscore 
+                        meetingscore=data.meetingscore   
+                        console.log("Meetingscore-------------------------------------------------------"+meetingscore)                 
+                        gauge1(leadscore)
                     }
                 })
 
@@ -2698,7 +2934,10 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">392</span></a>
     }
 
            
-
+    var leadscore=leadscore={{leadscore|safe}}
+    var meetingscore={{meetingscore|safe}}
+    gauge1(leadscore)
+    console.log("lead score------"+leadscore)
     </script>
 
     <script src="{%static 'libs/flatpickr/flatpickr.min.js' %}"></script>
@@ -2708,14 +2947,15 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">392</span></a>
 
     <!-- Calendar init -->
     
-    <script src="{% static 'libs/@ckeditor/ckeditor5-build-classic/build/ckeditor.js' %}"></script>
+    
     
     <script src="{% static 'libs/@fullcalendar/core/main.min.js'%}"></script>
     <script src="{% static 'libs/@fullcalendar/bootstrap/main.min.js' %}"></script>
     <script src="{% static 'libs/@fullcalendar/daygrid/main.min.js' %}"></script>
     <script src="{% static 'libs/@fullcalendar/timegrid/main.min.js'%}"></script>
     <script src="{% static 'libs/@fullcalendar/interaction/main.min.js'%}"></script>
-   
+    <script src="{% static 'libs/echarts/echarts.min.js' %}"></script>
+    <script src="{% static 'js/pages/gaugechart.init.js' %}"></script>
     
      <!-- Datatable init js -->
      <script src="{% static 'js/pages/intTellinput.init.js' %}"></script>

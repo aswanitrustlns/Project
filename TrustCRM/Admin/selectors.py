@@ -1,6 +1,7 @@
 from audioop import reverse
 from cmath import log
 from email.message import Message
+import re
 from django.db import connection
 from datetime import datetime, timedelta
 from ctypes import *
@@ -14,6 +15,8 @@ from django.conf import settings
 import imaplib
 import email
 import html2text
+from .emailservices import EmailServices
+emailservice=EmailServices()
 
 class Selector:    
     
@@ -616,9 +619,15 @@ class Selector:
     # Get Lead Score
     def get_lead_score(self,ticket):
         try:
+            lead_score=0
             Cursor=connection.cursor()
+            ticket=ticket.strip()
+            print("ticket====",ticket)
             Cursor.execute("set nocount on;exec SP_GetLeadScore %s",[ticket])
             lead_score=Cursor.fetchall()
+            if lead_score:
+                lead_score=lead_score[0]
+                lead_score=lead_score[0]
             print("Lead Score-----",lead_score)
         except Exception as e:
             print("Exception------",e)
@@ -753,7 +762,7 @@ class Selector:
         return mail_search_list
     
     #Account no status check
-    def account_status_check_update(self,accountno):
+    def account_status_check_update(self,accountno,request):
         try:
             Cursor=connection.cursor()
             Cursor.execute("set nocount on;exec SP_GetAccountStatus %s",[accountno])
@@ -762,14 +771,14 @@ class Selector:
                 msg="You dont have permission to update live account details"
                 print("You dont have permission to update live account details")
             else:
-                Cursor.execute("set nocount on;exec SP_UpdateClientDetailsSales %s",[accountno])
+               update_result=update_account_client_datails(request)
 
         except Exception as e:
             print("Exception------",e)
         finally:
             Cursor.close()
      #Ticket status check
-    def ticket_validity_check_update(self,ticket):
+    def ticket_validity_check_update(self,ticket,request):
         try:
             Cursor=connection.cursor()
             Cursor.execute("set nocount on;exec SP_IsTicketValid %s",[ticket])
@@ -779,12 +788,168 @@ class Selector:
                 msg="You dont have permission to update live account details"
                 print("You dont have permission to update live account details")
             else:
-                Cursor.execute("set nocount on;exec SP_UpdateSalesLead %s",[ticket])
+               update_ticket(request)
+
 
         except Exception as e:
             print("Exception------",e)
         finally:
             Cursor.close()
+        return msg
+    #Email template send---
+
+    def email_template_selection(self,lang,subject,fromaddr,to,title,name,userId,ticket):
+        try:
+            Cursor=connection.cursor()
+            emailservice.send_email_templates(lang,subject,fromaddr,to,title,name)
+            print("Selector----",lang,subject,fromaddr,to,title,name)
+            history="Send --xxxxxx[Eng]-- SMS for Ticket xxx"
+            chattype=""
+            dept=""
+            Cursor.execute("set nocount on;exec SP_UpdateChatAndLog %s,%s,%s,%s,%s",[userId,history,chattype,ticket,dept])
+        except Exception as e:
+            print("Exception------",e)
+        finally:
+            Cursor.close()
+    #Send email from Managetickets
+    def email_compose(self,fromaddr,to,name,title,sub,emailbody):
+        try:
+           
+            emailservice.send_email_templates(lang,subject,fromaddr,to,title,name)
+            print("Selector----",lang,subject,fromaddr,to,title,name)
+            history="Send --xxxxxx[Eng]-- SMS for Ticket xxx"
+            chattype=""
+            dept=""
+            Cursor.execute("set nocount on;exec SP_UpdateChatAndLog %s,%s,%s,%s,%s",[userId,history,chattype,ticket,dept])
+        except Exception as e:
+            print("Exception------",e)
+        finally:
+            Cursor.close()
+
+        
+        
+
+
+
+
+
+
+
+
+def update_ticket(self,request):
+         
+     try:
+        Cursor=connection.cursor()
+        name=request.GET.get('name')
+        email=request.GET.get('email')
+        phone=request.GET.get('phone')
+        subject=request.GET.get('subject')
+        ticket=request.GET.get('ticket')
+        country=request.GET.get('country')
+        clientarea=request.GET.get('clientarea')
+        potential=request.GET.get('potential')
+        city=request.GET.get('city')
+        address=request.GET.get('address')
+        state=request.GET.get('state')
+        zipcode=request.GET.get('zipcode')
+        nationality=request.GET.get('nationality')
+        profession=request.GET.get('profession')
+        dob=request.GET.get('dob')
+        income=request.GET.get('income')
+        networth=request.GET.get('networth')
+        experience=request.GET.get('experience')
+        hear=request.GET.get('hear')
+        email2=request.GET.get('email2')
+        phone2=request.GET.get('phone2')
+        country2=request.GET.get('country2')
+        noemail=request.GET.get('noemail')
+        title=request.GET.get('title')
+        hyplinks=request.GET.get('hyplinks')
+        appform=request.GET.get('appform')
+        age=request.GET.get('age')
+        category=request.GET.get('category')
+        userId=request.session.get('UserId')
+        language=request.GET.get('language')
+        training=request.GET.get('training')
+        Cursor.execute("set nocount on;exec SP_UpdateSalesLead %s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s",[name,email,phone,subject,ticket,country,clientarea,potential,city,address,state,zipcode,nationality,profession,dob,income,networth,experience,hear,email2,phone2,country2,noemail,title,hyplinks,appform,age,category,userId,language,training])
+     except Exception as e:
+                print("Exception------",e)
+     finally:
+                Cursor.close()
+
+
+
+
+
+
+def update_account_client_datails(self,request):
+        
+        try:
+            Cursor=connection.cursor()
+            login=request.GET.get('login')
+            name=request.GET.get('name')
+            groups=request.GET.get('groups')
+            city=request.GET.get('city')
+            address=request.GET.get('address')
+            state=request.GET.get('state')
+            zipcode=request.GET.get('zipcode')
+            country=request.GET.get('country')
+            phone=request.GET.get('phone')
+            email=request.GET.get('email')
+            comment=request.GET.get('comment')
+            id=request.GET.get('id')
+            agent=request.GET.get('agent')
+            ppassword=request.GET.get('ppassword')
+            leverage=request.GET.get('leverage')
+            taxrate=request.GET.get('taxrate')
+            tinno=request.GET.get('tinno')
+            enabled=request.GET.get('enabled')
+            sendreports=request.GET.get('reports')
+            city=request.GET.get('city')
+            readonly=request.GET.get('readonly')
+            changepwd=request.GET.get('changepwd')
+            zipcode=request.GET.get('zipcode')
+            rdcomment=request.GET.get('rdcomment')
+            terminated=request.GET.get('terminated')
+            termincomment=request.GET.get('termincomment')
+            red=request.GET.get('red')
+            green=request.GET.get('green')
+            blue=request.GET.get('blue')
+            color=request.GET.get('color')
+            mothername=request.GET.get('mothername')
+            nationality=request.GET.get('nationality')
+            language=request.GET.get('language')
+            created=request.GET.get('created')
+            dob=request.GET.get('dob')
+            income=request.GET.get('income')
+            worth=request.GET.get('worth')
+            profession=request.GET.get('profession')
+            email2=request.GET.get('email2')
+            city=request.GET.get('city')
+            phone2=request.GET.get('phone2')
+            country2=request.GET.get('country2')
+            title=request.GET.get('title')
+            userId=request.GET.get('UserId')
+            ticket=request.GET.get('ticket')
+            subject=request.GET.get('subject')
+            clientarea=request.GET.get('clientare')
+            potential=request.GET.get('potential')
+            exp=request.GET.get('exp')
+            hear=request.GET.get('hear')
+            noemail=request.GET.get('noemail')
+            hyplink=request.GET.get('hyplink')
+            appform=request.GET.get('appform')
+            age=request.GET.get('age')
+            category=request.GET.get('category')
+            scomments=request.GET.get('comments')
+            update_result=Cursor.execute("set nocount on;exec SP_UpdateSalesLead %s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s",[login,name,groups,country,city,zipcode,address,phone,email,comment,id,agent,ppassword,leverage,state,taxrate,tinno,enabled,sendreports,readonly,changepwd,rdcomment,terminated,termincomment,red,green,blue,color,mothername,nationality,language,created,dob,income,worth,profession,email2,phone2,country2,title,userId,ticket,subject,clientarea,potential,exp,hear,noemail,hyplink,appform,age,category,scomments])
+        
+        except Exception as e:
+            print("Exception------",e)
+        finally:
+            Cursor.close()
+        return update_result
+
 
 
 

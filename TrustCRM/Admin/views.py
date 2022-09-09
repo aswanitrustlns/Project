@@ -597,14 +597,16 @@ def lead_processing(request):
             
             lead_details=selector.get_lead_details(ticket,UserId)
             activity_log=selector.get_activity_log(ticket)
-          
+            lead_score=selector.get_lead_score(ticket)
+            meeting_score=selector.get_meeting_score(ticket)
+            print("Meeting score-----------------------",meeting_score)
             ticket_summary=selector.get_ticket_summary(ticket)
           
-            print("Lead details-------------",lead_details)
+            print("Lead details-------------")
         except Exception as e:
             print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!Exception!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!",e.__class__)
     
-        return render(request,'sales/LeadProcessing.html',{'ticket':ticket,'email_phone':json.dumps(search_email_phone),'lead_details':lead_details,'ticket_summary':ticket_summary,'activity_log':activity_log})
+        return render(request,'sales/LeadProcessing.html',{'ticket':ticket,'email_phone':json.dumps(search_email_phone),'lead_details':lead_details,'ticket_summary':ticket_summary,'activity_log':activity_log,'leadscore':lead_score,'meetingscore':meeting_score})
     else:
          return redirect('/login') 
         
@@ -880,14 +882,20 @@ def viewDocument(request):
     else:
         return redirect('/login')
 
-def viewLoadFunctions(request):
+def viewLoadFunctions(request): # 455325 to test meeting score
     if 'UserId' in request.session:        
         ticket=request.GET.get('ticket')
         ticket=ticket.strip()
         UserId=request.session.get('UserId')
         activity_log=selector.get_activities_log(ticket)
         lead_details=selector.get_lead_details(ticket,UserId)
-        return JsonResponse({'leads':lead_details,'activities':activity_log})
+        leadscore=selector.get_lead_score(ticket)
+        meetingscore=selector.get_meeting_score(ticket)
+        if(meetingscore):
+            meetingscore=sum(meetingscore)
+            
+        print("Meeting score----",meetingscore)
+        return JsonResponse({'leads':lead_details,'activities':activity_log,'leadscore':leadscore,'meetingscore':meetingscore})
     else:
         return redirect('/login')
 
@@ -929,6 +937,53 @@ def mail_search(request):
      
     else:
         return redirect('/login')
+
+#Account status update
+
+def account_status(request):
+    if 'UserId' in request.session:
+        accountNo=request.GET.get('account')
+        selector.account_status_check_update(accountNo)
+    else:
+        return redirect('/login')
+
+#Ticket status update
+def ticket_status(request):
+    if 'UserId' in request.session:
+        ticket=request.GET.get('ticket')
+        selector.ticket_validity_check_update(ticket)
+    else:
+        return redirect('/login')
+
+#send email template
+def send_email_templates(request):
+    print("send email=======")
+    if 'UserId' in request.session:
+        userid=request.session.get('UserId')
+        fromaddr=request.GET.get('from')
+        to=request.GET.get('to')
+        name=request.GET.get('name')
+        title=request.GET.get('tit')
+        lang=request.GET.get('lan')
+        sub=request.GET.get('sub')
+        ticket=request.GET.get('ticket')
+        print("Template selectio=====")
+        selector.email_template_selection(lang,sub,fromaddr,to,title,name,userid,ticket)
+        return JsonResponse({"Success"})
+    else:
+        return redirect('/login')
+
+#Manage ticket Email send
+
+def email_send(request):
+        fromaddr=request.GET.get('from')
+        to=request.GET.get('to')
+        name=request.GET.get('name')
+        title=request.GET.get('tit')
+        sub=request.GET.get('subject')
+        emailbody=request.GET.get('body')
+        selector.email_compose(fromaddr,to,name,title,sub,emailbody)
+
 
 
 
