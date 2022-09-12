@@ -133,7 +133,8 @@
                                         <div class="col-lg-5 text-end flex-shrink-0">
 
 
-                                            <a class="btn bg-soft-secondarycolor text-white me-1 color-color1 mb-2"  style="background-color: var(--bs-card-bg) ;"> <svg class="me-2" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <a class="btn bg-soft-secondarycolor text-white me-1 color-color1 mb-2"  style="background-color: var(--bs-card-bg) ;"  onclick="openStickyPopup()" id="stickyLink"> 
+                                                <svg class="me-2" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                 <path d="M5.3335 1.33337V3.33337" stroke="#73759D" stroke-width="1.2" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
                                                 <path d="M10.6665 1.33337V3.33337" stroke="#73759D" stroke-width="1.2" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
                                                 <path d="M4.6665 7.33337H9.99984" stroke="#73759D" stroke-width="1.2" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
@@ -162,7 +163,7 @@
                                             <div class="col-md-4">
                                                 <div class="card card-h-100 " style="border-style: dashed">
                                                     <div class="card-body d-flex flex-column justify-content-between">
-                                                        <form class="needs-validation formtype_leads formsset" novalidate="" id="formtypeleads_info"  name="formmanage" >
+                                                        <form class="needs-validation formtype_leads formsset" novalidate="" id="formtypeleadsinfo"  name="formmanage" method="POST">
                                                             
                                                                 
                                                                     <div class="d-flex justify-content-between">
@@ -171,7 +172,7 @@
                                                                                 <div class="mb-3">
                                                                                     <label class="form-label" for="title">Title</label>
                                                                                     <select class="form-select border-0 py-1" id="title" 
-                                                                                        required>
+                                                                                        required name="title">
                                                                                         <option value="Mr">Mr</option>
                                                                                         <option value="Ms">Ms</option>
                                                                                         <option value="Mrs">Mrs</option>
@@ -184,21 +185,12 @@
                                                                                     <label class="form-label" for="firstname">Name</label>
                                                                                     <input type="text" class="form-control border-0 py-1"
                                                                                         id="firstname" placeholder="both name(s) e.g Jon Doe"
-                                                                                    required>
+                                                                                    required name="firstname">
                                             
                                                                                 </div>
                                                                             
                                                                         </div>
-                                                                        <!-- <div class="ms-auto">
-                                                                            <a class="btn   btn-soft-link  flex-shrink-0 d-flex align-items-center py-1 px-2" style="background-color:
-                                                                            #1B1C2E ;" onclick="updateEditmode('#edittext','Edit','Cancel edit','formtypeleads_leads','editable-enabled')">
-                                                                                
-                                                                                <svg width="11" height="11" viewBox="0 0 11 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                                    <path d="M9.94776 4.14227L4.29905 11.4471C4.03981 11.7789 3.65777 11.9654 3.24844 11.9724L0.997149 12C0.874351 12 0.772019 11.9171 0.74473 11.7996L0.233072 9.58117C0.144385 9.17343 0.233072 8.75186 0.492312 8.42705L4.49689 3.24385C4.56511 3.16092 4.68791 3.14779 4.76978 3.2093L6.45484 4.55002C6.56399 4.63986 6.71408 4.68824 6.87099 4.6675C7.20527 4.62604 7.4304 4.32196 7.39629 3.99714C7.37582 3.83128 7.29396 3.69306 7.1848 3.5894C7.15069 3.56175 5.5475 2.27632 5.5475 2.27632C5.44516 2.19339 5.4247 2.04135 5.50656 1.93838L6.14102 1.11529C6.72772 0.361994 7.75104 0.292885 8.57651 0.949423L9.52479 1.70271C9.91365 2.0068 10.1729 2.40763 10.2616 2.8292C10.3639 3.29292 10.2548 3.74835 9.94776 4.14227Z" fill="#9C9C9C"></path>
-                                                                                </svg>
-                                                                                <span id="edittext" class="ms-1 d-inline-block fs-12">Edit</span>
-                                                                                </a>
-                                                                        </div> -->
+                                                                       
 
                                                                     </div>
                                                                     
@@ -346,7 +338,8 @@
                                                                 <div class="card card-h-100 border-0" style="background-color: #1B1C2E;">
 
                                                                     <div class="card-body">
-                                                                        <form class="needs-validation formtype_leads formsset" name="formmanage" novalidate="" id="formtypeleads_personals">
+                                                                        <form class="needs-validation formtype_leads formsset" name="formmanage" novalidate="" id="formtypeleads_personals" method="POST">
+                                                                           
                                                                             <div class="row">
                                                                                 <div class="  col-md-6 col-xxl-4 ">
                                                                                     <div class="mb-3">
@@ -361,7 +354,7 @@
                                                                                                 
                                                                                                 
                                                                                             </a>
-                                                                                            <input type="tel" class="form-control " id="phone" required style="padding-left: 45px !important ;">
+                                                                                            <input type="tel" class="form-control " id="phone" required style="padding-left: 45px !important ;" name="phone">
                                                                                             
                                                                                         </div>
                                                                                         <span id="error-msg" class="hide"></span>
@@ -378,7 +371,7 @@
                                                                                     <div class="mb-3">
                                                                                         <label class="form-label" for="phone2">&nbsp;</label>
                                                                                         <div class="d-flex align-items-center">
-                                                                                            <a class="me-2"><svg width="25" height="" viewBox="0 0 42 38" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                                            <a class="me-2"><svg width="25" height="" viewBox="0 0 42 38" fill="none" xmlns="http://www.w3.org/2000/svg"> 
                                                                                                 <rect width="42" height="38" rx="4" fill="#00A54F"/>
                                                                                                 <path d="M29.3082 24.275C29.3082 24.575 29.2415 24.8833 29.0998 25.1833C28.9582 25.4833 28.7748 25.7667 28.5332 26.0333C28.1248 26.4833 27.6748 26.8083 27.1665 27.0167C26.6665 27.225 26.1248 27.3333 25.5415 27.3333C24.6915 27.3333 23.7832 27.1333 22.8248 26.725C21.8665 26.3167 20.9082 25.7667 19.9582 25.075C18.9998 24.375 18.0915 23.6 17.2248 22.7417C16.3665 21.875 15.5915 20.9667 14.8998 20.0167C14.2165 19.0667 13.6665 18.1167 13.2665 17.175C12.8665 16.225 12.6665 15.3167 12.6665 14.45C12.6665 13.8833 12.7665 13.3417 12.9665 12.8417C13.1665 12.3333 13.4832 11.8667 13.9248 11.45C14.4582 10.925 15.0415 10.6667 15.6582 10.6667C15.8915 10.6667 16.1248 10.7167 16.3332 10.8167C16.5498 10.9167 16.7415 11.0667 16.8915 11.2833L18.8248 14.0083C18.9748 14.2167 19.0832 14.4083 19.1582 14.5917C19.2332 14.7667 19.2748 14.9417 19.2748 15.1C19.2748 15.3 19.2165 15.5 19.0998 15.6917C18.9915 15.8833 18.8332 16.0833 18.6332 16.2833L17.9998 16.9417C17.9082 17.0333 17.8665 17.1417 17.8665 17.275C17.8665 17.3417 17.8748 17.4 17.8915 17.4667C17.9165 17.5333 17.9415 17.5833 17.9582 17.6333C18.1082 17.9083 18.3665 18.2667 18.7332 18.7C19.1082 19.1333 19.5082 19.575 19.9415 20.0167C20.3915 20.4583 20.8248 20.8667 21.2665 21.2417C21.6998 21.6083 22.0582 21.8583 22.3415 22.0083C22.3832 22.025 22.4332 22.05 22.4915 22.075C22.5582 22.1 22.6248 22.1083 22.6998 22.1083C22.8415 22.1083 22.9498 22.0583 23.0415 21.9667L23.6748 21.3417C23.8832 21.1333 24.0832 20.975 24.2748 20.875C24.4665 20.7583 24.6582 20.7 24.8665 20.7C25.0248 20.7 25.1915 20.7333 25.3748 20.8083C25.5582 20.8833 25.7498 20.9917 25.9582 21.1333L28.7165 23.0917C28.9332 23.2417 29.0832 23.4167 29.1748 23.625C29.2582 23.8333 29.3082 24.0417 29.3082 24.275Z" stroke="white" stroke-width="1.5" stroke-miterlimit="10"/>
                                                                                                 <path d="M26.4167 16.5C26.4167 16 26.025 15.2333 25.4417 14.6083C24.9083 14.0333 24.2 13.5833 23.5 13.5833" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -386,7 +379,7 @@
                                                                                                 </svg>
                                                                                                 
                                                                                             </a>
-                                                                                            <input type="tel" class="form-control" id="phone2" required style="padding-left: 45px !important ;">
+                                                                                            <input type="tel" class="form-control" id="phone2" required style="padding-left: 45px !important ;" name="phone2">
                                                                                             
                                                                                         </div>
                                                                                         <span id="error-msg2" class="hide"></span>
@@ -403,7 +396,7 @@
                                                                                         <label class="form-label w-100 text-xxl-end" for="email1">Email 1 </label>
                                                                                         <input type="email" class="form-control border-0 text-xxl-end "
                                                                                             id="email1" placeholder="e.g Steve@gmail.com"
-                                                                                             required>
+                                                                                             required name="email">
                                                 
                                                                                     </div>
                                                                                 </div>
@@ -412,7 +405,7 @@
                                                                                         <label class="form-label" for="email2">Email 2</label>
                                                                                         <input type="email" class="form-control border-0"
                                                                                             id="email2" placeholder="e.g Steve@gmail.com"
-                                                                                            >
+                                                                                            name="email2">
                                                 
                                                                                     </div>
                                                                                 </div>
@@ -431,7 +424,7 @@
                                                                                     <div class="mb-3">
                                                                                         <label class="form-label  w-100" for="country">Country</label>
                                                                                         <input type="text" class="form-control border-0" id="country"
-                                                                                            placeholder="" >
+                                                                                            placeholder="" required name="country">
     <!--                                                                                
                                                                                         <select class="form-select border-0 " id="country"
                                                                                             required>
@@ -446,7 +439,7 @@
                                                                                     <div class="mb-3">
                                                                                         <label class="form-label" for="source">Source</label>
                                                                                         <input type="tel" class="form-control border-0" id="source"
-                                                                                            placeholder="" >
+                                                                                            placeholder="" name="source">
                                                                                         <div class="invalid-feedback">
                                                                                             Please provide a Profession.
                                                                                         </div>
@@ -458,16 +451,16 @@
                                                                                     <div class="mb-3">
                                                                                         <label class="form-label" for="city">City</label>
                                                                                         <input type="tel" class="form-control border-0" id="city"
-                                                                                            placeholder="" >
+                                                                                            placeholder="" name="city">
                                                 
                                                                                     </div>
                                         
                                                                                 </div>
                                                                                 <div class="  col-md-6 col-xxl-4">
                                                                                     <div class="mb-3">
-                                                                                        <label class="form-label text-xxl-end w-100" for="subject">Subject</label>
-                                                                                        <input type="tel" class="form-control border-0 text-xxl-end" id="subject"
-                                                                                            placeholder="" >
+                                                                                        <label class="form-label w-100" for="subject">Subject</label>
+                                                                                        <input type="tel" class="form-control border-0" id="subject"
+                                                                                            placeholder="" required name="subject">
                                                 
                                                                                     </div>
                                                 
@@ -481,7 +474,7 @@
                                                                                             <div class="col-md-4 col-xl-6 col-xxl-4">
                                     
                                                                                                 <select class="form-select border-1 " id="salesrep"
-                                                                                                required>
+                                                                                                required >
                                                                                                     <option value="0">Select</option>
                                                                                                     <option value="20">Farah Hawilo</option>
                                                                                                     <option value="30">Firas monzer</option>
@@ -708,7 +701,8 @@
                                                 </div>
                                                 
                                                 <div class="tab-pane " id="actions-lead-tab" role="tabpanel">
-                                                    <form class="needs-validation formtype_leads formsset" novalidate="" id="formtypeleads_leads" name="formmanage">
+                                                    <form class="needs-validation formtype_leads formsset" novalidate="" id="formtypeleads_leads" name="formmanage" method="POST">
+                                                     
                                                         <div class="row px-0">
 
                                                             <div class="col-lg-6">
@@ -725,7 +719,7 @@
                                                                                 <div class="mb-3">
                                                                                     <label class="form-label" for="age">Age</label>
                                                                                     <input type="text" class="form-control border-0"
-                                                                                        id="age" placeholder="" >
+                                                                                        id="age" placeholder="" name="age">
                         
                                                                                 </div>
                                                                             </div>
@@ -733,7 +727,7 @@
                                                                                 <div class="mb-3">
                                                                                     <label class="form-label" for="dob">Date of birth</label>
                                                                                     <input type="text" class="form-control border-0"
-                                                                                        id="dob" placeholder="" >
+                                                                                        id="dob" placeholder="" name="dob">
                         
                                                                                 </div>
                                                                             </div>
@@ -744,7 +738,7 @@
                                                                                         for="address">Address</label>
                                                                                     <input type="text" class="form-control border-0"
                                                                                         id="address" placeholder=""
-                                                                                        >
+                                                                                        name="address">
                         
                                                                                 </div>
                                                                             </div>
@@ -754,7 +748,7 @@
                                                                                         for="profession">Zipcode</label>
                                                                                     <input type="text" class="form-control border-0  text-xxl-end"
                                                                                         id="zipcode" placeholder=""
-                                                                                        >
+                                                                                        name="zipcode">
                         
                                                                                 </div>
                                                                             </div>
@@ -764,7 +758,7 @@
                                                                                         for="state">State</label>
                                                                                     <input type="text" class="form-control border-0"
                                                                                         id="state" placeholder=""
-                                                                                       >
+                                                                                       name="state">
                         
                                                                                 </div>
                                                                             </div>
@@ -774,7 +768,7 @@
                                                                                         for="annualincome">Annual income</label>
                                                                                     <input type="text" class="form-control border-0"
                                                                                         id="annualincome" placeholder=""
-                                                                                        >
+                                                                                        name="income">
                         
                                                                                 </div>
                                                                             </div>
@@ -799,7 +793,7 @@
                                                                                         for="profession">Profession</label>
                                                                                     <input type="text" class="form-control border-0 text-xxl-end"
                                                                                         id="profession" placeholder=""
-                                                                                       >
+                                                                                       name="profession">
                         
                                                                                 </div>
                                                                             </div>
@@ -808,7 +802,7 @@
                                                                                     <label class="form-label" for="category">Category<span
                                                                                             class="color-orange"></label>
                                                                                     <input type="text" class="form-control border-0"
-                                                                                        id="category"  required>
+                                                                                        id="category"  required name="category">
                         
                                                                                 </div>
                                                                             </div>
@@ -817,7 +811,7 @@
                                                                                     <label class="form-label" for="potential">Potential<span
                                                                                             class="color-orange"></label>
                                                                                     <input type="text" class="form-control border-0"
-                                                                                        id="potential"  required>
+                                                                                        id="potential"  required name="potential">
                         
                                                                                 </div>
                                                                             </div>
@@ -840,7 +834,7 @@
                                                                                         hear<span class="color-orange"></label>
                                                                                     <select class="form-control border-0 text-xxl-end" name="hearfrom"
                                                                                         id="hearfrom" required >
-                                                                                        <option value="facebbok">Facebook</option>
+                                                                                        <option value="facebook">Facebook</option>
                                                                                         <option value="friends">Friends</option>
                                                                                         <option value="family">Family</option>
                                                                                         <option value="IB">IB</option>
@@ -861,8 +855,8 @@
                                                                                     <label class="form-label"
                                                                                         for="applicationform">Application form</label>
                                                                                     
-                                                                                        <select class="form-control border-0" name="hearfrom"
-                                                                                        id="hearfrom" required >
+                                                                                        <select class="form-control border-0" name="appform"
+                                                                                        id="aplnform" required >
                                                                                         <option value="0">No</option>
                                                                                         <option value="1">Yes</option>
                                                                                         </select>
@@ -1124,7 +1118,7 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">392</span></a>
                                                                                     <label class="form-label col-sm-2" for="">Subject : </label>
                                                                                     <div class="col-sm-9">
 
-                                                                                        <input type="subj" class="form-control border-0   text-start" id="" placeholder="subject About Email"  required="" name="emailsub">
+                                                                                        <input type="subj" class="form-control border-0   text-start" id="emailsub" placeholder="subject About Email"  required="" name="emailsub">
 
                                                                                     </div>
                                                                                     
@@ -1135,7 +1129,9 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">392</span></a>
                                                                                 
 
                                                                         
-                                                                            <div id="ckeditorclassic"></div>
+                                                                            <div id="editor">
+
+                                                                            </div>
 
                                                                             <div>
                                                                                 <button class="btn btn-info btn-md mt-3 me-2 rounded-2" type="button" onclick="composeEmailSend()">Send</button>
@@ -1318,19 +1314,20 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">392</span></a>
                                                                             <div class="  px-3 border rounded-3 py-4">
 
                                                                                 <div class="modal-header py-0 px-0 border-bottom-0">
-                                                                                    <h5 class="modal-title mb-3" id="modal-title">Add reminder</h5>
+                                                                                    <h5 class="modal-title mb-3" id="modal-title">Add Reminder</h5>
                                     
                                                                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
                                     
                                                                                 </div>
 
                                                                                 <form class="needs-validation" name="event-form" id="form-event" novalidate>
+                                                                                    {% csrf_token %}
                                                                                     <div class="row">
                                                                                         <div class="col-12">
                                                                                             <div class="mb-3">
                                                                                                 <label class="form-label">Choose time</label>
                                                                                                 <input class="form-control" placeholder="Insert Event Time"
-                                                                                                    type="text"  name="time" id="event-timepicker" required value="" />
+                                                                                                    type="text"  name="time" id="event-timepicker" required  />
                                                                                                
                                                                                             </div>
                                                                                         </div>
@@ -1338,7 +1335,7 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">392</span></a>
                                                                                             <div class="mb-3">
                                                                                                 <!--<label class="form-label">Event Name</label>-->
                                                                                                 <textarea class="form-control" placeholder="Insert Event Name"
-                                                                                                    type="text" name="title" id="event-title" required value="" > </textarea>
+                                                                                                    type="text" name="title" id="eventtitle" required ></textarea>
                                                                                                 <div class="invalid-feedback">Please provide a valid event name</div>
                                                                                             </div>
                                                                                         </div>
@@ -1347,12 +1344,10 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">392</span></a>
                                                                                                 <label class="form-label">Category</label>
                                                                                                 <select class="form-control form-select" name="category" id="event-category">
                                                                                                     <option  selected> --Select-- </option>
-                                                                                                    <option value="bg-danger">Danger</option>
-                                                                                                    <option value="bg-success">Success</option>
-                                                                                                    <option value="bg-primary">Primary</option>
-                                                                                                    <option value="bg-info">Info</option>
-                                                                                                    <option value="bg-dark">Dark</option>
-                                                                                                    <option value="bg-warning">Warning</option>
+                                                                                                    <option value="Live">Live</option>
+                                                                                                    <option value="Seminar">Seminar</option>
+                                                                                                    <option value="Meeting">Meeting</option>
+                                                                                                    
                                                                                                 </select>
                                                                                                 <div class="invalid-feedback">Please select a valid event category</div>
                                                                                             </div>
@@ -1858,6 +1853,55 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">392</span></a>
                                                 </div>
                                             </div>
 
+                <!-- Stickky pop up -->
+
+                                            <div class="modal fade" id="stickymodel" tabindex="-1" >
+                                                <div class="modal-dialog modal-dialog-centered">
+                                                    <div class="modal-content">
+                                            
+                                                        <div class="modal-body ">
+
+                                                            <div class="  px-3 border rounded-3 py-4">
+
+                                                                <div class="modal-header py-0 px-0 border-bottom-0">
+                                                                    <h5 class="modal-title mb-3" id="modal-title">Add Sticky Notes</h5>
+                    
+                                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
+                    
+                                                                </div>
+
+                                                                <form class="needs-validation" name="event-form" id="form-event" novalidate>
+                                                                    
+                                                                    <div class="row">
+                                                                    
+                                                                        <div class="col-12">
+                                                                            <div class="mb-3">
+                                                                                <!--<label class="form-label">Event Name</label>-->
+                                                                                <textarea class="form-control" placeholder="Insert Text"
+                                                                                    type="text" name="title" id="stickytext" required ></textarea>
+                                                                                <div class="invalid-feedback">Please provide a valid event name</div>
+                                                                            </div>
+                                                                        </div>
+                                                                   
+                                                                    </div>
+                                                                    <div class="row mt-2">
+                                                                        <div class="col-6">
+                                                                            <button type="button" class="btn btn-success" id="btn-save-event" onclick="saveSticky()">Save</button>
+                                                                            <button type="button" class="btn btn-danger" id="btn-delete-event">Update</button>
+                                                                        </div>
+                                                                        <div class="col-6 text-end">
+                                                                            <button type="button" class="btn btn-light me-1" data-bs-dismiss="modal">Close</button>
+                                                                            
+                                                                        </div>
+                                                                    </div>
+                                                                </form>
+                                                            </div>
+                                                        
+                                                        </div>
+                                                    </div> <!-- end modal-content-->
+                                                </div> <!-- end modal dialog-->
+                                            </div>
+
 
                                         
 
@@ -1876,7 +1920,7 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">392</span></a>
                             </div>
                             <div class="col-lg-12 mt-4">
 
-                                <button id="submitftypeleads" class="btn btn-md btn-primary btn-lg " type="button"  onclick="updateDetails()">Update</button>
+                                <button id="submitftypeleads" class="btn btn-md btn-primary btn-lg " type="submit"  onclick="updateDetails()">Update</button>
                                 <button id="ftypeleadsreset" class="btn btn-md  btn-lg " type="submit" >Reset</button>
         
                             </div>
@@ -2239,10 +2283,35 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">392</span></a>
                 }
                     
                 })
+              
 
                
 
     });
+
+
+    function openStickyPopup(){
+        $("#stickymodel").modal('show')
+
+    }
+    function saveSticky(){
+        var note=$("#stickytext").val()
+        $.ajax({
+            
+            type : "GET", 
+            url: "{% url 'Admin:StickyUpdate' %}",
+           
+            data:{
+            'note':note
+                
+            },
+            
+            
+            success: function(datas){
+            }
+        })
+
+    }
 
 
     function templateSend(){
@@ -2251,7 +2320,7 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">392</span></a>
         var to=""
         var from=""
         to=$("#email1").val()
-        from=$("#fromtemp").val()
+        from=$("#emailto").val()
         title=$("#title").val()
         name=$("#firstname").val()
         if(to==""){
@@ -2287,6 +2356,34 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">392</span></a>
 
     }
 
+    
+    function sendReminder(ticket,subject,timer,chatText,category,selDate){
+
+
+        var csrftoken = $("[name=csrfmiddlewaretoken]").val();     
+        $.ajax({
+            
+            type : "POST", 
+            url: "{% url 'Admin:ReminderSave' %}",
+            headers:{
+                        "X-CSRFToken": csrftoken
+            },
+            data:{
+                'sub':subject,
+                'badge':chatText,
+                'date':selDate,
+                'time':timer,                
+                'ticket':ticket,
+                
+            },
+            
+            
+            success: function(datas){
+            }
+        })
+
+    }
+
     function sendTemplate(fromadd,toadd,lang,sub,tit,fname,ticket){
 
        
@@ -2314,39 +2411,67 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">392</span></a>
     }
 
     function composeEmailSend(){
+        let csrftoken = '{{ csrf_token }}' 
         console.log("Compose email-------")
         var to=""
         var from=""
         to=$("#email1").val()
         from=$("#fromtemp").val()
-        title=$("#title").val()
-        name=$("#firstname").val()
+        sub=$("#emailsub").val()
         if(to==""){
             to=$("#email2").val()
         }
         console.log("From-----"+from+to)
       
-        var email_data =CKEditor.instances.ckeditorclassic.getData();
+        var email_data =editorinstance.getData();
         console.log("Email data-----"+email_data)
+        $.ajax({
+               type : "POST", 
+               headers:{
+                        "X-CSRFToken": csrftoken
+                },
+              
+               url: "{% url 'Admin:ComposeMail' %}",
+               
+               data:{
+                'from':from,
+                'to':to,
+                'title':title,
+                'name':name,
+                'body':email_data
+               },
+               success: function(data){
+                console.log("Data-----")
+               }
+            })
+        
 
     }
 
     function updateDetails(){
         console.log("Updates----------------------")
-        
+        let csrftoken = '{{ csrf_token }}' 
        var updates=validateForm()
        if(updates==0){
         var accountno=$("#accountno").val()
         var ticket=document.getElementById("ticketno").value
-        var form_data1=$('#formtypeleads_info','#formtypeleads_personals','#formtypeleads_leads').serialize()
-       
+        var form_data1=$("#formtypeleadsinfo,#formtypeleads_personals,#formtypeleads_leads").serialize()
+        
+        //var form_data1=$('.formtype_leads').serialize()
+        // var form_data2=form_data1.serialize()
+        console.log("Form data 1............................"+form_data1)
+      
 
         if(accountno){
             console.log("Ticket and account number")
             $.ajax({
-               type : "GET", 
-               url: "{% url 'Admin:AccountStatus' %}",
-               dataType: 'json',
+               type : "POST", 
+               headers:{
+                        "X-CSRFToken": csrftoken
+                },
+              
+               url: "{% url 'Admin:AccountUpdate' %}",
+               
                data:form_data1,
                success: function(data){
                 console.log("Data-----")
@@ -2358,11 +2483,17 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">392</span></a>
         if(ticket){
             console.log("No ticket and account number----")
             $.ajax({
-               type : "GET", 
-               url: "{% url 'Admin:TicketStatus' %}",
-               dataType: 'json',
+               type : "POST", 
+               headers:{
+                        "X-CSRFToken": csrftoken
+                },
+              
+               url: "{% url 'Admin:TicketUpdate' %}",
+              
                data:form_data1,
+
                success: function(data){
+
                 console.log("Data-----")
                }
             })
@@ -2399,7 +2530,7 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">392</span></a>
             flag=1
 
         }
-       else if(!email1&&!email2){
+        else if(!email1&&!email2){
 
                     console.log("no email")
 
@@ -2855,6 +2986,13 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">392</span></a>
 
         var ticket=document.getElementById("ticketno").value
         console.log("Ticket----"+ticket)
+        var accountno=$("#accountno").val()
+        if(accountno){
+            $("#stickyLink").show()
+        }
+        if(!accountno){
+            $("#stickyLink").hide()
+        }
         if(ticket == ' '){
             $("#alertpopup").modal('show')
             
@@ -2870,11 +3008,18 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">392</span></a>
                     },
                     
                     success: function(data){
+                        $("#eventtitle").empty()
+                        $("#regdate").empty()
+                        $("#ipaddr").empty()
+                        $("#stickytext").empty()
                         var leads=data.leads
                         var activities=data.activities
                         console.log("Lead details--------"+leads)
+                        var lastcomment=data.lastcomment
                         // console.log("Vie activities----",activities)
-                        var title=leads[35]
+                        var title=leads[35] 
+                    
+                        
                         var name=leads[0]
                         var age=leads[37]
                         var dob=leads[25]
@@ -2923,10 +3068,18 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">392</span></a>
                         $("#source").val(source)
                         $("#city").val(city)
                         $("#subject").val(subject)  
+                        console.log("Last comment======"+lastcomment)
+                        $("#eventtitle").append(lastcomment)
                         leadscore=data.leadscore 
                         meetingscore=data.meetingscore   
+                        if(meetingscore="undefined"){
+                            meetingscore=0
+                        }
+                        var stickydata=data.stickytext
+                        $("#stickytext").append(stickydata)
                         console.log("Meetingscore-------------------------------------------------------"+meetingscore)                 
                         gauge1(leadscore)
+                        gauge2(meetingscore)
                     }
                 })
 
@@ -2935,8 +3088,10 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">392</span></a>
 
            
     var leadscore=leadscore={{leadscore|safe}}
-    var meetingscore={{meetingscore|safe}}
+    var meetingscore=0
+    meetingscore={{meetingscore|safe}}
     gauge1(leadscore)
+    gauge2(meetingscore)
     console.log("lead score------"+leadscore)
     </script>
 

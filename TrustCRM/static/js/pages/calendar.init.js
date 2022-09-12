@@ -43,53 +43,54 @@ File: Calendar init js
                 title: 'All Day Event',
                 start: new Date(y, m, 1)
                 },
-                {
-                    title: 'Long Event',
-                    start: new Date(y, m, d-5),
-                    end: new Date(y, m, d-2),
-                    className: 'bg-warning'
-                },
-                {
-                    id: 999,
-                    title: 'Repeating Event',
-                    start: new Date(y, m, d-3, 16, 0),
-                    allDay: false,
-                    className: 'bg-info'
-                },
-                {
-                    id: 999,
-                    title: 'Repeating Event',
-                    start: new Date(y, m, d+4, 16, 0),
-                    allDay: false,
-                    className: 'bg-primary'
-                },
-                {
-                    title: 'Meeting',
-                    start: new Date(y, m, d, 10, 30),
-                    allDay: false,
-                    className: 'bg-success'
-                },
-                {
-                    title: 'Lunch',
-                    start: new Date(y, m, d, 12, 0),
-                    end: new Date(y, m, d, 14, 0),
-                    allDay: false,
-                    className: 'bg-danger'
-                },
-                {
-                    title: 'Birthday Party',
-                    start: new Date(y, m, d+1, 19, 0),
-                    end: new Date(y, m, d+1, 22, 30),
-                    allDay: false,
-                    className: 'bg-success'
-                },
-                {
-                    title: 'Click for Google',
-                    start: new Date(y, m, 28),
-                    end: new Date(y, m, 29),
-                    url: '',
-                    className: 'bg-dark'
-            }];
+            //     {
+            //         title: 'Long Event',
+            //         start: new Date(y, m, d-5),
+            //         end: new Date(y, m, d-2),
+            //         className: 'bg-warning'
+            //     },
+            //     {
+            //         id: 999,
+            //         title: 'Repeating Event',
+            //         start: new Date(y, m, d-3, 16, 0),
+            //         allDay: false,
+            //         className: 'bg-info'
+            //     },
+            //     {
+            //         id: 999,
+            //         title: 'Repeating Event',
+            //         start: new Date(y, m, d+4, 16, 0),
+            //         allDay: false,
+            //         className: 'bg-primary'
+            //     },
+            //     {
+            //         title: 'Meeting',
+            //         start: new Date(y, m, d, 10, 30),
+            //         allDay: false,
+            //         className: 'bg-success'
+            //     },
+            //     {
+            //         title: 'Lunch',
+            //         start: new Date(y, m, d, 12, 0),
+            //         end: new Date(y, m, d, 14, 0),
+            //         allDay: false,
+            //         className: 'bg-danger'
+            //     },
+            //     {
+            //         title: 'Birthday Party',
+            //         start: new Date(y, m, d+1, 19, 0),
+            //         end: new Date(y, m, d+1, 22, 30),
+            //         allDay: false,
+            //         className: 'bg-success'
+            //     },
+            //     {
+            //         title: 'Click for Google',
+            //         start: new Date(y, m, 28),
+            //         end: new Date(y, m, 29),
+            //         url: '',
+            //         className: 'bg-dark'
+            // }
+        ];
 
            // var draggableEl = document.getElementById('external-events');
             var calendarEl = document.getElementById('calendar');
@@ -101,8 +102,9 @@ File: Calendar init js
 
                 $("#event-title").val();
                 $('#event-category').val();
-                modalTitle.text('Add Event');
+                modalTitle.text('Add Reminder');
                 newEventData = info;
+                console.log("Event data============================="+newEventData)
             }
             
 
@@ -140,10 +142,11 @@ File: Calendar init js
 
             $(formEvent).on('submit', function(ev) {
                 ev.preventDefault();
-                var inputs = $('#form-event :input');
-                var updatedTitle = $("#event-title").val();
+                var inputs = $('#form-event:input').val();
+                var updatedTitle = $("#eventtitle").val();
                 var updatedCategory =  $('#event-category').val();
-                
+                var timer=$("#event-timepicker").val()
+               
                 // validation
                 if (forms[0].checkValidity() === false) {
                         event.preventDefault();
@@ -154,6 +157,10 @@ File: Calendar init js
                         selectedEvent.setProp("title", updatedTitle);
                         selectedEvent.setProp("classNames", [updatedCategory]);
                     } else {
+                        ev.preventDefault()
+                         console.log("Inputsssssss"+inputs)
+                        var ticket=document.getElementById("ticketno").value
+                        var subject=$("#subject").val()
                         var newEvent = {
                             title: updatedTitle,
                             start: newEventData.date,
@@ -161,6 +168,14 @@ File: Calendar init js
                             className: updatedCategory
                         }
                         calendar.addEvent(newEvent);
+                        console.log("subject----"+subject)
+                        console.log("ticket==="+ticket)
+                        console.log("time chosen-----"+timer)
+                        console.log("Detials==="+updatedTitle)
+                        console.log("Category====="+updatedCategory)
+                        console.log("All day-----"+newEventData.date)
+                        
+                        sendReminder(ticket,subject,timer,updatedTitle,updatedCategory,formatDate(newEventData.date))
                     }
                     addEvent.modal('hide');
                 }
@@ -175,7 +190,7 @@ File: Calendar init js
             });
 
             $("#btn-new-event").on('click', function(e) {
-                addNewEvent({date: new Date(), allDay: true});
+                addNewEvent({date: new Date(YYYY-MM-DD), allDay: true});
             });
 
     },
@@ -188,3 +203,17 @@ function($) {
     "use strict";
     $.CalendarPage.init()
 }(window.jQuery);
+
+function formatDate(date) {
+    var d = new Date(date),
+        month = '' + (d.getMonth() + 1),
+        day = '' + d.getDate(),
+        year = d.getFullYear();
+
+    if (month.length < 2) 
+        month = '0' + month;
+    if (day.length < 2) 
+        day = '0' + day;
+
+    return [year, month, day].join('-');
+}

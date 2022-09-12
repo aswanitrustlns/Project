@@ -2,6 +2,7 @@ from audioop import reverse
 from cmath import log
 from email.message import Message
 import re
+from time import strptime
 from django.db import connection
 from datetime import datetime, timedelta
 from ctypes import *
@@ -16,6 +17,7 @@ import imaplib
 import email
 import html2text
 from .emailservices import EmailServices
+import win32com.client
 emailservice=EmailServices()
 
 class Selector:    
@@ -779,6 +781,7 @@ class Selector:
             Cursor.close()
      #Ticket status check
     def ticket_validity_check_update(self,ticket,request):
+        msg=""
         try:
             Cursor=connection.cursor()
             Cursor.execute("set nocount on;exec SP_IsTicketValid %s",[ticket])
@@ -811,21 +814,107 @@ class Selector:
             print("Exception------",e)
         finally:
             Cursor.close()
-    #Send email from Managetickets
-    def email_compose(self,fromaddr,to,name,title,sub,emailbody):
+
+    def get_last_comment(self,ticket,UserId):
         try:
-           
-            emailservice.send_email_templates(lang,subject,fromaddr,to,title,name)
-            print("Selector----",lang,subject,fromaddr,to,title,name)
-            history="Send --xxxxxx[Eng]-- SMS for Ticket xxx"
-            chattype=""
-            dept=""
-            Cursor.execute("set nocount on;exec SP_UpdateChatAndLog %s,%s,%s,%s,%s",[userId,history,chattype,ticket,dept])
+            Cursor=connection.cursor()
+            Cursor.execute("set nocount on;exec SP_GetLastComment %s,%s",[ticket,UserId])
+            comment=Cursor.fetchone()
+        except Exception as e:
+            print("Exception------",e)
+        finally:
+            Cursor.close()
+        return comment
+        
+    def save_reminder(self,userid,ticket,subject,date,time,badge):
+        print("Selcetor saveeeee")
+        try:
+            desc=""
+            rdate=""
+            color=""
+            login=0
+            Cursor=connection.cursor()
+            newdate=datetime.strptime(date,'%Y-%m-%d')
+            Cursor.execute("set nocount on;exec SP_SetReminder %s,%s,%s,%s,%s,%s,%s,%s,%s,%s",[userid,subject,desc,ticket,newdate,time,rdate,color,login,badge])
+            fulltime=date+" "+time
+            apdate=datetime.strptime(fulltime,'%Y-%m-%d %H:%M')
+            
+            print("Date==========================================",apdate)
+            
+            
+            outlook = win32com.client.Dispatch("Outlook.Application")
+            apdate=apdate.strftime("%Y-%m-%d %H:%M")
+            appt = outlook.CreateItem(1) # AppointmentItem
+            appt.Start = apdate # yyyy-MM-dd hh:mm
+            appt.Subject = "Meeting Test"
+            appt.Duration = 60 # In minutes (60 Minutes)
+            appt.Location = "Dubai"
+            appt.ReminderSet = True
+            appt.MeetingStatus = 1 # 1 - olMeeting; Changing the appointment to meeting. Only after changing the meeting status recipients can be added
+            appt.Recipients.Add("aswani@trustlns.ae") # Don't end ; as delimiter
+
+            appt.Save()
+            appt.Send()
+            print("Otlook reminder send")
+            Cursor.execute("set nocount on;exec SP_InsertTicketLogs %s,%s,%s,%s",[login,badge,"",ticket])
         except Exception as e:
             print("Exception------",e)
         finally:
             Cursor.close()
 
+    def get_sticky_text(self,ticket):
+            try:
+                Cursor=connection.cursor()
+                Cursor.execute("set nocount on;exec SP_GetStickyNotes %s",[ticket]) 
+                sticky_data=Cursor.fetchone()
+                if sticky_data:
+                    sticky_data=sticky_data[0]
+            except Exception as e:
+                print("Exception------",e)
+            finally:
+                Cursor.close()
+            return sticky_data
+    def save_Sticky_text(self,note,userid):
+        print("Sticky selector")
+        try:
+            Cursor=connection.cursor()
+            login=0
+            flag=0
+            
+            Cursor.execute("set nocount on;exec SP_StickyNotes %s,%s,%s,%s",[login,flag,note,userid]) 
+        except Exception as e:
+                print("Exception------",e)
+        finally:
+                Cursor.close()
+
+
+
+    #Send email from Managetickets
+    def email_compose(self,fromaddr,to,name,title,sub,emailbody):
+        try:
+           
+            emailservice.send_email_templates(fromaddr,to,name,title,sub,emailbody)
+            print("Selector----",fromaddr,to,name,title,sub,emailbody)
+            
+        except Exception as e:
+            print("Exception------",e)
+        finally:
+            pass
+    
+    def sendReminder(self,datetime):
+        outlook = win32com.client.Dispatch("Outlook.Application")
+        appt = outlook.CreateItem(1) # AppointmentItem
+        appt.Start = datetime # yyyy-MM-dd hh:mm
+        appt.Subject = "Meeting Test"
+        appt.Duration = 60 # In minutes (60 Minutes)
+        appt.Location = "Dubai"
+        appt.ReminderSet = True
+        appt.MeetingStatus = 1 # 1 - olMeeting; Changing the appointment to meeting. Only after changing the meeting status recipients can be added
+        appt.Recipients.Add("aswani@trustlns.ae") # Don't end ; as delimiter
+
+        appt.Save()
+        appt.Send()
+
         
         
 
@@ -835,42 +924,42 @@ class Selector:
 
 
 
-
-def update_ticket(self,request):
+def update_ticket(request):
          
      try:
         Cursor=connection.cursor()
-        name=request.GET.get('name')
-        email=request.GET.get('email')
-        phone=request.GET.get('phone')
-        subject=request.GET.get('subject')
-        ticket=request.GET.get('ticket')
-        country=request.GET.get('country')
-        clientarea=request.GET.get('clientarea')
-        potential=request.GET.get('potential')
-        city=request.GET.get('city')
-        address=request.GET.get('address')
-        state=request.GET.get('state')
-        zipcode=request.GET.get('zipcode')
-        nationality=request.GET.get('nationality')
-        profession=request.GET.get('profession')
-        dob=request.GET.get('dob')
-        income=request.GET.get('income')
-        networth=request.GET.get('networth')
-        experience=request.GET.get('experience')
-        hear=request.GET.get('hear')
-        email2=request.GET.get('email2')
-        phone2=request.GET.get('phone2')
-        country2=request.GET.get('country2')
-        noemail=request.GET.get('noemail')
-        title=request.GET.get('title')
-        hyplinks=request.GET.get('hyplinks')
-        appform=request.GET.get('appform')
-        age=request.GET.get('age')
-        category=request.GET.get('category')
+        name=request.POST.get('name')
+        email=request.POST.get('email')
+        phone=request.POST.get('phone')
+        subject=request.POST.get('subject')
+        ticket=request.POST.get('ticket')
+        country=request.POST.get('country')
+        clientarea=request.POST.get('clientarea')
+        potential=request.POST.get('potential')
+        city=request.POST.get('city')
+        address=request.POST.get('address')
+        state=request.POST.get('state')
+        zipcode=request.POST.get('zipcode')
+        nationality=request.POST.get('nationality')
+        profession=request.POST.get('profession')
+        dob=request.POST.get('dob')
+        income=request.POST.get('income')
+        networth=request.POST.get('networth')
+        experience=request.POST.get('experience')
+        hear=request.POST.get('hearfrom')
+        email2=request.POST.get('email2')
+        phone2=request.POST.get('phone2')
+        country2=request.POST.get('country2')
+        noemail=request.POST.get('noemail')
+        title=request.POST.get('title')
+        hyplinks=request.POST.get('hyplinks')
+        appform=request.POST.get('appform')
+        age=request.POST.get('age')
+        category=request.POST.get('category')
         userId=request.session.get('UserId')
-        language=request.GET.get('language')
-        training=request.GET.get('training')
+        language=request.POST.get('language')
+        training=request.POST.get('training')
+        print("Staus ticket update------",name,email,phone,subject,ticket,country,clientarea,potential,city,address,state,zipcode,nationality,profession,dob,income,networth,experience,hear,email2,phone2,country2,noemail,title,hyplinks,appform,age,category,userId,language,training)
         Cursor.execute("set nocount on;exec SP_UpdateSalesLead %s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s",[name,email,phone,subject,ticket,country,clientarea,potential,city,address,state,zipcode,nationality,profession,dob,income,networth,experience,hear,email2,phone2,country2,noemail,title,hyplinks,appform,age,category,userId,language,training])
      except Exception as e:
                 print("Exception------",e)

@@ -166,13 +166,13 @@ class EmailServices:
                 # msg=EmailMessage(subject,email_template_render,email_from,[receiver],[receiver])
             print("Email service---------------------------------------")   
             
-            print("Receiver mail-----------------------------",receiver_mail)
+            
             subject="SalesRep Assigned"   
             email_from = 'cs@trusttc.com'
             receiver_mail="aswani.technology@gmail.com"
-            
-            email_template_render=render_to_string("email/NewSalesInquiryReAssigned.html",template_data)
-            msg = EmailMultiAlternatives(subject=subject,from_email=email_from,to=[receiver_mail])
+            print("Receiver mail-----------------------------",fromaddr,to,name,title,sub,emailbody)
+            email_template_render=emailbody
+            msg = EmailMultiAlternatives(subject=subject,from_email=fromaddr,to=[receiver_mail])
             msg.attach_alternative(email_template_render, "text/html")
             msg.send(fail_silently=False)
             print("Email send-----------------------------------------------------------")   

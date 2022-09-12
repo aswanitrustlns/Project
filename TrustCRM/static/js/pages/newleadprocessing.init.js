@@ -37,8 +37,9 @@ File: Form validation Js File
 
 /* Form editor Init Js File
 */
+let editorinstance;
 ClassicEditor
-    .create( document.querySelector('#ckeditorclassic'),
+    .create( document.querySelector('#editor'),
 
     {
       
@@ -63,9 +64,12 @@ ClassicEditor
         },
     } 
      )
-    .then( function(editor) {
+    .then( editor => {
+        editorinstance =editor;
+        console.log( editor );
+    },function(editor) {
 
-      
+        
         editor.ui.view.editable.element.style.height = '100px';
 
        

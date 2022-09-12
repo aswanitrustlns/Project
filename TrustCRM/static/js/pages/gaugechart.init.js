@@ -16,7 +16,9 @@ function getChartColorsArray(chartId) {
 function gauge1(gaugeval){
 
         /* gauge chart leadscore */
-        
+        if(gaugeval=='undefined'){
+            gaugeval=0
+        }
        
         var gaugeColors = getChartColorsArray("#gauge-chart-leadscore");
         var dom = document.getElementById("gauge-chart-leadscore");
@@ -107,10 +109,13 @@ gauge1(gaugeval);
 
 var colorvalue=0
 var values=0
-function gauge2(colorvalue,values){
+function gauge2(values){
 
         /* gauge chart leadscore */
-
+        console.log("Values-------"+values)
+        if(values=='undefined'){
+            values==0
+        }
         var gaugeColors1 = getChartColorsArray("#gauge-chart-meetingsscore");
         var dom1 = document.getElementById("gauge-chart-meetingsscore");
         var myChart1 = echarts.init(dom1);
@@ -139,7 +144,7 @@ function gauge2(colorvalue,values){
                         length:8,  
                         show: true,
                         lineStyle: {       
-                            color: [[colorvalue, gaugeColors1[0]],[1, gaugeColors1[1]]],  //,[0.8, gaugeColors[1]],[1, gaugeColors[2]]
+                            color: [[values, gaugeColors1[0]],[1, gaugeColors1[1]]],  //,[0.8, gaugeColors[1]],[1, gaugeColors[2]]
                             width: 8
                         }
                     },
@@ -207,4 +212,4 @@ function gauge2(colorvalue,values){
         myChart1.setOption(option1, true);
     }
 }
-gauge2(colorvalue,values);
+gauge2(values);

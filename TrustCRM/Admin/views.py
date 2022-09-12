@@ -599,14 +599,21 @@ def lead_processing(request):
             activity_log=selector.get_activity_log(ticket)
             lead_score=selector.get_lead_score(ticket)
             meeting_score=selector.get_meeting_score(ticket)
+            last_comment=selector.get_last_comment(ticket,UserId)
+            sticky_text=selector.get_sticky_text(ticket)
+            print("Last comment--------",last_comment)
             print("Meeting score-----------------------",meeting_score)
+            print("Sticky text============================",sticky_text)
             ticket_summary=selector.get_ticket_summary(ticket)
+            if(meetingscore):
+                meetingscore=sum(meetingscore)
+                meetingscore=(meetingscore/320)*100
           
             print("Lead details-------------")
         except Exception as e:
             print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!Exception!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!",e.__class__)
     
-        return render(request,'sales/LeadProcessing.html',{'ticket':ticket,'email_phone':json.dumps(search_email_phone),'lead_details':lead_details,'ticket_summary':ticket_summary,'activity_log':activity_log,'leadscore':lead_score,'meetingscore':meeting_score})
+        return render(request,'sales/LeadProcessing.html',{'ticket':ticket,'email_phone':json.dumps(search_email_phone),'lead_details':lead_details,'ticket_summary':ticket_summary,'activity_log':activity_log,'leadscore':lead_score,'meetingscore':meeting_score,'lastcomment':last_comment,'stickytext':sticky_text})
     else:
          return redirect('/login') 
         
@@ -890,12 +897,17 @@ def viewLoadFunctions(request): # 455325 to test meeting score
         activity_log=selector.get_activities_log(ticket)
         lead_details=selector.get_lead_details(ticket,UserId)
         leadscore=selector.get_lead_score(ticket)
+        last_comment=selector.get_last_comment(ticket,UserId)
+        sticky_text=selector.get_sticky_text(ticket)
+        print("Last comment--------",last_comment)
         meetingscore=selector.get_meeting_score(ticket)
         if(meetingscore):
             meetingscore=sum(meetingscore)
+            meetingscore=(meetingscore/320)*100
             
         print("Meeting score----",meetingscore)
-        return JsonResponse({'leads':lead_details,'activities':activity_log,'leadscore':leadscore,'meetingscore':meetingscore})
+        print("Sticky text========",sticky_text)
+        return JsonResponse({'leads':lead_details,'activities':activity_log,'leadscore':leadscore,'meetingscore':meetingscore,'lastcomment':last_comment,'stickytext':sticky_text})
     else:
         return redirect('/login')
 
@@ -950,8 +962,13 @@ def account_status(request):
 #Ticket status update
 def ticket_status(request):
     if 'UserId' in request.session:
-        ticket=request.GET.get('ticket')
-        selector.ticket_validity_check_update(ticket)
+        ticket=request.POST.get('ticket')
+        print("Ticket-------",ticket)
+        experience=request.POST.get('experience')
+        hear=request.POST.get('hearfrom')
+        print("Request===============================================",experience,hear)
+        selector.ticket_validity_check_update(ticket,request)
+        return JsonResponse({"success"})
     else:
         return redirect('/login')
 
@@ -976,13 +993,47 @@ def send_email_templates(request):
 #Manage ticket Email send
 
 def email_send(request):
-        fromaddr=request.GET.get('from')
-        to=request.GET.get('to')
-        name=request.GET.get('name')
-        title=request.GET.get('tit')
-        sub=request.GET.get('subject')
-        emailbody=request.GET.get('body')
+    if 'UserId' in request.session:   
+        fromaddr=request.POST.get('from')
+        to=request.POST.get('to')
+        name=request.POST.get('name')
+        title=request.POST.get('tit')
+        sub=request.POST.get('subject')
+        emailbody=request.POST.get('body')
         selector.email_compose(fromaddr,to,name,title,sub,emailbody)
+        return JsonResponse({"success":True})
+    else:
+        return redirect('/login')
+
+def save_reminder_details(request):
+    if 'UserId' in request.session:
+        print("Save reminder view=========")
+        userid=request.session.get('UserId')
+        date=request.POST.get('date')
+        time=request.POST.get('time')
+        ticket=request.POST.get('ticket')
+        subject=request.POST.get('subject')
+        if(subject==None):
+            subject=" "
+        badge=request.POST.get('badge')
+        print("EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE",userid,ticket,subject,date,time,badge)
+        selector.save_reminder(userid,ticket,subject,date,time,badge)
+        return JsonResponse({"success":True})
+    else:
+        return redirect('/login')
+
+def update_sticky_notes(request):
+    if 'UserId' in request.session:
+        print("Sticky update======================")
+        userid=request.session.get('UserId')
+        notes=request.GET.get('note')
+        update=selector.save_Sticky_text(notes,userid)
+        return JsonResponse({"success":True})
+    else:
+        return redirect('/login')
+
+
+
 
 
 
