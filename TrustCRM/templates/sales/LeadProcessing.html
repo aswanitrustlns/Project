@@ -143,7 +143,7 @@
                                                 <path d="M14 10.6666L10 14.6666V12.6666C10 11.3333 10.6667 10.6666 12 10.6666H14Z" stroke="#73759D" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
                                                 </svg>
                                                 Add Sticky Notes</a>
-                                            <a class="btn bg-soft-secondarycolor text-white me-2 color-color1 mb-2"  style="background-color: var(--bs-card-bg) ;">'New Webinar'
+                                            <a class="btn bg-soft-secondarycolor text-white me-2 color-color1 mb-2"  style="background-color: var(--bs-card-bg) ;"  data-bs-toggle="modal" data-bs-target=".bs-example-modal-meeting">New Webinar
                                                 <svg class="ms-1"  width="57" height="25" viewBox="0 0 57 25" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                     <path fill-rule="evenodd" clip-rule="evenodd" d="M40.0922 10.607C39.4853 9.98725 38.6917 9.67737 37.8904 9.67737C37.0968 9.67737 36.2955 9.98725 35.6886 10.607C34.4749 11.8465 34.4749 13.8568 35.6886 15.1043C36.9023 16.3438 38.8707 16.3438 40.0922 15.1043C41.3059 13.8647 41.3059 11.8465 40.0922 10.607ZM39.213 14.2064C38.4817 14.9533 37.2991 14.9533 36.5755 14.2064C35.8442 13.4595 35.8442 12.2518 36.5755 11.5128C37.3069 10.7659 38.4895 10.7659 39.213 11.5128C39.9366 12.2518 39.9366 13.4595 39.213 14.2064Z" fill="#2D8CFF"/>
                                                     <path fill-rule="evenodd" clip-rule="evenodd" d="M46.6273 10.607C46.0205 9.98725 45.2269 9.67737 44.4255 9.67737C43.632 9.67737 42.8306 9.98725 42.2238 10.607C41.0101 11.8465 41.0101 13.8568 42.2238 15.1043C43.4375 16.3438 45.4058 16.3438 46.6273 15.1043C47.841 13.8647 47.841 11.8465 46.6273 10.607ZM45.7482 14.2064C45.0168 14.9533 43.8343 14.9533 43.1107 14.2064C42.3794 13.4595 42.3794 12.2518 43.1107 11.5128C43.842 10.7659 45.0246 10.7659 45.7482 11.5128C46.4717 12.2518 46.4717 13.4595 45.7482 14.2064ZM30.1101 16.018L30.4213 16.0339H35.0894L35.0738 15.7161C35.0349 15.1917 34.6692 14.8103 34.1557 14.7785L33.8445 14.7626H31.0437L34.7782 10.9487L34.7626 10.6309C34.7393 10.1064 34.358 9.7171 33.8445 9.69326L33.5333 9.67737H28.8652L28.8808 9.9952C28.9197 10.5117 29.2931 10.901 29.7989 10.9328L30.1101 10.9487H32.9109L29.1764 14.7626L29.192 15.0804C29.2231 15.6049 29.5966 15.9862 30.1101 16.018ZM51.4121 11.5843C51.5211 11.775 51.5522 11.9816 51.5677 12.22L51.5833 12.5378V14.7626L51.5989 15.0804C51.63 15.5969 52.0034 15.9862 52.5169 16.018L52.8281 16.0339V12.5378L52.8437 12.22C52.8592 11.9816 52.8904 11.7671 52.9993 11.5764C53.2171 11.195 53.6139 10.9487 54.0729 10.9487C54.532 10.9487 54.9365 11.2029 55.1544 11.5843C55.2633 11.775 55.2944 11.9896 55.3022 12.22L55.3178 12.5378V14.7626L55.3333 15.0804C55.3645 15.6049 55.7379 15.9862 56.2514 16.018L56.5626 16.0339V12.5378V12.22C56.5626 10.8136 55.45 9.67737 54.0729 9.67737C53.326 9.67737 52.6647 10.0111 52.2057 10.5355C51.7467 10.0111 51.0854 9.67737 50.3385 9.67737C49.825 9.67737 49.3426 9.83628 48.9458 10.1144C48.7046 9.83628 48.16 9.67737 47.8488 9.67737V16.0339L48.16 16.018C48.6813 15.9862 49.0547 15.6049 49.0781 15.0804L49.0936 14.7626V12.5378L49.1092 12.22C49.1248 11.9816 49.1559 11.7671 49.2648 11.5843C49.4827 11.2029 49.8794 10.9487 50.3385 10.9487C50.7975 10.9487 51.2021 11.2029 51.4121 11.5843Z" fill="#2D8CFF"/>
@@ -577,7 +577,7 @@
 
 
                                                                     <div class="" data-simplebar  style="max-height: 300px">
-                                                                        <ul class="list-unstyled activity-wid activity-wid-manage-tickets ">
+                                                                        <ul class="list-unstyled activity-wid activity-wid-manage-tickets " id="activityList">
                                                                             <!--activity x-->
                                                                         {%for log in activity_log%}
                                                                             <li class="activity-list activity-border">
@@ -654,6 +654,7 @@
                                                                         <div data-simplebar ></div>
 
                                                                         <!--Item1-->
+                                                                    <div id="summary_div">
                                                                     {%for summary in ticket_summary%}    
                                                                         <div>
 
@@ -686,6 +687,7 @@
                                                                             <hr>
                                                                         </div>
                                                                     {%endfor%}
+                                                                </div>
                                                                         
 
                                                                     </div>
@@ -1695,8 +1697,8 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">392</span></a>
                                             
                                     <!-- modal-Chat Logs -->
                                     <button type="button" class="btn bg-soft-secondarycolor text-white me-2"
-                                    data-bs-toggle="modal" data-bs-target=".bs-example-modal-meeting"
-                                    style="background-color: var(--bs-card-bg) ;">Meeting</button>
+                                   
+                                    style="background-color: var(--bs-card-bg) ;" onclick="meetingPage()">Meeting</button>
                                 <div class="modal fade  bs-example-modal-meeting" tabindex="-1" role="dialog"
                                     aria-hidden="true">
 
@@ -2416,13 +2418,14 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">392</span></a>
         var to=""
         var from=""
         to=$("#email1").val()
-        from=$("#fromtemp").val()
+        from=$("#emailto").val()
         sub=$("#emailsub").val()
         if(to==""){
             to=$("#email2").val()
         }
-        console.log("From-----"+from+to)
-      
+       
+        console.log("Email ---------- from"+from)
+        console.log("Sub-------"+sub)
         var email_data =editorinstance.getData();
         console.log("Email data-----"+email_data)
         $.ajax({
@@ -2435,9 +2438,9 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">392</span></a>
                
                data:{
                 'from':from,
-                'to':to,
-                'title':title,
-                'name':name,
+                'to':to,               
+               
+                'subject':sub,
                 'body':email_data
                },
                success: function(data){
@@ -2709,6 +2712,12 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">392</span></a>
                $("#searched_body").append(namelist)
                $("#searchedList").modal('show');               
             
+
+    }
+    function meetingPage(){
+        var ticket=document.getElementById("ticketno").value
+        var url="{% url 'Admin:Meeting' %}"
+        window.location.href=url+"?&ticket="+ticket
 
     }
     function ticketLoad(ticket){
@@ -3014,11 +3023,12 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">392</span></a>
                         $("#stickytext").empty()
                         var leads=data.leads
                         var activities=data.activities
+                        var ticketSummary=data.ticket_summary
                         console.log("Lead details--------"+leads)
                         var lastcomment=data.lastcomment
                         // console.log("Vie activities----",activities)
                         var title=leads[35] 
-                    
+                        
                         
                         var name=leads[0]
                         var age=leads[37]
@@ -3080,12 +3090,54 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">392</span></a>
                         console.log("Meetingscore-------------------------------------------------------"+meetingscore)                 
                         gauge1(leadscore)
                         gauge2(meetingscore)
+                        updateActivities(activities)
+                        updateTicketSummary(ticketSummary)
                     }
                 })
 
         }
     }
 
+    function updateActivities(activities){
+        console.log("activities====="+activities)
+        var activity=""
+        for(i=0;i<activities.length;i++){
+                            console.log("oth element-----"+activities[i][0])
+        
+
+                            activity+="  <li class='activity-list activity-border'><div class='activity-icon avatar-sm ms-2'><span class='avatar-title bg-soft-boxgray1 text-warning rounded-circle'>"+
+                                    "</span></div><div class='timeline-list-item'><div class='d-flex'><div class='flex-grow-1 overflow-hidden me-4 gilroyregular-type'>"+
+                                    "<p class='font-size-14 mb-1 color-color1'>"+activities[i][0]+"</p><div class='mt-2 bg-soft-boxgray1 px-3 py-3 fs-13 rounded-3 d-flex flex-wrap'>"+
+                                    "<img class='rounded-circle avatar-md mb-2' alt='200x200' src='../static/images/users/"+activities[i][7]+".png' onerror=this.src='../static/images/users/user.png'  data-holder-rendered='true'>"+
+                                    "<div class='ms-2'><p class='text-truncate color-color1  mb-0 ''>"+activities[i][7]+"</p><p class='text-truncate text-white  mb-0 fs-15'><span class='me-2 d-inline-block'>"+activities[i][4]+"</span> "+
+                                        "<svg width='10' height='8' viewBox='0 0 10 8' fill='none' xmlns='http://www.w3.org/2000/svg'><path d='M0.75 4.00004L3.58 6.83004L9.25 1.17004' stroke='#00A54F' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/>"+
+                                         "</svg></p><p class='text-truncate color-color1  mb-0'>"+activities[i][1]+" by "+activities[i][7]+"</p><p class='text-truncate color-color1  mb-0'>"+activities[i][3]+"</p></div></div></div></div></div></li>"
+        }
+        $("#activityList").append(activity)
+    }
+    function updateTicketSummary(ticketsummary){
+        $("#summary_div").html()
+        console.log("activities====="+ticketsummary.length)
+        console.log("activities====="+typeof(ticketsummary))
+        var summarylength= Object.keys(ticketsummary).length;
+        console.log("Summary length============"+summarylength)
+        var summary=""
+        for(i=0;i<ticketsummary.length;i++){
+            
+            summary+=" <div><div class='d-flex py-2'><div class='d-flex justify-content-between align-items-center'><span class='p-2 p-xxl-3  me-xxl-3 me-2' style='background-color:rgba(35, 36, 54, 1);'>"+
+                "<svg width='17' height='17' viewBox='0 0 17 17' fill='none' xmlns='http://www.w3.org/2000/svg'>"+
+                "<path d='M12.7994 6.77875L8.49978 2.47917L4.2002 6.77875' stroke='#73759D' stroke-width='1.5' stroke-miterlimit='10' stroke-linecap='round' stroke-linejoin='round'/>"+
+                "<path d='M8.5 14.5208V2.59958' stroke='#73759D' stroke-width='1.5' stroke-miterlimit='10' stroke-linecap='round' stroke-linejoin='round'/>"+
+                "</svg></span><p class='gilroymedium-type m-0'><span class='color-color1 fs-15'>"+ticketsummary[i]["summary_head"]+"</span><span class='text-white d-block mt-1 fs-15'>"+ticketsummary[i]["summary_text"]+"</span>"+
+                "</p></div><span class='ms-auto my-0 py-0'><svg width='15' height='15' viewBox='0 0 15 15' fill='none' xmlns='http://www.w3.org/2000/svg'>"+
+                "<path d='M5.35205 3.08788L9.25104 6.98687C9.7115 7.44733 9.7115 8.20082 9.25104 8.66128L5.35205 12.5603' stroke='#73759D' stroke-width='1.53772' stroke-miterlimit='10' stroke-linecap='round' stroke-linejoin='round'/>"+
+                "</svg></span></div><hr></div>"
+        
+
+                            
+        }
+        $("#summary_div").append(summary)
+    }
            
     var leadscore=leadscore={{leadscore|safe}}
     var meetingscore=0

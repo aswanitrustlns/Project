@@ -71,9 +71,9 @@ class EmailServices:
             
             print("Receiver mail-----------------------------",receiver_mail)
             # bcc='crm@trusttc.com'
-            bcc='aswani@trustlns.ae'
+           
             
-            receiver_mail="aswani.technology@gmail.com"
+            
             template_data={
                 "title":title,
                 "name":name,              
@@ -150,7 +150,7 @@ class EmailServices:
             
                 
             email_template_render=render_to_string(path,template_data)
-            msg = EmailMultiAlternatives(subject=subject,from_email=fromaddr,to=[receiver_mail],bcc=[bcc])
+            msg = EmailMultiAlternatives(subject=subject,from_email=fromaddr,to=[receiver_mail])
             msg.attach_alternative(email_template_render, "text/html")
             msg.send(fail_silently=False)
             print("Email send-----------------------------------------------------------")   
@@ -160,19 +160,19 @@ class EmailServices:
             pass
 
     
-    def send_mail_manageTicket(self,fromaddr,to,name,title,sub,emailbody):
+    def send_mail_manageTicket(self,fromaddr,to,sub,emailbody):
         try:
                 #send_mail(subject," ",email_from,[receiver],fail_silently=False,html_message=email_template_render)
                 # msg=EmailMessage(subject,email_template_render,email_from,[receiver],[receiver])
             print("Email service---------------------------------------")   
             
             
-            subject="SalesRep Assigned"   
+           
             email_from = 'cs@trusttc.com'
             receiver_mail="aswani.technology@gmail.com"
-            print("Receiver mail-----------------------------",fromaddr,to,name,title,sub,emailbody)
+            print("Receiver mail-----------------------------",fromaddr,to,sub,emailbody)
             email_template_render=emailbody
-            msg = EmailMultiAlternatives(subject=subject,from_email=fromaddr,to=[receiver_mail])
+            msg = EmailMultiAlternatives(subject=sub,from_email=fromaddr,to=[receiver_mail])
             msg.attach_alternative(email_template_render, "text/html")
             msg.send(fail_silently=False)
             print("Email send-----------------------------------------------------------")   

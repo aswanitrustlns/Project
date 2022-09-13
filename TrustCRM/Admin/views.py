@@ -597,6 +597,7 @@ def lead_processing(request):
             
             lead_details=selector.get_lead_details(ticket,UserId)
             activity_log=selector.get_activity_log(ticket)
+            ticket_summary=selector.get_ticket_summary(ticket)
             lead_score=selector.get_lead_score(ticket)
             meeting_score=selector.get_meeting_score(ticket)
             last_comment=selector.get_last_comment(ticket,UserId)
@@ -604,7 +605,7 @@ def lead_processing(request):
             print("Last comment--------",last_comment)
             print("Meeting score-----------------------",meeting_score)
             print("Sticky text============================",sticky_text)
-            ticket_summary=selector.get_ticket_summary(ticket)
+            
             if(meetingscore):
                 meetingscore=sum(meetingscore)
                 meetingscore=(meetingscore/320)*100
@@ -699,6 +700,9 @@ def new_accounts(request):
         from_date=request.GET.get("from")
         to_date=request.GET.get("to")
         status=request.GET.get("status")
+        print("From date====",from_date)
+        print("To_date====",to_date)
+        
         print("Status----------------------",status)
         if(change):
             accounts_data=selector.get_new_accounts(change,status,from_date,to_date)
@@ -898,6 +902,8 @@ def viewLoadFunctions(request): # 455325 to test meeting score
         lead_details=selector.get_lead_details(ticket,UserId)
         leadscore=selector.get_lead_score(ticket)
         last_comment=selector.get_last_comment(ticket,UserId)
+        
+        ticket_summary=selector.get_ticket_summary(ticket)
         sticky_text=selector.get_sticky_text(ticket)
         print("Last comment--------",last_comment)
         meetingscore=selector.get_meeting_score(ticket)
@@ -907,7 +913,7 @@ def viewLoadFunctions(request): # 455325 to test meeting score
             
         print("Meeting score----",meetingscore)
         print("Sticky text========",sticky_text)
-        return JsonResponse({'leads':lead_details,'activities':activity_log,'leadscore':leadscore,'meetingscore':meetingscore,'lastcomment':last_comment,'stickytext':sticky_text})
+        return JsonResponse({'leads':lead_details,'activities':activity_log,'ticket_summary':ticket_summary,'leadscore':leadscore,'meetingscore':meetingscore,'lastcomment':last_comment,'stickytext':sticky_text})
     else:
         return redirect('/login')
 
@@ -1000,7 +1006,7 @@ def email_send(request):
         title=request.POST.get('tit')
         sub=request.POST.get('subject')
         emailbody=request.POST.get('body')
-        selector.email_compose(fromaddr,to,name,title,sub,emailbody)
+        selector.email_compose(fromaddr,to,sub,emailbody)
         return JsonResponse({"success":True})
     else:
         return redirect('/login')

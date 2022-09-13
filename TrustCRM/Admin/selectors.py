@@ -267,6 +267,7 @@ class Selector:
                 Cursor.execute("set nocount on;exec SP_GetNewAccountsList %s,%s,%s",[from_date,to_date,status])  
                 live_accounts=Cursor.fetchall()
            else: 
+                print("Else executed-=====",date_yesterday,date_today)
                 Cursor.execute("set nocount on;exec SP_GetNewAccountsList %s,%s,%s",[date_yesterday,date_today,change])  
                 live_accounts=Cursor.fetchall()
            print("Length of dat======================",len(live_accounts))  
@@ -357,8 +358,8 @@ class Selector:
             print("Client details----------------",client_details)
             
             email_from = 'cs@trusttc.com'
-            #receiver=client_details[2]
-            receiver='aswani.trustlns@gmail.com'
+            receiver=client_details[2]
+            # receiver='aswani.trustlns@gmail.com'
 
             template_data={
                 "title":client_details[0],
@@ -840,7 +841,8 @@ class Selector:
             apdate=datetime.strptime(fulltime,'%Y-%m-%d %H:%M')
             
             print("Date==========================================",apdate)
-            
+            Cursor.execute("SELECT email FROM tbl_User where UserID=%s",[userid])
+            email=Cursor.fetchone()
             
             outlook = win32com.client.Dispatch("Outlook.Application")
             apdate=apdate.strftime("%Y-%m-%d %H:%M")
@@ -851,7 +853,7 @@ class Selector:
             appt.Location = "Dubai"
             appt.ReminderSet = True
             appt.MeetingStatus = 1 # 1 - olMeeting; Changing the appointment to meeting. Only after changing the meeting status recipients can be added
-            appt.Recipients.Add("aswani@trustlns.ae") # Don't end ; as delimiter
+            appt.Recipients.Add(email) # Don't end ; as delimiter
 
             appt.Save()
             appt.Send()
@@ -890,30 +892,30 @@ class Selector:
 
 
     #Send email from Managetickets
-    def email_compose(self,fromaddr,to,name,title,sub,emailbody):
+    def email_compose(self,fromaddr,to,sub,emailbody):
         try:
            
-            emailservice.send_email_templates(fromaddr,to,name,title,sub,emailbody)
-            print("Selector----",fromaddr,to,name,title,sub,emailbody)
+            emailservice.send_mail_manageTicket(fromaddr,to,sub,emailbody)
+            print("Selector----",fromaddr,to,sub,emailbody)
             
         except Exception as e:
             print("Exception------",e)
         finally:
             pass
     
-    def sendReminder(self,datetime):
-        outlook = win32com.client.Dispatch("Outlook.Application")
-        appt = outlook.CreateItem(1) # AppointmentItem
-        appt.Start = datetime # yyyy-MM-dd hh:mm
-        appt.Subject = "Meeting Test"
-        appt.Duration = 60 # In minutes (60 Minutes)
-        appt.Location = "Dubai"
-        appt.ReminderSet = True
-        appt.MeetingStatus = 1 # 1 - olMeeting; Changing the appointment to meeting. Only after changing the meeting status recipients can be added
-        appt.Recipients.Add("aswani@trustlns.ae") # Don't end ; as delimiter
+    # def sendReminder(self,datetime):
+    #     outlook = win32com.client.Dispatch("Outlook.Application")
+    #     appt = outlook.CreateItem(1) # AppointmentItem
+    #     appt.Start = datetime # yyyy-MM-dd hh:mm
+    #     appt.Subject = "Meeting Test"
+    #     appt.Duration = 60 # In minutes (60 Minutes)
+    #     appt.Location = "Dubai"
+    #     appt.ReminderSet = True
+    #     appt.MeetingStatus = 1 # 1 - olMeeting; Changing the appointment to meeting. Only after changing the meeting status recipients can be added
+    #     appt.Recipients.Add("aswani@trustlns.ae") # Don't end ; as delimiter
 
-        appt.Save()
-        appt.Send()
+    #     appt.Save()
+    #     appt.Send()
 
         
         
