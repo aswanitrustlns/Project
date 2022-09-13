@@ -547,6 +547,7 @@ def lead_processing(request):
         search_email_phone1=[]
         search_email_phone2=[]
         search_email_phone3=[]
+        page_data={}
         ticket=" "
         try:
             ticket=request.GET.get('ticket')
@@ -595,7 +596,7 @@ def lead_processing(request):
                     print("Get ticket--------------------",get_ticket)
                     ticket=get_ticket
             
-            lead_details=selector.get_lead_details(ticket,UserId)
+            lead_details,country=selector.get_lead_details(ticket,UserId)
             activity_log=selector.get_activity_log(ticket)
             ticket_summary=selector.get_ticket_summary(ticket)
             lead_score=selector.get_lead_score(ticket)
@@ -603,18 +604,21 @@ def lead_processing(request):
             last_comment=selector.get_last_comment(ticket,UserId)
             sticky_text=selector.get_sticky_text(ticket)
             print("Last comment--------",last_comment)
-            print("Meeting score-----------------------",meeting_score)
-            print("Sticky text============================",sticky_text)
             
-            if(meetingscore):
+            print("Sticky text============================",sticky_text)
+            print("Lead details-------------")
+            if(meetingscore !=None):
+                print("Meeting if")
                 meetingscore=sum(meetingscore)
                 meetingscore=(meetingscore/320)*100
-          
-            print("Lead details-------------")
+                
+            print("Meeting score-----------------------",meeting_score)
+            page_data={'ticket':ticket,'country':country,'email_phone':json.dumps(search_email_phone),'lead_details':lead_details,'ticket_summary':ticket_summary,'activity_log':activity_log,'leadscore':lead_score,'meetingscore':meeting_score,'lastcomment':last_comment,'stickytext':sticky_text}
+            
         except Exception as e:
             print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!Exception!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!",e.__class__)
     
-        return render(request,'sales/LeadProcessing.html',{'ticket':ticket,'email_phone':json.dumps(search_email_phone),'lead_details':lead_details,'ticket_summary':ticket_summary,'activity_log':activity_log,'leadscore':lead_score,'meetingscore':meeting_score,'lastcomment':last_comment,'stickytext':sticky_text})
+        return render(request,'sales/LeadProcessing.html',{'ticket':ticket,'country':country,'email_phone':json.dumps(search_email_phone),'lead_details':lead_details,'ticket_summary':ticket_summary,'activity_log':activity_log,'leadscore':lead_score,'meetingscore':meeting_score,'lastcomment':last_comment,'stickytext':sticky_text})
     else:
          return redirect('/login') 
         
@@ -894,12 +898,13 @@ def viewDocument(request):
         return redirect('/login')
 
 def viewLoadFunctions(request): # 455325 to test meeting score
+
     if 'UserId' in request.session:        
         ticket=request.GET.get('ticket')
         ticket=ticket.strip()
         UserId=request.session.get('UserId')
         activity_log=selector.get_activities_log(ticket)
-        lead_details=selector.get_lead_details(ticket,UserId)
+        lead_details,country=selector.get_lead_details(ticket,UserId)
         leadscore=selector.get_lead_score(ticket)
         last_comment=selector.get_last_comment(ticket,UserId)
         
@@ -907,13 +912,15 @@ def viewLoadFunctions(request): # 455325 to test meeting score
         sticky_text=selector.get_sticky_text(ticket)
         print("Last comment--------",last_comment)
         meetingscore=selector.get_meeting_score(ticket)
-        if(meetingscore):
+        print("Meetin score=============================",meetingscore)
+        if(meetingscore != None):
             meetingscore=sum(meetingscore)
             meetingscore=(meetingscore/320)*100
             
         print("Meeting score----",meetingscore)
         print("Sticky text========",sticky_text)
-        return JsonResponse({'leads':lead_details,'activities':activity_log,'ticket_summary':ticket_summary,'leadscore':leadscore,'meetingscore':meetingscore,'lastcomment':last_comment,'stickytext':sticky_text})
+        print("End---------------------")
+        return JsonResponse({'leads':lead_details,'country':country,'activities':activity_log,'ticket_summary':ticket_summary,'leadscore':leadscore,'meetingscore':meetingscore,'lastcomment':last_comment,'stickytext':sticky_text})
     else:
         return redirect('/login')
 
@@ -1037,7 +1044,19 @@ def update_sticky_notes(request):
         return JsonResponse({"success":True})
     else:
         return redirect('/login')
+def resolve_tickets(request):
+    if 'UserId' in request.session:
+        
+        userid=request.session.get('UserId')
+        ticket=request.GET.get('note')
+        msg=selector.resolve_ticket(ticket,userid)
+        print("Message=========================",msg)
+        return JsonResponse({"message":msg})
+    else:
+        return redirect('/login')
+    
 
+    
 
 
 

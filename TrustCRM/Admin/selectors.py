@@ -1,7 +1,7 @@
 from audioop import reverse
 from cmath import log
 from email.message import Message
-import re
+
 from time import strptime
 from django.db import connection
 from datetime import datetime, timedelta
@@ -17,7 +17,7 @@ import imaplib
 import email
 import html2text
 from .emailservices import EmailServices
-import win32com.client
+
 emailservice=EmailServices()
 
 class Selector:    
@@ -47,6 +47,7 @@ class Selector:
         login = c_int(username)
         connect=ConnectToServer_Login(c_char_p(server_name.encode('utf-8')).value,login.value,c_char_p(password.encode('utf-8')).value)
         return connect
+    
 
     #Exe connectivity in local
     def exe_connection(self,username,server_name,password):        
@@ -451,15 +452,36 @@ class Selector:
     #         Cursor.execute("set nocount on;exec SP_GetLeadDetailsByTicket %s,%s",[ticket,mailId])
     #         leads_details=Cursor.fetchone()
     #         print("Leads details-----------------------------",leads_details)
-    #     except Exception as e:
-    #         print("Exception------",e)
-    #     finally:
-    #         Cursor.close()
+        # except Exception as e:
+        #     print("Exception------",e)
+        # finally:
+        #     Cursor.close()
     #     return leads_details
 
     #Open demo account
     def open_demo_account(self):
         pass
+
+    def resolve_ticket(self,ticket,userid):
+        livestatus=""
+        msg=""
+        try:
+           Cursor=connection.cursor()
+           Cursor.execute("set nocount on;exec SP_GetAccountStatusByTicket %s",[ticket])
+           ticket_status=Cursor.fetchone()
+           if(ticket_status):
+             ticket_status=ticket_status[0]
+           if(ticket_status=="Live"):
+                msg="Cannot resolve ticket with Account No"
+           else:
+                value=Cursor.execute("set nocount on;exec SP_ResolveTicket %s,%s,%s",[ticket,userid,"Resolved"])
+                if(value==0):
+                    msg="'Ticket Resolved Successfully"
+        except Exception as e:
+            print("Exception------",e)
+        finally:
+            Cursor.close()
+        return msg
     
     def get_mail_inbox(self):
         inbox_list=[]
@@ -679,15 +701,23 @@ class Selector:
     #Get Lead details
     def get_lead_details(self,ticket,userid):
         try:
+            countryName=""
             Cursor=connection.cursor()
             Cursor.execute("set nocount on;exec SP_GetLeadDetailsByTicket %s,%s",[ticket,userid])
             lead_details=Cursor.fetchone()
             print("Lead details-----------------",lead_details)
+            country=lead_details[10]
+            if(country):
+                country=country[0]
+                Cursor.execute("SELECT COUNTRY FROM tbl_Country where CCode=%s",[country])
+                countryName=Cursor.fetchone()
+                countryName=countryName[0]
+            print("Country================================",countryName)
         except Exception as e:
             print("Exception------",e)
         finally:
             Cursor.close()
-        return lead_details
+        return lead_details,countryName
 
     #Get Activities log
     def get_activities_log(self,ticket):
@@ -805,7 +835,7 @@ class Selector:
     def email_template_selection(self,lang,subject,fromaddr,to,title,name,userId,ticket):
         try:
             Cursor=connection.cursor()
-            emailservice.send_email_templates(lang,subject,fromaddr,to,title,name)
+            emailservice.send_email_templates(lang,subject,to,title,name)
             print("Selector----",lang,subject,fromaddr,to,title,name)
             history="Send --xxxxxx[Eng]-- SMS for Ticket xxx"
             chattype=""
@@ -902,6 +932,9 @@ class Selector:
             print("Exception------",e)
         finally:
             pass
+
+  
+
     
     # def sendReminder(self,datetime):
     #     outlook = win32com.client.Dispatch("Outlook.Application")

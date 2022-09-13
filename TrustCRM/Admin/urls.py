@@ -44,6 +44,7 @@ urlpatterns=[
     path('ReminderSave',save_reminder_details,name="ReminderSave"),
     path('StickyUpdate',update_sticky_notes,name="StickyUpdate"),
     path('ComposeMail',email_send,name="ComposeMail"),
+    path('TicketResolve',resolve_tickets,name="TicketResolve"),
     # path('ChangeMeeting',change_meeting_request,name="ChangeMeeting"),
     path('livelogs',liveChatLogs,name="LiveLogs"),
     path('Inbox',emailInbox,name="Inbox"),

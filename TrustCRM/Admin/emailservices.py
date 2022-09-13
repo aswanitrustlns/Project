@@ -63,7 +63,7 @@ class EmailServices:
             Cursor.close()  
 
     #send email templates
-    def send_email_templates(self,lang,subject,fromaddr,receiver_mail,title,name):
+    def send_email_templates(self,lang,subject,receiver_mail,title,name):
         try:
                 #send_mail(subject," ",email_from,[receiver],fail_silently=False,html_message=email_template_render)
                 # msg=EmailMessage(subject,email_template_render,email_from,[receiver],[receiver])
@@ -72,7 +72,7 @@ class EmailServices:
             print("Receiver mail-----------------------------",receiver_mail)
             # bcc='crm@trusttc.com'
            
-            
+            fromaddr="cs@trusttc.com"
             
             template_data={
                 "title":title,

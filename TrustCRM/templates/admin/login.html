@@ -21,148 +21,171 @@
 <body data-layout-mode="dark">
 
 <!-- <body data-layout="horizontal"> -->
-<div class="auth-page ">
-    <!--<ul class="bg-bubbles">
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-    </ul>-->
-    <!-- end bubble effect -->
-    <div class="container p-0">
-        <div class="row g-0">
-
-        <div class="col-xxl-12">
-            <div class="mt-4 mt-md-5 text-center">
-                <a href="index.html" class="d-block auth-logo">
-                    
-                        
-                    <img src="{%static 'images/logo-sm.svg' %}" alt="" height="80"> <!--<span
-                        class="logo-txt">Minia</span>-->
-                </a>
-            </div>  
-
-
-        </div>   
-       
-    </div>
-    <div class="row  align-items-md-center"><!---->
-        <div class="col-xxl-7 col-lg-7 col-md-7 order-1 order-md-0 d-none d-md-block">
-            <div class=" pt-0 px-4 py-md-4"> <!--auth-bg  d-flex-->
-                <div class="authimage "> <img src="{%static 'images/login.png' %}" alt="" class="w-100 position-absolute top-0"></div><!--bg-overlay bg-primary-->
-            </div>
-            <h2 class="almarenamonolight-type fs-30">Turn every rep<br>
-                into a top performer</h2>
-        </div>
-        <div class="col-xxl-5 col-lg-5 col-md-5  ">      
-                <div class="auth-full-page-content  pt-0 pt-sm-0 p-sm-5 p-4 d-md-flex flex-column justify-content-md-center"> <!---->
-                    <div class="w-100">
-                        <div class="d-flex  flex-column h-100"><!--flex-column  -->
-                        
-                            <div class="auth-content my-auto">
-                                <!--<div class="text-center">
-                                                <h5 class="mb-0">Welcome Back !</h5>
-                                                <p class="text-muted mt-2">Sign in to continue to Minia.</p>
-                                </div>-->
-                                <form class="mt-4 pt-2 needs-validation" action="{% url 'Admin:Check' %}" novalidate method="post">
-                                    {% csrf_token %}
-                                    <div class="mb-3">
-                                        <label class="form-label">Username</label>
-                                        <input type="text" class="form-control" id="username" placeholder="Enter username" required id="validationCustom01" name="username">
-                                        <!-- <div class="valid-feedback">
-                                            Looks good!
-                                        </div> -->
+    <div class="auth-page">
+        <div class="container-fluid p-0">
+            <div class="row g-0 ">
+                <div class="col-xxl-9 col-lg-8 col-md-12 order-1 order-lg-0">
+                    <div class=""> <!--pt-md-5 p-4 -->
+              
+                        <div id="circle-orbit-container" style="overflow-y:hidden ;">
+    
+                            <!-- Circles closest to the central point -->
+                            <div id="inner-orbit">
+                             <div class="inner-orbit-element1 ">
+                                    <img src="{%static 'images/ticketdialed.png' %}" alt="" class="w-100">
+                              </div>
+                              <div class="inner-orbit-element2 ">
+                                <img src="{%static 'images/leads.png' %}" alt="" class="w-100">
+                              </div>
+                              <div class="inner-orbit-element3 ">
+                                <img src="{%static 'images/reminders.png' %}" alt="" class="w-100">
+                              </div>
+                            </div>
+                          
+                            <!-- Circles second closest to the central point -->
+                            <div id="middle-orbit">
+                              
+                            </div>
+                          
+                            <!-- Circles furthest away to the central point -->
+                            <div id="outer-orbit">
+                                <div class="outer-orbit-cirlces0">
+                                    <svg width="34" height="31" viewBox="0 0 34 31" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M17 0L17.7994 15.8997L33.168 11.7467L18.2934 17.4203L26.9923 30.7533L17 18.36L7.00765 30.7533L15.7066 17.4203L0.832039 11.7467L16.2006 15.8997L17 0Z" fill="#FF7C48"/>
+                                        </svg>
+                                        
                                     </div>
-                                    <div class="mb-3">
-                                        <div class="d-flex align-items-start">
-                                            <div class="flex-grow-1">
-                                                <label class="form-label">Password</label>
-                                            </div>
-                                            <div class="flex-shrink-0">
-                                                <!-- <div class="">
-                                                    <a href="auth-recoverpw.html" class="text-muted">Forgot password?</a>
-                                                </div> -->
-                                            </div>
+                              <div class="outer-orbit-cirlces1">
+                                <svg width="44" height="42" viewBox="0 0 44 42" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M22 0L23.0815 21.5114L43.8743 15.8926L23.7499 23.5686L35.5191 41.6074L22 24.84L8.48094 41.6074L20.2501 23.5686L0.1257 15.8926L20.9185 21.5114L22 0Z" fill="#FF7C48"/>
+                                    </svg>
+                                </div>
+                                <div class="outer-orbit-cirlces2">
+                                    <svg width="47" height="47" viewBox="0 0 47 47" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M46.8349 14.5269C36.6256 22.5181 31.2665 33.1124 32.1485 46.4143C23.9801 35.8785 12.9401 31.5109 0.000103467 32.3084C10.2103 24.32 15.568 13.7227 14.6861 0.41939C22.8545 10.9563 33.8955 15.3271 46.8353 14.5268L46.8349 14.5269Z" fill="#479876"/>
+                                        </svg>
+                                        
+                                 </div>
+                            </div>
+                             <!-- Circles furthest away to the central point -->
+                            <div id="extra-outer-orbit">
+                               
+                            </div>
+                             <!-- Circles furthest away to the central point -->
+                            <div id="extra-plus-outer-orbit">
+                                
+                            </div>
+                          
+                        </div>
+                        <div  style="position:absolute; top:0; left:0;right:0px;bottom:0px; " class="d-flex align-items-center justify-content-center">
+                            
+                            <div class="" style="width: 40vh; height: 40vh" >
+                                <img src="{%static 'images/loginbg.png' %}" alt="" style="width:60% ;" class="mx-auto d-block">
+    
+                                <p class="text-center almarenamonolight-type fs-35 lh-1 mt-3">Turn every rep<br>
+                                    into a top performer.</p>
+                            </div>
+                        </div>
+                      
+                    </div>
+                </div>
+                <div class="col-xxl-3 col-lg-4 col-md-12">
+                    <div class="auth-full-page-content d-flex p-sm-5 p-4" style="background-color:#151628 ;">
+                        <div class="w-100">
+                            <div class="d-flex flex-column h-100">
+                              
+                                <div class="auth-content my-auto">
+                                    <div class="text-center">
+                                        <a href="index.html" class="d-block auth-logo">
+                
+                    
+                                            <img src="{%static 'images/logo-sm.svg' %}" alt="" height="60"> <!--<span
+                                                class="logo-txt">Minia</span>-->
+                                        </a>
+                                    </div>
+                                   
+                                    <form class="mt-4 pt-2 needs-validation" action="{% url 'Admin:Check' %}" novalidate method="post">
+                                        {% csrf_token %}
+                                        <div class="mb-3">
+                                            <label class="form-label">Username</label>
+                                            <input type="text" class="form-control" id="username" placeholder="Enter username" required id="validationCustom01" name="username">
                                             <!-- <div class="valid-feedback">
                                                 Looks good!
                                             </div> -->
                                         </div>
-        
-                                        <div class="input-group auth-pass-inputgroup">
-                                            <input type="password" class="form-control" placeholder="Enter password"
-                                                aria-label="Password" aria-describedby="password-addon" name="password" required>
-                                            <button class="btn btn-light shadow-none ms-0" type="button"
-                                                id="password-addon"><i class="mdi mdi-eye-outline"></i></button>
+                                        <div class="mb-3">
+                                            <div class="d-flex align-items-start">
+                                                <div class="flex-grow-1">
+                                                    <label class="form-label">Password</label>
+                                                </div>
+                                                <div class="flex-shrink-0">
+                                                    <!-- <div class="">
+                                                        <a href="auth-recoverpw.html" class="text-muted">Forgot password?</a>
+                                                    </div> -->
+                                                </div>
+                                                <!-- <div class="valid-feedback">
+                                                    Looks good!
+                                                </div> -->
+                                            </div>
+                                    
+                                            <div class="input-group auth-pass-inputgroup">
+                                                <input type="password" class="form-control" placeholder="Enter password"
+                                                    aria-label="Password" aria-describedby="password-addon" name="password" required>
+                                                <button class="btn btn-light shadow-none ms-0" type="button"
+                                                    id="password-addon"><i class="mdi mdi-eye-outline"></i></button>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="mb-3">
-                                        <!--<label class="form-label">Select</label>-->
-                                        <select class="form-select" name="server">
-                                            <option value="50.57.14.225:443">Trust Capital Live Server</option>
-                                            <option value="50.57.14.224:443">Trust Capital Demo Server</option>
-                                            <!-- <option>user</option> -->
-                                            <!-- {% for roles in role  %}
-                                            <option value="{{roles.0}}">{{roles.1}}</option>
-                                            {% endfor %} -->
-                                            <!-- <option>Large select</option>
-                                            <option>Small select</option> -->
-                                        </select>
-                                        <!-- <div class="valid-feedback">
-                                            Looks good!
-                                        </div> -->
-                                    </div>
-                                    <div class="row mb-4">
-                                        <div class="col">
-                                            <!-- <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" id="remember-check">
-                                                <label class="form-check-label" for="remember-check">
-                                                    Remember me
-                                                </label>
+                                        <div class="mb-3">
+                                            <!--<label class="form-label">Select</label>-->
+                                            <select class="form-select" name="server">
+                                                <option value="50.57.14.225:443">Trust Capital Live Server</option>
+                                                <option value="50.57.14.224:443">Trust Capital Demo Server</option>
+                                                <!-- <option>user</option> -->
+                                                <!-- {% for roles in role  %}
+                                                <option value="{{roles.0}}">{{roles.1}}</option>
+                                                {% endfor %} -->
+                                                <!-- <option>Large select</option>
+                                                <option>Small select</option> -->
+                                            </select>
+                                            <!-- <div class="valid-feedback">
+                                                Looks good!
                                             </div> -->
                                         </div>
-        
-                                    </div>
-                                    <div class="mb-3">
-                                        <button class="btn btn-primary w-100 waves-effect waves-light" type="submit">Log
-                                            In</button>
-                                    </div>
-                                    <div class="">
-                                        <p class="text-danger text-center" style="font-weight: bold;">{{login_error}}</a>
-                                    </div>
-                                </form>
-        
-                                <!--<div class="mt-5 text-center">
-                                    <p class="text-muted mb-0">Don't have an account ? <a href="auth-register.html"
-                                            class="text-primary fw-semibold"> Signup now </a> </p>
-                                </div>-->
+                                        <div class="row mb-4">
+                                            <div class="col">
+                                                <!-- <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" id="remember-check">
+                                                    <label class="form-check-label" for="remember-check">
+                                                        Remember me
+                                                    </label>
+                                                </div> -->
+                                            </div>
+                                    
+                                        </div>
+                                        <div class="mb-3">
+                                            <button class="btn btn-primary w-100 waves-effect waves-light" type="submit">Log
+                                                In</button>
+                                        </div>
+                                        <div class="">
+                                            <p class="text-danger text-center" style="font-weight: bold;">{{login_error}}</a>
+                                        </div>
+                                    </form>
+    
+                                    
+                                  
+                                </div>
+                            
                             </div>
-                           <!-- <div class="mt-4 mt-md-5 text-center">
-                                <p class="mb-0">© <script>
-                                        document.write(new Date().getFullYear())
-                                    </script> Trust Capital TC
-                                </p>
-                            </div>-->
                         </div>
                     </div>
+                    <!-- end auth full page content -->
                 </div>
-
-
-           
-        
-        <!-- end auth full page content -->
+                <!-- end col -->
+            </div>
+            <!-- end row -->
+        </div>
+        <!-- end container fluid -->
     </div>
-
-    </div>
-    <!-- end row -->
-</div>
-<!-- end container fluid -->
-</div>
 <!-- JAVASCRIPT -->
 
 <!-- pace js -->
@@ -173,3 +196,4 @@
 </body>
 
 </html>
+

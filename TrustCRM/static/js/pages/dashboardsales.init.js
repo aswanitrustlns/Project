@@ -183,7 +183,7 @@ renderChart([{
 },
 {
 
-    name: 'Opened',
+    name: 'Open',
     data: opens,
 },
 

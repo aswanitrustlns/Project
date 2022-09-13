@@ -311,22 +311,26 @@ window.addEventListener('resize', function(event) {
 
 }, true);
 
-// function mysubmitformsset(){
+function mysubmitformsset(){
+    $('#formtypeleadsinfo')[0].reset();
+    $('#formtypeleads_personals')[0].reset();
+    $('#formtypeleads_leads')[0].reset();
 
-// 	$is_invalid=0;
-// 	 const formp = document.querySelectorAll('.formsset');
-// 	 Array.prototype.slice.call(formp).forEach((form) => {
+	// $is_invalid=0;
+    // console.log("Reset called======")
+	//  const formp = document.querySelectorAll('.formsset');
+	//  Array.prototype.slice.call(formp).forEach((form) => {
 		
-// 		 $s=form.checkValidity();
+	// 	 $s=form.checkValidity();
 		 
-// 		 if(!$s){
-// 			 $is_invalid=1;
-// 			 form.reportValidity();
-//              form.classList.add('was-validated');
-// 		 }
-// 	 });
+	// 	 if(!$s){
+	// 		 $is_invalid=1;
+	// 		 form.reportValidity();
+    //          form.classList.add('was-validated');
+	// 	 }
+	//  });
 	
-// }
+}
 
     
 
