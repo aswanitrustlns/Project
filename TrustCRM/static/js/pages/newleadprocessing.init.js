@@ -273,48 +273,51 @@ $(document).ready(function () {
 
 
 });
+const myMediaQuery = window.matchMedia('(min-width: 1498px)');
 function setHeight($elm,$elmIndex,$elmgetH,$elmsetH){
 
-    /// get the maxHeight using innerHeight() function
-//.getheight-container .getheight
-var MaxHeight = $($elm).map(function ()  
-{
-
-    return $(this).eq($elmIndex).find($elmgetH).innerHeight();
-}).get();
-
-//.getheight-container .getheight  .card-body
-$($elmsetH).css('height' , MaxHeight+'px' );
-
-}
-
-setHeight('#getheight-container0 .getheight', 0, 'form', '#getheight-container0 .getheight  .card-body');
-setHeight('#getheight-container1 .getheight', 0, 'row', '#getheight-container1 .getheight  .card-body');
-window.addEventListener('resize', function(event) {
-    function setHeight($elm,$elmIndex,$elmgetH,$elmsetH){
-
-        /// get the maxHeight using innerHeight() function
-    //.getheight-container .getheight
+    //get the maxHeight using innerHeight() function
     var MaxHeight = $($elm).map(function ()  
     {
 
         return $(this).eq($elmIndex).find($elmgetH).innerHeight();
     }).get();
-
-    //.getheight-container .getheight  .card-body
-    $($elmsetH).css('height' , MaxHeight+'px' );
-
+    //let myMediaQuery = window.matchMedia('(min-width: 1498px)');
+    function widthChangeCallback(myMediaQuery) {
+        if(myMediaQuery.matches) {
+            $($elmsetH).css('height' , MaxHeight+'px' );
+        } else {
+            $($elmsetH).parents('.getheight ').eq(1).find(' .card-body').css('height' , MaxHeight+'px' );
+           
+        }
     }
+    //myMediaQuery.addEventListener('change', widthChangeCallback);
+    widthChangeCallback(myMediaQuery);
+    
+}
 
-    setHeight('#getheight-container0 .getheight', 0, 'form', '#getheight-container0 .getheight  .card-body');
+setHeight('#getheight-container0 .getheight', 0, 'form', '#getheight-container0 .getheight  .card-body');
+myMediaQuery.addEventListener('change', setHeight('#getheight-container0 .getheight', 0, 'form', '#getheight-container0 .getheight  .card-body'));
 
-
-}, true);
+$('.nav-item').on('click',function(){
+   
+    
+    
+   
+});
 
 function mysubmitformsset(){
-    $('#formtypeleadsinfo')[0].reset();
+    $('#formtypeleads_info')[0].reset();
     $('#formtypeleads_personals')[0].reset();
     $('#formtypeleads_leads')[0].reset();
+    $("#ticketno").val("")
+    $("#regdate").empty()
+    $("#ipaddr").empty()
+    $("#accountno").val("")
+    $("#activityList").empty()
+    $("#summary_div").empty()
+    gauge1(0)
+    gauge2(0)
 
 	// $is_invalid=0;
     // console.log("Reset called======")

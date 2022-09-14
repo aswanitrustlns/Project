@@ -8,6 +8,8 @@ from datetime import datetime, timedelta
 from ctypes import *
 import subprocess
 import win32com.client
+import random
+import string
 from django.template.loader import render_to_string
 from django.core.mail import BadHeaderError, send_mail
 from django.core.mail import EmailMessage,EmailMultiAlternatives
@@ -113,6 +115,18 @@ class Selector:
         finally:
             Cursor.close()
         return country_code
+    #Get All Country
+    def get_all_country(self):
+        try:
+            Cursor=connection.cursor()
+            Cursor.execute("SELECT ID,Country FROM tbl_Country")
+            country_list=Cursor.fetchall()
+            
+        except Exception as e:
+            print("Exception---",e)
+        finally:
+            Cursor.close()
+        return country_list
 
     #Merge ticket procedure call
     def merge_ticket(self,ticket,email1,email2,mobile,telephone):
@@ -360,7 +374,7 @@ class Selector:
             
             email_from = 'cs@trusttc.com'
             receiver=client_details[2]
-            # receiver='aswani.trustlns@gmail.com'
+            print("Receiver===========================",receiver)
 
             template_data={
                 "title":client_details[0],
@@ -459,8 +473,14 @@ class Selector:
     #     return leads_details
 
     #Open demo account
-    def open_demo_account(self):
-        pass
+    def open_demo_account(self,title,name,email,phone,country):
+        #call dll function
+        password=random_ped_gen()
+        emailservice.demo_account_email(title,name,password)
+
+    
+
+
 
     def resolve_ticket(self,ticket,userid):
         livestatus=""
@@ -706,18 +726,19 @@ class Selector:
             Cursor.execute("set nocount on;exec SP_GetLeadDetailsByTicket %s,%s",[ticket,userid])
             lead_details=Cursor.fetchone()
             print("Lead details-----------------",lead_details)
-            country=lead_details[10]
-            if(country):
-                country=country[0]
-                Cursor.execute("SELECT COUNTRY FROM tbl_Country where CCode=%s",[country])
-                countryName=Cursor.fetchone()
-                countryName=countryName[0]
-            print("Country================================",countryName)
+            # if (lead_details):
+            #     country=lead_details[10]
+            #     if(country):
+            #         country=country[0]
+            #         Cursor.execute("SELECT COUNTRY FROM tbl_Country where CCode=%s",[country])
+            #         countryName=Cursor.fetchone()
+            #         countryName=countryName[0]
+            #     print("Country================================",countryName)
         except Exception as e:
             print("Exception------",e)
         finally:
             Cursor.close()
-        return lead_details,countryName
+        return lead_details
 
     #Get Activities log
     def get_activities_log(self,ticket):
@@ -796,6 +817,7 @@ class Selector:
     
     #Account no status check
     def account_status_check_update(self,accountno,request):
+        msg=""
         try:
             Cursor=connection.cursor()
             Cursor.execute("set nocount on;exec SP_GetAccountStatus %s",[accountno])
@@ -810,6 +832,8 @@ class Selector:
             print("Exception------",e)
         finally:
             Cursor.close()
+        return msg
+
      #Ticket status check
     def ticket_validity_check_update(self,ticket,request):
         msg=""
@@ -817,6 +841,7 @@ class Selector:
             Cursor=connection.cursor()
             Cursor.execute("set nocount on;exec SP_IsTicketValid %s",[ticket])
             valid=Cursor.fetchone()
+            print("valid check===========",valid)
             valid=valid[0]
             if(valid==1):
                 msg="You dont have permission to update live account details"
@@ -922,18 +947,19 @@ class Selector:
 
 
     #Send email from Managetickets
-    def email_compose(self,fromaddr,to,sub,emailbody):
+    def email_compose(self,to,sub,emailbody):
         try:
            
-            emailservice.send_mail_manageTicket(fromaddr,to,sub,emailbody)
-            print("Selector----",fromaddr,to,sub,emailbody)
+            emailservice.send_mail_manageTicket(to,sub,emailbody)
+            print("Selector----",to,sub,emailbody)
             
         except Exception as e:
             print("Exception------",e)
         finally:
             pass
 
-  
+    
+
 
     
     # def sendReminder(self,datetime):
@@ -953,8 +979,11 @@ class Selector:
         
         
 
-
-
+#Random password generator
+def random_ped_gen():
+    all = string.ascii_letters + string.digits + string.punctuation
+    password = "".join(random.sample(all,8))
+    return password
 
 
 
@@ -963,7 +992,7 @@ def update_ticket(request):
          
      try:
         Cursor=connection.cursor()
-        name=request.POST.get('name')
+        name=request.POST.get('firstname')
         email=request.POST.get('email')
         phone=request.POST.get('phone')
         subject=request.POST.get('subject')
@@ -995,6 +1024,7 @@ def update_ticket(request):
         language=request.POST.get('language')
         training=request.POST.get('training')
         print("Staus ticket update------",name,email,phone,subject,ticket,country,clientarea,potential,city,address,state,zipcode,nationality,profession,dob,income,networth,experience,hear,email2,phone2,country2,noemail,title,hyplinks,appform,age,category,userId,language,training)
+        print("Staus ticket type------",type(name),email,phone,subject,ticket,type(country),clientarea,type(potential),city,address,state,zipcode,type(nationality),profession,dob,type(income),type(networth),type(experience),hear,email2,phone2,type(country2),type(noemail),title,hyplinks,type(appform),type(age),category,userId,language,training)
         Cursor.execute("set nocount on;exec SP_UpdateSalesLead %s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s",[name,email,phone,subject,ticket,country,clientarea,potential,city,address,state,zipcode,nationality,profession,dob,income,networth,experience,hear,email2,phone2,country2,noemail,title,hyplinks,appform,age,category,userId,language,training])
      except Exception as e:
                 print("Exception------",e)
@@ -1010,62 +1040,62 @@ def update_account_client_datails(self,request):
         
         try:
             Cursor=connection.cursor()
-            login=request.GET.get('login')
-            name=request.GET.get('name')
-            groups=request.GET.get('groups')
-            city=request.GET.get('city')
-            address=request.GET.get('address')
-            state=request.GET.get('state')
-            zipcode=request.GET.get('zipcode')
-            country=request.GET.get('country')
-            phone=request.GET.get('phone')
-            email=request.GET.get('email')
-            comment=request.GET.get('comment')
-            id=request.GET.get('id')
-            agent=request.GET.get('agent')
-            ppassword=request.GET.get('ppassword')
-            leverage=request.GET.get('leverage')
-            taxrate=request.GET.get('taxrate')
-            tinno=request.GET.get('tinno')
-            enabled=request.GET.get('enabled')
-            sendreports=request.GET.get('reports')
-            city=request.GET.get('city')
-            readonly=request.GET.get('readonly')
-            changepwd=request.GET.get('changepwd')
-            zipcode=request.GET.get('zipcode')
-            rdcomment=request.GET.get('rdcomment')
-            terminated=request.GET.get('terminated')
-            termincomment=request.GET.get('termincomment')
-            red=request.GET.get('red')
-            green=request.GET.get('green')
-            blue=request.GET.get('blue')
-            color=request.GET.get('color')
-            mothername=request.GET.get('mothername')
-            nationality=request.GET.get('nationality')
-            language=request.GET.get('language')
-            created=request.GET.get('created')
-            dob=request.GET.get('dob')
-            income=request.GET.get('income')
-            worth=request.GET.get('worth')
-            profession=request.GET.get('profession')
-            email2=request.GET.get('email2')
-            city=request.GET.get('city')
-            phone2=request.GET.get('phone2')
-            country2=request.GET.get('country2')
-            title=request.GET.get('title')
-            userId=request.GET.get('UserId')
-            ticket=request.GET.get('ticket')
-            subject=request.GET.get('subject')
-            clientarea=request.GET.get('clientare')
-            potential=request.GET.get('potential')
-            exp=request.GET.get('exp')
-            hear=request.GET.get('hear')
-            noemail=request.GET.get('noemail')
-            hyplink=request.GET.get('hyplink')
-            appform=request.GET.get('appform')
-            age=request.GET.get('age')
-            category=request.GET.get('category')
-            scomments=request.GET.get('comments')
+            login=request.POST.get('login')
+            name=request.POST.get('name')
+            groups=request.POST.get('groups')
+            city=request.POST.get('city')
+            address=request.POST.get('address')
+            state=request.POST.get('state')
+            zipcode=request.POST.get('zipcode')
+            country=request.POST.get('country')
+            phone=request.POST.get('phone')
+            email=request.POST.get('email')
+            comment=request.POST.get('comment')
+            id=request.POST.get('id')
+            agent=request.POST.get('agent')
+            ppassword=request.POST.get('ppassword')
+            leverage=request.POST.get('leverage')
+            taxrate=request.POST.get('taxrate')
+            tinno=request.POST.get('tinno')
+            enabled=request.POST.get('enabled')
+            sendreports=request.POST.get('reports')
+            city=request.POST.get('city')
+            readonly=request.POST.get('readonly')
+            changepwd=request.POST.get('changepwd')
+            zipcode=request.POST.get('zipcode')
+            rdcomment=request.POST.get('rdcomment')
+            terminated=request.POST.get('terminated')
+            termincomment=request.POST.get('termincomment')
+            red=request.POST.get('red')
+            green=request.POST.get('green')
+            blue=request.POST.get('blue')
+            color=request.POST.get('color')
+            mothername=request.POST.get('mothername')
+            nationality=request.POST.get('nationality')
+            language=request.POST.get('language')
+            created=request.POST.get('created')
+            dob=request.POST.get('dob')
+            income=request.POST.get('income')
+            worth=request.POST.get('worth')
+            profession=request.POST.get('profession')
+            email2=request.POST.get('email2')
+            city=request.POST.get('city')
+            phone2=request.POST.get('phone2')
+            country2=request.POST.get('country2')
+            title=request.POST.get('title')
+            userId=request.POST.get('UserId')
+            ticket=request.POST.get('ticket')
+            subject=request.POST.get('subject')
+            clientarea=request.POST.get('clientare')
+            potential=request.POST.get('potential')
+            exp=request.POST.get('exp')
+            hear=request.POST.get('hear')
+            noemail=request.POST.get('noemail')
+            hyplink=request.POST.get('hyplink')
+            appform=request.POST.get('appform')
+            age=request.POST.get('age')
+            category=request.POST.get('category')
+            scomments=request.POST.get('comments')
             update_result=Cursor.execute("set nocount on;exec SP_UpdateSalesLead %s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s",[login,name,groups,country,city,zipcode,address,phone,email,comment,id,agent,ppassword,leverage,state,taxrate,tinno,enabled,sendreports,readonly,changepwd,rdcomment,terminated,termincomment,red,green,blue,color,mothername,nationality,language,created,dob,income,worth,profession,email2,phone2,country2,title,userId,ticket,subject,clientarea,potential,exp,hear,noemail,hyplink,appform,age,category,scomments])
         
         except Exception as e:

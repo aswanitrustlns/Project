@@ -205,6 +205,7 @@ class Services:
             Cursor.close()
         return assign_rep
 
+
     #Update meeting feedback
 
     def meeting_feedback_update(self,request):
@@ -231,6 +232,26 @@ class Services:
             except Exception as e:
                 print("Exception------",e)
             finally:
+                Cursor.close()
+     #Update Assessment
+    def update_meeting_assessment(self,request):
+        try:
+            print("Meeting assessment update Service")
+            userId=request.session.get('UserId')
+            ticket=request.GET.get('ticket')
+            feedback=int(request.GET.get('feedback'))
+            demo=int(request.GET.get('demo'))
+            train=int(request.GET.get('train'))
+            ques=int(request.GET.get('ques'))
+            seminars=request.GET.get('seminars')
+            account=int(request.GET.get('account'))
+            commision=int(request.GET.get('commision'))
+            Cursor=connection.cursor()            
+            
+            Cursor.execute("set nocount on;exec SP_UpdateMeetingAssessment %s,%s,%s,%s,%s,%s,%s,%s",[ticket,feedback,demo,train,ques,account,commision,userId]) 
+        except Exception as e:
+                print("Exception------",e)
+        finally:
                 Cursor.close()
 
     #Update ticket

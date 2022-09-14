@@ -549,6 +549,7 @@ def lead_processing(request):
         search_email_phone3=[]
         page_data={}
         ticket=" "
+        country_list=""
         try:
             ticket=request.GET.get('ticket')
             email1=request.GET.get('email1')
@@ -596,29 +597,31 @@ def lead_processing(request):
                     print("Get ticket--------------------",get_ticket)
                     ticket=get_ticket
             
-            lead_details,country=selector.get_lead_details(ticket,UserId)
-            activity_log=selector.get_activity_log(ticket)
-            ticket_summary=selector.get_ticket_summary(ticket)
-            lead_score=selector.get_lead_score(ticket)
-            meeting_score=selector.get_meeting_score(ticket)
-            last_comment=selector.get_last_comment(ticket,UserId)
-            sticky_text=selector.get_sticky_text(ticket)
-            print("Last comment--------",last_comment)
+            # lead_details,country=selector.get_lead_details(ticket,UserId)
+            # activity_log=selector.get_activity_log(ticket)
+            # ticket_summary=selector.get_ticket_summary(ticket)
+            # lead_score=selector.get_lead_score(ticket)
+            # meeting_score=selector.get_meeting_score(ticket)
+            # last_comment=selector.get_last_comment(ticket,UserId)
+            # sticky_text=selector.get_sticky_text(ticket)
+            # print("Last comment--------",last_comment)
             
-            print("Sticky text============================",sticky_text)
-            print("Lead details-------------")
-            if(meetingscore !=None):
-                print("Meeting if")
-                meetingscore=sum(meetingscore)
-                meetingscore=(meetingscore/320)*100
+            # print("Sticky text============================",sticky_text)
+            # print("Lead details-------------")
+            # if(meetingscore != None):
+            #     print("Meeting if")
+            #     meetingscore=sum(meetingscore)
+            #     meetingscore=(meetingscore/320)*100
                 
-            print("Meeting score-----------------------",meeting_score)
-            page_data={'ticket':ticket,'country':country,'email_phone':json.dumps(search_email_phone),'lead_details':lead_details,'ticket_summary':ticket_summary,'activity_log':activity_log,'leadscore':lead_score,'meetingscore':meeting_score,'lastcomment':last_comment,'stickytext':sticky_text}
+            # print("Meeting score-----------------------",meeting_score)
             
+            # page_data={'ticket':ticket,'country':country,'email_phone':json.dumps(search_email_phone),'lead_details':lead_details,'ticket_summary':ticket_summary,'activity_log':activity_log,'leadscore':lead_score,'meetingscore':meeting_score,'lastcomment':last_comment,'stickytext':sticky_text}
+            country_list=selector.get_all_country()
+           
         except Exception as e:
             print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!Exception!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!",e.__class__)
     
-        return render(request,'sales/LeadProcessing.html',{'ticket':ticket,'country':country,'email_phone':json.dumps(search_email_phone),'lead_details':lead_details,'ticket_summary':ticket_summary,'activity_log':activity_log,'leadscore':lead_score,'meetingscore':meeting_score,'lastcomment':last_comment,'stickytext':sticky_text})
+        return render(request,'sales/LeadProcessing.html',{'ticket':ticket,'country_list':country_list})
     else:
          return redirect('/login') 
         
@@ -777,7 +780,8 @@ def send_meeting_request(request):
         ticket=request.GET.get('ticket')
         flag=int(request.GET.get('flag'))
         message=service.send_meeting_request(request)
-        message=message[0]   
+        if message:
+            message=message[0]   
         print("Flag--------------------",type(flag))     
         if(flag == 0 or flag == 1):
             subject="TC Limited – Meeting Confirmation"
@@ -787,9 +791,9 @@ def send_meeting_request(request):
         print("Subject--------------------------------------",subject)
         if(message == 'PROCEED'):
             print("Proceed---")          
-            # bcc="crm@trusttc.com"
-            bcc="aswani.trustlns@gmail.com"
-            cc=" "
+            bcc="crm@trusttc.com"
+            #bcc="aswani.trustlns@gmail.com"
+            cc=""
             selector.mailSend(ticket,subject,bcc,cc)
             print("Proceed------",message)
         return JsonResponse({"message":message})
@@ -823,6 +827,15 @@ def update_feedback(request):
         ticket=request.GET.get('ticket')
         message=service.meeting_feedback_update(request)
         print("Message-------------------",message)
+        return JsonResponse({"message":message})
+    else:
+        return redirect('/login')
+
+def update_meetingassessment(request):
+    if 'UserId' in request.session:
+        print("Meeting assessment update view")
+        service.update_meeting_assessment(request)
+        message="Meeting assessment updated successfully"
         return JsonResponse({"message":message})
     else:
         return redirect('/login')
@@ -861,11 +874,10 @@ def emailInbox(request):
         if(count_end):
             count_end=int(count_end)
         inbox_count,inbox_data=selector.get_mail_inbox()
-        print("Count================================",count)
-        print("Endd===================================",count_end)
+       
         if(page is None):                    
             
-            inbox=inbox_data[0:20]
+            # inbox=inbox_data[0:20]
             return render(request,'sales/inbox.html',{'count':inbox_count,'mails':inbox_data,'data':json.dumps(inbox_data)})
         else:
             if(page == 'add'):
@@ -904,7 +916,7 @@ def viewLoadFunctions(request): # 455325 to test meeting score
         ticket=ticket.strip()
         UserId=request.session.get('UserId')
         activity_log=selector.get_activities_log(ticket)
-        lead_details,country=selector.get_lead_details(ticket,UserId)
+        lead_details=selector.get_lead_details(ticket,UserId)
         leadscore=selector.get_lead_score(ticket)
         last_comment=selector.get_last_comment(ticket,UserId)
         
@@ -912,15 +924,16 @@ def viewLoadFunctions(request): # 455325 to test meeting score
         sticky_text=selector.get_sticky_text(ticket)
         print("Last comment--------",last_comment)
         meetingscore=selector.get_meeting_score(ticket)
+      
         print("Meetin score=============================",meetingscore)
         if(meetingscore != None):
             meetingscore=sum(meetingscore)
-            meetingscore=(meetingscore/320)*100
+            meetingscore=(meetingscore/100)*100
             
         print("Meeting score----",meetingscore)
         print("Sticky text========",sticky_text)
         print("End---------------------")
-        return JsonResponse({'leads':lead_details,'country':country,'activities':activity_log,'ticket_summary':ticket_summary,'leadscore':leadscore,'meetingscore':meetingscore,'lastcomment':last_comment,'stickytext':sticky_text})
+        return JsonResponse({'leads':lead_details,'activities':activity_log,'ticket_summary':ticket_summary,'leadscore':leadscore,'meetingscore':meetingscore,'lastcomment':last_comment,'stickytext':sticky_text})
     else:
         return redirect('/login')
 
@@ -967,21 +980,20 @@ def mail_search(request):
 
 def account_status(request):
     if 'UserId' in request.session:
-        accountNo=request.GET.get('account')
-        selector.account_status_check_update(accountNo)
+        accountNo=request.POST.get('formaccountno')
+        msg=selector.account_status_check_update(accountNo)
+        return JsonResponse({"msg":msg})
     else:
         return redirect('/login')
 
 #Ticket status update
 def ticket_status(request):
     if 'UserId' in request.session:
-        ticket=request.POST.get('ticket')
+        ticket=request.POST.get('formticket')
         print("Ticket-------",ticket)
-        experience=request.POST.get('experience')
-        hear=request.POST.get('hearfrom')
-        print("Request===============================================",experience,hear)
-        selector.ticket_validity_check_update(ticket,request)
-        return JsonResponse({"success"})
+        
+        msg=selector.ticket_validity_check_update(ticket,request)
+        return JsonResponse({"msg":msg})
     else:
         return redirect('/login')
 
@@ -1007,13 +1019,13 @@ def send_email_templates(request):
 
 def email_send(request):
     if 'UserId' in request.session:   
-        fromaddr=request.POST.get('from')
+        # fromaddr=request.POST.get('from')
         to=request.POST.get('to')
         name=request.POST.get('name')
         title=request.POST.get('tit')
         sub=request.POST.get('subject')
         emailbody=request.POST.get('body')
-        selector.email_compose(fromaddr,to,sub,emailbody)
+        selector.email_compose(to,sub,emailbody)
         return JsonResponse({"success":True})
     else:
         return redirect('/login')

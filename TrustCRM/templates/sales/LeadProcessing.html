@@ -131,7 +131,8 @@
 
                                         </div>
                                         <div class="col-lg-5 text-end flex-shrink-0">
-
+                                            {%if accountno%}
+                                            
 
                                             <a class="btn bg-soft-secondarycolor text-white me-1 color-color1 mb-2"  style="background-color: var(--bs-card-bg) ;"  onclick="openStickyPopup()" id="stickyLink"> 
                                                 <svg class="me-2" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -143,7 +144,8 @@
                                                 <path d="M14 10.6666L10 14.6666V12.6666C10 11.3333 10.6667 10.6666 12 10.6666H14Z" stroke="#73759D" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
                                                 </svg>
                                                 Add Sticky Notes</a>
-                                            <a class="btn bg-soft-secondarycolor text-white me-2 color-color1 mb-2"  style="background-color: var(--bs-card-bg) ;"  data-bs-toggle="modal" data-bs-target=".bs-example-modal-meeting">New Webinar
+                                                {%endif%}
+                                            <a class="btn bg-soft-secondarycolor text-white me-2 color-color1 mb-2"  style="background-color: var(--bs-card-bg) ;"  data-bs-toggle="modal" data-bs-target=".bs-example-modal-meeting">Webinar
                                                 <svg class="ms-1"  width="57" height="25" viewBox="0 0 57 25" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                     <path fill-rule="evenodd" clip-rule="evenodd" d="M40.0922 10.607C39.4853 9.98725 38.6917 9.67737 37.8904 9.67737C37.0968 9.67737 36.2955 9.98725 35.6886 10.607C34.4749 11.8465 34.4749 13.8568 35.6886 15.1043C36.9023 16.3438 38.8707 16.3438 40.0922 15.1043C41.3059 13.8647 41.3059 11.8465 40.0922 10.607ZM39.213 14.2064C38.4817 14.9533 37.2991 14.9533 36.5755 14.2064C35.8442 13.4595 35.8442 12.2518 36.5755 11.5128C37.3069 10.7659 38.4895 10.7659 39.213 11.5128C39.9366 12.2518 39.9366 13.4595 39.213 14.2064Z" fill="#2D8CFF"/>
                                                     <path fill-rule="evenodd" clip-rule="evenodd" d="M46.6273 10.607C46.0205 9.98725 45.2269 9.67737 44.4255 9.67737C43.632 9.67737 42.8306 9.98725 42.2238 10.607C41.0101 11.8465 41.0101 13.8568 42.2238 15.1043C43.4375 16.3438 45.4058 16.3438 46.6273 15.1043C47.841 13.8647 47.841 11.8465 46.6273 10.607ZM45.7482 14.2064C45.0168 14.9533 43.8343 14.9533 43.1107 14.2064C42.3794 13.4595 42.3794 12.2518 43.1107 11.5128C43.842 10.7659 45.0246 10.7659 45.7482 11.5128C46.4717 12.2518 46.4717 13.4595 45.7482 14.2064ZM30.1101 16.018L30.4213 16.0339H35.0894L35.0738 15.7161C35.0349 15.1917 34.6692 14.8103 34.1557 14.7785L33.8445 14.7626H31.0437L34.7782 10.9487L34.7626 10.6309C34.7393 10.1064 34.358 9.7171 33.8445 9.69326L33.5333 9.67737H28.8652L28.8808 9.9952C28.9197 10.5117 29.2931 10.901 29.7989 10.9328L30.1101 10.9487H32.9109L29.1764 14.7626L29.192 15.0804C29.2231 15.6049 29.5966 15.9862 30.1101 16.018ZM51.4121 11.5843C51.5211 11.775 51.5522 11.9816 51.5677 12.22L51.5833 12.5378V14.7626L51.5989 15.0804C51.63 15.5969 52.0034 15.9862 52.5169 16.018L52.8281 16.0339V12.5378L52.8437 12.22C52.8592 11.9816 52.8904 11.7671 52.9993 11.5764C53.2171 11.195 53.6139 10.9487 54.0729 10.9487C54.532 10.9487 54.9365 11.2029 55.1544 11.5843C55.2633 11.775 55.2944 11.9896 55.3022 12.22L55.3178 12.5378V14.7626L55.3333 15.0804C55.3645 15.6049 55.7379 15.9862 56.2514 16.018L56.5626 16.0339V12.5378V12.22C56.5626 10.8136 55.45 9.67737 54.0729 9.67737C53.326 9.67737 52.6647 10.0111 52.2057 10.5355C51.7467 10.0111 51.0854 9.67737 50.3385 9.67737C49.825 9.67737 49.3426 9.83628 48.9458 10.1144C48.7046 9.83628 48.16 9.67737 47.8488 9.67737V16.0339L48.16 16.018C48.6813 15.9862 49.0547 15.6049 49.0781 15.0804L49.0936 14.7626V12.5378L49.1092 12.22C49.1248 11.9816 49.1559 11.7671 49.2648 11.5843C49.4827 11.2029 49.8794 10.9487 50.3385 10.9487C50.7975 10.9487 51.2021 11.2029 51.4121 11.5843Z" fill="#2D8CFF"/>
@@ -163,7 +165,7 @@
                                             <div class="col-md-4">
                                                 <div class="card card-h-100 " style="border-style: dashed">
                                                     <div class="card-body">
-                                                        <form class="needs-validation formtype_leads formsset d-flex flex-column justify-content-between h-100" novalidate="" id="formtypeleadsinfo"  name="formmanage" method="POST">
+                                                        <form class="needs-validation formtype_leads formsset d-flex flex-column justify-content-between h-100" novalidate="" id="formtypeleads_info"  name="formmanage" method="POST">
                                                             
                                                                 
                                                                     <div class="d-flex justify-content-between">
@@ -172,20 +174,21 @@
                                                                                 <div class="mb-3">
                                                                                     <label class="form-label" for="title">Title</label>
                                                                                     <select class="form-select border-0 py-1" id="title" 
-                                                                                        required name="title">
+                                                                                        required name="title" >
                                                                                         <option value="Mr">Mr</option>
                                                                                         <option value="Ms">Ms</option>
                                                                                         <option value="Mrs">Mrs</option>
                                                                                     </select>
                                             
                                                                                 </div>
-                                                                            
+                                                                                <input type="hidden" name="formticket" id="formticket" >
+                                                                                <input type="hidden" name="formaccountno" id="formaccountno" >
                                                                         
-                                                                                <div class="mb-3">
+                                                                                <div class="mb-3 flex-grow-1">
                                                                                     <label class="form-label" for="firstname">Name</label>
                                                                                     <input type="text" class="form-control border-0 py-1"
-                                                                                        id="firstname" placeholder="both name(s) e.g Jon Doe"
-                                                                                    required name="firstname">
+                                                                                        id="firstname" name="firstname" placeholder="both name(s) e.g Jon Doe"
+                                                                                    required >
                                             
                                                                                 </div>
                                                                             
@@ -341,7 +344,7 @@
                                                                         <form class="needs-validation formtype_leads formsset" name="formmanage" novalidate="" id="formtypeleads_personals" method="POST">
                                                                            
                                                                             <div class="row">
-                                                                                <div class="  col-md-6 col-xxl-4 ">
+                                                                                <div class="  col-md-6">
                                                                                     <div class="mb-3">
                                                                                         <label class="form-label" for="phone">Mobile Number</label>
                                                                                         <div class="d-flex align-items-center">
@@ -354,7 +357,7 @@
                                                                                                 
                                                                                                 
                                                                                             </a>
-                                                                                            <input type="tel" class="form-control " id="phone" required style="padding-left: 45px !important ;" name="phone">
+                                                                                            <input type="tel" class="form-control " id="phone" required style="padding-left: 35px !important ;" name="phone">
                                                                                             
                                                                                         </div>
                                                                                         <span id="error-msg" class="hide"></span>
@@ -367,7 +370,7 @@
                                                 
                                                                                     </div>
                                                                                 </div>
-                                                                                <div class="  col-md-6 col-xxl-4">
+                                                                                <div class="  col-md-6 ">
                                                                                     <div class="mb-3">
                                                                                         <label class="form-label" for="phone2">&nbsp;</label>
                                                                                         <div class="d-flex align-items-center">
@@ -379,7 +382,7 @@
                                                                                                 </svg>
                                                                                                 
                                                                                             </a>
-                                                                                            <input type="tel" class="form-control" id="phone2" required style="padding-left: 45px !important ;" name="phone2">
+                                                                                            <input type="tel" class="form-control" id="phone2" required style="padding-left: 35px !important ;" name="phone2">
                                                                                             
                                                                                         </div>
                                                                                         <span id="error-msg2" class="hide"></span>
@@ -390,17 +393,17 @@
                                                                                         </div>
                                                                                     </div>
                                                                                 </div>
-                                                                                <div class=" col-md-6 col-xxl-4">
+                                                                                <div class=" col-md-6 ">
                                                                                     <div class="mb-3">
                                                 
-                                                                                        <label class="form-label w-100 text-xxl-end" for="email1">Email 1 </label>
-                                                                                        <input type="email" class="form-control border-0 text-xxl-end "
+                                                                                        <label class="form-label w-100 " for="email1">Email 1 </label>
+                                                                                        <input type="email" class="form-control border-0 "
                                                                                             id="email1" placeholder="e.g Steve@gmail.com"
                                                                                              required name="email">
                                                 
                                                                                     </div>
                                                                                 </div>
-                                                                                <div class=" col-md-6 col-xxl-4">
+                                                                                <div class=" col-md-6 ">
                                                                                     <div class="mb-3">
                                                                                         <label class="form-label" for="email2">Email 2</label>
                                                                                         <input type="email" class="form-control border-0"
@@ -409,7 +412,7 @@
                                                 
                                                                                     </div>
                                                                                 </div>
-                                                                                <div class=" col-md-6 col-xxl-4">
+                                                                                <div class=" col-md-6 ">
                                                                                     <div class="mb-3">
                                                 
                                                                                         <div class="form-check">
@@ -420,22 +423,25 @@
                                                                                         </div>
                                                                                     </div>
                                                                                 </div>
-                                                                                <div class="  col-md-6 col-xxl-4">
+                                                                                <div class="  col-md-6 ">
                                                                                     <div class="mb-3">
-                                                                                        <label class="form-label  w-100 text-xxl-end" for="country">Country</label>
-                                                                                        <input type="text" class="form-control border-0" id="country"
-                                                                                            placeholder="" required name="country">
-    <!--                                                                                
+                                                                                        <label class="form-label  w-100 " for="country">Country</label>
+                                                                                        <!-- <input type="text" class="form-control border-0" id="country"
+                                                                                            placeholder="" required name="country"> -->
+                                                                                 
                                                                                         <select class="form-select border-0 " id="country"
                                                                                             required>
-                                                                                            <option value="UAE">UAE</option>
-                                                                                            <option value="Qatar">Qatar</option>
-                                                                                        </select> -->
+                                                                                            <option value="0">Select</option>
+                                                                                        {% for country in country_list%}
+                                                                                            <option value={{country.0}}>{{country.1}}</option>
+                                                                                            
+                                                                                        {%endfor%}
+                                                                                        </select>
                                                 
                                                                                     </div>
                                                 
                                                                                 </div>
-                                                                                <div class="  col-md-6 col-xxl-4">
+                                                                                <div class="  col-md-6 ">
                                                                                     <div class="mb-3">
                                                                                         <label class="form-label" for="source">Source</label>
                                                                                         <input type="tel" class="form-control border-0" id="source"
@@ -447,7 +453,7 @@
                                                 
                                                                                 </div>
                                                                                     
-                                                                                <div class="  col-md-6 col-xxl-4">
+                                                                                <div class="  col-md-6 ">
                                                                                     <div class="mb-3">
                                                                                         <label class="form-label" for="city">City</label>
                                                                                         <input type="tel" class="form-control border-0" id="city"
@@ -456,25 +462,25 @@
                                                                                     </div>
                                         
                                                                                 </div>
-                                                                                <div class="  col-md-6 col-xxl-4">
+                                                                                <div class="  col-md-6 ">
                                                                                     <div class="mb-3">
-                                                                                        <label class="form-label w-100 text-xxl-end" for="subject">Subject</label>
+                                                                                        <label class="form-label w-100 " for="subject">Subject</label>
                                                                                         <input type="tel" class="form-control border-0 " id="subject"
                                                                                             placeholder="" required name="subject">
                                                 
                                                                                     </div>
                                                 
                                                                                 </div>
-                                                                                <div class=" col-xl-12 col-xxl-11">
+                                                                                <div class=" col-md-9">
                                                                                     <div class="mb-3">
                                                                                         <label class="form-label" for="">Sales rep</label>
                                                                                         
-                                                                                        <div class="row px-0 align-items-center">
+                                                                                        <div class="d-xxl-flex">
                                                                                             
-                                                                                            <div class="col-md-4 col-xl-6 col-xxl-4">
+                                                                                            <div class="me-2 mb-2">
                                     
                                                                                                 <select class="form-select border-1 " id="salesrep"
-                                                                                                required >
+                                                                                                required style="width:auto;" >
                                                                                                     <option value="0">Select</option>
                                                                                                     <option value="20">Farah Hawilo</option>
                                                                                                     <option value="30">Firas monzer</option>
@@ -486,10 +492,10 @@
                                                                                                     <option value="60">Online</option>
                                                                                                 </select>
                                                                                             </div>
-                                                                                            <div class="col-md-4 col-xl-6 col-xxl-2">
+                                                                                            <div class="me-2 mb-2">
                                     
                                                                                                 <select class="form-select border-1" id="assign"
-                                                                                                required>
+                                                                                                required style="width:auto;">
                                                                                                 <option value="100">100</option>
                                                                                                 <option value="75">75</option>
                                                                                                 <option value="50">50</option>
@@ -501,8 +507,8 @@
                                     
                                                                                             <div class="col-xl-12 col-xxl-6 mt-3 mt-xxl-0">
                                     
-                                                                                                <button type="button" class="btn bg-soft-orange text-white me-2 btn-sm" onclick="assignFun('A')">Assign</button>
-                                                                                                <button type="button" class="btn  text-white me-2 btn-sm"   style="background-color:#2C2E45 ;" onclick="assignFun('M')">Assign to me</button>
+                                                                                                <button type="button" class="btn text-white me-2   mb-lg-1 btn-sm" onclick="assignFun('A')" style="background-color:#2C2E45 ;">Assign</button>
+                                                                                                <button type="button" class="btn  text-white me-2   mb-lg-1 btn-sm"   style="background-color:#2C2E45 ;" onclick="assignFun('M')">Assign to me</button>
                                                                                             </div>
                                                                                         </div>
                                                                                         
@@ -510,16 +516,16 @@
                                                                                     </div>
                                                 
                                                                                 </div>
+                                                                                <div class="col-md-3"></div>
                                                                             
-                                                                                <div class="  col-xl-12 col-xxl-11">
+                                                                                <div class="  col-md-9">
                                                                                     <div class="mb-3">
                                                                                         <label class="form-label" for="">Sales rep</label>
-                                                                                        <div class="row px-0 align-items-center">
-                                                                                        
-                                                                                            <div class="col-md-4 col-xl-6 col-xxl-4">
+                                                                                        <div class="d-xxl-flex  ">
+                                                                                            <div class=" me-2 mb-2">
                                     
                                                                                                 <select class="form-select border-1" id="salesrep1"
-                                                                                                required>
+                                                                                                required style="width:auto;">
                                                                                                 <option value="0">Select</option>
                                                                                                 <option value="20">Farah Hawilo</option>
                                                                                                 <option value="30">Firas monzer</option>
@@ -531,10 +537,10 @@
                                                                                                 <option value="60">Online</option>
                                                                                                 </select>
                                                                                             </div>
-                                                                                            <div class="col-md-4 col-xl-6 col-xxl-2">
+                                                                                            <div class=" me-2 mb-2">
                                     
                                                                                                 <select class="form-select border-1" id="reassign"
-                                                                                                required>
+                                                                                                required style="width:auto;">
                                                                                                 <option value="0">0</option>
                                                                                                 <option value="25">25</option>
                                                                                                 <option value="50">50</option>
@@ -546,7 +552,7 @@
                                                                                             <div class="col-xl-12 col-xxl-6 mt-3 mt-xxl-0">
                                     
                                                                                                 
-                                                                                                <button type="button" class="btn  text-white me-2 btn-sm"   style="background-color:#2C2E45 ;" onclick="assignFun('R')">Reassign</button>
+                                                                                                <button type="button" class="btn  text-white  btn-sm  me-2  mb-lg-1"   style="background-color:#2C2E45 ;" onclick="assignFun('R')">Reassign</button>
                                                                                             </div>
                                                                                         </div>
                                                                                         
@@ -565,7 +571,7 @@
                                                                 </div>-->
                                                             </div>
                                                             
-                                                            <div class="col-lg-4 mb-3 getheight">
+                                                            <div class="col-lg-5 col-xl-5  col-xxl-4  mb-3 getheight">
                                                                 <div class="d-flex flex-wrap align-items-left flex-column mb-3 ">
                                                                     <h5 class="card-title me-2 almarenamonolight-type fs-21 mb-0">Journal</h5>
                         
@@ -592,16 +598,16 @@
                                                                                         <div class="flex-grow-1 overflow-hidden me-4 gilroyregular-type">
                                                                                             <p class="font-size-14 mb-1 color-color1">{{log.0}}</p>
                                                                                             <div class="mt-2 bg-soft-boxgray1 px-3 py-3 fs-13 rounded-3 d-flex flex-wrap">
-                                                                                                <img class="rounded-circle avatar-md mb-2" alt="200x200" src="{%static 'images/users/'%}{{log.7}}.png"
+                                                                                                <img class="rounded-circle avatar-md mb-2 me-2" alt="200x200" src="{%static 'images/users/'%}{{log.7}}.png"
                                                                                                 onerror='this.src="{% static 'images/users/user.png' %}"' data-holder-rendered="true">
                                                                                                 <div class="ms-2">
-                                                                                                    <p class="text-truncate color-color1  mb-0 ">{{log.7}}</p>
-                                                                                                    <p class="text-truncate text-white  mb-0 fs-15"><span class="me-2 d-inline-block">{{log.4}}</span> <svg width="10" height="8" viewBox="0 0 10 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                                                    <p class="color-color1  mb-0 ">{{log.7}}</p>
+                                                                                                    <p class=" text-white  mb-0 fs-15"><span class="me-2 d-inline-block">{{log.4}}</span> <svg width="10" height="8" viewBox="0 0 10 8" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                                                                         <path d="M0.75 4.00004L3.58 6.83004L9.25 1.17004" stroke="#00A54F" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                                                                                                         </svg>
                                                                                                     </p>
-                                                                                                    <p class="text-truncate color-color1  mb-0">{{log.1}} by {{log.7}}</p>
-                                                                                                    <p class="text-truncate color-color1  mb-0">{{log.3}}</p>
+                                                                                                    <p class=" color-color1  mb-0">{{log.1}} by {{log.7}}</p>
+                                                                                                    <p class=" color-color1  mb-0" style="max-width: 250px">{{log.3}}</p>
                                                                                                 </div>
                                                                                                 
                                                                                             </div>
@@ -612,6 +618,7 @@
                                                                                 </div> 
                                                                             </li>
                                                                         {%endfor%}  
+                                                                        
                                                                     {%else%}
                                                                                 <div class="  text-center d-block ">
                                                         
@@ -662,11 +669,13 @@
 
                                                                     <div class="card-body">
 
-                                                                        <div data-simplebar style="max-height:100%"></div>
+                                                                        <div data-simplebar style="max-height:100%">
 
                                                                         <!--Item1-->
                                                                     <div id="summary_div">
-                                                                    {%for summary in ticket_summary%}    
+                                                                        {%if ticket_summary %}
+                                                                      
+                                                                        {%for summary in ticket_summary%}    
                                                                         <div>
 
                                                                             <div class="d-flex py-2">
@@ -697,11 +706,24 @@
                                                                             </div>
                                                                             <hr>
                                                                         </div>
-                                                                    {%endfor%}
+                                                                        {%endfor%}
+                                                                        {%else%}
+                                                                    <div class="  text-center d-block ">
+                                            
+                                                                        <img src="{%static 'images/nodata/nodata.png' %}" alt="">
+                                                                        
+                                                                            
+                                    
+                                                                        <p class="gilory-regular-type fs-20 mt-2">Nothing To show</p>
+                                                                        
+                                                                    </div> 
+                        
+                                                                    {%endif%}
                                                                 </div>
                                                                         
 
                                                                     </div>
+                                                                </div>
                                                                 </div>
                                                                 
 
@@ -1082,13 +1104,13 @@
                                         <a  class=" rounded-2 gilroymedium-type fs-15  mb-2 text-white text-center" style="background-color:
                                        rgba(2, 126, 194, 1) ;">
 Compose </a>
-                                        <a href="#" class=" rounded-2 gilroymedium-type fs-15 color-color1 mb-2" style="background-color:
+                                        <!-- <a href="#" class=" rounded-2 gilroymedium-type fs-15 color-color1 mb-2" style="background-color:
                                         rgba(32, 33, 52, 1) ;"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M16.5 7.875V11.625C16.5 14.25 15 15.375 12.75 15.375H5.25C3 15.375 1.5 14.25 1.5 11.625V6.375C1.5 3.75 3 2.625 5.25 2.625H10.5" stroke="#9295D0" stroke-width="1.2" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
 <path d="M5.25 6.75L7.5975 8.625C8.37 9.24 9.6375 9.24 10.41 8.625L11.295 7.92" stroke="#9295D0" stroke-width="1.2" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
 <path d="M14.625 6C15.6605 6 16.5 5.16053 16.5 4.125C16.5 3.08947 15.6605 2.25 14.625 2.25C13.5895 2.25 12.75 3.08947 12.75 4.125C12.75 5.16053 13.5895 6 14.625 6Z" stroke="#9295D0" stroke-width="1.2" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
 </svg>
- Inbox <span class="ms-1 me-2 fs-12 float-end ">392</span></a>
+ Inbox <span class="ms-1 me-2 fs-12 float-end ">392</span></a> -->
  <a class=" rounded-2 gilroymedium-type fs-15 color-color1 mb-2" style="background-color:
  rgba(32, 33, 52, 1) ;"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M7.13245 3.17248L13.5525 6.38248C16.4325 7.82248 16.4325 10.1775 13.5525 11.6175L7.13245 14.8275C2.81245 16.9875 1.04995 15.2175 3.20995 10.905L3.86245 9.60748C4.02745 9.27748 4.02745 8.72998 3.86245 8.39998L3.20995 7.09498C1.04995 2.78248 2.81995 1.01248 7.13245 3.17248Z" stroke="#9295D0" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -1118,7 +1140,7 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">392</span></a>
                                                                         <form action="" class="formtype_leads ">
 
                                                                           
-                                                                                <div class="row align-items-center mb-2">
+                                                                                <!-- <div class="row align-items-center mb-2">
                                                                                     <label class="form-label col-sm-2" for="">From : </label>
                                                                                     <div class="col-sm-9">
 
@@ -1127,7 +1149,7 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">392</span></a>
                                                                                     </div>
                                                                                     
                                                                                   
-                                                                                </div>
+                                                                                </div> -->
                                                                                 <div class="row align-items-center mb-2">
                                                                                     <label class="form-label col-sm-2" for="">Subject : </label>
                                                                                     <div class="col-sm-9">
@@ -1214,7 +1236,7 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">392</span></a>
                                                                                                 <option value="TC Limited - Missing POR">Missing POR</option>
                                                                                                 <option value="TC Limited - Missing ID">Missing POI</option>
                                                                                             </select>
-                                                                                            <select class="form-select border-1" id="temp-chinese" value="" required="">
+                                                                                            <!-- <select class="form-select border-1" id="temp-chinese" value="" required="">
                                                                                                 <option value="About TC Limited">大约 TC Limited</option>
                                                                                                 <option value="How To open an Account">如何开立账户</option>
                                                                                                 <option value="Rejection Of Application">无法继续应用程序</option>
@@ -1228,7 +1250,7 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">392</span></a>
                                                                                                 <option value="Sales Call Interested SMS">Sales Call Interested SMS</option>
                                                                                                 <option value="TC Limited - 缺少 POR">缺少 POR</option>
                                                                                                 <option value="TC Limited - 失踪 ID">失踪 POI</option>
-                                                                                            </select>
+                                                                                            </select> -->
                                     
                                                                                             <div class="invalid-feedback">
                                                                                                 Please provide a valid entry.
@@ -1641,7 +1663,7 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">392</span></a>
                                             <!-- /.modal -->
 
                                             <!-- modal-Assessment -->
-                                            <button type="button" class="btn bg-soft-secondarycolor text-white me-2 " >Open demo account</button>
+                                            <button type="button" class="btn bg-soft-secondarycolor text-white me-2 " onclick="opendemoaccount()">Open demo account</button>
 
 
                                             <!-- modal-Chat Logs -->
@@ -1877,14 +1899,14 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">392</span></a>
                                                         <div class="modal-body ">
 
                                                             <div class="  px-3 border rounded-3 py-4">
-
+                                                            
                                                                 <div class="modal-header py-0 px-0 border-bottom-0">
                                                                     <h5 class="modal-title mb-3" id="modal-title">Add Sticky Notes</h5>
                     
                                                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
                     
                                                                 </div>
-
+                                                           
                                                                 <form class="needs-validation" name="event-form" id="form-event" novalidate>
                                                                     
                                                                     <div class="row">
@@ -2051,10 +2073,13 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">392</span></a>
         let profession=0;
         let highlypotential=0;
         $(document).ready(function () {
-            $("#temp-chinese").hide()
-            let searchParams = new URLSearchParams(window.location.search)
-            let ticket = searchParams.get('ticket')
+            // $("#temp-chinese").hide()
+            var leadscore=0
+            var meetingscore=0
+            var searchParams = new URLSearchParams(window.location.search)
+            var ticket = searchParams.get('ticket')
             console.log("Ticket---------"+ticket)
+            $("#ticketno").val(ticket)
             if(ticket){
                 loadTicketFuns()
             }
@@ -2063,18 +2088,18 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">392</span></a>
 
     $(function() {
 
-        $('#sub').on('change', function() {
+        // $('#sub').on('change', function() {
             
-            var chosen=this.value
-            if(chosen=="ch"){
-                $("#temp-chinese").show()
-                $("#temp-english").hide()
-            }
-            if(chosen=="en"){
-                $("#temp-chinese").hide()
-                $("#temp-english").show()
-            }
-        });
+        //     var chosen=this.value
+        //     if(chosen=="ch"){
+        //         $("#temp-chinese").show()
+        //         $("#temp-english").hide()
+        //     }
+        //     if(chosen=="en"){
+        //         $("#temp-chinese").hide()
+        //         $("#temp-english").show()
+        //     }
+        // });
             $("#assign").change(function(){
                 var assign=$("#assign option:selected").val()
                 console.log("Assign----"+assign)
@@ -2247,6 +2272,14 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">392</span></a>
                 voiceselect=value;              
                 totalPoints();
             })
+            $("#ticketno").on("keydown", function(event) {
+                if(event.which == 13){
+                    event.preventDefault()
+                   loadTicketFuns()
+
+                }
+                    
+                })
 
             $("#firstname").on("keydown", function(event) {
                 if(event.which == 13){
@@ -2353,6 +2386,44 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">392</span></a>
 
     }
 
+    function opendemoaccount(){
+        var email1=$("#email1").val()
+        var email2=$("#email2").val()
+        var phone1=$("#phone").val()
+        var phone2=$("#phone2").val()
+        var flag=1
+        if(email1 || email2){
+            if(phone1 || phone2){
+                flag=0
+                console.log("Phone and email present and flag==="+flag)
+            }
+
+        }
+
+        // $.ajax({
+            
+        //     type : "GET", 
+        //     url: "{% url 'Admin:TicketResolve' %}",
+           
+        //     data:{
+        //     'ticket':ticket
+                
+        //     },
+            
+            
+        //     success: function(datas){
+        //         console.log("Messageee----"+datas.message)
+        //         var message=datas.message
+        //         if(message){
+        //         $("#userMsg").empty()
+        //         $("#userMsg").append(message)
+        //         $("#alertpopup").modal('show')
+        //         }
+        //     }
+        // })
+
+    }
+
 
     function templateSend(){
         var ticket=document.getElementById("ticketno").value
@@ -2360,7 +2431,7 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">392</span></a>
         var to=""
         var from=""
         to=$("#email1").val()
-        from=$("#emailto").val()
+        // from=$("#emailto").val()
         title=$("#title").val()
         name=$("#firstname").val()
         if(to==""){
@@ -2371,27 +2442,16 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">392</span></a>
         console.log("Title------------------"+title)
         console.log("Name-------"+name)
         console.log("Language--------------------"+lang)
-        var temp=""
-        if(lang=="en"){
-            temp=$("#temp-english").val()
+        
+        var temp=$("#temp-english").val()
             
-        }
-        if(lang=="ch"){
-            temp=$("#temp-chinese").val()            
-        }
+        
         console.log("template---------------"+temp)
         var subject=temp
-        if(from==""){
-            $("#userMsg").empty()
-            $("#userMsg").append("Please enter your emailid")
-            $("#alertpopup").modal('show')
-
-        }
-        else{
-            console.log("call backend")
+        
            
-            sendTemplate(from,to,lang,subject,title,name)
-        }
+            sendTemplate(to,lang,subject,title,name)
+        
 
 
     }
@@ -2424,7 +2484,7 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">392</span></a>
 
     }
 
-    function sendTemplate(fromadd,toadd,lang,sub,tit,fname,ticket){
+    function sendTemplate(toadd,lang,sub,tit,fname,ticket){
 
        
         $.ajax({
@@ -2434,8 +2494,7 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">392</span></a>
                     
                     data:{
                         'sub':sub,
-                        'tit':tit,
-                        'from':fromadd,
+                        'tit':tit,                        
                         'to':toadd,
                         'lan':lang,
                         'name':fname,
@@ -2456,7 +2515,7 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">392</span></a>
         var to=""
         var from=""
         to=$("#email1").val()
-        from=$("#emailto").val()
+        // from=$("#emailto").val()
         sub=$("#emailsub").val()
         if(to==""){
             to=$("#email2").val()
@@ -2475,7 +2534,7 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">392</span></a>
                url: "{% url 'Admin:ComposeMail' %}",
                
                data:{
-                'from':from,
+                // 'from':from,
                 'to':to,               
                
                 'subject':sub,
@@ -2496,26 +2555,34 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">392</span></a>
        if(updates==0){
         var accountno=$("#accountno").val()
         var ticket=document.getElementById("ticketno").value
-        var form_data1=$("#formtypeleadsinfo,#formtypeleads_personals,#formtypeleads_leads").serialize()
+        
+        var form_data1=$("#formtypeleads_info,#formtypeleads_personals,#formtypeleads_leads").serialize()
         
         //var form_data1=$('.formtype_leads').serialize()
         // var form_data2=form_data1.serialize()
         console.log("Form data 1............................"+form_data1)
       
 
-        if(accountno){
+        if(accountno != 0){
             console.log("Ticket and account number")
             $.ajax({
                type : "POST", 
                headers:{
                         "X-CSRFToken": csrftoken
                 },
-              
+                dataType: 'json',
                url: "{% url 'Admin:AccountUpdate' %}",
                
                data:form_data1,
                success: function(data){
-                console.log("Data-----")
+                console.log("Data-----"+data.msg)
+                let msg=data.msg
+                if(msg !=""){
+                    $("#userMsg").empty()
+                     $("#userMsg").append(msg)
+                    $("#alertpopup").modal('show')
+
+                }
                }
             })
 
@@ -2528,14 +2595,21 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">392</span></a>
                headers:{
                         "X-CSRFToken": csrftoken
                 },
-              
+                dataType: 'json',
                url: "{% url 'Admin:TicketUpdate' %}",
               
                data:form_data1,
 
                success: function(data){
 
-                console.log("Data-----")
+                console.log("Data-----"+data.msg)
+                let msg=data.msg
+                if(msg !=""){
+                    $("#userMsg").empty()
+                     $("#userMsg").append(msg)
+                    $("#alertpopup").modal('show')
+
+                }
                }
             })
         }
@@ -2549,7 +2623,7 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">392</span></a>
         var email1=$("#email1").val()
         var email2=$("#email2").val()
         var phone1=$("#phone").val()
-        var phone2=$("#phone1").val()
+        var phone2=$("#phone2").val()
         var country=$("#country").val()
         console.log("Countrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr"+country)
         var subject=$("#subject").val()
@@ -2557,7 +2631,7 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">392</span></a>
         console.log("Email 11111"+email1)
         let is_agree = $('#emailuav')[0].checked
         console.log("Agreee"+is_agree)
-        if(country==""){
+        if(country ==0){
             $("#userMsg").empty()
             $("#userMsg").append("Please enter the country to proceed")
             $("#alertpopup").modal('show')
@@ -2626,6 +2700,7 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">392</span></a>
                                     $("#alertpopup").modal('show')
                                     flag=1
                                 }
+                               
                                
                                
                             }   
@@ -2811,6 +2886,7 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">392</span></a>
                         if(result > 0){
                         console.log("Assign greater 0")
                         $("#userMsg").append("SalesRep assigned Successfully")
+                        
                     }
                     else{
                         console.log("Assign less than 0")
@@ -2957,7 +3033,9 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">392</span></a>
                 scorePopupclear()
                 $("#score-model").modal('hide')
                 if(score==null || score < 2){
-                    $("#alertpopup").modal('show')    
+                    $("#userMsg").empty()
+                        $("#userMsg").append("Meeting Score saved successfully")
+                        $("#alertpopup").modal('show')    
                 }
                }
             })
@@ -3033,8 +3111,11 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">392</span></a>
     function loadTicketFuns(){
 
         var ticket=document.getElementById("ticketno").value
+       
+        $("#formticket").val(ticket)
         console.log("Ticket----"+ticket)
         var accountno=$("#accountno").val()
+        $("#formaccountno").val(accountno)
         if(accountno){
             $("#stickyLink").show()
         }
@@ -3065,7 +3146,7 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">392</span></a>
                         var ticketSummary=data.ticket_summary
                         console.log("Lead details--------"+leads)
                         var lastcomment=data.lastcomment
-                        var country=data.country
+                        // var country=data.country
                         // console.log("Vie activities----",activities)
                         var title=leads[35] 
                         
@@ -3076,6 +3157,7 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">392</span></a>
                         var address=leads[19]
                         var zipcode=leads[23]
                         var state=leads[20]
+                        var country=leads[10]
                         var annualIncome=leads[26]
                         var experience=leads[29]
                         var profession=leads[47]
@@ -3095,14 +3177,18 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">392</span></a>
                         var source=leads[9]
                         var city=leads[18]
                         var subject=leads[3]
+                        var acno=leads[13]
                         $("#title").val(leads[35])
                         $("#firstname").val(leads[0])
                         console.log("Hear from===================================================="+hearfrom)
                         var regdate = new Date(reg_date);
                         regdate=regdate.toISOString().substring(0, 10);
+                        if(country==null || country== undefined){
+                            country=0
+                        }
                         $("#salesrep").val(salesrep)
                         $("#salesrep1").val(rerep)
-                        $("#accountno").val(leads[13])
+                        $("#accountno").val(acno)
                         $("#age").val(age)
                         $("#dob").val(dob)
                         $("#address").val(address)
@@ -3130,7 +3216,7 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">392</span></a>
                         $("#eventtitle").append(lastcomment)
                         leadscore=data.leadscore 
                         meetingscore=data.meetingscore   
-                       
+                        meeting=data.meeting
                         
                         if(meetingscore=="undefined" || meetingscore==null){
                             meetingscore=0
@@ -3189,14 +3275,9 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">392</span></a>
         }
         $("#summary_div").append(summary)
     }
-           
-    var leadscore=leadscore={{leadscore|safe}}
-    var meetingscore=0
-    meetingscore={{meetingscore|safe}}
-    gauge1(leadscore)
-    gauge2(meetingscore)
-    console.log("Meeting score------"+meetingscore)
-    console.log("lead score------"+leadscore)
+         
+   
+   
     </script>
 
     <script src="{%static 'libs/flatpickr/flatpickr.min.js' %}"></script>

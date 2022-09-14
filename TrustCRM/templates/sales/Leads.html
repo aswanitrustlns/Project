@@ -548,8 +548,20 @@ $(function(){
                     var element=data.duplicate;
                     
                     var duplicate_data=new Array();
-                    var phone1=element[2].replace(/[^a-zA-Z0-9]/g, '');
-                    var phone2=element[3].replace(/[^a-zA-Z0-9]/g, '');
+                    var phone1=element[2]
+                    var phone2=element[3]
+                    if(phone1 != null){
+                         phone1=phone1.replace(/[^a-zA-Z0-9]/g, '');
+                    }
+                    if(phone2 != null){
+                         phone2=phone2.replace(/[^a-zA-Z0-9]/g, '');
+                    }
+                    if(phone1== null){
+                        phone1="";
+                    }
+                    if(phone2== null){
+                        phone2="";
+                    }
 
                     var duplicates="<tr><th scope='row'><div class='d-flex my-1 ms-2 align-items-center'><div class='activity-icon avatar-sm me-3'><span class='avatar-title   rounded-circle'>"+
                         "<img class='rounded-circle avatar-md' src='../static/images/users/"+element[4]+".png' onerror=this.src='../static/images/users/user.png' >"+

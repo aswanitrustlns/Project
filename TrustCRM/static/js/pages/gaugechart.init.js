@@ -117,6 +117,7 @@ function gauge2(values){
             values=0
             colorvalue=0
         }
+        
         colorvalue=values/100
         var gaugeColors1 = getChartColorsArray("#gauge-chart-meetingsscore");
         var dom1 = document.getElementById("gauge-chart-meetingsscore");

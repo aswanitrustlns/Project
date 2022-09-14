@@ -173,7 +173,7 @@
     <script>
 
 
-        count=20
+        count=0
         start_i=0
         end_i=0
         var inbox_items={{data|safe}}
@@ -195,8 +195,11 @@
             if(message=='add'){
                 count=count+20
                 count_end=count+20
-                start_i=count
-                end_i=count_end
+                if(count_end > inbox_count){
+                    count_end=inbox_count-count
+                }
+                // start_i=count
+                // end_i=count_end
             }
             if(message=='sub'){
                 count=count-20
@@ -215,8 +218,8 @@
 
             for(var i=count;i<count_end;i++){ 
                 
-                    console.log(inbox_items[i][2]);
-                    var ms_id=inbox_items[i][3]
+                    
+                    var ms_id="items"
                     inboxlist +="<li class='fs-16' data-id='"+ms_id+"' style='cursor: pointer' >"+
                                 "<div class='col-mail col-mail-1'><div class='checkbox-wrapper-mail'><input type='checkbox' id='chk1'><label for='chk1' class='toggle'></label>"+
                                 "</div><a class='title text-white gilroysemibold-type'>"+inbox_items[i][1]+"</a><span class='star-toggle far fa-star' style='color:var(--color1) ;''></span>"+
