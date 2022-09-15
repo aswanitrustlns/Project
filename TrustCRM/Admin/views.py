@@ -874,7 +874,7 @@ def emailInbox(request):
         if(count_end):
             count_end=int(count_end)
         inbox_count,inbox_data=selector.get_mail_inbox()
-       
+        print("Inbox count==============================",inbox_count)
         if(page is None):                    
             
             # inbox=inbox_data[0:20]
@@ -928,7 +928,7 @@ def viewLoadFunctions(request): # 455325 to test meeting score
         print("Meetin score=============================",meetingscore)
         if(meetingscore != None):
             meetingscore=sum(meetingscore)
-            meetingscore=(meetingscore/100)*100
+            meetingscore=(meetingscore/320)*100
             
         print("Meeting score----",meetingscore)
         print("Sticky text========",sticky_text)
@@ -1011,7 +1011,7 @@ def send_email_templates(request):
         ticket=request.GET.get('ticket')
         print("Template selectio=====")
         selector.email_template_selection(lang,sub,fromaddr,to,title,name,userid,ticket)
-        return JsonResponse({"Success"})
+        return JsonResponse({"success":"Email Send"})
     else:
         return redirect('/login')
 
@@ -1066,7 +1066,64 @@ def resolve_tickets(request):
         return JsonResponse({"message":msg})
     else:
         return redirect('/login')
-    
+#List upcoming seminars
+def upcomingSeminars(request):  
+    if 'UserId' in request.session:        
+        
+        seminar_list=selector.get_upcoming_seminar()
+        print("Seminar List======================",seminar_list)
+        return JsonResponse({"seminars":seminar_list})
+    else:
+        return redirect('/login')  
+#Register seminars
+def registerSeminars(request):  
+    if 'UserId' in request.session:
+        
+        userid=request.session.get('UserId')
+        title=request.GET.get('title')
+        name=request.GET.get('name')
+        to_addr=request.GET.get('to_addr')
+        seminartitle=request.GET.get('seminartitle')
+        ticket=request.GET.get('ticket')
+        selector.register_seminar(title,name,to_addr,seminartitle,ticket,userid)
+        return JsonResponse({"msg":"Register successfully"})
+    else:
+        return redirect('/login')  
+#Update seminar
+def updateseminar(request):
+    if 'UserId' in request.session:
+        
+        userid=request.session.get('UserId')
+        status=request.GET.get('status')
+        seminar=request.GET.get('seminar')       
+        ticket=request.GET.get('ticket')
+        selector.update_seminar_status(ticket,status,seminar,userid)
+        return JsonResponse({"msg":"Updated successfully"})
+    else:
+        return redirect('/login')  
+#List all seminar
+def list_all_seminar(request):
+    if 'UserId' in request.session:        
+              
+        ticket=request.GET.get('ticket')
+        selector.get_seminar_list(ticket)
+        return JsonResponse({"msg":"List all seminars"})
+    else:
+        return redirect('/login') 
+#Open demo account
+def open_demoaccount(request):
+    if 'UserId' in request.session:
+        title=request.GET.get('title')
+        name=request.GET.get('name')
+        email=request.session.get('email')
+        phone=request.GET.get('phone')
+        country=int(request.GET.get('country'))
+        selector.open_demo_account(title,name,email,phone,country)
+        return JsonResponse({"msg":"Demo account opened"})
+    else:
+        return redirect('/login')  
+
+
 
     
 

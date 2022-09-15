@@ -334,6 +334,21 @@ function mysubmitformsset(){
 	//  });
 	
 }
+var tabswitchemail=($this)=>{   let id='#'+$($this).attr('data-id');
+            if($(id).hasClass('d-block')){
+                $(id).removeClass('d-none');
+                $(id).siblings().removeClass('d-block');
+                $(id).siblings().addClass('d-none'); 
+            }
+            else
+            {
+             $(id).addClass('d-block');
+             $(id).removeClass('d-none');
+             $(id).siblings().removeClass('d-block');
+             $(id).siblings().addClass('d-none');
+            }
+}
+   
 
     
 

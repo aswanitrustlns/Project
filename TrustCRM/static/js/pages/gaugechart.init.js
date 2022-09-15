@@ -39,6 +39,8 @@ function gauge1(gaugeval){
             series: [
                 {
                     name: 'Lead score',
+                    radius: '100%', // this
+                    center: ['50%', '50%'],
                     type: 'gauge',
                     detail: {formatter:'{value}%'},
                    
@@ -136,6 +138,8 @@ function gauge2(values){
             series: [
                 {
                     name: 'Lead score',
+                    radius: '100%', // this
+                    center: ['50%', '50%'],
                     //startAngle: 180,
                     //endAngle: 0,
                     type: 'gauge',
@@ -195,7 +199,7 @@ function gauge2(values){
                         }
                     },
                     detail: {
-                    formatter:'{value}%',
+                    formatter:'{value}',
                     valueAnimation: true,
                     fontSize: 25,
                     offsetCenter: [0, '0%'],

@@ -182,7 +182,7 @@ class EmailServices:
                 pass
 
     #open demo account email
-    def demo_account_email(self,title,name,password,email):
+    def demo_account_email(self,title,name,demo_account,password,receiver_mail):
         try:
                 #send_mail(subject," ",email_from,[receiver],fail_silently=False,html_message=email_template_render)
                 # msg=EmailMessage(subject,email_template_render,email_from,[receiver],[receiver])
@@ -196,7 +196,8 @@ class EmailServices:
             template_data={
                 "title":title,
                 "name":name,
-                "passord":password
+                "login":demo_account,
+                "passord":password,
             }
             email_template_render=render_to_string("YourDemoAccountWithTrustCapital.html",template_data)
             subject=" "
@@ -209,6 +210,40 @@ class EmailServices:
                 print("EXCEPTION-----------------------")    
         finally:
                 pass
+
+    #seminar confirmation email
+    def seminar_confirmation_email(self,title,name,to_addr,seminartitle):
+        try:
+            subject = "Trust Capital - Webinar Confirmation"
+            from_addr="crm@trusttc.com"
+            Cursor=connection.cursor()           
+            Cursor.execute("set nocount on;exec SP_SeminarConfirmationEmail %s",[seminartitle]) 
+            seminar_details=Cursor.fetchall()
+            if seminar_details:
+                seminar_name=seminar_details[2]
+                location=seminar_details[0]
+                seminar_date=seminar_details[1]
+                seminar_time=seminar_details[3]
+            template_data={
+                "title":title,
+                "name":name,
+                "seminar_name":seminar_name,
+                "location":location,
+                "seminar_date":seminar_date,
+                "seminar_time":seminar_time
+
+            }
+            email_template_render=render_to_string("SendSeminar.html",template_data)
+            msg = EmailMultiAlternatives(subject=subject,from_email=from_addr,to=[to_addr])
+            msg.attach_alternative(email_template_render, "text/html")
+            msg.send(fail_silently=False)
+            print("Email send-----------------------------------------------------------")
+        except Exception as e:
+                print("EXCEPTION-----------------------")    
+        finally:
+            Cursor.close()        
+
+
 
 
        

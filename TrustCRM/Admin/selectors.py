@@ -472,11 +472,26 @@ class Selector:
         #     Cursor.close()
     #     return leads_details
 
+    #dll open demo function call
+    
+
+
     #Open demo account
     def open_demo_account(self,title,name,email,phone,country):
         #call dll function
-        password=random_ped_gen()
-        emailservice.demo_account_email(title,name,password)
+        try:
+            Cursor=connection.cursor()
+            Cursor.execute("SELECT cOUNTRY FROM tbl_Country where ID=%s",[country])
+            country_name=Cursor.fetchone()
+        
+            password=random_ped_gen()
+            demo_account=dll_demo_account(name,email,phone,country_name,password)
+            if(demo_account != 0):
+                emailservice.demo_account_email(title,name,demo_account,password,email)
+        except Exception as e:
+            print("Exception------",e)
+        finally:
+            Cursor.close()
 
     
 
@@ -505,7 +520,7 @@ class Selector:
     
     def get_mail_inbox(self):
         inbox_list=[]
-        
+        i=1
         try:
             # outlook = win32com.client.Dispatch("Outlook.Application")
             # mapi=outlook.GetNamespace("MAPI")
@@ -528,22 +543,25 @@ class Selector:
             inbox_count=len(selected_mails[0].split())
             print("length===========",len(selected_mails[0].split()))
             for i in range(1, inbox_count):
-                res, msg = mail.fetch(str(i), '(RFC822)')
+                res,msg = mail.fetch(str(i), '(RFC822)')
                 for response in msg:
                     if isinstance(response, tuple):
                         msg = email.message_from_bytes(response[1])
+                        
                         subject=msg["subject"]
                         sender=msg["from"]
                         received_tym=msg["date"]
                         received_tym=received_tym[0:16]
+                        
                         # received_tym=datetime.strptime(received_tym,'%d%m%y')
                         # print("Received date===========",type(received_tym))
                         
                         inbox_data=(subject,sender,received_tym,msg["Message-ID"])
+                        print("Inbox daattttt",i+1)
                         inbox_list.append(inbox_data)
 
-            
-            
+            print("Length of inbox=====",len(inbox_list))
+           
         except Exception as e:
             print("Exception------",e)
         finally:
@@ -957,6 +975,55 @@ class Selector:
             print("Exception------",e)
         finally:
             pass
+    #Get Upcoming seminar
+    def get_upcoming_seminar(self):
+        try:
+            Cursor=connection.cursor()           
+            Cursor.execute("set nocount on;exec SP_UpcomingSeminars") 
+            seminarlist_upcoming=Cursor.fetchall()
+        except Exception as e:
+                print("Exception------",e)
+        finally:
+                Cursor.close()
+        return seminarlist_upcoming
+    # Register Seminar
+    def register_seminar(self,title,name,to_addr,seminartitle,ticket,userid):
+        try:
+            Cursor=connection.cursor()           
+            Cursor.execute("set nocount on;exec SP_SeminarConfirmation %s,%s,%s",[ticket,userid,seminartitle]) 
+            register_msg=Cursor.fetchone()
+            print("Register mesage================",register_msg)
+            if(register_msg=='Seminar Confirmed Successfully'):
+                 emailservice.seminar_confirmation_email(self,title,name,to_addr,seminartitle)
+        except Exception as e:
+                print("Exception------",e)
+        finally:
+                Cursor.close()
+    #Get seminar list
+    def get_seminar_list(self,ticket):
+        try:
+            Cursor=connection.cursor()           
+            Cursor.execute("set nocount on;exec SP_GetSeminarDetailsforTicket %s",[ticket]) 
+            seminarlist=Cursor.fetchall()
+        except Exception as e:
+                print("Exception------",e)
+        finally:
+                Cursor.close()
+        return seminarlist
+    #Update seminar status
+    def update_seminar_status(self,ticket,status,seminar,userid):
+        try:
+            Cursor=connection.cursor()           
+            Cursor.execute("set nocount on;exec SP_UpdateAttending %s,%s,%s,%s",[ticket,status,seminar,userid]) 
+            
+        except Exception as e:
+                print("Exception------",e)
+        finally:
+                Cursor.close()
+        
+
+
+    
 
     
 
@@ -985,6 +1052,26 @@ def random_ped_gen():
     password = "".join(random.sample(all,8))
     return password
 
+#dll demo account
+def dll_demo_account(name,email,phone,country,password):
+        demoserver = "50.57.14.224:443"
+        demopwd = "Tc2022"
+        demouser = "601"    
+        # name="Aswani test"
+        # email="aswani@trustlns.ae"
+        # phone='0565662073'
+        # country='United Arab Emirates'
+        # password="123asw89"
+        details="NAME="+name+"^EMAIL="+email+"^PHONE="+phone+"^USER_COUNTRY"+country+"^USER_PASSWORD"+password
+        received="reciveddata"
+        hllDll = CDLL(r"C:\\pyenv\\TrustManagerAPI.dll") 
+        DemoAccount_Create = hllDll.DemoAccount_Create
+        hllDll.DemoAccount_Create.argtype = c_char_p,c_int,c_char_p,c_char_p
+        hllDll.DemoAccount_Create.restype = c_int
+        username=int(demouser)
+        login = c_int(username)
+        connect=DemoAccount_Create(c_char_p(demoserver.encode('utf-8')).value,login.value,c_char_p(demopwd.encode('utf-8')).value,c_char_p(details.encode('utf-8')).value)
+        return connect
 
 
 

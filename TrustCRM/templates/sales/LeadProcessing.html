@@ -145,7 +145,7 @@
                                                 </svg>
                                                 Add Sticky Notes</a>
                                                 {%endif%}
-                                            <a class="btn bg-soft-secondarycolor text-white me-2 color-color1 mb-2"  style="background-color: var(--bs-card-bg) ;"  data-bs-toggle="modal" data-bs-target=".bs-example-modal-meeting">Webinar
+                                            <a class="btn bg-soft-secondarycolor text-white me-2 color-color1 mb-2"  style="background-color: var(--bs-card-bg) ;"  data-bs-toggle="modal"  onclick="webinarList()">Webinar
                                                 <svg class="ms-1"  width="57" height="25" viewBox="0 0 57 25" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                     <path fill-rule="evenodd" clip-rule="evenodd" d="M40.0922 10.607C39.4853 9.98725 38.6917 9.67737 37.8904 9.67737C37.0968 9.67737 36.2955 9.98725 35.6886 10.607C34.4749 11.8465 34.4749 13.8568 35.6886 15.1043C36.9023 16.3438 38.8707 16.3438 40.0922 15.1043C41.3059 13.8647 41.3059 11.8465 40.0922 10.607ZM39.213 14.2064C38.4817 14.9533 37.2991 14.9533 36.5755 14.2064C35.8442 13.4595 35.8442 12.2518 36.5755 11.5128C37.3069 10.7659 38.4895 10.7659 39.213 11.5128C39.9366 12.2518 39.9366 13.4595 39.213 14.2064Z" fill="#2D8CFF"/>
                                                     <path fill-rule="evenodd" clip-rule="evenodd" d="M46.6273 10.607C46.0205 9.98725 45.2269 9.67737 44.4255 9.67737C43.632 9.67737 42.8306 9.98725 42.2238 10.607C41.0101 11.8465 41.0101 13.8568 42.2238 15.1043C43.4375 16.3438 45.4058 16.3438 46.6273 15.1043C47.841 13.8647 47.841 11.8465 46.6273 10.607ZM45.7482 14.2064C45.0168 14.9533 43.8343 14.9533 43.1107 14.2064C42.3794 13.4595 42.3794 12.2518 43.1107 11.5128C43.842 10.7659 45.0246 10.7659 45.7482 11.5128C46.4717 12.2518 46.4717 13.4595 45.7482 14.2064ZM30.1101 16.018L30.4213 16.0339H35.0894L35.0738 15.7161C35.0349 15.1917 34.6692 14.8103 34.1557 14.7785L33.8445 14.7626H31.0437L34.7782 10.9487L34.7626 10.6309C34.7393 10.1064 34.358 9.7171 33.8445 9.69326L33.5333 9.67737H28.8652L28.8808 9.9952C28.9197 10.5117 29.2931 10.901 29.7989 10.9328L30.1101 10.9487H32.9109L29.1764 14.7626L29.192 15.0804C29.2231 15.6049 29.5966 15.9862 30.1101 16.018ZM51.4121 11.5843C51.5211 11.775 51.5522 11.9816 51.5677 12.22L51.5833 12.5378V14.7626L51.5989 15.0804C51.63 15.5969 52.0034 15.9862 52.5169 16.018L52.8281 16.0339V12.5378L52.8437 12.22C52.8592 11.9816 52.8904 11.7671 52.9993 11.5764C53.2171 11.195 53.6139 10.9487 54.0729 10.9487C54.532 10.9487 54.9365 11.2029 55.1544 11.5843C55.2633 11.775 55.2944 11.9896 55.3022 12.22L55.3178 12.5378V14.7626L55.3333 15.0804C55.3645 15.6049 55.7379 15.9862 56.2514 16.018L56.5626 16.0339V12.5378V12.22C56.5626 10.8136 55.45 9.67737 54.0729 9.67737C53.326 9.67737 52.6647 10.0111 52.2057 10.5355C51.7467 10.0111 51.0854 9.67737 50.3385 9.67737C49.825 9.67737 49.3426 9.83628 48.9458 10.1144C48.7046 9.83628 48.16 9.67737 47.8488 9.67737V16.0339L48.16 16.018C48.6813 15.9862 49.0547 15.6049 49.0781 15.0804L49.0936 14.7626V12.5378L49.1092 12.22C49.1248 11.9816 49.1559 11.7671 49.2648 11.5843C49.4827 11.2029 49.8794 10.9487 50.3385 10.9487C50.7975 10.9487 51.2021 11.2029 51.4121 11.5843Z" fill="#2D8CFF"/>
@@ -209,7 +209,7 @@
 
                                                                             <div class=" ms-auto d-flex align-items-center justify-content-between ">
 
-                                                                                <p class="gilroyregular-type fs-16 me-3 mb-0 color-color1">Reg date: <div id="regdate"> </div> </p>
+                                                                                <p class="gilroyregular-type fs-16 me-3 mb-0 color-color1">Reg date: <span id="regdate"> </span> </p>
                                                                                 <button type="button" class="btn  text-white gilorymedium-type fs-14" style="background-color:
                                                                                 #8D79F6">
                                                                                     IP : <span class="badge  ms-1"> <div id="ipaddr"></div></span>
@@ -237,8 +237,8 @@
                                                                 <div class="col-xxl-4   col-lg-12">
                                                                     <h5 class="card-title  almarenamonolight-type fs-21 mb-0 position-absolute">Lead Score</h5>
                                                                 </div>
-                                                                <div class="col-xxl-8   col-lg-12">
-                                                                    <div id="main" style="height:260px ; width: 100%">
+                                                                <div class="col-xxl-8   col-lg-12 mt-5 mt-xxl-0">
+                                                                    <div id="main" style="height:160px ; width: 100%">
                                                                         <div id="gauge-chart-leadscore" data-colors='["#C4C4C4"]' class="e-charts " allowMargin="false" [margin]="margin" ></div>
                                                                     </div>
                                                                     
@@ -262,8 +262,8 @@
                                                                 <div class="col-xxl-4   col-lg-12">
                                                                     <h5 class="card-title  almarenamonolight-type fs-21 mb-0 position-absolute">Meeting score</h5>
                                                                 </div>
-                                                                <div class="col-xxl-8   col-lg-12 card-h-100">
-                                                                    <div id="main2" style=" width: 100%;height:260px">
+                                                                <div class="col-xxl-8   col-lg-12 card-h-100 mt-5 mt-xxl-0">
+                                                                    <div id="main2" style=" width: 100%;height:160px">
                                                                         <div id="gauge-chart-meetingsscore" data-colors='["#FF4929","#73759D"]' class="e-charts " ></div>
                                                                     </div>
                                                                     
@@ -331,7 +331,7 @@
                     
                                                     
                                                         <div class="row px-0" id="getheight-container0">
-                                                            <div class="col-lg-5 mb-3 getheight">
+                                                            <div class=" col-lg-7 col-xl-7 col-xxl-5 mb-3 getheight">
                                                                 <div class="d-flex flex-wrap align-items-left flex-column mb-3 ">
                                                                     <h5 class="card-title me-2 almarenamonolight-type fs-21 mb-0">Personal details</h5>
                         
@@ -398,7 +398,7 @@
                                                 
                                                                                         <label class="form-label w-100 " for="email1">Email 1 </label>
                                                                                         <input type="email" class="form-control border-0 "
-                                                                                            id="email1" placeholder="e.g Steve@gmail.com"
+                                                                                            id="email1" 
                                                                                              required name="email">
                                                 
                                                                                     </div>
@@ -407,7 +407,7 @@
                                                                                     <div class="mb-3">
                                                                                         <label class="form-label" for="email2">Email 2</label>
                                                                                         <input type="email" class="form-control border-0"
-                                                                                            id="email2" placeholder="e.g Steve@gmail.com"
+                                                                                            id="email2" 
                                                                                             name="email2">
                                                 
                                                                                     </div>
@@ -599,8 +599,8 @@
                                                                                             <p class="font-size-14 mb-1 color-color1">{{log.0}}</p>
                                                                                             <div class="mt-2 bg-soft-boxgray1 px-3 py-3 fs-13 rounded-3 d-flex flex-wrap">
                                                                                                 <img class="rounded-circle avatar-md mb-2 me-2" alt="200x200" src="{%static 'images/users/'%}{{log.7}}.png"
-                                                                                                onerror='this.src="{% static 'images/users/user.png' %}"' data-holder-rendered="true">
-                                                                                                <div class="ms-2">
+                                                                                                 data-holder-rendered="true">
+                                                                                                <div class="">
                                                                                                     <p class="color-color1  mb-0 ">{{log.7}}</p>
                                                                                                     <p class=" text-white  mb-0 fs-15"><span class="me-2 d-inline-block">{{log.4}}</span> <svg width="10" height="8" viewBox="0 0 10 8" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                                                                         <path d="M0.75 4.00004L3.58 6.83004L9.25 1.17004" stroke="#00A54F" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -659,8 +659,8 @@
                                                             </div>
 
                                                          
-                                                            <div class="col-lg-3 mb-3 getheight">
-                                                                <div class="d-flex flex-wrap align-items-left flex-column mb-3 ">
+                                                            <div class="col-xl-12 col-xxl-3  mb-3 getheight">
+                                                                <div class="d-flex flex-wrap align-items-left flex-column mb-3 mt-4 mt-xxl-0 ">
                                                                     <h5 class="card-title me-2 almarenamonolight-type fs-21 mb-0">Ticket summary</h5>
                         
                         
@@ -740,17 +740,17 @@
                                                      
                                                         <div class="row px-0" id="getheight-container1">
 
-                                                            <div class="col-lg-6 getheight">
-                                                                <!--<div class="d-flex flex-wrap align-items-left flex-column mb-3 ">
-                                                                    <h5 class="card-title me-2 almarenamonolight-type fs-21 mb-0">Personal details</h5>
+                                                            <div class="col-lg-7  col-xl-7 col-xxl-5 mb-3  getheight">
+                                                                <div class="d-flex flex-wrap align-items-left flex-column mb-3 ">
+                                                                    <h5 class="card-title me-2 almarenamonolight-type fs-21 mb-0">Other details</h5>
                         
                         
-                                                                </div>-->
+                                                                </div>
 
                                                                 <div class="card card-h-100 border-0" style="background-color: #1B1C2E;">
                                                                     <div class="card-body">
                                                                         <div class="row px-0">
-                                                                            <div class="col-md-6 col-lg-6 col-xxl-3">
+                                                                            <div class="col-md-6">
                                                                                 <div class="mb-3">
                                                                                     <label class="form-label" for="age">Age</label>
                                                                                     <input type="text" class="form-control border-0"
@@ -758,7 +758,7 @@
                         
                                                                                 </div>
                                                                             </div>
-                                                                            <div class="col-md-6 col-lg-6 col-xxl-3">
+                                                                            <div class="col-md-6">
                                                                                 <div class="mb-3">
                                                                                     <label class="form-label" for="dob">Date of birth</label>
                                                                                     <input type="text" class="form-control border-0"
@@ -767,7 +767,7 @@
                                                                                 </div>
                                                                             </div>
         
-                                                                            <div class="col-md-6 col-lg-6 col-xxl-3">
+                                                                            <div class="col-md-6">
                                                                                 <div class="mb-3">
                                                                                     <label class="form-label"
                                                                                         for="address">Address</label>
@@ -777,17 +777,17 @@
                         
                                                                                 </div>
                                                                             </div>
-                                                                            <div class="col-md-6 col-lg-6 col-xxl-3">
+                                                                            <div class="col-md-6">
                                                                                 <div class="mb-3">
-                                                                                    <label class="form-label w-100 text-xxl-end"
+                                                                                    <label class="form-label "
                                                                                         for="profession">Zipcode</label>
-                                                                                    <input type="text" class="form-control border-0  text-xxl-end"
+                                                                                    <input type="text" class="form-control border-0 "
                                                                                         id="zipcode" placeholder=""
                                                                                         name="zipcode">
                         
                                                                                 </div>
                                                                             </div>
-                                                                            <div class="col-md-6 col-lg-6 col-xxl-3">
+                                                                            <div class="col-md-6">
                                                                                 <div class="mb-3">
                                                                                     <label class="form-label"
                                                                                         for="state">State</label>
@@ -797,7 +797,7 @@
                         
                                                                                 </div>
                                                                             </div>
-                                                                            <div class="col-md-6 col-lg-6 col-xxl-3">
+                                                                            <div class="col-md-6">
                                                                                 <div class="mb-3">
                                                                                     <label class="form-label"
                                                                                         for="annualincome">Annual income</label>
@@ -807,7 +807,7 @@
                         
                                                                                 </div>
                                                                             </div>
-                                                                            <div class="col-md-6 col-lg-6 col-xxl-3">
+                                                                            <div class="col-md-6">
                                                                                 <div class="mb-3">
                         
                                                                                     <label class="form-label" for="exp">Experience </label>
@@ -824,15 +824,15 @@
                                                                             </div>
                                                                             <div class="col-md-3">
                                                                                 <div class="mb-3">
-                                                                                    <label class="form-label  w-100 text-xxl-end"
+                                                                                    <label class="form-label "
                                                                                         for="profession">Profession</label>
-                                                                                    <input type="text" class="form-control border-0 text-xxl-end"
+                                                                                    <input type="text" class="form-control border-0 "
                                                                                         id="profession" placeholder=""
                                                                                        name="profession">
                         
                                                                                 </div>
                                                                             </div>
-                                                                            <div class="col-md-6 col-lg-6 col-xxl-3 ">
+                                                                            <div class="col-md-6">
                                                                                 <div class="mb-3">
                                                                                     <label class="form-label" for="category">Category<span
                                                                                             class="color-orange"></label>
@@ -841,7 +841,7 @@
                         
                                                                                 </div>
                                                                             </div>
-                                                                            <div class="col-md-6 col-lg-6 col-xxl-3 ">
+                                                                            <div class="col-md-6 ">
                                                                                 <div class="mb-3">
                                                                                     <label class="form-label" for="potential">Potential<span
                                                                                             class="color-orange"></label>
@@ -850,7 +850,7 @@
                         
                                                                                 </div>
                                                                             </div>
-                                                                            <div class="col-md-6 col-lg-6 col-xxl-3 ">
+                                                                            <div class="col-md-6 ">
                                                                                 <div class="mb-3">
                                                                                     <label class="form-label" for="language">Language<span
                                                                                             class="color-orange"></label>
@@ -863,11 +863,11 @@
                         
                                                                                 </div>
                                                                             </div>
-                                                                            <div class="col-md-6 col-lg-6 col-xxl-3 ">
+                                                                            <div class="col-md-6">
                                                                                 <div class="mb-3">
-                                                                                    <label class="form-label text-xxl-end w-100" for="hearfrom">How did you
+                                                                                    <label class="form-label w-100" for="hearfrom">How did you
                                                                                         hear<span class="color-orange"></label>
-                                                                                    <select class="form-control border-0 text-xxl-end" name="hearfrom"
+                                                                                    <select class="form-control border-0 " name="hearfrom"
                                                                                         id="hearfrom" required >
                                                                                         <option value="0">Select</option>
                                                                                         <option value="facebook">Facebook</option>
@@ -886,7 +886,7 @@
                                                                                 </div>
                                                                             </div>
         
-                                                                            <div class="col-md-6 col-lg-6 col-xxl-3 ">
+                                                                            <div class="col-md-6  ">
                                                                                 <div class="mb-3">
                                                                                     <label class="form-label"
                                                                                         for="applicationform">Application form</label>
@@ -911,16 +911,18 @@
                                                                 
 
                                                             </div>
-                                                            <div class="col-lg-6 getheight">
+                                                            
+                                                            <div class="col-lg-5 col-xl-5  col-xxl-7 mb-3  getheight">
                                                         
-
-                                                                    <div class="card card-h-100 border-0" style="background-color: #1B1C2E;">
-                                                                        <div class="card-body">
-                                                                            <div class="d-flex flex-wrap align-items-left flex-column mb-3 ">
-                                                                                <h5 class="card-title me-2 gilorymedium-type fs-23 mb-0">Webinar attended</h5>
-                                    
-                                    
-                                                                            </div>
+                                                                <div class="d-flex flex-wrap align-items-left flex-column mb-3 ">
+                                                                    <h5 class="card-title me-2 almarenamonolight-type fs-21 mb-0">Webinar attended</h5>
+                        
+                        
+                                                                </div>
+                                                                <div class="card card-h-100 border-0" style="background-color: #1B1C2E;">
+                                                                    <div class="card-body">
+                                                                       
+                                                                        <div class="table-responsive" data-simplebar=" " style="max-height: 100%;">
                                                                             <div class="  text-center d-block ">
                                             
                                                                                 <img src="{%static 'images/nodata/nodata.png' %}" alt="">
@@ -930,159 +932,75 @@
                                                                                 <p class="gilory-regular-type fs-20 mt-2">Nothing To show</p>
                                             
                                                                             </div>
-                                                                            <!-- <div class="table-responsive" data-simplebar=" " style="max-height: 100%;">
-                                                                                <table class="table mb-0 " style="vertical-align: middle ;">
-            
-                                                                                    <thead>
-                                                                                        <tr class="gilroyregular-type fs-12">
-                                                                                            <th>
-                                                                                                
-                                                                                                Name
-            
-                                                                                            </th>
-                                                                                            <th>Date</th>
-            
-                                                                                            <th class="text-end">Status</th>
-                                                                                        </tr>
-                                                                                    </thead>
-                                                                                    <tbody class="gilroymedium-type fs-14">
-                                                                                        <tr>
-                                                                                            <td scope="row">
-            
-                                                                                                <div class="d-flex align-items-center"> 
-            
-                                                                                                    <div class="activity-icon avatar-sm me-3">
-                                                                                                        <span class="avatar-title   rounded-circle">
-                                                                                                            
-                                                                                                            <img class="rounded-circle avatar-sm" src="assets/images/users/firasmonzer.png" alt="">
-                                                                                                        </span>
-                    
-                                                                                                    </div>
-                                                                                                    <div class="flex-grow-1 overflow-hidden me-4">
-                                                                                                        <h5 class="mb-0 gilroymedium-type fs-14 color-color1">
-                                                                                                            Firas
-                                                                                                            Monzer</h5>
-                                                                                                        <p class=" gilroymedium-type fs-16 mb-0 text-white">
-                                                                                                            Trading seminar
-                                                                                                        </p>
-                                                                                                    </div>
-            
-            
-                                                                                                </div>
-                                                                                                
-                                                                                           
-                                                                                            </td>
-                                                                                            <td>
-                                                                                                <select class="form-control border-0"
-                                                                                                    name="seminardate" id="seminadate"
-                                                                                                    required value="Sept 15th -2022
-                                                                                            9:00 - 9:30">
-                                                                                                    <option value="Sept 15th -2022
-                                                                                                9:00 - 9:30">Sept 15th -2022
-                                                                                                        9:00 - 9:30</option>
-            
-                                                                                                </select>
-            
-                                                                                            </td>
-                                                                                            <td class="text-end">
-            
-                                                                                                <select class=" text-end btn  btn-sm  status" 
-                                                                                                    name="seminarstatus "
-                                                                                                    id="seminarstatusrow1" required  onchange="selectUpdate(this)">
-                                                                                                    <option  value=2  > 
-                                                                                                        Cancelled
-                                                                                                    </option>
-                                                                                                    <option  value=0   > 
-                                                                                                        Attended
-                                                                                                    </option>
-                                                                                                    <option  value=1  > 
-                                                                                                        Pending
-                                                                                                    </option>
-                                                                                                    
-            
-                                                                                                </select>
+                                                                            <!-- <table class="table mb-0 " style="vertical-align: middle ;">
+        
+                                                                                <thead>
+                                                                                    <tr class="gilroyregular-type fs-12">
+                                                                                        <th>
                                                                                             
-                                                                                                    
-                                                                                            </td>
-            
-                                                                                        </tr>
-                                                                                        <tr>
-                                                                                            <td scope="row">
-            
-                                                                                                <div class="d-flex align-items-center"> 
-            
-                                                                                                    <div class="activity-icon avatar-sm me-3">
-                                                                                                        <span class="avatar-title   rounded-circle">
-                                                                                                           
-                                                                                                            <img class="rounded-circle avatar-sm" src="assets/images/users/firasmonzer.png" alt="">
-                                                                                                        </span>
-                    
-                                                                                                    </div>
-                                                                                                    <div class="flex-grow-1 overflow-hidden me-4">
-                                                                                                        <h5 class="mb-0 gilroymedium-type fs-14 color-color1">
-                                                                                                            Firas
-                                                                                                            Monzer</h5>
-                                                                                                        <p class=" gilroymedium-type fs-16 mb-0 text-white">
-                                                                                                            Trading seminar
-                                                                                                        </p>
-                                                                                                    </div>
-            
-            
+                                                                                            Name
+        
+                                                                                        </th>
+                                                                                        <th>Date</th>
+        
+                                                                                        <th class="text-end">Status</th>
+                                                                                    </tr>
+                                                                                </thead>
+                                                                                <tbody class="gilroymedium-type fs-14">
+                                                                                    <tr>
+                                                                                        <td scope="row">
+        
+                                                                                            <div class="d-flex align-items-center"> 
+        
+                                                                                                <div class="activity-icon avatar-sm me-3">
+                                                                                                    <span class="avatar-title   rounded-circle">
+                                                                                                       
+                                                                                                        <img class="rounded-circle avatar-sm" src="assets/images/users/firasmonzer.png" alt="">
+                                                                                                    </span>
+                
                                                                                                 </div>
-                                                                                                
-                                                                                               
-                                                                                            </td>
-                                                                                            <td>
-                                                                                                <select class="form-control border-0 "
-                                                                                                    name="seminardate" id="seminadate"
-                                                                                                    required value="Sept 15th -2022
-                                                                                            9:00 - 9:30">
-                                                                                                    <option value="Sept 15th -2022
-                                                                                                9:00 - 9:30">Sept 15th -2022
-                                                                                                        9:00 - 9:30</option>
-            
-                                                                                                </select>
-            
-                                                                                            </td>
-                                                                                            <td class="text-end">
-            
-                                                                                                <select class=" text-end btn  btn-sm   status"  onchange="selectUpdate(this)"
-                                                                                                    name="seminarstatus "
-                                                                                                    id="seminarstatusrow2" required >
-                                                                                                    <option  value=0   > 
-                                                                                                    Attended
-                                                                                                    </option>
-                                                                                                    <option  value=1  > 
-                                                                                                        Pending
-                                                                                                    </option>
-                                                                                                    <option  value=2  > 
-                                                                                                        Cancelled
-                                                                                                    </option>
-                                                                                                
-            
-                                                                                                </select>
+                                                                                                <div class="flex-grow-1 overflow-hidden me-4">
+                                                                                                    <h5 class="mb-0 gilroymedium-type fs-14 color-color1">
+                                                                                                        Firas
+                                                                                                        Monzer</h5>
+                                                                                                    <p class=" gilroymedium-type fs-16 mb-0 text-white">
+                                                                                                        Trading seminar
+                                                                                                    </p>
+                                                                                                </div>
+        
+        
+                                                                                            </div>
                                                                                             
-                                                                                                    
-                                                                                            </td>
-            
-                                                                                        </tr>
+                                                                                         
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            <select class="form-control border-0"
+                                                                                                name="seminardate" id="seminadate"
+                                                                                                required value="Sept 15th -2022
+                                                                                        9:00 - 9:30">
+                                                                                                <option value="Sept 15th -2022
+                                                                                            9:00 - 9:30">Sept 15th -2022
+                                                                                                    9:00 - 9:30</option>
+        
+                                                                                            </select>
+        
+                                                                                        </td>
+                                                                                        
+        
+                                                                                    </tr>
                                                                                     
-                                                                                    
-            
-                                                                                    </tbody>
-                                                                                </table>
-                                                                            </div> -->
-
+                                                                                
+                                                                                
+        
+                                                                                </tbody>
+                                                                            </table> -->
                                                                         </div>
+
                                                                     </div>
+                                                                </div>                                                           
+                                                         
 
-                                                                
-                                                                
-                                                                
-                                                                
-
-                                                            </div>
-                                                        
+                                                        </div>
 
 
                                                         </div>
@@ -1093,26 +1011,20 @@
 
                                                     <div class="row px-0">
 
-                                                            <div class="col-lg-12 col-xl-2">
+                                                            <div class="col-lg-12 col-xl-12 col-xxl-2">
                                                                  <!-- Left sidebar -->
                                 <div class="email-leftbar card border-0 w-100 card-h-100" style="background-color:
                                 rgba(27, 28, 46, 1) ;">
                                     <!--<button type="button" class="btn btn-danger w-100 waves-effect waves-light" data-bs-toggle="modal" data-bs-target="#composemodal">
                                         Compose
                                     </button>-->
-                                    <div class="mail-list mt-0">
-                                        <a  class=" rounded-2 gilroymedium-type fs-15  mb-2 text-white text-center" style="background-color:
+                                    <div class="mail-list mt-0 d-flex d-xxl-block justify-content-center">
+                                        <a   data-id="compose-email" class=" rounded-2 gilroymedium-type fs-15  mb-2 text-white text-center mx-2 mx-xxl-0 flex-grow-1" onclick="tabswitchemail(this)" style="background-color:
                                        rgba(2, 126, 194, 1) ;">
 Compose </a>
-                                        <!-- <a href="#" class=" rounded-2 gilroymedium-type fs-15 color-color1 mb-2" style="background-color:
-                                        rgba(32, 33, 52, 1) ;"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M16.5 7.875V11.625C16.5 14.25 15 15.375 12.75 15.375H5.25C3 15.375 1.5 14.25 1.5 11.625V6.375C1.5 3.75 3 2.625 5.25 2.625H10.5" stroke="#9295D0" stroke-width="1.2" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M5.25 6.75L7.5975 8.625C8.37 9.24 9.6375 9.24 10.41 8.625L11.295 7.92" stroke="#9295D0" stroke-width="1.2" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M14.625 6C15.6605 6 16.5 5.16053 16.5 4.125C16.5 3.08947 15.6605 2.25 14.625 2.25C13.5895 2.25 12.75 3.08947 12.75 4.125C12.75 5.16053 13.5895 6 14.625 6Z" stroke="#9295D0" stroke-width="1.2" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
-</svg>
- Inbox <span class="ms-1 me-2 fs-12 float-end ">392</span></a> -->
- <a class=" rounded-2 gilroymedium-type fs-15 color-color1 mb-2" style="background-color:
- rgba(32, 33, 52, 1) ;"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        
+ <a   data-id="sent-email" onclick="tabswitchemail(this)" class=" rounded-2 gilroymedium-type fs-15  mb-2 text-white mx-2 mx-xxl-0 flex-grow-1"  style="background-color:
+ rgba(32, 33, 52, 1) ;"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg" >
 <path d="M7.13245 3.17248L13.5525 6.38248C16.4325 7.82248 16.4325 10.1775 13.5525 11.6175L7.13245 14.8275C2.81245 16.9875 1.04995 15.2175 3.20995 10.905L3.86245 9.60748C4.02745 9.27748 4.02745 8.72998 3.86245 8.39998L3.20995 7.09498C1.04995 2.78248 2.81995 1.01248 7.13245 3.17248Z" stroke="#9295D0" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
 <path d="M4.08008 9H8.13008" stroke="#9295D0" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
 </svg>
@@ -1126,61 +1038,136 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">392</span></a>
 
                                                             </div>
 
-                                                            <div class="col-lg-8 col-xl-7">
+                                                            <div class="col-lg-8 col-xl-7 col-xxl-7">
 
                                                                 <div class="card card-h-100 border-0" style="background-color: 
                                                                 rgba(27, 28, 46, 1);">
 
                                                                     <div class="card-body">
-                                                                       
-                                                                            <h5 class="card-title me-2 gilorymedium-type fs-22 mb-0 py-0">Create new email</h5>
+                                                                        <div>
+                                                                            <div id="compose-email" class="d-block">
+
+                                                                                <h5 class="card-title me-2 gilorymedium-type fs-22 mb-0 py-0">Create new email</h5>
                                 
                                 
-                                                                            <hr>
-                                                                        <form action="" class="formtype_leads ">
-
-                                                                          
-                                                                                <!-- <div class="row align-items-center mb-2">
-                                                                                    <label class="form-label col-sm-2" for="">From : </label>
-                                                                                    <div class="col-sm-9">
-
-                                                                                        <input type="email" class="form-control border-0   text-start" id="emailto" placeholder="e.g Steve@gmail.com"  required="" name="email_from">
-
-                                                                                    </div>
-                                                                                    
-                                                                                  
-                                                                                </div> -->
-                                                                                <div class="row align-items-center mb-2">
-                                                                                    <label class="form-label col-sm-2" for="">Subject : </label>
-                                                                                    <div class="col-sm-9">
-
-                                                                                        <input type="subj" class="form-control border-0   text-start" id="emailsub" placeholder="subject About Email"  required="" name="emailsub">
-
-                                                                                    </div>
-                                                                                    
-                                                                                  
-                                                                                </div>
-                                                                               
+                                                                                <hr>
+                                                                            <form action="" class="formtype_leads ">
+    
                                                                               
-                                                                                
+                                                                                    <!-- <div class="row align-items-center mb-2">
+                                                                                        <label class="form-label col-sm-2" for="">From : </label>
+                                                                                        <div class="col-sm-9">
+    
+                                                                                            <input type="email" class="form-control border-0   text-start" id="emailto" placeholder="e.g Steve@gmail.com"  required="" name="email_from">
+    
+                                                                                        </div>
+                                                                                        
+                                                                                      
+                                                                                    </div> -->
+                                                                                    <div class="row align-items-center mb-2">
+                                                                                        <label class="form-label col-sm-2" for="">Subject : </label>
+                                                                                        <div class="col-sm-9">
+    
+                                                                                            <input type="subj" class="form-control border-0   text-start" id="emailsub" placeholder="subject About Email"  required="" name="emailsub">
+    
+                                                                                        </div>
+                                                                                        
+                                                                                      
+                                                                                    </div>
+                                                                                   
+                                                                                  
+                                                                                    
+    
+                                                                            
+                                                                                <div id="editor">
+    
+                                                                                </div>
+    
+                                                                                <div>
+                                                                                    <button class="btn btn-info btn-md mt-3 me-2 rounded-2" type="button" onclick="composeEmailSend()">Send</button>
+                                                                                    <button class="btn btn-outline-light btn-md mt-3  rounded-2" type="reset">Cancel</button>
+                                                                                </div>
+    
+    
+                                                                            </form>
+                                                                            </div>
+                                                                            <div id="sent-email"  class="d-none">
+    
+                                                                                <ul class="message-list" data-simplebar style="max-height: 300px;">
+                                                                                    <li class="fs-16" href="#read-email" data-id="read-email" onclick="tabswitchemail(this)">
+                                                                                        <div class="col-mail col-mail-1">
+                                                                                            <div class="checkbox-wrapper-mail">
+                                                                                                <input type="checkbox" id="chk1">
+                                                                                                <label for="chk1" class="toggle"></label>
+                                                                                            </div>
+                                                                                            <a href="#" class="title text-white gilroysemibold-type">Peter, me (3)</a><span class="star-toggle far fa-star" style="color:var(--color1) ;"></span>
+                                                                                        </div>
+                                                                                        <div class="col-mail col-mail-2">
+                                                                                            <a href="#" class="subject color-color1 gilroyregular">Hello – <span class="teaser">Trip home from Colombo has been arranged, then Jenna will come get me from Stockholm. :)</span>
+                                                                                            </a>
+                                                                                            <div class="date text-white gilroymedium-type">Mar 6</div>
+                                                                                        </div>
+                                                                                    </li>
+                                                                                    <hr class="mx-3 my-0">
+                                                                                    <li class="fs-16" href="#read-email" data-id="read-email" onclick="tabswitchemail(this)">
+                                                                                        <div class="col-mail col-mail-1">
+                                                                                            <div class="checkbox-wrapper-mail">
+                                                                                                <input type="checkbox" id="chk2" >
+                                                                                                <label for="chk2" class="toggle" style="color:var(--color1) ;"></label>
+                                                                                            </div>
+                                                                                            <a href="#" class="title text-white gilroysemibold-type">Peter, me (3)</a><span class="star-toggle far fa-star" style="color:var(--color1) ;"></span>
+                                                                                        </div>
+                                                                                        <div class="col-mail col-mail-2">
+                                                                                            <a href="#" class="subject color-color1 gilroyregular">Hello – <span class="teaser">Trip home from Colombo has been arranged, then Jenna will come get me from Stockholm. :)</span>
+                                                                                            </a>
+                                                                                            <div class="date text-white gilroymedium-type">Mar 6</div>
+                                                                                        </div>
+                                                                                    </li>
+                                                                                    
+                                                                                   
+                                                
+                                                                                </ul>
+                                                                            </div>
+                                                                            <div id="read-email" class="d-none">
 
+                                                                                <div class=" mb-3">
+                                                                                    <div class="card">
+                                                
+                                                                                        <div class="card-body">
+                                                                                            <div class="d-flex align-items-center mb-4">
+                                                                                                <!--<div class="flex-shrink-0 me-3">
+                                                                                                    <img class="rounded-circle avatar-sm" src="assets/images/users/avatar-2.jpg" alt="Generic placeholder image">
+                                                                                                </div>-->
+                                                                                                <div class="flex-grow-1 gilroymedium-type ">
+                                                                                                    <h5 class="fs-14 mb-0 text-white">Humberto D. Champion</h5>
+                                                                                                    <small class="fs-11 color-color1">support@domain.com</small>
+                                                                                                </div>
+                                                                                            </div>
+                                                    
+                                                                                            <h4 class="fs-16  gilroymedium-type text-white">This Week's Top Stories</h4>
+                                                    
+                                                                                            <p class="gilroyregular-type color-color1 fs-16">Dear Lorem Ipsum,</p>
+                                                                                            <p class="gilroyregular-type color-color1 fs-16">Praesent dui ex, dapibus eget mauris ut, finibus vestibulum enim. Quisque arcu leo, facilisis in fringilla id, luctus in tortor. Nunc vestibulum est quis orci varius viverra. Curabitur dictum volutpat massa vulputate molestie. In at felis ac velit maximus convallis.
+                                                                                            </p>
+                                                                                            <p class="gilroyregular-type color-color1 fs-16">Sed elementum turpis eu lorem interdum, sed porttitor eros commodo. Nam eu venenatis tortor, id lacinia diam. Sed aliquam in dui et porta. Sed bibendum orci non tincidunt ultrices. Vivamus fringilla, mi lacinia dapibus condimentum, ipsum urna lacinia lacus, vel tincidunt mi nibh sit amet lorem.</p>
+                                                                                            <p class="gilroyregular-type color-color1 fs-16">Sincerly,</p>
+                                                                                            <!--<hr>-->
+                                                    
+                                                                                           
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    
+                                                                                </div>
+
+                                                                            </div>
+                                                                        </div>
+                                                                       
                                                                         
-                                                                            <div id="editor">
-
-                                                                            </div>
-
-                                                                            <div>
-                                                                                <button class="btn btn-info btn-md mt-3 me-2 rounded-2" type="button" onclick="composeEmailSend()">Send</button>
-                                                                                <button class="btn btn-outline-light btn-md mt-3  rounded-2" type="reset">Cancel</button>
-                                                                            </div>
-
-
-                                                                        </form>
 
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                            <div class="col-lg-4 col-xl-3">
+                                                            <div class="col-lg-4 col-xl-5 col-xxl-3">
                                                                 <div class="card card-h-100 border-0" style="background-color:
                                                                 rgba(27, 28, 46, 1) ;">
 
@@ -1700,7 +1687,7 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">392</span></a>
 
                                                                 
                                                             
-                                                                <div class="chat-logs mx-3" data-simplebar style="max-height: 372px;" id="chatdiv">          
+                                                                <div class="chat-logs mx-3"  style="max-height: 372px;overflow-y: scroll;" id="chatdiv">          
 
                                                                         <!--Chat-->
                                                                        
@@ -1734,161 +1721,208 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">392</span></a>
                                    
                                     style="background-color: var(--bs-card-bg) ;" onclick="meetingPage()">Meeting</button>
                                     <button type="button" class="btn bg-soft-secondarycolor text-white me-2" style="background-color: var(--bs-card-bg) ;" onclick="resolveTicket()">Resolve Ticket</button>
-                                <div class="modal fade  bs-example-modal-meeting" tabindex="-1" role="dialog"
-                                    aria-hidden="true">
+                                    <div class="modal fade  bs-example-modal-seminars" tabindex="-1" role="dialog" aria-hidden="true" id="seminarpopup">
+                                          
+                                        <div class="modal-dialog modal-dialog-centered  modal-lg d-block">
+                                         
 
-                                    <div class="modal-dialog modal-dialog-centered  ">
+                                     
+                                            <div class="modal-content mb-4">
+                                             
+                                                
+                                       
+                                                <div class="modal-body">
 
+                                                
 
+                                                  
+                                                 <div class="border-dashed rounded-3 px-3 py-3">
+                                                     <div class="modal-header border-0 px-0">
+                                                         <h5 class="modal-title fs-21 ">Up Coming Webinar  </h5>
+ 
+                                                         <a href="" data-bs-dismiss="modal" aria-label="Close">
+                                                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                 <path d="M9.16992 14.83L14.8299 9.17" stroke="var(--white)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                                 <path d="M14.8299 14.83L9.16992 9.17" stroke="var(--white)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                                 <path d="M9 22H15C20 22 22 20 22 15V9C22 4 20 2 15 2H9C4 2 2 4 2 9V15C2 20 4 22 9 22Z" stroke="white" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                                 </svg>
+         
+                                                             </a>
+                                                     </div>
+                                                 
 
-                                        <div class="modal-content ">
+                                                     <div class="table-responsive" data-simplebar style="max-height: 352px;">
+                                                         <table class="table mb-0 ">
 
-
-
-                                            <div class="modal-body ">
-
-
-                                                <div class="  px-3 border rounded-3">
-
-                                                    <div class="modal-header border-0 ">
-                                                        <h5 class="modal-title fs-21 ">Business Development Strategy Webinar  </h5>
-
-                                                        <a href="" data-bs-dismiss="modal" aria-label="Close">
-                                                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                <path d="M9.16992 14.83L14.8299 9.17" stroke="var(--white)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
-                                                                <path d="M14.8299 14.83L9.16992 9.17" stroke="var(--white)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
-                                                                <path d="M9 22H15C20 22 22 20 22 15V9C22 4 20 2 15 2H9C4 2 2 4 2 9V15C2 20 4 22 9 22Z" stroke="white" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
-                                                                </svg>
-        
-                                                            </a>
-                                                    </div>
-
-
-                                                    <form class="needs-validation pt-3" novalidate="" id="action-call">
-                                                        <div class="row">
-   
-    
-                                                                <div class="col-md-12">
-                                                                    <div class="mb-3">
-                                                                        <label class="form-label " for="Webinarlevel">Webinar level</label>
-                                                                        <select class="form-select" id="Webinarlevel" value="" required="">
-                                                                            <option value="Webinarlevel">Webinarlevel</option>
-                                                                            <option value="Mobile trading">Webinarlevel</option>
-                                                                        </select>
-                
-                                                                        <div class="invalid-feedback">
-                                                                            Please provide a valid entry.
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-md-12">
-
-                                                                    <div class="mb-3">
-                                                                        <label class="form-label " for="datepicker">Date</label>
-                
-                                                                        <input type="text" class="form-control" id="datepickerwebinar">
-                                                                        <div class="invalid-feedback">
-                                                                            Please provide a valid entry.
-                                                                        </div>
-                                                                    </div>
-
-            
+     
+                                                             <tbody class="gilroyregular-type fs-15" id="seminartbody">
+                                                                
+                                                             
 
 
-                                                                </div>
-                                                                <div class="col-md-12">
-                                                                    <div class="mb-3">
-                                                                        <label class="form-label " for="time">Time</label>
-                                                                        <input type="text" id="timepickerweb"  class="form-control">
-                
-                                                                        <div class="invalid-feedback">
-                                                                            Please provide a valid entry.
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-md-12">
-                                                                    <div class="mb-3">
-                                                                        <label class="form-label " for="description">Description</label>
-                                                                        <textarea name="" id="description" cols="30" rows="5" class="form-control"></textarea>
-                
-                                                                        <div class="invalid-feedback">
-                                                                            Please provide a valid entry.
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-md-12">
-                                                                    <div class="mb-3">
-                                                                        <label class="form-label " for="createlink">Create link</label>
-                                                                        <input class="form-control" id="createlink" value="" required="">
-                   
-                
-                                                                        <div class="invalid-feedback">
-                                                                            Please provide a valid entry.
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-md-12">
-                                                                    <button class="btn btn-primary btn-lg my-3 " type="submit">Submit form</button>
-        
-                                                                </div>
-        
-       
-       
-       
-    
-    
-                                                        </div>
+                                                             </tbody>
+                                                         </table>
+
+                                                         <div class="d-flex justify-content-end mt-4 ">
+
+                                                             <button type="button" class="btn bg-soft-green text-white me-2 btn-lg me-3 rounded-2" onclick="webinarRegistration()">Register for webinar</button>
+                                                             <button type="button" class="btn btn-outline-light text-white me-2 btn-lg rounded-2" >Send reminder</button>
+                                                         </div>
+                                                     </div>
 
 
-                                                    </form>
+                                                 </div>
+                                                 
 
 
-
-
-
-
-
+                                                 
+                                                
+                                                    
                                                 </div>
+
+                                                
                                             </div><!-- /.modal-content -->
 
+                                            <div class="modal-content mb-4">
+                                             
+                                                
+                                       
+                                             <div class="modal-body">
+
+                                             
+
+                                               
+                                                  <div class="modal-header border-0 px-0">
+                                                      <h5 class="modal-title fs-21 ">Webinar Details  </h5>
+ 
+                                                      <a href="" data-bs-dismiss="modal" aria-label="Close">
+                                                          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                              <path d="M9.16992 14.83L14.8299 9.17" stroke="var(--white)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                              <path d="M14.8299 14.83L9.16992 9.17" stroke="var(--white)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                              <path d="M9 22H15C20 22 22 20 22 15V9C22 4 20 2 15 2H9C4 2 2 4 2 9V15C2 20 4 22 9 22Z" stroke="white" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                              </svg>
+         
+                                                          </a>
+                                                  </div>
+                                              
+
+                                                  <div class="table-responsive" data-simplebar style="max-height: 352px;">
+                                                      <table class="table mb-0 ">
+
+                                                          <thead>
+                                                              <tr class="almarenamonolight-type fs-14">
+                                                                  <th>Seminars</th>
+                                                                  <th>Level</th>
+                                                                  <th>Invited</th>
+                                                                  <th>App form</th>
+                                                                  <th>Status</th>
+                                                                  <th>Feedback</th>
+                                                                  <th class="text-end">Edit</th>
+                                                              </tr>
+                                                          </thead>
+                                                          <tbody class="gilroyregular-type fs-15">
+                                                              <tr>
+                                                                  <th scope="row">02</th>
+                                                                  <td>26-05-2022</td>
+                                                                  <td>13:00</td>
+                                                                  <td>TC Limitted office</td>
+                                                                  <td>Introduce</td>
+                                                                  <td class="text-success">Attended</td>
+                                                                  <td class="text-end">
+
+                                                                      <!--PopUp Actions-->
+                                                                      <div class="dropdown d-inline-block">
+                                                                          <a class="ms-2 " href="#" id="edit-table-row1" data-bs-toggle="dropdown" aria-haspopup="true"
+                                                                              aria-expanded="false" class="position-relative">
+                                                                              <svg width="22" height="23" viewBox="0 0 22 23" fill="none"
+                                                                                  xmlns="http://www.w3.org/2000/svg">
+                                                                                  <path
+                                                                                      d="M12.8333 4.99215C12.8333 3.98381 12.0083 3.15881 10.9999 3.15881C9.99159 3.15881 9.16659 3.98381 9.16659 4.99215C9.16659 6.00048 9.99159 6.82548 10.9999 6.82548C12.0083 6.82548 12.8333 6.00048 12.8333 4.99215Z"
+                                                                                      stroke="#73759D" stroke-width="1.5" />
+                                                                                  <path
+                                                                                      d="M12.8333 17.8255C12.8333 16.8172 12.0083 15.9922 10.9999 15.9922C9.99159 15.9922 9.16659 16.8172 9.16659 17.8255C9.16659 18.8339 9.99159 19.6589 10.9999 19.6589C12.0083 19.6589 12.8333 18.8339 12.8333 17.8255Z"
+                                                                                      stroke="#73759D" stroke-width="1.5" />
+                                                                                  <path
+                                                                                      d="M12.8333 11.409C12.8333 10.4007 12.0083 9.57568 10.9999 9.57568C9.99159 9.57568 9.16659 10.4007 9.16659 11.409C9.16659 12.4173 9.99159 13.2423 10.9999 13.2424C12.0083 13.2424 12.8333 12.4174 12.8333 11.409Z"
+                                                                                      stroke="#73759D" stroke-width="1.5" />
+                                                                              </svg>
 
 
-                                        </div><!-- /.modal-dialog -->
-                                    </div>
-                                    <!-- /.modal -->
+                                                                          </a>
 
 
 
 
+                                                                          <!--PopUp -->
+                                                                          <div class="dropdown-menu dropdown-menu-sm dropdown-menu-end p-0 border-0 "
+                                                                              aria-labelledby="edit-table-row1" style="background-color: var(--bs-card-bg);">
+
+                                                                              <div class=" py-2 px-2 d-flex flex-column">
+                                                                                  <button type="button"
+                                                                                      class="btn btn-md btn-sm-soft-color1 mb-2 fs-14 gilory-semibold-type bg-soft-purple text-white ">Send
+                                                                                      Attended</button>
+                                                                                  <button type="button"
+                                                                                      class="btn btn-md btn-sm-soft-color1   fs-14 gilory-semibold-type bg-soft-purple text-white">Cancel
+                                                                                      Not Attended</button>
+                                                                                      <button type="button"
+                                                                                      class="btn btn-md btn-sm-soft-color1   fs-14 gilory-semibold-type bg-soft-purple text-white">Cancel
+                                                                                      Attending</button>
+                                                                                      <button type="button"
+                                                                                      class="btn btn-md btn-sm-soft-color1   fs-14 gilory-semibold-type bg-soft-purple text-white">Cancel
+                                                                                      Not Attending</button>
+                                                                              </div>
 
 
 
+                                                                          </div>
+                                                                      </div>
+                                                                  </td>
+                                                              </tr>
+                                                         
+                                                              
+                                                  </tbody>
+                                                  </table>
+                                                  </div> 
+                                              
+                                              
 
 
-                                </div>
+                                              
+                                             
+                                                 
+                                             </div>
 
+                                             
+                                         </div><!-- /.modal-content -->
+
+                                           
+
+                                        </div>
+                                        </div>
+                                        </div>
                                             <div class="modal fade bs-example-modal-insta" tabindex="-1" role="dialog" aria-hidden="true" id="alertpopup">
                                                 <div class="modal-dialog modal-dialog-centered"   style="z-index: 10555;">
                                                     <div class="modal-content">
                                                         <div class="modal-header border-0">
                                                             <!--<h5 class="modal-title fs-21">@title</h5>-->
                                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                        </div>
+                                                            </div>
                                                                                 
-                                                        <div class="modal-body" >
-                                            
-                                            
-                                                            <div data-simplebar style="max-height: 230px;">
-                                            
-                                                                 <!--User-->
-                                                                <div id="userMsg">Please enter Ticket No to continue</div>
-                                                            </div>
-                                                            </div>
+                                                                <div class="modal-body" >
+                                                    
+                                                    
+                                                                        <div data-simplebar style="max-height: 230px;">
+                                                        
+                                                                            <!--User-->
+                                                                            <div id="userMsg">Please enter Ticket No to continue</div>
+                                                                        </div>
+                                                                    </div>
                                                        
-                                                        </div>
                                                     </div>
+                                                 </div>
                                                 </div>
                                             </div>
+                                        
 
                 <!-- Stickky pop up -->
 
@@ -2342,6 +2376,75 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">392</span></a>
         $("#stickymodel").modal('show')
 
     }
+    function webinarList(){
+        var ticket=document.getElementById("ticketno").value
+        
+        if(ticket == ''){
+            $("#alertpopup").modal('show')
+        }
+        else{
+            var rows=""
+            $("#seminartbody").empty()
+            $.ajax({
+            
+            type : "GET", 
+            url: "{% url 'Admin:Upcoming' %}",
+            success: function(data){
+                var seminars=data.seminars
+                for(i=0;i<seminars.length;i++){
+                    console.log("Seminarsssss"+seminars[i][0])
+                    var time=seminars[i][2]
+                    time=time.substring(11,16)
+                    rows+="<tr><th scope='row' style='color:#43B5F4;''>"+seminars[i][4]+"<br>"+seminars[i][3]+"</th><td ><span class='color-color1 d-block'>Seminar title</span>"+
+                          "<span class='text-uppercase text-white'>"+seminars[i][0]+"</span> </td><td><span class='color-color1 d-block'>Time</span>"+
+                          "<span class='text-white'>"+time+"</span></td><td class='text-end'><span class='color-color1 d-block'>Location</span>"+seminars[i][1]+
+                          "</tr><input type='hidden' name='seminartitle' id='seminartitle' value="+seminars[i][5]+">"
+                }
+                $("#seminartbody").append(rows)
+                $("#seminarpopup").modal('show')
+            }
+        })
+
+        }
+
+    }
+    function webinarRegistration(){
+        var seminartitle=$("#seminartitle").val()
+        var ticket=document.getElementById("ticketno").value
+        var email1=$("#email1").val()
+        var email2=$("#email2").val()
+       
+        var title=$("#title").val()
+        var name=$("#firstname").val()
+        var email=""
+        if(email1 || email2){
+            if(email1){
+                email=email1
+            }
+            if(email2){
+                email=email2
+            }
+        }
+        $.ajax({
+            
+            type : "GET", 
+            url: "{% url 'Admin:RegisterSeminar' %}",
+            data:{
+                'ticket':ticket,
+                "title":title,
+                "name":name,
+                "to_addr":email,
+                "seminartitle":seminartitle
+            },
+            success: function(data){
+                $("#seminarpopup").modal('hide')
+                $("#userMsg").empty()
+                $("#userMsg").append("Webinar Registation done")
+                $("#alertpopup").modal('show')
+            }
+        })
+
+    }
     function saveSticky(){
         var note=$("#stickytext").val()
         $.ajax({
@@ -2362,7 +2465,13 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">392</span></a>
     }
     function resolveTicket(){
         var ticket=document.getElementById("ticketno").value
-        $.ajax({
+        
+        if(ticket == ''){
+            $("#alertpopup").modal('show')
+            
+        }
+        else{
+            $.ajax({
             
             type : "GET", 
             url: "{% url 'Admin:TicketResolve' %}",
@@ -2378,49 +2487,81 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">392</span></a>
                 var message=datas.message
                 if(message){
                 $("#userMsg").empty()
-                $("#userMsg").append(message)
+                $("#userMsg").append("Ticket resolved")
                 $("#alertpopup").modal('show')
                 }
             }
         })
 
+
+        }
+       
     }
 
     function opendemoaccount(){
+        var ticket=document.getElementById("ticketno").value
+        if(ticket == ''){
+            $("#alertpopup").modal('show')
+            
+        }
+        else{
         var email1=$("#email1").val()
         var email2=$("#email2").val()
         var phone1=$("#phone").val()
         var phone2=$("#phone2").val()
+        var title=$("#title").val()
+        var name=$("#firstname").val()
+        var country=$("#country").val()
+        var email=""
+        var phone=""
         var flag=1
-        if(email1 || email2){
-            if(phone1 || phone2){
-                flag=0
-                console.log("Phone and email present and flag==="+flag)
+        if((email1 || email2) && (phone1 || phone2)){
+            if(!email1){
+                email=email2
             }
-
-        }
-
-        // $.ajax({
-            
-        //     type : "GET", 
-        //     url: "{% url 'Admin:TicketResolve' %}",
-           
-        //     data:{
-        //     'ticket':ticket
+            if(!email2){
+                email=email1
+            }
+            if(!phone1){
+                phone=phone2
+             }
+             if(!phone2){
+                phone=phone1
+             }
+             if(email&&phone){
+                        $.ajax({
+                    
+                    type : "GET", 
+                    url: "{% url 'Admin:OpenDemo' %}",
                 
-        //     },
-            
-            
-        //     success: function(datas){
-        //         console.log("Messageee----"+datas.message)
-        //         var message=datas.message
-        //         if(message){
-        //         $("#userMsg").empty()
-        //         $("#userMsg").append(message)
-        //         $("#alertpopup").modal('show')
-        //         }
-        //     }
-        // })
+                    data:{
+                    'title':title,
+                    'name':name,
+                    'email':email,
+                    'phone':phone,
+                    'country':country
+                        
+                    },
+                    
+                    
+                    success: function(datas){
+                        console.log("Messageee----"+datas.msg)
+                        var message=datas.msg
+                        if(message){
+                        $("#userMsg").empty()
+                        $("#userMsg").append(message)
+                        $("#alertpopup").modal('show')
+                        }
+                    }
+                })
+                // updateActivities(activities)
+                // updateTicketSummary(ticketSummary)
+
+             }
+           
+        }
+    }
+ 
 
     }
 
@@ -2504,6 +2645,14 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">392</span></a>
                     
                     
                     success: function(datas){
+                        console.log("Data-----"+data.msg)
+                
+                    $("#userMsg").empty()
+                     $("#userMsg").append("Email Send")
+                    $("#alertpopup").modal('show')
+
+                
+
                     }
         })
      
@@ -2541,7 +2690,9 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">392</span></a>
                 'body':email_data
                },
                success: function(data){
-                console.log("Data-----")
+                $("#userMsg").empty()
+                $("#userMsg").append("Email Send")
+                $("#alertpopup").modal('show')
                }
             })
         
@@ -2829,8 +2980,15 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">392</span></a>
     }
     function meetingPage(){
         var ticket=document.getElementById("ticketno").value
+        
+        if(ticket == ''){
+            $("#alertpopup").modal('show')
+            
+        }
+        else{
         var url="{% url 'Admin:Meeting' %}"
         window.location.href=url+"?&ticket="+ticket
+        }
 
     }
     function ticketLoad(ticket){
@@ -2916,7 +3074,7 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">392</span></a>
     function viewAsessment(){
 
         var ticket=document.getElementById("ticketno").value
-        if(ticket == ' '){
+        if(ticket == ''){
             $("#alertpopup").modal('show')
             
         }
@@ -3063,7 +3221,7 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">392</span></a>
     function liveLogs(){
 
         var ticket=document.getElementById("ticketno").value
-        if(ticket == ' '){
+        if(ticket == ''){
             $("#alertpopup").modal('show')
             
         }
@@ -3111,6 +3269,11 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">392</span></a>
     function loadTicketFuns(){
 
         var ticket=document.getElementById("ticketno").value
+        if(ticket == ''){
+            $("#alertpopup").modal('show')
+            
+        }
+        else{
        
         $("#formticket").val(ticket)
         console.log("Ticket----"+ticket)
@@ -3233,6 +3396,7 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">392</span></a>
 
         }
     }
+    }
 
     function updateActivities(activities){
         $("#activityList").empty()
@@ -3245,10 +3409,10 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">392</span></a>
                             activity+="  <li class='activity-list activity-border'><div class='activity-icon avatar-sm ms-2'><span class='avatar-title bg-soft-boxgray1 text-warning rounded-circle'>"+
                                     "</span></div><div class='timeline-list-item'><div class='d-flex'><div class='flex-grow-1 overflow-hidden me-4 gilroyregular-type'>"+
                                     "<p class='font-size-14 mb-1 color-color1'>"+activities[i][0]+"</p><div class='mt-2 bg-soft-boxgray1 px-3 py-3 fs-13 rounded-3 d-flex flex-wrap'>"+
-                                    "<img class='rounded-circle avatar-md mb-2' alt='200x200' src='../static/images/users/"+activities[i][7]+".png' onerror=this.src='../static/images/users/user.png'  data-holder-rendered='true'>"+
-                                    "<div class='ms-2'><p class='text-truncate color-color1  mb-0 ''>"+activities[i][7]+"</p><p class='text-truncate text-white  mb-0 fs-15'><span class='me-2 d-inline-block'>"+activities[i][4]+"</span> "+
+                                    "<img class='rounded-circle avatar-md mb-2 me-2' alt='200x200' src='../static/images/users/"+activities[i][7]+".png' onerror=this.src='../static/images/users/user.png'  data-holder-rendered='true'>"+
+                                    "<div><p class='color-color1  mb-0 ''>"+activities[i][7]+"</p><p class='text-white  mb-0 fs-15'><span class='me-2 d-inline-block'>"+activities[i][4]+"</span> "+
                                         "<svg width='10' height='8' viewBox='0 0 10 8' fill='none' xmlns='http://www.w3.org/2000/svg'><path d='M0.75 4.00004L3.58 6.83004L9.25 1.17004' stroke='#00A54F' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/>"+
-                                         "</svg></p><p class='text-truncate color-color1  mb-0'>"+activities[i][1]+" by "+activities[i][7]+"</p><p class='text-truncate color-color1  mb-0'>"+activities[i][3]+"</p></div></div></div></div></div></li>"
+                                         "</svg></p><p class='color-color1  mb-0'>"+activities[i][1]+" by "+activities[i][7]+"</p><p class='color-color1  mb-0' style='max-width: 250px'>"+activities[i][3]+"</p></div></div></div></div></div></li>"
         }
         $("#activityList").append(activity)
     }

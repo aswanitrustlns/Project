@@ -195,31 +195,38 @@
             if(message=='add'){
                 count=count+20
                 count_end=count+20
+                start_i=count
+                end_i=count_end
                 if(count_end > inbox_count){
-                    count_end=inbox_count-count
+                    end_i=inbox_count-count
+                    end_i=start_i+end_i
                 }
-                // start_i=count
-                // end_i=count_end
+                
             }
             if(message=='sub'){
                 count=count-20
                 count_end=count_end-20
+                start_i=count
+                end_i=count_end
                 if(count==0 || count < 0){
                     count=0
                     count_end=20
+                    end_i=20
                 }
                 
             }
             // $('#inbox_div ul li').remove();
             $("#mailList").empty();
             console.log("Count--------------------"+count)
-            console.log("Items arrayyy"+typeof(inbox_items))
+            console.log("Start--------------------"+start_i)
+            console.log("End-------------------------"+end_i)
+            
             var inboxlist=""
 
-            for(var i=count;i<count_end;i++){ 
+            for(var i=start_i;i<end_i;i++){ 
                 
                     
-                    var ms_id="items"
+                    var ms_id=inbox_items[i][3]
                     inboxlist +="<li class='fs-16' data-id='"+ms_id+"' style='cursor: pointer' >"+
                                 "<div class='col-mail col-mail-1'><div class='checkbox-wrapper-mail'><input type='checkbox' id='chk1'><label for='chk1' class='toggle'></label>"+
                                 "</div><a class='title text-white gilroysemibold-type'>"+inbox_items[i][1]+"</a><span class='star-toggle far fa-star' style='color:var(--color1) ;''></span>"+
