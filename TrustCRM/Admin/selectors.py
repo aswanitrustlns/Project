@@ -75,14 +75,19 @@ class Selector:
     def get_user_name(self,userId):
         try:  
             Cursor=connection.cursor()
-            Cursor.execute("SELECT UserName FROM tbl_User where UserID=%s",[userId])
-            UserName=Cursor.fetchone()
-            UserName=UserName[0]            
+            Cursor.execute("SELECT UserName,Email FROM tbl_User where UserID=%s",[userId])
+            
+            UserData=Cursor.fetchone()
+           
+            UserName=UserData[0] 
+            print("User name======================",UserName)
+            mailInfo=UserData[1]  
+            print("Email==========================",mailInfo)         
         except Exception as e:
             print("Exception---",e)
         finally:
             Cursor.close()
-        return UserName
+        return UserName,mailInfo
     
     # Get Notification
     def get_notification_data(self,userId):
@@ -361,7 +366,7 @@ class Selector:
 
 #Email template rendering and send Mail
 
-    def mailSend(self,token,subject,bcc,cc):
+    def mailSend(self,token,subject,bcc,cc,template):
         try:
             print("token--------------",token)
             Cursor=connection.cursor()
@@ -374,6 +379,7 @@ class Selector:
             
             email_from = 'cs@trusttc.com'
             receiver=client_details[2]
+          
             print("Receiver===========================",receiver)
 
             template_data={
@@ -385,7 +391,7 @@ class Selector:
                 "location":meeting_details[2],
                 "purpose":meeting_details[3]
             }
-            email_template_render=render_to_string("email/MeetingReminder.html",template_data)
+            email_template_render=render_to_string("email/"+template,template_data)
             #email_template_render=get_template("email/MeetingReminder.html",template_data)
             try:
                 #send_mail(subject," ",email_from,[receiver],fail_silently=False,html_message=email_template_render)
@@ -551,7 +557,10 @@ class Selector:
                         subject=msg["subject"]
                         sender=msg["from"]
                         received_tym=msg["date"]
-                        received_tym=received_tym[0:16]
+                        if received_tym:
+                            received_tym=received_tym[0:16]
+                        else:
+                            received_tym=""
                         
                         # received_tym=datetime.strptime(received_tym,'%d%m%y')
                         # print("Received date===========",type(received_tym))
@@ -569,8 +578,46 @@ class Selector:
         inbox_list.reverse()
      
         return inbox_count,inbox_list
-    
-   
+#Email template send items----
+    def template_send_items_list(self,emailname):
+        
+        try:
+            inbox_list=[]
+            username="crm@trusttc.com"
+            app_password="Vydw&663"
+
+            mail_server = 'mail.trusttc.com'
+
+            mailbox = imaplib.IMAP4_SSL(mail_server)
+
+            mailbox.login(username, app_password)
+            mailbox.select("INBOX")
+            search_cr='(TO "'+emailname+'")'
+            type, selected_mails = mailbox.search(None,search_cr) #mail.search based criteria mail.search(None,'(FROM "email" SUBJECT "the subject" UNSEEN)')
+            count=len(selected_mails[0].split())
+            print("Total Messages " , len(selected_mails[0].split()))
+
+            # for i in range(1, int(messages[0])):
+            for i in selected_mails[0].split():
+                res, msg = mailbox.fetch(i, '(RFC822)')   
+                for response in msg:
+                    if isinstance(response, tuple):
+                        msg = email.message_from_bytes(response[1])
+                        subject=msg["subject"]
+                        receive_tym=msg["date"]
+                        print("message=========================",msg["subject"])
+                        print("message=========================",msg["date"])
+                        # if receive_tym:
+                        #         receive_tym=receive_tym[0:16]
+                        inbox_data=(subject,receive_tym,msg["Message-ID"])
+                        
+                        inbox_list.append(inbox_data)
+        except Exception as e:
+            print("Exception------",e)
+        finally:
+            pass
+        inbox_list.reverse()
+        return count,inbox_list
 
  # Read mail inbox
     def read_mail_inbox(self,message):
@@ -626,6 +673,8 @@ class Selector:
                             
         
         return message_data,subject,sender,inbox_count
+    # Send Items for manage tickets
+
 #Get activities log    
     def get_activity_log(self,ticket):
 
@@ -657,15 +706,26 @@ class Selector:
         finally:
             Cursor.close()
         return all_meetings
+#Get all meetings
+    def get_last_meeting(self,ticket):
+        try:
+            Cursor=connection.cursor()
+            Cursor.execute("set nocount on;exec SP_GetLastMeetingDetails %s",[ticket])
+            all_meetings=Cursor.fetchall()
+        except Exception as e:
+            print("Exception------",e)
+        finally:
+            Cursor.close()
+        return all_meetings
 
-#send meeting confirmation mail
+# #send meeting confirmation mail
 
-    def send_meeting_mail(self):
-        pass
+#     def send_meeting_mail(self):
+#         pass
 
-#cancel meeting mail
-    def cancel_meeting_mail(self):
-        pass
+# #cancel meeting mail
+#     def cancel_meeting_mail(self):
+#         pass
 #view Document
     def view_document(self,ticket):
         try:
@@ -691,7 +751,7 @@ class Selector:
             if lead_score:
                 lead_score=lead_score[0]
                 lead_score=lead_score[0]
-            print("Lead Score-----",lead_score)
+           
         except Exception as e:
             print("Exception------",e)
         finally:
@@ -707,7 +767,7 @@ class Selector:
             Cursor=connection.cursor()
             Cursor.execute("set nocount on;exec SP_GetSalesSummary %s",[ticket])
             ticket_summary=Cursor.fetchall()
-            print("Lead Score-----",ticket_summary)
+           
             for summary in ticket_summary:
                 
                 summary_text=summary[1].split(":",1)  #index out of range
@@ -729,7 +789,7 @@ class Selector:
             Cursor=connection.cursor()
             Cursor.execute("set nocount on;exec SP_GetMeetingScore %s",[ticket])
             sales_summary=Cursor.fetchall()
-            print("Lead Score-----",sales_summary)
+     
         except Exception as e:
             print("Exception------",e)
         finally:
@@ -743,7 +803,7 @@ class Selector:
             Cursor=connection.cursor()
             Cursor.execute("set nocount on;exec SP_GetLeadDetailsByTicket %s,%s",[ticket,userid])
             lead_details=Cursor.fetchone()
-            print("Lead details-----------------",lead_details)
+          
             # if (lead_details):
             #     country=lead_details[10]
             #     if(country):
@@ -768,7 +828,7 @@ class Selector:
             print("Current timeeeeeeeeeeeeeeeeeee",log_time)
             Cursor.execute("set nocount on;exec SP_GetTicketLogs %s,%s",[ticket,log_time])
             activity_logs=Cursor.fetchall()
-            print("Lead Score-----",activity_logs)
+           
         except Exception as e:
             print("Exception------",e)
         finally:
@@ -793,6 +853,25 @@ class Selector:
         finally:
             Cursor.close()
         return name_search_list
+    #Get account number
+    def get_account_no(self,ticket):
+        accountno=""
+        try:
+            Cursor=connection.cursor()
+            Cursor.execute("set nocount on;exec SP_GetMultipleAccountsTicket %s",[ticket])
+            accountno=Cursor.fetchone()
+            if accountno:
+                accountno=accountno[0]
+            
+                print("Account number--------------------------------",accountno)
+           
+
+        except Exception as e:
+            print("Exception------",e)
+        finally:
+            Cursor.close()
+        return accountno
+
 
     #Phone search
     def get_phone_search(self,searched,userId):
@@ -834,18 +913,23 @@ class Selector:
         return mail_search_list
     
     #Account no status check
-    def account_status_check_update(self,accountno,request):
+    def account_status_check_update(self,accountno,ticket,request):
         msg=""
         try:
             Cursor=connection.cursor()
             Cursor.execute("set nocount on;exec SP_GetAccountStatus %s",[accountno])
             status=Cursor.fetchone()
+            print("Account update status========================",status)
             if(status=="Live" or status=="ReadOnly"):
                 msg="You dont have permission to update live account details"
                 print("You dont have permission to update live account details")
             else:
                update_result=update_account_client_datails(request)
-
+               emailservice.account_update_email(accountno,ticket,request)
+               msg="Updated Successfully"
+               if(update_result!=None):
+                    pass
+               print("Update result with account number=====",update_result) 
         except Exception as e:
             print("Exception------",e)
         finally:
@@ -861,10 +945,7 @@ class Selector:
             valid=Cursor.fetchone()
             print("valid check===========",valid)
             valid=valid[0]
-            if(valid==1):
-                msg="You dont have permission to update live account details"
-                print("You dont have permission to update live account details")
-            else:
+            if(valid==1):             
                update_ticket(request)
 
 
@@ -1123,12 +1204,12 @@ def update_ticket(request):
 
 
 
-def update_account_client_datails(self,request):
-        
+def update_account_client_datails(request):
+        update_result=""
         try:
             Cursor=connection.cursor()
             login=request.POST.get('login')
-            name=request.POST.get('name')
+            name=request.POST.get('firstname')
             groups=request.POST.get('groups')
             city=request.POST.get('city')
             address=request.POST.get('address')
@@ -1183,8 +1264,11 @@ def update_account_client_datails(self,request):
             age=request.POST.get('age')
             category=request.POST.get('category')
             scomments=request.POST.get('comments')
-            update_result=Cursor.execute("set nocount on;exec SP_UpdateSalesLead %s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s",[login,name,groups,country,city,zipcode,address,phone,email,comment,id,agent,ppassword,leverage,state,taxrate,tinno,enabled,sendreports,readonly,changepwd,rdcomment,terminated,termincomment,red,green,blue,color,mothername,nationality,language,created,dob,income,worth,profession,email2,phone2,country2,title,userId,ticket,subject,clientarea,potential,exp,hear,noemail,hyplink,appform,age,category,scomments])
-        
+            Cursor.execute("set nocount on;exec SP_UpdateClientDetailsSales %s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s",[login,name,groups,country,city,zipcode,address,phone,email,comment,id,agent,ppassword,leverage,state,taxrate,tinno,enabled,sendreports,readonly,changepwd,rdcomment,terminated,termincomment,red,green,blue,color,mothername,nationality,language,created,dob,income,worth,profession,email2,phone2,country2,title,userId,ticket,subject,clientarea,potential,exp,hear,noemail,hyplink,appform,age,category,scomments])
+            update_result=Cursor.fetchone()
+            if update_result:
+                update_result=update_result[0]
+            print("After update========",update_result)
         except Exception as e:
             print("Exception------",e)
         finally:

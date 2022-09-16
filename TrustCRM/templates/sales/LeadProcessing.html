@@ -1023,7 +1023,7 @@
                                        rgba(2, 126, 194, 1) ;">
 Compose </a>
                                         
- <a   data-id="sent-email" onclick="tabswitchemail(this)" class=" rounded-2 gilroymedium-type fs-15  mb-2 text-white mx-2 mx-xxl-0 flex-grow-1"  style="background-color:
+ <a   data-id="sent-email" onclick="tabswitchemail(this);loadSendItems()" class=" rounded-2 gilroymedium-type fs-15  mb-2 text-white mx-2 mx-xxl-0 flex-grow-1"  style="background-color:
  rgba(32, 33, 52, 1) ;"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg" >
 <path d="M7.13245 3.17248L13.5525 6.38248C16.4325 7.82248 16.4325 10.1775 13.5525 11.6175L7.13245 14.8275C2.81245 16.9875 1.04995 15.2175 3.20995 10.905L3.86245 9.60748C4.02745 9.27748 4.02745 8.72998 3.86245 8.39998L3.20995 7.09498C1.04995 2.78248 2.81995 1.01248 7.13245 3.17248Z" stroke="#9295D0" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
 <path d="M4.08008 9H8.13008" stroke="#9295D0" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -1093,8 +1093,8 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">392</span></a>
                                                                             </div>
                                                                             <div id="sent-email"  class="d-none">
     
-                                                                                <ul class="message-list" data-simplebar style="max-height: 300px;">
-                                                                                    <li class="fs-16" href="#read-email" data-id="read-email" onclick="tabswitchemail(this)">
+                                                                                <ul class="message-list" data-simplebar style="max-height: 300px;" id="sendmailList">
+                                                                                    <!-- <li class="fs-16" href="#read-email" data-id="read-email" onclick="tabswitchemail(this)">
                                                                                         <div class="col-mail col-mail-1">
                                                                                             <div class="checkbox-wrapper-mail">
                                                                                                 <input type="checkbox" id="chk1">
@@ -1108,21 +1108,8 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">392</span></a>
                                                                                             <div class="date text-white gilroymedium-type">Mar 6</div>
                                                                                         </div>
                                                                                     </li>
-                                                                                    <hr class="mx-3 my-0">
-                                                                                    <li class="fs-16" href="#read-email" data-id="read-email" onclick="tabswitchemail(this)">
-                                                                                        <div class="col-mail col-mail-1">
-                                                                                            <div class="checkbox-wrapper-mail">
-                                                                                                <input type="checkbox" id="chk2" >
-                                                                                                <label for="chk2" class="toggle" style="color:var(--color1) ;"></label>
-                                                                                            </div>
-                                                                                            <a href="#" class="title text-white gilroysemibold-type">Peter, me (3)</a><span class="star-toggle far fa-star" style="color:var(--color1) ;"></span>
-                                                                                        </div>
-                                                                                        <div class="col-mail col-mail-2">
-                                                                                            <a href="#" class="subject color-color1 gilroyregular">Hello – <span class="teaser">Trip home from Colombo has been arranged, then Jenna will come get me from Stockholm. :)</span>
-                                                                                            </a>
-                                                                                            <div class="date text-white gilroymedium-type">Mar 6</div>
-                                                                                        </div>
-                                                                                    </li>
+                                                                                    <hr class="mx-3 my-0"> -->
+                                                                                   
                                                                                     
                                                                                    
                                                 
@@ -1756,8 +1743,20 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">392</span></a>
 
      
                                                              <tbody class="gilroyregular-type fs-15" id="seminartbody">
+                                                            <!-- {%for seminar in seminars%}
+                                                                <tr>
+                                                                    <th scope="row" style="color:#43B5F4; ">{{seminar.4}}<br>
+                                                                        {{seminar.3}}</th>
+                                                                    <td ><span class="color-color1 d-block">Seminar title</span>
+                                                                        <span class="text-uppercase text-white">{{seminar.0}}</span> </td>
+                                                                    <td><span class="color-color1 d-block">Time</span>
+                                                                        <span class="text-white">10.00 AM</span></td>
+                                                                    <td class="text-end"><span class="color-color1 d-block">Location</span>
+                                                                        <a >{{seminar.1}}</a></td>
+        
+                                                                </tr>
                                                                 
-                                                             
+                                                             {%endfor%} -->
 
 
                                                              </tbody>
@@ -1783,7 +1782,7 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">392</span></a>
                                                 
                                             </div><!-- /.modal-content -->
 
-                                            <div class="modal-content mb-4">
+                                            <div class="modal-content mb-4" >
                                              
                                                 
                                        
@@ -1792,7 +1791,7 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">392</span></a>
                                              
 
                                                
-                                                  <div class="modal-header border-0 px-0">
+                                                  <div class="modal-header border-0 px-0" >
                                                       <h5 class="modal-title fs-21 ">Webinar Details  </h5>
  
                                                       <a href="" data-bs-dismiss="modal" aria-label="Close">
@@ -1810,75 +1809,19 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">392</span></a>
                                                       <table class="table mb-0 ">
 
                                                           <thead>
+                                                            
                                                               <tr class="almarenamonolight-type fs-14">
                                                                   <th>Seminars</th>
                                                                   <th>Level</th>
                                                                   <th>Invited</th>
-                                                                  <th>App form</th>
-                                                                  <th>Status</th>
-                                                                  <th>Feedback</th>
+                                                                  <th>Attended</th>
+                                                                  <th>Not Attended</th>
+                                                                  
                                                                   <th class="text-end">Edit</th>
                                                               </tr>
                                                           </thead>
-                                                          <tbody class="gilroyregular-type fs-15">
-                                                              <tr>
-                                                                  <th scope="row">02</th>
-                                                                  <td>26-05-2022</td>
-                                                                  <td>13:00</td>
-                                                                  <td>TC Limitted office</td>
-                                                                  <td>Introduce</td>
-                                                                  <td class="text-success">Attended</td>
-                                                                  <td class="text-end">
-
-                                                                      <!--PopUp Actions-->
-                                                                      <div class="dropdown d-inline-block">
-                                                                          <a class="ms-2 " href="#" id="edit-table-row1" data-bs-toggle="dropdown" aria-haspopup="true"
-                                                                              aria-expanded="false" class="position-relative">
-                                                                              <svg width="22" height="23" viewBox="0 0 22 23" fill="none"
-                                                                                  xmlns="http://www.w3.org/2000/svg">
-                                                                                  <path
-                                                                                      d="M12.8333 4.99215C12.8333 3.98381 12.0083 3.15881 10.9999 3.15881C9.99159 3.15881 9.16659 3.98381 9.16659 4.99215C9.16659 6.00048 9.99159 6.82548 10.9999 6.82548C12.0083 6.82548 12.8333 6.00048 12.8333 4.99215Z"
-                                                                                      stroke="#73759D" stroke-width="1.5" />
-                                                                                  <path
-                                                                                      d="M12.8333 17.8255C12.8333 16.8172 12.0083 15.9922 10.9999 15.9922C9.99159 15.9922 9.16659 16.8172 9.16659 17.8255C9.16659 18.8339 9.99159 19.6589 10.9999 19.6589C12.0083 19.6589 12.8333 18.8339 12.8333 17.8255Z"
-                                                                                      stroke="#73759D" stroke-width="1.5" />
-                                                                                  <path
-                                                                                      d="M12.8333 11.409C12.8333 10.4007 12.0083 9.57568 10.9999 9.57568C9.99159 9.57568 9.16659 10.4007 9.16659 11.409C9.16659 12.4173 9.99159 13.2423 10.9999 13.2424C12.0083 13.2424 12.8333 12.4174 12.8333 11.409Z"
-                                                                                      stroke="#73759D" stroke-width="1.5" />
-                                                                              </svg>
-
-
-                                                                          </a>
-
-
-
-
-                                                                          <!--PopUp -->
-                                                                          <div class="dropdown-menu dropdown-menu-sm dropdown-menu-end p-0 border-0 "
-                                                                              aria-labelledby="edit-table-row1" style="background-color: var(--bs-card-bg);">
-
-                                                                              <div class=" py-2 px-2 d-flex flex-column">
-                                                                                  <button type="button"
-                                                                                      class="btn btn-md btn-sm-soft-color1 mb-2 fs-14 gilory-semibold-type bg-soft-purple text-white ">Send
-                                                                                      Attended</button>
-                                                                                  <button type="button"
-                                                                                      class="btn btn-md btn-sm-soft-color1   fs-14 gilory-semibold-type bg-soft-purple text-white">Cancel
-                                                                                      Not Attended</button>
-                                                                                      <button type="button"
-                                                                                      class="btn btn-md btn-sm-soft-color1   fs-14 gilory-semibold-type bg-soft-purple text-white">Cancel
-                                                                                      Attending</button>
-                                                                                      <button type="button"
-                                                                                      class="btn btn-md btn-sm-soft-color1   fs-14 gilory-semibold-type bg-soft-purple text-white">Cancel
-                                                                                      Not Attending</button>
-                                                                              </div>
-
-
-
-                                                                          </div>
-                                                                      </div>
-                                                                  </td>
-                                                              </tr>
-                                                         
+                                                          <tbody class="gilroyregular-type fs-15" id="webdetails">
+                                             
                                                               
                                                   </tbody>
                                                   </table>
@@ -2114,6 +2057,8 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">392</span></a>
             var ticket = searchParams.get('ticket')
             console.log("Ticket---------"+ticket)
             $("#ticketno").val(ticket)
+            $("#submitftypeleads").attr("disabled",true)
+            $("#resetftypeleads").attr("disabled",true)
             if(ticket){
                 loadTicketFuns()
             }
@@ -2384,15 +2329,23 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">392</span></a>
         }
         else{
             var rows=""
+            var web=""
             $("#seminartbody").empty()
             $.ajax({
             
             type : "GET", 
+            data : {
+                "ticket":ticket
+            },
             url: "{% url 'Admin:Upcoming' %}",
             success: function(data){
+                $("#seminartbody").empty()
+                $("#webdetails").empty()
                 var seminars=data.seminars
+                var webinars=data.webinars
+               
                 for(i=0;i<seminars.length;i++){
-                    console.log("Seminarsssss"+seminars[i][0])
+                   
                     var time=seminars[i][2]
                     time=time.substring(11,16)
                     rows+="<tr><th scope='row' style='color:#43B5F4;''>"+seminars[i][4]+"<br>"+seminars[i][3]+"</th><td ><span class='color-color1 d-block'>Seminar title</span>"+
@@ -2400,12 +2353,73 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">392</span></a>
                           "<span class='text-white'>"+time+"</span></td><td class='text-end'><span class='color-color1 d-block'>Location</span>"+seminars[i][1]+
                           "</tr><input type='hidden' name='seminartitle' id='seminartitle' value="+seminars[i][5]+">"
                 }
+                for(i=0;i<webinars.length;i++){
+                   
+                
+
+                   console.log("Webinars-----"+webinars[i][0])
+                   web+="<tr><th scope='row'>"+webinars[i][0]+"</th><td>"+webinars[i][1]+"</td><td>"+webinars[i][2]+"</td><td>"+webinars[i][3]+"</td><td class='text-success'>"+webinars[i][4]+"</td>"+
+                    "<td class='text-end'><div class='dropdown d-inline-block'><a class='ms-2' id='edit-table-row1' data-bs-toggle='dropdown' aria-haspopup='true'"+
+                    "aria-expanded='false' class='position-relative'><svg width='22' height='23' viewBox='0 0 22 23' fill='none' xmlns='http://www.w3.org/2000/svg'>"+
+                    "<path  d='M12.8333 4.99215C12.8333 3.98381 12.0083 3.15881 10.9999 3.15881C9.99159 3.15881 9.16659 3.98381 9.16659 4.99215C9.16659 6.00048 9.99159 6.82548 10.9999 6.82548C12.0083 6.82548 12.8333 6.00048 12.8333 4.99215Z'"+
+                    "stroke='#73759D' stroke-width='1.5' /><path d='M12.8333 17.8255C12.8333 16.8172 12.0083 15.9922 10.9999 15.9922C9.99159 15.9922 9.16659 16.8172 9.16659 17.8255C9.16659 18.8339 9.99159 19.6589 10.9999 19.6589C12.0083 19.6589 12.8333 18.8339 12.8333 17.8255Z'"+
+                    "stroke='#73759D' stroke-width='1.5 /><path d='M12.8333 11.409C12.8333 10.4007 12.0083 9.57568 10.9999 9.57568C9.99159 9.57568 9.16659 10.4007 9.16659 11.409C9.16659 12.4173 9.99159 13.2423 10.9999 13.2424C12.0083 13.2424 12.8333 12.4174 12.8333 11.409Z'"+
+                    "stroke='#73759D' stroke-width='1.5' /> </svg></a><div class='dropdown-menu dropdown-menu-sm dropdown-menu-end p-0 border-0' aria-labelledby='edit-table-row3' >"+
+                    "<div class='d-flex justify-content-end'><button class='btn btn-sm me-2 fs-14 gilory-semibold-type bg-soft-purple text-white  flex-shrink-0' onclick=updateStatus('Attended',"+webinars[i][0]+")>Attended </button>"+
+                    "<button class='btn btn-sm  me-2  fs-14 gilory-semibold-type bg-soft-purple text-white flex-shrink-0' onclick=updateStatus('Not_Attended',"+webinars[i][0]+")>Not Attended </button>"+
+                    " <button  class='btn btn-sm  me-2  fs-14 gilory-semibold-type bg-soft-purple text-white flex-shrink-0' onclick=updateStatus('Attending',"+webinars[i][0]+")>Attending</button>"+
+                    " <button  class='btn btn-sm  me-2  fs-14 gilory-semibold-type bg-soft-purple text-white flex-shrink-0' onclick=updateStatus('Not_Attending',"+webinars[i][0]+")> Not Attending</button>"+
+                    "</div> </td></tr> "
+               }
                 $("#seminartbody").append(rows)
+                $("#webdetails").append(web)
+                
                 $("#seminarpopup").modal('show')
             }
         })
+        updateActivitylog()
 
         }
+
+    }
+    function updateActivitylog(){
+        var ticket=document.getElementById("ticketno").value
+        $.ajax({
+            
+            type : "GET", 
+            url: "{% url 'Admin:ActivityLog' %}",
+            data:{
+                'ticket':ticket,
+                
+            },
+            success: function(data){
+                var activiteies=data.activities
+                updateActivities(activities)
+             
+            }
+        })
+
+    }
+    function updateStatus(status,seminar){
+        var ticket=document.getElementById("ticketno").value
+        console.log("Status------------------------------------"+status)
+        console.log("Seminar------------------------------------"+seminar)
+        $.ajax({
+            
+            type : "GET", 
+            url: "{% url 'Admin:SeminarUpdate' %}",
+            data:{
+                'ticket':ticket,
+                "status":status,
+                "seminar":"4"
+            },
+            success: function(data){
+                $("#seminarpopup").modal('hide')
+                $("#userMsg").empty()
+                $("#userMsg").append("Seminar Updated")
+                $("#alertpopup").modal('show')
+            }
+        })
 
     }
     function webinarRegistration(){
@@ -2568,6 +2582,12 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">392</span></a>
 
     function templateSend(){
         var ticket=document.getElementById("ticketno").value
+       
+        if(ticket == ''){
+            $("#alertpopup").modal('show')
+            
+        }
+        else{
         var lang=$("#sub").val()
         var to=""
         var from=""
@@ -2592,7 +2612,7 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">392</span></a>
         
            
             sendTemplate(to,lang,subject,title,name)
-        
+    }
 
 
     }
@@ -2600,8 +2620,14 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">392</span></a>
     
     function sendReminder(ticket,subject,timer,chatText,category,selDate){
 
+        var ticket=document.getElementById("ticketno").value
+       
 
-        var csrftoken = $("[name=csrfmiddlewaretoken]").val();     
+        var csrftoken = $("[name=csrfmiddlewaretoken]").val();  
+        if(ticket == ''){
+            $("#alertpopup").modal('show')
+            
+        }else{   
         $.ajax({
             
             type : "POST", 
@@ -2619,9 +2645,13 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">392</span></a>
             },
             
             
-            success: function(datas){
+            success: function(data){
+                $("#userMsg").empty()
+                     $("#userMsg").append("Reminder send")
+                    $("#alertpopup").modal('show')
             }
         })
+        }
 
     }
 
@@ -2644,11 +2674,11 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">392</span></a>
                     },
                     
                     
-                    success: function(datas){
+                    success: function(data){
                         console.log("Data-----"+data.msg)
                 
                     $("#userMsg").empty()
-                     $("#userMsg").append("Email Send")
+                     $("#userMsg").append("Email Send Successfully")
                     $("#alertpopup").modal('show')
 
                 
@@ -2657,7 +2687,40 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">392</span></a>
         })
      
     }
+    function loadSendItems(){
+        console.log("Send iems list=======")
 
+        inboxlist=""
+        $("#sendmailList").empty()
+        $.ajax({
+                    
+                    type : "GET", 
+                    url: "{% url 'Admin:sendItems' %}",
+               
+                    
+                    
+                    success: function(data){
+                        var count=data.count
+                        var items=data.send
+                        console.log("Data======",data.send)
+                        for(var i=0;i<count;i++){ 
+                
+                    
+                            var ms_id=""
+                            inboxlist +="<li class='fs-16' href='#read-email' data-id='read-email' onclick='tabswitchemail(this)'>"+
+                                "<div class='col-mail col-mail-1'> <div class='checkbox-wrapper-mail'><input type='checkbox' id='chk1'>"+
+                                "<label for='chk1' class='toggle'></label> </div><a href='#' class='title text-white gilroysemibold-type'>"+items[i][0]+
+                                    "</a><span class='star-toggle far fa-star' style='color:var(--color1) ;'></span></div><div class='col-mail col-mail-2'>"+
+                                    "<a href='#' class='subject color-color1 gilroyregular'>"+items[i][1]+"<span class='teaser'>"+
+                                        "</span></a><div class='date text-white gilroymedium-type'></div></div></li><hr class='mx-3 my-0'>";
+                
+            
+                        }
+                        $("#sendmailList").append(inboxlist)
+                    }
+                })
+
+    }
     function composeEmailSend(){
         let csrftoken = '{{ csrf_token }}' 
         console.log("Compose email-------")
@@ -2674,6 +2737,11 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">392</span></a>
         console.log("Sub-------"+sub)
         var email_data =editorinstance.getData();
         console.log("Email data-----"+email_data)
+        var ticket=document.getElementById("ticketno").value
+        if(ticket == ''){
+            $("#alertpopup").modal('show')
+            
+        }else{
         $.ajax({
                type : "POST", 
                headers:{
@@ -2691,11 +2759,11 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">392</span></a>
                },
                success: function(data){
                 $("#userMsg").empty()
-                $("#userMsg").append("Email Send")
+                $("#userMsg").append("Email Send Successfully")
                 $("#alertpopup").modal('show')
                }
             })
-        
+        }
 
     }
 
@@ -2705,6 +2773,7 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">392</span></a>
        var updates=validateForm()
        if(updates==0){
         var accountno=$("#accountno").val()
+        console.log("Account number======================"+accountno)
         var ticket=document.getElementById("ticketno").value
         
         var form_data1=$("#formtypeleads_info,#formtypeleads_personals,#formtypeleads_leads").serialize()
@@ -2739,7 +2808,7 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">392</span></a>
 
 
         }
-        if(ticket){
+        else{
             console.log("No ticket and account number----")
             $.ajax({
                type : "POST", 
@@ -3037,26 +3106,27 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">392</span></a>
                success: function(data){
                 var result=data.assign
                 console.log("Assign-----"+result)
-                
+                $("#userMsg").empty()
                     console.log("Flag entered  isss")
-                    if(flag=='A'){
+                   
                         $("#userMsg").empty()
                         if(result > 0){
                         console.log("Assign greater 0")
-                        $("#userMsg").append("SalesRep assigned Successfully")
+                        $("#userMsg").html("SalesRep assigned Successfully")
                         
                     }
                     else{
                         console.log("Assign less than 0")
-                        $("#userMsg").append("'Cannot assign SalesRep to this ticket")
+                        $("#userMsg").html("Cannot assign SalesRep to this ticket")
                     }
                     $("#alertpopup").modal('show')
 
-                    }
+                    
                     
             
                }
             });
+            updateActivitylog()
 
     }
 
@@ -3277,8 +3347,11 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">392</span></a>
        
         $("#formticket").val(ticket)
         console.log("Ticket----"+ticket)
-        var accountno=$("#accountno").val()
+        var accountno=document.getElementById("accountno").value
+        console.log("Account number in load======"+accountno)
+        
         $("#formaccountno").val(accountno)
+        console.log("FormAccount number in load======"+accountno)
         if(accountno){
             $("#stickyLink").show()
         }
@@ -3307,7 +3380,8 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">392</span></a>
                         var leads=data.leads
                         var activities=data.activities
                         var ticketSummary=data.ticket_summary
-                        console.log("Lead details--------"+leads)
+                        var acno=data.accountno
+                        console.log("account number--------"+acno)
                         var lastcomment=data.lastcomment
                         // var country=data.country
                         // console.log("Vie activities----",activities)
@@ -3340,7 +3414,7 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">392</span></a>
                         var source=leads[9]
                         var city=leads[18]
                         var subject=leads[3]
-                        var acno=leads[13]
+                        
                         $("#title").val(leads[35])
                         $("#firstname").val(leads[0])
                         console.log("Hear from===================================================="+hearfrom)
@@ -3352,6 +3426,7 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">392</span></a>
                         $("#salesrep").val(salesrep)
                         $("#salesrep1").val(rerep)
                         $("#accountno").val(acno)
+                        $("#formaccountno").val(acno)
                         $("#age").val(age)
                         $("#dob").val(dob)
                         $("#address").val(address)
@@ -3375,6 +3450,9 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">392</span></a>
                         $("#city").val(city)
                         $("#subject").val(subject) 
                         $("#country").val(country) 
+                        $("#submitftypeleads").attr("disabled",false)
+                        $("#resetftypeleads").attr("disabled",false)
+                        
                         console.log("Last comment======"+lastcomment)
                         $("#eventtitle").append(lastcomment)
                         leadscore=data.leadscore 
@@ -3415,6 +3493,7 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">392</span></a>
                                          "</svg></p><p class='color-color1  mb-0'>"+activities[i][1]+" by "+activities[i][7]+"</p><p class='color-color1  mb-0' style='max-width: 250px'>"+activities[i][3]+"</p></div></div></div></div></div></li>"
         }
         $("#activityList").append(activity)
+        
     }
     function updateTicketSummary(ticketsummary){
         $("#summary_div").empty()

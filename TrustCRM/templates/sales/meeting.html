@@ -51,7 +51,7 @@
                 <!--Analytics overview-->
                 <div class="row">
                     <div class="mb-3">
-                        <a href="{% url 'Admin:LeadProcessing'%}" class="btn bg-soft-secondarycolor btn-sm text-white me-2"><i class="fa fa-chevron-left me-2"></i>Manage Ticket</a>
+                        <a class="btn bg-soft-secondarycolor btn-sm text-white me-2" style="cursor:pointer" onclick="backToManageTicket()"><i class="fa fa-chevron-left me-2"></i>Manage Ticket</a>
                     </div>
 
                     <div class="col-md-6 col-lg-6 col-xl-6 col-xxl-5">
@@ -128,7 +128,7 @@
                                                         <select  class="form-select" id="purpose"  value="" required>
                                                             <option value="Introducing TC">Introducing TC</option>
                                                             <option value="Training">Training</option>
-                                                            <option value="previous meeting foolow up">Previous meeting Follow up</option>
+                                                            <option value="Previous Meeting Follow Up">Previous Meeting Follow up</option>
                                                         </select>
                                                         <div class="invalid-feedback">
                                                             Please provide a valid entry.
@@ -348,7 +348,11 @@
                                         </thead>
                                         <tbody class="gilroyregular-type fs-15">
                                             {% for meeting in meetings %}
-                                                <tr ondblclick='loadMeeting("{{meeting.6}}","{{meeting.0|date:'Y-m-d'}}","{{meeting.1|date:'H:i'}}","{{meeting.2}}","{{meeting.3}}","{{meeting.4}}")'>
+<!--                    
+    loadMeeting("{{meeting.6}}","{{meeting.0|date:'Y-m-d'}}","{{meeting.1|date:'H:i'}}","{{meeting.2}}","{{meeting.3}}","{{meeting.4}}","{{meeting.7}}","{{meeting.8}},"{{meeting.9}},"{{meeting.10}},"{{meeting.11}},"{{meeting.12}}")'                         
+                                             -->
+
+                                                <tr ondblclick='loadMeeting("{{meeting.6}}","{{meeting.0|date:'Y-m-d'}}","{{meeting.1|date:'H:i'}}","{{meeting.2}}","{{meeting.3}}","{{meeting.4}}","{{meeting.7}}","{{meeting.8}}","{{meeting.9}}","{{meeting.10}}","{{meeting.11}}","{{meeting.12}}")'>
                                                     <td>{{meeting.6}}</td>
                                                     <td>{{meeting.0|date:"d-m-Y"}}</td>
                                                     <td>{{meeting.1|date:"H:i"}}</td>
@@ -415,6 +419,85 @@
             </div>
         </div>
     </div>
+
+    <div class="modal fade  bs-example-modal-seminars" tabindex="-1" role="dialog" aria-hidden="true" id="documentModel">
+                                          
+        <div class="modal-dialog modal-dialog-centered  modal-lg d-block">
+         
+
+     
+            <div class="modal-content mb-4">
+             
+                
+       
+                <div class="modal-body">
+
+                
+
+                  
+                 <div class="border-dashed rounded-3 px-3 py-3">
+                     <div class="modal-header border-0 ">
+                         <h5 class="modal-title fs-21 ">Meeting Documents  </h5>
+
+                         <a href="" data-bs-dismiss="modal" aria-label="Close">
+                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                 <path d="M9.16992 14.83L14.8299 9.17" stroke="var(--white)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                                 <path d="M14.8299 14.83L9.16992 9.17" stroke="var(--white)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                                 <path d="M9 22H15C20 22 22 20 22 15V9C22 4 20 2 15 2H9C4 2 2 4 2 9V15C2 20 4 22 9 22Z" stroke="white" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                                 </svg>
+
+                             </a>
+                     </div>
+                 
+
+                     <div class="table-responsive" data-simplebar style="max-height: 352px;">
+                         <table class="table mb-0 ">
+                            <tr>
+                                <th>No</th>
+                                <th>Image Name</th>
+                                <th>Image Type</th>
+                                <th>Type</th>
+                                <th>Uploaded Date</th>
+                                <th>id</th>
+
+                              </tr>
+
+                             <tbody class="gilroyregular-type fs-15" id="docs">
+                               
+                             
+
+
+
+                             </tbody>
+                         </table>
+
+                         <div class="d-flex justify-content-end mt-4 ">
+
+                             
+                         </div>
+                     </div>
+
+
+                 </div>
+                 
+
+
+                 
+                
+                    
+                </div>
+
+                
+            </div>
+
+            
+
+             
+         </div>
+
+           
+
+        </div>
 
 
     <script>
@@ -504,12 +587,14 @@
                                     
                                     if(message=="PROCEED"){
                                         console.log("Data----------------"+message)
-                                        $("#message").html("Meeting scheduled successfully")
+                                        $("#message").empty()
+                                        $("#message").append("Meeting scheduled successfully")
                                         $("#msg_model").modal('show');
                                     }
                                     else{
                                         console.log("Data----isss"+message)
-                                        $("#message").html(message)
+                                        $("#message").empty()
+                                        $("#message").append(message)
                                         $("#msg_model").modal('show');
                                     }
                 }
@@ -522,7 +607,7 @@
 
 
 
-    function loadMeeting(id,date,time,location,purpose,feedback){        
+    function loadMeeting(id,date,time,location,purpose,feedback,feed,demo,training,qns,minacc,commi){        
         
         $("#meetingId").val(id)
         $("#location").val(location)
@@ -530,6 +615,20 @@
         $("#booktime").val(time)
         $("#purpose").val(purpose)
         $("#feedback").val(feedback)
+        $("#feedbackval").val(feed)
+        $("#installeddemo").val(demo)
+        $("#training").val(training)
+        $("#questions").val(qns)
+        // $("#attendedseminars").val(seminars)
+        if(minacc==1){
+            $("#minimumaccount").prop('checked','checked')
+        }
+        if(commi==1){
+            $("#commision").prop('checked','checked')
+        }
+        console.log("Minimum account=================="+minacc)
+        console.log("Commision====="+commi)
+
         $("#bookdate").flatpickr({ 
               
                 altInput: true,
@@ -583,7 +682,12 @@
                 
 
     }
-
+    function backToManageTicket(){
+        let searchParams = new URLSearchParams(window.location.search)
+        let ticket = searchParams.get('ticket')
+        var url="{% url 'Admin:LeadProcessing'%}"
+        window.location.href=url+"?&ticket="+ticket
+    }
     function changeRequest(){
 
             let searchParams = new URLSearchParams(window.location.search)
@@ -638,12 +742,14 @@
                                     
                                     if(message=="PROCEED"){
                                         console.log("Data----------------"+message)
-                                        $("#message").html("Meeting Resceheduled Successfully")
+                                        $("#message").empty()
+                                        $("#message").append("Meeting Resceheduled Successfully")
                                         $("#msg_model").modal('show');
                                     }
                                     else{
                                         console.log("Data----isss"+message)
-                                        $("#message").html(message)
+                                        $("#message").empty()
+                                        $("#message").append(message)
                                         $("#msg_model").modal('show');
                                     }
                                     
@@ -699,12 +805,14 @@
                                     
                                     if(message=="PROCEED"){
                                         console.log("Data----------------"+message)
-                                        $("#message").html("Meeting cancelled Successfully")
+                                        $("#message").empty()
+                                        $("#message").append("Meeting cancelled Successfully")
                                         $("#msg_model").modal('show');
                                     }
                                     else{
                                         console.log("Data----isss"+message)
-                                        $("#message").html(message)
+                                        $("#message").empty()
+                                        $("#message").append(message)
                                         $("#msg_model").modal('show');
                                     }
                                     
@@ -772,7 +880,7 @@
 
 
     function viewdocument(){
-
+        $("#docs").html()
         console.log("View documents-------------------------")
         let searchParams = new URLSearchParams(window.location.search)
         let ticket = searchParams.get('ticket')
@@ -790,9 +898,11 @@
                     console.log("Length of docs------"+docs.length)
                     if(docs.length == 0){
                         console.log("No documents----------------------")
+                        $("#docs").append("No documents")
                     }
                 }
                 })
+            $("#documentModel").modal('show')
 
 
     }

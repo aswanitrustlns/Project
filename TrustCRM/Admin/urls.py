@@ -46,6 +46,8 @@ urlpatterns=[
     path('StickyUpdate',update_sticky_notes,name="StickyUpdate"),
     path('ComposeMail',email_send,name="ComposeMail"),
     path('TicketResolve',resolve_tickets,name="TicketResolve"),
+    path('ActivityLog',activity_log,name="ActivityLog"),
+
     #seminar=============================================================
     path('Upcoming',upcomingSeminars,name="Upcoming"),
     path('RegisterSeminar',registerSeminars,name="RegisterSeminar"),
@@ -56,6 +58,7 @@ urlpatterns=[
     path('livelogs',liveChatLogs,name="LiveLogs"),
     path('Inbox',emailInbox,name="Inbox"),
     path('Read',emailRead,name="Read"),
+    path("sendItems",send_items_list,name="sendItems"),
     path('logout',logout,name="Logout")
    
  

@@ -88,7 +88,7 @@
                                         
                                         <ul class="message-list" data-simplebar style="max-height: 700px;" id="mailList">
                                         {% for mail in mails%}
-                                            {% if forloop.counter <= 20 %} 
+                                             
                                             <!-- <li class="fs-16" onclick='window.location.href="{% url 'Admin:Read' %}?message={{mail.3}}"' style="cursor: pointer;"> -->
                                             <li class="fs-16" style="cursor: pointer;" data-id="{{mail.3}}">
                                                 <div class="col-mail col-mail-1">
@@ -106,7 +106,7 @@
                                             </li>
                                             <hr class="mx-3 my-0">
                                             
-                                            {%endif%}
+                                           
                                            {%endfor%}
         
                                         </ul>
@@ -115,14 +115,14 @@
         
                                     <div class="row">
                                         <div class="col-7 gilroymedium-type fs-16" id="showCount">
-                                            Showing 1 - 20 of {{count}}
+                                            Showing 1 - {{count}} 
                                         </div>
-                                        <div class="col-5">
+                                        <!-- <div class="col-5">
                                             <div class="btn-group float-end">
                                                 <button type="button" class="btn btn-sm btn-success waves-effect" onclick="paginateInbox('sub')"><i class="fa fa-chevron-left"></i></button>
                                                 <button type="button" class="btn btn-sm btn-success waves-effect" onclick="paginateInbox('add')"><i class="fa fa-chevron-right"></i></button>
                                             </div>
-                                        </div>
+                                        </div> -->
                                     </div>
                                 </div> <!-- end Col-9 -->
         
@@ -226,7 +226,7 @@
             for(var i=start_i;i<end_i;i++){ 
                 
                     
-                    var ms_id=inbox_items[i][3]
+                    var ms_id=""
                     inboxlist +="<li class='fs-16' data-id='"+ms_id+"' style='cursor: pointer' >"+
                                 "<div class='col-mail col-mail-1'><div class='checkbox-wrapper-mail'><input type='checkbox' id='chk1'><label for='chk1' class='toggle'></label>"+
                                 "</div><a class='title text-white gilroysemibold-type'>"+inbox_items[i][1]+"</a><span class='star-toggle far fa-star' style='color:var(--color1) ;''></span>"+

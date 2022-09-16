@@ -41,7 +41,7 @@ class Services:
             if not zip_code:
                 zip_code=0
             mobile_country_code=request.POST.get('mobile_country') #Get ContryID
-            source=selector.get_user_name(UserId)
+            source,email=selector.get_user_name(UserId)
             
             print("Source222",source)
             
@@ -196,8 +196,11 @@ class Services:
             if(assign_flag=="A"):
                 
                 print("Assign rep return-----------------------------",assign_rep)
-                if(assign_rep > 0):
-                    emailservice.send_SalesInquiry_Assigned(repname,username,ticket_no,salesrepid)
+                emailservice.send_SalesInquiry_Assigned(repname,username,ticket_no,salesrepid)
+            if(assign_flag=="R"):
+                
+                print("Assign rep return-----------------------------",assign_rep)
+                emailservice.send_SalesInquiry_Reassigned(repname,username,ticket_no,salesrepid)
             print("Assign Rep-------",assign_rep)
         except Exception as e:
             print("Exception------",e)
