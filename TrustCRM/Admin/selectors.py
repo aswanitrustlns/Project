@@ -605,10 +605,11 @@ class Selector:
                         msg = email.message_from_bytes(response[1])
                         subject=msg["subject"]
                         receive_tym=msg["date"]
-                        print("message=========================",msg["subject"])
-                        print("message=========================",msg["date"])
-                        # if receive_tym:
-                        #         receive_tym=receive_tym[0:16]
+               
+                        print("message=========================",msg["Message-ID"])
+
+                        if receive_tym:
+                                receive_tym=receive_tym[0:16]
                         inbox_data=(subject,receive_tym,msg["Message-ID"])
                         
                         inbox_list.append(inbox_data)
@@ -618,6 +619,67 @@ class Selector:
             pass
         inbox_list.reverse()
         return count,inbox_list
+# Send Items for manage tickets
+    def read_mail_senditems(self,emailname,message):
+        print("read senditems",message)
+        username="crm@trusttc.com"
+        app_password="Vydw&663"
+
+        mail_server = 'mail.trusttc.com'
+
+       
+        mail = imaplib.IMAP4_SSL(mail_server)
+        message_data=""
+        subject=""
+        sender=""
+        mail.login(username, app_password)
+        status, messages=mail.select("INBOX")
+        search_cr='(TO "'+emailname+'")'
+        _, selected_mails = mail.search(None,'(ALL)')
+        inbox_count=len(selected_mails[0].split())
+       
+        for i in range(1, selected_mails[0].split()):
+            res, msg = mail.fetch(str(i), '(RFC822)')
+            for response in msg:
+                if isinstance(response, tuple):
+                    msg = email.message_from_bytes(response[1])
+                    
+                    if(message == msg["Message-ID"]):
+                        print("Message")
+                        subject=msg["subject"]
+                        sender=msg["from"]
+                        content_type=msg["content-type"]
+                        print("Equal================== and content type",content_type)
+                        if(content_type=="text/html"):
+                            message_data=message.decode('utf-8')
+                            message_data=get_template(message_data)
+                        else:
+                            for part in msg.walk():
+                            
+                                if part.get_content_type()=="text/plain":
+                                    print("Content type------",part.get_content_type())
+                                    message = part.get_payload(decode=True)
+                                    message_data=message.decode()                                                                  
+                                    break
+                                if part.get_content_type()=="text/html":
+                                    text = f"{part.get_payload(decode=True)}"
+                                    html = text.replace("b'", "")
+                                    h = html2text.HTML2Text()
+                                    h.body_width = 0
+                                    h.ignore_links = False                                 
+                                    output = (h.handle(f'''{html}''').replace("\\t", " "))
+                                    output = output.replace("\\n", " ")
+                                    output = output.replace("\\r", " ")
+                                    output = output.replace("'", "")
+                                    output = output.replace("\\", "")
+                                    output = output.replace("---", "")
+                                    output = output.replace("|", "")
+                                    print("Outpu----------------",output)
+                                    message_data=output
+                                
+                            
+        
+        return message_data,subject,sender,inbox_count
 
  # Read mail inbox
     def read_mail_inbox(self,message):
@@ -673,27 +735,27 @@ class Selector:
                             
         
         return message_data,subject,sender,inbox_count
-    # Send Items for manage tickets
+    
 
-#Get activities log    
-    def get_activity_log(self,ticket):
+# #Get activities log    
+#     def get_activity_log(self,ticket):
 
-        try:
+#         try:
             
 
-            now = datetime.now()
-            current_time = now.strftime("%H:%M:%S")
-            Cursor=connection.cursor()
-            ticket=ticket.strip()
-            print("Ticket----------------------------------activity",ticket,current_time)
-            Cursor.execute("set nocount on;exec SP_GetTicketLogs %s,%s",[ticket,current_time])
-            activity_log=Cursor.fetchall()
-            print("Activity log-----------------------------------",activity_log)
-        except Exception as e:
-            print("Exception------",e)
-        finally:
-            Cursor.close()
-        return activity_log
+#             now = datetime.now()
+#             current_time = now.strftime("%H:%M:%S")
+#             Cursor=connection.cursor()
+#             ticket=ticket.strip()
+#             print("Ticket----------------------------------activity",ticket,current_time)
+#             Cursor.execute("set nocount on;exec SP_GetTicketLogs %s,%s",[ticket,current_time])
+#             activity_log=Cursor.fetchall()
+#             print("Activity log-----------------------------------",activity_log)
+#         except Exception as e:
+#             print("Exception------",e)
+#         finally:
+#             Cursor.close()
+#         return activity_log
 
 #Get all meetings
     def get_all_meeting(self,ticket):

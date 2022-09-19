@@ -47,7 +47,7 @@ urlpatterns=[
     path('ComposeMail',email_send,name="ComposeMail"),
     path('TicketResolve',resolve_tickets,name="TicketResolve"),
     path('ActivityLog',activity_log,name="ActivityLog"),
-
+    
     #seminar=============================================================
     path('Upcoming',upcomingSeminars,name="Upcoming"),
     path('RegisterSeminar',registerSeminars,name="RegisterSeminar"),
@@ -59,6 +59,7 @@ urlpatterns=[
     path('Inbox',emailInbox,name="Inbox"),
     path('Read',emailRead,name="Read"),
     path("sendItems",send_items_list,name="sendItems"),
+    path('ReadSendItems',read_send_items,name="ReadSendItems"),
     path('logout',logout,name="Logout")
    
  

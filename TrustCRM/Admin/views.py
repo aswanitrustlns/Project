@@ -554,6 +554,8 @@ def lead_processing(request):
         accountno=""
         seminarlist=""
         webinars=""
+        email=request.session.get("Email")
+        count,itemsList=selector.template_send_items_list(email)
         try:
             ticket=request.GET.get('ticket')
             email1=request.GET.get('email1')
@@ -627,7 +629,7 @@ def lead_processing(request):
         except Exception as e:
             print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!Exception!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!",e.__class__)
     
-        return render(request,'sales/LeadProcessing.html',{'ticket':ticket,'country_list':country_list,'accountno':accountno,'seminars':seminar_list,'webinars':webinars})
+        return render(request,'sales/LeadProcessing.html',{'ticket':ticket,'country_list':country_list,'accountno':accountno,'seminars':seminar_list,'webinars':webinars,'count':count,"send":itemsList})
     else:
          return redirect('/login') 
         
@@ -1163,6 +1165,16 @@ def send_items_list(request):
         print("Count=====",count)
         print("Items===",itemsList)
         return JsonResponse({"count":count,"send":itemsList})
+#Read send itms mail
+
+def read_send_items(request):
+
+    if 'UserId' in request.session: 
+        print("Read send items=============")
+        email=request.session.get("Email")
+        msg_id=request.GET.get('message')
+        message_data,subject,sender,inbox_count=selector.read_mail_senditems(email,msg_id)
+        return JsonResponse({"message":message_data,"subject":subject})
 
 
 
