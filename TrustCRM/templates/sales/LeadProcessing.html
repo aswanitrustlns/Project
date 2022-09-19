@@ -53,7 +53,11 @@
                         <!-- start page title -->
                         <div class="row">
                             <div class="col-12">
+                                <div class="mb-3">
+                                    <a class="btn bg-soft-secondarycolor btn-sm text-white me-2" style="cursor:pointer" onclick="history.back()"><i class="fa fa-chevron-left me-2"></i>Back</a>
+                                </div>
                                 <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                                   
                                     <h4 class="mb-sm-0 fs-23 almarenamonolight-type">Manage Ticket</h4><!--font-size-18-->
 
                                     <!--<div class="page-title-right">
@@ -430,7 +434,7 @@
                                                                                             placeholder="" required name="country"> -->
                                                                                  
                                                                                         <select class="form-select border-0 " id="country"
-                                                                                            required>
+                                                                                            required name="country">
                                                                                             <option value="0">Select</option>
                                                                                         {% for country in country_list%}
                                                                                             <option value={{country.0}}>{{country.1}}</option>
@@ -579,7 +583,7 @@
                                                                 </div>
 
                                                             <div class="card card-h-100 border-0" style="background-color: #1B1C2E;">
-                                                                <div class="card-body">
+                                                                <div class="card-body"  id="activitiesDiv">
 
 
                                                                     <div class="" data-simplebar  style="max-height: 100%">
@@ -923,77 +927,45 @@
                                                                     <div class="card-body">
                                                                        
                                                                         <div class="table-responsive" data-simplebar=" " style="max-height: 100%;">
-                                                                            <div class="  text-center d-block ">
-                                            
-                                                                                <img src="{%static 'images/nodata/nodata.png' %}" alt="">
-                                                                                
-                                                                                    
-                                            
-                                                                                <p class="gilory-regular-type fs-20 mt-2">Nothing To show</p>
-                                            
-                                                                            </div>
-                                                                            <!-- <table class="table mb-0 " style="vertical-align: middle ;">
+                                                                        {%if webinarList %}
+                                                                        
+                                                                        <table class="table mb-0 " style="vertical-align: middle ;">
         
-                                                                                <thead>
-                                                                                    <tr class="gilroyregular-type fs-12">
-                                                                                        <th>
-                                                                                            
-                                                                                            Name
-        
-                                                                                        </th>
-                                                                                        <th>Date</th>
-        
-                                                                                        <th class="text-end">Status</th>
-                                                                                    </tr>
-                                                                                </thead>
-                                                                                <tbody class="gilroymedium-type fs-14">
-                                                                                    <tr>
-                                                                                        <td scope="row">
-        
-                                                                                            <div class="d-flex align-items-center"> 
-        
-                                                                                                <div class="activity-icon avatar-sm me-3">
-                                                                                                    <span class="avatar-title   rounded-circle">
-                                                                                                       
-                                                                                                        <img class="rounded-circle avatar-sm" src="assets/images/users/firasmonzer.png" alt="">
-                                                                                                    </span>
-                
-                                                                                                </div>
-                                                                                                <div class="flex-grow-1 overflow-hidden me-4">
-                                                                                                    <h5 class="mb-0 gilroymedium-type fs-14 color-color1">
-                                                                                                        Firas
-                                                                                                        Monzer</h5>
-                                                                                                    <p class=" gilroymedium-type fs-16 mb-0 text-white">
-                                                                                                        Trading seminar
-                                                                                                    </p>
-                                                                                                </div>
-        
-        
+                                                                            <thead>
+                                                                                <tr class="gilroyregular-type fs-12">
+                                                                                    <th> Title</th>
+                                                                                    <th>Date</th>
+                                                                                    <th class="text-end">Status</th>
+                                                                                </tr>
+                                                                            </thead>
+                                                                            <tbody class="gilroymedium-type fs-14" id="webinarbody">
+                                                                                {%for webinar in webinarList %}
+                                                                                <tr>
+                                                                                    <td scope="row">
+                                                                                        <div class="d-flex align-items-center"> 
+                                                                                            <div class="flex-grow-1 overflow-hidden me-7">
+                                                                                                <h5 class="mb-0 gilroymedium-type fs-14 color-color1"></h5>
+                                                                                                <p class=" gilroymedium-type fs-16 mb-0 text-white">{{webinar.0}}</p>
                                                                                             </div>
-                                                                                            
-                                                                                         
-                                                                                        </td>
-                                                                                        <td>
-                                                                                            <select class="form-control border-0"
-                                                                                                name="seminardate" id="seminadate"
-                                                                                                required value="Sept 15th -2022
-                                                                                        9:00 - 9:30">
-                                                                                                <option value="Sept 15th -2022
-                                                                                            9:00 - 9:30">Sept 15th -2022
-                                                                                                    9:00 - 9:30</option>
-        
-                                                                                            </select>
-        
-                                                                                        </td>
-                                                                                        
-        
-                                                                                    </tr>
+                                                                                        </div>
+                                                                                    </td>
+                                                                                    <td>{{webinar.1}}</td>
+                                                                                    <td>{{webinar.2}}</td>
                                                                                     
-                                                                                
-                                                                                
-        
-                                                                                </tbody>
-                                                                            </table> -->
+    
+                                                                                </tr>
+                                                                                {%endfor%}
+                                                                            
+                                                                            
+    
+                                                                            </tbody>
+                                                                        </table>
+                                                                        {%else%}
+                                                                            <div class="  text-center d-block ">
+                                                                                <img src="{%static 'images/nodata/nodata.png' %}" alt="">
+                                                                                <p class="gilory-regular-type fs-20 mt-2">Nothing To show</p>
+                                                                            </div>
+                                                                        {%endif%}
                                                                         </div>
 
                                                                     </div>
@@ -1023,7 +995,7 @@
                                        rgba(2, 126, 194, 1) ;">
 Compose </a>
                                         
- <a   data-id="sent-email" onclick="tabswitchemail(this);" class=" rounded-2 gilroymedium-type fs-15  mb-2 text-white mx-2 mx-xxl-0 flex-grow-1"  style="background-color:
+ <a   data-id="sent-email" onclick="tabswitchemail(this);loadSendItems()" class=" rounded-2 gilroymedium-type fs-15  mb-2 text-white mx-2 mx-xxl-0 flex-grow-1"  style="background-color:
  rgba(32, 33, 52, 1) ;"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg" >
 <path d="M7.13245 3.17248L13.5525 6.38248C16.4325 7.82248 16.4325 10.1775 13.5525 11.6175L7.13245 14.8275C2.81245 16.9875 1.04995 15.2175 3.20995 10.905L3.86245 9.60748C4.02745 9.27748 4.02745 8.72998 3.86245 8.39998L3.20995 7.09498C1.04995 2.78248 2.81995 1.01248 7.13245 3.17248Z" stroke="#9295D0" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
 <path d="M4.08008 9H8.13008" stroke="#9295D0" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -1094,7 +1066,7 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
                                                                             <div id="sent-email"  class="d-none">
     
                                                                                 <ul class="message-list" data-simplebar style="max-height: 300px;" id="sendmailList">
-                                                                                {%for items in send %}
+                                                                                <!-- {%for items in send %}
                                                                                     <li class="fs-16" href="#read-email" data-id="read-email" onclick="tabswitchemail(this);readSendItems({{items.2}})">
                                                                                         <div class="col-mail col-mail-1">
                                                                                             <div class="checkbox-wrapper-mail">
@@ -1110,7 +1082,7 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
                                                                                         </div>
                                                                                     </li>
                                                                                     <hr class="mx-3 my-0">
-                                                                                {%endfor%}
+                                                                                {%endfor%} -->
                                                                                     
                                                                                    
                                                 
@@ -1122,7 +1094,7 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
                                                                                     <div class="card">
                                                 
                                                                                         <div class="card-body" id="sendread">
-                                                                                            <li class="fs-16" href="#read-email" data-id="read-email" onclick="tabswitchemail(this)">
+                                                                                            <!-- <li class="fs-16" href="#read-email" data-id="read-email" onclick="tabswitchemail(this)">
                                                                                                 <div class="col-mail col-mail-1">
                                                                                                     <div class="checkbox-wrapper-mail">
                                                                                                         <input type="checkbox" id="chk1">
@@ -1135,7 +1107,7 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
                                                                                                     </a>
                                                                                                     <div class="date text-white gilroymedium-type"></div>
                                                                                                 </div>
-                                                                                            </li>
+                                                                                            </li> -->
                                                                                             
                                                                                         </div>
                                                                                     </div>
@@ -2306,7 +2278,12 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
                 }
                     
                 })
-              
+                $('#sendmailList').on('click','li', function(event){
+                event.preventDefault();
+                ms_id=$(this).data("msid")
+                console.log(ms_id);
+                readSendItems(ms_id)
+            });
 
                
 
@@ -2447,9 +2424,10 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
                 "seminartitle":seminartitle
             },
             success: function(data){
+                var msg=data.msg
                 $("#seminarpopup").modal('hide')
                 $("#userMsg").empty()
-                $("#userMsg").append("Webinar Registation done")
+                $("#userMsg").append(msg)
                 $("#alertpopup").modal('show')
             }
         })
@@ -2475,7 +2453,7 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
     }
     function resolveTicket(){
         var ticket=document.getElementById("ticketno").value
-        
+       
         if(ticket == ''){
             $("#alertpopup").modal('show')
             
@@ -2495,11 +2473,9 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
             success: function(datas){
                 console.log("Messageee----"+datas.message)
                 var message=datas.message
-                if(message){
                 $("#userMsg").empty()
-                $("#userMsg").append("Ticket resolved")
+                $("#userMsg").append(message)
                 $("#alertpopup").modal('show')
-                }
             }
         })
 
@@ -2557,11 +2533,9 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
                     success: function(datas){
                         console.log("Messageee----"+datas.msg)
                         var message=datas.msg
-                        if(message){
                         $("#userMsg").empty()
-                        $("#userMsg").append(message)
+                        $("#userMsg").append("Demo Account opened")
                         $("#alertpopup").modal('show')
-                        }
                     }
                 })
                 // updateActivities(activities)
@@ -2683,60 +2657,75 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
         })
      
     }
-    // function loadSendItems(){
-    //     console.log("Send iems list=======")
+    function loadSendItems(){
+        var leadsmail=document.getElementById("email1").value
+        if (leadsmail==""){
+            leadsmail=document.getElementById("email2").value
+        }
+        console.log("Send iems list=======",leadsmail)
 
-    //     inboxlist=""
-    //     $("#sendmailList").empty()
-    //     $.ajax({
+        inboxlist=""
+        $("#sendmailList").empty()
+        $.ajax({
                     
-    //                 type : "GET", 
-    //                 url: "{% url 'Admin:sendItems' %}",
-               
+                    type : "GET", 
+                    url: "{% url 'Admin:sendItems' %}",
+                    data:{
+                        "mail":leadsmail
+                    },
                     
                     
-    //                 success: function(data){
-    //                     var count=data.count
-    //                     var items=data.send
-    //                     console.log("Data======",data.send)
-    //                     for(var i=0;i<count;i++){ 
+                    success: function(data){
+                        var count=data.count
+                        var items=data.send
+                        console.log("Data======",data.send)
+                        for(var i=0;i<count;i++){ 
                 
                     
-    //                         var ms_id=""
-    //                         inboxlist +="<li class='fs-16' href='#read-email' data-id='read-email' onclick='tabswitchemail(this)'>"+
-    //                             "<div class='col-mail col-mail-1'> <div class='checkbox-wrapper-mail'><input type='checkbox' id='chk1'>"+
-    //                             "<label for='chk1' class='toggle'></label> </div><a href='#' class='title text-white gilroysemibold-type'>"+items[i][0]+
-    //                                 "</a><span class='star-toggle far fa-star' style='color:var(--color1) ;'></span></div><div class='col-mail col-mail-2'>"+
-    //                                 "<a href='#' class='subject color-color1 gilroyregular'>"+items[i][1]+"<span class='teaser'>"+
-    //                                     "</span></a><div class='date text-white gilroymedium-type'></div></div></li><hr class='mx-3 my-0'>";
+                            var ms_id=items[i][2]
+
+                            inboxlist +=  "<li class='fs-16' data-msid='"+ms_id+"' href='#read-email' data-id='read-email' onclick='tabswitchemail(this);'>"+
+                            "<div class='col-mail col-mail-1'><div class='checkbox-wrapper-mail'><input type='checkbox' id='chk1'>"+
+                            "<label for='chk1' class='toggle'></label></div><a class='title text-white gilroysemibold-type'>"+items[i][0]+"</a>"+
+                            "<span class='star-toggle far fa-star' style='color:var(--color1) ;''></span></div><div class='col-mail col-mail-2'>"+
+                            "<a class='subject color-color1 gilroyregular'><span class='teaser'></span></a><div class='date text-white gilroymedium-type'>"+items[i][1]+"</div>"+
+                            "</div></li><hr class='mx-3 my-0'>"                         
                 
             
-    //                     }
-    //                     $("#sendmailList").append(inboxlist)
-    //                 }
-    //             })
+                        }
+                        $("#sendmailList").append(inboxlist)
+            
+                    }
+                })
 
-    // }
+    }
 
     function readSendItems(msgId){
         console.log("Message id=========================="+msgId)
+        var leadsmail=document.getElementById("email1").value
+        if (leadsmail==""){
+            leadsmail=document.getElementById("email2").value
+        }
+        console.log("Send iems list=======",leadsmail)
         var read=""
         $.ajax({
                     
                 type : "GET", 
                 url: "{% url 'Admin:ReadSendItems' %}",
                 data:{
-                    "message":msgId
+                    "message":msgId,
+                    "mail":leadsmail
                 },             
                                     
                                     
                 success: function(data){
                     var message=data.message
+                    var subject=data.subject
                     console.log(message)
                     $("#sendread").empty()
                         read= "<div class='d-flex align-items-center mb-4'><div class='flex-grow-1 gilroymedium-type'>"+
-                               "<h5 class='fs-14 mb-0 text-white'>Humberto D. Champion</h5> <small class='fs-11 color-color1'>support@domain.com</small>"+
-                               "</div></div><p class='gilroyregular-type color-color1 fs-16'>Praesent dui ex, dapibus eget m</p>" ;
+                               "<h5 class='fs-14 mb-0 text-white'></h5>"+subject+"<small class='fs-11 color-color1'></small>"+
+                               "</div></div><p class='gilroyregular-type color-color1 fs-16'>"+message+"</p>" ;
                                $("#sendread").append(read)
                                                                                             
                         }
@@ -3091,6 +3080,7 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
     }
 
     function assignFun(flag){
+       
         console.log("Flag issssssss"+flag)
         var ticket=document.getElementById("ticketno").value
         var salesrepId=$("#salesrep").val()
@@ -3098,7 +3088,11 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
         var percentage=0
         var reassginid=0
         var reassign_rep=""
-        if(flag=="A" || flag=="M"){
+        if(ticket == ''){
+            $("#alertpopup").modal('show')
+            
+        }else{
+            if(flag=="A" || flag=="M"){
             reassginid=0
             percentage=$("#assign").val()
         }
@@ -3133,14 +3127,19 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
                     console.log("Flag entered  isss")
                    
                         $("#userMsg").empty()
-                        if(result > 0){
+                        if(result >= 0){
                         console.log("Assign greater 0")
-                        $("#userMsg").html("SalesRep assigned Successfully")
+                        if(flag=="A" || flag=="M"){
+                            $("#userMsg").append("SalesRep assigned Successfully")
+                        }
+                        if(flag=="R"){
+                            $("#userMsg").append("SalesRep Reassigned Successfully")
+                        }
                         
                     }
                     else{
                         console.log("Assign less than 0")
-                        $("#userMsg").html("Cannot assign SalesRep to this ticket")
+                        $("#userMsg").append("Cannot assign SalesRep to this ticket")
                     }
                     $("#alertpopup").modal('show')
 
@@ -3149,6 +3148,9 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
             
                }
             });
+
+        }
+        
             updateActivitylog()
 
     }
@@ -3409,6 +3411,7 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
                         // var country=data.country
                         // console.log("Vie activities----",activities)
                         var title=leads[35] 
+                        var webinarList=data.webinarList
                         
                         
                         var name=leads[0]
@@ -3492,11 +3495,32 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
                         gauge2(meetingscore)
                         updateActivities(activities)
                         updateTicketSummary(ticketSummary)
+                        updateWebinarList(webinarList)
+                        
                     }
                 })
 
         }
     }
+    }
+    function updateWebinarList(webinars){
+       
+        var length=webinars.length;
+        var rows=""
+        console.log("Webinars======="+webinars)
+        console.log("Webinar Length====="+length)
+        if(length>0){
+        for(var i=0;i<length;i++){
+            rows+="<tr><td scope='row'><div class='d-flex align-items-center'><div class='flex-grow-1 overflow-hidden me-7'>"+
+            "<h5 class='mb-0 gilroymedium-type fs-14 color-color1'></h5><p class='gilroymedium-type fs-16 mb-0 text-white'>"+webinars[i][0]+"</p>"+
+            "</div></div></td><td>"+webinars[i][1]+"</td><td>"+webinars[i][2]+"</td></tr>";
+            
+
+        } 
+        $("#webinarbody").empty()
+        $("#webinarbody").append(rows)
+            
+        }
     }
 
     function updateActivities(activities){
@@ -3516,6 +3540,8 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
                                          "</svg></p><p class='color-color1  mb-0'>"+activities[i][1]+" by "+activities[i][7]+"</p><p class='color-color1  mb-0' style='max-width: 250px'>"+activities[i][3]+"</p></div></div></div></div></div></li>"
         }
         $("#activityList").append(activity)
+        $("#activityList").scrollTop($("#activityList")[0].scrollHeight);
+        
         
     }
     function updateTicketSummary(ticketsummary){
@@ -3545,7 +3571,7 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
    
    
     </script>
-
+    
     <script src="{%static 'libs/flatpickr/flatpickr.min.js' %}"></script>
     <!-- <script src="{% static 'libs/datatables.net/js/jquery.dataTables.min.js' %}"></script>
     <script src="{% static 'libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js' %}"></script> -->

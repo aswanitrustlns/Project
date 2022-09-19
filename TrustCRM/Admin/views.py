@@ -554,8 +554,9 @@ def lead_processing(request):
         accountno=""
         seminarlist=""
         webinars=""
+        webinarList=[]
         email=request.session.get("Email")
-        count,itemsList=selector.template_send_items_list(email)
+        # count,itemsList=selector.template_send_items_list(email)
         try:
             ticket=request.GET.get('ticket')
             email1=request.GET.get('email1')
@@ -626,10 +627,12 @@ def lead_processing(request):
             accountno=selector.get_account_no(ticket)
             seminar_list=selector.get_upcoming_seminar()
             webinars=selector.get_seminar_list(ticket)
+            webinarList=selector.get_webinar_attended(ticket)
+            print("Webinar List=========================",webinarList)
         except Exception as e:
             print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!Exception!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!",e.__class__)
     
-        return render(request,'sales/LeadProcessing.html',{'ticket':ticket,'country_list':country_list,'accountno':accountno,'seminars':seminar_list,'webinars':webinars,'count':count,"send":itemsList})
+        return render(request,'sales/LeadProcessing.html',{'ticket':ticket,'country_list':country_list,'accountno':accountno,'seminars':seminar_list,'webinars':webinars,'webinarList': webinarList})
     else:
          return redirect('/login') 
         
@@ -738,10 +741,11 @@ def sendRemiderMail(request):
     if 'UserId' in request.session:        
         ticket=request.GET.get('ticket')
         subject="Trust Capital - Meeting Reminder"
+        sendername=request.session.get('UserName')
         bcc=""
         cc=""
         template="MeetingReminder.html"
-        selector.mailSend(ticket,subject,bcc,cc,template)
+        selector.mailSend(ticket,subject,bcc,cc,template,sendername)
         
         return JsonResponse({'success':True})
     else:
@@ -792,6 +796,7 @@ def send_meeting_request(request):
         cc=""
         ticket=request.GET.get('ticket')
         flag=int(request.GET.get('flag'))
+        sendername=request.session.get('UserName')
         message=service.send_meeting_request(request)
         if message:
             message=message[0]   
@@ -804,7 +809,7 @@ def send_meeting_request(request):
             subject = "TC Limited – Meeting Cancelled"
             template="MeetingCancelled.html"
             
-            selector.mailSend(ticket,subject,bcc,cc,template)
+            selector.mailSend(ticket,subject,bcc,cc,template,sendername)
         print("Subject--------------------------------------",subject)
         if(message == 'PROCEED'):
             print("Proceed---")          
@@ -813,7 +818,7 @@ def send_meeting_request(request):
             
             template="MeetingConfirmation.html"
             
-            selector.mailSend(ticket,subject,bcc,cc,template)
+            selector.mailSend(ticket,subject,bcc,cc,template,sendername)
             print("Proceed------",message)
         return JsonResponse({"message":message})
     else:
@@ -932,6 +937,7 @@ def viewLoadFunctions(request): # 455325 to test meeting score
 
     if 'UserId' in request.session:        
         ticket=request.GET.get('ticket')
+        
         ticket=ticket.strip()
         UserId=request.session.get('UserId')
         activity_log=selector.get_activities_log(ticket)
@@ -941,6 +947,7 @@ def viewLoadFunctions(request): # 455325 to test meeting score
         accountno=selector.get_account_no(ticket)
         ticket_summary=selector.get_ticket_summary(ticket)
         sticky_text=selector.get_sticky_text(ticket)
+        webinarList=selector.get_webinar_attended(ticket)
         # email=request.session.get("Email")
         # send_items=selector.template_send_items_list(email)
         print("Last comment--------",last_comment)
@@ -954,7 +961,7 @@ def viewLoadFunctions(request): # 455325 to test meeting score
         print("Meeting score----",meetingscore)
         print("Sticky text========",sticky_text)
         print("End---------------------")
-        return JsonResponse({'leads':lead_details,'activities':activity_log,'ticket_summary':ticket_summary,'leadscore':leadscore,'meetingscore':meetingscore,'lastcomment':last_comment,'stickytext':sticky_text,'accountno':accountno})
+        return JsonResponse({'leads':lead_details,'activities':activity_log,'ticket_summary':ticket_summary,'leadscore':leadscore,'meetingscore':meetingscore,'lastcomment':last_comment,'stickytext':sticky_text,'accountno':accountno,'webinarList':webinarList})
     else:
         return redirect('/login')
 def activity_log(request):
@@ -1092,9 +1099,9 @@ def resolve_tickets(request):
     if 'UserId' in request.session:
         
         userid=request.session.get('UserId')
-        ticket=request.GET.get('note')
+        ticket=request.GET.get('ticket')
         msg=selector.resolve_ticket(ticket,userid)
-        print("Message=========================",msg)
+        
         return JsonResponse({"message":msg})
     else:
         return redirect('/login')
@@ -1119,8 +1126,9 @@ def registerSeminars(request):
         to_addr=request.GET.get('to_addr')
         seminartitle=request.GET.get('seminartitle')
         ticket=request.GET.get('ticket')
-        selector.register_seminar(title,name,to_addr,seminartitle,ticket,userid)
-        return JsonResponse({"msg":"Register successfully"})
+        message=selector.register_seminar(title,name,to_addr,seminartitle,ticket,userid)
+                                           
+        return JsonResponse({"msg":message})
     else:
         return redirect('/login')  
 #Update seminar
@@ -1160,7 +1168,8 @@ def open_demoaccount(request):
 #Email template send items
 def send_items_list(request):
     if 'UserId' in request.session: 
-        email=request.session.get("Email")
+        email=request.GET.get("mail")
+        print("Leads mail Id===============",email)
         count,itemsList=selector.template_send_items_list(email)
         print("Count=====",count)
         print("Items===",itemsList)
@@ -1171,9 +1180,9 @@ def read_send_items(request):
 
     if 'UserId' in request.session: 
         print("Read send items=============")
-        email=request.session.get("Email")
+        email=request.GET.get("mail")
         msg_id=request.GET.get('message')
-        message_data,subject,sender,inbox_count=selector.read_mail_senditems(email,msg_id)
+        message_data,subject,sender=selector.read_mail_senditems(email,msg_id)
         return JsonResponse({"message":message_data,"subject":subject})
 
 

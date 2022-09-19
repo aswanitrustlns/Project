@@ -1,6 +1,7 @@
 from audioop import reverse
 from cmath import log
 from email.message import Message
+from operator import add
 
 from time import strptime
 from django.db import connection
@@ -366,7 +367,7 @@ class Selector:
 
 #Email template rendering and send Mail
 
-    def mailSend(self,token,subject,bcc,cc,template):
+    def mailSend(self,token,subject,bcc,cc,template,sendername):
         try:
             print("token--------------",token)
             Cursor=connection.cursor()
@@ -385,7 +386,7 @@ class Selector:
             template_data={
                 "title":client_details[0],
                 "name":client_details[1],
-                "sender":client_details[3],
+                "sender":sendername,
                 "date":meeting_details[0],
                 "time":meeting_details[1],
                 "location":meeting_details[2],
@@ -505,23 +506,26 @@ class Selector:
 
     def resolve_ticket(self,ticket,userid):
         livestatus=""
-        msg=""
+        msg="Ticket Resolved"
         try:
            Cursor=connection.cursor()
+           print("Ticket========================",ticket)
            Cursor.execute("set nocount on;exec SP_GetAccountStatusByTicket %s",[ticket])
            ticket_status=Cursor.fetchone()
+           print("Ticket status=========================",ticket_status)
            if(ticket_status):
-             ticket_status=ticket_status[0]
-           if(ticket_status=="Live"):
-                msg="Cannot resolve ticket with Account No"
-           else:
-                value=Cursor.execute("set nocount on;exec SP_ResolveTicket %s,%s,%s",[ticket,userid,"Resolved"])
-                if(value==0):
-                    msg="'Ticket Resolved Successfully"
+            ticket_status=ticket_status[0]
+            if(ticket_status=="Live"):
+                        msg="Cannot resolve ticket with Account No"
+            else:
+                        value=Cursor.execute("set nocount on;exec SP_ResolveTicket %s,%s,%s",[ticket,userid,"Resolved"])
+                        if(value==0):
+                            msg="'Ticket Resolved Successfully"
         except Exception as e:
             print("Exception------",e)
         finally:
             Cursor.close()
+        print("Ticket Resolve message======",msg)
         return msg
     
     def get_mail_inbox(self):
@@ -580,7 +584,7 @@ class Selector:
         return inbox_count,inbox_list
 #Email template send items----
     def template_send_items_list(self,emailname):
-        
+        count=0
         try:
             inbox_list=[]
             username="crm@trusttc.com"
@@ -593,6 +597,7 @@ class Selector:
             mailbox.login(username, app_password)
             mailbox.select("INBOX")
             search_cr='(TO "'+emailname+'")'
+            print("Search mail=============================",search_cr)
             type, selected_mails = mailbox.search(None,search_cr) #mail.search based criteria mail.search(None,'(FROM "email" SUBJECT "the subject" UNSEEN)')
             count=len(selected_mails[0].split())
             print("Total Messages " , len(selected_mails[0].split()))
@@ -606,7 +611,7 @@ class Selector:
                         subject=msg["subject"]
                         receive_tym=msg["date"]
                
-                        print("message=========================",msg["Message-ID"])
+                        # print("message=========================",msg["Message-ID"])
 
                         if receive_tym:
                                 receive_tym=receive_tym[0:16]
@@ -635,15 +640,16 @@ class Selector:
         mail.login(username, app_password)
         status, messages=mail.select("INBOX")
         search_cr='(TO "'+emailname+'")'
-        _, selected_mails = mail.search(None,'(ALL)')
-        inbox_count=len(selected_mails[0].split())
+        print("Searched Id=====",search_cr)
+        elem, selected_mails = mail.search(None,search_cr)
+        
        
-        for i in range(1, selected_mails[0].split()):
-            res, msg = mail.fetch(str(i), '(RFC822)')
+        for i in selected_mails[0].split():
+            res, msg = mail.fetch(i, '(RFC822)')
             for response in msg:
                 if isinstance(response, tuple):
                     msg = email.message_from_bytes(response[1])
-                    
+                    print("+++++++++++++++++++++++++msg id",msg["Message-ID"])
                     if(message == msg["Message-ID"]):
                         print("Message")
                         subject=msg["subject"]
@@ -679,7 +685,7 @@ class Selector:
                                 
                             
         
-        return message_data,subject,sender,inbox_count
+        return message_data,subject,sender
 
  # Read mail inbox
     def read_mail_inbox(self,message):
@@ -1131,17 +1137,21 @@ class Selector:
         return seminarlist_upcoming
     # Register Seminar
     def register_seminar(self,title,name,to_addr,seminartitle,ticket,userid):
+        register_msg=""
         try:
             Cursor=connection.cursor()           
             Cursor.execute("set nocount on;exec SP_SeminarConfirmation %s,%s,%s",[ticket,userid,seminartitle]) 
             register_msg=Cursor.fetchone()
             print("Register mesage================",register_msg)
-            if(register_msg=='Seminar Confirmed Successfully'):
-                 emailservice.seminar_confirmation_email(self,title,name,to_addr,seminartitle)
+            
+            if register_msg:
+                if(register_msg[0]=='Seminar Confirmed Successfully'):
+                   emailservice.seminar_confirmation_email(title,name,to_addr,seminartitle)
         except Exception as e:
                 print("Exception------",e)
         finally:
                 Cursor.close()
+        return register_msg
     #Get seminar list
     def get_seminar_list(self,ticket):
         try:
@@ -1163,7 +1173,20 @@ class Selector:
                 print("Exception------",e)
         finally:
                 Cursor.close()
+    #Webinar attended
+    def get_webinar_attended(self,ticket):
+        webinars=[]
+        try:
+            Cursor=connection.cursor()           
+            Cursor.execute("set nocount on;exec SP_GetWebinarAttended  %s",[ticket]) 
+            webinars=Cursor.fetchall()
+        except Exception as e:
+                print("Exception------",e)
+        finally:
+                Cursor.close()
+        return webinars
         
+
 
 
     
@@ -1222,40 +1245,66 @@ def update_ticket(request):
          
      try:
         Cursor=connection.cursor()
+       
         name=request.POST.get('firstname')
         email=request.POST.get('email')
         phone=request.POST.get('phone')
         subject=request.POST.get('subject')
-        ticket=request.POST.get('ticket')
-        country=request.POST.get('country')
+        ticket=request.POST.get('formticket')
+        print("Countryyyy",ticket)
+        country=int(request.POST.get('country'))
+        print("Type of country",type)
         clientarea=request.POST.get('clientarea')
-        potential=request.POST.get('potential')
+        potential=0
         city=request.POST.get('city')
         address=request.POST.get('address')
+        if (address ==""):
+            address=None
         state=request.POST.get('state')
+        if(state==""):
+            state=None
         zipcode=request.POST.get('zipcode')
-        nationality=request.POST.get('nationality')
+        if (zipcode==""):
+            zipcode=0
+        # nationality=request.POST.get('nationality')
+        nationality=0
         profession=request.POST.get('profession')
         dob=request.POST.get('dob')
+        if(dob==""):
+            dob=None
         income=request.POST.get('income')
-        networth=request.POST.get('networth')
-        experience=request.POST.get('experience')
+        if income:
+            income=int(income)
+        else:
+            income=None
+        # networth=request.POST.get('networth')
+        networth=0
+        experience=int(request.POST.get('experience'))
         hear=request.POST.get('hearfrom')
-        email2=request.POST.get('email2')
-        phone2=request.POST.get('phone2')
-        country2=request.POST.get('country2')
-        noemail=request.POST.get('noemail')
+        # email2=request.POST.get('email2')
+        # phone2=request.POST.get('phone2')
+        email2=None
+        phone2=None
+        # country2=request.POST.get('country2')
+        country2=0
+        # noemail=request.POST.get('noemail')
+        noemail=0
         title=request.POST.get('title')
-        hyplinks=request.POST.get('hyplinks')
-        appform=request.POST.get('appform')
+        # hyplinks=request.POST.get('hyplinks')
+        hyplinks="NULL"
+        appform=int(request.POST.get('appform'))
         age=request.POST.get('age')
-        category=request.POST.get('category')
-        userId=request.session.get('UserId')
-        language=request.POST.get('language')
+      
+        category=None
+        userId=int(request.session.get('UserId'))
+        language=int(request.POST.get('language'))
         training=request.POST.get('training')
         print("Staus ticket update------",name,email,phone,subject,ticket,country,clientarea,potential,city,address,state,zipcode,nationality,profession,dob,income,networth,experience,hear,email2,phone2,country2,noemail,title,hyplinks,appform,age,category,userId,language,training)
-        print("Staus ticket type------",type(name),email,phone,subject,ticket,type(country),clientarea,type(potential),city,address,state,zipcode,type(nationality),profession,dob,type(income),type(networth),type(experience),hear,email2,phone2,type(country2),type(noemail),title,hyplinks,type(appform),type(age),category,userId,language,training)
+        
+        print("Staus ticket type------",type(age))
         Cursor.execute("set nocount on;exec SP_UpdateSalesLead %s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s",[name,email,phone,subject,ticket,country,clientarea,potential,city,address,state,zipcode,nationality,profession,dob,income,networth,experience,hear,email2,phone2,country2,noemail,title,hyplinks,appform,age,category,userId,language,training])
+        updates=Cursor.fetchone()
+        print("Updation done",updates)
      except Exception as e:
                 print("Exception------",e)
      finally:

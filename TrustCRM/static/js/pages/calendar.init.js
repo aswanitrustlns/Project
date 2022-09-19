@@ -135,7 +135,24 @@ File: Calendar init js
                 },
                 events : defaultEvents
             });
-            calendar.render();
+            // calendar.render();
+            $( document ).ready(function() {
+
+                calendar.render();
+
+         
+
+                $('a[href="#actions-reminders-tab"]').on('click',function(){
+
+
+
+                 $('.fc-dayGridMonth-button').trigger('click') ;
+
+                })
+
+               
+
+  });
             
              /*Add new event*/
             // Form to add new event

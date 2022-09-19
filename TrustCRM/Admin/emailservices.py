@@ -17,7 +17,7 @@ class EmailServices:
             print("Receiver mail-----------------------------",receiver_mail)
             subject="SalesRep Assigned"   
             email_from = 'cs@trusttc.com'
-            receiver_mail="aswani.technology@gmail.com"
+            # receiver_mail="aswani.technology@gmail.com"
             template_data={
                 "repname":repname,
                 "username":username,
@@ -46,7 +46,7 @@ class EmailServices:
             subject="SalesRep Assigned"   
             email_from = 'cs@trusttc.com'
             
-            receiver_mail="aswani.technology@gmail.com"
+            # receiver_mail="aswani.technology@gmail.com"
             template_data={
                 "repname":repname,
                 "username":username,
@@ -187,22 +187,22 @@ class EmailServices:
                 #send_mail(subject," ",email_from,[receiver],fail_silently=False,html_message=email_template_render)
                 # msg=EmailMessage(subject,email_template_render,email_from,[receiver],[receiver])
             print("Email service---------------------------------------")   
-            bcc1="aswani@trustlns.ae"
-            bcc2="aswani.trustlns@gmail.com"
+            bcc1="crm@trusttc.com"
+            bcc2="cs@trusttc.com"
             
            
             email_from = 'cs@trusttc.com'
-            receiver_mail="aswani.technology@gmail.com"
+            # receiver_mail="aswani.technology@gmail.com"
             template_data={
                 "title":title,
                 "name":name,
                 "login":demo_account,
                 "passord":password,
             }
-            email_template_render=render_to_string("YourDemoAccountWithTrustCapital.html",template_data)
+            email_template_render=render_to_string("email/YourDemoAccountWithTrustCapital.html",template_data)
             subject=" "
             
-            msg = EmailMultiAlternatives(subject=subject,from_email=email_from,to=[receiver_mail],bcc=[bcc1,bcc2])
+            msg = EmailMultiAlternatives(subject=subject,from_email=email_from,to=[receiver_mail],bcc=[bcc1])
             msg.attach_alternative(email_template_render, "text/html")
             msg.send(fail_silently=False)
             print("Email send-----------------------------------------------------------")   
@@ -214,11 +214,14 @@ class EmailServices:
     #seminar confirmation email
     def seminar_confirmation_email(self,title,name,to_addr,seminartitle):
         try:
+            
             subject = "Trust Capital - Webinar Confirmation"
             from_addr="crm@trusttc.com"
+           
             Cursor=connection.cursor()           
             Cursor.execute("set nocount on;exec SP_SeminarConfirmationEmail %s",[seminartitle]) 
-            seminar_details=Cursor.fetchall()
+            seminar_details=Cursor.fetchone()
+            
             if seminar_details:
                 seminar_name=seminar_details[2]
                 location=seminar_details[0]
@@ -233,9 +236,13 @@ class EmailServices:
                 "seminar_time":seminar_time
 
             }
-            email_template_render=render_to_string("SendSeminar.html",template_data)
+            
+            email_template_render=render_to_string("email/SendSeminar.html",template_data)
+            
             msg = EmailMultiAlternatives(subject=subject,from_email=from_addr,to=[to_addr])
+            
             msg.attach_alternative(email_template_render, "text/html")
+            
             msg.send(fail_silently=False)
             print("Email send-----------------------------------------------------------")
         except Exception as e:
@@ -281,7 +288,7 @@ class EmailServices:
               "age":age,
               "address":address
             }
-            email_template_render=render_to_string("UpdatedAccount.html",template_data)
+            email_template_render=render_to_string("email/UpdatedAccount.html",template_data)
             msg = EmailMultiAlternatives(subject=subject,from_email=from_addr,to=[to_addr],bcc=[bcc])
             msg.attach_alternative(email_template_render, "text/html")
             msg.send(fail_silently=False)

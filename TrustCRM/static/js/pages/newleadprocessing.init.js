@@ -335,6 +335,21 @@ function mysubmitformsset(){
 	
 }
 var tabswitchemail=($this)=>{   let id='#'+$($this).attr('data-id');
+            if(id!='#read-email'){
+                $($this).css('backgroundColor','rgba(2, 126, 194, 1)');
+                $($this).addClass('text-white ');
+
+                $($this).removeClass('color-color1');
+
+            
+
+                $($this).siblings().css('backgroundColor',' rgba(32, 33, 52, 1)');
+
+                $($this).siblings().addClass('color-color1');
+
+                $($this).siblings().removeClass('text-white');
+
+            }
             if($(id).hasClass('d-block')){
                 $(id).removeClass('d-none');
                 $(id).siblings().removeClass('d-block');
