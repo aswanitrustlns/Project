@@ -79,7 +79,7 @@ def dashboard(request):
 
     if 'UserId' in request.session:
         UserId=request.session.get('UserId')
-        UserId=56
+        
         permission_check=selector.user_role_selection(UserId)          
         manager=permission_check[11]
         salesRep=permission_check[22]
@@ -627,6 +627,7 @@ def lead_processing(request):
             accountno=selector.get_account_no(ticket)
             seminar_list=selector.get_upcoming_seminar()
             webinars=selector.get_seminar_list(ticket)
+            print("Webinar===============================",webinars)
             webinarList=selector.get_webinar_attended(ticket)
             print("Webinar List=========================",webinarList)
         except Exception as e:
@@ -869,7 +870,13 @@ def update_meetingassessment(request):
 def saveMeeting(request):
     if 'UserId' in request.session:
         score=service.save_meeting_score(request)
-        return JsonResponse({"score":score})
+        ticket=request.GET.get('ticket')
+        meeting_score=selector.get_meeting_score(ticket)
+        if(meeting_score != None):
+            meeting_score=sum(meeting_score)
+            meeting_score=(meeting_score/320)*100
+        print("Meeting score======",meeting_score)
+        return JsonResponse({"score":score,"meetingscore":meeting_score})
     else:
         return redirect('/login')
 
@@ -942,11 +949,16 @@ def viewLoadFunctions(request): # 455325 to test meeting score
         UserId=request.session.get('UserId')
         activity_log=selector.get_activities_log(ticket)
         lead_details=selector.get_lead_details(ticket,UserId)
+        if lead_details:
+            cid=lead_details[10]
+            code=selector.get_code_country(cid)
+            
         leadscore=selector.get_lead_score(ticket)
         last_comment=selector.get_last_comment(ticket,UserId)
         accountno=selector.get_account_no(ticket)
         ticket_summary=selector.get_ticket_summary(ticket)
         sticky_text=selector.get_sticky_text(ticket)
+        # webinarList=selector.get_seminar_list(ticket)
         webinarList=selector.get_webinar_attended(ticket)
         # email=request.session.get("Email")
         # send_items=selector.template_send_items_list(email)
@@ -961,7 +973,7 @@ def viewLoadFunctions(request): # 455325 to test meeting score
         print("Meeting score----",meetingscore)
         print("Sticky text========",sticky_text)
         print("End---------------------")
-        return JsonResponse({'leads':lead_details,'activities':activity_log,'ticket_summary':ticket_summary,'leadscore':leadscore,'meetingscore':meetingscore,'lastcomment':last_comment,'stickytext':sticky_text,'accountno':accountno,'webinarList':webinarList})
+        return JsonResponse({'leads':lead_details,'activities':activity_log,'ticket_summary':ticket_summary,'leadscore':leadscore,'meetingscore':meetingscore,'lastcomment':last_comment,'stickytext':sticky_text,'accountno':accountno,'webinarList':webinarList,'code':code})
     else:
         return redirect('/login')
 def activity_log(request):
@@ -1073,15 +1085,18 @@ def save_reminder_details(request):
     if 'UserId' in request.session:
         print("Save reminder view=========")
         userid=request.session.get('UserId')
+        mail=request.session.get('Email')
         date=request.POST.get('date')
         time=request.POST.get('time')
         ticket=request.POST.get('ticket')
         subject=request.POST.get('subject')
-        if(subject==None):
-            subject=" "
-        badge=request.POST.get('badge')
-        print("EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE",userid,ticket,subject,date,time,badge)
-        selector.save_reminder(userid,ticket,subject,date,time,badge)
+        login=request.POST.get('login')
+        color=request.POST.get('color')
+        # if(subject==None):
+        #     subject=" "
+       
+        print("EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE",subject,date,time,color,login)
+        selector.save_reminder(userid,ticket,subject,date,time,login,color,mail)
         return JsonResponse({"success":True})
     else:
         return redirect('/login')
@@ -1100,7 +1115,9 @@ def resolve_tickets(request):
         
         userid=request.session.get('UserId')
         ticket=request.GET.get('ticket')
-        msg=selector.resolve_ticket(ticket,userid)
+        reason=request.GET.get('reason')
+        print("Reason======================",reason)
+        msg=selector.resolve_ticket(ticket,userid,reason)
         
         return JsonResponse({"message":msg})
     else:

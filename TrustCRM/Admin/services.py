@@ -122,6 +122,7 @@ class Services:
             print("experience",experience,"meeting",meeting,"forex",forex,"seminar",seminar,"questions",questions,"voice",voice,"trading",trading,"profession",profession,"ref",refernce,"total",total)
             Cursor.execute("set nocount on;exec SP_SaveMeetingScore %s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s",[ticket,experience,meeting,forex,seminar,questions,voice,trading,profession,refernce,userId,total,'a'])
             meeting_score=Cursor.fetchone()
+            
             # if(Cursor.nextset()):
             #     result=Cursor.fetchone()
             #     print("Result-----------------------",result)

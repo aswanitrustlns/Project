@@ -334,6 +334,18 @@ function mysubmitformsset(){
 	//  });
 	
 }
+
+//colorswitch
+
+var multipleswitchcolor=($this,$activecolor,$defaultcolor,$class,$activeclass)=>{
+    $($this).parents('.'+$class).addClass($activeclass);
+    $($this).parents('.'+$activeclass).siblings($class).removeClass($activeclass);
+    $($this).css('backgroundColor',$activecolor );
+    $($this).siblings().css('backgroundColor',$defaultcolor );
+    $($this).parents('.'+$activeclass).siblings('.'+$class).find('.btn').css('backgroundColor',$defaultcolor );     
+
+}
+
 var tabswitchemail=($this)=>{   let id='#'+$($this).attr('data-id');
             if(id!='#read-email'){
                 $($this).css('backgroundColor','rgba(2, 126, 194, 1)');
@@ -363,6 +375,14 @@ var tabswitchemail=($this)=>{   let id='#'+$($this).attr('data-id');
              $(id).siblings().addClass('d-none');
             }
 }
+const simpleBarJournal = new SimpleBar(document.getElementById('journal-block'));
+
+$(document).ready(function () {
+    simpleBarJournal.recalculate();
+    // simpleBarChatdiv.recalculate();
+    simpleBarJournal.getScrollElement().scrollTop = simpleBarJournal.getScrollElement().scrollHeight;
+    
+});
    
 
     

@@ -39,10 +39,11 @@ File: Calendar init js
                     };
                 }
             });*/
-            var defaultEvents = [{
-                title: 'All Day Event',
-                start: new Date(y, m, 1)
-                },
+            var defaultEvents = [
+                // {
+                // title: 'All Day Event',
+                // start: new Date(y, m, 1)
+                // },
             //     {
             //         title: 'Long Event',
             //         start: new Date(y, m, d-5),
@@ -177,7 +178,7 @@ File: Calendar init js
                         ev.preventDefault()
                          console.log("Inputsssssss"+inputs)
                         var ticket=document.getElementById("ticketno").value
-                        var subject=$("#subject").val()
+                        // var subject=$("#subject").val()
                         var newEvent = {
                             title: updatedTitle,
                             start: newEventData.date,
@@ -191,8 +192,8 @@ File: Calendar init js
                         console.log("Detials==="+updatedTitle)
                         console.log("Category====="+updatedCategory)
                         console.log("All day-----"+newEventData.date)
-                        
-                        sendReminder(ticket,subject,timer,updatedTitle,updatedCategory,formatDate(newEventData.date))
+                        var remDate=formatDate(newEventData.date)
+                        sendReminder(ticket,timer,updatedTitle,updatedCategory,remDate)
                     }
                     addEvent.modal('hide');
                 }

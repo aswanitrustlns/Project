@@ -251,42 +251,36 @@ class EmailServices:
             Cursor.close()        
 
   #Account update email
-    def account_update_email(self,accountno,ticket,request):
+    def account_update_email(self,accountno,ticket,request,update_result):
         try:
             subject = "Updated Account "+accountno
             # from_addr="crm@trusttc.com"
-            from_addr="compliance@trusttc.com"
+            from_addr="crm@trusttc.com"
             bcc="backoffice@trusttc.com"
+            to_addr="compliance@trusttc.com"
+            # to_addr="aswani.technology@gmail.com"
             Cursor=connection.cursor()           
             Cursor.execute("set nocount on;exec SP_GetEmailDetails %s",[accountno]) 
             account_details=Cursor.fetchone()
             Cursor.execute("set nocount on;exec SP_GetTicket_PY %s",[ticket])
             client_details=Cursor.fetchone()
-            name=request.POST.get('firstname')
-            email=request.POST.get('email')
-            phone=request.POST.get('phone')
-            sub=request.POST.get('subject')
-            profession=request.POST.get('profession')
-            dob=request.POST.get('dob')
-            age=request.POST.get('age')
-            address=request.POST.get('address')
-            country=request.POST.get('country')
-            if client_details:
-                sender=client_details[3]
-            if account_details:
-                to_addr=account_details[0]
+            # name=request.POST.get('firstname')
+            # email=request.POST.get('email')
+            # phone=request.POST.get('phone')
+            # sub=request.POST.get('subject')
+            # profession=request.POST.get('profession')
+            # dob=request.POST.get('dob')
+            # age=request.POST.get('age')
+            # address=request.POST.get('address')
+            # country=request.POST.get('country')
+            # if client_details:
+            #     sender=client_details[3]
+            sender=request.session.get('Email')
+           
             template_data={
               "accountno":accountno,
               "sender":sender,
-              "name":name,
-              "email":email,
-              "phone":phone,
-              "sub":sub,
-              "profession":profession,
-              "dob":dob,
-              "country":country,
-              "age":age,
-              "address":address
+              "updateinfo":update_result
             }
             email_template_render=render_to_string("email/UpdatedAccount.html",template_data)
             msg = EmailMultiAlternatives(subject=subject,from_email=from_addr,to=[to_addr],bcc=[bcc])

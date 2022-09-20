@@ -269,6 +269,7 @@
                                                                 <div class="col-xxl-8   col-lg-12 card-h-100 mt-5 mt-xxl-0">
                                                                     <div id="main2" style=" width: 100%;height:160px">
                                                                         <div id="gauge-chart-meetingsscore" data-colors='["#FF4929","#73759D"]' class="e-charts " ></div>
+                                                                        <input type="hidden" name="meetingscore" id="meetingscore">
                                                                     </div>
                                                                     
                                                                 </div>
@@ -475,95 +476,114 @@
                                                                                     </div>
                                                 
                                                                                 </div>
-                                                                                <div class=" col-md-9">
-                                                                                    <div class="mb-3">
-                                                                                        <label class="form-label" for="">Sales rep</label>
-                                                                                        
-                                                                                        <div class="d-xxl-flex">
-                                                                                            
-                                                                                            <div class="me-2 mb-2">
-                                    
-                                                                                                <select class="form-select border-1 " id="salesrep"
-                                                                                                required style="width:auto;" >
-                                                                                                    <option value="0">Select</option>
-                                                                                                    <option value="20">Farah Hawilo</option>
-                                                                                                    <option value="30">Firas monzer</option>
-                                                                                                    <option value="31">Firas Hachache</option>
-                                                                                                    <option value="56">Noura Mikati</option>
-                                                                                                    <option value="57">Areej</option>
-                                                                                                    <option value="58">Michella</option>
-                                                                                                    <option value="59">Czarina Villaflores</option>
-                                                                                                    <option value="60">Online</option>
-                                                                                                </select>
-                                                                                            </div>
-                                                                                            <div class="me-2 mb-2">
-                                    
-                                                                                                <select class="form-select border-1" id="assign"
-                                                                                                required style="width:auto;">
-                                                                                                <option value="100">100</option>
-                                                                                                <option value="75">75</option>
-                                                                                                <option value="50">50</option>
-                                                                                                <option value="25">25</option>
-                                                                                                <option value="0">0</option>
+                                                                                <div class=" col-md-12">
+                                                                                    <div class="row">
+                                                                                        <div class="col-md-6 col-lg-9">
+
+                                                                                            <div class=" col-md-12 sales-rep">
+                                                                                                <div class="mb-3">
+                                                                                                    <label class="form-label" for="">Sales rep</label>
                                                                                                     
-                                                                                                </select>
+                                                                                                    <div class="d-xxl-flex">
+                                                                                                        
+                                                                                                        <div class="me-2 mb-2">
+                                                
+                                                                                                            <select class="form-select border-1 " id="salesrep"
+                                                                                                            required style="width:auto;" >
+                                                                                                                <option value="0">Select</option>
+                                                                                                                <option value="20">Farah Hawilo</option>
+                                                                                                                <option value="30">Firas monzer</option>
+                                                                                                                <option value="31">Firas Hachache</option>
+                                                                                                                <option value="56">Noura Mikati</option>
+                                                                                                                <option value="57">Areej</option>
+                                                                                                                <option value="58">Michella</option>
+                                                                                                                <option value="59">Czarina Villaflores</option>
+                                                                                                                <option value="60">Online</option>
+                                                                                                            </select>
+                                                                                                        </div>
+                                                                                                        <div class="me-2 mb-2">
+                                                
+                                                                                                            <select class="form-select border-1" id="assign"
+                                                                                                            required style="width:52px;">
+                                                                                                            <option value="100">100</option>
+                                                                                                            <option value="75">75</option>
+                                                                                                            <option value="50">50</option>
+                                                                                                            <option value="25">25</option>
+                                                                                                            <option value="0">0</option>
+                                                                                                                
+                                                                                                            </select>
+                                                                                                        </div>
+                                                
+                                                                                                        <div class="col-xl-12 col-xxl-6 mt-3 mt-xxl-0">
+                                                
+                                                                                                            <button type="button" class="btn text-white me-2   mb-lg-1 btn-sm" onclick="assignFun('A');multipleswitchcolor(this,'#FF4929','#2C2E45','sales-rep','sales-rep-active')" style="background-color:#2C2E45 ;">Assign</button>
+                                                                                                            <button type="button" class="btn  text-white me-2   mb-lg-1 btn-sm"   style="background-color:#2C2E45 ;" onclick="assignFun('M');multipleswitchcolor(this,'#FF4929','#2C2E45','sales-rep','sales-rep-active')">Assign to me</button>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                    
+                                                            
+                                                                                                </div>
+                                                            
                                                                                             </div>
-                                    
-                                                                                            <div class="col-xl-12 col-xxl-6 mt-3 mt-xxl-0">
-                                    
-                                                                                                <button type="button" class="btn text-white me-2   mb-lg-1 btn-sm" onclick="assignFun('A')" style="background-color:#2C2E45 ;">Assign</button>
-                                                                                                <button type="button" class="btn  text-white me-2   mb-lg-1 btn-sm"   style="background-color:#2C2E45 ;" onclick="assignFun('M')">Assign to me</button>
+                                                                                    
+                                                                                        
+                                                                                            <div class="  col-md-12 sales-rep">
+                                                                                                <div class="mb-3">
+                                                                                                    <label class="form-label" for="">Sales rep</label>
+                                                                                                    <div class="d-xxl-flex  ">
+                                                                                                        <div class=" me-2 mb-2">
+                                                
+                                                                                                            <select class="form-select border-1" id="salesrep1"
+                                                                                                            required style="width:auto;">
+                                                                                                            <option value="0">Select</option>
+                                                                                                            <option value="20">Farah Hawilo</option>
+                                                                                                            <option value="30">Firas monzer</option>
+                                                                                                            <option value="31">Firas Hachache</option>
+                                                                                                            <option value="56">Noura Mikati</option>
+                                                                                                            <option value="57">Areej</option>
+                                                                                                            <option value="58">Michella</option>
+                                                                                                            <option value="59">Czarina Villaflores</option>
+                                                                                                            <option value="60">Online</option>
+                                                                                                            </select>
+                                                                                                        </div>
+                                                                                                        <div class=" me-2 mb-2">
+                                                
+                                                                                                            <select class="form-select border-1" id="reassign"
+                                                                                                            required style="width:52px;">
+                                                                                                            <option value="0">0</option>
+                                                                                                            <option value="25">25</option>
+                                                                                                            <option value="50">50</option>
+                                                                                                            <option value="75">75</option>
+                                                                                                            <option value="100">100</option>
+                                                                                                            </select>
+                                                                                                        </div>
+                                                
+                                                                                                        <div class="col-xl-12 col-xxl-6 mt-3 mt-xxl-0">
+                                                
+                                                                                                            
+                                                                                                            <button type="button" class="btn  text-white  btn-sm  me-2  mb-lg-1"   style="background-color:#2C2E45 ;" onclick="assignFun('R');multipleswitchcolor(this,'#FF4929','#2C2E45','sales-rep','sales-rep-active')">Reassign</button>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                    
+                                                            
+                                                                                                </div>
+                                                            
+                                                                                            </div>
+
+
+
+                                                                                        </div>
+                                                                                        <div class="col-md-6 col-lg-3 ">
+                                                                                            <div class="" id="digital-container">
+                                                                                                <script   async defer id='20229207532448' ></script>
                                                                                             </div>
                                                                                         </div>
-                                                                                        
-                                                
+
+                                                                                    
                                                                                     </div>
-                                                
                                                                                 </div>
-                                                                                <div class="col-md-3"></div>
-                                                                            
-                                                                                <div class="  col-md-9">
-                                                                                    <div class="mb-3">
-                                                                                        <label class="form-label" for="">Sales rep</label>
-                                                                                        <div class="d-xxl-flex  ">
-                                                                                            <div class=" me-2 mb-2">
-                                    
-                                                                                                <select class="form-select border-1" id="salesrep1"
-                                                                                                required style="width:auto;">
-                                                                                                <option value="0">Select</option>
-                                                                                                <option value="20">Farah Hawilo</option>
-                                                                                                <option value="30">Firas monzer</option>
-                                                                                                <option value="31">Firas Hachache</option>
-                                                                                                <option value="56">Noura Mikati</option>
-                                                                                                <option value="57">Areej</option>
-                                                                                                <option value="58">Michella</option>
-                                                                                                <option value="59">Czarina Villaflores</option>
-                                                                                                <option value="60">Online</option>
-                                                                                                </select>
-                                                                                            </div>
-                                                                                            <div class=" me-2 mb-2">
-                                    
-                                                                                                <select class="form-select border-1" id="reassign"
-                                                                                                required style="width:auto;">
-                                                                                                <option value="0">0</option>
-                                                                                                <option value="25">25</option>
-                                                                                                <option value="50">50</option>
-                                                                                                <option value="75">75</option>
-                                                                                                <option value="100">100</option>
-                                                                                                </select>
-                                                                                            </div>
-                                    
-                                                                                            <div class="col-xl-12 col-xxl-6 mt-3 mt-xxl-0">
-                                    
-                                                                                                
-                                                                                                <button type="button" class="btn  text-white  btn-sm  me-2  mb-lg-1"   style="background-color:#2C2E45 ;" onclick="assignFun('R')">Reassign</button>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                        
-                                                
-                                                                                    </div>
-                                                
-                                                                                </div>
+                                                                                    
+                                                                                
                                                                             </div>
                                                                         </form>
 
@@ -586,7 +606,7 @@
                                                                 <div class="card-body"  id="activitiesDiv">
 
 
-                                                                    <div class="" data-simplebar  style="max-height: 100%">
+                                                                    <div class="" id="journal-block"  style="max-height: 100%">
                                                                         <ul class="list-unstyled activity-wid activity-wid-manage-tickets " id="activityList">
                                                                             <!--activity x-->
                                                                     {%if activity_log %}
@@ -1064,29 +1084,32 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
                                                                             </form>
                                                                             </div>
                                                                             <div id="sent-email"  class="d-none">
-    
-                                                                                <ul class="message-list" data-simplebar style="max-height: 300px;" id="sendmailList">
-                                                                                <!-- {%for items in send %}
-                                                                                    <li class="fs-16" href="#read-email" data-id="read-email" onclick="tabswitchemail(this);readSendItems({{items.2}})">
-                                                                                        <div class="col-mail col-mail-1">
-                                                                                            <div class="checkbox-wrapper-mail">
-                                                                                                <input type="checkbox" id="chk1">
-                                                                                                <label for="chk1" class="toggle"></label>
-                                                                                            </div>
-                                                                                            <a href="#" class="title text-white gilroysemibold-type">{{items.0}}</a><span class="star-toggle far fa-star" style="color:var(--color1) ;"></span>
-                                                                                        </div>
-                                                                                        <div class="col-mail col-mail-2">
-                                                                                            <a href="#" class="subject color-color1 gilroyregular"><span class="teaser">{{items.1}}</span>
-                                                                                            </a>
-                                                                                            <div class="date text-white gilroymedium-type"></div>
-                                                                                        </div>
-                                                                                    </li>
-                                                                                    <hr class="mx-3 my-0">
-                                                                                {%endfor%} -->
-                                                                                    
-                                                                                   
-                                                
-                                                                                </ul>
+                                                                                <div id="send-block" style="max-height: 300px;">
+                                                                                    <ul class="message-list"   id="sendmailList">
+                                                                                        <!-- {%for items in send %}
+                                                                                            <li class="fs-16" href="#read-email" data-id="read-email" onclick="tabswitchemail(this);readSendItems({{items.2}})">
+                                                                                                <div class="col-mail col-mail-1">
+                                                                                                    <div class="checkbox-wrapper-mail">
+                                                                                                        <input type="checkbox" id="chk1">
+                                                                                                        <label for="chk1" class="toggle"></label>
+                                                                                                    </div>
+                                                                                                    <a href="#" class="title text-white gilroysemibold-type">{{items.0}}</a><span class="star-toggle far fa-star" style="color:var(--color1) ;"></span>
+                                                                                                </div>
+                                                                                                <div class="col-mail col-mail-2">
+                                                                                                    <a href="#" class="subject color-color1 gilroyregular"><span class="teaser">{{items.1}}</span>
+                                                                                                    </a>
+                                                                                                    <div class="date text-white gilroymedium-type"></div>
+                                                                                                </div>
+                                                                                            </li>
+                                                                                            <hr class="mx-3 my-0">
+                                                                                        {%endfor%} -->
+                                                                                            
+                                                                                           
+                                                        
+                                                                                        </ul>
+
+                                                                                </div>
+                                                                                
                                                                             </div>
                                                                             <div id="read-email" class="d-none">
 
@@ -1410,7 +1433,7 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
                                                                         <div class="mb-3">
                                                                             <!-- #$('#experienceselect').attr("disabled", true);  -->
                                                                             <select class="form-select" id="experienceselect" value="" required="" disabled="disabled">
-                                                                                <option value="0">No experince</option>
+                                                                                <option value="0">No experience</option>
                                                                                 <option value="10">Negative</option>
                                                                                 <option value="50">Positive</option>
                                                                             </select>
@@ -1556,7 +1579,7 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
                                                                         <div class="mb-3">
 
                                                                                 <div class="form-check">
-                                                                                    <input type="checkbox" class="form-check-input" id="profession">
+                                                                                    <input type="checkbox" class="form-check-input" id="professionasses">
                                                                                     <label class="form-check-label" for="profession">Related Job / Profession</label>
                                                                                 </div>
                                                                             </div>
@@ -1640,9 +1663,8 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
                                                                 </div>
                                                             
 
-                                                                
-                                                            
-                                                                <div class="chat-logs mx-3"  style="max-height: 372px;overflow-y: scroll;" id="chatdiv">          
+                                                                <div id="chat-block" style="max-height: 372px;">
+                                                                    <div class="chat-logs mx-3"   id="chatdiv">          
 
                                                                         <!--Chat-->
                                                                        
@@ -1653,6 +1675,10 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
 
             
                                                                 </div> 
+
+                                                                </div>
+                                                            
+                                                               
                                                             </div>
 
                                                         
@@ -1733,7 +1759,7 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
                                                          <div class="d-flex justify-content-end mt-4 ">
 
                                                              <button type="button" class="btn bg-soft-green text-white me-2 btn-lg me-3 rounded-2" onclick="webinarRegistration()">Register for webinar</button>
-                                                             <button type="button" class="btn btn-outline-light text-white me-2 btn-lg rounded-2" >Send reminder</button>
+                                                             <!-- <button type="button" class="btn btn-outline-light text-white me-2 btn-lg rounded-2" >Send reminder</button> -->
                                                          </div>
                                                      </div>
 
@@ -1815,19 +1841,21 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
                                                 <div class="modal-dialog modal-dialog-centered"   style="z-index: 10555;">
                                                     <div class="modal-content">
                                                         <div class="modal-header border-0">
-                                                            <!--<h5 class="modal-title fs-21">@title</h5>-->
+                                                            <h5 class=" fs-16">
+                                                                <div id="userMsg">Please enter Ticket No to continue</div>
+                                                            </h5>
                                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                             </div>
                                                                                 
-                                                                <div class="modal-body" >
+                                                                <!-- <div class="modal-body" >
                                                     
                                                     
                                                                         <div data-simplebar style="max-height: 230px;">
                                                         
-                                                                            <!--User-->
-                                                                            <div id="userMsg">Please enter Ticket No to continue</div>
+                                                                          
+                                                                            
                                                                         </div>
-                                                                    </div>
+                                                                    </div> -->
                                                        
                                                     </div>
                                                  </div>
@@ -1883,7 +1911,59 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
                                                     </div> <!-- end modal-content-->
                                                 </div> <!-- end modal dialog-->
                                             </div>
+                                            <div class="modal fade" id="resolvemodel" tabindex="-1" >
+                                                <div class="modal-dialog modal-dialog-centered">
+                                                    <div class="modal-content">
+                                            
+                                                        <div class="modal-body ">
 
+                                                            <div class="  px-3 border rounded-3 py-4">
+                                                            
+                                                                <div class="modal-header py-0 px-0 border-bottom-0">
+                                                                    <h5 class="modal-title mb-3" id="modal-title">Select Resolve Reason</h5>
+                    
+                                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
+                    
+                                                                </div>
+                                                           
+                                                                
+                                                                    
+                                                                    <div class="row">
+                                                                    
+                                                                        <div class="col-12">
+                                                                            <div class="mb-3">
+                                                                                <!--<label class="form-label">Event Name</label>-->
+                                                                                <select class="form-select border-0 py-1" id="reason" 
+                                                                                required name="title" >
+                                                                                <option value="0">Select</option>
+                                                                                <option value="Invalid Phone No">Invalid Phone No</option>
+                                                                                <option value="Invalid Email">Invalid Email</option>
+                                                                                <option value="Invalid Email and Phone No">Invalid Email and Phone No</option>
+                                                                                <option value="Not intersted in trading">Not intersted in trading</option>
+                                                                                <option value="Unreachable">Unreachable</option>
+                                                                                <option value="Duplicate Ticket Exists">Duplicate Ticket Exists</option>
+                                                                                <option value="No Trading Experience">No Trading Experience</option>
+                                                                            </select>
+                                                                                
+                                                                            </div>
+                                                                            <div class="row mt-2">
+                                                                                <div class="col-6">
+                                                                                    <button type="button" data-bs-dismiss="modal" class="btn btn-success" id="btn-save-event" onclick="resolveReason()">Resolve</button>
+                                                                                    <button type="button" data-bs-dismiss="modal" class="btn btn-danger" id="btn-delete-event">Cancel</button>
+                                                                                </div>
+                                                                              
+                                                                            </div>
+                                                                        </div>
+                                                                   
+                                                                    </div>
+                                                                    
+                                                                
+                                                            </div>
+                                                        
+                                                        </div>
+                                                    </div> <!-- end modal-content-->
+                                                </div> <!-- end modal dialog-->
+                                            </div>
 
                                         
 
@@ -2017,6 +2097,7 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
         let hedging=0;
         let profession=0;
         let highlypotential=0;
+        
         $(document).ready(function () {
             // $("#temp-chinese").hide()
             var leadscore=0
@@ -2030,6 +2111,9 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
             if(ticket){
                 loadTicketFuns()
             }
+            
+            
+
             
         });
 
@@ -2166,8 +2250,8 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
                     totalPoints()
                 }
             })
-            $("#profession").change(function(){
-                let isChecked=$("#profession").is(':checked')
+            $("#professionasses").change(function(){
+                let isChecked=$("#professionasses").is(':checked')
                 console.log("Check box state---------------------"+isChecked)
                 if(isChecked){
                     profession=20
@@ -2366,17 +2450,19 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
                 
             },
             success: function(data){
-                var activiteies=data.activities
+                var activities=data.activities
+                console.log("Updated activity after operation")
                 updateActivities(activities)
              
             }
         })
 
     }
+
+
     function updateStatus(status,seminar){
         var ticket=document.getElementById("ticketno").value
-        console.log("Status------------------------------------"+status)
-        console.log("Seminar------------------------------------"+seminar)
+        
         $.ajax({
             
             type : "GET", 
@@ -2459,13 +2545,31 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
             
         }
         else{
-            $.ajax({
+            var resolved_check=$('#ticketstatus').is(':checked'); 
+            console.log("Resolve ticket check====="+resolved_check)
+            if(resolved_check){
+                $("#resolvemodel").modal('show') 
+            }else{
+                $("#userMsg").empty()
+                $("#userMsg").append("Ticket already Resolved")
+                $("#alertpopup").modal('show')
+
+            }
+                 
+        }
+       
+    }
+   function resolveReason(){
+    var ticket=document.getElementById("ticketno").value
+    var reason=document.getElementById("reason").value
+    $.ajax({
             
             type : "GET", 
             url: "{% url 'Admin:TicketResolve' %}",
            
             data:{
-            'ticket':ticket
+            'ticket':ticket,
+            'reason':reason
                 
             },
             
@@ -2478,11 +2582,9 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
                 $("#alertpopup").modal('show')
             }
         })
-
-
-        }
-       
-    }
+        updateActivitylog()
+        $("#ticketstatus").attr('checked',false)
+   }
 
     function opendemoaccount(){
         var ticket=document.getElementById("ticketno").value
@@ -2538,6 +2640,7 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
                         $("#alertpopup").modal('show')
                     }
                 })
+                updateActivitylog()
                 // updateActivities(activities)
                 // updateTicketSummary(ticketSummary)
 
@@ -2588,11 +2691,11 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
     }
 
     
-    function sendReminder(ticket,subject,timer,chatText,category,selDate){
+    function sendReminder(ticket,timer,chatText,category,selDate){
 
         var ticket=document.getElementById("ticketno").value
-       
-
+        var accno=document.getElementById("accountno").value
+        console.log("Chosen date======="+selDate)
         var csrftoken = $("[name=csrfmiddlewaretoken]").val();  
         if(ticket == ''){
             $("#alertpopup").modal('show')
@@ -2606,11 +2709,12 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
                         "X-CSRFToken": csrftoken
             },
             data:{
-                'sub':subject,
-                'badge':chatText,
+                'color':category,
+                'subject':chatText,
                 'date':selDate,
                 'time':timer,                
                 'ticket':ticket,
+                'login':accno
                 
             },
             
@@ -2658,15 +2762,22 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
      
     }
     function loadSendItems(){
-        var leadsmail=document.getElementById("email1").value
-        if (leadsmail==""){
-            leadsmail=document.getElementById("email2").value
-        }
-        console.log("Send iems list=======",leadsmail)
+        var ticket=document.getElementById("ticketno").value
+        const simpleBarSendMail = new SimpleBar(document.getElementById('send-block'));
+        // simpleBarSendMail.recalculate();
+        if(ticket == ''){
+            $("#alertpopup").modal('show')
+            
+        }else{ 
+             var leadsmail=document.getElementById("email1").value
+            if (leadsmail==""){
+                leadsmail=document.getElementById("email2").value
+            }
+            console.log("Send iems list=======",leadsmail)
 
-        inboxlist=""
-        $("#sendmailList").empty()
-        $.ajax({
+            inboxlist=""
+            $("#sendmailList").empty()
+            $.ajax({
                     
                     type : "GET", 
                     url: "{% url 'Admin:sendItems' %}",
@@ -2697,10 +2808,11 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
             
                     }
                 })
-
+            }
     }
 
     function readSendItems(msgId){
+       
         console.log("Message id=========================="+msgId)
         var leadsmail=document.getElementById("email1").value
         if (leadsmail==""){
@@ -2844,6 +2956,7 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
                 }
                }
             })
+            updateActivitylog()
         }
 
        }
@@ -3067,8 +3180,18 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
             
         }
         else{
-        var url="{% url 'Admin:Meeting' %}"
-        window.location.href=url+"?&ticket="+ticket
+        meetingscore=document.getElementById("meetingscore").value
+        console.log("Meeting score--------------------------"+meetingscore)
+        if(meetingscore==0){
+            $("#userMsg").empty()
+            $("#userMsg").append("Please fill assessment form")
+            $("#alertpopup").modal('show')
+
+        }else{
+            var url="{% url 'Admin:Meeting' %}"
+            window.location.href=url+"?&ticket="+ticket
+        }
+       
         }
 
     }
@@ -3148,10 +3271,11 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
             
                }
             });
+            updateActivitylog()
 
         }
         
-            updateActivitylog()
+            
 
     }
 
@@ -3159,6 +3283,8 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
 
 
     function totalPoints(){
+            total=0
+            console.log(parseInt(experienceselect)+parseInt(forexselect)+parseInt(meetingselect)+parseInt(questionsselect)+parseInt(voiceselect)+parseInt(training)+parseInt(hedging)+parseInt(profession)+parseInt(highlypotential))
             total=parseInt(experienceselect)+parseInt(forexselect)+parseInt(meetingselect)+parseInt(questionsselect)+parseInt(voiceselect)+parseInt(training)+parseInt(hedging)+parseInt(profession)+parseInt(highlypotential);
             console.log("total points called"+total)
             var total_div=document.getElementById("total")
@@ -3234,7 +3360,7 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
 
                 }
                 if(related!=0){
-                    $("#profession").prop('checked',true)
+                    $("#professionasses").prop('checked',true)
                     profession=20
                 }
                 if(ref!=0){
@@ -3283,6 +3409,7 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
                success: function(data){
                 console.log("Success Function------",data)
                 score=data.score
+                meetingscore=data.meetingscore
                 scorePopupclear()
                 $("#score-model").modal('hide')
                 if(score==null || score < 2){
@@ -3290,6 +3417,7 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
                         $("#userMsg").append("Meeting Score saved successfully")
                         $("#alertpopup").modal('show')    
                 }
+                gauge2(meetingscore)
                }
             })
 
@@ -3314,6 +3442,8 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
     }
     
     function liveLogs(){
+        const simpleBarChatlog = new SimpleBar(document.getElementById('chat-block'));
+        // simpleBarChatlog.recalculate();
 
         var ticket=document.getElementById("ticketno").value
         if(ticket == ''){
@@ -3356,7 +3486,7 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
                     }
                 })
 
-
+              
 
         }
         
@@ -3406,7 +3536,9 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
                         var activities=data.activities
                         var ticketSummary=data.ticket_summary
                         var acno=data.accountno
-                        console.log("account number--------"+acno)
+                        var countrycode=data.code
+                        console.log("country code--------"+countrycode)
+                        
                         var lastcomment=data.lastcomment
                         // var country=data.country
                         // console.log("Vie activities----",activities)
@@ -3440,7 +3572,8 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
                         var source=leads[9]
                         var city=leads[18]
                         var subject=leads[3]
-                        
+                        var status=leads[4]
+                        var reassign=leads[12]
                         $("#title").val(leads[35])
                         $("#firstname").val(leads[0])
                         console.log("Hear from===================================================="+hearfrom)
@@ -3476,8 +3609,14 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
                         $("#city").val(city)
                         $("#subject").val(subject) 
                         $("#country").val(country) 
+                        // $("#reassign").val(reassign)
                         $("#submitftypeleads").attr("disabled",false)
                         $("#resetftypeleads").attr("disabled",false)
+                        if(status=="Resolved"){
+                            $("#ticketstatus").attr('checked',false)
+                        }else{
+                            $("#ticketstatus").attr('checked',true)
+                        }
                         
                         console.log("Last comment======"+lastcomment)
                         $("#eventtitle").append(lastcomment)
@@ -3488,6 +3627,7 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
                         if(meetingscore=="undefined" || meetingscore==null){
                             meetingscore=0
                         }
+                        $("#meetingscore").val(meetingscore)
                         var stickydata=data.stickytext
                         $("#stickytext").append(stickydata)
                         console.log("Meetingscore-------------------------------------------------------"+meetingscore)                 
@@ -3495,7 +3635,9 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
                         gauge2(meetingscore)
                         updateActivities(activities)
                         updateTicketSummary(ticketSummary)
+                        console.log("Webinar List=========================="+webinarList)
                         updateWebinarList(webinarList)
+                        LoadWorldClock(countrycode)
                         
                     }
                 })
@@ -3503,6 +3645,38 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
         }
     }
     }
+    function LoadWorldClock(code)
+        {
+            console.log("World clock country code====="+code)
+            if (code == "CA")
+                code = "CA-BC";
+            if (code == "AR")
+                code = "AR-BA";
+            if (code == "AU")
+                code = "AU-ACT";
+            if (code == "BR")
+                code = "BR-AC";
+            if (code == "CA")
+                code = "CA-BC";
+            if (code == "CD")
+                code = "CG";
+            if (code == "GL")
+                code = "GL4";
+            if (code == "MX")
+                code = "MX-AGU";
+            if (code == "RU")
+                code = "RU-AD";
+            if (code == "US")
+                code = "US-CA";
+            var spa='https://widgets.worldtimeserver.com/Public.ashx?rid=20229207532448&theme=Digital&action=clock24&wtsid='+code+'&hex=000000&city='+  +''
+            console.log("Clock loader======"+spa)
+            document.getElementById("20229207532448").src=spa
+           
+        }
+
+
+
+
     function updateWebinarList(webinars){
        
         var length=webinars.length;
@@ -3517,15 +3691,18 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
             
 
         } 
-        $("#webinarbody").empty()
-        $("#webinarbody").append(rows)
+        console.log("Rows=================="+rows)
+       
             
         }
+        $("#webinarbody").empty()
+        $("#webinarbody").append(rows)
     }
 
     function updateActivities(activities){
+        
         $("#activityList").empty()
-        console.log("activities====="+activities)
+        
         var activity=""
         for(i=0;i<activities.length;i++){
                             console.log("oth element-----"+activities[i][0])
@@ -3540,7 +3717,7 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
                                          "</svg></p><p class='color-color1  mb-0'>"+activities[i][1]+" by "+activities[i][7]+"</p><p class='color-color1  mb-0' style='max-width: 250px'>"+activities[i][3]+"</p></div></div></div></div></div></li>"
         }
         $("#activityList").append(activity)
-        $("#activityList").scrollTop($("#activityList")[0].scrollHeight);
+        simpleBarJournal.getScrollElement().scrollTop = simpleBarJournal.getScrollElement().scrollHeight;
         
         
     }

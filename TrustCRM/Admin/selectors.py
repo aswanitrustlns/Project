@@ -133,6 +133,22 @@ class Selector:
         finally:
             Cursor.close()
         return country_list
+    #Get Country Code
+    def get_code_country(self,cry_id):
+        try:
+            
+            Cursor=connection.cursor()
+            Cursor.execute("SELECT Code FROM tbl_Country where ID=%s",[cry_id])
+            country_list=Cursor.fetchall()
+            if country_list:
+                country_list=country_list[0]
+                country_list=country_list[0]
+            print("Country code===",country_list)
+        except Exception as e:
+            print("Exception---",e)
+        finally:
+            Cursor.close()
+        return country_list
 
     #Merge ticket procedure call
     def merge_ticket(self,ticket,email1,email2,mobile,telephone):
@@ -504,7 +520,7 @@ class Selector:
 
 
 
-    def resolve_ticket(self,ticket,userid):
+    def resolve_ticket(self,ticket,userid,reason):
         livestatus=""
         msg="Ticket Resolved"
         try:
@@ -514,13 +530,17 @@ class Selector:
            ticket_status=Cursor.fetchone()
            print("Ticket status=========================",ticket_status)
            if(ticket_status):
-            ticket_status=ticket_status[0]
-            if(ticket_status=="Live"):
+                ticket_status=ticket_status[0]
+                if(ticket_status=="Live"):
                         msg="Cannot resolve ticket with Account No"
-            else:
-                        value=Cursor.execute("set nocount on;exec SP_ResolveTicket %s,%s,%s",[ticket,userid,"Resolved"])
-                        if(value==0):
-                            msg="'Ticket Resolved Successfully"
+           else:
+                        Cursor.execute("set nocount on;exec SP_ResolveTicket %s,%s,%s",[ticket,userid,reason])
+                        value=Cursor.fetchone()
+                        print("Resolve value=====",value)
+                        if value:
+                            value=value[0]
+                            if(value==0):
+                                msg="'Ticket Resolved Successfully"
         except Exception as e:
             print("Exception------",e)
         finally:
@@ -614,7 +634,7 @@ class Selector:
                         # print("message=========================",msg["Message-ID"])
 
                         if receive_tym:
-                                receive_tym=receive_tym[0:16]
+                                receive_tym=receive_tym[0:11]
                         inbox_data=(subject,receive_tym,msg["Message-ID"])
                         
                         inbox_list.append(inbox_data)
@@ -987,13 +1007,15 @@ class Selector:
             Cursor=connection.cursor()
             Cursor.execute("set nocount on;exec SP_GetAccountStatus %s",[accountno])
             status=Cursor.fetchone()
+            if status:
+                status=status[0]
             print("Account update status========================",status)
             if(status=="Live" or status=="ReadOnly"):
                 msg="You dont have permission to update live account details"
                 print("You dont have permission to update live account details")
             else:
                update_result=update_account_client_datails(request)
-               emailservice.account_update_email(accountno,ticket,request)
+               emailservice.account_update_email(accountno,ticket,request,update_result)
                msg="Updated Successfully"
                if(update_result!=None):
                     pass
@@ -1049,23 +1071,29 @@ class Selector:
             Cursor.close()
         return comment
         
-    def save_reminder(self,userid,ticket,subject,date,time,badge):
+    def save_reminder(self,userid,ticket,subject,date,time,login,color,mail):
         print("Selcetor saveeeee")
+        print("----------------------",userid,ticket,subject,date,time,mail)
         try:
-            desc=""
-            rdate=""
-            color=""
-            login=0
+            subject=subject+ticket
+            badge="Green"
+            desc=subject
+            rdate=date
+            if login=="":
+                login=0
+            
             Cursor=connection.cursor()
-            newdate=datetime.strptime(date,'%Y-%m-%d')
-            Cursor.execute("set nocount on;exec SP_SetReminder %s,%s,%s,%s,%s,%s,%s,%s,%s,%s",[userid,subject,desc,ticket,newdate,time,rdate,color,login,badge])
+            date_today=datetime.today().date()  
+
+            date_today=date_today.strftime("%Y-%m-%d")
+            Cursor.execute("set nocount on;exec SP_SetReminder %s,%s,%s,%s,%s,%s,%s,%s,%s,%s",[userid,subject,desc,ticket,date_today,time,rdate,color,login,badge])
             fulltime=date+" "+time
             apdate=datetime.strptime(fulltime,'%Y-%m-%d %H:%M')
             
             print("Date==========================================",apdate)
-            Cursor.execute("SELECT email FROM tbl_User where UserID=%s",[userid])
-            email=Cursor.fetchone()
-            
+            # Cursor.execute("SELECT email FROM tbl_User where UserID=%s",[userid])
+            #email=Cursor.fetchone()
+            # mail="aswani@trustlns.ae"
             outlook = win32com.client.Dispatch("Outlook.Application")
             apdate=apdate.strftime("%Y-%m-%d %H:%M")
             appt = outlook.CreateItem(1) # AppointmentItem
@@ -1075,12 +1103,12 @@ class Selector:
             appt.Location = "Dubai"
             appt.ReminderSet = True
             appt.MeetingStatus = 1 # 1 - olMeeting; Changing the appointment to meeting. Only after changing the meeting status recipients can be added
-            appt.Recipients.Add(email) # Don't end ; as delimiter
+            appt.Recipients.Add(mail) # Don't end ; as delimiter
 
             appt.Save()
             appt.Send()
-            print("Otlook reminder send")
-            Cursor.execute("set nocount on;exec SP_InsertTicketLogs %s,%s,%s,%s",[login,badge,"",ticket])
+            print("Outlook reminder send")
+            Cursor.execute("set nocount on;exec SP_InsertTicketLogs %s,%s,%s,%s",[userid,subject,"Reminder",ticket])
         except Exception as e:
             print("Exception------",e)
         finally:
@@ -1319,64 +1347,87 @@ def update_account_client_datails(request):
         update_result=""
         try:
             Cursor=connection.cursor()
-            login=request.POST.get('login')
+            login=int(request.POST.get('formaccountno'))
+            
             name=request.POST.get('firstname')
             groups=request.POST.get('groups')
             city=request.POST.get('city')
             address=request.POST.get('address')
             state=request.POST.get('state')
             zipcode=request.POST.get('zipcode')
-            country=request.POST.get('country')
+            country=int(request.POST.get('country'))
             phone=request.POST.get('phone')
             email=request.POST.get('email')
             comment=request.POST.get('comment')
-            id=request.POST.get('id')
-            agent=request.POST.get('agent')
+          
+            agent=0
             ppassword=request.POST.get('ppassword')
-            leverage=request.POST.get('leverage')
-            taxrate=request.POST.get('taxrate')
+            leverage=0
+            taxrate=0
             tinno=request.POST.get('tinno')
-            enabled=request.POST.get('enabled')
-            sendreports=request.POST.get('reports')
+            enabled=0
+            sendreports=0
             city=request.POST.get('city')
-            readonly=request.POST.get('readonly')
-            changepwd=request.POST.get('changepwd')
+            readonly=0
+            changepwd=0
             zipcode=request.POST.get('zipcode')
+            
+            if zipcode=="":
+                zipcode=0
+            else:
+                zipcode=int(zipcode)
+           
             rdcomment=request.POST.get('rdcomment')
-            terminated=request.POST.get('terminated')
+            terminated=0
+            id=None
             termincomment=request.POST.get('termincomment')
-            red=request.POST.get('red')
-            green=request.POST.get('green')
-            blue=request.POST.get('blue')
-            color=request.POST.get('color')
+            red=0
+            green=0
+            blue=0
+            color=0
             mothername=request.POST.get('mothername')
-            nationality=request.POST.get('nationality')
-            language=request.POST.get('language')
-            created=request.POST.get('created')
+            nationality=0
+            language=int(request.POST.get('language'))
+            created=0
             dob=request.POST.get('dob')
+            if(dob==""):
+                dob=None
             income=request.POST.get('income')
-            worth=request.POST.get('worth')
+            
+            if income:
+                income=int(income)
+            else:
+                income=None
+           
+            worth=0
             profession=request.POST.get('profession')
             email2=request.POST.get('email2')
             city=request.POST.get('city')
             phone2=request.POST.get('phone2')
-            country2=request.POST.get('country2')
+            country2=0
             title=request.POST.get('title')
-            userId=request.POST.get('UserId')
-            ticket=request.POST.get('ticket')
+            userId=request.session.get('UserId')
+          
+            userId=int(request.session.get('UserId'))
+            
+            ticket=request.POST.get('formticket')
             subject=request.POST.get('subject')
             clientarea=request.POST.get('clientare')
-            potential=request.POST.get('potential')
-            exp=request.POST.get('exp')
+            potential=0
+            exp=int(request.POST.get('experience'))
+            
             hear=request.POST.get('hear')
-            noemail=request.POST.get('noemail')
+            noemail=0
             hyplink=request.POST.get('hyplink')
             appform=request.POST.get('appform')
             age=request.POST.get('age')
             category=request.POST.get('category')
             scomments=request.POST.get('comments')
+            print("login,name,groups,country,city,zipcode,address,phone,email,comment,id,agent,ppassword,leverage,state,taxrate,tinno,enabled,sendreports,readonly,changepwd,rdcomment,terminated,termincomment,red,green,blue,color,mothername,nationality,language,created,dob,income,worth,profession,email2,phone2,country2,title,userId,ticket,subject,clientarea,potential,exp,hear,noemail,hyplink,appform,age,category,scomments")
+            print(login,name,groups,country,city,zipcode,address,phone,email,comment,id,agent,ppassword,leverage,state,taxrate,tinno,enabled,sendreports,readonly,changepwd,rdcomment,terminated,termincomment,red,green,blue,color,mothername,nationality,language,created,dob,income,worth,profession,email2,phone2,country2,title,userId,ticket,subject,clientarea,potential,exp,hear,noemail,hyplink,appform,age,category,scomments)
             Cursor.execute("set nocount on;exec SP_UpdateClientDetailsSales %s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s",[login,name,groups,country,city,zipcode,address,phone,email,comment,id,agent,ppassword,leverage,state,taxrate,tinno,enabled,sendreports,readonly,changepwd,rdcomment,terminated,termincomment,red,green,blue,color,mothername,nationality,language,created,dob,income,worth,profession,email2,phone2,country2,title,userId,ticket,subject,clientarea,potential,exp,hear,noemail,hyplink,appform,age,category,scomments])
             update_result=Cursor.fetchone()
+            print("Update result====",update_result)
             if update_result:
                 update_result=update_result[0]
             print("After update========",update_result)
