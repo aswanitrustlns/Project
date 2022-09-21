@@ -2479,6 +2479,7 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
                 $("#alertpopup").modal('show')
             }
         })
+        updateActivities(activities)
 
     }
     function webinarRegistration(){
@@ -2517,7 +2518,7 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
                 $("#alertpopup").modal('show')
             }
         })
-
+        updateActivities(activities)
     }
     function saveSticky(){
         var note=$("#stickytext").val()
@@ -2685,6 +2686,7 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
         
            
             sendTemplate(to,lang,subject,title,name)
+            updateActivities(activities)
     }
 
 
@@ -2723,6 +2725,7 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
                 $("#userMsg").empty()
                      $("#userMsg").append("Reminder send")
                     $("#alertpopup").modal('show')
+                    updateActivities(activities)
             }
         })
         }
@@ -2754,7 +2757,7 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
                     $("#userMsg").empty()
                      $("#userMsg").append("Email Send Successfully")
                     $("#alertpopup").modal('show')
-
+                    updateActivities(activities)
                 
 
                     }
@@ -2885,6 +2888,7 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
                 $("#userMsg").empty()
                 $("#userMsg").append("Email Send Successfully")
                 $("#alertpopup").modal('show')
+                updateActivities(activities)
                }
             })
         }
@@ -2915,7 +2919,7 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
                         "X-CSRFToken": csrftoken
                 },
                 dataType: 'json',
-               url: "{% url 'Admin:AccountUpdate' %}",
+               url: "{% url 'Admin:TicketUpdate' %}",
                
                data:form_data1,
                success: function(data){
@@ -3537,6 +3541,8 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
                         var ticketSummary=data.ticket_summary
                         var acno=data.accountno
                         var countrycode=data.code
+                        var countryList=data.country_list
+                        addCountries(countryList)
                         console.log("country code--------"+countrycode)
                         
                         var lastcomment=data.lastcomment
@@ -3637,6 +3643,7 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
                         updateTicketSummary(ticketSummary)
                         console.log("Webinar List=========================="+webinarList)
                         updateWebinarList(webinarList)
+                        // $('#digital-container').load(document.URL +  ' #digital-container   ')
                         LoadWorldClock(countrycode)
                         
                     }
@@ -3645,8 +3652,18 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
         }
     }
     }
+    function addCountries(countryList){
+        var option=""
+        for(i=0;i<countryList.length;i++){
+            console.log("----------"+countryList[i][0])
+            option+="<option value="+countryList[i][0]+">"+countryList[i][1]+"</option>"
+        }
+        $("#country").empty()
+        $("#country").append(option)
+    }
     function LoadWorldClock(code)
         {
+            
             console.log("World clock country code====="+code)
             if (code == "CA")
                 code = "CA-BC";
@@ -3670,7 +3687,8 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
                 code = "US-CA";
             var spa='https://widgets.worldtimeserver.com/Public.ashx?rid=20229207532448&theme=Digital&action=clock24&wtsid='+code+'&hex=000000&city='+  +''
             console.log("Clock loader======"+spa)
-            document.getElementById("20229207532448").src=spa
+           
+            $("#20229207532448").attr('src',spa)
            
         }
 

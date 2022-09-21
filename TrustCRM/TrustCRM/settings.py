@@ -96,7 +96,7 @@ WSGI_APPLICATION = 'TrustCRM.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'mssql',
-        'NAME': 'SVGTcCRM',
+        'NAME': 'SVGTCCRM_20220921',
         'USER': 'tinstcrm',
         'PASSWORD': 'Trust_2021',
         'HOST': '213.175.205.19',

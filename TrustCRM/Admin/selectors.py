@@ -307,20 +307,20 @@ class Selector:
                 print("Else executed-=====",date_yesterday,date_today)
                 Cursor.execute("set nocount on;exec SP_GetNewAccountsList %s,%s,%s",[date_yesterday,date_today,change])  
                 live_accounts=Cursor.fetchall()
-           print("Length of dat======================",len(live_accounts))  
+           print("Length of dat======================",live_accounts)  
         except Exception as e:
             print("Exception---",e)
         finally:
             Cursor.close()
-        for index, item in enumerate(live_accounts):
-                itemlist = list(item)
-                dt=itemlist[0]
+        # for index, item in enumerate(live_accounts):
+        #         itemlist = list(item)
+        #         dt=itemlist[0]
                 
-                itemlist[0]=datetime.strptime(dt, '%Y-%m-%d').date()
+        #         itemlist[0]=datetime.strptime(dt, '%Y-%m-%d').date()
                 
                
 
-                live_accounts[index] = tuple(itemlist)
+        #         live_accounts[index] = tuple(itemlist)
         return live_accounts
         
 #Duplicate lead check
@@ -1116,6 +1116,7 @@ class Selector:
 
     def get_sticky_text(self,ticket):
             try:
+                sticky_data=""
                 Cursor=connection.cursor()
                 Cursor.execute("set nocount on;exec SP_GetStickyNotes %s",[ticket]) 
                 sticky_data=Cursor.fetchone()

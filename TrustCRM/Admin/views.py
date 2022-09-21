@@ -11,6 +11,7 @@ from datetime import datetime, timedelta
 from django.contrib.sessions.models import Session
 from django.template import Context
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.contrib.sessions.models import Session
 
 import json
 import instaloader
@@ -38,6 +39,7 @@ def login(request):
     return render(request,'admin/login.html',{'login_error':msg})
 
 def login_check(request):
+    
     print("login-start",datetime.now().time())
     msg="Username and Password do not match"
     if request.method == 'POST':
@@ -76,10 +78,10 @@ def login_check(request):
 
 
 def dashboard(request):
-
+    
     if 'UserId' in request.session:
         UserId=request.session.get('UserId')
-        
+        UserId=56
         permission_check=selector.user_role_selection(UserId)          
         manager=permission_check[11]
         salesRep=permission_check[22]
@@ -555,6 +557,7 @@ def lead_processing(request):
         seminarlist=""
         webinars=""
         webinarList=[]
+        seminar_list=[]
         email=request.session.get("Email")
         # count,itemsList=selector.template_send_items_list(email)
         try:
@@ -942,7 +945,8 @@ def viewDocument(request):
 
 def viewLoadFunctions(request): # 455325 to test meeting score
 
-    if 'UserId' in request.session:        
+    if 'UserId' in request.session:    
+        code=0    
         ticket=request.GET.get('ticket')
         
         ticket=ticket.strip()
@@ -952,7 +956,7 @@ def viewLoadFunctions(request): # 455325 to test meeting score
         if lead_details:
             cid=lead_details[10]
             code=selector.get_code_country(cid)
-            
+        country_list=selector.get_all_country()    
         leadscore=selector.get_lead_score(ticket)
         last_comment=selector.get_last_comment(ticket,UserId)
         accountno=selector.get_account_no(ticket)
@@ -973,7 +977,7 @@ def viewLoadFunctions(request): # 455325 to test meeting score
         print("Meeting score----",meetingscore)
         print("Sticky text========",sticky_text)
         print("End---------------------")
-        return JsonResponse({'leads':lead_details,'activities':activity_log,'ticket_summary':ticket_summary,'leadscore':leadscore,'meetingscore':meetingscore,'lastcomment':last_comment,'stickytext':sticky_text,'accountno':accountno,'webinarList':webinarList,'code':code})
+        return JsonResponse({'leads':lead_details,'activities':activity_log,'country_list':country_list,'ticket_summary':ticket_summary,'leadscore':leadscore,'meetingscore':meetingscore,'lastcomment':last_comment,'stickytext':sticky_text,'accountno':accountno,'webinarList':webinarList,'code':code})
     else:
         return redirect('/login')
 def activity_log(request):
@@ -1130,6 +1134,7 @@ def upcomingSeminars(request):
         seminar_list=selector.get_upcoming_seminar()
         webinars=selector.get_seminar_list(ticket)
         print("Seminar List======================",seminar_list)
+        print("Seminar List======================",webinars)
         return JsonResponse({"seminars":seminar_list,"webinars":webinars})
     else:
         return redirect('/login')  

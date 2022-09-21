@@ -158,6 +158,7 @@
                                         <thead>
                                             <tr  class=" ">
                                                 <!-- <th  data-text="text" class="filterhead">Promo</th> -->
+                                                <th  data-text="text" class="filterhead">Promo</th>
                                                 <th data-id="datepicker-range" class="filterhead">RegDate</th>
                                                 <th  data-timer="option" class="filterhead">Login</th>
                                                 <th  data-text="text" class="filterhead">Name</th>
@@ -180,9 +181,9 @@
                                             <td>{{data.4}}</td>
                                             <td>{{data.5}}</td>
                                             <!-- <td>{{data.6}}</td> -->
-                                            <td>{{data.8}}</td>
-                                            
-                                            <td class="text-end">{{data.7}}</td>
+                                            <td>{{data.6}}</td>
+                                            <td>{{data.9}}</td>
+                                            <td class="text-end">{{data.8}}</td>
                                         </tr>
                                             {%endfor%}
                                         
@@ -198,7 +199,7 @@
                                             <tr  class=" ">
                                                 <th data-id="datepicker-range" class="filterhead">RegDate</th>
                                                 
-                                                
+                                                <th  data-text="text" class="filterhead">Promo</th>
                                                 <th  data-text="text" class="filterhead">Rejectd</th>
                                                 <th  data-timer="option" class="filterhead">Login</th>
                                                 <th  data-text="text" class="filterhead">Name</th>
@@ -342,8 +343,8 @@
         var table = $("#datatableleads").DataTable();
         console.log("row clicked----")
         var data = table.row( this ).data();       
-        console.log("Ticket----------"+data[6])  
-        var ticket=data[6]
+        console.log("Ticket----------"+data[7])  
+        var ticket=data[7]
         var url="{% url 'Admin:LeadProcessing'%}"
         window.location.href=url+"?&ticket="+ticket
     })
@@ -922,7 +923,7 @@
                     var items = [];
                     for ( var i=0, ien=json_data.length ; i<ien ; i++ ) {
 
-                        items[i] = [json_data[i][0],json_data[i][1],json_data[i][2],json_data[i][3],json_data[i][4],json_data[i][5],json_data[i][8],json_data[i][9]]; 
+                        items[i] = [json_data[i][0],json_data[i][1],json_data[i][2],json_data[i][3],json_data[i][4],json_data[i][5],json_data[i][6],json_data[i][9],json_data[i][8]]; 
                             
                         }
                         
