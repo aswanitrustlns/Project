@@ -95,8 +95,8 @@ class Selector:
         try:
             Cursor=connection.cursor()
             Cursor.execute("exec SP_GetSummaryToday  %s",[userId])
-            notifications = Cursor.fetchall()
-            
+            notifications = Cursor.fetchall()     
+            print("Notification============================",notifications)       
             while (Cursor.nextset()):
                 notification_count = Cursor.fetchall()                
                 notify_count=notification_count[0]
@@ -307,6 +307,29 @@ class Selector:
                 print("Else executed-=====",date_yesterday,date_today)
                 Cursor.execute("set nocount on;exec SP_GetNewAccountsList %s,%s,%s",[date_yesterday,date_today,change])  
                 live_accounts=Cursor.fetchall()
+           print("Length of dat======================",live_accounts)  
+        except Exception as e:
+            print("Exception---",e)
+        finally:
+            Cursor.close()
+        return live_accounts
+   # Get New Accounts page data
+    def get_new_accounts_filter(self,change):
+        try:
+           Cursor=connection.cursor()
+           date_today=datetime.today().date()    
+           date_today=date_today.strftime("%Y-%m-%d")
+           week_day=datetime.today().weekday() # Monday is 0 and Sunday is 6
+           if(week_day==0):
+                date_yesterday = datetime.today()-timedelta(3)
+           else:
+                date_yesterday = datetime.today()-timedelta(1)
+
+           date_yesterday=date_yesterday.strftime("%Y-%m-%d")
+           
+           print("Else executed-=====",date_yesterday,date_today)
+           Cursor.execute("set nocount on;exec SP_GetNewActsFromDashboard %s,%s,%s",[date_yesterday,date_today,change])  
+           live_accounts=Cursor.fetchall()
            print("Length of dat======================",live_accounts)  
         except Exception as e:
             print("Exception---",e)
@@ -1214,6 +1237,7 @@ class Selector:
         finally:
                 Cursor.close()
         return webinars
+    
         
 
 

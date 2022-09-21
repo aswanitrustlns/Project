@@ -33,6 +33,7 @@ function renderChart($series, $id, $catogories) {
             toolbar: {
                 show: false,
             }
+           
         },
         plotOptions: {
             bar: {
@@ -240,6 +241,23 @@ var options = {
         type: 'donut',
         verticalAlign: 'left',
         horizontalAlign: 'left',
+        events: {
+            legendClick: function(chartContext, seriesIndex, config) {
+               //console.log('chartConfigId', chartContext.el.id.split("-")[2]);
+               //console.log('seriesIndex', seriesIndex);
+               //console.log(chartContext);
+               console.log("Seriesssss Index"+seriesIndex)
+               if(seriesIndex==0){
+                spokenpageRedirect()
+               }else if(seriesIndex==1){
+                overduepageRedirect()
+               }
+               else if(seriesIndex==2){
+                resolvepageRedirect()
+               }
+             
+            }
+        },
     },
     stroke: {
         show: false,
@@ -350,7 +368,31 @@ var options = {
         type: 'area',
         toolbar: {
             show: false,
-        }
+        },
+        events: {
+            legendClick: function(chartContext, seriesIndex, config) {
+               //console.log('chartConfigId', chartContext.el.id.split("-")[2]);
+               //console.log('seriesIndex', seriesIndex);
+               //console.log(chartContext);
+               console.log("Seriesssss Index"+seriesIndex)
+               if(seriesIndex==0){
+                pageRedirect("Funded")
+                
+               }else if(seriesIndex==1){
+                pageRedirect("NonFunded")
+               }
+               else if(seriesIndex==2){
+                pageRedirect("TempApproved")
+                
+               }
+               else if(seriesIndex==3){
+                pageRedirect("WaitingApproval")
+                
+               }
+
+             
+            }
+        },
     },
     fill: {
 

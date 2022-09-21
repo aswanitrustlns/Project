@@ -15,7 +15,7 @@
 </head>
 <body data-layout-mode="dark">
     <audio id="Player" autoplay>
-        <source src="{% static 'audio/speech.wav' %}"/>
+        <source src="{% static 'audio/welcome.mp3' %}"/>
    </audio>
     <!-- <body data-layout="horizontal"> -->
     
@@ -145,7 +145,7 @@
                                 <div class="card card-h-100">
 
                                     <div class="card-body">
-                                        <div class="d-flex flex-wrap align-items-center mb-4">
+                                        <div class="d-flex flex-wrap align-items-center mb-4" >
                                             <h5 class="card-title me-2 fs-21 almarenamonolight-type">Leads Converted
                                             </h5>
                                             <!--<div class="ms-auto">
@@ -172,15 +172,16 @@
                                         </div>
                                         
                                         {% if weekly_lead_bar %}<div id="tab01" class="d-block">
-                                      
-                                            <div id="column_chart_new_accounts" data-colors='["#E33399","#2D8CFF"]'
-                                                class="apex-charts" dir="ltr">
-                                            </div>                                          
-                                            
+                                            <a href="{% url 'Admin:Leads' %}">
+                                                <div id="column_chart_new_accounts" data-colors='["#E33399","#2D8CFF"]'
+                                                    class="apex-charts" dir="ltr">
+                                                </div>                                          
+                                            </a>
                                             
                                             {%else%}
+                                                
                                                 <div id="column_chart_new_accounts" data-colors='["#E33399","#2D8CFF"]'
-                                                class="apex-charts d-none" dir="ltr">
+                                                class="apex-charts d-none" dir="ltr" >
                                                 </div>
                                                 <div class="  text-center  d-block">
                                                     <img src="{% static 'images/nodata/nodata.png' %}" alt="" style="max-height: 80px;">                                                   
@@ -190,7 +191,7 @@
                                                 
                                                 
                                                  </div> 
-                                            
+                                                
                                             {%endif%}
                                         </div>  
                                      
@@ -792,6 +793,8 @@
 <!-- end main content-->
 <!-- </div> -->
 {% include "common/right-sidebar.html" %}
+
+
 <div class="rightbar-overlay"></div>
 
 
@@ -806,7 +809,14 @@
     var ticket_count_daily={{ticket_count_daily|safe}}
     var ticket_count_weekly={{ticket_count_weekly|safe}}
     var weekly_lead_bar={{weekly_lead_bar|safe}}
-
+ 
+    // $("#tickets_tab01").click( 
+    //                     function(evt){
+    //                         var activePoints = myNewChart.getSegmentsAtEvent(evt);
+    //                         console.log("Active points====="+activepoints)
+    //                         var url = "http://185.4.178.133:13956/NewAccountsLive.aspx?UID=21";
+    //                         alert(url);
+    //                     }
     function reminderSendMail(ticket){
         console.log(ticket)
         $.ajax({
@@ -837,6 +847,30 @@
         })
 
     }
+    function pageRedirect(variant){
+        console.log("Variant==================="+variant)
+        var url="{% url 'Admin:AccountsFilter' %}"
+                window.location.href=url+"?&change="+variant
+    }
+    function resolvepageRedirect(){
+                var url="{% url 'Admin:ResolvedTickets'%}"
+                window.location.href=url
+    }
+    function spokenpageRedirect(){
+                var url="{% url 'Admin:PendingTickets'%}"
+                window.location.href=url
+    }
+    function overduepageRedirect(){
+                var url="{% url 'Admin:DormantTicket'%}"
+                window.location.href=url
+    }
+    function loadLive(variant){
+        
+
+    }
+    
+
+
 </script>
 <script src="{%static 'libs/apexcharts/apexcharts.min.js' %}"></script>
 <script src="{%static 'js/pages/dashboardsales.init.js' %}"></script>

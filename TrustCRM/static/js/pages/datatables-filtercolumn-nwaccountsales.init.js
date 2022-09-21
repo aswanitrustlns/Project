@@ -16,11 +16,27 @@ File: Datatables Js File
 //.DataTable.datetime('D MMM YYYY');
 
 $(document).ready(function () {
-
+     
 
     //var minDate,maxDate;
+    if(tabactive=="pending"){
+        $("#live").hide()
+        $("#pending").show()
+        switchtab(this,'#accounts_table','#rejected_table','#terminated_table','#closed_table')
+        $("#Lives").removeClass('bg-soft-purple')
+        $("#Lives").removeClass('text-white')
+        $("#Lives").removeClass('color-color1')
+        $("#Pendings").addClass('bg-soft-purple')
+        $("#Pendings").addClass('text-white')
+        $("#Pendings").addClass('color-color1')
+        
+    }
+    if(tabactive=="Live"){
+        $("#live").show()
+        $("#pending").hide()
+    }
 
-    $("#pending").hide()
+    
    // Setup - add a text input to each footer cell
    $('#datatableleads thead tr')
    .clone(true)

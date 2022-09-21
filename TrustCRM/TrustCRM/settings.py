@@ -36,8 +36,11 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'django.contrib.staticfiles',
-    'Admin'
+    'django.contrib.staticfiles',    
+    'Admin',
+    
+    
+    
 ]
 # LOGGING = {
 #     'version': 1,

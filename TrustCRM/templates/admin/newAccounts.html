@@ -337,6 +337,9 @@
  <div class="rightbar-overlay"></div>
 
     <script>
+        var tabactive={{active|safe}}
+        console.log("Active============="+tabactive)
+
         $(function(){
     
     $('#datatableleads tbody').on('dblclick', 'tr', function (e) {

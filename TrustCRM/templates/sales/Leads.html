@@ -592,12 +592,14 @@ $(function(){
         
         function viewticket(ticket,phone1,phone2,email){
             console.log("View ticket clicked---------------------------")
+            var email2=""
             var tick_name=document.getElementById("ticket_name").value
             
             var url="{% url 'Admin:LeadProcessing'%}"
-            window.location.href=url+"?&ticket="+ticket+"&email1="+email+"&email2=''&mobile="+phone1+"&telephone="+phone2
+            window.location.href=url+"?&ticket="+ticket+"&email1="+email+"&email2="+email2+"&mobile="+phone1+"&telephone="+phone2
         }
         function merge(demo_id,ticket,phone1,phone2,email){
+            var email2=""
             $.ajax({
                type : "GET", 
                url: "{% url 'Admin:ViewMerge' %}",
@@ -606,7 +608,7 @@ $(function(){
                 'demoid':demo_id,
                 'ticket':ticket,
                 'email1':email,
-                'email2':'',
+                'email2':"",
                 'mobile':phone1,
                 'telephone':phone2
                },
@@ -614,7 +616,7 @@ $(function(){
                success: function(data){
                     
                     var url="{% url 'Admin:LeadProcessing'%}"
-                    window.location.href=url+"?&ticket="+ticket+"&email1="+email+"&email2=''&mobile="+phone1+"&telephone="+phone2
+                    window.location.href=url+"?&ticket="+ticket+"&email1="+email+"&email2="+email2+"&mobile="+phone1+"&telephone="+phone2
                }
             });
            

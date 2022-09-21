@@ -3523,6 +3523,8 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
         }
         else{
             // location.href="{% url 'Admin:Meeting'%}?ticket="+ticket
+            var email2=""
+            var email1=""
             $.ajax({
                     type : "GET", 
                     url: "{% url 'Admin:LoadFuns' %}",
@@ -3573,8 +3575,8 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
                         var salesrep=leads[51]
                         var phone1=leads[2]
                         var phone2=leads[32]
-                        var email1=leads[1]
-                        var email2=leads[31]
+                        email1=leads[1]
+                        email2=leads[31]
                         var source=leads[9]
                         var city=leads[18]
                         var subject=leads[3]
@@ -3685,7 +3687,7 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
                 code = "RU-AD";
             if (code == "US")
                 code = "US-CA";
-            var spa='https://widgets.worldtimeserver.com/Public.ashx?rid=20229207532448&theme=Digital&action=clock24&wtsid='+code+'&hex=000000&city='+  +''
+            var spa='https://widgets.worldtimeserver.com/Public.ashx?rid=20229207532448&theme=Digital&action=clock24&wtsid='+code+'&hex=000000&city=&ensp'
             console.log("Clock loader======"+spa)
            
             $("#20229207532448").attr('src',spa)

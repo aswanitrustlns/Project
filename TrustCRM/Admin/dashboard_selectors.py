@@ -8,7 +8,7 @@ class DashboardSelector:
     #----------------------------------------- Sales Dashboard ------------------------------------------------------------------
     
     def sales_dashboard(self,userId):
-        userId=56
+        # userId=30
         sales_data={}
         weekly_summary_bar=[]
         journel_data=[]
@@ -45,8 +45,9 @@ class DashboardSelector:
               
             #Reminders....
             print("procedure-start7",datetime.now().time())
-            Cursor.execute("set nocount on;exec SP_GetSummaryToday %s",[userId])
+            Cursor.execute("exec SP_GetSummaryToday %s",[userId])
             reminders=Cursor.fetchall()
+
             print("Reminders---------------------------------",reminders)
             while (Cursor.nextset()):
                 reminder_count = Cursor.fetchall()

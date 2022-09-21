@@ -13,10 +13,10 @@ from django.template import Context
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.sessions.models import Session
 
+from gtts import gTTS
+import os
 import json
 import instaloader
-
-import socket
 
 from .dashboard_selectors import DashboardSelector
 from .services import Services
@@ -31,6 +31,7 @@ Cursor=connection.cursor()
 selector=Selector()
 service=Services()
 sales_dash=DashboardSelector()
+
 # Create your views here.
 
 def login(request):    
@@ -48,7 +49,8 @@ def login_check(request):
         server_name=request.POST['server']
     try:  
            
-        UserId=selector.get_loged_user_info(username)          
+        UserId=selector.get_loged_user_info(username)  
+               
         request.session['UserId'] = UserId
         connect=selector.exe_connection(username,server_name,password)
         
@@ -59,7 +61,11 @@ def login_check(request):
         request.session["message"]=msg        
    
     print(connect)
-    if(connect==0):    
+    if(connect==0): 
+            UserName,Email=selector.get_user_name(30)
+            
+            
+            
             return redirect('dashboard/')
             # return redirect('salesdashboard/')
     else:
@@ -81,7 +87,8 @@ def dashboard(request):
     
     if 'UserId' in request.session:
         UserId=request.session.get('UserId')
-        UserId=56
+        UserId=30 
+        print("User Id=========================================",UserId)
         permission_check=selector.user_role_selection(UserId)          
         manager=permission_check[11]
         salesRep=permission_check[22]
@@ -92,12 +99,23 @@ def dashboard(request):
         request.session['Email']=Email
         request.session['notification'] = notification_count
         request.session['notification_data']=notification
+        
+        if os.path.isfile("static\\audio\\welcome.mp3"):
+                os.remove("static\\audio\\welcome.mp3")
+        else:
+            mytext = 'Hi '+UserName+'Welcome to Trust Capital CRM'
+         
+            print("My speech text=====",mytext)
+            language = 'en'
+            myobj = gTTS(text=mytext, lang=language, slow=False)
+            myobj.save("static\\audio\\welcome.mp3")
      
         if manager:
              dashbord_data=sales_dash.admin_dashboard(UserId)  
              print("dashboard procedure ",datetime.now().time()) 
              return render(request,'admin/dashboard.html',dashbord_data)
         if salesRep:
+             
              dashbord_data=sales_dash.sales_dashboard(UserId)     
              print("sales dashboard procedure end",datetime.now().time()) 
              return render(request,'sales/dashboard.html',dashbord_data)
@@ -569,11 +587,21 @@ def lead_processing(request):
             
             print("email1",email1,"email2",email2,"mobile",mobile,"phone",phone)
             if ticket is None:
-                ticket=" "                                                                                                                    
+                ticket=" "    
+            if email1=="":
+                email1=None  
+            if email2=="":
+                email2=None 
+            if mobile=="":
+                mobile=None  
+            if phone=="":
+                phone=None                                                                                                            
             if email1 or email2 or mobile or phone:
+                print("email1",email1,"email2",email2,"mobile",mobile,"phone",phone)
                 Cursor.execute("set nocount on;exec SP_SearchPhoneEmail_PY %s,%s,%s,%s,%s",[mobile,phone,email1,email2,UserId]) # To test exec SP_SearchPhone '4588',21
                 search_email_phone=Cursor.fetchone() 
-                print("--------------------------",search_email_phone,type(search_email_phone))
+                if search_email_phone:
+                    print("--------------------------",search_email_phone,type(search_email_phone))
                 if(Cursor.nextset()):
                     search_email_phone1 = Cursor.fetchone() 
                     if search_email_phone1:
@@ -716,7 +744,7 @@ def resolved_tckts_load_all(request):
         return redirect('/login')
 
 def new_accounts(request):
-
+    active="Live"
     if 'UserId' in request.session:
         change=request.GET.get("change")
         from_date=request.GET.get("from")
@@ -736,7 +764,26 @@ def new_accounts(request):
             accounts_count=selector.get_new_accounts_count()
             print("Accounts count-----------",accounts_count)
             # terminated_data=selector.get_new_accounts("Terminated")
-            return render(request,'admin/newAccounts.html',{'accounts_data':accounts_data,'accounts_count':accounts_count})
+            return render(request,'admin/newAccounts.html',{'accounts_data':accounts_data,'accounts_count':accounts_count,"active":json.dumps(active)})
+                
+    else:
+        return redirect('/login')
+#new account variants
+def new_accounts_variants(request):
+    active="Live"
+    if 'UserId' in request.session:
+        change=request.GET.get("change")
+        
+        if (change =="TempApproved" or change=="WaitingApproval"):
+            active="pending"
+        print("Status----------------------",change)
+        
+        accounts_data=selector.get_new_accounts_filter(change)
+           
+        accounts_count=selector.get_new_accounts_count()
+        print("Accounts count-----------",accounts_count)
+            # terminated_data=selector.get_new_accounts("Terminated")
+        return render(request,'admin/newAccounts.html',{'accounts_data':accounts_data,'accounts_count':accounts_count,"active":json.dumps(active)})
                 
     else:
         return redirect('/login')
