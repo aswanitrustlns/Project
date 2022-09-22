@@ -31,7 +31,7 @@ Cursor=connection.cursor()
 selector=Selector()
 service=Services()
 sales_dash=DashboardSelector()
-
+global voice
 # Create your views here.
 
 def login(request):    
@@ -40,7 +40,7 @@ def login(request):
     return render(request,'admin/login.html',{'login_error':msg})
 
 def login_check(request):
-    
+    global voice
     print("login-start",datetime.now().time())
     msg="Username and Password do not match"
     if request.method == 'POST':
@@ -62,10 +62,8 @@ def login_check(request):
    
     print(connect)
     if(connect==0): 
-            UserName,Email=selector.get_user_name(30)
-            
-            
-            
+               
+            voice="True"            
             return redirect('dashboard/')
             # return redirect('salesdashboard/')
     else:
@@ -99,17 +97,20 @@ def dashboard(request):
         request.session['Email']=Email
         request.session['notification'] = notification_count
         request.session['notification_data']=notification
-        
-        if os.path.isfile("static\\audio\\welcome.mp3"):
-                os.remove("static\\audio\\welcome.mp3")
-        else:
-            mytext = 'Hi '+UserName+'Welcome to Trust Capital CRM'
-         
+        global voice       
+        if voice=="True":
+            mytext = 'Hi '+UserName+'Welcome to Trust Capital CRM'         
             print("My speech text=====",mytext)
             language = 'en'
             myobj = gTTS(text=mytext, lang=language, slow=False)
             myobj.save("static\\audio\\welcome.mp3")
-     
+
+        if voice=="False":
+            if os.path.isfile("static\\audio\\welcome.mp3"):
+                os.remove("static\\audio\\welcome.mp3")
+                
+           
+        voice="False"
         if manager:
              dashbord_data=sales_dash.admin_dashboard(UserId)  
              print("dashboard procedure ",datetime.now().time()) 
@@ -460,6 +461,16 @@ def lead_load_all(request):
     print("Load all data-------")
     print("load data-------------------------",len(load_data))
     return JsonResponse(load_data, safe=False)
+
+def lead_load_click(request): 
+    
+    status=request.GET.get('status')  
+    print("status===========================",status                 )  
+    leads_data=selector.get_leads_clicks(status)   
+    # paginator = Paginator(load_data, 10)
+    print("Load all data-------")
+    print("load data-------------------------",len(leads_data))
+    return JsonResponse(leads_data, safe=False)
    
 
 # def new_accounts(request):
@@ -756,12 +767,23 @@ def new_accounts(request):
         print("Status----------------------",status)
         if(change):
             accounts_data=selector.get_new_accounts(change,status,from_date,to_date)
+            accounts_count=selector.get_new_accounts_count(from_date,to_date)
             print("change is---------------",change)
-            return JsonResponse(list(accounts_data), safe=False)
+            print("Accounts data===================",accounts_data,type(accounts_data))
+            return HttpResponse(json.dumps({"data":accounts_data,"count":accounts_count}), content_type="application/json")
         else:
+            date_today=datetime.today().date()    
+            date_today=date_today.strftime("%Y-%m-%d")
+            week_day=datetime.today().weekday() # Monday is 0 and Sunday is 6
+            if(week_day==0):
+                date_yesterday = datetime.today()-timedelta(3)
+            else:
+                date_yesterday = datetime.today()-timedelta(1)
+
+            date_yesterday=date_yesterday.strftime("%Y-%m-%d")
             
-            accounts_data=selector.get_new_accounts("Live","",from_date,to_date)
-            accounts_count=selector.get_new_accounts_count()
+            accounts_data=selector.get_new_accounts("Live","",date_yesterday,date_today)
+            accounts_count=selector.get_new_accounts_count(date_yesterday,date_today)
             print("Accounts count-----------",accounts_count)
             # terminated_data=selector.get_new_accounts("Terminated")
             return render(request,'admin/newAccounts.html',{'accounts_data':accounts_data,'accounts_count':accounts_count,"active":json.dumps(active)})
@@ -773,14 +795,23 @@ def new_accounts_variants(request):
     active="Live"
     if 'UserId' in request.session:
         change=request.GET.get("change")
+        date_today=datetime.today().date()    
+        date_today=date_today.strftime("%Y-%m-%d")
+        week_day=datetime.today().weekday() # Monday is 0 and Sunday is 6
+        if(week_day==0):
+                date_yesterday = datetime.today()-timedelta(3)
+        else:
+                date_yesterday = datetime.today()-timedelta(1)
+
+        date_yesterday=date_yesterday.strftime("%Y-%m-%d")
         
         if (change =="TempApproved" or change=="WaitingApproval"):
             active="pending"
         print("Status----------------------",change)
         
         accounts_data=selector.get_new_accounts_filter(change)
-           
-        accounts_count=selector.get_new_accounts_count()
+        accounts_count=selector.get_new_accounts_count(date_yesterday,date_today)   
+        # accounts_count=selector.get_new_accounts_count_variants(date_yesterday,date_today,change)
         print("Accounts count-----------",accounts_count)
             # terminated_data=selector.get_new_accounts("Terminated")
         return render(request,'admin/newAccounts.html',{'accounts_data':accounts_data,'accounts_count':accounts_count,"active":json.dumps(active)})

@@ -3288,9 +3288,12 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
 
     function totalPoints(){
             total=0
+            console.log("Total before============================="+parseInt(total))
             console.log(parseInt(experienceselect)+parseInt(forexselect)+parseInt(meetingselect)+parseInt(questionsselect)+parseInt(voiceselect)+parseInt(training)+parseInt(hedging)+parseInt(profession)+parseInt(highlypotential))
             total=parseInt(experienceselect)+parseInt(forexselect)+parseInt(meetingselect)+parseInt(questionsselect)+parseInt(voiceselect)+parseInt(training)+parseInt(hedging)+parseInt(profession)+parseInt(highlypotential);
             console.log("total points called"+total)
+                      
+            
             var total_div=document.getElementById("total")
             total_div.innerHTML=total
             
@@ -3304,7 +3307,7 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
             
         }
         else{
-            scorePopupclear()
+            
             $.ajax({
                type : "GET", 
                url: "{% url 'Admin:Score' %}",
@@ -3313,12 +3316,13 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
                         'ticket': ticket,
                },
                success: function(data){
+                scorePopupclear()
                 var score=data.score;
                 console.log("--------------------------",)
                 if(score != null || score != undefined){
 
                 
-                console.log("Meeting score------"+score[0])
+                console.log("Meeting score------"+score)
                 var trdExp=score[0]
                 var meeting=score[1]
                 var forex=score[2]
@@ -3422,6 +3426,7 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
                         $("#alertpopup").modal('show')    
                 }
                 gauge2(meetingscore)
+                updateActivitylog()
                }
             })
 
@@ -3545,15 +3550,24 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
                         var countrycode=data.code
                         var countryList=data.country_list
                         addCountries(countryList)
-                        console.log("country code--------"+countrycode)
+                        console.log("Leads length--------"+leads)
                         
                         var lastcomment=data.lastcomment
                         // var country=data.country
                         // console.log("Vie activities----",activities)
-                        var title=leads[35] 
+                        
                         var webinarList=data.webinarList
                         
-                        
+                        if(leads==null){
+                            console.log("Leads empty========")
+                            $("#userMsg").empty()
+                            $("#userMsg").append("Ticket Not Found")
+                            $("#alertpopup").modal('show')  
+
+                        }
+                        else{
+
+                        var title=leads[35] 
                         var name=leads[0]
                         var age=leads[40]
                         var dob=leads[25]
@@ -3647,7 +3661,7 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
                         updateWebinarList(webinarList)
                         // $('#digital-container').load(document.URL +  ' #digital-container   ')
                         LoadWorldClock(countrycode)
-                        
+                    }
                     }
                 })
 
@@ -3657,7 +3671,7 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
     function addCountries(countryList){
         var option=""
         for(i=0;i<countryList.length;i++){
-            console.log("----------"+countryList[i][0])
+            
             option+="<option value="+countryList[i][0]+">"+countryList[i][1]+"</option>"
         }
         $("#country").empty()
@@ -3687,7 +3701,7 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
                 code = "RU-AD";
             if (code == "US")
                 code = "US-CA";
-            var spa='https://widgets.worldtimeserver.com/Public.ashx?rid=20229207532448&theme=Digital&action=clock24&wtsid='+code+'&hex=000000&city=&ensp'
+            var spa='https://widgets.worldtimeserver.com/Public.ashx?rid=20229207532448&theme=Digital&action=clock24&wtsid='+code+'&hex=000000&city='+  +''
             console.log("Clock loader======"+spa)
            
             $("#20229207532448").attr('src',spa)

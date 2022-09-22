@@ -52,6 +52,14 @@ class Services:
             country2=selector.get_country_code(telephone_country_code)
             if country2:
                 country2=country2[0]
+            if profession=="":
+                profession=None
+            if subject=="":
+                subject=None
+            if city=="":
+                city=None
+            if income=="":
+                income=0
             
             reg_date=datetime.today().date()
             reg_date=reg_date.strftime("%m-%d-%Y")
@@ -70,7 +78,7 @@ class Services:
             print("print------",title,name,email_avl,email1,email2,profession,subject,source,state,address,city,zip_code,mobile,telephone,mobile_country_code,telephone_country_code,country1,country2,IPAddr)
 
             print("Lead submit ")        
-            Cursor.execute("EXEC SP_InsertSalesLeadReg_CRM_PY %s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s",[name,mobile,telephone,email1,email2,address,city,zip_code,source,UserId,updated_date,updated_date,title,profession,"Pending",state,country1,country2,subject,age,IPAddr,experience,hear_bout,dob,income])
+            Cursor.execute("set nocount on;EXEC SP_InsertSalesLeadReg_CRM_PY %s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s",[name,mobile,telephone,email1,email2,address,city,zip_code,source,UserId,updated_date,updated_date,title,profession,"Pending",state,country1,country2,subject,age,IPAddr,experience,hear_bout,dob,income])
             ticket=Cursor.fetchone() 
             
         except Exception as e:
@@ -92,7 +100,7 @@ class Services:
             email=ticket_data[2]
             phone=ticket_data[4]
             print("Inserted data----",ticket_data[1],ticket_data[4],ticket_data[2],ticket_data[3],ticket_data[5],ticket_data[6],ticket_data[7],ticket_data[13],ticket_data[10],ticket_data[15],ticket_data[16],ticket_data[18],ticket_data[11],ticket_data[22],UserId,ticket_data[1])
-            Cursor.execute("EXEC SP_CreateTicket %s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s",[ticket_data[1],ticket_data[4],ticket_data[2],ticket_data[3],ticket_data[5],ticket_data[6],ticket_data[7],ticket_data[13],ticket_data[10],ticket_data[15],ticket_data[16],ticket_data[18],ticket_data[11],ticket_data[22],UserId,ticket_data[0]])
+            Cursor.execute("set nocount on;EXEC SP_CreateTicket %s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s",[ticket_data[1],ticket_data[4],ticket_data[2],ticket_data[3],ticket_data[5],ticket_data[6],ticket_data[7],ticket_data[13],ticket_data[10],ticket_data[15],ticket_data[16],ticket_data[18],ticket_data[11],ticket_data[22],UserId,ticket_data[0]])
            
             print("Ticket created successfully-----")
         except Exception as e:

@@ -79,6 +79,9 @@
 
                                             </i>
                                         </span>
+                                        
+                                        <a  onclick="leadsClick('TotLeadsToday','total')" >
+                                        
                                         <div class="ms-3 ms-xl-0 me-1 ms-xxl-2 flex-shrink-0">
                                            
                                             <div class="text-wrap mb-1 text-xl-center text-xxl-start" >
@@ -87,10 +90,12 @@
                                                    total leads</span>
                                             </div>
                                             
-                                            <h2 class=" gilory-semibold-type fs-40 mb-0 text-xl-center text-xxl-start" data-target="12">{{leads_count.0}}</h2>
+                                            <h2 class=" gilory-semibold-type fs-40 mb-0 text-xl-center text-xxl-start" data-target="12",id="total">{{leads_count.0}}</h2>
                                             
                                         </div>
-                                        
+                                           
+                                            </a>
+                                            
                                     </div>
 
 
@@ -121,6 +126,8 @@
 
                                             </i>
                                         </span>
+                                        <a  onclick="leadsClick('OpenLeadsToday','open')" >
+                                        <!-- <a onclick="leadsClick('OpenLeadsToday')"> -->
                                         <div class="ms-3 ms-xl-0 me-1 ms-xxl-2 flex-shrink-0">
                                            
                                             <div class="text-wrap mb-1 text-xl-center text-xxl-start" >
@@ -129,10 +136,10 @@
                                                     unconverted leads</span>
                                             </div>
                                             
-                                            <h2 class=" gilory-semibold-type fs-40 mb-0 text-xl-center text-xxl-start" data-target="12">{{leads_count.1}}</h2>
+                                            <h2 class=" gilory-semibold-type fs-40 mb-0 text-xl-center text-xxl-start" data-target="12" id="open">{{leads_count.1}}</h2>
                                             
                                         </div>
-                                        
+                                    </a>
                                     </div>
 
 
@@ -165,6 +172,8 @@
 
                                             </i>
                                         </span>
+                                        <a  onclick="leadsClick('ClosedLeadsToday','closed')" >
+                                        <!-- <a onclick="leadsClick('ClosedLeadsToday')"> -->
                                         <div class="ms-3 ms-xl-0 me-1 ms-xxl-2 flex-shrink-0">
                                            
                                             <div class="text-wrap mb-1 text-xl-center text-xxl-start" >
@@ -173,9 +182,10 @@
                                                     converted leads</span>
                                             </div>
                                             
-                                            <h2 class=" gilory-semibold-type fs-40 mb-0 text-xl-center text-xxl-start" data-target="12">{{leads_count.2}}</h2>
+                                            <h2 class=" gilory-semibold-type fs-40 mb-0 text-xl-center text-xxl-start" data-target="12" id="closed">{{leads_count.2}}</h2>
                                             
                                         </div>
+                                    </a>
                                         
                                     </div>
 
@@ -210,6 +220,8 @@
 
                                             </i>
                                         </span>
+                                        <a onclick="leadsClick('TotalOpen','totalopen')" > 
+                                        <!-- <a onclick="leadsClick('TotalOpen')"> -->
                                         <div class="ms-3 ms-xl-0 me-1 ms-xxl-2 flex-shrink-0">
                                            
                                             <div class="text-wrap mb-1 text-xl-center text-xxl-start" >
@@ -218,9 +230,10 @@
                                                     unconverted leads</span>
                                             </div>
                                             
-                                            <h2 class="  gilory-semibold-type fs-40 mb-0 text-xl-center text-xxl-start" data-target="12">{{leads_count.3}}</h2>
+                                            <h2 class="  gilory-semibold-type fs-40 mb-0 text-xl-center text-xxl-start" data-target="12" id="totalopen" value={{leads_count.3}}>{{leads_count.3}}</h2>
                                             
                                         </div>
+                                        </a>
                                         
                                     </div>
 
@@ -648,7 +661,201 @@ $(function(){
 
         }
 
+
+      function leadsClick(status,ids){
+        console.log("Id============",ids)
+        // var values=$("#"+ids).val()
+        var values=document.getElementById(ids).value
+        console.log("values====================",values)
+        console.log("Status================="+status)
+        
+        $('#datatableleads').dataTable().fnClearTable();
+            $('#datatableleads').dataTable().fnDestroy();
+            $("#datatableleads").DataTable({
+                
+                "language": {
+                            'loadingRecords': "<span class='fa-stack fa-lg'>\n\
+                            <i class='fa fa-spinner fa-spin fa-stack-2x fa-fw'></i>\n\
+                            </span>&emsp;Loading Details ...",
+                                },
+                
+                "paging":true,   
+                           
+                "ajax":{
+                   url: "{% url 'Admin:LeadClick' %}",
+                   data:{
+                    'status':status
+                    
+                   },
+                  dataSrc:function(json_data){
+                    
+               
+                    var items = [];
+                    for ( var i=0, ien=json_data.length ; i<ien ; i++ ) {
+
+                         items[i] =[json_data[i][0],json_data[i][3],json_data[i][2],json_data[i][4],json_data[i][5],json_data[i][10],json_data[i][11],json_data[i][7]+"<input type='hidden' name='id' id='id_demo"+json_data[i][0]+"' value='"+json_data[i][1]+"'>"]; 
+                        
+                            
+                        }
+                        
+                        return items;
+                   }
      
+                },
+                responsive: true,
+                orderCellsTop: true,
+                fixedHeader: true,
+                initComplete: function () {
+                    var api = this.api();    
+                api
+                .columns()
+                .eq(0)
+                 .each(function (colIdx) {
+             var column = this;
+             // Set the header cell to contain the input element
+
+             var cell = $('.filters th').eq(
+                 $(api.column(colIdx).header()).index()
+             );
+             var $myindex=$(api.column(colIdx).header()).index();
+             var $myhead=$("#datatableleads thead tr th").eq($myindex);
+             var title = $myhead.text();
+             var id = $myhead.attr('data-id');
+             //var datatext=$(cell).attr('data-text');
+             var select1 = $('<select   id="' + id + '" placeholder="' + title + '"  class="fs-14 form-control w-100"><option value=""></option></select>');
+             if ($(cell).attr('data-text') == 'select') {
+                 //console.log($(cell).index());
+                 api.column($(cell).index())
+                     .data()
+                     .unique()
+                     .sort()
+                     .each(function (d, j) {
+
+
+                         select1.append('<option value="' + d + '">' + d + '</option>');
+
+                     });
+                 $(cell).html(select1);
+
+
+
+
+             } else {
+                 $(cell).html('<input type="text" id="' + id + '" placeholder="' + title + '"  class="fs-14"   />');
+             }
+
+
+             // On every keypress in this input
+             $(
+                 'input',
+                 $('.filters th').eq($(api.column(colIdx).header()).index())
+             )
+                 .off('keyup change')
+                 .on('change', function (e) {
+
+                     if ($(this).attr('id') == 'datepicker-range') {
+                         console.log("Heloooo");
+
+                         //var vals=this.value ;
+
+
+
+                     } else {
+                         //console.log($(this).attr('id'));
+
+
+                         // Get the search value
+                         $(this).attr('title', $(this).val());
+
+                         //var vals=this.value ;
+
+                         var regexr = '({search})'; //$(this).parents('th').find('select').val();
+
+                         var cursorPosition = this.selectionStart;
+                         // Search the column for that value
+                         api
+                             .column(colIdx)
+                             .search(
+                                 this.value != ''
+                                     ? regexr.replace('{search}', '(((' + this.value + ')))')
+                                     : '',
+                                 this.value != '',
+                                 this.value == ''
+                             )
+                             .draw();
+
+                     }
+
+
+                 })
+                 .on('keyup', function (e) {
+                     e.stopPropagation();
+
+                     $(this).trigger('change');
+                     $(this)
+                         .focus()[0]
+                         .setSelectionRange(cursorPosition, cursorPosition);
+                 });
+
+             $(
+                 'select',
+                 $('.filters th').eq($(api.column(colIdx).header()).index())
+             )
+                 .off('keyup change')
+                 .on('change', function (e) {
+
+                     if ($(this).attr('id') == 'datepicker-range') {
+                         console.log("Heloooo");
+
+                         //var vals=this.value ;
+
+
+
+                     } else {
+                         //console.log($(this).attr('id'));
+
+
+                         // Get the search value
+                         $(this).attr('title', $(this).val());
+
+                         //var vals=this.value ;
+
+                         var regexr = '({search})'; //$(this).parents('th').find('select').val();
+
+                         var cursorPosition = this.selectionStart;
+                         // Search the column for that value
+                         api
+                             .column(colIdx)
+                             .search(
+                                 this.value != ''
+                                     ? regexr.replace('{search}', '(((' + this.value + ')))')
+                                     : '',
+                                 this.value != '',
+                                 this.value == ''
+                             )
+                             .draw();
+
+                     }
+
+                 })
+                 .on('keyup', function (e) {
+                     e.stopPropagation();
+
+                     $(this).trigger('change');
+                     $(this)
+                         .focus()[0]
+                         .setSelectionRange(cursorPosition, cursorPosition);
+                 });
+         });
+         flatpikrCall()
+
+        },
+               
+              
+               
+            });
+        
+    }
 
 
 
@@ -658,15 +865,15 @@ $(function(){
             $('#datatableleads').dataTable().fnClearTable();
             $('#datatableleads').dataTable().fnDestroy();
             $("#datatableleads").DataTable({
-                // 'processing' : true,
+                
                 "language": {
-                                    'loadingRecords': "<span class='fa-stack fa-lg'>\n\
+                            'loadingRecords': "<span class='fa-stack fa-lg'>\n\
                             <i class='fa fa-spinner fa-spin fa-stack-2x fa-fw'></i>\n\
-                       </span>&emsp;Loading Details ...",
+                            </span>&emsp;Loading Details ...",
                                 },
                 
                 "paging":true,   
-                // "pagingType":"simple",            
+                           
                 "ajax":{
                    url: "{% url 'Admin:LoadAll' %}",
                    data:{
@@ -692,12 +899,11 @@ $(function(){
                 orderCellsTop: true,
                 fixedHeader: true,
                 initComplete: function () {
-                    var api = this.api();
-     // For each column
+                    var api = this.api();    
                 api
-         .columns()
-         .eq(0)
-         .each(function (colIdx) {
+                .columns()
+                .eq(0)
+                 .each(function (colIdx) {
              var column = this;
              // Set the header cell to contain the input element
 

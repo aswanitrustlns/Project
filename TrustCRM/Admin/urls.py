@@ -11,6 +11,7 @@ urlpatterns=[
     # path('newaccounts',new_accounts,name="NewAccounts"),
     path('Leads/',lead,name="Leads"),
     path('LoadAll',lead_load_all,name="LoadAll"),
+    path('LeadClick',lead_load_click,name="LeadClick"),
     path('duplicate',lead_duplicate_check,name="Duplicate"),
     path('viewMerge',view_merge,name="ViewMerge"),
     path('createticket',create_ticket,name="CreateTicket"),

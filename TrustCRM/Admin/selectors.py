@@ -215,6 +215,24 @@ class Selector:
         finally:
             Cursor.close()
         return leads_data,leads_count
+    #Get Lead Page click
+    def get_leads_clicks(self,status):
+        try:
+            leads_data=[]
+            Cursor=connection.cursor()
+            print("====================================",status)
+            # Cursor.execute("set nocount on;exec SP_LeadsCount_PY")
+            # leads_count = Cursor.fetchone()
+            # print("Leads count==========================",leads_count)
+            # if(leads_count):
+            Cursor.execute("set nocount on;exec SP_LeadsListing_PY %s",[status])
+            leads_data=Cursor.fetchall()
+            print("Leads data",len(leads_data))
+        except Exception as e:
+            print("Exception---",e)
+        finally:
+            Cursor.close()
+        return leads_data
     
     #Get Tickets
     def get_tickets(self,userId,ticket):
@@ -273,10 +291,25 @@ class Selector:
         return _tickets
 
     #Get new accounts count
-    def get_new_accounts_count(self):
+    def get_new_accounts_count(self,from_date,to_date):
         try:
+            
            Cursor=connection.cursor()
-           Cursor.execute("set nocount on;exec SP_GetNewAccountsCount %s,%s",["1900-01-01","2022-09-03"])
+           Cursor.execute("set nocount on;exec SP_GetNewAccountsCount %s,%s",[from_date,to_date])
+           accounts_count=Cursor.fetchone()
+           print("Accounts count",accounts_count)
+        except Exception as e:
+            print("Exception---",e)
+        finally:
+            Cursor.close()
+        
+        return accounts_count
+     #Get new accounts count for variants
+    def get_new_accounts_count_variants(self,from_date,to_date,change):
+        try:
+            
+           Cursor=connection.cursor()
+           Cursor.execute("set nocount on;exec SP_GetNewAccountsListing  %s,%s,%s",[from_date,to_date,change])
            accounts_count=Cursor.fetchone()
            print("Accounts count",accounts_count)
         except Exception as e:

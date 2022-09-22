@@ -138,16 +138,16 @@
 
                                     <ul class="gilory-medium-type list-unstyled color-color1 fs-18 d-flex ">
 
-                                        <li > <span class="rounded-circle  bg-danger d-inline-block me-1 "  style="height:13px ;width:13px"></span><span>Funded</span> | <span class="text-white">{{accounts_count.0}}</span></li>
-                                        <li class="ms-5"> <span class="rounded-circle  bg-info d-inline-block me-1" style="height:13px ;width:13px"></span> <span>Non Funded </span> | <span class="text-white">{{accounts_count.1}}</span></li>
+                                        <li onclick="pageRedirect('Funded')"> <span class="rounded-circle  bg-danger d-inline-block me-1 "  style="height:13px ;width:13px;cursor: pointer;"></span><span>Funded</span> | <span class="text-white" id="fundspan">{{accounts_count.0}}</span></li>
+                                        <li class="ms-5" onclick="pageRedirect('NonFunded')"> <span class="rounded-circle  bg-info d-inline-block me-1" style="height:13px ;width:13px;cursor: pointer;"></span> <span>Non Funded </span> | <span class="text-white" id="nonfundspan">{{accounts_count.1}}</span></li>
                                     </ul>
                                 </div>
                                 <div class="mb-4 mt-3 " id="pending">
 
                                     <ul class="gilory-medium-type list-unstyled color-color1 fs-18 d-flex ">
 
-                                        <li > <span class="rounded-circle  bg-danger d-inline-block me-1 "  style="height:13px ;width:13px"></span><span>Approved Temporarily</span> | <span class="text-white">{{accounts_count.2}}</span></li>
-                                        <li class="ms-5"> <span class="rounded-circle  bg-info d-inline-block me-1" style="height:13px ;width:13px"></span> <span>Waiting for approval</span> | <span class="text-white">{{accounts_count.3}}</span></li>
+                                        <li onclick="pageRedirect('TempApproved')"> <span class="rounded-circle  bg-danger d-inline-block me-1 "  style="height:13px ;width:13px;cursor: pointer;"></span><span>Approved Temporarily</span> | <span class="text-white" id="approvespan">{{accounts_count.2}}</span></li>
+                                        <li class="ms-5" onclick="pageRedirect('WaitingApproval')"> <span class="rounded-circle  bg-info d-inline-block me-1" style="height:13px ;width:13px;cursor: pointer;"></span> <span>Waiting for approval</span> | <span class="text-white" id="waitingspan">{{accounts_count.3}}</span></li>
                                     </ul>
                                 </div>
 
@@ -706,7 +706,15 @@
             });     
             
            
-        }    
+        }  
+        
+        function pageRedirect(variant){
+        console.log("Variant==================="+variant)
+        var url="{% url 'Admin:AccountsFilter' %}"
+                window.location.href=url+"?&change="+variant
+    }
+
+
         function terminateAccount(change,status){
             
 
@@ -730,9 +738,9 @@
                     'to':todate,
                     'status':status,
                    },
-                   "dataSrc":function(json_data){
+                   "dataSrc":function(json_data,items_count){
                     
-               
+                    console.log("ItemsCount====================="+items_count)
                     var items = [];
                     for ( var i=0, ien=json_data.length ; i<ien ; i++ ) {
 
@@ -903,7 +911,7 @@
         function liveAccount(change,status){
             fromdate=document.getElementById("fromdate").value
             todate=document.getElementById("todate").value
-            
+            var json_data;
                 $("#datatableleads").DataTable({
 
                 // "columns" : [{'sTitle': 'Column 1'}, {'sTitle': 'Column 2'}, {'sTitle': 'Column 3'}, {'sTitle': 'Column 4'}], 
@@ -920,9 +928,24 @@
                     'to':todate,
                     'status':status,
                    },
-                   "dataSrc":function(json_data){
-                    
-               
+                //    'success':function(data){
+                //         console.log("Data====="+data.data)
+                //         console.log("Count====="+data.count)
+                //         json_data=data
+
+                //    },
+                   "dataSrc":function(data){
+                    json_data=data.data
+                    count=data.count
+                    console.log("Count========="+count[0])
+                    var fundspan=document.getElementById("fundspan")
+                    var nonfundspan=document.getElementById("nonfundspan")
+                    var approvespan=document.getElementById("approvespan")
+                    var waitingspan=document.getElementById("waitingspan")
+                    fundspan.innerHTML=count[0]
+                    nonfundspan.innerHTML=count[1]
+                    approvespan.innerHTML=count[2]
+                    waitingspan.innerHTML=count[3]
                     var items = [];
                     for ( var i=0, ien=json_data.length ; i<ien ; i++ ) {
 
