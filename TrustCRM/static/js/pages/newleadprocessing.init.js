@@ -296,8 +296,8 @@ function setHeight($elm,$elmIndex,$elmgetH,$elmsetH){
     
 }
 
-setHeight('#getheight-container0 .getheight', 0, 'form', '#getheight-container0 .getheight  .card-body');
-myMediaQuery.addEventListener('change', setHeight('#getheight-container0 .getheight', 0, 'form', '#getheight-container0 .getheight  .card-body'));
+setHeight('#getheight-container0 .getheight', 0, '#formtypeleads_personals', '#getheight-container0 .getheight  .card-body');
+myMediaQuery.addEventListener('change', setHeight('#getheight-container0 .getheight', 0, '#formtypeleads_personals', '#getheight-container0 .getheight  .card-body'));
 
 $('.nav-item').on('click',function(){
    

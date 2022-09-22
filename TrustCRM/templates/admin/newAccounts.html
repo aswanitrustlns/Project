@@ -138,16 +138,16 @@
 
                                     <ul class="gilory-medium-type list-unstyled color-color1 fs-18 d-flex ">
 
-                                        <li onclick="pageRedirect('Funded')"> <span class="rounded-circle  bg-danger d-inline-block me-1 "  style="height:13px ;width:13px;cursor: pointer;"></span><span>Funded</span> | <span class="text-white" id="fundspan">{{accounts_count.0}}</span></li>
-                                        <li class="ms-5" onclick="pageRedirect('NonFunded')"> <span class="rounded-circle  bg-info d-inline-block me-1" style="height:13px ;width:13px;cursor: pointer;"></span> <span>Non Funded </span> | <span class="text-white" id="nonfundspan">{{accounts_count.1}}</span></li>
+                                        <li onclick="pageRedirect('Funded')" style="cursor:pointer"> <span class="rounded-circle  bg-danger d-inline-block me-1 "  style="height:13px ;width:13px;"></span><span>Funded</span> | <span class="text-white" id="fundspan">{{accounts_count.0}}</span></li>
+                                        <li class="ms-5" onclick="pageRedirect('NonFunded')" style="cursor:pointer"> <span class="rounded-circle  bg-info d-inline-block me-1" style="height:13px ;width:13px;"></span> <span>Non Funded </span> | <span class="text-white" id="nonfundspan">{{accounts_count.1}}</span></li>
                                     </ul>
                                 </div>
                                 <div class="mb-4 mt-3 " id="pending">
 
                                     <ul class="gilory-medium-type list-unstyled color-color1 fs-18 d-flex ">
 
-                                        <li onclick="pageRedirect('TempApproved')"> <span class="rounded-circle  bg-danger d-inline-block me-1 "  style="height:13px ;width:13px;cursor: pointer;"></span><span>Approved Temporarily</span> | <span class="text-white" id="approvespan">{{accounts_count.2}}</span></li>
-                                        <li class="ms-5" onclick="pageRedirect('WaitingApproval')"> <span class="rounded-circle  bg-info d-inline-block me-1" style="height:13px ;width:13px;cursor: pointer;"></span> <span>Waiting for approval</span> | <span class="text-white" id="waitingspan">{{accounts_count.3}}</span></li>
+                                        <li onclick="pageRedirect('TempApproved')" style="cursor:pointer"> <span class="rounded-circle  bg-danger d-inline-block me-1 "  style="height:13px ;width:13px;"></span><span>Approved Temporarily</span> | <span class="text-white" id="approvespan">{{accounts_count.2}}</span></li>
+                                        <li class="ms-5" onclick="pageRedirect('WaitingApproval')" style="cursor:pointer"> <span class="rounded-circle  bg-info d-inline-block me-1" style="height:13px ;width:13px;"></span> <span>Waiting for approval</span> | <span class="text-white" id="waitingspan">{{accounts_count.3}}</span></li>
                                     </ul>
                                 </div>
 
@@ -439,8 +439,8 @@
                     'to':todate,
                     'status':status,
                    },
-                   "dataSrc":function(json_data){
-                    
+                   "dataSrc":function(data){
+                    json_data=data.data
                
                     var items = [];
                     for ( var i=0, ien=json_data.length ; i<ien ; i++ ) {
@@ -583,8 +583,8 @@
                     'to':todate,
                     'status':status,
                    },
-                   "dataSrc":function(json_data){
-                    
+                   "dataSrc":function(data){
+                    json_data=data.data
                
                     var items = [];
                     for ( var i=0, ien=json_data.length ; i<ien ; i++ ) {
@@ -709,9 +709,199 @@
         }  
         
         function pageRedirect(variant){
+        var fromdate=document.getElementById("fromdate").value
+        var todate=document.getElementById("todate").value
+        console.log("From date=================="+fromdate)
+        console.log("To date======"+todate)
         console.log("Variant==================="+variant)
-        var url="{% url 'Admin:AccountsFilter' %}"
-                window.location.href=url+"?&change="+variant
+        // var url="{% url 'Admin:NewAccountsClick' %}"
+                // window.location.href=url+"?&status="+variant+"&fromdate="+fromdate+"&todate="+todate
+
+                var json_data;
+                $("#datatableleads").DataTable({
+                'paging':true, 
+                'destroy': true,               
+                'ajax':{
+                   "url": "{% url 'Admin:NewAccountsClick' %}",
+                   "type": "GET",
+                   "data":{
+                    'status':variant,
+                    'fromdate':fromdate,
+                    'todate':todate                    
+                   },
+                   "dataSrc":function(data){
+                    json_data=data.data
+                    count=data.count
+                    console.log("Count========="+count[0])
+                    var fundspan=document.getElementById("fundspan")
+                    var nonfundspan=document.getElementById("nonfundspan")
+                    var approvespan=document.getElementById("approvespan")
+                    var waitingspan=document.getElementById("waitingspan")
+                    fundspan.innerHTML=count[0]
+                    nonfundspan.innerHTML=count[1]
+                    approvespan.innerHTML=count[2]
+                    waitingspan.innerHTML=count[3]
+                    var items = [];
+                    for ( var i=0, ien=json_data.length ; i<ien ; i++ ) {
+
+                        items[i] = [json_data[i][0],json_data[i][1],json_data[i][2],json_data[i][3],json_data[i][4],json_data[i][5],json_data[i][6],json_data[i][9],json_data[i][8]]; 
+                            
+                        }
+                        
+                        return items;
+                   }
+                },
+                responsive: true,
+                orderCellsTop: true,
+                fixedHeader: true,
+                initComplete: function () {
+                    var api = this.api();
+     
+                        api
+                        .columns()
+                        .eq(0)
+                        .each(function (colIdx) {
+                        var column = this;
+             // Set the header cell to contain the input element
+
+                 var cell = $('.filters th').eq(
+                 $(api.column(colIdx).header()).index()
+             );
+             var $myindex=$(api.column(colIdx).header()).index();
+             var $myhead=$("#datatableleads thead tr th").eq($myindex);
+             var title = $myhead.text();
+             var id = $myhead.attr('data-id');
+             //var datatext=$(cell).attr('data-text');
+             var select1 = $('<select   id="' + id + '" placeholder="' + title + '"  class="fs-14 form-control w-100"><option value=""></option></select>');
+             if ($(cell).attr('data-text') == 'select') {
+                 //console.log($(cell).index());
+                 api.column($(cell).index())
+                     .data()
+                     .unique()
+                     .sort()
+                     .each(function (d, j) {
+
+
+                         select1.append('<option value="' + d + '">' + d + '</option>');
+
+                     });
+                 $(cell).html(select1);
+
+
+
+
+             } else {
+                 $(cell).html('<input type="text" id="' + id + '" placeholder="' + title + '"  class="fs-14"   />');
+             }
+
+
+             // On every keypress in this input
+             $(
+                 'input',
+                 $('.filters th').eq($(api.column(colIdx).header()).index())
+             )
+                 .off('keyup change')
+                 .on('change', function (e) {
+
+                     if ($(this).attr('id') == 'datepicker-range') {
+                         console.log("Heloooo");
+
+                         //var vals=this.value ;
+
+
+
+                     } else {
+                         //console.log($(this).attr('id'));
+
+
+                         // Get the search value
+                         $(this).attr('title', $(this).val());
+
+                         //var vals=this.value ;
+
+                         var regexr = '({search})'; //$(this).parents('th').find('select').val();
+
+                         var cursorPosition = this.selectionStart;
+                         // Search the column for that value
+                         api
+                             .column(colIdx)
+                             .search(
+                                 this.value != ''
+                                     ? regexr.replace('{search}', '(((' + this.value + ')))')
+                                     : '',
+                                 this.value != '',
+                                 this.value == ''
+                             )
+                             .draw();
+
+                     }
+
+
+                 })
+                 .on('keyup', function (e) {
+                     e.stopPropagation();
+
+                     $(this).trigger('change');
+                     $(this)
+                         .focus()[0]
+                         .setSelectionRange(cursorPosition, cursorPosition);
+                 });
+
+             $(
+                 'select',
+                 $('.filters th').eq($(api.column(colIdx).header()).index())
+             )
+                 .off('keyup change')
+                 .on('change', function (e) {
+
+                     if ($(this).attr('id') == 'datepicker-range') {
+                         console.log("Heloooo");
+
+                         //var vals=this.value ;
+
+
+
+                     } else {
+                         //console.log($(this).attr('id'));
+
+
+                         // Get the search value
+                         $(this).attr('title', $(this).val());
+
+                         //var vals=this.value ;
+
+                         var regexr = '({search})'; //$(this).parents('th').find('select').val();
+
+                         var cursorPosition = this.selectionStart;
+                         // Search the column for that value
+                         api
+                             .column(colIdx)
+                             .search(
+                                 this.value != ''
+                                     ? regexr.replace('{search}', '(((' + this.value + ')))')
+                                     : '',
+                                 this.value != '',
+                                 this.value == ''
+                             )
+                             .draw();
+
+                     }
+
+                 })
+                 .on('keyup', function (e) {
+                     e.stopPropagation();
+
+                     $(this).trigger('change');
+                     $(this)
+                         .focus()[0]
+                         .setSelectionRange(cursorPosition, cursorPosition);
+                 });
+         });
+         flatpikrCall()
+ },
+                
+               
+            });  
     }
 
 
@@ -738,9 +928,9 @@
                     'to':todate,
                     'status':status,
                    },
-                   "dataSrc":function(json_data,items_count){
+                   "dataSrc":function(data){
                     
-                    console.log("ItemsCount====================="+items_count)
+                    json_data=data.data
                     var items = [];
                     for ( var i=0, ien=json_data.length ; i<ien ; i++ ) {
 
@@ -913,10 +1103,6 @@
             todate=document.getElementById("todate").value
             var json_data;
                 $("#datatableleads").DataTable({
-
-                // "columns" : [{'sTitle': 'Column 1'}, {'sTitle': 'Column 2'}, {'sTitle': 'Column 3'}, {'sTitle': 'Column 4'}], 
-                // 'processing' : true,
-                
                 'paging':true, 
                 'destroy': true,               
                 'ajax':{
@@ -928,12 +1114,6 @@
                     'to':todate,
                     'status':status,
                    },
-                //    'success':function(data){
-                //         console.log("Data====="+data.data)
-                //         console.log("Count====="+data.count)
-                //         json_data=data
-
-                //    },
                    "dataSrc":function(data){
                     json_data=data.data
                     count=data.count
@@ -961,15 +1141,15 @@
                 fixedHeader: true,
                 initComplete: function () {
                     var api = this.api();
-     // For each column
-                api
-         .columns()
-         .eq(0)
-         .each(function (colIdx) {
-             var column = this;
+     
+                        api
+                        .columns()
+                        .eq(0)
+                        .each(function (colIdx) {
+                        var column = this;
              // Set the header cell to contain the input element
 
-             var cell = $('.filters th').eq(
+                 var cell = $('.filters th').eq(
                  $(api.column(colIdx).header()).index()
              );
              var $myindex=$(api.column(colIdx).header()).index();

@@ -346,6 +346,19 @@ class Selector:
         finally:
             Cursor.close()
         return live_accounts
+
+     # Get New Accounts click data
+    def get_new_accounts_click(self,status,from_date,to_date):
+        try:
+           Cursor=connection.cursor()
+           Cursor.execute("set nocount on;exec SP_GetNewAccountsListing %s,%s,%s",[from_date,to_date,status])  
+           live_accounts=Cursor.fetchall()
+          
+        except Exception as e:
+            print("Exception---",e)
+        finally:
+            Cursor.close()
+        return live_accounts    
    # Get New Accounts page data
     def get_new_accounts_filter(self,change):
         try:

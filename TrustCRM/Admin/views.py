@@ -32,6 +32,7 @@ selector=Selector()
 service=Services()
 sales_dash=DashboardSelector()
 global voice
+voice="False"
 # Create your views here.
 
 def login(request):    
@@ -544,22 +545,22 @@ def lead_registration_check(request):
             hash_check=ticket.find("#")
             ticket=ticket.replace('#','')
             print(hash_check)
-            if hash_check>=0:                
-
+            if hash_check>=0:    
                 selector.merge_ticket(ticket,email1,email2,mobile,telephone)                
-                login=0               
-                user_permission=selector.user_permission_check(UserId,ticket,login)
-                print("User Permissio-------",user_permission)
-                user_permission=user_permission[0]                  
+                
+            login=0   
+            user_permission=selector.user_permission_check(UserId,ticket,login)
+            print("User Permissio-------",user_permission)
+            user_permission=user_permission[0]                  
                     
                 
-                print("User Permissio-------",user_permission)
-                if user_permission:
-                    print("No permission")
-                    return JsonResponse({'success':True,'ticket':ticket})
-                else:
-                    print("permission")
-                    return JsonResponse({'success':False,'ticket':ticket})
+            print("User Permissio-------",user_permission)
+            if user_permission:
+                print("No permission")
+                return JsonResponse({'success':True,'ticket':ticket})
+            else:
+                print("permission")
+                return JsonResponse({'success':False,'ticket':ticket})
         except:
             print("Error")
     
@@ -763,6 +764,19 @@ def new_accounts(request):
         status=request.GET.get("status")
         print("From date====",from_date)
         print("To_date====",to_date)
+        date_today=datetime.today().date()    
+        date_today=date_today.strftime("%Y-%m-%d")
+        week_day=datetime.today().weekday() # Monday is 0 and Sunday is 6
+        if(week_day==0):
+                date_yesterday = datetime.today()-timedelta(3)
+        else:
+                date_yesterday = datetime.today()-timedelta(1)
+
+        date_yesterday=date_yesterday.strftime("%Y-%m-%d")
+        if from_date=="":
+            from_date=date_yesterday
+        if to_date=="":
+            to_date=date_today
         
         print("Status----------------------",status)
         if(change):
@@ -772,15 +786,7 @@ def new_accounts(request):
             print("Accounts data===================",accounts_data,type(accounts_data))
             return HttpResponse(json.dumps({"data":accounts_data,"count":accounts_count}), content_type="application/json")
         else:
-            date_today=datetime.today().date()    
-            date_today=date_today.strftime("%Y-%m-%d")
-            week_day=datetime.today().weekday() # Monday is 0 and Sunday is 6
-            if(week_day==0):
-                date_yesterday = datetime.today()-timedelta(3)
-            else:
-                date_yesterday = datetime.today()-timedelta(1)
-
-            date_yesterday=date_yesterday.strftime("%Y-%m-%d")
+           
             
             accounts_data=selector.get_new_accounts("Live","",date_yesterday,date_today)
             accounts_count=selector.get_new_accounts_count(date_yesterday,date_today)
@@ -818,6 +824,41 @@ def new_accounts_variants(request):
                 
     else:
         return redirect('/login')
+#new accounts click
+def new_accounts_click(request):
+    active="Live"
+    if 'UserId' in request.session:
+        
+        status=request.GET.get("status")
+        if (status =="TempApproved" or status=="WaitingApproval"):
+            active="pending"
+        fromdate=request.GET.get('fromdate')
+        todate=request.GET.get("todate")
+        print("Cliked inputs=========================",fromdate,todate,status)
+        date_today=datetime.today().date()    
+        date_today=date_today.strftime("%Y-%m-%d")
+        week_day=datetime.today().weekday() # Monday is 0 and Sunday is 6
+        if(week_day==0):
+                date_yesterday = datetime.today()-timedelta(3)
+        else:
+                date_yesterday = datetime.today()-timedelta(1)
+
+        date_yesterday=date_yesterday.strftime("%Y-%m-%d")
+        if fromdate=="":
+            fromdate=date_yesterday
+        if todate=="":
+            todate=date_today
+        
+        accounts_data=selector.get_new_accounts_click(status,fromdate,todate)
+        print("Clicked acccounts data======================",accounts_data)
+        accounts_count=selector.get_new_accounts_count(fromdate,todate)
+        print("Clicked Acoounts count====================",accounts_count)
+        return HttpResponse(json.dumps({"data":accounts_data,"count":accounts_count}), content_type="application/json")
+        # return render(request,'admin/newAccounts.html',{'accounts_data':accounts_data,'accounts_count':accounts_count,"active":json.dumps(active)})
+                
+    else:
+        return redirect('/login')
+
 
 def sendRemiderMail(request):
     if 'UserId' in request.session:        

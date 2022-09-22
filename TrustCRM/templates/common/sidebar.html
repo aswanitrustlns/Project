@@ -25,7 +25,7 @@
                 </li>
 
                 <li>
-                    <a href="javascript: void(0);" class="has-arrow">
+                    <a href="{% url 'Admin:NewAccounts' %}" >
                      
                         <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M16.5 6.56338C16.445 6.55421 16.3808 6.55421 16.3258 6.56338C15.0608 6.51754 14.0525 5.48171 14.0525 4.19838C14.0525 2.88754 15.1067 1.83337 16.4175 1.83337C17.7283 1.83337 18.7825 2.89671 18.7825 4.19838C18.7733 5.48171 17.765 6.51754 16.5 6.56338Z" stroke="#989898" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -38,14 +38,10 @@
                             
                         <span data-key="t-clients">All Clients</span>
                     </a>
-                    <ul class="sub-menu" aria-expanded="false">
+                    <!-- <ul class="sub-menu" aria-expanded="false">
                         <li><a href="{% url 'Admin:NewAccounts' %}" data-key="t-liveaccounts">New Accounts</a></li>
-                        <!--{% url 'Admin:NewAccounts'%} 
-                            <li><a href="#" data-key="t-pendingaccounts">Pending Accounts</a></li>
-                        <li><a href="#" data-key="t-rejectedaccounts">Rejected Accounts</a></li>
-                        <li><a href="#" data-key="t-terminatedaccounts">Terminated Accounts</a></li>
-                        <li><a href="#" data-key="t-closedaccounts">Closed Accounts</a></li> -->
-                    </ul>
+               
+                    </ul> -->
                 </li>
 
                 <!-- <li>

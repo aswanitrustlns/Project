@@ -606,7 +606,7 @@
                                                                 <div class="card-body"  id="activitiesDiv">
 
 
-                                                                    <div class="" id="journal-block"  style="max-height: 100%">
+                                                                    <div class="" id="journal-block"  style="max-height: 65%">
                                                                         <ul class="list-unstyled activity-wid activity-wid-manage-tickets " id="activityList">
                                                                             <!--activity x-->
                                                                     {%if activity_log %}
@@ -657,6 +657,57 @@
                                                                     {%endif%}      
                                                                         
                                                                         </ul>
+                                                                    </div>
+                                                                    <div class="px-3"  style="max-height: 35%" id="chatsDiv">
+                                                                        <div class=" mt-3">
+                                                                            <form action="" class="row needs-validation ">
+                                                                                <div class="col-md-12 mb-2">
+                                                                                    <textarea name="" id="" cols="30" rows="3" class="form-control" style="background-color: transparent !important;"></textarea>
+                                                                                    <button  class="btn btn-sm btn-primary me-2   position-absolute" type="button" style="right: 15px; bottom: 10px;" onclick="chatSend()">Send</button>
+                                                                                </div>
+                                                                                <div class="col-md-12  ">
+                                                                                    <div class="row">
+                                                                                        <div class="col-md-3 mb-2">
+                                                                                            <label class="form-label mb-1" for="Call">Call</label>
+                                                                                            <select class=" form-select  py-1" id="chatCall" style="background-color: transparent !important;">
+                                                                                                <option value="None">None</option>
+                                                                                                <option value="B">B:Busy</option>
+                                                                                                <option value="N">N:No Reply</option>
+                                                                                                <option value="S">S:Spoken</option>
+                                                                                                <option value="W">W:Wrong No</option>
+                                                                                            </select>
+                                                                                        </div>
+                                                                                        <div class="col-md-3 mb-1">
+                                                                                            <label class="form-label mb-1" for="Interest">Interest</label>
+                                                                                            <select class=" form-select  py-1" id="chatInterest" style="background-color: transparent !important ;">
+                                                                                                <option value="None">None</option>
+                                                                                                <option value="I">I:Interest</option>
+                                                                                                <option value="M">M:May be</option>
+                                                                                                <option value="N">N:Not Interest</option>
+                                                                                            </select>
+                                                                                        </div>
+                                                                                        <div class="col-md-3 mb-1">
+                                                                                            <label class="form-label mb-1" for="Exp">Exp</label>
+                                                                                            <select class=" form-select  py-1" id="chatExp" style="background-color: transparent  !important;">
+                                                                                                <option value="None">None</option>
+                                                                                                <option value="Y">Y:Yes</option>
+                                                                                                <option value="N">N:No</option>
+                                                                                            </select>
+                                                                                        </div>
+                                                                                        <div class="col-md-3 mb-1">
+                                                                                            <label class="form-label mb-1" for="temp">None</label>
+                                                                                            <select class=" form-select py-1" style="background-color: transparent !important ;" id="chatNone">
+                                                                                                <option value="None">None</option>
+                                                                                                <option value="F">F:Follow Up</option>
+                                                                                                <option value="R">R:Resolve</option>
+                                                                                                <option value="C">C:Convert To CS</option>
+                                                                                                <option value="T">T:To Live</option>
+                                                                                            </select>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </form>
+                                                                        </div>
                                                                     </div>
 
                                                                 </div>
@@ -2104,6 +2155,7 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
             var meetingscore=0
             var searchParams = new URLSearchParams(window.location.search)
             var ticket = searchParams.get('ticket')
+            $("#chatsDiv").hide()
             console.log("Ticket---------"+ticket)
             $("#ticketno").val(ticket)
             $("#submitftypeleads").attr("disabled",true)
@@ -2372,6 +2424,15 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
                
 
     });
+
+    function chatSend(){
+        var call=$("#chatCall").val()
+        var interest=$("#chatInterest").val()
+        var chatexp=$("#chatExp").val()
+        var chatnone=$("#chatNone").val()
+        console.log("=========================="+call+interest+chatexp+chatnone)
+
+    }
 
 
     function openStickyPopup(){
@@ -3577,7 +3638,7 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
                         var country=leads[10]
                         var annualIncome=leads[26]
                         var experience=leads[29]
-                        var profession=leads[47]
+                        // var profession=leads[47]
                         var category=leads[46]
                         var potential=leads[16]
                         var language=leads[14]
@@ -3615,7 +3676,7 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
                         $("#state").val(state)
                         $("#annualincome").val(annualIncome)
                         $("#exp").val(experience)
-                        $("#profession").val(profession)
+                        // $("#profession").val(profession)
                         $("#category").val(category)
                         $("#potential").val(potential)
                         $("#language").val(language)
@@ -3751,6 +3812,7 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
                                          "</svg></p><p class='color-color1  mb-0'>"+activities[i][1]+" by "+activities[i][7]+"</p><p class='color-color1  mb-0' style='max-width: 250px'>"+activities[i][3]+"</p></div></div></div></div></div></li>"
         }
         $("#activityList").append(activity)
+        $("#chatsDiv").show()
         simpleBarJournal.getScrollElement().scrollTop = simpleBarJournal.getScrollElement().scrollHeight;
         
         
