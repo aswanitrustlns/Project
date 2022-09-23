@@ -1223,6 +1223,18 @@ def save_reminder_details(request):
         return JsonResponse({"success":True})
     else:
         return redirect('/login')
+#save insert ticket logs
+def ticket_logs_insertion(request):
+    if 'UserId' in request.session:
+        userid=request.session.get('UserId')
+        ticket=request.GET.get('ticket')
+        logdata=request.GET.get('logdata')
+        logtype=request.GET.get('logtype')
+        print("Chat test============",userid,ticket,logdata,logtype)
+        selector.insert_ticket_logs(userid,logdata,logtype,ticket)
+        return JsonResponse({"success":True})
+    else:
+        return redirect('/login')
 
 def update_sticky_notes(request):
     if 'UserId' in request.session:

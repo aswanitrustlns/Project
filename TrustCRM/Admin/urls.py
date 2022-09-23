@@ -50,6 +50,7 @@ urlpatterns=[
     path('ComposeMail',email_send,name="ComposeMail"),
     path('TicketResolve',resolve_tickets,name="TicketResolve"),
     path('ActivityLog',activity_log,name="ActivityLog"),
+    path('TicketLogs',ticket_logs_insertion,name="TicketLogs"),
     
     #seminar=============================================================
     path('Upcoming',upcomingSeminars,name="Upcoming"),

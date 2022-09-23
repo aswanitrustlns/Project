@@ -1182,6 +1182,17 @@ class Selector:
             print("Exception------",e)
         finally:
             Cursor.close()
+    #SInsert ticket logs procedure
+    def insert_ticket_logs(self,userid,logdata,logtype,ticket):
+        try:
+            Cursor=connection.cursor()
+            print("Insert ticket logs data=======",userid,logdata,logtype,ticket)
+            Cursor.execute("set nocount on;exec SP_InsertTicketLogs %s,%s,%s,%s",[userid,logdata,logtype,ticket])
+            print("Ticket log inster done")
+        except Exception as e:
+            print("Exception------",e)
+        finally:
+            Cursor.close()
 
     def get_sticky_text(self,ticket):
             try:
