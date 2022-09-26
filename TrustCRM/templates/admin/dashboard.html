@@ -1259,19 +1259,31 @@
     <!-- pace js -->
    
     <script type="text/javascript">
+          $(function() {
+        $("#salesreps").change(function(){
+            var selrep=$("#salesreps").val()
+            console.log("Selected sales rep isss======"+selrep)
+            var url="{% url 'Admin:Dashboard'%}"
+            window.location.href=url+"?&repId="+selrep
+        })
+
+
+    })
         // gets set by jinja
-        var weekly_live={{weekly_live_account|safe}}
-        var daily_live={{daily_live_account|safe}}
-        var meeting_weekly_pie={{meeting_weekly_pie|safe}}
-        var meeting_daily_pie={{ meeting_daily_pie|safe}}
-        var leads_status={{leads_status|safe}}
-        var seminar_daily_pie={{seminar_daily_pie|safe}}
-        var seminar_weekly_pie={{seminar_weekly_pie|safe}}
-        var meeting_weekly_pie={{meeting_weekly_pie|safe}}
-        var leads_pie={{leads_pie|safe}}
-        var halfyearly_bar={{halfyearly_bar|safe}}
-        console.log("daily00000000000000000"+seminar_daily_pie);
-        console.log("Weekly11111111111111111111"+seminar_weekly_pie);
+        // var weekly_live={{weekly_live_account|safe}}
+        // var daily_live={{daily_live_account|safe}}
+        // var meeting_weekly_pie={{meeting_weekly_pie|safe}}
+        // var meeting_daily_pie={{ meeting_daily_pie|safe}}
+        // var leads_status={{leads_status|safe}}
+       
+        // var seminar_daily_pie=0
+        // var seminar_weekly_pie={{seminar_weekly_pie|safe}}
+        // var meeting_weekly_pie={{meeting_weekly_pie|safe}}
+        // var leads_pie={{leads_pie|safe}}
+        // var halfyearly_bar={{halfyearly_bar|safe}}
+      
+        
+      
       
 </script>
 

@@ -82,7 +82,7 @@ class EmailServices:
                 "name":name,              
 
             }
-            if(subject=="About TC Limited"):
+            if(subject=="About Trust Capital"):
                 if(lang=="en"):
                     path="email/EN/AboutTrustCapitalTC.html"
                 if(lang=="ch"):
@@ -137,12 +137,12 @@ class EmailServices:
                     path="email/EN/Interested_CH.html"
                 if(lang=="ch"):
                     path="email/CH/Interested_EN.html"
-            if(subject=="TC Limited - Missing POR"):
+            if(subject=="Trust Capital - Missing POR"):
                 if(lang=="en"):
                     path="email/EN/MissingProofofResidence.html"
                 if(lang=="ch"):
                     path="email/CH/MissingProofofResidence.html"
-            if(subject=="TC Limited - Missing ID"):
+            if(subject=="Trust Capital Limited - Missing ID"):
                 if(lang=="en"):
                     path="email/EN/MissingId.html"
                 if(lang=="ch"):

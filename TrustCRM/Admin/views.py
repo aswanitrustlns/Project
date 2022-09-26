@@ -53,6 +53,7 @@ def login_check(request):
         UserId=selector.get_loged_user_info(username)  
                
         request.session['UserId'] = UserId
+        # request.session['UserId'] = 30
         connect=selector.exe_connection(username,server_name,password)
         
     except Exception as e:
@@ -89,8 +90,8 @@ def dashboard(request):
         selrep=request.GET.get('repId')
         if(selrep!=None):
             UserId=selrep
-        else:
-            UserId=30 
+        # else:
+        #     UserId=request.session.get('UserId')
         
         print("Selected rep=================",selrep)
        
@@ -100,15 +101,13 @@ def dashboard(request):
         salesRep=permission_check[22]
         dashbord_data={}
         UserName,Email=selector.get_user_name(UserId)
-        notification_count,notification=selector.get_notification_data(UserId)
-        print("Manager==============================",manager)
-        print("Sales Rep====================",salesRep)
-        print("Notification count=========================",notification_count)
-        print("Notification=======================",notification)
+        notification_count,notification=selector.get_notification_data(UserId)       
+        request.session['UserId'] = UserId
         request.session['UserName']=UserName
         request.session['Email']=Email
         request.session['notification'] = notification_count
         request.session['notification_data']=notification
+        
         global voice       
         if voice=="True":
             mytext = 'Hi '+UserName+' Welcome to Trust Capital CRM'         
@@ -123,17 +122,31 @@ def dashboard(request):
                 
            
         voice="False"
-        dashbord_data=sales_dash.sales_dashboard(UserId)
-        return render(request,'sales/dashboard.html',dashbord_data)
-        # if manager:
-        #      dashbord_data=sales_dash.admin_dashboard(UserId)  
-        #      print("dashboard procedure ",datetime.now().time()) 
-        #      return render(request,'admin/dashboard.html',dashbord_data)
-        # if salesRep:
-             
-        #      dashbord_data=sales_dash.sales_dashboard(UserId)     
-        #      print("sales dashboard procedure end",datetime.now().time()) 
-        #      return render(request,'sales/dashboard.html',dashbord_data)
+        
+            # dashbord_data=sales_dash.sales_dashboard(UserId)     
+            # print("sales dashboard procedure end",datetime.now().time()) 
+            # return render(request,'sales/dashboard.html',dashbord_data)
+       
+        if manager:
+             request.session['role']="manager"
+             if(selrep!=None):
+                UserId=selrep
+             else:
+                UserId=30
+             print("Role============================manager")
+            #  dashbord_data=sales_dash.admin_dashboard(UserId)  
+             dashbord_data=sales_dash.sales_dashboard(UserId)     
+             print("dashboard procedure ",datetime.now().time()) 
+             return render(request,'sales/dashboard.html',dashbord_data)
+            #  return render(request,'admin/dashboard.html',dashbord_data)
+        if salesRep:
+             if(selrep!=None):
+                request.session['role']="manager"
+             else:
+                request.session['role']="salesrep"
+             dashbord_data=sales_dash.sales_dashboard(UserId)     
+             print("sales dashboard procedure end",datetime.now().time()) 
+             return render(request,'sales/dashboard.html',dashbord_data)
     else:
          return redirect('/login') 
 
@@ -717,8 +730,8 @@ def pending_tickets(request):
              pending_tickets=selector.get_tickets(UserId,"spoken")
         else:
              pending_tickets=selector.get_tickets(UserId,"pending")
-        
-        return render(request,'sales/pendingtickets.html',{'pending_tickets':pending_tickets})
+        print("Tickets===========",pending_tickets)
+        return render(request,'sales/pendingtickets.html',{'pending_tickets':pending_tickets[::-1]})
     else:
          return redirect('/login') 
 
@@ -942,11 +955,11 @@ def send_meeting_request(request):
             message=message[0]   
         print("Flag--------------------",type(flag))     
         if(flag == 0 or flag == 1):
-            subject="TC Limited – Meeting Confirmation"
+            subject="Trust Capital – Meeting Confirmation"
             
         if(flag == 2):
             print("Meeting cancelled")
-            subject = "TC Limited – Meeting Cancelled"
+            subject = "Trust Capital – Meeting Cancelled"
             template="MeetingCancelled.html"
             
             selector.mailSend(ticket,subject,bcc,cc,template,sendername)

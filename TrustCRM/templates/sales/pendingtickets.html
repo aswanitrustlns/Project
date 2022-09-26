@@ -134,7 +134,8 @@
                                             <th  data-type="text" >Source</th>
                                             <th  data-type="text" >Country</th>
                                         </tr>    -->
-                                        {%for data in pending_tickets reversed %}
+                                        {%for data in pending_tickets %}
+                                       
                                         <tr ondblclick='checkticket("{{data.1}}")' style="cursor: pointer;">
                                             <td >{{data.0}}</td>
                                             <td>{{data.1}}</td>

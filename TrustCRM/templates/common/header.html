@@ -136,6 +136,7 @@
                     <a class="dropdown-item" href="#"><i class="mdi mdi-face-profile font-size-16 align-middle me-1"></i> Profile</a>
                     <!-- <a class="dropdown-item" href="auth-lock-screen.html"><i class="mdi mdi-lock font-size-16 align-middle me-1"></i> Lock Screen</a> -->
                     <div class="dropdown-divider"></div>
+                    {%if request.session.role == "manager" %}
                     <select class="form-select border-1 " id="salesreps"
                     required style="width:auto;" >
                         <option value="0">Select</option>
@@ -149,6 +150,7 @@
                         <option value="60">Online</option>
                     </select>
                     <div class="dropdown-divider"></div>
+                    {%endif%}
                     <a class="dropdown-item" href="{% url 'Admin:Logout' %}"><i class="mdi mdi-logout font-size-16 align-middle me-1"></i> Logout</a>
                 </div>
             </div>

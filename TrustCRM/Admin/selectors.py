@@ -253,7 +253,9 @@ class Selector:
                 
                 print("Laod Pending")
                 Cursor.execute("exec SP_GetSalesLeadsListPaginate_PY %s,%s,%s,%s,%s",[userId,date_yesterday,date_today,'P',0])
-                _tickets=Cursor.fetchall()                 
+                _tickets=Cursor.fetchall()  
+                
+                           
             if(ticket=="spoken"):
                 print("Load spoken")            
                 Cursor.execute("exec SP_GetSpokenLeadsListPaginate_PY %s,%s,%s,%s,%s",[userId,date_yesterday,date_today,'P',0])
@@ -271,6 +273,7 @@ class Selector:
             print("Exception---",e)
         finally:
             Cursor.close()
+        print("Tickets=============================",_tickets)
         return _tickets  
     #Get all tickets
 

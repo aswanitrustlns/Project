@@ -1373,10 +1373,10 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
                                                                                         </div>
                                                                                     </div>
                                                                                     <div class="row mt-2">
-                                                                                        <div class="col-6">
+                                                                                        <!-- <div class="col-6">
                                                                                             <button type="button" class="btn btn-danger" id="btn-delete-event">Delete</button>
-                                                                                        </div>
-                                                                                        <div class="col-6 text-end">
+                                                                                        </div> -->
+                                                                                        <div class="col-12 text-end">
                                                                                             <button type="button" class="btn btn-light me-1" data-bs-dismiss="modal">Close</button>
                                                                                             <button type="submit" class="btn btn-success" id="btn-save-event">Save</button>
                                                                                         </div>
@@ -2830,7 +2830,7 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
         
            
             sendTemplate(to,lang,subject,title,name)
-            updateActivities(activities)
+            updateActivitylog()
     }
 
 
@@ -2847,31 +2847,31 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
             $("#alertpopup").modal('show')
             
         }else{   
-        $.ajax({
-            
-            type : "POST", 
-            url: "{% url 'Admin:ReminderSave' %}",
-            headers:{
-                        "X-CSRFToken": csrftoken
-            },
-            data:{
-                'color':category,
-                'subject':chatText,
-                'date':selDate,
-                'time':timer,                
-                'ticket':ticket,
-                'login':accno
-                
-            },
-            
-            
-            success: function(data){
-                $("#userMsg").empty()
-                     $("#userMsg").append("Reminder send")
-                    $("#alertpopup").modal('show')
-                    updateActivities(activities)
-            }
-        })
+                $.ajax({
+                    
+                    type : "POST", 
+                    url: "{% url 'Admin:ReminderSave' %}",
+                    headers:{
+                                "X-CSRFToken": csrftoken
+                    },
+                    data:{
+                        'color':category,
+                        'subject':chatText,
+                        'date':selDate,
+                        'time':timer,                
+                        'ticket':ticket,
+                        'login':accno
+                        
+                    },
+                    
+                    
+                    success: function(data){
+                        $("#userMsg").empty()
+                            $("#userMsg").append("Reminder send")
+                            $("#alertpopup").modal('show')
+                            updateActivitylog()
+                    }
+                })
         }
 
     }
@@ -2901,7 +2901,7 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
                     $("#userMsg").empty()
                      $("#userMsg").append("Email Send Successfully")
                     $("#alertpopup").modal('show')
-                    updateActivities(activities)
+                    updateActivitylog()
                 
 
                     }
@@ -3030,7 +3030,7 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
                 $("#userMsg").empty()
                 $("#userMsg").append("Email Send Successfully")
                 $("#alertpopup").modal('show')
-                updateActivities(activities)
+                updateActivitylog()
                }
             })
         }
@@ -3041,6 +3041,7 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
         console.log("Updates----------------------")
         let csrftoken = '{{ csrf_token }}' 
        var updates=validateForm()
+       console.log("Updation validation========================="+updates)
        if(updates==0){
         var accountno=$("#accountno").val()
         console.log("Account number======================"+accountno)
@@ -3071,6 +3072,7 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
                     $("#userMsg").empty()
                      $("#userMsg").append(msg)
                     $("#alertpopup").modal('show')
+                    updateActivitylog()
 
                 }
                }
@@ -3098,12 +3100,14 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
                     $("#userMsg").empty()
                      $("#userMsg").append(msg)
                     $("#alertpopup").modal('show')
+                    updateActivitylog()
 
                 }
                }
             })
-            updateActivitylog()
+            
         }
+        
 
        }
        
@@ -3896,6 +3900,7 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
         $("#webinarbody").append(rows)    
         }
         else{
+            $("#nowebinar").html("")
             $("#webinar-table").hide()
             var nowebinar="<img src='static/images/nodata/nodata.png' alt=''><p class='gilory-regular-type fs-20 mt-2'>Nothing To show</p>"
             $("#nowebinar").append(nowebinar)
