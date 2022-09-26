@@ -200,15 +200,15 @@ class Selector:
                 leads_data=Cursor.fetchall()
                 
                
-            for index, item in enumerate(leads_data):
-                itemlist = list(item)
-                dt=itemlist[0]
+            # for index, item in enumerate(leads_data):
+            #     itemlist = list(item)
+            #     dt=itemlist[0]
                 
-                itemlist[0]=datetime.strptime(dt, '%Y-%m-%d').date()
+            #     itemlist[0]=datetime.strptime(dt, '%Y-%m-%d').date()
                 
                
 
-                leads_data[index] = tuple(itemlist)
+            #     leads_data[index] = tuple(itemlist)
           
         except Exception as e:
             print("Exception---",e)
@@ -253,8 +253,11 @@ class Selector:
                 
                 print("Laod Pending")
                 Cursor.execute("exec SP_GetSalesLeadsListPaginate_PY %s,%s,%s,%s,%s",[userId,date_yesterday,date_today,'P',0])
+                _tickets=Cursor.fetchall()                 
+            if(ticket=="spoken"):
+                print("Load spoken")            
+                Cursor.execute("exec SP_GetSpokenLeadsListPaginate_PY %s,%s,%s,%s,%s",[userId,date_yesterday,date_today,'P',0])
                 _tickets=Cursor.fetchall()
-
             if(ticket=="resolved"):
                 print("Load resolved")            
                 Cursor.execute("exec SP_GetSalesLeadsListPaginate_PY %s,%s,%s,%s,%s",[userId,date_yesterday,date_today,'R',0])
@@ -573,8 +576,10 @@ class Selector:
         #call dll function
         try:
             Cursor=connection.cursor()
-            Cursor.execute("SELECT cOUNTRY FROM tbl_Country where ID=%s",[country])
+            Cursor.execute("SELECT COUNTRY FROM tbl_Country where ID=%s",[country])
             country_name=Cursor.fetchone()
+            if (country_name):
+                country_name=country_name[0]
         
             password=random_ped_gen()
             demo_account=dll_demo_account(name,email,phone,country_name,password)
@@ -609,7 +614,7 @@ class Selector:
                         if value:
                             value=value[0]
                             if(value==0):
-                                msg="'Ticket Resolved Successfully"
+                                msg="Ticket Resolved Successfully"
         except Exception as e:
             print("Exception------",e)
         finally:
@@ -1083,7 +1088,8 @@ class Selector:
                 msg="You dont have permission to update live account details"
                 print("You dont have permission to update live account details")
             else:
-               update_result=update_account_client_datails(request)
+            #    update_result=update_account_client_datails(request)
+               update_result=update_ticket(request) 
                emailservice.account_update_email(accountno,ticket,request,update_result)
                msg="Updated Successfully"
                if(update_result!=None):

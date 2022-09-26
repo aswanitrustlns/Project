@@ -37,8 +37,9 @@ class DashboardSelector:
             leads_converted=Cursor.fetchall()  
             #Meetingsss
             print("procedure-start6",datetime.now().time())
-            Cursor.execute("set nocount on;exec SP_GetMeetings")
+            Cursor.execute("set nocount on;exec SP_GetMeetings %s",[userId])
             meeting_today=Cursor.fetchall() 
+            print("Meeting Today=======",meeting_today)
             meeting_count=len(meeting_today)
             if(meeting_count < 9):
                 meeting_count=str(meeting_count).zfill(2)
@@ -69,9 +70,13 @@ class DashboardSelector:
 
             #weekly webinar info list---
             print("procedure-start8",datetime.now().time())
-            Cursor.execute("set nocount on;exec SP_GetSeminarInfolist")
+            Cursor.execute("set nocount on;exec SP_GetSeminarInfoCount")
             weekly_webinar=Cursor.fetchall() 
-            weekly_webinar=len(weekly_webinar)            
+            if weekly_webinar:
+                weekly_webinar=weekly_webinar[0]
+                weekly_webinar=weekly_webinar[0]
+            print("Weekly webinar=====",weekly_webinar)
+            # weekly_webinar=len(weekly_webinar)            
             if(weekly_webinar < 9):
                 weekly_webinar=str(weekly_webinar).zfill(2)
             #Live chat
@@ -81,12 +86,17 @@ class DashboardSelector:
             date_from=date_to-timedelta(days=date_to.weekday())
             print("date from---------------------------------------------------------",date_from)   
             print("date to---------------------------------------------------------",date_to)                   
-            Cursor.execute("set nocount on;exec SP_LiveChatLogSummary %s,%s,%s,%s",[date_from,date_to,'S',userId])
-            live_chat=Cursor.fetchone()
-            if live_chat:
-                live_chat=live_chat[0]
-            else:
-                live_chat=0
+            # Cursor.execute("set nocount on;exec SP_LiveChatLogSummary %s,%s,%s,%s",[date_from,date_to,'S',userId])
+            # live_chat=Cursor.fetchone()
+            Cursor.execute("set nocount on;exec SP_GetLiveChatCountWeekly_PY")
+            live_chat=Cursor.fetchall()
+            
+            live_chat=len(live_chat)
+            
+            # if live_chat:
+            #     live_chat=live_chat[0]
+            # else:
+            #     live_chat=0
             if(live_chat<9):
                 live_chat=str(live_chat).zfill(2)
             print("Live chat=============================",live_chat)

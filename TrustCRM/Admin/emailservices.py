@@ -12,18 +12,20 @@ class EmailServices:
                 # msg=EmailMessage(subject,email_template_render,email_from,[receiver],[receiver])
             print("Email service---------------------------------------")   
             Cursor=connection.cursor()
+            print("Deatils======================",repname,username,ticket,salesrepid)
             Cursor.execute("SELECT Email FROM tbl_User where UserID=%s",[salesrepid])
             receiver_mail=Cursor.fetchone()
             print("Receiver mail-----------------------------",receiver_mail)
             subject="SalesRep Assigned"   
             email_from = 'cs@trusttc.com'
-            # receiver_mail="aswani.technology@gmail.com"
+            
             template_data={
                 "repname":repname,
                 "username":username,
                 "ticket":ticket
 
             }
+            print("Templatedata=====",template_data)
             email_template_render=render_to_string("email/NewSalesInquiryAssigned.html",template_data)
             msg = EmailMultiAlternatives(subject=subject,from_email=email_from,to=[receiver_mail])
             msg.attach_alternative(email_template_render, "text/html")
@@ -197,10 +199,10 @@ class EmailServices:
                 "title":title,
                 "name":name,
                 "login":demo_account,
-                "passord":password,
+                "password":password,
             }
             email_template_render=render_to_string("email/YourDemoAccountWithTrustCapital.html",template_data)
-            subject=" "
+            subject="Your Demo Account With Trust Capital"
             
             msg = EmailMultiAlternatives(subject=subject,from_email=email_from,to=[receiver_mail],bcc=[bcc1])
             msg.attach_alternative(email_template_render, "text/html")

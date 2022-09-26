@@ -207,7 +207,7 @@
                                                                     <div class="mt-3">
                                                                         <div class="d-flex  align-items-center flex-wrap ">
                                                                             <div class="form-check form-switch " dir="ltr">
-                                                                                <input type="checkbox" class="form-check-input" id="ticketstatus" checked="" >
+                                                                                <input type="checkbox" class="form-check-input" id="ticketstatus" checked="" disabled onclick="return false">
                                                                                 <label class="form-check-label " for="ticketstatus">Pending</label>
                                                                             </div>
 
@@ -575,7 +575,7 @@
                                                                                         </div>
                                                                                         <div class="col-md-6 col-lg-3 ">
                                                                                             <div class="" id="digital-container">
-                                                                                                <script   async defer id='20229207532448' ></script>
+                                                                                                
                                                                                             </div>
                                                                                         </div>
 
@@ -996,11 +996,11 @@
                                                                 </div>
                                                                 <div class="card card-h-100 border-0" style="background-color: #1B1C2E;">
                                                                     <div class="card-body">
-                                                                       
-                                                                        <div class="table-responsive" data-simplebar=" " style="max-height: 100%;">
-                                                                        {%if webinarList %}
                                                                         
-                                                                        <table class="table mb-0 " style="vertical-align: middle ;">
+                                                                        <div class="table-responsive" data-simplebar=" " style="max-height: 100%;">
+                                                                        
+                                                                        
+                                                                        <table class="table mb-0 " style="vertical-align: middle ;" id="webinar-table">
         
                                                                             <thead>
                                                                                 <tr class="gilroyregular-type fs-12">
@@ -1009,7 +1009,9 @@
                                                                                     <th class="text-end">Status</th>
                                                                                 </tr>
                                                                             </thead>
+                                                                            
                                                                             <tbody class="gilroymedium-type fs-14" id="webinarbody">
+                                                                                <!-- {%if webinarList %}
                                                                                 {%for webinar in webinarList %}
                                                                                 <tr>
                                                                                     <td scope="row">
@@ -1026,18 +1028,21 @@
     
                                                                                 </tr>
                                                                                 {%endfor%}
-                                                                            
-                                                                            
+                                                                                {%else%}
+                                                                                <div class="  text-center d-block ">
+                                                                                    <img src="{%static 'images/nodata/nodata.png' %}" alt="">
+                                                                                    <p class="gilory-regular-type fs-20 mt-2">Nothing To show</p>
+                                                                                </div>
+                                                                            {%endif%}
+                                                                             -->
     
                                                                             </tbody>
+                                                                           
                                                                         </table>
-                                                                        {%else%}
-                                                                            <div class="  text-center d-block ">
-                                                                                <img src="{%static 'images/nodata/nodata.png' %}" alt="">
-                                                                                <p class="gilory-regular-type fs-20 mt-2">Nothing To show</p>
-                                                                            </div>
-                                                                        {%endif%}
+                                                                        <div class="  text-center d-block " id="nowebinar">
                                                                         </div>
+                                                                        </div>
+                                                                       
 
                                                                     </div>
                                                                 </div>                                                           
@@ -1238,7 +1243,7 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
                                                                                         <div class="mb-3">
                                                                                             <label class="form-label " for="temp">Template</label>
                                                                                             <select class="form-select border-1" id="temp-english" value="" required="">
-                                                                                                <option value="About TC Limited">About TC Limited</option>
+                                                                                                <option value="About TC Limited">About Trust Capital</option>
                                                                                                 <option value="How To open an Account">How To open an Account</option>
                                                                                                 <option value="Rejection Of Application">Rejection Of Application</option>
                                                                                                 <option value="Webinar Registration">Webinar Registration </option>
@@ -1304,46 +1309,8 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
                                                         <div class="col-12">
                                
                                                             <div class="row">
-                                                                <!--<div class="col-xl-3 col-lg-4">
-                                                                    <div class="card">
-                                                                        <div class="card-body">
-                                                                            <div class="d-grid">
-                                                                                <button class="btn font-16 btn-primary" id="btn-new-event"><i class="mdi mdi-plus-circle-outline"></i> Create
-                                                                                    New Event
-                                                                                </button>
-                                                                            </div>
-                                                                            
-                                                                            <div id="external-events" class="mt-2">
-                                                                                <br>
-                                                                                <p class="text-muted">Drag and drop your event or click in the calendar</p>
-                                                                                <div class="external-event fc-event text-success bg-soft-success" data-class="bg-success">
-                                                                                    <i class="mdi mdi-checkbox-blank-circle font-size-11 me-2"></i>New Event Planning
-                                                                                </div>
-                                                                                <div class="external-event fc-event text-info bg-soft-info" data-class="bg-info">
-                                                                                    <i class="mdi mdi-checkbox-blank-circle font-size-11 me-2"></i>Meeting
-                                                                                </div>
-                                                                                <div class="external-event fc-event text-warning bg-soft-warning" data-class="bg-warning">
-                                                                                    <i class="mdi mdi-checkbox-blank-circle font-size-11 me-2"></i>Generating Reports
-                                                                                </div>
-                                                                                <div class="external-event fc-event text-danger bg-soft-danger" data-class="bg-danger">
-                                                                                    <i class="mdi mdi-checkbox-blank-circle font-size-11 me-2"></i>Create New theme
-                                                                                </div>
-                                                                                <div class="external-event fc-event text-dark bg-soft-dark" data-class="bg-dark">
-                                                                                    <i class="mdi mdi-checkbox-blank-circle font-size-11 me-2"></i>Team Meeting
-                                                                                </div>
-                                                                            </div>
-                            
-                                                                            <div class="row justify-content-center mt-5">
-                                                                                <div class="col-lg-12 col-sm-6">
-                                                                                    <img src="assets/images/undraw-calendar.svg" alt="" class="img-fluid d-block">
-                                                                                </div>
-                                                                            </div>
-                                                                        
-                                                                        </div>
-                                                                    </div>
-                                                                </div>--><!-- end col-->
-                            
-                                                                <div class="col-xl-12 col-lg-12">
+                                                                
+                                                                <div class="col-xl-12 col-lg-12" >
                                                                     <div class="card border-0">
                                                                         <div class="card-body ">
                                                                             <div id="calendar"></div>
@@ -2148,6 +2115,7 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
         let hedging=0;
         let profession=0;
         let highlypotential=0;
+        let remindermust=0
         
         $(document).ready(function () {
             // $("#temp-chinese").hide()
@@ -2432,6 +2400,27 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
                 console.log(ms_id);
                 readSendItems(ms_id)
             });
+            window.addEventListener('click', function(e){   
+                if (document.getElementById('actions-reminders-tab').contains(e.target)){
+                    // $('.pace-done').css({cursor: "pointer"})
+                    console.log("Click inside the div====")
+                } else{
+                    // Clicked outside the box
+                    if(remindermust==1){
+                        // $('.pace-done').css({cursor: "not-allowed"})
+                        // console.log("Reminder must is one")
+                        // e.stopPropagation();
+                        // e.preventDefault();
+                        // e.stopImmediatePropagation();
+                        // return false;
+                        
+                    }else{
+                        console.log("Reminder mmust is zero")
+                        // $('.pace-done').css({cursor: "pointer"})
+                    }
+                   
+                }
+                });
 
                
 
@@ -2452,30 +2441,36 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
             return false
         }
         else{
-            $.ajax({
-            
-            type : "GET", 
-            data : {
-                "ticket":ticket,
-                "logdata":chatText,
-                "logtype":"sales call"
-            },
-            url: "{% url 'Admin:TicketLogs' %}",
-            success: function(data){
-                $("#chatsId").val('')
-                console.log("Insertion done and updation called")
-                updateActivitylog()
-                if((interest=="I" ||interest=="M") && call=="S"){
-                    // $("a").attr("href", "#actions-reminders-tab")
-                    // $('a[href="#actions-reminders-tab"]').trigger('click')
-                    console.log("Trigger click==========================")
-                    $('a[href="#actions-reminders-tab"]').trigger('click')
-                    // $('#reminderClick').trigger('click')
+            if((interest=="I" ||interest=="M") && call=="S"){
+                    remindermust=1
+                    document.getElementById('reminderClick').click();
+                    $("#userMsg").empty()
+                    $("#userMsg").append("Please set rminder to continue")
+                    $("#alertpopup").modal('show')
+                    
 
                 }
+            
+        //     $.ajax({
+            
+        //     type : "GET", 
+        //     data : {
+        //         "ticket":ticket,
+        //         "logdata":chatText,
+        //         "logtype":"sales call"
+        //     },
+        //     url: "{% url 'Admin:TicketLogs' %}",
+        //     success: function(data){
+        //         $("#chatsId").val('')
+        //         console.log("Insertion done and updation called")
+                
+        //         updateActivitylog()
 
-            }
-        })   
+                
+                
+
+        //     }
+        // })   
             
         }
         
@@ -2690,10 +2685,11 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
                 $("#userMsg").empty()
                 $("#userMsg").append(message)
                 $("#alertpopup").modal('show')
+                updateActivitylog()
+                 $("#ticketstatus").attr('checked',false)
             }
         })
-        updateActivitylog()
-        $("#ticketstatus").attr('checked',false)
+        
    }
 
     function opendemoaccount(){
@@ -2713,21 +2709,64 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
         var email=""
         var phone=""
         var flag=1
+        if(email1.includes(';')){
+            email1=email1.split(";")
+            email=email1[0]
+        }
+        if(email2.includes(';')){
+            email2=email2.split(";")
+            email2=email2[0]
+        }
+        
+        
+        if(!email1 && !email2){
+            $("#userMsg").empty()
+            $("#userMsg").append("Please Enter Email Address To Continue")
+            $("#alertpopup").modal('show')
+
+        }
+        if(!phone1){
+            $("#userMsg").empty()
+            $("#userMsg").append("Please Enter Valid Phone no To Continue")
+            $("#alertpopup").modal('show')
+        }
+        if(!phone2){
+            $("#userMsg").empty()
+            $("#userMsg").append("Please Enter Valid Phone2 no To Continue")
+            $("#alertpopup").modal('show')
+        }
+        if(!country){
+            $("#userMsg").empty()
+            $("#userMsg").append("Please Enter Country To Continue")
+            $("#alertpopup").modal('show')
+        }
+
+        
         if((email1 || email2) && (phone1 || phone2)){
             if(!email1){
                 email=email2
             }
-            if(!email2){
+            if(!email2){                
                 email=email1
             }
-            if(!phone1){
-                phone=phone2
+            
+             if(!email){
+                $("#userMsg").empty()
+                $("#userMsg").append("Please Enter Yor Email Address")
+                $("#alertpopup").modal('show')
+
              }
-             if(!phone2){
-                phone=phone1
+             if(!email){
+                $("#userMsg").empty()
+                $("#userMsg").append("Please Enter Yor Email Address")
+                $("#alertpopup").modal('show')
+
              }
-             if(email&&phone){
-                        $.ajax({
+
+
+             if(email&&phone1&&phone2){
+               
+                $.ajax({
                     
                     type : "GET", 
                     url: "{% url 'Admin:OpenDemo' %}",
@@ -2736,14 +2775,14 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
                     'title':title,
                     'name':name,
                     'email':email,
-                    'phone':phone,
+                    'phone':phone1,
                     'country':country
                         
                     },
                     
                     
                     success: function(datas){
-                        console.log("Messageee----"+datas.msg)
+                        
                         var message=datas.msg
                         $("#userMsg").empty()
                         $("#userMsg").append("Demo Account opened")
@@ -2781,16 +2820,12 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
         if(to==""){
             to=$("#email2").val()
         }
-        console.log("From temp====="+from)
-        console.log("---------"+to)
-        console.log("Title------------------"+title)
-        console.log("Name-------"+name)
-        console.log("Language--------------------"+lang)
+      
         
         var temp=$("#temp-english").val()
             
         
-        console.log("template---------------"+temp)
+        
         var subject=temp
         
            
@@ -2806,7 +2841,7 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
 
         var ticket=document.getElementById("ticketno").value
         var accno=document.getElementById("accountno").value
-        console.log("Chosen date======="+selDate)
+        
         var csrftoken = $("[name=csrfmiddlewaretoken]").val();  
         if(ticket == ''){
             $("#alertpopup").modal('show')
@@ -2861,7 +2896,7 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
                     
                     
                     success: function(data){
-                        console.log("Data-----"+data.msg)
+                        
                 
                     $("#userMsg").empty()
                      $("#userMsg").append("Email Send Successfully")
@@ -2885,7 +2920,7 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
             if (leadsmail==""){
                 leadsmail=document.getElementById("email2").value
             }
-            console.log("Send iems list=======",leadsmail)
+            
 
             inboxlist=""
             $("#sendmailList").empty()
@@ -2901,7 +2936,7 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
                     success: function(data){
                         var count=data.count
                         var items=data.send
-                        console.log("Data======",data.send)
+                        
                         for(var i=0;i<count;i++){ 
                 
                     
@@ -2925,12 +2960,12 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
 
     function readSendItems(msgId){
        
-        console.log("Message id=========================="+msgId)
+        
         var leadsmail=document.getElementById("email1").value
         if (leadsmail==""){
             leadsmail=document.getElementById("email2").value
         }
-        console.log("Send iems list=======",leadsmail)
+        
         var read=""
         $.ajax({
                     
@@ -2959,7 +2994,7 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
     }
     function composeEmailSend(){
         let csrftoken = '{{ csrf_token }}' 
-        console.log("Compose email-------")
+        
         var to=""
         var from=""
         to=$("#email1").val()
@@ -2969,10 +3004,8 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
             to=$("#email2").val()
         }
        
-        console.log("Email ---------- from"+from)
-        console.log("Sub-------"+sub)
         var email_data =editorinstance.getData();
-        console.log("Email data-----"+email_data)
+        
         var ticket=document.getElementById("ticketno").value
         if(ticket == ''){
             $("#alertpopup").modal('show')
@@ -3028,7 +3061,7 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
                         "X-CSRFToken": csrftoken
                 },
                 dataType: 'json',
-               url: "{% url 'Admin:TicketUpdate' %}",
+               url: "{% url 'Admin:AccountUpdate' %}",
                
                data:form_data1,
                success: function(data){
@@ -3379,12 +3412,12 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
                     }
                     $("#alertpopup").modal('show')
 
-                    
+                    updateActivitylog()
                     
             
                }
             });
-            updateActivitylog()
+            
 
         }
         
@@ -3713,8 +3746,19 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
                         if(country==null || country== undefined){
                             country=0
                         }
+                        // console.log("Sales rep name=======================",typeof(salesrep))
+                        // if(typeof(salesrep)=="number"){
+                        //     salesrep=salesrep.toString()
+                        // }
+                        console.log("Sales rep name======================="+rerep)
                         $("#salesrep").val(salesrep)
-                        $("#salesrep1").val(rerep)
+                        if(rerep==null){
+                            console.log("Rerep value is null")
+                            $("#salesrep1").val("0")  
+                        }else{
+                            $("#salesrep1").val(rerep)
+                        }
+                        
                         $("#accountno").val(acno)
                         $("#formaccountno").val(acno)
                         $("#age").val(age)
@@ -3769,7 +3813,14 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
                         console.log("Webinar List=========================="+webinarList)
                         updateWebinarList(webinarList)
                         // $('#digital-container').load(document.URL +  ' #digital-container   ')
-                        LoadWorldClock(countrycode)
+                        console.log("Country================================="+country)
+                        if(country!=0){
+                            LoadWorldClock(countrycode)
+                        }else{
+                            $("#digital-container").hide()
+                        }
+                        
+
                     }
                     }
                 })
@@ -3788,7 +3839,7 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
     }
     function LoadWorldClock(code)
         {
-            
+            $("#digital-container").empty()
             console.log("World clock country code====="+code)
             if (code == "CA")
                 code = "CA-BC";
@@ -3810,10 +3861,15 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
                 code = "RU-AD";
             if (code == "US")
                 code = "US-CA";
-            var spa='https://widgets.worldtimeserver.com/Public.ashx?rid=20229207532448&theme=Digital&action=clock24&wtsid='+code+'&hex=000000&city='+  +''
-            console.log("Clock loader======"+spa)
+            
+            // var spa='https://widgets.worldtimeserver.com/Public.ashx?rid=20229207532448&theme=Digital&action=clock24&wtsid='+code+'&hex=000000&city='+  +''
+            var script = document.createElement('script');
+            script.setAttribute("id","20229207532448")
+                script.src = 'https://widgets.worldtimeserver.com/Public.ashx?rid=20229207532448&theme=Digital&action=clock24&wtsid='+code+'&hex=000000&city='+  +''
+                document.getElementById("digital-container").append(script)
+                // $("#digital-container").innerHTML=script
            
-            $("#20229207532448").attr('src',spa)
+            // $("#20229207532448").attr('src',spa)
            
         }
 
@@ -3821,25 +3877,32 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
 
 
     function updateWebinarList(webinars){
-       
+        
         var length=webinars.length;
         var rows=""
         console.log("Webinars======="+webinars)
         console.log("Webinar Length====="+length)
         if(length>0){
+            $("#nowebinar").hide()
+        $("#webinarbody").empty()
         for(var i=0;i<length;i++){
             rows+="<tr><td scope='row'><div class='d-flex align-items-center'><div class='flex-grow-1 overflow-hidden me-7'>"+
             "<h5 class='mb-0 gilroymedium-type fs-14 color-color1'></h5><p class='gilroymedium-type fs-16 mb-0 text-white'>"+webinars[i][0]+"</p>"+
-            "</div></div></td><td>"+webinars[i][1]+"</td><td>"+webinars[i][2]+"</td></tr>";
+            "</div></div></td><td>"+webinars[i][1]+"</td><td class='text-end'>"+webinars[i][2]+"</td></tr>";
             
 
-        } 
-        console.log("Rows=================="+rows)
+        }       console.log("Rows=================="+rows)
        
+        $("#webinarbody").append(rows)    
+        }
+        else{
+            $("#webinar-table").hide()
+            var nowebinar="<img src='static/images/nodata/nodata.png' alt=''><p class='gilory-regular-type fs-20 mt-2'>Nothing To show</p>"
+            $("#nowebinar").append(nowebinar)
             
         }
-        $("#webinarbody").empty()
-        $("#webinarbody").append(rows)
+        
+       
     }
 
     function updateActivities(activities){
@@ -3852,7 +3915,7 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
         
         for(i=0;i<activities.length;i++){
                             
-                            logData+=activities[i][3]
+                            logData=activities[i][3]
 
                             activity+="  <li class='activity-list activity-border'><div class='activity-icon avatar-sm ms-2'><span class='avatar-title bg-soft-boxgray1 text-warning rounded-circle'>"+
                                     "</span></div><div class='timeline-list-item'><div class='d-flex'><div class='flex-grow-1 overflow-hidden me-4 gilroyregular-type'>"+
@@ -3869,7 +3932,7 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
         
     }
     function loadChat(logdata){
-        console.log("Log data===="+logdata.length)
+        console.log("Log data===="+logdata)
 
         if(logdata.includes("Call: B")){
             $("#chatCall").val("B")
@@ -3877,7 +3940,10 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
         if(logdata.includes("Call: S")){
             $("#chatCall").val("S")
         }
-        if(logdata.includes("Call: N")){
+        if(logdata.includes("Call: None")){
+            $("#chatCall").val("None")
+        }
+        else if(logdata.includes("Call: N")){
             $("#chatCall").val("N")
         }
         if(logdata.includes("Call: W")){

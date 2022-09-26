@@ -172,11 +172,11 @@
                                         </div>
                                         
                                         {% if weekly_lead_bar %}<div id="tab01" class="d-block">
-                                            <a href="{% url 'Admin:Leads' %}">
+                                            
                                                 <div id="column_chart_new_accounts" data-colors='["#E33399","#2D8CFF"]'
                                                     class="apex-charts" dir="ltr">
                                                 </div>                                          
-                                            </a>
+                                           
                                             
                                             {%else%}
                                                 
@@ -242,7 +242,7 @@
                                                         <span class="avatar-title   rounded-circle">
                                                             <!--<i class="bx bx-bitcoin font-size-24"></i>-->
                                                             <img class="rounded-circle avatar-md" src="{%static 'images/users/'%}{{journels.0}}.png" 
-                                                                
+                                                            onerror='this.src="{% static 'images/users/user.png' %}"'
                                                                 alt="">
                                                         </span>
                                                     </div>
@@ -808,6 +808,17 @@
     var ticket_count_daily={{ticket_count_daily|safe}}
     var ticket_count_weekly={{ticket_count_weekly|safe}}
     var weekly_lead_bar={{weekly_lead_bar|safe}}
+
+    $(function() {
+        $("#salesreps").change(function(){
+            var selrep=$("#salesreps").val()
+            console.log("Selected sales rep isss======"+selrep)
+            var url="{% url 'Admin:Dashboard'%}"
+            window.location.href=url+"?&repId="+selrep
+        })
+
+
+    })
   
     // $("#tickets_tab01").click( 
     //                     function(evt){
@@ -856,15 +867,22 @@
                 window.location.href=url
     }
     function spokenpageRedirect(){
+
                 var url="{% url 'Admin:PendingTickets'%}"
-                window.location.href=url
+                window.location.href=url+"?&spoken=spoken"
     }
     function overduepageRedirect(){
                 var url="{% url 'Admin:DormantTicket'%}"
                 window.location.href=url
     }
-    function loadLive(variant){
-        
+    function loadOpen(){
+        var url="{% url 'Admin:Leads'%}"
+        window.location.href=url
+
+    }
+    function loadClosed(){
+        var url="{% url 'Admin:PendingTickets'%}"
+        window.location.href=url
 
     }
     

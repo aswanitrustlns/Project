@@ -86,7 +86,14 @@ def dashboard(request):
     
     if 'UserId' in request.session:
         UserId=request.session.get('UserId')
-        UserId=30 
+        selrep=request.GET.get('repId')
+        if(selrep!=None):
+            UserId=selrep
+        else:
+            UserId=30 
+        
+        print("Selected rep=================",selrep)
+       
         print("User Id=========================================",UserId)
         permission_check=selector.user_role_selection(UserId)          
         manager=permission_check[11]
@@ -94,13 +101,17 @@ def dashboard(request):
         dashbord_data={}
         UserName,Email=selector.get_user_name(UserId)
         notification_count,notification=selector.get_notification_data(UserId)
+        print("Manager==============================",manager)
+        print("Sales Rep====================",salesRep)
+        print("Notification count=========================",notification_count)
+        print("Notification=======================",notification)
         request.session['UserName']=UserName
         request.session['Email']=Email
         request.session['notification'] = notification_count
         request.session['notification_data']=notification
         global voice       
         if voice=="True":
-            mytext = 'Hi '+UserName+'Welcome to Trust Capital CRM'         
+            mytext = 'Hi '+UserName+' Welcome to Trust Capital CRM'         
             print("My speech text=====",mytext)
             language = 'en'
             myobj = gTTS(text=mytext, lang=language, slow=False)
@@ -112,15 +123,17 @@ def dashboard(request):
                 
            
         voice="False"
-        if manager:
-             dashbord_data=sales_dash.admin_dashboard(UserId)  
-             print("dashboard procedure ",datetime.now().time()) 
-             return render(request,'admin/dashboard.html',dashbord_data)
-        if salesRep:
+        dashbord_data=sales_dash.sales_dashboard(UserId)
+        return render(request,'sales/dashboard.html',dashbord_data)
+        # if manager:
+        #      dashbord_data=sales_dash.admin_dashboard(UserId)  
+        #      print("dashboard procedure ",datetime.now().time()) 
+        #      return render(request,'admin/dashboard.html',dashbord_data)
+        # if salesRep:
              
-             dashbord_data=sales_dash.sales_dashboard(UserId)     
-             print("sales dashboard procedure end",datetime.now().time()) 
-             return render(request,'sales/dashboard.html',dashbord_data)
+        #      dashbord_data=sales_dash.sales_dashboard(UserId)     
+        #      print("sales dashboard procedure end",datetime.now().time()) 
+        #      return render(request,'sales/dashboard.html',dashbord_data)
     else:
          return redirect('/login') 
 
@@ -698,8 +711,12 @@ def logout(request):
 def pending_tickets(request):
     if 'UserId' in request.session:
         UserId=request.session.get('UserId')
-        print("User idddddddddddddd",UserId)
-        pending_tickets=selector.get_tickets(UserId,"pending")
+        dashboard=request.GET.get('spoken')
+        print("User idddddddddddddd",dashboard)
+        if (dashboard=="spoken"):
+             pending_tickets=selector.get_tickets(UserId,"spoken")
+        else:
+             pending_tickets=selector.get_tickets(UserId,"pending")
         
         return render(request,'sales/pendingtickets.html',{'pending_tickets':pending_tickets})
     else:
@@ -735,7 +752,7 @@ def dormant_ticket(request):
     if 'UserId' in request.session:
         UserId=request.session.get('UserId')
         print("USer iddddddddddddddddddddd",UserId)
-        salesrepId=56
+        salesrepId=30
         dormant_tickets=selector.get_tickets(salesrepId,"dormant")        
         return render(request,'sales/dormanttickets.html',{'dormant_tickets':dormant_tickets})
     else:
@@ -1311,9 +1328,10 @@ def open_demoaccount(request):
     if 'UserId' in request.session:
         title=request.GET.get('title')
         name=request.GET.get('name')
-        email=request.session.get('email')
+        email=request.GET.get('email')
         phone=request.GET.get('phone')
         country=int(request.GET.get('country'))
+        print("All open demo data====",title,name,email,phone,country)
         selector.open_demo_account(title,name,email,phone,country)
         return JsonResponse({"msg":"Demo account opened"})
     else:

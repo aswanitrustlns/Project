@@ -32,7 +32,21 @@ function renderChart($series, $id, $catogories) {
             type: 'bar',
             toolbar: {
                 show: false,
-            }
+            },
+            events: {
+                legendClick: function(chartContext, seriesIndex, config) {
+                   //console.log('chartConfigId', chartContext.el.id.split("-")[2]);
+                   //console.log('seriesIndex', seriesIndex);
+                   //console.log(chartContext);
+                   if(seriesIndex==0){
+                    loadClosed()
+                   }else if(seriesIndex==1){
+                    loadOpen()
+                   }
+                 
+                 
+                }
+            },
            
         },
         plotOptions: {

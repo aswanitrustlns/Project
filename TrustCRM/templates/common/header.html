@@ -7,7 +7,7 @@
             <div class="navbar-brand-box border-0  mt-0">
                 <a href="{% url 'Admin:Dashboard' %}" class="logo logo-dark">
                     <span class="logo-sm">
-                        <img src="{% static 'images/logo-sm.svg' %}" alt="" height="48">
+                        <img src="{% static 'images/logo-sm.svg' %}" alt="" height="28">
                     </span>
                     <span class="logo-lg">
                         <img src="{% static 'images/logo-sm.svg' %}" alt="" height="48"> <!--<span class="logo-txt">Minia</span>-->
@@ -135,6 +135,19 @@
                     <!-- item-->
                     <a class="dropdown-item" href="#"><i class="mdi mdi-face-profile font-size-16 align-middle me-1"></i> Profile</a>
                     <!-- <a class="dropdown-item" href="auth-lock-screen.html"><i class="mdi mdi-lock font-size-16 align-middle me-1"></i> Lock Screen</a> -->
+                    <div class="dropdown-divider"></div>
+                    <select class="form-select border-1 " id="salesreps"
+                    required style="width:auto;" >
+                        <option value="0">Select</option>
+                        <option value="20">Farah Hawilo</option>
+                        <option value="30">Firas monzer</option>
+                        <option value="31">Firas Hachache</option>
+                        <option value="56">Noura Mikati</option>
+                        <option value="57">Areej</option>
+                        <option value="58">Michella</option>
+                        <option value="59">Czarina Villaflores</option>
+                        <option value="60">Online</option>
+                    </select>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="{% url 'Admin:Logout' %}"><i class="mdi mdi-logout font-size-16 align-middle me-1"></i> Logout</a>
                 </div>
