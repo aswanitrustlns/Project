@@ -18,6 +18,8 @@ import os
 import json
 import instaloader
 
+import Admin
+
 from .dashboard_selectors import DashboardSelector
 from .services import Services
 from .selectors import Selector
@@ -32,6 +34,8 @@ selector=Selector()
 service=Services()
 sales_dash=DashboardSelector()
 global voice
+global adminrole
+adminrole="unset"
 voice="False"
 # Create your views here.
 
@@ -42,6 +46,7 @@ def login(request):
 
 def login_check(request):
     global voice
+    global adminrole
     print("login-start",datetime.now().time())
     msg="Username and Password do not match"
     if request.method == 'POST':
@@ -51,7 +56,12 @@ def login_check(request):
     try:  
            
         UserId=selector.get_loged_user_info(username)  
-               
+        print("User Id==================",UserId,type(UserId))
+        if UserId==21:
+            print("Admin login===================================")
+            adminrole="admin" 
+        else:
+            adminrole="sales"      
         request.session['UserId'] = UserId
         # request.session['UserId'] = 30
         connect=selector.exe_connection(username,server_name,password)
@@ -107,7 +117,7 @@ def dashboard(request):
         request.session['Email']=Email
         request.session['notification'] = notification_count
         request.session['notification_data']=notification
-        
+        global adminrole
         global voice       
         if voice=="True":
             mytext = 'Hi '+UserName+' Welcome to Trust Capital CRM'         
@@ -126,8 +136,9 @@ def dashboard(request):
             # dashbord_data=sales_dash.sales_dashboard(UserId)     
             # print("sales dashboard procedure end",datetime.now().time()) 
             # return render(request,'sales/dashboard.html',dashbord_data)
-       
+        print("Admin value============================",adminrole)
         if manager:
+             
              request.session['role']="manager"
              if(selrep!=None):
                 UserId=selrep
@@ -140,7 +151,8 @@ def dashboard(request):
              return render(request,'sales/dashboard.html',dashbord_data)
             #  return render(request,'admin/dashboard.html',dashbord_data)
         if salesRep:
-             if(selrep!=None):
+             if(adminrole=="admin"):
+                print("Admin value is=============================1")
                 request.session['role']="manager"
              else:
                 request.session['role']="salesrep"

@@ -191,11 +191,20 @@ class Services:
             assign_flag=request.GET.get('flag')
             ticket_no=request.GET.get('ticket')
             print("Type-----",type(ticket_no))
-            salesrepid=int(request.GET.get('repid'))
-            percentage=int(request.GET.get('percentage'))
-            reassignid=int(request.GET.get('reassign'))
+            salesrepid=request.GET.get('repid')
+            if salesrepid:
+                salesrepid=int(salesrepid)
+            percentage=request.GET.get('percentage')
+            if percentage:
+                percentage=int(percentage)
+
+            reassignid=request.GET.get('reassign')
+            if reassignid:
+                reassignid=int(reassignid)
             repname=request.GET.get('repname')
             reassign_rep=request.GET.get('reassign_rep')
+            if(assign_flag=="M"):
+                salesrepid=userId
             Cursor=connection.cursor()
             print("Data from froent end------------------------",type(ticket_no),type(salesrepid),type(assign_flag),type(percentage),type(reassignid),type(userId))
             print("*****************************",ticket_no,salesrepid,assign_flag,percentage,reassignid,userId)
@@ -206,10 +215,11 @@ class Services:
                 
                 print("Assign rep return-----------------------------",assign_rep)
                 emailservice.send_SalesInquiry_Assigned(repname,username,ticket_no,salesrepid)
-            if(assign_flag=="R"):
-                
+            if(assign_flag=="R"):                
                 print("Assign rep return-----------------------------",assign_rep)
                 emailservice.send_SalesInquiry_Reassigned(repname,username,ticket_no,salesrepid)
+            
+
             print("Assign Rep-------",assign_rep)
         except Exception as e:
             print("Exception------",e)

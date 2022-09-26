@@ -316,6 +316,9 @@ function mysubmitformsset(){
     $("#accountno").val("")
     $("#activityList").empty()
     $("#summary_div").empty()
+    $("#chatsDiv").hide()
+    $("#journal-nothing").show()
+    nowebinar()
     gauge1(0)
     gauge2(0)
 

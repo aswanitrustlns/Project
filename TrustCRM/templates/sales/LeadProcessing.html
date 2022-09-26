@@ -644,7 +644,7 @@
                                                                         {%endfor%}  
                                                                         
                                                                     {%else%}
-                                                                                <div class="  text-center d-block ">
+                                                                                <div class="  text-center d-block " id="journal-nothing">
                                                         
                                                                                     <img src="{%static 'images/nodata/nodata.png' %}" alt="">
                                                                                     
@@ -1777,7 +1777,7 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
                                                          <div class="d-flex justify-content-end mt-4 ">
 
                                                              <button type="button" class="btn bg-soft-green text-white me-2 btn-lg me-3 rounded-2" onclick="webinarRegistration()">Register for webinar</button>
-                                                             <!-- <button type="button" class="btn btn-outline-light text-white me-2 btn-lg rounded-2" >Send reminder</button> -->
+                                                             
                                                          </div>
                                                      </div>
 
@@ -2400,6 +2400,9 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
                 console.log(ms_id);
                 readSendItems(ms_id)
             });
+            $('#score-model').on('hidden.bs.modal', function (e) {
+                scorePopupclear()
+                })
             window.addEventListener('click', function(e){   
                 if (document.getElementById('actions-reminders-tab').contains(e.target)){
                     // $('.pace-done').css({cursor: "pointer"})
@@ -2581,9 +2584,10 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
                 $("#userMsg").empty()
                 $("#userMsg").append("Seminar Updated")
                 $("#alertpopup").modal('show')
+                updateActivitylog()
             }
         })
-        updateActivities(activities)
+        
 
     }
     function webinarRegistration(){
@@ -2603,7 +2607,15 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
                 email=email2
             }
         }
-        $.ajax({
+        console.log("Seminar title ==============="+seminartitle)
+        if(seminartitle=="" || seminartitle==undefined){
+            $("#seminarpopup").modal('hide')
+                $("#userMsg").empty()
+                $("#userMsg").append("No Upcoming webinars")
+                $("#alertpopup").modal('show')
+
+        }else{
+            $.ajax({
             
             type : "GET", 
             url: "{% url 'Admin:RegisterSeminar' %}",
@@ -2616,13 +2628,18 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
             },
             success: function(data){
                 var msg=data.msg
+                console.log("Message after webinar registration===="+msg)
                 $("#seminarpopup").modal('hide')
                 $("#userMsg").empty()
                 $("#userMsg").append(msg)
                 $("#alertpopup").modal('show')
+                updateActivitylog()
             }
         })
-        updateActivities(activities)
+
+        }
+      
+        
     }
     function saveSticky(){
         var note=$("#stickytext").val()
@@ -2638,6 +2655,7 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
             
             
             success: function(datas){
+                updateActivitylog()
             }
         })
 
@@ -3403,10 +3421,10 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
                         if(result >= 0){
                         console.log("Assign greater 0")
                         if(flag=="A" || flag=="M"){
-                            $("#userMsg").append("SalesRep assigned Successfully")
+                            $("#userMsg").append("Assigned Successfully")
                         }
                         if(flag=="R"){
-                            $("#userMsg").append("SalesRep Reassigned Successfully")
+                            $("#userMsg").append("Reassigned Successfully")
                         }
                         
                     }
@@ -3435,8 +3453,8 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
     function totalPoints(){
             total=0
             console.log("Total before============================="+parseInt(total))
-            console.log(parseInt(experienceselect)+parseInt(forexselect)+parseInt(meetingselect)+parseInt(questionsselect)+parseInt(voiceselect)+parseInt(training)+parseInt(hedging)+parseInt(profession)+parseInt(highlypotential))
-            total=parseInt(experienceselect)+parseInt(forexselect)+parseInt(meetingselect)+parseInt(questionsselect)+parseInt(voiceselect)+parseInt(training)+parseInt(hedging)+parseInt(profession)+parseInt(highlypotential);
+            console.log("Score after==="+parseInt(experienceselect)+parseInt(forexselect)+parseInt(meetingselect)+parseInt(questionsselect)+parseInt(voiceselect)+parseInt(training)+parseInt(hedging)+parseInt(profession)+parseInt(highlypotential))
+            var total=parseInt(experienceselect)+parseInt(forexselect)+parseInt(meetingselect)+parseInt(questionsselect)+parseInt(voiceselect)+parseInt(training)+parseInt(hedging)+parseInt(profession)+parseInt(highlypotential);
             console.log("total points called"+total)
                       
             
@@ -3462,11 +3480,11 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
                         'ticket': ticket,
                },
                success: function(data){
-                scorePopupclear()
+                
                 var score=data.score;
                 console.log("--------------------------",)
                 if(score != null || score != undefined){
-
+                scorePopupclear()
                 
                 console.log("Meeting score------"+score)
                 var trdExp=score[0]
@@ -3564,6 +3582,8 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
                 console.log("Success Function------",data)
                 score=data.score
                 meetingscore=data.meetingscore
+                
+                $("#meetingscore").val(meetingscore)
                 scorePopupclear()
                 $("#score-model").modal('hide')
                 if(score==null || score < 2){
@@ -3571,8 +3591,9 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
                         $("#userMsg").append("Meeting Score saved successfully")
                         $("#alertpopup").modal('show')    
                 }
-                gauge2(meetingscore)
                 updateActivitylog()
+                gauge2(meetingscore)
+                
                }
             })
 
@@ -3590,6 +3611,15 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
                     $('#forexselect').val("0");
                     $('#questionsselect').val("0");
                     $('#voiceselect').val("0");
+                    experienceselect=0;
+                    meetingselect=0;
+                    forexselect=0;
+                    questionsselect=0;
+                    voiceselect=0;
+                    training=0;
+                    hedging=0;
+                    profession=0;
+                    highlypotential=0;
                     var total_div=document.getElementById("total")
                     total_div.innerHTML=0
               
@@ -3754,10 +3784,15 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
                         // if(typeof(salesrep)=="number"){
                         //     salesrep=salesrep.toString()
                         // }
-                        console.log("Sales rep name======================="+rerep)
-                        $("#salesrep").val(salesrep)
+                        console.log("Sales rep name======================="+salesrep)
+                        if(salesrep==null){
+                            $("#salesrep").val("0")
+                        }else{
+                            $("#salesrep").val(salesrep)
+                        }
+                        
                         if(rerep==null){
-                            console.log("Rerep value is null")
+                            
                             $("#salesrep1").val("0")  
                         }else{
                             $("#salesrep1").val(rerep)
@@ -3900,14 +3935,18 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
         $("#webinarbody").append(rows)    
         }
         else{
-            $("#nowebinar").html("")
+           nowebinar()
+        }
+        
+       
+    }
+    function nowebinar(){
+        $("#nowebinar").html("")
             $("#webinar-table").hide()
             var nowebinar="<img src='static/images/nodata/nodata.png' alt=''><p class='gilory-regular-type fs-20 mt-2'>Nothing To show</p>"
             $("#nowebinar").append(nowebinar)
             
-        }
-        
-       
+
     }
 
     function updateActivities(activities){
