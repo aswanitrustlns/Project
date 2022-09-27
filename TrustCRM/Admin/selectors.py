@@ -838,7 +838,7 @@ class Selector:
                                     output = output.replace("\\", "")
                                     output = output.replace("---", "")
                                     output = output.replace("|", "")
-                                    print("Outpu----------------",output)
+                                    print("Output----------------",output)
                                     message_data=output
                                 
                             
