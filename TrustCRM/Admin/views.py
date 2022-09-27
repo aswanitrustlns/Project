@@ -504,8 +504,12 @@ def lead_load_all(request):
 def lead_load_click(request): 
     
     status=request.GET.get('status')  
-    print("status===========================",status                 )  
-    leads_data=selector.get_leads_clicks(status)   
+    count=request.GET.get('count')
+    if count:
+        count=int(count)
+    print("status===========================",status)
+    print("Count++++++++++++++",count)  
+    leads_data=selector.get_leads_clicks(status,count)   
     # paginator = Paginator(load_data, 10)
     print("Load all data-------")
     print("load data-------------------------",len(leads_data))
@@ -742,8 +746,11 @@ def pending_tickets(request):
              pending_tickets=selector.get_tickets(UserId,"spoken")
         else:
              pending_tickets=selector.get_tickets(UserId,"pending")
-        print("Tickets===========",pending_tickets)
-        return render(request,'sales/pendingtickets.html',{'pending_tickets':pending_tickets[::-1]})
+        pendingTickets=sorted( pending_tickets,key=lambda tup: tup[1])
+        # pendingTickets=[tuple(reversed(t)) for t in pending_tickets]
+        # pendingTickets=pending_tickets[::-1]
+       
+        return render(request,'sales/pendingtickets.html',{'pending_tickets':pendingTickets})
     else:
          return redirect('/login') 
 
@@ -940,7 +947,7 @@ def meetingScore(request):
         return redirect('/login')
 
 def manage_meeting(request):
-
+    assess_data=[]
     if 'UserId' in request.session:
         ticket=request.GET.get('ticket')
         ticket=ticket.strip()
@@ -948,10 +955,36 @@ def manage_meeting(request):
        
         # all_meetings=selector.get_all_meeting(ticket)
         all_meetings=selector.get_last_meeting(ticket)
+        
+        if all_meetings:
+            all_meeting=all_meetings[0]
+            print("All Meeting",all_meeting)
+            assess_data=[
+                all_meeting[7],
+                all_meeting[8],
+                all_meeting[9],
+                all_meeting[10],
+                all_meeting[11],
+                all_meeting[12],
+            ]
+            print("Assess Data",assess_data)
         print("All meeting----------------",len(all_meetings))
-        return render(request,'sales/meeting.html',{'meetings':all_meetings})
+        return render(request,'sales/meeting.html',{'meetings':all_meetings,'assess':assess_data})
     else:
         return redirect('/login')
+# def load_meeting_inassessment(request):
+#     if 'UserId' in request.session:
+#         ticket=request.GET.get('ticket')
+#         ticket=ticket.strip()
+#         print("Ticket--------------------------",ticket)
+       
+#         # all_meetings=selector.get_all_meeting(ticket)
+#         all_meetings=selector.get_last_meeting(ticket)
+#         print("All meeting----------------",len(all_meetings))
+#         return JsonResponse({"meetings":all_meetings})
+#     else:
+#         return JsonResponse({"message":"Session Expired"})
+
 
 def send_meeting_request(request):
 
@@ -1140,7 +1173,7 @@ def viewLoadFunctions(request): # 455325 to test meeting score
         print("End---------------------")
         return JsonResponse({'leads':lead_details,'activities':activity_log,'country_list':country_list,'ticket_summary':ticket_summary,'leadscore':leadscore,'meetingscore':meetingscore,'lastcomment':last_comment,'stickytext':sticky_text,'accountno':accountno,'webinarList':webinarList,'code':code})
     else:
-        return redirect('/login')
+        return JsonResponse({"message":"Your session expired! Please login to continue"})
 def activity_log(request):
     if 'UserId' in request.session:        
         ticket=request.GET.get('ticket')
@@ -1229,7 +1262,7 @@ def send_email_templates(request):
         selector.email_template_selection(lang,sub,fromaddr,to,title,name,userid,ticket)
         return JsonResponse({"success":"Email Send"})
     else:
-        return redirect('/login')
+        return JsonResponse({"success":"Your session expired! Please login to continue"})
 
 #Manage ticket Email send
 
@@ -1325,7 +1358,7 @@ def registerSeminars(request):
                                            
         return JsonResponse({"msg":message})
     else:
-        return redirect('/login')  
+       return JsonResponse({"msg":"Your session expired! Please login to continue"}) 
 #Update seminar
 def updateseminar(request):
     if 'UserId' in request.session:
@@ -1338,7 +1371,7 @@ def updateseminar(request):
         selector.update_seminar_status(ticket,status,seminar,userid)
         return JsonResponse({"msg":"Updated successfully"})
     else:
-        return redirect('/login')  
+        return JsonResponse({"msg":"Your session expired! Please login to continue"})
 #List all seminar
 def list_all_seminar(request):
     if 'UserId' in request.session:        
@@ -1360,7 +1393,7 @@ def open_demoaccount(request):
         selector.open_demo_account(title,name,email,phone,country)
         return JsonResponse({"msg":"Demo account opened"})
     else:
-        return redirect('/login')  
+        return JsonResponse({"msg":"Your session expired! Please login to continue"})
 #Email template send items
 def send_items_list(request):
     if 'UserId' in request.session: 

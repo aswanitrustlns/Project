@@ -347,12 +347,13 @@
                                             </tr>
                                         </thead>
                                         <tbody class="gilroyregular-type fs-15">
+                                        {% if meetings %}
                                             {% for meeting in meetings %}
 <!--                    
     loadMeeting("{{meeting.6}}","{{meeting.0|date:'Y-m-d'}}","{{meeting.1|date:'H:i'}}","{{meeting.2}}","{{meeting.3}}","{{meeting.4}}","{{meeting.7}}","{{meeting.8}},"{{meeting.9}},"{{meeting.10}},"{{meeting.11}},"{{meeting.12}}")'                         
                                              -->
 
-                                                <tr ondblclick='loadMeeting("{{meeting.6}}","{{meeting.0|date:'Y-m-d'}}","{{meeting.1|date:'H:i'}}","{{meeting.2}}","{{meeting.3}}","{{meeting.4}}","{{meeting.7}}","{{meeting.8}}","{{meeting.9}}","{{meeting.10}}","{{meeting.11}}","{{meeting.12}}")'>
+                                                <tr onclick='loadMeeting("{{meeting.6}}","{{meeting.0|date:'Y-m-d'}}","{{meeting.1|date:'H:i'}}","{{meeting.2}}","{{meeting.3}}","{{meeting.4}}","{{meeting.7}}","{{meeting.8}}","{{meeting.9}}","{{meeting.10}}","{{meeting.11}}","{{meeting.12}}")'>
                                                     <td>{{meeting.6}}</td>
                                                     <td>{{meeting.0|date:"d-m-Y"}}</td>
                                                     <td>{{meeting.1|date:"H:i"}}</td>
@@ -368,7 +369,7 @@
                                                 
                                                 </tr>
                                            {%endfor%}
-                                         
+                                         {%endif%}
     
                                         </tbody>
                                     </table>
@@ -501,6 +502,32 @@
 
 
     <script>
+    var last_meeting={{assess|safe}}
+    console.log("Last meeting============================"+last_meeting[0])
+    
+        
+     
+     
+        // $("#attendedseminars").val(seminars)
+     
+        if(last_meeting[0]){
+            $("#feedbackval").val(last_meeting[0])
+        }
+        if(last_meeting[1]){
+            $("#installeddemo").val(last_meeting[1])
+        }
+        if(last_meeting[2]){
+            $("#training").val(last_meeting[2])
+        }
+        if(last_meeting[3]){
+            $("#questions").val(last_meeting[3])
+        }
+        if(last_meeting[4]==1){
+            $("#minimumaccount").prop('checked','checked')
+        }
+        if(last_meeting[5]==1){
+            $("#commission").prop('checked','checked')
+        }
 
     $(function(){
             
@@ -624,7 +651,7 @@
             $("#minimumaccount").prop('checked','checked')
         }
         if(commi==1){
-            $("#commision").prop('checked','checked')
+            $("#commission").prop('checked','checked')
         }
         console.log("Minimum account=================="+minacc)
         console.log("Commision====="+commi)
@@ -915,7 +942,7 @@
         var ques=$("#questions").val()
         var seminars=$("#attendedseminars").val()
         var account = $('#minimumaccount')[0].checked
-        var commision=$("#commision").checked
+        var commision=$("#commission")[0].checked
         var accounts=0
         var commisions=0
         if(account){

@@ -342,7 +342,7 @@
 
         $(function(){
     
-    $('#datatableleads tbody').on('dblclick', 'tr', function (e) {
+    $('#datatableleads tbody').on('click', 'tr', function (e) {
         var table = $("#datatableleads").DataTable();
         console.log("row clicked----")
         var data = table.row( this ).data();       
@@ -351,7 +351,7 @@
         var url="{% url 'Admin:LeadProcessing'%}"
         window.location.href=url+"?&ticket="+ticket
     })
-    $('#datatableleadsR tbody').on('dblclick', 'tr', function (e) {
+    $('#datatableleadsR tbody').on('click', 'tr', function (e) {
         var table = $("#datatableleadsR").DataTable();
         console.log("row clicked----")
         var data = table.row( this ).data();       
@@ -360,7 +360,7 @@
         var url="{% url 'Admin:LeadProcessing'%}"
         window.location.href=url+"?&ticket="+ticket
     })
-    $('#datatableleadsT tbody').on('dblclick', 'tr', function (e) {
+    $('#datatableleadsT tbody').on('click', 'tr', function (e) {
         var table = $("#datatableleadsT").DataTable();
         console.log("row clicked----")
         var data = table.row( this ).data();       
@@ -369,7 +369,7 @@
         var url="{% url 'Admin:LeadProcessing'%}"
         window.location.href=url+"?&ticket="+ticket
     })
-    $('#datatableleadsC tbody').on('dblclick', 'tr', function (e) {
+    $('#datatableleadsC tbody').on('click', 'tr', function (e) {
         var table = $("#datatableleadsC").DataTable();
         console.log("row clicked----")
         var data = table.row( this ).data();       

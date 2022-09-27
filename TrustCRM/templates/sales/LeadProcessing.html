@@ -2151,6 +2151,16 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
         //         $("#temp-english").show()
         //     }
         // });
+
+        $("#country").change(function(){ 
+            var input = document.querySelector("#phone") 
+            var iti = window.intlTelInput(input, {        
+                initialCountry: "in",
+            });
+    
+    }); 
+        
+       
             $("#assign").change(function(){
                 var assign=$("#assign option:selected").val()
                 console.log("Assign----"+assign)
@@ -2629,10 +2639,11 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
             success: function(data){
                 var msg=data.msg
                 console.log("Message after webinar registration===="+msg)
-                $("#seminarpopup").modal('hide')
-                $("#userMsg").empty()
-                $("#userMsg").append(msg)
-                $("#alertpopup").modal('show')
+                // $("#seminarpopup").modal('hide')
+                // $("#userMsg").empty()
+                // $("#userMsg").append(msg)
+                // $("#alertpopup").modal('show')
+                webinarList()
                 updateActivitylog()
             }
         })
@@ -2729,7 +2740,7 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
         var flag=1
         if(email1.includes(';')){
             email1=email1.split(";")
-            email=email1[0]
+            email1=email1[0]
         }
         if(email2.includes(';')){
             email2=email2.split(";")
@@ -2767,7 +2778,10 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
             if(!email2){                
                 email=email1
             }
-            
+             console.log("Email 1==================="+email1)
+             console.log("Email 2==================="+email2)
+             console.log("Email ==================="+email)
+
              if(!email){
                 $("#userMsg").empty()
                 $("#userMsg").append("Please Enter Yor Email Address")
@@ -2915,9 +2929,9 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
                     
                     success: function(data){
                         
-                
+                    console.log(data.success)
                     $("#userMsg").empty()
-                     $("#userMsg").append("Email Send Successfully")
+                     $("#userMsg").append(data.success)
                     $("#alertpopup").modal('show')
                     updateActivitylog()
                 
@@ -3854,6 +3868,18 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
                         // $('#digital-container').load(document.URL +  ' #digital-container   ')
                         console.log("Country================================="+country)
                         if(country!=0){
+                            $("#phone").trigger('change')
+                            input.addEventListener('change', reset(input, errorMsg, validMsg));
+                            input = document.querySelector("#phone") 
+                            console.log("Input phone number======="+input)
+                            console.log("Input phone number======="+phone1)
+                            var iti = window.intlTelInput(input, {        
+                                initialCountry: countrycode,
+                                placeholderNumberType: 'MOBILE',
+                                utilsScript: "assets/js/pages/utils.init.js?1638200991544"
+                            });
+                            
+                            blur(input, errorMsg, validMsg, iti);
                             LoadWorldClock(countrycode)
                         }else{
                             $("#digital-container").hide()

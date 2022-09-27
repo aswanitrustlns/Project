@@ -134,9 +134,9 @@
                                             <th  data-type="text" >Source</th>
                                             <th  data-type="text" >Country</th>
                                         </tr>    -->
-                                        {%for data in pending_tickets %}
+                                        {%for data in pending_tickets%}
                                        
-                                        <tr ondblclick='checkticket("{{data.1}}")' style="cursor: pointer;">
+                                        <tr onclick='checkticket("{{data.1}}")' style="cursor: pointer;">
                                             <td >{{data.0}}</td>
                                             <td>{{data.1}}</td>
                                             <td>{{data.2}}</td>
@@ -195,7 +195,7 @@
 
 $(function(){
     
-    $('#datatableleads tbody').on('dblclick', 'tr', function (e) {
+    $('#datatableleads tbody').on('click', 'tr', function (e) {
         var table = $("#datatableleads").DataTable();
         console.log("row clicked----")
         var data = table.row( this ).data();   

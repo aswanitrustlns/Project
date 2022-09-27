@@ -113,22 +113,68 @@ class Services:
     #Save meeting score
     def save_meeting_score(self,request):
         try:
+            scorelog=""
+            userId=int(request.session.get('UserId'))
+            ticket=int(request.GET.get('ticket'))
+            experience=int(request.GET.get('experience'))
+            meeting=int(request.GET.get('meeting'))
+            forex=int(request.GET.get('forex'))
+            seminar=int(request.GET.get('seminar'))
+            questions=int(request.GET.get('questions'))
+            trading=int(request.GET.get('trading'))
+            voice=int(request.GET.get('voice'))
+            profession=int(request.GET.get('profession'))
+            refernce=int(request.GET.get('refernce'))
+            print("experience",type(experience),"meeting",type(meeting),"forex",type(forex),"seminar",type(seminar),"questions",type(questions),"voice",type(voice),"trading",type(trading),"profession",type(profession),"ref",type(refernce))
+            if experience>0:
+                if experience==10:
+                    scorelog+="Previous Trading Experience - Negative; "
+                if experience==50:
+                    scorelog+="Previous Trading Experience - Positive; "
             
-            userId=request.session.get('UserId')
-            ticket=request.GET.get('ticket')
-            experience=request.GET.get('experience')
-            meeting=request.GET.get('meeting')
-            forex=request.GET.get('forex')
-            seminar=request.GET.get('seminar')
-            questions=request.GET.get('questions')
-            voice=request.GET.get('voice')
-            trading=request.GET.get('trading')
-            profession=request.GET.get('profession')
-            refernce=request.GET.get('refernce')
+            if(meeting>0):
+                if meeting==10:
+                    scorelog+="Meeting Far; "
+                if meeting==25:
+                    scorelog+="Meeting Near; "
+                if meeting==50:
+                    scorelog+="Meeting Indoor; "
+            
+            if forex>0:
+                if forex==10:
+                    scorelog+="Has Sound Knowledge About Forex - Indirect Knowledge; "
+                if forex==30:
+                    scorelog+="Has Sound Knowledge About Forex - Direct Knowledge; "
+           
+            if(seminar>0):
+                scorelog+="Interested in Training/Seminar; "
+            
+            if(questions>0):
+                if(questions==10):
+                    scorelog+="Asks Questions Over the phone - General; "
+                if(questions==30):
+                    scorelog+="Asks Questions Over the phone - Detailed; "
+            
+            if(voice>0):
+                if(voice==25):
+                    scorelog+="Analyzing his voice - interested; "
+                if(voice==50):
+                    scorelog+="Analyzing his voice - strongly interested; "
+            
+            if(trading>0):
+                scorelog+="Trading/hedging; "
+            
+            if(profession>0):
+                scorelog+="Related Job/Profssion; "
+            
+            if(refernce>0):
+                scorelog+="He is a reference,we know he is trader or highly potential;"
             total=request.GET.get('total')
+           
             Cursor=connection.cursor()
-            print("experience",experience,"meeting",meeting,"forex",forex,"seminar",seminar,"questions",questions,"voice",voice,"trading",trading,"profession",profession,"ref",refernce,"total",total)
-            Cursor.execute("set nocount on;exec SP_SaveMeetingScore %s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s",[ticket,experience,meeting,forex,seminar,questions,voice,trading,profession,refernce,userId,total,'a'])
+
+            
+            Cursor.execute("set nocount on;exec SP_SaveMeetingScore %s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s",[ticket,experience,meeting,forex,seminar,questions,voice,trading,profession,refernce,userId,total,scorelog])
             meeting_score=Cursor.fetchone()
             
             # if(Cursor.nextset()):

@@ -216,16 +216,17 @@ class Selector:
             Cursor.close()
         return leads_data,leads_count
     #Get Lead Page click
-    def get_leads_clicks(self,status):
+    def get_leads_clicks(self,status,count):
         try:
             leads_data=[]
             Cursor=connection.cursor()
             print("====================================",status)
+            print("====================================",count)
             # Cursor.execute("set nocount on;exec SP_LeadsCount_PY")
             # leads_count = Cursor.fetchone()
             # print("Leads count==========================",leads_count)
             # if(leads_count):
-            Cursor.execute("set nocount on;exec SP_LeadsListing_PY %s",[status])
+            Cursor.execute("set nocount on;exec SP_LeadsListing_PY %s,%s",[status,count])
             leads_data=Cursor.fetchall()
             print("Leads data",len(leads_data))
         except Exception as e:
@@ -273,7 +274,7 @@ class Selector:
             print("Exception---",e)
         finally:
             Cursor.close()
-        print("Tickets=============================",_tickets)
+        
         return _tickets  
     #Get all tickets
 
@@ -819,6 +820,11 @@ class Selector:
                                     message = part.get_payload(decode=True)
                                     message_data=message.decode()                                                                  
                                     break
+                                # if part.get_content_maintype() != 'multipart' and part.get('Content-Disposition') is not None:
+                                #     print("image content")
+                                #     image = part.get_filename().split('.')
+                                #     image_name =  image[0] + id  + "." + image[1]
+                                #     open(E: + '/' + image_name, 'wb').write(part.get_payload(decode=True))
                                 if part.get_content_type()=="text/html":
                                     text = f"{part.get_payload(decode=True)}"
                                     html = text.replace("b'", "")
@@ -1153,7 +1159,7 @@ class Selector:
         print("Selcetor saveeeee")
         print("----------------------",userid,ticket,subject,date,time,mail)
         try:
-            subject=subject+ticket
+            subject="Reminder set for Ticket "+ticket+" on "+date+" at "+time
             badge="Green"
             desc=subject
             rdate=date
