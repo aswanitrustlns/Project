@@ -19,6 +19,7 @@ from django.conf import settings
 import imaplib
 import email
 import html2text
+import os
 from .emailservices import EmailServices
 
 emailservice=EmailServices()
@@ -278,18 +279,22 @@ class Selector:
         return _tickets  
     #Get all tickets
 
-    def get_all_tickets(self,userId,ticket,from_date,to_date):
+    def get_all_tickets(self,userId,status,from_date,to_date):
         try:
             Cursor=connection.cursor()
-            if(ticket == "pending"):                    
-                print("Load all pending")
-                Cursor.execute("exec SP_GetSalesLeadsListPaginate_PY %s,%s,%s,%s,%s",[userId,from_date,to_date,'P',0])
+            # if(ticket == "pending"):                    
+            print("Load all pending")
+            if status=="D":
+                Cursor.execute("exec SP_GetDormantSalesLeadsPaginate_PY %s,%s,%s",[userId,"P",userId])
                 _tickets=Cursor.fetchall()
-            if(ticket=="resolved"):
+            else:
+                Cursor.execute("exec SP_GetSalesLeadsListPaginate_PY %s,%s,%s,%s,%s",[userId,from_date,to_date,status,0])
+                _tickets=Cursor.fetchall()
+            # if(ticket=="resolved"):
                
-                print("Load all resolved")
-                Cursor.execute("exec SP_GetSalesLeadsListPaginate_PY %s,%s,%s,%s,%s",[userId,from_date,to_date,'R',0])
-                _tickets=Cursor.fetchall()
+            #     print("Load all resolved")
+            #     Cursor.execute("exec SP_GetSalesLeadsListPaginate_PY %s,%s,%s,%s,%s",[userId,from_date,to_date,'R',0])
+            #     _tickets=Cursor.fetchall()
             
         except Exception as e:
             print("Exception---",e)
@@ -706,6 +711,7 @@ class Selector:
                 for response in msg:
                     if isinstance(response, tuple):
                         msg = email.message_from_bytes(response[1])
+                        print("Mesage========",msg)
                         subject=msg["subject"]
                         receive_tym=msg["date"]
                
@@ -724,7 +730,8 @@ class Selector:
         return count,inbox_list
 # Send Items for manage tickets
     def read_mail_senditems(self,emailname,message):
-        print("read senditems",message)
+       
+        multipart="false"
         username="crm@trusttc.com"
         app_password="Vydw&663"
 
@@ -740,65 +747,11 @@ class Selector:
         search_cr='(TO "'+emailname+'")'
         print("Searched Id=====",search_cr)
         elem, selected_mails = mail.search(None,search_cr)
-        
+        if os.path.isfile("templates\\test\\index.html"):
+            os.remove("templates\\test\\index.html")
        
         for i in selected_mails[0].split():
             res, msg = mail.fetch(i, '(RFC822)')
-            for response in msg:
-                if isinstance(response, tuple):
-                    msg = email.message_from_bytes(response[1])
-                    print("+++++++++++++++++++++++++msg id",msg["Message-ID"])
-                    if(message == msg["Message-ID"]):
-                        print("Message")
-                        subject=msg["subject"]
-                        sender=msg["from"]
-                        content_type=msg["content-type"]
-                        print("Equal================== and content type",content_type)
-                        if(content_type=="text/html"):
-                            message_data=message.decode('utf-8')
-                            message_data=get_template(message_data)
-                        else:
-                            for part in msg.walk():
-                            
-                                if part.get_content_type()=="text/plain":
-                                    print("Content type------",part.get_content_type())
-                                    message = part.get_payload(decode=True)
-                                    message_data=message.decode()                                                                  
-                                    break
-                                if part.get_content_type()=="text/html":
-                                    text = f"{part.get_payload(decode=True)}"
-                                    html = text.replace("b'", "")
-                                    h = html2text.HTML2Text()
-                                    h.body_width = 0
-                                    h.ignore_links = False                                 
-                                    output = (h.handle(f'''{html}''').replace("\\t", " "))
-                                    output = output.replace("\\n", " ")
-                                    output = output.replace("\\r", " ")
-                                    output = output.replace("'", "")
-                                    output = output.replace("\\", "")
-                                    output = output.replace("---", "")
-                                    output = output.replace("|", "")
-                                    print("Outpu----------------",output)
-                                    message_data=output
-                                
-                            
-        
-        return message_data,subject,sender
-
- # Read mail inbox
-    def read_mail_inbox(self,message):
-        print("read mail inboxxxx",message)
-        mail = imaplib.IMAP4_SSL(host=settings.EMAIL_HOST)
-        message_data=""
-        subject=""
-        sender=""
-        mail.login(settings.EMAIL_HOST_USER,settings.EMAIL_HOST_PASSWORD)
-        status, messages=mail.select("INBOX")
-        _, selected_mails = mail.search(None,'(ALL)')
-        inbox_count=len(selected_mails[0].split())
-       
-        for i in range(1, inbox_count):
-            res, msg = mail.fetch(str(i), '(RFC822)')
             for response in msg:
                 if isinstance(response, tuple):
                     msg = email.message_from_bytes(response[1])
@@ -808,42 +761,135 @@ class Selector:
                         subject=msg["subject"]
                         sender=msg["from"]
                         content_type=msg["content-type"]
+                        
+                        if(content_type=="text/html"):
+                            message_data=message.decode('utf-8')
+                            message_data=get_template(message_data)
+                        if msg.is_multipart():
+                            print("Multipart image========================")
+                            for part in msg.walk():
+                                content_type = part.get_content_type()
+                                print("Content type=======================",content_type)
+                                content_disposition = str(part.get("Content-Disposition"))
+            
+                                try:
+                                    body = part.get_payload(decode=True).decode('utf-8')
+                                except:
+                                    pass
+            
+                                if content_type == "text/plain" and "attachment" not in content_disposition:
+                                    message_data=body
+                                    print(body)
+                                if content_type == "text/html":
+                                    multipart="true"
+                                    open_html(body)
+                                elif "attachment" in content_disposition:
+                                    # download_attachment(part)
+                                    print("Attachment is there")
+                        else:
+                            for part in msg.walk():
+                            
+                                if part.get_content_type()=="text/plain":                                    
+                                    print("Content type------",part.get_content_type())                                    
+                                    message = part.get_payload(decode=True)                                    
+                                    message_data=message.decode()                                      
+                                    break
+                                
+                                if part.get_content_type()=="text/html":                                    
+                                    multipart="true"
+                                    body = part.get_payload(decode=True).decode()
+                                    open_html(body)
+                                
+                            
+        
+        return message_data,subject,sender,multipart
+
+ # Read mail inbox
+    def read_mail_inbox(self,message):
+        multipart="false"
+        print("read mail inboxxxx",message)
+        mail = imaplib.IMAP4_SSL(host=settings.EMAIL_HOST)
+        message_data=""
+        subject=""
+        sender=""
+        mail.login(settings.EMAIL_HOST_USER,settings.EMAIL_HOST_PASSWORD)
+        status, messages=mail.select("INBOX")
+        _, selected_mails = mail.search(None,'(ALL)')
+        inbox_count=len(selected_mails[0].split())
+        if os.path.isfile("templates\\test\\index.html"):
+            os.remove("templates\\test\\index.html")
+
+        for i in selected_mails[0].split():
+            res, msg = mail.fetch(i, '(RFC822)')
+            for response in msg:
+                if isinstance(response, tuple):
+                    msg = email.message_from_bytes(response[1])
+                    print("Message============================",msg["Message-ID"])
+                    if(message == msg["Message-ID"]):
+                        print("Message")
+                        subject=msg["subject"]
+                        sender=msg["from"]
+                        content_type=msg["content-type"]
                         print("Equal================== and content type",content_type)
                         if(content_type=="text/html"):
                             message_data=message.decode('utf-8')
                             message_data=get_template(message_data)
+                        if(content_type=="text/plain"):
+                            print("Plain out side done====")
+                            message_data=message.decode('utf-8')
+                        if msg.is_multipart():
+                            print("Multipart image========================")
+                            for part in msg.walk():
+                                content_type = part.get_content_type()
+                                print("Content type=======================",content_type)
+                                content_disposition = str(part.get("Content-Disposition"))
+            
+                                try:
+                                    body = part.get_payload(decode=True).decode('utf-8')
+                                except:
+                                    pass
+            
+                                if content_type == "text/plain" and "attachment" not in content_disposition:
+                                    message_data=body
+                                    print(body)
+                                if content_type == "text/html":
+                                    multipart="true"
+                                    open_html(body)
+                                elif "attachment" in content_disposition:
+                                    # download_attachment(part)
+                                    print("Attachment is there")
+                           
                         else:
                             for part in msg.walk():
                             
-                                if part.get_content_type()=="text/plain":
-                                    print("Content type------",part.get_content_type())
-                                    message = part.get_payload(decode=True)
-                                    message_data=message.decode()                                                                  
+                                if part.get_content_type()=="text/plain":                                    
+                                    print("Content type------",part.get_content_type())                                    
+                                    message = part.get_payload(decode=True)                                    
+                                    message_data=message.decode()                                      
                                     break
-                                # if part.get_content_maintype() != 'multipart' and part.get('Content-Disposition') is not None:
-                                #     print("image content")
-                                #     image = part.get_filename().split('.')
-                                #     image_name =  image[0] + id  + "." + image[1]
-                                #     open(E: + '/' + image_name, 'wb').write(part.get_payload(decode=True))
-                                if part.get_content_type()=="text/html":
-                                    text = f"{part.get_payload(decode=True)}"
-                                    html = text.replace("b'", "")
-                                    h = html2text.HTML2Text()
-                                    h.body_width = 0
-                                    h.ignore_links = False                                 
-                                    output = (h.handle(f'''{html}''').replace("\\t", " "))
-                                    output = output.replace("\\n", " ")
-                                    output = output.replace("\\r", " ")
-                                    output = output.replace("'", "")
-                                    output = output.replace("\\", "")
-                                    output = output.replace("---", "")
-                                    output = output.replace("|", "")
-                                    print("Output----------------",output)
-                                    message_data=output
+                                
+                                if part.get_content_type()=="text/html":                                    
+                                    multipart="true"
+                                    body = part.get_payload(decode=True).decode()
+                                    open_html(body)
+                                    # text = f"{part.get_payload(decode=True)}"
+                                    # html = text.replace("b'", "")
+                                    # h = html2text.HTML2Text()
+                                    # h.body_width = 0
+                                    # h.ignore_links = True                                 
+                                    # output = (h.handle(f'''{html}''').replace("\\t", " "))
+                                    # output = output.replace("\\n", " ")
+                                    # output = output.replace("\\r", " ")
+                                    # output = output.replace("'", "")
+                                    # output = output.replace("\\", "")
+                                    # output = output.replace("---", "")
+                                    # output = output.replace("|", "")
+                                    # print("Outpu----------------",output)
+                                    # message_data=output
                                 
                             
         
-        return message_data,subject,sender,inbox_count
+        return message_data,subject,sender,inbox_count,multipart
     
 
 # #Get activities log    
@@ -1533,6 +1579,20 @@ def update_account_client_datails(request):
         finally:
             Cursor.close()
         return update_result
+
+
+
+def open_html(body):
+    print("Create file in templates")
+    foldername="templates\\test"
+    filename = "index.html"
+    if not os.path.isdir(foldername):
+        os.mkdir(foldername)
+    filepath = os.path.join(foldername, filename)
+    # write the file
+    open(filepath, "w",encoding="utf-8").write(body)
+    # open in the default browser
+    return filepath
 
 
 

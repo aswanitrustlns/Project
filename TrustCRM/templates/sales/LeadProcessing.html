@@ -1171,7 +1171,7 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
 
                                                                                 <div class=" mb-3">
                                                                                     <div class="card">
-                                                
+                                                                                        <div style="max-height: 320px" id="read-email-content" >
                                                                                         <div class="card-body" id="sendread">
                                                                                             <!-- <li class="fs-16" href="#read-email" data-id="read-email" onclick="tabswitchemail(this)">
                                                                                                 <div class="col-mail col-mail-1">
@@ -1189,6 +1189,7 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
                                                                                             </li> -->
                                                                                             
                                                                                         </div>
+                                                                                    </div>
                                                                                     </div>
                                                                                     
                                                                                 </div>
@@ -3012,16 +3013,23 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
                 success: function(data){
                     var message=data.message
                     var subject=data.subject
-                    console.log(message)
+                    var multipart=data.multipart
+                    console.log("Multi part is present================================"+multipart)
                     $("#sendread").empty()
+                    if(multipart=="true"){
+                        console.log("Multi part is present================================"+multipart)
+                        $("#sendread").load("{% url 'Admin:EmailData'%}"); 
+
+                    }else{
                         read= "<div class='d-flex align-items-center mb-4'><div class='flex-grow-1 gilroymedium-type'>"+
                                "<h5 class='fs-14 mb-0 text-white'></h5>"+subject+"<small class='fs-11 color-color1'></small>"+
                                "</div></div><p class='gilroyregular-type color-color1 fs-16'>"+message+"</p>" ;
                                $("#sendread").append(read)
-                                                                                            
-                        }
+                        }                                                                  
+                    }
                        
                     })
+                    const simpleBarReademail = new SimpleBar(document.getElementById('read-email-content'));
 
     }
     function composeEmailSend(){

@@ -58,12 +58,90 @@
                         <div class="card">
                            
                             <div class="card-body ">
-                                <h4 class="card-title almarenamonolight-type mb-4 fs-23">PENDING TICKETS</h4>
-                                <div class="d-flex flex-no-wrap justify-content-between align-items-start  mb-4">
+                                <div class=" d-flex justify-content-between align-items-start">
+                                    <div>
+                                        <button type="button" class="btn btn-lg btn-primary   mb-3  mx-1 gilory-semibold-type bg-soft-purple text-white" id="pending-switch" style="background-color: var(--bs-card-bg) ;" onclick="addColor(this,'bg-soft-purple text-white', 'color-color1');loadAll('P');">Pending</button>
+                                        <button type="button" class="btn btn-lg btn-primary  color-color1 mb-3 mx-1 gilory-semibold-type"  id="resolved-switch" style="background-color: var(--bs-card-bg); "  onclick="addColor(this,'bg-soft-purple text-white', 'color-color1');loadAll('R');">Resolved</button>
+                                        <button type="button" class="btn btn-lg btn-primary  color-color1 mb-3 mx-1 gilory-semibold-type"  id="dormant-switch" style="background-color: var(--bs-card-bg) ;" onclick="addColor(this,'bg-soft-purple text-white','color-color1');loadAll('D');">Dormant</button>
+                                        
+                                        <input type="hidden" name="selected_tab" id="selected_tab" value="Live">
+                                    </div>
+                                    
+                                    <div class=" mt-2  mt-md-0">
+                                       
+                                            <div class="row align-items-end justify-content-end">
+
+
+                                                    <div class="col-sm-3">
+                                                        <div class="mb-2">
+                                                            <label class="form-label " for="fromdate">From Date</label>
+                                                            <input type="text" id="fromdate" class="py-1" name="fromdate">
+    
+                                                           
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-3">
+
+                                                        <div class="mb-2">
+                                                            <label class="form-label " for="todate">To Date</label>
+    
+                                                            <input type="text" id="todate" class="py-1" name="todate">
+                                                            
+                                                        </div>
+
+
+
+
+                                                    </div>
+                                                    <div class="col-sm-3 ">
+                                                        <button class="btn btn-info btn-md mb-2 py-1" type="button" onclick="loadAll('all')" >Load</button>
+                                                    </div>
+                                            </div>
+                                        
+                                    </div>
+                                   
+                                    
+                                </div>
+                                <div class="mb-4 mt-3 " id="pending">
+
+                                    <ul class="gilory-medium-type list-unstyled color-color1 fs-18 d-flex ">
+
+                                        <li  style="cursor:pointer"> <span class="rounded-circle  bg-danger d-inline-block me-1 "  style="height:13px ;width:13px;"></span><span>Spoken</span> | <span class="text-white" id="fundspan">0</span></li>
+                                        <li class="ms-5"  style="cursor:pointer"> <span class="rounded-circle  bg-info d-inline-block me-1" style="height:13px ;width:13px;"></span> <span>Interested</span> | <span class="text-white" id="nonfundspan">0</span></li>
+                                        <li class="ms-5"  style="cursor:pointer"> <span class="rounded-circle  bg-info d-inline-block me-1" style="height:13px ;width:13px;"></span> <span>Unattended</span> | <span class="text-white" id="nonfundspan">0</span></li>
+                                    </ul>
+                                </div>
+                                <div class="mb-4 mt-3 " id="resolved">
+
+                                    <ul class="gilory-medium-type list-unstyled color-color1 fs-18 d-flex ">
+
+                                        <li  style="cursor:pointer"> <span class="rounded-circle  bg-danger d-inline-block me-1 "  style="height:13px ;width:13px;"></span><span>Not Interested</span> | <span class="text-white" id="fundspan">0</span></li>
+                                        <li class="ms-5"  style="cursor:pointer"> <span class="rounded-circle  bg-info d-inline-block me-1" style="height:13px ;width:13px;"></span> <span>Unreachable</span> | <span class="text-white" id="nonfundspan">0</span></li>
+                                        <li class="ms-5"  style="cursor:pointer"> <span class="rounded-circle  bg-info d-inline-block me-1" style="height:13px ;width:13px;"></span> <span>Duplicate</span> | <span class="text-white" id="nonfundspan">0</span></li>
+                                        <li class="ms-5"  style="cursor:pointer"> <span class="rounded-circle  bg-info d-inline-block me-1" style="height:13px ;width:13px;"></span> <span>Invalid Phone</span> | <span class="text-white" id="nonfundspan">0</span></li>
+                                        <li class="ms-5"  style="cursor:pointer"> <span class="rounded-circle  bg-info d-inline-block me-1" style="height:13px ;width:13px;"></span> <span>Invalid Email</span> | <span class="text-white" id="nonfundspan">0</span></li>
+                                    </ul>
+                                </div>
+                                <div class="mb-4 mt-3 " id="dormant">
+
+                                    <ul class="gilory-medium-type list-unstyled color-color1 fs-18 d-flex ">
+
+                                        <li  style="cursor:pointer"> <span class="rounded-circle  bg-danger d-inline-block me-1 "  style="height:13px ;width:13px;"></span><span>Unattended</span> | <span class="text-white" id="fundspan">0</span></li>
+                                        <li class="ms-5"  style="cursor:pointer"> <span class="rounded-circle  bg-info d-inline-block me-1" style="height:13px ;width:13px;"></span> <span>Invalid Email</span> | <span class="text-white" id="nonfundspan">0</span></li>
+                                        <li class="ms-5"  style="cursor:pointer"> <span class="rounded-circle  bg-info d-inline-block me-1" style="height:13px ;width:13px;"></span> <span>Invalid Phone</span> | <span class="text-white" id="nonfundspan">0</span></li>
+                                        <li class="ms-5"  style="cursor:pointer"> <span class="rounded-circle  bg-info d-inline-block me-1" style="height:13px ;width:13px;"></span> <span>Unreachable</span> | <span class="text-white" id="nonfundspan">0</span></li>
+                                        <li class="ms-5"  style="cursor:pointer"> <span class="rounded-circle  bg-info d-inline-block me-1" style="height:13px ;width:13px;"></span> <span>Duplicate</span> | <span class="text-white" id="nonfundspan">0</span></li>
+                                    </ul>
+                                </div>
+                           
+
+                                <hr class="my-0">
+                                <!-- <h4 class="card-title almarenamonolight-type mb-4 fs-23">PENDING TICKETS</h4> -->
+                                <!-- <div class="d-flex flex-no-wrap justify-content-between align-items-start  mb-4">
                                     <p class="gilroymedium-type fs-15 color-color1 mb-0">This page allows you to view the Sales Inquiries assigned to you and the inquiries that are not assigned.
                                     </p>
                                     <div class=" mt-2  mt-md-0">
-                                        <!--<form class="needs-validation " novalidate="" id="action-call">-->
+                                        
                                             <div class="row align-items-end justify-content-end">
 
 
@@ -107,8 +185,8 @@
 
                                         
                                     </div>
-                                    <!-- <button type="button" class="btn  btn-lg   btn-success  px-3  gilory-semibold-type flex-grow-0" onclick="loadAll()">Load All</button> -->
-                                </div>
+                                   
+                                </div> -->
                                 <div class=" px-1 table-responsive">
                                     <table id="datatableleads" class="table dt-responsive  nowrap w-100 ">
                                         <thead>
@@ -270,9 +348,23 @@ onClose: function (selectedDates, dateStr, instance) {
             window.location.href=url+"?&ticket="+ticket+"&email1=''&email2=''&mobile=&telephone="
         }
 
-        function loadAll(){
+        function loadAll(change){
+            if(change=="all"){
+                var status=$("#selected_tab").val()
+                if(status=="" || status=="pending-switch"){
+                    status="P"
+                }if(status=="resolved-switch"){
+                    status="R"
+                }
+                if(status=="dormant-switch"){
+                    status="D"
+                }
+
+            }
+            console.log("Status======="+status)
             fromdate=document.getElementById("fromdate").value
             todate=document.getElementById("todate").value
+            
             var table=$('#datatableleads').dataTable();
                 // $('#datatableleads').dataTable().fnDestroy();
 
@@ -291,7 +383,8 @@ onClose: function (selectedDates, dateStr, instance) {
                     
                     data:{
                     'from':fromdate,
-                    'to':todate
+                    'to':todate,
+                    'status':change
                    },
                     dataSrc:function(json_data){
                         

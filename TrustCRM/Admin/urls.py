@@ -64,6 +64,7 @@ urlpatterns=[
     path('Read',emailRead,name="Read"),
     path("sendItems",send_items_list,name="sendItems"),
     path('ReadSendItems',read_send_items,name="ReadSendItems"),
+    path('EmailData',email_data,name="EmailData"),
     path('logout',logout,name="Logout")
    
  

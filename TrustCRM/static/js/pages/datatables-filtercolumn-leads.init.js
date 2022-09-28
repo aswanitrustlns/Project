@@ -18,6 +18,10 @@ $(document).ready(function () {
    .clone(true)
    .addClass('filters')
    .appendTo('#datatableleads thead');
+   $("#pending").show()
+   $("#resolved").hide()
+   $("#dormant").hide()
+   
 
 var table = $('#datatableleads').DataTable({
    responsive: true,
@@ -302,5 +306,38 @@ var table = $('#datatableleads').DataTable({
 
 
 });
+var addColor=function ($this,$class,$textcolor){
+    
+    console.log($this);
+    selId=$($this).attr('id')
+    if(selId=="pending-switch"){
+        $("#pending").show()
+        $("#resolved").hide()
+        $("#dormant").hide()
+    }
+    if(selId=="resolved-switch"){
+        $("#pending").hide()
+        $("#resolved").show()
+        $("#dormant").hide()
+    }
+    if(selId=="dormant-switch"){
+        $("#pending").hide()
+        $("#resolved").hide()
+        $("#dormant").show()
+    }
+    $("#selected_tab").val(selId)
+    console.log("Selected tab Id===="+selId)
+    if($($this).hasClass($class)){
+        $($this).removeClass($class);
+        $($this).addClass($textcolor);
+    }
+    else{
+        $($this).addClass($class);
+        $($this).removeClass($textcolor);
+        $($this).siblings().removeClass($class);
+        $($this).siblings().addClass($textcolor);
+    }
+
+}
 
 

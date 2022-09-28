@@ -759,10 +759,11 @@ def pending_tckts_load_all(request):
         UserId=request.session.get('UserId')   
         from_date=request.GET.get('from')
         to_date=request.GET.get('to')
+        status=request.GET.get('status')
         print("From date-----------------",from_date)
         print("To date------------------",to_date)
-        
-        pending_tickets=selector.get_all_tickets(UserId,"pending",from_date,to_date)
+        print("Status=============================",status)
+        pending_tickets=selector.get_all_tickets(UserId,status,from_date,to_date)
         # paginator = Paginator(load_data, 10)
         print("load data-------------------------",len(pending_tickets))
         return JsonResponse(list(pending_tickets), safe=False)
@@ -1124,8 +1125,8 @@ def emailInbox(request):
 def emailRead(request):
     if 'UserId' in request.session:                
         message=request.GET.get('message')        
-        message_data,subject,sender,count=selector.read_mail_inbox(message)
-        return render(request,'sales/inboxread.html',{'message':message_data,'subject':subject,'sender':sender,'count':count})
+        message_data,subject,sender,count,multipart=selector.read_mail_inbox(message)
+        return render(request,'sales/inboxread.html',{'message':message_data,'subject':subject,'sender':sender,'count':count,'multipart':multipart})
     else:
         return redirect('/login')
 
@@ -1400,9 +1401,12 @@ def send_items_list(request):
         email=request.GET.get("mail")
         print("Leads mail Id===============",email)
         count,itemsList=selector.template_send_items_list(email)
-        print("Count=====",count)
-        print("Items===",itemsList)
+      
         return JsonResponse({"count":count,"send":itemsList})
+def email_data(request):
+    if 'UserId' in request.session:
+        return render(request,'test/index.html')
+
 #Read send itms mail
 
 def read_send_items(request):
@@ -1411,8 +1415,8 @@ def read_send_items(request):
         print("Read send items=============")
         email=request.GET.get("mail")
         msg_id=request.GET.get('message')
-        message_data,subject,sender=selector.read_mail_senditems(email,msg_id)
-        return JsonResponse({"message":message_data,"subject":subject})
+        message_data,subject,sender,multipart=selector.read_mail_senditems(email,msg_id)
+        return JsonResponse({"message":message_data,"subject":subject,"multipart":multipart})
 
 
 

@@ -93,10 +93,11 @@
                                                 </div>
                                             </div>
                                       
-                                            
-    
-                                            <p class="gilroyregular-type color-color1 fs-16">{{message}}</p>
-                                            
+                                            {%if multipart == "true" %}
+                                                {% include 'test/index.html' %}
+                                            {%else%}
+                                            <p class="gilroyregular-type color-color1 fs-16"> {% autoescape off %}{{message|linebreaks}}{% endautoescape %}</p>
+                                            {%endif%}
                                             <!--<hr>-->
     
                                            <!-- <div class="row">
