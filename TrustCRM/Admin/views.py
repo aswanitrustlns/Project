@@ -1417,6 +1417,31 @@ def read_send_items(request):
         msg_id=request.GET.get('message')
         message_data,subject,sender,multipart=selector.read_mail_senditems(email,msg_id)
         return JsonResponse({"message":message_data,"subject":subject,"multipart":multipart})
+#Sales Report
+def get_sales_report(request):
+    if 'UserId' in request.session:        
+        userid=request.session.get('UserId')  
+        
+        salesrep=selector.get_salesrep_permission(userid)
+        
+        return render(request,'sales/salesreport.html',{'salesrep':salesrep})
+    else:
+        return redirect('/login')
+#Sales Report with date
+def get_sales_report_date(request):
+    if 'UserId' in request.session:        
+        userid=request.session.get('UserId')  
+        repId=request.GET.get('repId')
+        from_date=request.GET.get('from_date')
+        to_date=request.GET.get('to_date')
+        print("From date=======================",from_date,to_date,repId)
+        salesreport=selector.get_sales_call_report(from_date,to_date,repId)
+        print("Report=====",salesreport)
+        return JsonResponse({"report":salesreport})
+    else:
+        return redirect('/login')
+
+
 
 
 

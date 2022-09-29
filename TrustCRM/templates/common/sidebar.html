@@ -104,12 +104,13 @@
                         <li><a  href="{% url 'Admin:Leads' %}" data-key="t-leads">Leads</a></li>
                         <li><a  href="{% url 'Admin:LeadRegistration'%}" data-key="t-LeadRegistration">Ticket Registration</a></li>
                         <li><a  href="{% url 'Admin:LeadProcessing'%}" data-key="t-LeadRegistration">Manage Tickets</a></li>
-                        <li><a href="javascript: void(0);" class="has-arrow" data-key="t-level-1-2" aria-expanded="false">Tickets</a>
+                        <li><a  data-key="t-level-1-2" aria-expanded="false" href="javascript: void(0);" class="has-arrow">Tickets</a>
                             <ul class="sub-menu mm-collapse" aria-expanded="false" >
-                                <li><a  href="{% url 'Admin:PendingTickets'%}" data-key="t-LeadRegistration">Pending Tickets</a></li>
-                                <li><a  href="{% url 'Admin:ResolvedTickets'%}" data-key="t-LeadRegistration">Resolved Tickets</a></li>
-                                <li><a  href="{% url 'Admin:DormantTicket'%}" data-key="t-LeadRegistration">Dormant Tickets</a></li>
+                                <li><a  data-key="t-LeadRegistration">Ticket Summary</a></li>
+                                <li><a  href="{% url 'Admin:PendingTickets'%}" data-key="t-LeadRegistration">All Tickets</a></li>
+                                <!-- <li><a  href="{% url 'Admin:DormantTicket'%}" data-key="t-LeadRegistration">Dormant Tickets</a></li> -->
                             </ul>
+                        <li><a  href="{% url 'Admin:SalesReport' %}" data-key="t-inbox">Sales Report</a></li>
                         <li><a  href="{% url 'Admin:Inbox' %}" data-key="t-inbox">Inbox</a></li>
                         
                         

@@ -1283,6 +1283,7 @@ function flatpikrCall(){
         
         "allowInput": true,
         dateFormat: "Y-m-d",//MMMM Do YYYY
+        altFormat: "Y-m-d",
         mode: "range",
         //enableTime: false,
         altInput: true, // Human Readable
@@ -1297,7 +1298,9 @@ function flatpikrCall(){
                             minDateFilter = Date.parse(selectedDates[0]);
                             maxDateFilter = Date.parse(selectedDates[1]);
 
+                            console.log( 'maxDateFilter'+ selectedDates[0]);
                             console.log( 'maxDateFilter'+ selectedDates[1]);
+                            console.log( 'minDateFilter'+ minDateFilter);
                             console.log( 'minDateFilter'+ minDateFilter);
                            // console.log( $(this).index()+1);
                             $.fn.dataTable.ext.search.push(function(settings, data, dataIndex) {

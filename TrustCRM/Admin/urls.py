@@ -1,4 +1,5 @@
 from unicodedata import name
+from xml.etree.ElementInclude import include
 from django.urls import URLPattern, path
 from django.conf.urls.static import static
 from django.conf import settings
@@ -51,6 +52,8 @@ urlpatterns=[
     path('TicketResolve',resolve_tickets,name="TicketResolve"),
     path('ActivityLog',activity_log,name="ActivityLog"),
     path('TicketLogs',ticket_logs_insertion,name="TicketLogs"),
+    path('SalesReport',get_sales_report,name="SalesReport"),
+    path('Report',get_sales_report_date,name="Report"),
     
     #seminar=============================================================
     path('Upcoming',upcomingSeminars,name="Upcoming"),
@@ -65,7 +68,8 @@ urlpatterns=[
     path("sendItems",send_items_list,name="sendItems"),
     path('ReadSendItems',read_send_items,name="ReadSendItems"),
     path('EmailData',email_data,name="EmailData"),
-    path('logout',logout,name="Logout")
+    path('logout',logout,name="Logout"),
+   
    
  
 ]

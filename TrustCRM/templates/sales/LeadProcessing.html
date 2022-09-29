@@ -28,6 +28,7 @@
       
     {% include "common/link.html" %}
     <script src="{% static 'libs/@ckeditor/ckeditor5-build-classic/build/ckeditor.js' %}"></script>
+    <script src="{% static 'js/pages/image-plugin.js' %}"></script>
     {% include "common/scripts.html" %}
 
    
@@ -2580,7 +2581,7 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
 
     function updateStatus(status,seminar){
         var ticket=document.getElementById("ticketno").value
-        
+        console.log("Seminar id======="+seminar)
         $.ajax({
             
             type : "GET", 
@@ -2588,7 +2589,7 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
             data:{
                 'ticket':ticket,
                 "status":status,
-                "seminar":"4"
+                "seminar":seminar
             },
             success: function(data){
                 $("#seminarpopup").modal('hide')
@@ -3044,8 +3045,7 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
             to=$("#email2").val()
         }
        
-        var email_data =editorinstance.getData();
-        
+        var email_data =editorinstance.getData();        
         var ticket=document.getElementById("ticketno").value
         if(ticket == ''){
             $("#alertpopup").modal('show')
@@ -3881,13 +3881,13 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
                             input = document.querySelector("#phone") 
                             console.log("Input phone number======="+input)
                             console.log("Input phone number======="+phone1)
-                            var iti = window.intlTelInput(input, {        
-                                initialCountry: countrycode,
-                                placeholderNumberType: 'MOBILE',
-                                utilsScript: "assets/js/pages/utils.init.js?1638200991544"
-                            });
-                            
-                            blur(input, errorMsg, validMsg, iti);
+                            // var iti = window.intlTelInput(input, {        
+                            //     initialCountry: countrycode,
+                            //     placeholderNumberType: 'MOBILE',
+                            //     utilsScript: "assets/js/pages/utils.init.js?1638200991544"
+                            // });
+                            iti.setCountry(countrycode);
+                            // blur(input, errorMsg, validMsg, iti);
                             LoadWorldClock(countrycode)
                         }else{
                             $("#digital-container").hide()
@@ -3901,6 +3901,7 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
         }
     }
     }
+
     function addCountries(countryList){
         var option=""
         for(i=0;i<countryList.length;i++){

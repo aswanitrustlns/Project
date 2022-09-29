@@ -281,15 +281,28 @@ class Selector:
 
     def get_all_tickets(self,userId,status,from_date,to_date):
         try:
+
             Cursor=connection.cursor()
-            # if(ticket == "pending"):                    
+            
+            date_today=datetime.today().date()    
+            date_today=date_today.strftime("%Y-%m-%d")
+            week_day=datetime.today().weekday() # Monday is 0 and Sunday is 6
+            if(week_day==0):
+                    date_yesterday = datetime.today()-timedelta(3)
+            else:
+                date_yesterday = datetime.today()-timedelta(1)
+                    
+            date_yesterday=date_yesterday.strftime("%Y-%m-%d") 
+            if ((from_date=="")and(to_date=="")):      
+                from_date=date_yesterday
+                to_date=date_today            
             print("Load all pending")
             if status=="D":
                 Cursor.execute("exec SP_GetDormantSalesLeadsPaginate_PY %s,%s,%s",[userId,"P",userId])
                 _tickets=Cursor.fetchall()
             else:
-                Cursor.execute("exec SP_GetSalesLeadsListPaginate_PY %s,%s,%s,%s,%s",[userId,from_date,to_date,status,0])
-                _tickets=Cursor.fetchall()
+                     Cursor.execute("exec SP_GetSalesLeadsListPaginate_PY %s,%s,%s,%s,%s",[userId,from_date,to_date,status,0])
+                     _tickets=Cursor.fetchall()
             # if(ticket=="resolved"):
                
             #     print("Load all resolved")
@@ -1355,7 +1368,39 @@ class Selector:
         finally:
                 Cursor.close()
         return webinars
-    
+    #Get sales rep permission
+    def get_salesrep_permission(self,userId):
+        try:
+            Cursor=connection.cursor()           
+            Cursor.execute("set nocount on;exec SP_GetSalesRepPermission  %s",[userId]) 
+            permission=Cursor.fetchall()
+        except Exception as e:
+                print("Exception------",e)
+        finally:
+                Cursor.close()
+        return permission
+    #Get sales call report
+    def get_sales_call_report(self,from_date,to_date,salesRep):
+        try:
+            Cursor=connection.cursor()           
+            Cursor.execute("set nocount on;exec TC_GetSalesCallReport  %s,%s,%s",[from_date,to_date,salesRep]) 
+            call_report=Cursor.fetchall()
+        except Exception as e:
+                print("Exception------",e)
+        finally:
+                Cursor.close()
+        return call_report
+      #Get sales call report monthly
+    def get_sales_call_report_monthly(self,month,year,salesRep):
+        try:
+            Cursor=connection.cursor()           
+            Cursor.execute("set nocount on;exec TC_GetSalesCallReportMonthly  %s,%s,%s",[month,year,salesRep]) 
+            monthly_report=Cursor.fetchall()
+        except Exception as e:
+                print("Exception------",e)
+        finally:
+                Cursor.close()
+        return monthly_report
         
 
 

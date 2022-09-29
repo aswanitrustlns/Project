@@ -1,0 +1,343 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8" />
+    <title>Trust Capital CRM</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
+    <meta content="Themesbrand" name="author" />
+    <!-- App favicon -->
+    {% load  static %}
+     <!-- DataTables -->
+     <link href="{% static 'libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css' %}" rel="stylesheet" type="text/css" />
+     <link href="{% static 'libs/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css' %}" rel="stylesheet" type="text/css" />
+     <!-- plugin css -->
+     <!--<link href="assets/libs/admin-resources/jquery.vectormap/jquery-jvectormap-1.2.2.css" rel="stylesheet"
+         type="text/css" />-->
+      <!-- datepicker css -->
+      <link rel="stylesheet" href="{% static 'libs/flatpickr/flatpickr.min.css' %}">
+    {% include "common/link.html" %}
+    {% include "common/scripts.html" %}
+
+   
+
+ 
+</head>
+<body data-layout-mode="dark">
+
+    <!-- <body data-layout="horizontal"> -->
+    
+    <!-- Begin page -->
+    <div id="layout-wrapper">
+    
+        {% include "common/header.html" %}
+    
+
+        <!-- ========== Left Sidebar Start ========== -->
+        {% include "common/sidebar.html" %}
+        <!-- Left Sidebar End -->
+        <div class="main-content">
+
+            <div class="page-content" id="sales">
+                <div class="container-fluid">               
+                    
+                    <div class="row">
+    
+                        <div class="col-12">
+                            <div class="d-flex align-items-center">
+                                <h4 class="card-title almarenamonolight-type mb-4 fs-23">Sales Calls Report</h4>
+                                <div class="ms-auto">
+                                    <a href="javascript:window.print()" class="btn  btn-sm  bg-soft-secondarycolor text-white me-2  mb-2"  style="background-color: var(--bs-card-bg)"><i class="fa fa-print me-2"></i><span>Print</span></a>
+                                    <a href="javascript:window.print()" class="btn  btn-sm  bg-soft-secondarycolor text-white me-2  mb-2"  style="background-color: var(--bs-card-bg)"><i class="fa fa-print me-2"></i><span>Print Report All</span></a>
+                                    <a href="javascript:window.print()" class="btn  btn-sm  bg-soft-secondarycolor text-white me-2  mb-2"  style="background-color: var(--bs-card-bg)"><i class="fa fa-save me-2"></i><span>Monthly Call Report</span></a>
+                                
+                                </div>
+                                
+                            </div>
+                           
+                       
+                            
+                            <div class=" mb-4">
+                                <p class="gilroymedium-type fs-15 color-color1 mb-0">This page allows you to view the details regarding Sales
+                                    Calls by Sales Representatives.</p>
+                            </div>
+    
+                     
+                            
+                        </div>
+                        <div class="col-xxl-9">
+                                <div class="row align-items-end mb-4">
+    
+                                        <div class="col-sm-3">
+                                            <div class="mb-2">
+                                                <label class="form-label " for="salesrep">Sales Rep</label>
+                                                <select   class="py-1 form-select" id="salesrepId"> 
+                                                    {%for rep in salesrep%}
+                                                    <option value={{rep.0}}>{{rep.1}}</option>
+                                                    {%endfor%}
+                                                </select>
+    
+                                                
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="mb-2">
+                                                <label class="form-label " for="fromdate-sr">From Date</label>
+                                                <input type="text" id="fromdate-sr" class="py-1">
+    
+                                                
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+    
+                                            <div class="mb-2">
+                                                <label class="form-label " for="todate-sr">To Date</label>
+    
+                                                <input type="text" id="todate-sr" class="py-1">
+                                                
+                                            </div>
+    
+    
+    
+    
+                                        </div>
+                                        <div class="col-sm-2 ">
+                                            <button class="btn btn-info btn-md mb-2 py-1 noPrint" type="submit" id="load-btn-sr">Load</button>
+                                            
+    
+    
+    
+    
+                                        </div>
+                                        
+    
+    
+    
+    
+    
+                                </div> 
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+    
+                        <div class="col-12">
+                            <div class="card">
+                               
+                                <div class="card-body ">
+                                    
+                                    
+                                   
+                                    
+                                    <div class=" px-1 table-responsive" id="salesreport" style="max-height: 453px;">
+                                        
+                                        <table class="table mb-0  change " >
+    
+                                            <thead class="gilory-medium-type fs-16">
+                                                <tr>
+                                                    <td class=" ps-0">Country</td>
+                                                    <td style="color:  #2D8CFF;">Spoken</td>
+                                                    <td style="color:  #DD9406;">Busy</td>
+                                                    <td style="color:  
+                                                    #55CED7;">No Reply</td>
+                                                    <td style="color:   #FD0C0C;">Wrong Calls</td>
+                                                    <td style="color:   #00B929;">Re Solved</td>
+                                                    <td class="text-end pe-0" >Total</td>
+                                                </tr>
+                                            </thead>
+                                           
+                                            <tbody class="gilory-regular-type fs-15 text-white" id="report-body">
+                                              
+                                            
+                                              
+                                            
+    
+                                            </tbody>
+                                            <tfoot>
+    
+                                                <tr>
+                                                    <td scope="row" style="color:  #F8D091" class=" ps-0">Total</td>
+                                                    <td style="color:  #F8D091">01</td>
+                                                    <td style="color:  #F8D091">67</td>
+                                                    <td style="color: #F8D091">01</td>
+                                                    <td style="color:  #F8D091">67</td>
+                                                    <td style="color:  #F8D091" >01</td>
+                                                   
+                                                    <td class="text-end pe-0" style="color:  #F8D091">77</td>
+                                                </tr>
+                                               
+    
+                                            </tfoot>
+                                        </table>
+                                    </div>
+                                    
+    
+                                </div>
+                            </div>
+                        </div> <!-- end col -->
+    
+                        <div class="col-12">
+    
+                            <!-- modal-temp -->
+                            <!--<button type="button" class="btn btn-primary waves-effect waves-light" data-bs-toggle="modal" data-bs-target=".bs-example-modal-temp" style="background-color: var(--bs-card-bg) ;">Templates</button>-->
+                            
+                            <!-- modal-Chat Logs -->
+                            <!--<button type="button" class="btn btn-primary waves-effect waves-light" style="background-color: var(--bs-card-bg) ;">Seminars</button>-->
+    
+                            <div class="modal fade  bs-example-modal-leads" tabindex="-1" role="dialog" aria-hidden="true">
+                                  
+                                   <div class="modal-dialog modal-dialog-centered  modal-xl d-block">
+                                    
+    
+                                
+    
+                                       <div class="modal-content">
+                                        
+                                           
+                                  
+                                        <div class="modal-body ">
+    
+                                            <!--<button class="btn btn-lg btn-info  ms-3" type="submit">Load</button>-->
+    
+                                          <div class="border rounded-3 px-2 py-2">
+                                            <div class="modal-header border-0 ">
+                                                <h5 class="modal-title fs-21 ">Duplicate phone   <a href="" class="btn btn-md btn-success  ms-3">Create new ticket</a> </h5>
+                                                
+                                                <a href="" data-bs-dismiss="modal" aria-label="Close">
+                                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                        <path d="M9.16992 14.83L14.8299 9.17" stroke="var(--white)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                        <path d="M14.8299 14.83L9.16992 9.17" stroke="var(--white)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                        <path d="M9 22H15C20 22 22 20 22 15V9C22 4 20 2 15 2H9C4 2 2 4 2 9V15C2 20 4 22 9 22Z" stroke="white" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                        </svg>
+                                                        
+                                                    </a>
+                                            </div>
+                                         
+    
+                                            <div class="table-responsive mx-3 my-2" data-simplebar style="max-height: 352px;">
+                                                <table class="table mb-0 ">
+    
+                                                    <thead>
+                                                        <tr class="almarenamonolight-type fs-12">
+                                                            <th>
+                        
+                                                                    <span>User Name</span>
+    
+                                                                </div>
+                                                                </th>
+                                                            <th>Ticket</th>
+                                                            <th>Phone1</th>
+                                                            <th>Phone2</th>
+                                                            <th>Email</th>
+                                                            <th>&nbsp;</th>
+                                                            <th class="text-end">&nbsp;</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody class="gilroyregular-type fs-15 text-white" style="vertical-align:middle ;">
+                                                        <tr>
+                                                            <th scope="row">
+                                                                <div class="d-flex my-1 ms-2 align-items-center">
+                                                                    <div class="activity-icon avatar-sm me-3">
+                                                                        <span class="avatar-title   rounded-circle">
+                                                                            <!--<i class="bx bx-bitcoin font-size-24"></i>-->
+                                                                            <img class="rounded-circle avatar-md" src="assets/images/users/firasmonzer.png" alt="">
+                                                                        </span>
+                                                                    </div>
+                                                                Firas Monzer</th>
+                                                            <td>950060</td>
+                                                            <td>+963123456789</td>
+                                                            <td>+963123456789</td>
+                                                            <td>alhomsi.amr@gmail.com</td>
+                                                            <td  class="text-success"><a href="" style="color: 
+                                                                rgba(114, 212, 171, 1);">View ticket</a></td>
+                                                            <td class="text-end"><a href="" style="color:rgba(85, 206, 215, 1) ;">View n merge</a></td>
+                                                        </tr>
+              
+               
+    
+               
+    
+    
+    
+                                                    </tbody>
+                                                </table>
+                                            </div> 
+    
+                                          </div>
+                                            
+                                         
+                                         
+    
+    
+                                         
+                                        
+                                            
+                                        </div>
+    
+                                        
+                                    </div><!-- /.modal-content -->
+    
+                                      
+    
+                                   </div><!-- /.modal-dialog -->
+                            </div>
+                            
+                            <!-- /.modal -->
+                        </div>
+    
+    
+    
+                    </div>
+                    <!-- end row-->
+                    </div>
+                    
+                </div>
+     </div>
+            <!-- END layout-wrapper -->
+        
+            
+    {% include "common/right-sidebar.html" %}
+        
+            <!-- Right bar overlay-->
+    <div class="rightbar-overlay"></div>
+    <script>
+        function loadAllReport(){
+            var repId=$("#salesrepId").val()
+            var from_date=document.getElementById('fromdate-sr').value
+            var to_date=document.getElementById('todate-sr').value
+            console.log("Request to server====="+repId+from_date+to_date)
+            $.ajax({
+                    
+                    type : "GET", 
+                    url: "{% url 'Admin:Report' %}",
+                    data:{
+                        "from_date":from_date,
+                        "to_date":to_date,
+                        "repId":repId
+                    },
+                    
+                    
+                    success: function(data){
+                        console.log("Report======"+data.report)
+                        // var row="<tr><td scope='row' >Anguilla</td><td>01</td><td>67</td><td>01</td><td>67</td><td >01</td><td class='text-end'>77</td></tr>";
+                    }
+            })
+            
+        }
+
+
+
+    </script>
+
+    <script src="{% static 'libs/pace-js/pace.min.js' %}"></script>
+
+    <!-- datepicker js -->
+    <script src="{% static 'libs/flatpickr/flatpickr.min.js' %}"></script>
+    <!-- Datatable init js -->
+    <script src="{% static 'js/pages/management-salesreport.init.js' %}"></script> 
+
+</body>
+
+</html>

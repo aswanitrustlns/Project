@@ -211,6 +211,7 @@ var table = $('#datatableleads').DataTable({
         //altInput: true,
         "allowInput": true,
         dateFormat: "Y-m-d",//MMMM Do YYYY
+        altFormat: "Y-m-d",
         mode: "range",
         //enableTime: false,
         altInput: true, // Human Readable
@@ -276,7 +277,7 @@ var table = $('#datatableleads').DataTable({
 
             rangefilter();
 
-                         //console.log(selectedDates.attr('value'));
+                         console.log(selectedDates.attr('value'));
           
             
         }
@@ -291,6 +292,7 @@ var table = $('#datatableleads').DataTable({
         //altInput: true,
         "allowInput": true,
         dateFormat: "Y-m-d",//MMMM Do YYYY
+        altFormat: "Y-m-d",
         mode: "single",
         //enableTime: false,
         altInput: true, // Human Readable
@@ -309,6 +311,7 @@ var table = $('#datatableleads').DataTable({
         //altInput: true,
         "allowInput": true,
         dateFormat: "Y-m-d",//MMMM Do YYYY
+        altFormat: "Y-m-d",
         mode: "single",
         //enableTime: false,
         altInput: true, // Human Readable

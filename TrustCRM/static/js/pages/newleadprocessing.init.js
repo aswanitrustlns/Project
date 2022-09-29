@@ -42,7 +42,9 @@ ClassicEditor
     .create( document.querySelector('#editor'),
 
     {
-      
+         ckfinder: {
+        uploadUrl: 'Ckfinder/upload'
+    },   
         fontFamily: {
             options: [
                 'default',
@@ -62,6 +64,7 @@ ClassicEditor
             options: [ 10, 12, 14, 'default', 18, 20, 22 ],
             supportAllValues: true
         },
+        
     } 
      )
     .then( editor => {
@@ -180,9 +183,10 @@ var intTel = function () {
         // any initialisation o,ptions go here
         //nationalMode: true,
         initialCountry: "auto",
+        
         geoIpLookup: function (callback) {
             $.get('https://ipinfo.io', function () { }, "jsonp").always(function (resp) {
-                var countryCode = (resp && resp.country) ? resp.country : "us";
+                var countryCode = (resp && resp.country) ? resp.country : "";
                 callback(countryCode);
             });
         },

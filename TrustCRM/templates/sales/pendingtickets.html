@@ -64,7 +64,7 @@
                                         <button type="button" class="btn btn-lg btn-primary  color-color1 mb-3 mx-1 gilory-semibold-type"  id="resolved-switch" style="background-color: var(--bs-card-bg); "  onclick="addColor(this,'bg-soft-purple text-white', 'color-color1');loadAll('R');">Resolved</button>
                                         <button type="button" class="btn btn-lg btn-primary  color-color1 mb-3 mx-1 gilory-semibold-type"  id="dormant-switch" style="background-color: var(--bs-card-bg) ;" onclick="addColor(this,'bg-soft-purple text-white','color-color1');loadAll('D');">Dormant</button>
                                         
-                                        <input type="hidden" name="selected_tab" id="selected_tab" value="Live">
+                                        <input type="hidden" name="selected_tab" id="selected_tab" value="P">
                                     </div>
                                     
                                     <div class=" mt-2  mt-md-0">
@@ -102,7 +102,7 @@
                                    
                                     
                                 </div>
-                                <div class="mb-4 mt-3 " id="pending">
+                                <!-- <div class="mb-4 mt-3 " id="pending">
 
                                     <ul class="gilory-medium-type list-unstyled color-color1 fs-18 d-flex ">
 
@@ -110,8 +110,8 @@
                                         <li class="ms-5"  style="cursor:pointer"> <span class="rounded-circle  bg-info d-inline-block me-1" style="height:13px ;width:13px;"></span> <span>Interested</span> | <span class="text-white" id="nonfundspan">0</span></li>
                                         <li class="ms-5"  style="cursor:pointer"> <span class="rounded-circle  bg-info d-inline-block me-1" style="height:13px ;width:13px;"></span> <span>Unattended</span> | <span class="text-white" id="nonfundspan">0</span></li>
                                     </ul>
-                                </div>
-                                <div class="mb-4 mt-3 " id="resolved">
+                                </div> -->
+                                <!-- <div class="mb-4 mt-3 " id="resolved">
 
                                     <ul class="gilory-medium-type list-unstyled color-color1 fs-18 d-flex ">
 
@@ -121,8 +121,8 @@
                                         <li class="ms-5"  style="cursor:pointer"> <span class="rounded-circle  bg-info d-inline-block me-1" style="height:13px ;width:13px;"></span> <span>Invalid Phone</span> | <span class="text-white" id="nonfundspan">0</span></li>
                                         <li class="ms-5"  style="cursor:pointer"> <span class="rounded-circle  bg-info d-inline-block me-1" style="height:13px ;width:13px;"></span> <span>Invalid Email</span> | <span class="text-white" id="nonfundspan">0</span></li>
                                     </ul>
-                                </div>
-                                <div class="mb-4 mt-3 " id="dormant">
+                                </div> -->
+                                <!-- <div class="mb-4 mt-3 " id="dormant">
 
                                     <ul class="gilory-medium-type list-unstyled color-color1 fs-18 d-flex ">
 
@@ -133,9 +133,9 @@
                                         <li class="ms-5"  style="cursor:pointer"> <span class="rounded-circle  bg-info d-inline-block me-1" style="height:13px ;width:13px;"></span> <span>Duplicate</span> | <span class="text-white" id="nonfundspan">0</span></li>
                                     </ul>
                                 </div>
-                           
+                            -->
 
-                                <hr class="my-0">
+                                <!-- <hr class="my-0"> -->
                                 <!-- <h4 class="card-title almarenamonolight-type mb-4 fs-23">PENDING TICKETS</h4> -->
                                 <!-- <div class="d-flex flex-no-wrap justify-content-between align-items-start  mb-4">
                                     <p class="gilroymedium-type fs-15 color-color1 mb-0">This page allows you to view the Sales Inquiries assigned to you and the inquiries that are not assigned.
@@ -349,15 +349,17 @@ onClose: function (selectedDates, dateStr, instance) {
         }
 
         function loadAll(change){
+
             if(change=="all"){
+                console.log("Change all ======="+change)
                 var status=$("#selected_tab").val()
                 if(status=="" || status=="pending-switch"){
-                    status="P"
+                    change="P"
                 }if(status=="resolved-switch"){
-                    status="R"
+                    change="R"
                 }
                 if(status=="dormant-switch"){
-                    status="D"
+                    change="D"
                 }
 
             }
