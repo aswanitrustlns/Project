@@ -49,9 +49,9 @@
                             <div class="d-flex align-items-center">
                                 <h4 class="card-title almarenamonolight-type mb-4 fs-23">Sales Calls Report</h4>
                                 <div class="ms-auto">
-                                    <a href="javascript:window.print()" class="btn  btn-sm  bg-soft-secondarycolor text-white me-2  mb-2"  style="background-color: var(--bs-card-bg)"><i class="fa fa-print me-2"></i><span>Print</span></a>
-                                    <a href="javascript:window.print()" class="btn  btn-sm  bg-soft-secondarycolor text-white me-2  mb-2"  style="background-color: var(--bs-card-bg)"><i class="fa fa-print me-2"></i><span>Print Report All</span></a>
-                                    <a href="javascript:window.print()" class="btn  btn-sm  bg-soft-secondarycolor text-white me-2  mb-2"  style="background-color: var(--bs-card-bg)"><i class="fa fa-save me-2"></i><span>Monthly Call Report</span></a>
+                                    <a target="_top" class="btn  btn-sm  bg-soft-secondarycolor text-white me-2  mb-2"  style="background-color: var(--bs-card-bg)" onclick="printReport();"><i class="fa fa-print me-2"></i><span>Print</span></a>
+                                    <!-- <a href="javascript:window.print()" class="btn  btn-sm  bg-soft-secondarycolor text-white me-2  mb-2"  style="background-color: var(--bs-card-bg)"><i class="fa fa-print me-2"></i><span>Print Report All</span></a> -->
+                                    <a class="btn  btn-sm  bg-soft-secondarycolor text-white me-2  mb-2"  style="background-color: var(--bs-card-bg)" data-bs-toggle="modal" data-bs-target="#monthly-report"><i class="fa fa-save me-2"></i><span>Monthly Call Report</span></a>
                                 
                                 </div>
                                 
@@ -74,8 +74,9 @@
                                             <div class="mb-2">
                                                 <label class="form-label " for="salesrep">Sales Rep</label>
                                                 <select   class="py-1 form-select" id="salesrepId"> 
+                                                    <option value="0">Select</option>
                                                     {%for rep in salesrep%}
-                                                    <option value={{rep.0}}>{{rep.1}}</option>
+                                                    <option value="{{rep.1}}">{{rep.1}}</option>
                                                     {%endfor%}
                                                 </select>
     
@@ -86,7 +87,7 @@
                                             <div class="mb-2">
                                                 <label class="form-label " for="fromdate-sr">From Date</label>
                                                 <input type="text" id="fromdate-sr" class="py-1">
-    
+                                                <input type="hidden" name="from" id="fromprint">
                                                 
                                             </div>
                                         </div>
@@ -96,7 +97,7 @@
                                                 <label class="form-label " for="todate-sr">To Date</label>
     
                                                 <input type="text" id="todate-sr" class="py-1">
-                                                
+                                                <input type="hidden" name="from" id="toprint">
                                             </div>
     
     
@@ -104,7 +105,7 @@
     
                                         </div>
                                         <div class="col-sm-2 ">
-                                            <button class="btn btn-info btn-md mb-2 py-1 noPrint" type="submit" id="load-btn-sr">Load</button>
+                                            <button class="btn btn-info btn-md mb-2 py-1 noPrint" type="button" id="load-btn-sr" onclick="loadAllReport()">Load</button>
                                             
     
     
@@ -155,18 +156,9 @@
                                             
     
                                             </tbody>
-                                            <tfoot>
+                                            <tfoot id="report-footer">
     
-                                                <tr>
-                                                    <td scope="row" style="color:  #F8D091" class=" ps-0">Total</td>
-                                                    <td style="color:  #F8D091">01</td>
-                                                    <td style="color:  #F8D091">67</td>
-                                                    <td style="color: #F8D091">01</td>
-                                                    <td style="color:  #F8D091">67</td>
-                                                    <td style="color:  #F8D091" >01</td>
-                                                   
-                                                    <td class="text-end pe-0" style="color:  #F8D091">77</td>
-                                                </tr>
+                                                
                                                
     
                                             </tfoot>
@@ -176,6 +168,17 @@
     
                                 </div>
                             </div>
+                            <ul class="gilory-medium-type list-unstyled color-color1 fs-17 d-flex " id="interested-ul">
+
+                                <li> <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <circle cx="6" cy="6" r="6" fill="#0CC165"/>
+                                    </svg>
+                                    <span class="text-white">Interested : </span > <span style="color:#0CC165" id="interested-span">0</span></li>
+                                <li class="ms-5"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <circle cx="6" cy="6" r="6" fill="#2D8CFF"/>
+                                    </svg>
+                                 <span class="text-white"> Spoken : </span><span style="color:#2D8CFF" id="spoken-span">0</span></li>
+                            </ul>
                         </div> <!-- end col -->
     
                         <div class="col-12">
@@ -186,102 +189,7 @@
                             <!-- modal-Chat Logs -->
                             <!--<button type="button" class="btn btn-primary waves-effect waves-light" style="background-color: var(--bs-card-bg) ;">Seminars</button>-->
     
-                            <div class="modal fade  bs-example-modal-leads" tabindex="-1" role="dialog" aria-hidden="true">
-                                  
-                                   <div class="modal-dialog modal-dialog-centered  modal-xl d-block">
-                                    
-    
-                                
-    
-                                       <div class="modal-content">
-                                        
-                                           
-                                  
-                                        <div class="modal-body ">
-    
-                                            <!--<button class="btn btn-lg btn-info  ms-3" type="submit">Load</button>-->
-    
-                                          <div class="border rounded-3 px-2 py-2">
-                                            <div class="modal-header border-0 ">
-                                                <h5 class="modal-title fs-21 ">Duplicate phone   <a href="" class="btn btn-md btn-success  ms-3">Create new ticket</a> </h5>
-                                                
-                                                <a href="" data-bs-dismiss="modal" aria-label="Close">
-                                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                        <path d="M9.16992 14.83L14.8299 9.17" stroke="var(--white)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
-                                                        <path d="M14.8299 14.83L9.16992 9.17" stroke="var(--white)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
-                                                        <path d="M9 22H15C20 22 22 20 22 15V9C22 4 20 2 15 2H9C4 2 2 4 2 9V15C2 20 4 22 9 22Z" stroke="white" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
-                                                        </svg>
-                                                        
-                                                    </a>
-                                            </div>
-                                         
-    
-                                            <div class="table-responsive mx-3 my-2" data-simplebar style="max-height: 352px;">
-                                                <table class="table mb-0 ">
-    
-                                                    <thead>
-                                                        <tr class="almarenamonolight-type fs-12">
-                                                            <th>
-                        
-                                                                    <span>User Name</span>
-    
-                                                                </div>
-                                                                </th>
-                                                            <th>Ticket</th>
-                                                            <th>Phone1</th>
-                                                            <th>Phone2</th>
-                                                            <th>Email</th>
-                                                            <th>&nbsp;</th>
-                                                            <th class="text-end">&nbsp;</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody class="gilroyregular-type fs-15 text-white" style="vertical-align:middle ;">
-                                                        <tr>
-                                                            <th scope="row">
-                                                                <div class="d-flex my-1 ms-2 align-items-center">
-                                                                    <div class="activity-icon avatar-sm me-3">
-                                                                        <span class="avatar-title   rounded-circle">
-                                                                            <!--<i class="bx bx-bitcoin font-size-24"></i>-->
-                                                                            <img class="rounded-circle avatar-md" src="assets/images/users/firasmonzer.png" alt="">
-                                                                        </span>
-                                                                    </div>
-                                                                Firas Monzer</th>
-                                                            <td>950060</td>
-                                                            <td>+963123456789</td>
-                                                            <td>+963123456789</td>
-                                                            <td>alhomsi.amr@gmail.com</td>
-                                                            <td  class="text-success"><a href="" style="color: 
-                                                                rgba(114, 212, 171, 1);">View ticket</a></td>
-                                                            <td class="text-end"><a href="" style="color:rgba(85, 206, 215, 1) ;">View n merge</a></td>
-                                                        </tr>
-              
-               
-    
-               
-    
-    
-    
-                                                    </tbody>
-                                                </table>
-                                            </div> 
-    
-                                          </div>
-                                            
-                                         
-                                         
-    
-    
-                                         
-                                        
-                                            
-                                        </div>
-    
-                                        
-                                    </div><!-- /.modal-content -->
-    
-                                      
-    
-                                   </div><!-- /.modal-dialog -->
+                            <!-- /.modal-dialog -->
                             </div>
                             
                             <!-- /.modal -->
@@ -296,7 +204,51 @@
                 </div>
      </div>
             <!-- END layout-wrapper -->
-        
+            
+            <div class="modal fade" id="monthly-report" tabindex="-1" >
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+            
+                        <div class="modal-body ">
+    
+                            <div class="  px-3 border rounded-3 py-4">
+                            
+                                <div class="modal-header py-0 px-0 border-bottom-0">
+                                    <h5 class="modal-title mb-3" id="modal-title">Monthly Report</h5>
+    
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
+    
+                                </div>
+                           
+                                
+                                    
+                                    <div class="row">
+                                    
+                                        <div class="col-12">
+                                            <div class="mb-3">
+                                                <!--<label class="form-label">Event Name</label>-->
+                                                <input type="text" id="monthly" class="py-1">
+                                                
+                                                
+                                            </div>
+                                            <div class="row mt-2">
+                                                <div class="col-6">
+                                                    <button type="button"  class="btn btn-success" id="btn-save-event" onclick="monthlyreportLoad()">Load</button>
+                                                    <button type="button" data-bs-dismiss="modal" class="btn btn-danger" id="btn-delete-event">Cancel</button>
+                                                </div>
+                                              
+                                            </div>
+                                        </div>
+                                   
+                                    </div>
+                                    
+                                
+                            </div>
+                        
+                        </div>
+                    </div> <!-- end modal-content-->
+                </div> <!-- end modal dialog-->
+            </div>  
             
     {% include "common/right-sidebar.html" %}
         
@@ -307,6 +259,8 @@
             var repId=$("#salesrepId").val()
             var from_date=document.getElementById('fromdate-sr').value
             var to_date=document.getElementById('todate-sr').value
+            $("#fromprint").val(from_date)
+            $("#toprint").val(to_date)
             console.log("Request to server====="+repId+from_date+to_date)
             $.ajax({
                     
@@ -321,22 +275,94 @@
                     
                     success: function(data){
                         console.log("Report======"+data.report)
-                        // var row="<tr><td scope='row' >Anguilla</td><td>01</td><td>67</td><td>01</td><td>67</td><td >01</td><td class='text-end'>77</td></tr>";
+                        var report=data.report
+                        var interested=data.interested
+                        var reportlen=report.length
+                        var footerlen=reportlen-1
+                        var row=""
+                        document.getElementById("spoken-span").innerHTML=0
+                        document.getElementById("interested-span").innerHTML=""
+                        $("#report-body").empty()
+                        $("#report-footer").empty()
+                        console.log("%%%%%%%%%%%%%"+report[reportlen])
+                        for(var i=0;i<reportlen-1;i++){
+                            
+                            console.log("*******************"+report[i][0])
+                            row+="<tr><td scope='row'>"+report[i][0]+"</td><td>"+report[i][1]+"</td><td>"+report[i][2]+"</td><td>"+report[i][3]+"</td><td>"+report[i][4]+"</td><td>"+report[i][5]+"</td><td class='text-end'>"+report[i][6]+"</td></tr>";
+                        }
+                        $("#report-body").append(row)
+                        
+                        if(footerlen>0){
+                        var footer="<tr><td scope='row' style='color:  #F8D091' class='ps-0'>"+report[footerlen][0]+"</td><td style='color:  #F8D091'>"+report[footerlen][1]+"</td>"+
+                                   "<td style='color:  #F8D091'>"+report[footerlen][2]+"</td><td style='color: #F8D091'>"+report[footerlen][3]+"</td><td style='color:  #F8D091'>"+report[footerlen][4]+"</td>"+
+                                    "<td style='color:  #F8D091' >"+report[footerlen][5]+"</td><td class='text-end pe-0' style='color:  #F8D091'>"+report[footerlen][6]+"</td></tr>"
+                                    $("#report-footer").append(footer)
+                        var spoken_total=report[footerlen][1]
+                        var _total=report[footerlen][6]
+                        console.log("Totals=================="+spoken_total)
+                         var spokenper=(parseInt(spoken_total)/parseInt(_total))*100
+                         spokenper=spokenper.toFixed(2)
+                         console.log("Spoken percentage==="+spokenper)
+                         document.getElementById("spoken-span").innerHTML=spokenper+"%"
+                        }
+                       document.getElementById("interested-span").innerHTML=interested
+                        $("#interested-ul").show()
+
+                        
                     }
             })
             
+        }
+        function monthlyreportLoad(){
+            var monthly=document.getElementById('month').value
+            var year=document.getElementById('year').value
+            var repId=$("#salesrepId").val()
+            
+            console.log("monthly input issssssssssssssssssss"+monthly)
+            $.ajax({
+                    
+                    type : "GET", 
+                    url: "{% url 'Admin:MonthlyReport' %}",
+                    data:{
+                        "month":monthly,
+                        "year":year,
+                        "repId":repId
+                    },
+                    
+                    
+                    success: function(data){
+                    }
+            })
+
+        }
+        function printReport(){
+            console.log("Print report======")
+            var repId=$("#salesrepId").val()
+            var from_date=document.getElementById('fromprint').value
+            var to_date=document.getElementById('toprint').value
+            console.log("Print report======"+repId+from_date+to_date)
+            if(repId=="0" && from_date=="" && to_date==""){
+                console.log("Nothing to print")
+            }
+            else{
+                var url="{% url 'Admin:PrintReport' %}"
+                var fullurl=url+"?&SalesRep="+repId+"&from="+from_date+"&to="+to_date
+                window.open(fullurl,'_blank')
+            }
+
         }
 
 
 
     </script>
 
-    <script src="{% static 'libs/pace-js/pace.min.js' %}"></script>
+    
 
     <!-- datepicker js -->
     <script src="{% static 'libs/flatpickr/flatpickr.min.js' %}"></script>
     <!-- Datatable init js -->
     <script src="{% static 'js/pages/management-salesreport.init.js' %}"></script> 
+    <script src="{% static 'js/app.js' %}"></script>
 
 </body>
 

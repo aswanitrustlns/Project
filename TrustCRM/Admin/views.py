@@ -833,14 +833,14 @@ def new_accounts(request):
             accounts_data=selector.get_new_accounts(change,status,from_date,to_date)
             accounts_count=selector.get_new_accounts_count(from_date,to_date)
             print("change is---------------",change)
-            print("Accounts data===================",accounts_data,type(accounts_data))
+            
             return HttpResponse(json.dumps({"data":accounts_data,"count":accounts_count}), content_type="application/json")
         else:
            
             
             accounts_data=selector.get_new_accounts("Live","",date_yesterday,date_today)
             accounts_count=selector.get_new_accounts_count(date_yesterday,date_today)
-            print("Accounts count-----------",accounts_count)
+            
             # terminated_data=selector.get_new_accounts("Terminated")
             return render(request,'admin/newAccounts.html',{'accounts_data':accounts_data,'accounts_count':accounts_count,"active":json.dumps(active)})
                 
@@ -900,9 +900,9 @@ def new_accounts_click(request):
             todate=date_today
         
         accounts_data=selector.get_new_accounts_click(status,fromdate,todate)
-        print("Clicked acccounts data======================",accounts_data)
+        
         accounts_count=selector.get_new_accounts_count(fromdate,todate)
-        print("Clicked Acoounts count====================",accounts_count)
+        
         return HttpResponse(json.dumps({"data":accounts_data,"count":accounts_count}), content_type="application/json")
         # return render(request,'admin/newAccounts.html',{'accounts_data':accounts_data,'accounts_count':accounts_count,"active":json.dumps(active)})
                 
@@ -1430,16 +1430,54 @@ def get_sales_report(request):
 #Sales Report with date
 def get_sales_report_date(request):
     if 'UserId' in request.session:        
-        userid=request.session.get('UserId')  
+        
         repId=request.GET.get('repId')
         from_date=request.GET.get('from_date')
         to_date=request.GET.get('to_date')
         print("From date=======================",from_date,to_date,repId)
-        salesreport=selector.get_sales_call_report(from_date,to_date,repId)
+        salesreport,interested=selector.get_sales_call_report(from_date,to_date,repId)
+        print("Report=====",salesreport)
+        return JsonResponse({"report":salesreport,"interested":interested})
+    else:
+        return redirect('/login')
+#Monthly sales report
+def get_sales_report_monthly(request):
+    if 'UserId' in request.session:        
+       
+        repId=request.GET.get('repId')
+        month=request.GET.get('month')
+        year=request.GET.get('year')
+        print("From date=======================",month,year,repId)
+        salesreport=selector.get_sales_call_report_monthly(month,year,repId)
         print("Report=====",salesreport)
         return JsonResponse({"report":salesreport})
     else:
         return redirect('/login')
+#print Sales call Report
+def print_sales_call_report(request):
+    if 'UserId' in request.session: 
+        repId=request.GET.get('SalesRep')
+        from_date=request.GET.get('from')
+        to_date=request.GET.get('to')
+        print("From date=======================",from_date,to_date,repId)
+        salesreport,interested=selector.get_sales_call_report(from_date,to_date,repId)
+        if salesreport:
+            total_row=salesreport[-1]
+            spoken=total_row[1]
+            total=total_row[6]
+            spokenper=round((spoken/total)*100,2)
+        print("Last from th tuple====",total_row,spoken,total,spokenper)
+        return render(request,'sales/SalesreportPrint.html',{"reports":salesreport,"interested":interested,"repname":repId,"from":from_date,"to":to_date,"spoken":spokenper})
+    else:
+        return redirect('/login')
+
+#Live chat Page render
+
+def live_chat(request):
+     if 'UserId' in request.session:
+        return render(request,'sales/livechat.html')
+
+
 
 
 

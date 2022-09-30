@@ -9,8 +9,8 @@ File: Datatables Js File
 
 $(document).ready(function () {
 
-
-
+    $("#interested-ul").hide()
+ 
 
 
 
@@ -53,11 +53,28 @@ $(document).ready(function () {
         
 
     });
+    let flatpickermonthly=flatpickr('#monthly', {
+
+        //const fp = flatpickr(".test-calendar", {  altFormat: "F j, Y", dateFormat: "Y-m-d", showMonths: 3, disableMobile: true, inline: true, mode: "range", 
+        //altInput: true,
+        "allowInput": true,
+        dateFormat: "M Y",//MMMM Do YYYY
+        altFormat:"M Y",
+        mode: "single",
+        //enableTime: false,
+        altInput: true, // Human Readable
+        //minDate: new Date().fp_incr(-60), // 60 days from today
+        //maxDate: defaultEnd,
+        //locale: { firstDayOfWeek: 1},
+
+        
+
+    });
     $("#load-btn-sr"
     ).click(function() {
         flatpickerfromdate.clear();
         flatpickertodate.clear();
-        flatpickr.clear();
+        // flatpickr.clear();
         
      })
 

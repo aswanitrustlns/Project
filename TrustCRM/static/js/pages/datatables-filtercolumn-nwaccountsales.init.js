@@ -200,8 +200,48 @@ var table = $('#datatableleads').DataTable({
 //dataTables('#datatableleads');
     
  // Date range vars
- minDateFilter = "";
- maxDateFilter = "";
+ 
+
+    //Flat Picker Date
+    flatpickr('#todate', {
+
+        //const fp = flatpickr(".test-calendar", {  altFormat: "F j, Y", dateFormat: "Y-m-d", showMonths: 3, disableMobile: true, inline: true, mode: "range", 
+        //altInput: true,
+        "allowInput": true,
+        dateFormat: "Y-m-d",//MMMM Do YYYY
+       
+        mode: "single",
+        //enableTime: false,
+        altInput: true, // Human Readable
+        //minDate: new Date().fp_incr(-60), // 60 days from today
+        //maxDate: defaultEnd,
+        //locale: { firstDayOfWeek: 1},
+
+        
+
+    });
+
+    //Flat Picker Date
+    flatpickr('#fromdate', {
+
+        //const fp = flatpickr(".test-calendar", {  altFormat: "F j, Y", dateFormat: "Y-m-d", showMonths: 3, disableMobile: true, inline: true, mode: "range", 
+        //altInput: true,
+        "allowInput": true,
+        dateFormat: "Y-m-d",//MMMM Do YYYY
+        altFormat: "Y-m-d",
+        mode: "single",
+        //enableTime: false,
+        altInput: true, // Human Readable
+        //minDate: new Date().fp_incr(-60), // 60 days from today
+        //maxDate: defaultEnd,
+        //locale: { firstDayOfWeek: 1},
+
+        
+
+    });
+
+    minDateFilter = "";
+    maxDateFilter = "";
 
 
     //Flat Picker Date
@@ -277,49 +317,10 @@ var table = $('#datatableleads').DataTable({
 
             rangefilter();
 
-                         console.log(selectedDates.attr('value'));
+                         //console.log(selectedDates.attr('value'));
           
             
         }
-
-    });
-
-
-    //Flat Picker Date
-    flatpickr('#todate', {
-
-        //const fp = flatpickr(".test-calendar", {  altFormat: "F j, Y", dateFormat: "Y-m-d", showMonths: 3, disableMobile: true, inline: true, mode: "range", 
-        //altInput: true,
-        "allowInput": true,
-        dateFormat: "Y-m-d",//MMMM Do YYYY
-        altFormat: "Y-m-d",
-        mode: "single",
-        //enableTime: false,
-        altInput: true, // Human Readable
-        //minDate: new Date().fp_incr(-60), // 60 days from today
-        //maxDate: defaultEnd,
-        //locale: { firstDayOfWeek: 1},
-
-        
-
-    });
-
-    //Flat Picker Date
-    flatpickr('#fromdate', {
-
-        //const fp = flatpickr(".test-calendar", {  altFormat: "F j, Y", dateFormat: "Y-m-d", showMonths: 3, disableMobile: true, inline: true, mode: "range", 
-        //altInput: true,
-        "allowInput": true,
-        dateFormat: "Y-m-d",//MMMM Do YYYY
-        altFormat: "Y-m-d",
-        mode: "single",
-        //enableTime: false,
-        altInput: true, // Human Readable
-        //minDate: new Date().fp_incr(-60), // 60 days from today
-        //maxDate: defaultEnd,
-        //locale: { firstDayOfWeek: 1},
-
-        
 
     });
 

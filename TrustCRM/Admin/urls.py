@@ -3,6 +3,7 @@ from xml.etree.ElementInclude import include
 from django.urls import URLPattern, path
 from django.conf.urls.static import static
 from django.conf import settings
+from django.views.generic import TemplateView
 from .views import *
 urlpatterns=[
     path('login/',login,name="Login"),
@@ -10,6 +11,7 @@ urlpatterns=[
     path('dashboard/',dashboard,name="Dashboard"),
     # path('salesdashboard/',salesdashboard,name="SalesDashboard"),
     # path('newaccounts',new_accounts,name="NewAccounts"),
+    path('index.html', TemplateView.as_view(template_name="test/index.html")),
     path('Leads',lead,name="Leads"),
     path('LoadAll',lead_load_all,name="LoadAll"),
     path('LeadClick',lead_load_click,name="LeadClick"),
@@ -54,6 +56,9 @@ urlpatterns=[
     path('TicketLogs',ticket_logs_insertion,name="TicketLogs"),
     path('SalesReport',get_sales_report,name="SalesReport"),
     path('Report',get_sales_report_date,name="Report"),
+    path('PrintReport', print_sales_call_report,name="PrintReport"),
+    path('MonthlyReport',get_sales_report_monthly,name="MonthlyReport"),
+    path('Livechat',live_chat,name="Livechat"),
     
     #seminar=============================================================
     path('Upcoming',upcomingSeminars,name="Upcoming"),
@@ -69,7 +74,7 @@ urlpatterns=[
     path('ReadSendItems',read_send_items,name="ReadSendItems"),
     path('EmailData',email_data,name="EmailData"),
     path('logout',logout,name="Logout"),
-   
+    
    
  
 ]

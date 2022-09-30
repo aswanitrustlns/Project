@@ -94,7 +94,7 @@
                                             </div>
                                       
                                             {%if multipart == "true" %}
-                                                {% include 'test/index.html' %}
+                                            <iframe src='index.html' style="width: 80%;height: 90vh; "></iframe>
                                             {%else%}
                                             <p class="gilroyregular-type color-color1 fs-16"> {% autoescape off %}{{message|linebreaks}}{% endautoescape %}</p>
                                             {%endif%}

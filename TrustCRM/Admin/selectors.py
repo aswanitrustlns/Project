@@ -401,7 +401,7 @@ class Selector:
            print("Else executed-=====",date_yesterday,date_today)
            Cursor.execute("set nocount on;exec SP_GetNewActsFromDashboard %s,%s,%s",[date_yesterday,date_today,change])  
            live_accounts=Cursor.fetchall()
-           print("Length of dat======================",live_accounts)  
+         
         except Exception as e:
             print("Exception---",e)
         finally:
@@ -1385,11 +1385,17 @@ class Selector:
             Cursor=connection.cursor()           
             Cursor.execute("set nocount on;exec TC_GetSalesCallReport  %s,%s,%s",[from_date,to_date,salesRep]) 
             call_report=Cursor.fetchall()
+            Cursor.execute("set nocount on;exec Sp_Interested  %s,%s,%s",[from_date,to_date,salesRep]) 
+            interested=Cursor.fetchall()
+            if interested:
+                interested=interested[0]
+                interested=interested[0]
+            print("Interested=======",interested)
         except Exception as e:
                 print("Exception------",e)
         finally:
                 Cursor.close()
-        return call_report
+        return call_report,interested
       #Get sales call report monthly
     def get_sales_call_report_monthly(self,month,year,salesRep):
         try:

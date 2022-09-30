@@ -176,8 +176,8 @@
                                     <table id="datatableleadsR" class="table dt-responsive  nowrap  w-100">
                                         <thead>
                                             <tr  class=" ">
-                                                <th data-id="datepicker-range" class="filterhead">RegDate</th>
-                                                
+                                                <!-- <th data-id="datepicker-range-reject" class="filterhead">RegDate</th> -->
+                                                <th data-text="text" class="filterhead">RegDate</th>
                                                 <th  data-text="text" class="filterhead">Promo</th>
                                                 <th  data-text="text" class="filterhead">Rejectd</th>
                                                 <th  data-timer="option" class="filterhead">Login</th>
@@ -398,7 +398,204 @@
                 
 
             }
-            function rejectedAccount(change,status){
+            function liveAccount(change,status){
+            fromdate=document.getElementById("fromdate").value
+            todate=document.getElementById("todate").value
+            var json_data;
+                $("#datatableleads").DataTable({
+                'paging':true, 
+                'destroy': true,               
+                'ajax':{
+                   "url": "{% url 'Admin:NewAccounts' %}",
+                   "type": "GET",
+                   "data":{
+                    'change':change,
+                    'from':fromdate,
+                    'to':todate,
+                    'status':status,
+                   },
+                   "dataSrc":function(data){
+                    json_data=data.data
+                    count=data.count
+                    console.log("Count========="+count[0])
+                    var fundspan=document.getElementById("fundspan")
+                    var nonfundspan=document.getElementById("nonfundspan")
+                    var approvespan=document.getElementById("approvespan")
+                    var waitingspan=document.getElementById("waitingspan")
+                    fundspan.innerHTML=count[0]
+                    nonfundspan.innerHTML=count[1]
+                    approvespan.innerHTML=count[2]
+                    waitingspan.innerHTML=count[3]
+                    var items = [];
+                    for ( var i=0, ien=json_data.length ; i<ien ; i++ ) {
+
+                        items[i] = [json_data[i][0],json_data[i][1],json_data[i][2],json_data[i][3],json_data[i][4],json_data[i][5],json_data[i][6],json_data[i][9],json_data[i][8]]; 
+                            
+                        }
+                        
+                        return items;
+                   }
+                },
+                responsive: true,
+                orderCellsTop: true,
+                fixedHeader: true,
+                initComplete: function () {
+                    var api = this.api();
+     
+                        api
+                        .columns()
+                        .eq(0)
+                        .each(function (colIdx) {
+                        var column = this;
+             // Set the header cell to contain the input element
+
+                 var cell = $('.filters th').eq(
+                 $(api.column(colIdx).header()).index()
+             );
+             var $myindex=$(api.column(colIdx).header()).index();
+             var $myhead=$("#datatableleads thead tr th").eq($myindex);
+             var title = $myhead.text();
+             var id = $myhead.attr('data-id');
+             //var datatext=$(cell).attr('data-text');
+             var select1 = $('<select   id="' + id + '" placeholder="' + title + '"  class="fs-14 form-control w-100"><option value=""></option></select>');
+             if ($(cell).attr('data-text') == 'select') {
+                 //console.log($(cell).index());
+                 api.column($(cell).index())
+                     .data()
+                     .unique()
+                     .sort()
+                     .each(function (d, j) {
+
+
+                         select1.append('<option value="' + d + '">' + d + '</option>');
+
+                     });
+                 $(cell).html(select1);
+
+
+
+
+             } else {
+                 $(cell).html('<input type="text" id="' + id + '" placeholder="' + title + '"  class="fs-14"   />');
+             }
+
+
+             // On every keypress in this input
+             $(
+                 'input',
+                 $('.filters th').eq($(api.column(colIdx).header()).index())
+             )
+                 .off('keyup change')
+                 .on('change', function (e) {
+
+                     if ($(this).attr('id') == 'datepicker-range') {
+                         console.log("Heloooo");
+
+                         //var vals=this.value ;
+
+
+
+                     } else {
+                         //console.log($(this).attr('id'));
+
+
+                         // Get the search value
+                         $(this).attr('title', $(this).val());
+
+                         //var vals=this.value ;
+
+                         var regexr = '({search})'; //$(this).parents('th').find('select').val();
+
+                         var cursorPosition = this.selectionStart;
+                         // Search the column for that value
+                         api
+                             .column(colIdx)
+                             .search(
+                                 this.value != ''
+                                     ? regexr.replace('{search}', '(((' + this.value + ')))')
+                                     : '',
+                                 this.value != '',
+                                 this.value == ''
+                             )
+                             .draw();
+
+                     }
+
+
+                 })
+                 .on('keyup', function (e) {
+                     e.stopPropagation();
+
+                     $(this).trigger('change');
+                     $(this)
+                         .focus()[0]
+                         .setSelectionRange(cursorPosition, cursorPosition);
+                 });
+
+             $(
+                 'select',
+                 $('.filters th').eq($(api.column(colIdx).header()).index())
+             )
+                 .off('keyup change')
+                 .on('change', function (e) {
+
+                     if ($(this).attr('id') == 'datepicker-range') {
+                         console.log("Heloooo");
+
+                         //var vals=this.value ;
+
+
+
+                     } else {
+                         //console.log($(this).attr('id'));
+
+
+                         // Get the search value
+                         $(this).attr('title', $(this).val());
+
+                         //var vals=this.value ;
+
+                         var regexr = '({search})'; //$(this).parents('th').find('select').val();
+
+                         var cursorPosition = this.selectionStart;
+                         // Search the column for that value
+                         api
+                             .column(colIdx)
+                             .search(
+                                 this.value != ''
+                                     ? regexr.replace('{search}', '(((' + this.value + ')))')
+                                     : '',
+                                 this.value != '',
+                                 this.value == ''
+                             )
+                             .draw();
+
+                     }
+
+                 })
+                 .on('keyup', function (e) {
+                     e.stopPropagation();
+
+                     $(this).trigger('change');
+                     $(this)
+                         .focus()[0]
+                         .setSelectionRange(cursorPosition, cursorPosition);
+                 });
+         });
+         flatpikrCall("datatableleads")
+ },
+                
+               
+            });     
+            
+           
+        }
+
+
+
+
+
+function rejectedAccount(change,status){
             fromdate=document.getElementById("fromdate").value
             todate=document.getElementById("todate").value
            $("#fromdate").val("")
@@ -539,7 +736,7 @@
                 
                
             });     
-            
+            flatpikrCall("datatableleadsR")
         }
 
 
@@ -680,14 +877,14 @@
                 });
                 
         },
-                
+               
                
             });     
-            
+            flatpikrCall("datatableleadsC")
            
         }  
         
-        function pageRedirect(variant){
+ function pageRedirect(variant){
         var fromdate=document.getElementById("fromdate").value
         var todate=document.getElementById("todate").value
         console.log("From date=================="+fromdate)
@@ -876,12 +1073,12 @@
                          .setSelectionRange(cursorPosition, cursorPosition);
                  });
          });
-         flatpikrCall()
- },
+         flatpikrCall("datatableleads")
+    },
                 
                
             });  
-    }
+ }
 
 
         function terminateAccount(change,status){
@@ -1069,7 +1266,7 @@
                          .setSelectionRange(cursorPosition, cursorPosition);
                  });
          });
-         flatpikrCall()
+         flatpikrCall("datatableleadsT")
  },
                 
                
@@ -1077,201 +1274,9 @@
             
            
         }    
-        function liveAccount(change,status){
-            fromdate=document.getElementById("fromdate").value
-            todate=document.getElementById("todate").value
-            var json_data;
-                $("#datatableleads").DataTable({
-                'paging':true, 
-                'destroy': true,               
-                'ajax':{
-                   "url": "{% url 'Admin:NewAccounts' %}",
-                   "type": "GET",
-                   "data":{
-                    'change':change,
-                    'from':fromdate,
-                    'to':todate,
-                    'status':status,
-                   },
-                   "dataSrc":function(data){
-                    json_data=data.data
-                    count=data.count
-                    console.log("Count========="+count[0])
-                    var fundspan=document.getElementById("fundspan")
-                    var nonfundspan=document.getElementById("nonfundspan")
-                    var approvespan=document.getElementById("approvespan")
-                    var waitingspan=document.getElementById("waitingspan")
-                    fundspan.innerHTML=count[0]
-                    nonfundspan.innerHTML=count[1]
-                    approvespan.innerHTML=count[2]
-                    waitingspan.innerHTML=count[3]
-                    var items = [];
-                    for ( var i=0, ien=json_data.length ; i<ien ; i++ ) {
+        
 
-                        items[i] = [json_data[i][0],json_data[i][1],json_data[i][2],json_data[i][3],json_data[i][4],json_data[i][5],json_data[i][6],json_data[i][9],json_data[i][8]]; 
-                            
-                        }
-                        
-                        return items;
-                   }
-                },
-                responsive: true,
-                orderCellsTop: true,
-                fixedHeader: true,
-                initComplete: function () {
-                    var api = this.api();
-     
-                        api
-                        .columns()
-                        .eq(0)
-                        .each(function (colIdx) {
-                        var column = this;
-             // Set the header cell to contain the input element
-
-                 var cell = $('.filters th').eq(
-                 $(api.column(colIdx).header()).index()
-             );
-             var $myindex=$(api.column(colIdx).header()).index();
-             var $myhead=$("#datatableleads thead tr th").eq($myindex);
-             var title = $myhead.text();
-             var id = $myhead.attr('data-id');
-             //var datatext=$(cell).attr('data-text');
-             var select1 = $('<select   id="' + id + '" placeholder="' + title + '"  class="fs-14 form-control w-100"><option value=""></option></select>');
-             if ($(cell).attr('data-text') == 'select') {
-                 //console.log($(cell).index());
-                 api.column($(cell).index())
-                     .data()
-                     .unique()
-                     .sort()
-                     .each(function (d, j) {
-
-
-                         select1.append('<option value="' + d + '">' + d + '</option>');
-
-                     });
-                 $(cell).html(select1);
-
-
-
-
-             } else {
-                 $(cell).html('<input type="text" id="' + id + '" placeholder="' + title + '"  class="fs-14"   />');
-             }
-
-
-             // On every keypress in this input
-             $(
-                 'input',
-                 $('.filters th').eq($(api.column(colIdx).header()).index())
-             )
-                 .off('keyup change')
-                 .on('change', function (e) {
-
-                     if ($(this).attr('id') == 'datepicker-range') {
-                         console.log("Heloooo");
-
-                         //var vals=this.value ;
-
-
-
-                     } else {
-                         //console.log($(this).attr('id'));
-
-
-                         // Get the search value
-                         $(this).attr('title', $(this).val());
-
-                         //var vals=this.value ;
-
-                         var regexr = '({search})'; //$(this).parents('th').find('select').val();
-
-                         var cursorPosition = this.selectionStart;
-                         // Search the column for that value
-                         api
-                             .column(colIdx)
-                             .search(
-                                 this.value != ''
-                                     ? regexr.replace('{search}', '(((' + this.value + ')))')
-                                     : '',
-                                 this.value != '',
-                                 this.value == ''
-                             )
-                             .draw();
-
-                     }
-
-
-                 })
-                 .on('keyup', function (e) {
-                     e.stopPropagation();
-
-                     $(this).trigger('change');
-                     $(this)
-                         .focus()[0]
-                         .setSelectionRange(cursorPosition, cursorPosition);
-                 });
-
-             $(
-                 'select',
-                 $('.filters th').eq($(api.column(colIdx).header()).index())
-             )
-                 .off('keyup change')
-                 .on('change', function (e) {
-
-                     if ($(this).attr('id') == 'datepicker-range') {
-                         console.log("Heloooo");
-
-                         //var vals=this.value ;
-
-
-
-                     } else {
-                         //console.log($(this).attr('id'));
-
-
-                         // Get the search value
-                         $(this).attr('title', $(this).val());
-
-                         //var vals=this.value ;
-
-                         var regexr = '({search})'; //$(this).parents('th').find('select').val();
-
-                         var cursorPosition = this.selectionStart;
-                         // Search the column for that value
-                         api
-                             .column(colIdx)
-                             .search(
-                                 this.value != ''
-                                     ? regexr.replace('{search}', '(((' + this.value + ')))')
-                                     : '',
-                                 this.value != '',
-                                 this.value == ''
-                             )
-                             .draw();
-
-                     }
-
-                 })
-                 .on('keyup', function (e) {
-                     e.stopPropagation();
-
-                     $(this).trigger('change');
-                     $(this)
-                         .focus()[0]
-                         .setSelectionRange(cursorPosition, cursorPosition);
-                 });
-         });
-         flatpikrCall()
- },
-                
-               
-            });     
-            
-           
-        }
-
-
-function flatpikrCall(){
+function flatpikrCall(id){
     
     minDateFilter = "";
     maxDateFilter = "";
@@ -1280,28 +1285,27 @@ function flatpikrCall(){
     //Flat Picker Date
     flatpickr('#datepicker-range', {
 
-        
+        //const fp = flatpickr(".test-calendar", {  altFormat: "F j, Y", dateFormat: "Y-m-d", showMonths: 3, disableMobile: true, inline: true, mode: "range", 
+        //altInput: true,
         "allowInput": true,
         dateFormat: "Y-m-d",//MMMM Do YYYY
         altFormat: "Y-m-d",
         mode: "range",
         //enableTime: false,
         altInput: true, // Human Readable
-      
+        //minDate: new Date().fp_incr(-60), // 60 days from today
+        //maxDate: defaultEnd,
+        //locale: { firstDayOfWeek: 1},
 
         onChange:
             function (selectedDates, dateStr, instance) {
               
-                var table = $('#datatableleads').DataTable();
+                var table = $('#'+id).DataTable();
                 function rangefilter(ev, picker) {
-
                             minDateFilter = Date.parse(selectedDates[0]);
                             maxDateFilter = Date.parse(selectedDates[1]);
-
-                            console.log( 'maxDateFilter'+ selectedDates[0]);
-                            console.log( 'maxDateFilter'+ selectedDates[1]);
-                            console.log( 'minDateFilter'+ minDateFilter);
-                            console.log( 'minDateFilter'+ minDateFilter);
+                            //console.log( 'maxDateFilter'+ maxDateFilter);
+                            //console.log( 'minDateFilter'+ minDateFilter);
                            // console.log( $(this).index()+1);
                             $.fn.dataTable.ext.search.push(function(settings, data, dataIndex) {
                             var date = Date.parse(data[ $(this).index()+1]);
@@ -1359,6 +1363,7 @@ function flatpikrCall(){
     });
 
 }
+
 
       
     </script>    
