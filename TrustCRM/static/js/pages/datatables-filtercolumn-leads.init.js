@@ -266,7 +266,7 @@ var table = $('#datatableleads').DataTable({
 
 
     //Flat Picker Date
-    flatpickr('#todate', {
+    let flatpickertodate=flatpickr('#todate', {
 
         //const fp = flatpickr(".test-calendar", {  altFormat: "F j, Y", dateFormat: "Y-m-d", showMonths: 3, disableMobile: true, inline: true, mode: "range", 
         //altInput: true,
@@ -285,7 +285,7 @@ var table = $('#datatableleads').DataTable({
     });
 
     //Flat Picker Date
-    flatpickr('#fromdate', {
+    let flatpickerfromdate=flatpickr('#fromdate', {
 
         //const fp = flatpickr(".test-calendar", {  altFormat: "F j, Y", dateFormat: "Y-m-d", showMonths: 3, disableMobile: true, inline: true, mode: "range", 
         //altInput: true,
@@ -302,7 +302,13 @@ var table = $('#datatableleads').DataTable({
         
 
     });
-
+    $("#load-all"
+    ).click(function() {
+        flatpickerfromdate.clear();
+        flatpickertodate.clear();
+        // flatpickr.clear();
+        
+     })
 
 
 

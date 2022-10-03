@@ -58,6 +58,7 @@ $(document).ready(function () {
         //const fp = flatpickr(".test-calendar", {  altFormat: "F j, Y", dateFormat: "Y-m-d", showMonths: 3, disableMobile: true, inline: true, mode: "range", 
         //altInput: true,
         "allowInput": true,
+        
         dateFormat: "M Y",//MMMM Do YYYY
         altFormat:"M Y",
         mode: "single",

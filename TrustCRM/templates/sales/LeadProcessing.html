@@ -838,7 +838,7 @@
                                                                                 <div class="mb-3">
                                                                                     <label class="form-label" for="dob">Date of birth</label>
                                                                                     <input type="text" class="form-control border-0"
-                                                                                        id="dob" placeholder="" name="dob">
+                                                                                        id="dob" placeholder="" name="dob" >
                         
                                                                                 </div>
                                                                             </div>
@@ -2118,6 +2118,12 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
         let profession=0;
         let highlypotential=0;
         let remindermust=0
+        var input;
+        var iti;
+        var iti2;
+        var input2;
+        var errorMsg;
+        var validMsg;
         
         $(document).ready(function () {
             // $("#temp-chinese").hide()
@@ -2130,6 +2136,94 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
             $("#ticketno").val(ticket)
             $("#submitftypeleads").attr("disabled",true)
             $("#resetftypeleads").attr("disabled",true)
+            //intTel
+            var intTel = function () {
+
+            input = document.querySelector("#phone"),
+            input2 = document.querySelector("#phone2"),
+            errorMsg = document.querySelector("#error-msg"),
+            validMsg = document.querySelector("#valid-msg"),
+            errorMsg2 = document.querySelector("#error-msg2"),
+            validMsg2 = document.querySelector("#valid-msg2");
+
+            // here, the index maps to the error code returned from getValidationError - see readme
+            var errorMap = ["Invalid number","Invalid country code", "Too short", "Too long", "Invalid number"];
+
+            var reset = function ($input, $errorMsg, $validMsg) {
+                $input.classList.remove("error");
+                $input.classList.remove("error");
+                $errorMsg.innerHTML = "";
+                $errorMsg.classList.add("hide");
+                $validMsg.classList.add("hide");
+
+            };
+            var blur = function ($input, $errorMsg, $validMsg, $iti) {
+
+
+                $input.addEventListener('blur', function () {
+                    reset($input, $errorMsg, $validMsg);
+                    if ($input.value.trim()) {
+                        if ($iti.isValidNumber()) {
+                            $validMsg.classList.remove("hide");
+                        } else {
+                            $input.classList.add("error");
+                            var errorCode = iti.getValidationError();
+                            $errorMsg.innerHTML = errorMap[errorCode];
+                            $errorMsg.classList.remove("hide");
+
+                        }
+                    }
+                });
+            }
+
+            iti = window.intlTelInput(input, {
+                // any initialisation o,ptions go here
+                //nationalMode: true,
+                initialCountry: "auto",
+                
+                geoIpLookup: function (callback) {
+                    $.get('https://ipinfo.io', function () { }, "jsonp").always(function (resp) {
+                        var countryCode = (resp && resp.country) ? resp.country : "";
+                        callback(countryCode);
+                    });
+                    
+                },
+                placeholderNumberType: 'MOBILE',
+                utilsScript: "static/js/pages/utils.init.js?1638200991544"
+            });
+
+            // on blur: validate
+            blur(input, errorMsg, validMsg, iti);
+            // on keyup / change flag: reset
+            input.addEventListener('keyup', reset(input, errorMsg, validMsg));
+            input.addEventListener('keyup', reset(input, errorMsg, validMsg));
+
+
+                 iti2 = window.intlTelInput(input2, {
+                    initialCountry: "auto",
+                    geoIpLookup: function (callback) {
+                        $.get('https://ipinfo.io', function () { }, "jsonp").always(function (resp) {
+                            var countryCode = (resp && resp.country) ? resp.country : "us";
+                            callback(countryCode);
+                        });
+                    },
+
+                    placeholderNumberType: 'MOBILE',
+
+                    utilsScript: "/js/pages/utils.init.js?1638200991544"
+                });
+
+
+                // on blur: validate
+                blur(input2, errorMsg2, validMsg2, iti2);
+                // on keyup / change flag: reset
+                input.addEventListener('change', reset(input2, errorMsg2, validMsg2));
+                input.addEventListener('keyup', reset(input2, errorMsg2, validMsg2));
+                // on blur: validate
+
+        }
+
+                intTel();
             if(ticket){
                 loadTicketFuns()
             }
@@ -2155,10 +2249,11 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
         // });
 
         $("#country").change(function(){ 
-            var input = document.querySelector("#phone") 
-            var iti = window.intlTelInput(input, {        
-                initialCountry: "in",
-            });
+            // var countrycode=
+            // var input = document.querySelector("#phone") 
+            // var iti = window.intlTelInput(input, {        
+            //     initialCountry: "in",
+            // });
     
     }); 
         
@@ -3875,19 +3970,15 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
                         updateWebinarList(webinarList)
                         // $('#digital-container').load(document.URL +  ' #digital-container   ')
                         console.log("Country================================="+country)
-                        if(country!=0){
-                            $("#phone").trigger('change')
-                            input.addEventListener('change', reset(input, errorMsg, validMsg));
-                            input = document.querySelector("#phone") 
-                            console.log("Input phone number======="+input)
-                            console.log("Input phone number======="+phone1)
-                            // var iti = window.intlTelInput(input, {        
-                            //     initialCountry: countrycode,
-                            //     placeholderNumberType: 'MOBILE',
-                            //     utilsScript: "assets/js/pages/utils.init.js?1638200991544"
-                            // });
+                        console.log("Country================================="+countrycode)
+                        if(country!=0){                           
+                          
                             iti.setCountry(countrycode);
-                            // blur(input, errorMsg, validMsg, iti);
+                            iti2.setCountry(countrycode);
+                            $("#phone").trigger("onclick");
+                            // input.dispatchEvent(new Event("input"))
+                            // input.addEventListener('click', (e) => e.currentTarget.select());
+                            
                             LoadWorldClock(countrycode)
                         }else{
                             $("#digital-container").hide()

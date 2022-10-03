@@ -256,6 +256,7 @@ $(document).ready(function () {
        
         "allowInput":true,
         dateFormat: "Y-m-d",
+        altFormat:"Y-m-d",
         maxDate: "today",
         altInput: true, // Human Readable
         

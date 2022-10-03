@@ -64,7 +64,7 @@
                                         <button type="button" class="btn btn-lg btn-primary  color-color1 mb-3 mx-1 gilory-semibold-type"  id="resolved-switch" style="background-color: var(--bs-card-bg); "  onclick="addColor(this,'bg-soft-purple text-white', 'color-color1');loadAll('R');">Resolved</button>
                                         <button type="button" class="btn btn-lg btn-primary  color-color1 mb-3 mx-1 gilory-semibold-type"  id="dormant-switch" style="background-color: var(--bs-card-bg) ;" onclick="addColor(this,'bg-soft-purple text-white','color-color1');loadAll('D');">Dormant</button>
                                         
-                                        <input type="hidden" name="selected_tab" id="selected_tab" value="P">
+                                        <input type="hidden" name="selected_tab" id="selected_tab" >
                                     </div>
                                     
                                     <div class=" mt-2  mt-md-0">
@@ -94,7 +94,7 @@
 
                                                     </div>
                                                     <div class="col-sm-3 ">
-                                                        <button class="btn btn-info btn-md mb-2 py-1" type="button" onclick="loadAll('all')" >Load</button>
+                                                        <button class="btn btn-info btn-md mb-2 py-1" type="button" onclick="loadAll('all')" id="load-all" >Load</button>
                                                     </div>
                                             </div>
                                         
@@ -363,6 +363,7 @@ onClose: function (selectedDates, dateStr, instance) {
                 }
 
             }
+            console.log("Change====="+change)
             console.log("Status======="+status)
             fromdate=document.getElementById("fromdate").value
             todate=document.getElementById("todate").value

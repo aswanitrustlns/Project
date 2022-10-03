@@ -281,7 +281,7 @@ class Selector:
 
     def get_all_tickets(self,userId,status,from_date,to_date):
         try:
-
+            _tickets=[]
             Cursor=connection.cursor()
             
             date_today=datetime.today().date()    
@@ -301,6 +301,7 @@ class Selector:
                 Cursor.execute("exec SP_GetDormantSalesLeadsPaginate_PY %s,%s,%s",[userId,"P",userId])
                 _tickets=Cursor.fetchall()
             else:
+                     print("Inputs========",userId,from_date,to_date,status)
                      Cursor.execute("exec SP_GetSalesLeadsListPaginate_PY %s,%s,%s,%s,%s",[userId,from_date,to_date,status,0])
                      _tickets=Cursor.fetchall()
             # if(ticket=="resolved"):
@@ -459,6 +460,7 @@ class Selector:
             leads_count=Cursor.fetchone()
         except Exception as e:
             print("Exception---",e)
+            
         finally:
             Cursor.close()
         return leads_count

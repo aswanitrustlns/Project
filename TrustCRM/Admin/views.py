@@ -843,6 +843,7 @@ def new_accounts(request):
             
             # terminated_data=selector.get_new_accounts("Terminated")
             return render(request,'admin/newAccounts.html',{'accounts_data':accounts_data,'accounts_count':accounts_count,"active":json.dumps(active)})
+            # return render(request,'sales/allclients.html',{'accounts_data':accounts_data,'accounts_count':accounts_count,"active":json.dumps(active)})
                 
     else:
         return redirect('/login')

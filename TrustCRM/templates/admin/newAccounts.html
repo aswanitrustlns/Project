@@ -104,7 +104,7 @@
 
                                                     </div>
                                                     <div class="col-sm-3 ">
-                                                        <button class="btn btn-info btn-md mb-2 py-1" type="button" onclick="changeAccount('All');" >Load</button>
+                                                        <button class="btn btn-info btn-md mb-2 py-1" type="button" onclick="changeAccount('All');" id="load-btn">Load</button>
                                                     </div>
                                             </div>
                                         
@@ -137,8 +137,9 @@
                                         <thead>
                                             <tr  class=" ">
                                                 <!-- <th  data-text="text" class="filterhead">Promo</th> -->
-                                                <th  data-text="text" class="filterhead">Promo</th>
                                                 <th data-id="datepicker-range" class="filterhead">RegDate</th>
+                                                <th  data-text="text" class="filterhead">Promo</th>
+                                                
                                                 <th  data-timer="option" class="filterhead">Login</th>
                                                 <th  data-text="text" class="filterhead">Name</th>
                                                 <th  data-text="text" class="filterhead">Email</th>
@@ -153,8 +154,9 @@
                                         <tbody id="newaccounts_data">
                                             {%for data in accounts_data %}   
                                         <tr>
-                                            <td>{{data.0}} </td>
                                             <td>{{data.1}}</td>
+                                            <td>{{data.0}} </td>
+                                            
                                             <td>{{data.2}}</td>
                                             <td>{{data.3}}</td>
                                             <td>{{data.4}}</td>
@@ -429,7 +431,7 @@
                     var items = [];
                     for ( var i=0, ien=json_data.length ; i<ien ; i++ ) {
 
-                        items[i] = [json_data[i][0],json_data[i][1],json_data[i][2],json_data[i][3],json_data[i][4],json_data[i][5],json_data[i][6],json_data[i][9],json_data[i][8]]; 
+                        items[i] = [json_data[i][1],json_data[i][0],json_data[i][2],json_data[i][3],json_data[i][4],json_data[i][5],json_data[i][6],json_data[i][9],json_data[i][8]]; 
                             
                         }
                         
@@ -920,7 +922,7 @@ function rejectedAccount(change,status){
                     var items = [];
                     for ( var i=0, ien=json_data.length ; i<ien ; i++ ) {
 
-                        items[i] = [json_data[i][0],json_data[i][1],json_data[i][2],json_data[i][3],json_data[i][4],json_data[i][5],json_data[i][6],json_data[i][9],json_data[i][8]]; 
+                        items[i] = [json_data[i][1],json_data[i][0],json_data[i][2],json_data[i][3],json_data[i][4],json_data[i][5],json_data[i][6],json_data[i][9],json_data[i][8]]; 
                             
                         }
                         

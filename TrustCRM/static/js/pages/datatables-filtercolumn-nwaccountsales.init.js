@@ -43,7 +43,7 @@ $(document).ready(function () {
    .addClass('filters')
    .appendTo('#datatableleads thead');
 
-var table = $('#datatableleads').DataTable({
+ var table = $('#datatableleads').DataTable({
    responsive: true,
    orderCellsTop: true,
    fixedHeader: true,
@@ -203,7 +203,7 @@ var table = $('#datatableleads').DataTable({
  
 
     //Flat Picker Date
-    flatpickr('#todate', {
+    let flatpickertodate=flatpickr('#todate', {
 
         //const fp = flatpickr(".test-calendar", {  altFormat: "F j, Y", dateFormat: "Y-m-d", showMonths: 3, disableMobile: true, inline: true, mode: "range", 
         //altInput: true,
@@ -222,7 +222,7 @@ var table = $('#datatableleads').DataTable({
     });
 
     //Flat Picker Date
-    flatpickr('#fromdate', {
+    let flatpickerfromdate=flatpickr('#fromdate', {
 
         //const fp = flatpickr(".test-calendar", {  altFormat: "F j, Y", dateFormat: "Y-m-d", showMonths: 3, disableMobile: true, inline: true, mode: "range", 
         //altInput: true,
@@ -324,7 +324,13 @@ var table = $('#datatableleads').DataTable({
 
     });
 
-
+    // $("#load-btn"
+    // ).click(function() {
+    //     flatpickerfromdate.clear();
+    //     flatpickertodate.clear();
+        
+        
+    //  })
 
 
 
