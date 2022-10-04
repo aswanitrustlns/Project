@@ -1409,7 +1409,17 @@ class Selector:
         finally:
                 Cursor.close()
         return monthly_report
-        
+    # Get calendar events
+    def get_all_calender_events(self,userId):
+        try:
+            Cursor=connection.cursor()           
+            Cursor.execute("set nocount on;exec SP_GetAllReminders %s",[userId]) 
+            all_reminders=Cursor.fetchall()
+        except Exception as e:
+                print("Exception------",e)
+        finally:
+                Cursor.close()
+        return all_reminders
 
 
 
@@ -1462,6 +1472,8 @@ def dll_demo_account(name,email,phone,country,password):
         login = c_int(username)
         connect=DemoAccount_Create(c_char_p(demoserver.encode('utf-8')).value,login.value,c_char_p(demopwd.encode('utf-8')).value,c_char_p(details.encode('utf-8')).value)
         return connect
+
+
 
 
 

@@ -42,7 +42,7 @@ ClassicEditor
     .create( document.querySelector('#editor'),
 
     {
-         ckfinder: {
+        ckfinder: {
         uploadUrl: 'Ckfinder/upload'
     },   
         fontFamily: {

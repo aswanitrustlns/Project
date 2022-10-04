@@ -531,6 +531,7 @@ var username_w = meeting_weekly_pie.map((item) => item.name);
 console.log(username_w)
 username_w=Object.values(username_w)
 console.log(username_w)
+
 function renderMeetingDonut($series,$id,$label){
 
 var donutColors = getChartColorsArray($id);

@@ -1,3 +1,4 @@
+from asyncio import events
 from distutils.log import error
 
 from ipaddress import ip_address
@@ -106,9 +107,12 @@ def dashboard(request):
         print("Selected rep=================",selrep)
        
         print("User Id=========================================",UserId)
-        permission_check=selector.user_role_selection(UserId)          
+        permission_check=selector.user_role_selection(UserId)    
+
         manager=permission_check[11]
         salesRep=permission_check[22]
+        print("Manager======================================",manager)
+        print("Sales Rep===================================",salesRep)
         dashbord_data={}
         UserName,Email=selector.get_user_name(UserId)
         notification_count,notification=selector.get_notification_data(UserId)       
@@ -140,22 +144,16 @@ def dashboard(request):
         if manager:
              
              request.session['role']="manager"
-             if(selrep!=None):
-                UserId=selrep
-             else:
-                UserId=30
+            
              print("Role============================manager")
             #  dashbord_data=sales_dash.admin_dashboard(UserId)  
-             dashbord_data=sales_dash.sales_dashboard(UserId)     
+             dashbord_data=sales_dash.manager_dashboard(UserId)    
              print("dashboard procedure ",datetime.now().time()) 
-             return render(request,'sales/dashboard.html',dashbord_data)
-            #  return render(request,'admin/dashboard.html',dashbord_data)
+            #  return render(request,'sales/dashboard.html',dashbord_data)
+             return render(request,'sales/managerdashboard.html',dashbord_data)
         if salesRep:
-             if(adminrole=="admin"):
-                print("Admin value is=============================1")
-                request.session['role']="manager"
-             else:
-                request.session['role']="salesrep"
+            
+             request.session['role']="salesrep"
              dashbord_data=sales_dash.sales_dashboard(UserId)     
              print("sales dashboard procedure end",datetime.now().time()) 
              return render(request,'sales/dashboard.html',dashbord_data)
@@ -163,315 +161,7 @@ def dashboard(request):
          return redirect('/login') 
 
 
-    # print("dashboard-start",datetime.now().time())
-    # if 'UserId' in request.session:
-    #     UserId=request.session.get('UserId')
-    #     global all_data
-    #     seminar_weekly_pie=[]
-    #     meeting_daily_pie=[]
-    #     meeting_weekly_pie=[]
-    #     daily_live_bar=[]
-    #     weekly_live_bar=[]
-    #     status_bar=[]
-    #     seminar_daily_pie=[]
-    #     halfyearly_bar=[]
-    #     insta_follwers_list=[]
-    #     count=0
-    #     date_today=datetime.today().date()
-    #     week_day=datetime.today().weekday() # Monday is 0 and Sunday is 6
-    #     date_today=date_today.strftime("%Y-%m-%d")
-    #     date_yesterday = datetime.today()-timedelta(1)
-    #     date_yesterday=date_yesterday.strftime("%Y-%m-%d")
-    #     print (date_yesterday)
-
-    #     try:
-    #         Cursor.execute("SELECT UserName FROM tbl_User where UserID=%s",[UserId])
-    #         UserName=Cursor.fetchone()
-    #         request.session['UserName']=UserName[0]
-    #         if(week_day==0):
-    #             date_yesterday = datetime.today()-timedelta(3)
-    #             date_yesterday=date_yesterday.strftime("%Y-%m-%d")
-
-    #         print (date_yesterday)
-    #         Cursor.execute("{call dbo.SP_GetDashboardCount(%s,%s,%s)}", [UserId,date_yesterday,date_today])
-                
-    #         result_set = Cursor.fetchall()        
-        
-            
-    #         Cursor.execute("set nocount on;exec SP_LiveAccountsCountByRepWeekly %s",'w')           
-    #         weekly_live_account = Cursor.fetchall()  
-            
-    #         Cursor.execute("set nocount on;exec SP_LiveAccountsCountByRepWeekly %s",'d')           
-    #         livecount_daily = Cursor.fetchall()
-
-    #         permission_check=selector.user_role_selection(UserId)
-            
-    #         manager=permission_check[11]
-    #         salesRep=permission_check[22]
-    #         # salesRep=True
-    #         print("Permision manager",manager)
-    #         print("Permision",salesRep)
-    #         if manager:
-    #             Cursor.execute("set nocount on; exec SP_OwnLeadsCountTotal")
-    #             leads=Cursor.fetchone()
-    #             leads=leads[1]
-                
-    #             Cursor.execute("set nocount on; exec SP_LiveAccountsCountByRepTotalD")           
-    #             live_account = Cursor.fetchone()
-    #             live_account=live_account[1]
-                
-                
-    #             Cursor.execute("set nocount on;exec SP_MeetingsCountByRepTotal")           
-    #             meetingcount = Cursor.fetchone()
-    #             meetingcount=meetingcount[1]
-                
-    #             Cursor.execute("set nocount on; exec SP_SpokenCallsTotal")
-    #             spokencall_one=Cursor.fetchone()
-    #             spokencall_one=spokencall_one[1]
-                
-                
-                
-    #             # UserName="Firaz Monzer"
-                
-
-                
-
-    #         if salesRep:
-
-    #         # Change
-    #             print("Inside salesrep")
-    #             Cursor.execute("set nocount on;exec SP_OwnLeadsCount")
-    #             leads_sales=Cursor.fetchall()
-    #             leads_sales_len=len(leads_sales)
-    #             for i in range(leads_sales_len):                
-    #                 all_leads=leads_sales[i]
-    #                 users_name=all_leads[0]
-    #                 print(users_name)
-    #                 print(UserName)
-    #                 if users_name.casefold() == UserName.casefold():
-    #                     print("same username-------------------------------------------------------------------------------------")
-    #                     leads=all_leads[1]
-    #                     break
-
-
-                
-    #             # Cursor.execute("set nocount on;exec exec SP_LiveAccountsCountByRepWeekly %s",['w'])           
-    #             # live_account_test = Cursor.fetchall()
-    #             Cursor.execute("set nocount on;exec SP_LiveAccountsCountByRepWeekly %s",['w'])           
-    #             live_account_sales = Cursor.fetchall()
-    #             live_account_sales_len=len(live_account_sales)          
-    #             for i in range(live_account_sales_len):
-    #                 print(live_account_sales[i])
-    #                 all_names=live_account_sales[i]
-    #                 users_name=all_names[0]
-    #                 if users_name==UserName:
-    #                     live_account=all_names[1]
-                        
-                
-    #             Cursor.execute("set nocount on;exec SP_MeetingsCountByRepWeekly %s",['w'])           
-
-    #             meetingcount_sales = Cursor.fetchall()
-    #             meetingcount_sales_len=len(meetingcount_sales)          
-    #             for i in range(meetingcount_sales_len):
-    #                 print(meetingcount_sales[i])
-    #                 all_names=meetingcount_sales[i]
-    #                 users_name=all_names[0]
-    #                 if users_name==UserName:
-    #                     meetingcount=all_names[1]
-
-
-
-    #             Cursor.execute("set nocount on;exec SP_SpokenCallsCount")
-    #             spokencall_one_sales=Cursor.fetchall()
-    #             spokencall_one_sales_len=len(spokencall_one_sales)          
-    #             for i in range(spokencall_one_sales_len):
-    #                 print(spokencall_one_sales[i])
-    #                 all_names=spokencall_one_sales[i]
-    #                 users_name=all_names[0]
-    #                 if users_name==UserName:
-    #                     spokencall_one=all_names[1]
-    #         # 88888888888888888888888888888888888888888888888888888
-            
-    #         Cursor.execute("set nocount on;exec SP_MeetingsCountByRepWeekly %s",'d')           
-    #         meetingcount_daily = Cursor.fetchall()
-            
-    #         Cursor.execute("set nocount on;exec SP_MeetingsCountByRepWeekly %s",'w')           
-    #         meetingcount_weekly = Cursor.fetchall()
-            
-    #         Cursor.execute("set nocount on;exec SP_SeminarsCountByRepWeekly %s",'D')           
-    #         seminarcount_daily = Cursor.fetchall()
-            
-    #         Cursor.execute("set nocount on;exec SP_SeminarsCountByRepWeekly %s",'W')           
-    #         seminarcount_weekly = Cursor.fetchall()
-            
-            
-            
-    #         Cursor.execute("set nocount on;exec SP_GetActivityLogsDB %s",[UserId])
-    #         journel=Cursor.fetchall()
-            
-    #         Cursor.execute("set nocount on;exec SP_SalesCallsSummary %s",[UserId])
-    #         leads_pie=Cursor.fetchone()
-    #         leads_pie=leads_pie[:-1]
-            
-    #         Cursor.execute("exec SP_GetSummaryToday  %s",[UserId])
-    #         # notification1=Cursor.fetchone()
-    #         # notification2=Cursor.nextset()
-        
-    #         notification=Cursor.fetchall()
-    #         print("Notification-------------",notification)
-    #         while (Cursor.nextset()):
-    #             notification_count = Cursor.fetchall()
-    #             print("Notification count-------",notification_count)
-            
-        
-    #         notify_count=notification_count[0]
-    #         # notification_data=notify_count[1]
-    #         print("Notification Count------------",notify_count)
-          
-    #         notification_count=notify_count[0]
-    #         print("**************************",notification_count)
-            
-    #         request.session['notification'] = notification_count
-    #         # request.session['notification_data'] = notification_data
-        
-    #         Cursor.execute("set nocount on;exec SP_SpokenCallsCount")
-    #         spokencall=Cursor.fetchall()
-        
-    #         Cursor.execute("set nocount on;exec SP_GetMeetings")
-    #         all_meetings=Cursor.fetchall()
-        
-            
-    #         Cursor.execute("set nocount on;exec SP_GetMonthlyCount")
-    #         monthly_count=Cursor.fetchall()
-        
-            
-    #         Cursor.execute("set nocount on;exec SP_GetLeadsStatusGraph")
-    #         status_graph=Cursor.fetchall()
-    #         Cursor.execute("set nocount on;exec SP_GetActiveUsers")
-    #         active_users=Cursor.fetchall()
-        
-            
-    #         Cursor.execute("set nocount on;exec SP_GetActiveCampaigns")
-    #         active_campaigns=Cursor.fetchall()
-        
-            
-    #         active_campaigns_count=len(active_campaigns)
-            
-         
-    #         Cursor.execute("set nocount on;exec SP_GetHalfyearlySummary_PY")
-    #         halfyearly_data=Cursor.fetchall()
-    #         print("procedurecall-end",datetime.now().time())
-            
-    #         # Load_Insta.login(insta_username, insta_password)
-    #         # profile = instaloader.Profile.from_username(Load_Insta.context, insta_username)
-
-    #         # for follower in profile.get_followers():
-    #         #     insta_follwers_list.append(follower.username)    
-    #         #     count = count + 1
-        
-    #         if all([x[1]==0 for x in seminarcount_daily]):
-    #             print("No Count")
-    #         else:
-    #             for seminar in seminarcount_daily:            
-    #                 seminar_daily_pie.append(
-    #                         {                
-    #                         'name':seminar[0],
-    #                         'value':seminar[1]
-    #                         }
-                        
-    #                 )
-    #         if all([x[1]==0 for x in seminarcount_weekly]):
-    #             print("No weekly data")
-    #         else:
-    #             for obj in seminarcount_weekly:            
-    #                 seminar_weekly_pie.append(
-    #                         {                
-    #                         'name':obj[0],
-    #                         'value':obj[1]
-    #                         }
-                        
-    #                 )
-            
-            
-    #         if all([x[1]==0 for x in meetingcount_daily]):
-    #             print("No weekly data")
-    #         else:
-    #             for meeting in meetingcount_daily:
-    #                 meeting_daily_pie.append({
-    #                     'name': meeting[0],
-    #                     'value':meeting[1]
-
-    #                 })
-
-    #         if all([x[1]==0 for x in meetingcount_weekly]):
-    #             print("No weekly data")
-    #         else:
-    #             for meetings in meetingcount_weekly:
-    #                 meeting_weekly_pie.append({
-    #                     'name': meetings[0],
-    #                     'value':meetings[1]
-
-    #                 })
-            
-        
-        
-        
-            
-    #         for report in weekly_live_account:
-    #             weekly_live_bar.append({
-    #                 'name': report[0],
-    #                 'value':report[1]
-
-    #             })
-    #         for daily_report in livecount_daily:
-    #             daily_live_bar.append({
-    #                 'name': daily_report[0],
-    #                 'value':daily_report[1]
-
-    #             })
-    #         for status in status_graph:
-    #             status_bar.append({
-    #                     'name': status[0],
-    #                     'src_count':status[1],
-    #                     'ticket_count':status[2]
-
-
-    #                 })
-            
-    #         for data in halfyearly_data:
-    #             halfyearly_bar.append({
-
-    #                     'month': data[1],
-    #                     'live_account':data[3],
-    #                     'pending_account':data[4],
-    #                     'funded_account':data[5],
-    #                     'tickets':data[6],
-    #                     'leads':data[7]
-
-
-    #                 })  
-    #         all_data={'username':UserName[0],'overview':result_set,'livecount_daily':json.dumps(livecount_daily),'leads':leads,
-    #                     'live_account':live_account,'meeting_count':meetingcount,'spoken_call_one':spokencall_one,
-    #                     'spoken_call':spokencall,'all_meetings':all_meetings,'meetingcount_daily':meetingcount_daily,
-    #                     'seminarcount_daily':seminarcount_daily,'monthly_count':monthly_count,'active_users':active_users,
-    #                     'seminarcount_weekly':seminarcount_weekly,'seminar_weekly_pie': seminar_weekly_pie,'seminar_daily_pie':seminar_daily_pie,'meeting_daily_pie': meeting_daily_pie,'meeting_weekly_pie':meeting_weekly_pie,
-    #                     'weekly_live_account':weekly_live_bar,'daily_live_account':daily_live_bar,'leads_status':status_bar,'journels':journel,'active_campaigns':active_campaigns,'active_campaigns_count':active_campaigns_count,
-    #                     'leads_pie':json.dumps(leads_pie),'halfyearly_bar':halfyearly_bar,'insta_followers':insta_follwers_list,'insta_count':count,
-    #                     'notification':notification,'notification_count':notification_count}         
-            
-            
-            
-    #     except Exception as e:
-    #         print("!!!!!!!!!!!!!!!!!!!!!!Exception!!!!!!!!!!!!!!!!!!!!!!!!!!",e.__class__)    
-    
-        
-       
-    #     print("template-render",datetime.now().time())
-        
-    #     return render(request,'admin/dashboard.html',all_data)
-    # else:
-    #      return redirect('/login') 
-
+   
 def lead(request):
     if 'UserId' in request.session:
         UserId=request.session.get('UserId')
@@ -1475,8 +1165,27 @@ def print_sales_call_report(request):
 #Live chat Page render
 
 def live_chat(request):
-     if 'UserId' in request.session:
+    if 'UserId' in request.session:
         return render(request,'sales/livechat.html')
+    else:
+        return redirect('/login')
+def show_calendar(request):
+    if 'UserId' in request.session:
+        userid=request.session.get('UserId')
+       
+        print("Reminders========")
+        return render(request,'sales/calendar.html')
+    else:
+        return redirect('/login')
+def show_events(request):
+    if 'UserId' in request.session:
+        userid=request.session.get('UserId')
+        reminders=selector.get_all_calender_events(userid)
+        return JsonResponse({"events":reminders})
+    else:
+        return redirect('/login')
+
+
 
 
 

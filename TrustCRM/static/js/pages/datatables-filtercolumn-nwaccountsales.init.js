@@ -209,7 +209,7 @@ $(document).ready(function () {
         //altInput: true,
         "allowInput": true,
         dateFormat: "Y-m-d",//MMMM Do YYYY
-       
+        altFormat: "Y-m-d",
         mode: "single",
         //enableTime: false,
         altInput: true, // Human Readable

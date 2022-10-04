@@ -219,7 +219,7 @@ class EmailServices:
             
             subject = "Trust Capital - Webinar Confirmation"
             from_addr="crm@trusttc.com"
-           
+            bcc="crm@trusttc.com"
             Cursor=connection.cursor()           
             Cursor.execute("set nocount on;exec SP_SeminarConfirmationEmail %s",[seminartitle]) 
             seminar_details=Cursor.fetchone()
@@ -241,7 +241,7 @@ class EmailServices:
             
             email_template_render=render_to_string("email/SendSeminar.html",template_data)
             
-            msg = EmailMultiAlternatives(subject=subject,from_email=from_addr,to=[to_addr])
+            msg = EmailMultiAlternatives(subject=subject,from_email=from_addr,to=[to_addr],bcc=[bcc])
             
             msg.attach_alternative(email_template_render, "text/html")
             

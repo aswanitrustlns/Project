@@ -2646,6 +2646,7 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
                 $("#webdetails").append(web)
                 
                 $("#seminarpopup").modal('show')
+                updateWebinarList(webinars)
             }
         })
         updateActivitylog()
@@ -3975,9 +3976,9 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
                           
                             iti.setCountry(countrycode);
                             iti2.setCountry(countrycode);
-                            $("#phone").trigger("onclick");
-                            // input.dispatchEvent(new Event("input"))
-                            // input.addEventListener('click', (e) => e.currentTarget.select());
+                         
+                            document.getElementById("phone").focus()
+                           
                             
                             LoadWorldClock(countrycode)
                         }else{
@@ -4037,7 +4038,6 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
             // $("#20229207532448").attr('src',spa)
            
         }
-
 
 
 
