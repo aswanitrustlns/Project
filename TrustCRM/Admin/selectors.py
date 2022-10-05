@@ -126,7 +126,7 @@ class Selector:
     def get_all_country(self):
         try:
             Cursor=connection.cursor()
-            Cursor.execute("SELECT ID,Country FROM tbl_Country")
+            Cursor.execute("SELECT ID,Country,Code FROM tbl_Country")
             country_list=Cursor.fetchall()
             
         except Exception as e:
@@ -1060,7 +1060,7 @@ class Selector:
             print("Current timeeeeeeeeeeeeeeeeeee",log_time)
             Cursor.execute("set nocount on;exec SP_GetTicketLogs %s,%s",[ticket,log_time])
             activity_logs=Cursor.fetchall()
-           
+            print("activity Logs")
         except Exception as e:
             print("Exception------",e)
         finally:
@@ -1216,9 +1216,9 @@ class Selector:
             Cursor.close()
         return comment
         
-    def save_reminder(self,userid,ticket,subject,date,time,login,color,mail):
+    def save_reminder(self,userid,ticket,subject,date,time,login,color,mail,flag):
         print("Selcetor saveeeee")
-        print("----------------------",userid,ticket,subject,date,time,mail)
+        print("----------------------",type(userid),type(ticket),type(subject),type(date),type(time),type(flag))
         try:
             subject="Reminder set for Ticket "+ticket+" on "+date+" at "+time
             badge="Green"
@@ -1226,12 +1226,12 @@ class Selector:
             rdate=date
             if login=="":
                 login=0
-            
+            print("Type of login========================",type(login))
             Cursor=connection.cursor()
             date_today=datetime.today().date()  
 
             date_today=date_today.strftime("%Y-%m-%d")
-            Cursor.execute("set nocount on;exec SP_SetReminder %s,%s,%s,%s,%s,%s,%s,%s,%s,%s",[userid,subject,desc,ticket,date_today,time,rdate,color,login,badge])
+            Cursor.execute("set nocount on;exec SP_SetReminder %s,%s,%s,%s,%s,%s,%s,%s,%s,%s",[userid,subject,desc,ticket,date,time,rdate,color,login,badge,flag])
             fulltime=date+" "+time
             apdate=datetime.strptime(fulltime,'%Y-%m-%d %H:%M')
             
@@ -1420,6 +1420,18 @@ class Selector:
         finally:
                 Cursor.close()
         return all_reminders
+    #Load Ticket Reminders
+    def load_ticket_reminders(self,userid,ticket):
+        try:
+            Cursor=connection.cursor()           
+            Cursor.execute("set nocount on;exec SP_GetTicketReminders %s,%s",[userid,ticket]) 
+            all_reminders=Cursor.fetchall()
+        except Exception as e:
+                print("Exception------",e)
+        finally:
+                Cursor.close()
+        return all_reminders
+
 
 
 

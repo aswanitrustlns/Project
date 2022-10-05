@@ -850,6 +850,8 @@ def viewLoadFunctions(request): # 455325 to test meeting score
         sticky_text=selector.get_sticky_text(ticket)
         # webinarList=selector.get_seminar_list(ticket)
         webinarList=selector.get_webinar_attended(ticket)
+        reminders=selector.load_ticket_reminders(UserId,ticket)
+        print("Rminders=====================================",reminders)
         # email=request.session.get("Email")
         # send_items=selector.template_send_items_list(email)
         print("Last comment--------",last_comment)
@@ -863,7 +865,7 @@ def viewLoadFunctions(request): # 455325 to test meeting score
         print("Meeting score----",meetingscore)
         print("Sticky text========",sticky_text)
         print("End---------------------")
-        return JsonResponse({'leads':lead_details,'activities':activity_log,'country_list':country_list,'ticket_summary':ticket_summary,'leadscore':leadscore,'meetingscore':meetingscore,'lastcomment':last_comment,'stickytext':sticky_text,'accountno':accountno,'webinarList':webinarList,'code':code})
+        return JsonResponse({'leads':lead_details,'activities':activity_log,'country_list':country_list,'ticket_summary':ticket_summary,'leadscore':leadscore,'meetingscore':meetingscore,'lastcomment':last_comment,'stickytext':sticky_text,'accountno':accountno,'webinarList':webinarList,'code':code,'reminders':reminders})
     else:
         return JsonResponse({"message":"Your session expired! Please login to continue"})
 def activity_log(request):
@@ -982,12 +984,14 @@ def save_reminder_details(request):
         subject=request.POST.get('subject')
         login=request.POST.get('login')
         color=request.POST.get('color')
+        flag=int(request.POST.get('flag'))
         # if(subject==None):
         #     subject=" "
-       
-        print("EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE",subject,date,time,color,login)
-        selector.save_reminder(userid,ticket,subject,date,time,login,color,mail)
-        return JsonResponse({"success":True})
+        print("Flag=====================================",flag)
+        print("EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE",type(date),type(time),type(color),type(login))
+        selector.save_reminder(userid,ticket,subject,date,time,login,color,mail,flag)
+        reminders=selector.load_ticket_reminders(userid,ticket)
+        return JsonResponse({"success":True,"reminders":reminders})
     else:
         return redirect('/login')
 #save insert ticket logs

@@ -1,0 +1,617 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8" />
+    <title>Trust Capital CRM</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
+    <meta content="Themesbrand" name="author" />
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" lang="ar">
+    <!-- App favicon -->
+    {% load  static %}
+     <!-- DataTables -->
+     <link href="{% static 'libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css' %}" rel="stylesheet" type="text/css" />
+     <link href="{% static 'libs/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css' %}" rel="stylesheet" type="text/css" />
+     <!-- plugin css -->
+     <!--<link href="assets/libs/admin-resources/jquery.vectormap/jquery-jvectormap-1.2.2.css" rel="stylesheet"
+         type="text/css" />-->
+      <!-- datepicker css -->
+      <link rel="stylesheet" href="{% static 'libs/flatpickr/flatpickr.min.css' %}">
+    {% include "common/link.html" %}
+    {% include "common/scripts.html" %}
+
+   
+
+ 
+</head>
+<body data-layout-mode="dark">
+
+    <!-- <body data-layout="horizontal"> -->
+    
+    <!-- Begin page -->
+    <div id="layout-wrapper">
+    
+        {% include "common/header.html" %}
+    
+
+        <!-- ========== Left Sidebar Start ========== -->
+        {% include "common/sidebar.html" %}
+        <div class="main-content">
+
+            <div class="page-content" id="sales">
+                <div class="container-fluid"> <!--container-fluid px-md-5 me-md5-->
+    
+                    <!-- start page title -->
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                                <h4 class="mb-sm-0 fs-23 almarenamonolight-type">Add/Edit Events/Seminars</h4><!--font-size-18-->
+    
+                                <!--<div class="page-title-right">
+                                    <ol class="breadcrumb m-0">
+                                        <li class="breadcrumb-item"><a href="javascript: void(0);">Dashboard</a></li>
+                                        <li class="breadcrumb-item active">Add/Edit Events/Seminars</li>
+                                    </ol>
+                                </div>-->
+    
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end page title -->
+    
+                    <div class="row">
+    
+                        <div class="col-md-12">
+    
+                            <p class="color-color1 giloryregular-type">This page allows you to add/edit upcoming seminars.</p>
+                        </div>
+                        <div>
+    
+                            <p><svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <circle cx="6.5" cy="6.5" r="6.5" fill="#FFA023"/>
+                                </svg>
+                                <span>Last Seminar Scheduled <span>7</span></p>
+                        </div>
+                    </div>
+                    <!--Analytics overview-->
+                    <div class="row">
+    
+                        <div class="  col-md-6 col-xxl-5">
+                            <div class="card  card-h-100">
+                             
+                                <div class="card-body"> 
+                                     <!--Navigation-->
+                                     <ul class="nav justify-content-start nav-tabs-custom  px-0 gilroymedium-type fs-25 my-3  nav-tabs-custom-after-top border-0" role="tablist">
+                                        <li class="nav-item" style=" width:calc(100% / 2 );">
+                                            <a class="nav-link active text-center" data-bs-toggle="tab" href="#actions-en-tab" role="tab">
+                                            
+                                                <span class=""> English</span>
+                                            
+                                            </a>
+                                        </li>
+                                        <li class="nav-item" style=" width:calc(100% / 2 );">
+                                            <a class="nav-link  text-center " data-bs-toggle="tab" href="#actions-ar-tab" role="tab">
+                                            
+                                                <span class=""> Arabic</span>
+                                            
+                                            </a>
+                                        </li>
+                                      
+                                        
+                                    </ul> 
+                                    <div class="tab-content">
+                                        <div class="tab-pane active" id="actions-en-tab" role="tabpanel">
+    
+                                            <div class="d-flex justify-content-end mb-2">
+                                                <button class="btn btn-outline-light btn-lg ms-3" >Add <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M10 18.3332C14.5833 18.3332 18.3333 14.5832 18.3333 9.99984C18.3333 5.4165 14.5833 1.6665 10 1.6665C5.41667 1.6665 1.66667 5.4165 1.66667 9.99984C1.66667 14.5832 5.41667 18.3332 10 18.3332Z" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                                    <path d="M6.66667 10H13.3333" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                                    <path d="M10 13.3332V6.6665" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                                    </svg>
+                                                    
+                                                </button>
+    
+                                                <button class="btn btn-outline-light btn-lg  ms-3" type="reset">Reset <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M18.3333 9.99984C18.3333 14.5998 14.6 18.3332 10 18.3332C5.40001 18.3332 2.59167 13.6998 2.59167 13.6998M2.59167 13.6998H6.35834M2.59167 13.6998V17.8665M1.66667 9.99984C1.66667 5.39984 5.36667 1.6665 10 1.6665C15.5583 1.6665 18.3333 6.29984 18.3333 6.29984M18.3333 6.29984V2.13317M18.3333 6.29984H14.6333" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                                    </svg>
+                                                    </button>
+                                            </div>
+    
+                                            <form class="needs-validation" novalidate>
+                                                <div class="row">
+                                                     
+                                                    <!--<div class="d-flex flex-wrap align-items-center mb-2">
+                                                        <h4 class="card-title fs-20 almarenamonolight-type">Personal details
+                                                        </h4>
+                    
+                                                    </div>-->
+            
+                                                    <div class="col-lg-6 col-xl-2">
+                                                        <div class="mb-3">
+                                                            <label class="form-label" for="title">Title<span class="color-orange">*</span></label>
+                                                            <select  class="form-select" id="title"  value="" required>
+                                                                <option value="">Mr</option>
+                                                                <option value="">Mrs</option>
+                                                            </select>
+                                                            <div class="invalid-feedback position-absolute bottom-0">
+                                                                Please provide a valid entry.
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-6 col-xl-4">
+                                                        <div class="mb-3">
+                                                            <label class="form-label" for="Categorization">Categorization<span class="color-orange">*</span></label>
+                                                            <input type="text" class="form-control" id="Categorization" placeholder="both name(s) e.g Jon Doe" value="" required>
+                                                            <div class="invalid-feedback position-absolute bottom-0">
+                                                                Please provide a valid entry.
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-12 col-xl-6 ">
+                                                        <div class="mb-3">
+                                                            <label class="form-label" for="firstname*">Name<span class="color-orange">*</span></label>
+                                                            <input type="text" class="form-control" id="firstname" placeholder="both name(s) e.g Jon Doe" value="" required>
+                                                            <div class="invalid-feedback position-absolute bottom-0">
+                                                                Please provide a valid entry.
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                              
+                                                    <div class="col-lg-12 col-xl-6">
+                                                        <div class="mb-3">
+                                                            <label class="form-label" for="Location">Location <span class="color-orange">*</span></label>
+                                                            
+                                                            <input type="email" class="form-control" id="Location" placeholder=" " required>
+                                                            <div class="invalid-feedback position-absolute bottom-0">
+                                                                Please provide a valid  Email.
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                   
+                                                    <div class="col-lg-12 col-xl-6">
+                                                        <div class="mb-0 d-flex  card-h-100  align-items-end">
+                                                            <a class="text-info gilorysemibold-type mt-0">Get Zoom Link <svg width="67" height="15" viewBox="0 0 67 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                <path fill-rule="evenodd" clip-rule="evenodd" d="M26.9167 2.19375C25.4618 0.731249 23.5591 0 21.6379 0C19.7353 0 17.814 0.731249 16.359 2.19375C13.4492 5.11875 13.4492 9.8625 16.359 12.8063C19.2689 15.7313 23.9882 15.7313 26.9167 12.8063C29.8266 9.88125 29.8266 5.11875 26.9167 2.19375ZM24.8089 10.6875C23.0555 12.45 20.2202 12.45 18.4855 10.6875C16.7321 8.925 16.7321 6.075 18.4855 4.33125C20.2389 2.56875 23.0742 2.56875 24.8089 4.33125C26.5436 6.075 26.5436 8.925 24.8089 10.6875Z" fill="#2D8CFF"/>
+                                                                <path fill-rule="evenodd" clip-rule="evenodd" d="M42.585 2.19375C41.1301 0.731249 39.2275 0 37.3062 0C35.4036 0 33.4823 0.731249 32.0274 2.19375C29.1175 5.11875 29.1175 9.8625 32.0274 12.8063C34.9373 15.7313 39.6565 15.7313 42.585 12.8063C45.4949 9.88125 45.4949 5.11875 42.585 2.19375ZM40.4772 10.6875C38.7238 12.45 35.8886 12.45 34.1538 10.6875C32.4004 8.925 32.4004 6.075 34.1538 4.33125C35.9072 2.56875 38.7425 2.56875 40.4772 4.33125C42.212 6.075 42.212 8.925 40.4772 10.6875ZM2.9845 14.9625L3.73062 15H14.9225L14.8852 14.25C14.7919 13.0125 13.9152 12.1125 12.6841 12.0375L11.938 12H5.22287L14.1764 3L14.1391 2.25C14.0831 1.0125 13.1691 0.0937494 11.938 0.0374994L11.1919 0H0L0.0373056 0.75C0.130571 1.96875 1.02592 2.8875 2.23837 2.9625L2.9845 3H9.69961L0.746124 12L0.78343 12.75C0.858042 13.9875 1.75339 14.8875 2.9845 14.9625ZM54.0567 4.5C54.3178 4.95 54.3924 5.4375 54.4297 6L54.4671 6.75V12L54.5044 12.75C54.579 13.9688 55.4743 14.8875 56.7054 14.9625L57.4515 15V6.75L57.4889 6C57.5262 5.4375 57.6008 4.93125 57.8619 4.48125C58.3842 3.58125 59.3355 3 60.436 3C61.5366 3 62.5065 3.6 63.0288 4.5C63.29 4.95 63.3646 5.45625 63.3832 6L63.4205 6.75V12L63.4579 12.75C63.5325 13.9875 64.4278 14.8875 65.6589 14.9625L66.405 15V6.75V6C66.405 2.68125 63.7376 0 60.436 0C58.6453 0 57.0598 0.787501 55.9593 2.025C54.8588 0.787501 53.2733 0 51.4826 0C50.2515 0 49.095 0.375 48.1437 1.03125C47.5654 0.375 46.2597 0 45.5136 0V15L46.2597 14.9625C47.5094 14.8875 48.4048 13.9875 48.4608 12.75L48.4981 12V6.75L48.5354 6C48.5727 5.4375 48.6473 4.93125 48.9084 4.5C49.4307 3.6 50.382 3 51.4826 3C52.5831 3 53.5531 3.6 54.0567 4.5Z" fill="#2D8CFF"/>
+                                                                </svg>
+                                                            </a>
+                                                        </div>
+                                                    </div>
+            
+                                                    <div class="col-lg-12 col-xl-6">
+                                                        
+                                                        <div class="mb-3">
+                                                            <label class="form-label" for="Date">Date <span class="color-orange">*</span></label>
+                                                            
+                                                            <input type="email" class="form-control" id="Date" placeholder="e.g Steve@gmail.com" required>
+                                                            <div class="invalid-feedback position-absolute bottom-0" >
+                                                                Please provide a valid  Email.
+                                                            </div>
+                                                        </div>         
+                                                         
+                                                    </div>
+                                                    <div class="col-lg-12 col-xl-6 ">
+                                                        <div class="mb-3">
+                                                            <label class="form-label" for="Time">Time</label>
+                                                            <input type="number" class="form-control" id="Time" placeholder="" >
+                                                            <div class="invalid-feedback position-absolute bottom-0">
+                                                                Please provide a valid Age.
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                   
+            
+                                                    
+            
+                                                    <div class="col-lg-12 col-xl-6 ">
+                                                        <div class="mb-3">
+                                                            <label class="form-label" for="Description">Description<span class="color-orange">*</span></label>
+                                                            <textarea name="" id="Description" cols="20" rows="5" class="form-control" required></textarea>
+                                                        </div>
+                                                        <div class="invalid-feedback position-absolute bottom-0">
+                                                            Please provide a valid Age.
+                                                        </div>
+                                                        
+                                                    </div>
+                                                    
+                                                    <div class="col-lg-12 col-xl-6 ">
+                                                        <div class="mb-3">
+                                                            <label class="form-label" for="Description2">Description<span class="color-orange">*</span></label>
+                                                            <textarea name="" id="Description2" cols="20" rows="5" class="form-control"></textarea>
+                                                        </div>
+                                                        
+                                                    </div>
+                                                   
+                                                    <div class="col-lg-12 col-xl-6 ">
+                                                        <div class="mb-3">
+                                                            <label class="form-label" for="City">City</label>
+                                                            <input type="tel" class="form-control" id="City" placeholder="" lang='ar'>
+                                                            <div class="invalid-feedback position-absolute bottom-0">
+                                                                Please provide a Profession.
+                                                            </div>
+                                                        </div>
+                                                        
+                                                    </div>
+                                                    <div class="col-lg-12 col-xl-6 ">
+                                                        <div class="mb-3">
+                                                            <label class="form-label" for="Zipcode">Zip code</label>
+                                                            <input type="tel" class="form-control" id="Zipcode" placeholder="" >
+                                                            <div class="invalid-feedback position-absolute bottom-0">
+                                                                Please provide a Profession.
+                                                            </div>
+                                                        </div>
+                                                        
+                                                    </div>
+                                                    <div class="col-lg-12 col-xl-6 ">
+                                                        <div class="mb-3">
+                                                            <label class="form-label" for="State*">State</label>
+                                                            <input type="tel" class="form-control" id="State" placeholder="" >
+                                                            <div class="invalid-feedback position-absolute bottom-0">
+                                                                Please provide a Profession.
+                                                            </div>
+                                                        </div>
+                                                        
+                                                    </div>
+                                                    <div class="col-lg-12 col-xl-6 ">
+                                                        <div class="mb-3">
+                                                            <label class="form-label" for="dob*">DOB</label>
+                                                            <input type="tel" class="form-control" id="dob" placeholder="Date of Birth" >
+                                                            <div class="invalid-feedback position-absolute bottom-0">dob
+                                                                Please provide a Profession.
+                                                            </div>
+                                                        </div>
+                                                        
+                                                    </div>
+                                                   
+                                                   
+                                                    
+                                                </div>
+                                                
+                                                <button class="btn btn-primary btn-lg mt-3" type="submit">Update</button>
+                                                <button class="btn btn-outline-light btn-lg mt-3 ms-3" type="reset">Delete</button>
+                                            </form>
+    
+                                        </div>
+                                        <div class="tab-pane" id="actions-ar-tab" role="tabpanel">
+    
+    
+                                            <form class="needs-validation" novalidate>
+                                                <div class="row">
+                                                     
+                                                    <!--<div class="d-flex flex-wrap align-items-center mb-2">
+                                                        <h4 class="card-title fs-20 almarenamonolight-type">Personal details
+                                                        </h4>
+                    
+                                                    </div>-->
+            
+                                                    <div class="col-lg-6 col-xl-2">
+                                                        <div class="mb-3">
+                                                            <label class="form-label" for="title">Title<span class="color-orange">*</span></label>
+                                                            <select  class="form-select" id="title"  value="" required>
+                                                                <option value="">Mr</option>
+                                                                <option value="">Mrs</option>
+                                                            </select>
+                                                            <div class="invalid-feedback position-absolute bottom-0">
+                                                                Please provide a valid entry.
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-6 col-xl-4">
+                                                        <div class="mb-3">
+                                                            <label class="form-label" for="Categorization">Categorization<span class="color-orange">*</span></label>
+                                                            <input type="text" class="form-control" id="Categorization" placeholder="both name(s) e.g Jon Doe" value="" required>
+                                                            <div class="invalid-feedback position-absolute bottom-0">
+                                                                Please provide a valid entry.
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-12 col-xl-6 ">
+                                                        <div class="mb-3">
+                                                            <label class="form-label" for="firstname*">Name<span class="color-orange">*</span></label>
+                                                            <input type="text" class="form-control" id="firstname" placeholder="both name(s) e.g Jon Doe" value="" required>
+                                                            <div class="invalid-feedback position-absolute bottom-0">
+                                                                Please provide a valid entry.
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                              
+                                                    <div class="col-lg-12 col-xl-6">
+                                                        <div class="mb-3">
+                                                            <label class="form-label" for="Location">Location <span class="color-orange">*</span></label>
+                                                            
+                                                            <input type="email" class="form-control" id="Location" placeholder=" " required>
+                                                            <div class="invalid-feedback position-absolute bottom-0">
+                                                                Please provide a valid  Email.
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                   
+                                                    <div class="col-lg-12 col-xl-6">
+                                                        <div class="mb-0 d-flex  card-h-100  align-items-end">
+                                                            <a class="text-info gilorysemibold-type mt-0">Get Zoom Link <svg width="67" height="15" viewBox="0 0 67 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                <path fill-rule="evenodd" clip-rule="evenodd" d="M26.9167 2.19375C25.4618 0.731249 23.5591 0 21.6379 0C19.7353 0 17.814 0.731249 16.359 2.19375C13.4492 5.11875 13.4492 9.8625 16.359 12.8063C19.2689 15.7313 23.9882 15.7313 26.9167 12.8063C29.8266 9.88125 29.8266 5.11875 26.9167 2.19375ZM24.8089 10.6875C23.0555 12.45 20.2202 12.45 18.4855 10.6875C16.7321 8.925 16.7321 6.075 18.4855 4.33125C20.2389 2.56875 23.0742 2.56875 24.8089 4.33125C26.5436 6.075 26.5436 8.925 24.8089 10.6875Z" fill="#2D8CFF"/>
+                                                                <path fill-rule="evenodd" clip-rule="evenodd" d="M42.585 2.19375C41.1301 0.731249 39.2275 0 37.3062 0C35.4036 0 33.4823 0.731249 32.0274 2.19375C29.1175 5.11875 29.1175 9.8625 32.0274 12.8063C34.9373 15.7313 39.6565 15.7313 42.585 12.8063C45.4949 9.88125 45.4949 5.11875 42.585 2.19375ZM40.4772 10.6875C38.7238 12.45 35.8886 12.45 34.1538 10.6875C32.4004 8.925 32.4004 6.075 34.1538 4.33125C35.9072 2.56875 38.7425 2.56875 40.4772 4.33125C42.212 6.075 42.212 8.925 40.4772 10.6875ZM2.9845 14.9625L3.73062 15H14.9225L14.8852 14.25C14.7919 13.0125 13.9152 12.1125 12.6841 12.0375L11.938 12H5.22287L14.1764 3L14.1391 2.25C14.0831 1.0125 13.1691 0.0937494 11.938 0.0374994L11.1919 0H0L0.0373056 0.75C0.130571 1.96875 1.02592 2.8875 2.23837 2.9625L2.9845 3H9.69961L0.746124 12L0.78343 12.75C0.858042 13.9875 1.75339 14.8875 2.9845 14.9625ZM54.0567 4.5C54.3178 4.95 54.3924 5.4375 54.4297 6L54.4671 6.75V12L54.5044 12.75C54.579 13.9688 55.4743 14.8875 56.7054 14.9625L57.4515 15V6.75L57.4889 6C57.5262 5.4375 57.6008 4.93125 57.8619 4.48125C58.3842 3.58125 59.3355 3 60.436 3C61.5366 3 62.5065 3.6 63.0288 4.5C63.29 4.95 63.3646 5.45625 63.3832 6L63.4205 6.75V12L63.4579 12.75C63.5325 13.9875 64.4278 14.8875 65.6589 14.9625L66.405 15V6.75V6C66.405 2.68125 63.7376 0 60.436 0C58.6453 0 57.0598 0.787501 55.9593 2.025C54.8588 0.787501 53.2733 0 51.4826 0C50.2515 0 49.095 0.375 48.1437 1.03125C47.5654 0.375 46.2597 0 45.5136 0V15L46.2597 14.9625C47.5094 14.8875 48.4048 13.9875 48.4608 12.75L48.4981 12V6.75L48.5354 6C48.5727 5.4375 48.6473 4.93125 48.9084 4.5C49.4307 3.6 50.382 3 51.4826 3C52.5831 3 53.5531 3.6 54.0567 4.5Z" fill="#2D8CFF"/>
+                                                                </svg>
+                                                            </a>
+                                                        </div>
+                                                    </div>
+            
+                                                    <div class="col-lg-12 col-xl-6">
+                                                        
+                                                        <div class="mb-3">
+                                                            <label class="form-label" for="Date">Date <span class="color-orange">*</span></label>
+                                                            
+                                                            <input type="email" class="form-control" id="Date" placeholder="e.g Steve@gmail.com" required>
+                                                            <div class="invalid-feedback position-absolute bottom-0" >
+                                                                Please provide a valid  Email.
+                                                            </div>
+                                                        </div>         
+                                                         
+                                                    </div>
+                                                    <div class="col-lg-12 col-xl-6 ">
+                                                        <div class="mb-3">
+                                                            <label class="form-label" for="Time">Time</label>
+                                                            <input type="number" class="form-control" id="Time" placeholder="" >
+                                                            <div class="invalid-feedback position-absolute bottom-0">
+                                                                Please provide a valid Age.
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                   
+            
+                                                    
+            
+                                                    <div class="col-lg-12 col-xl-6 ">
+                                                        <div class="mb-3">
+                                                            <label class="form-label" for="Description">Description<span class="color-orange">*</span></label>
+                                                            <textarea name="" id="Description" cols="20" rows="5" class="form-control" required></textarea>
+                                                        </div>
+                                                        <div class="invalid-feedback position-absolute bottom-0">
+                                                            Please provide a valid Age.
+                                                        </div>
+                                                        
+                                                    </div>
+                                                    
+                                                    <div class="col-lg-12 col-xl-6 ">
+                                                        <div class="mb-3">
+                                                            <label class="form-label" for="Description2">Description<span class="color-orange">*</span></label>
+                                                            <textarea name="" id="Description2" cols="20" rows="5" class="form-control"></textarea>
+                                                        </div>
+                                                        
+                                                    </div>
+                                                   
+                                                    <div class="col-lg-12 col-xl-6 ">
+                                                        <div class="mb-3">
+                                                            <label class="form-label" for="City">City</label>
+                                                            <input type="tel" class="form-control" id="City" placeholder="" lang='ar'>
+                                                            <div class="invalid-feedback position-absolute bottom-0">
+                                                                Please provide a Profession.
+                                                            </div>
+                                                        </div>
+                                                        
+                                                    </div>
+                                                    <div class="col-lg-12 col-xl-6 ">
+                                                        <div class="mb-3">
+                                                            <label class="form-label" for="Zipcode">Zip code</label>
+                                                            <input type="tel" class="form-control" id="Zipcode" placeholder="" >
+                                                            <div class="invalid-feedback position-absolute bottom-0">
+                                                                Please provide a Profession.
+                                                            </div>
+                                                        </div>
+                                                        
+                                                    </div>
+                                                    <div class="col-lg-12 col-xl-6 ">
+                                                        <div class="mb-3">
+                                                            <label class="form-label" for="State*">State</label>
+                                                            <input type="tel" class="form-control" id="State" placeholder="" >
+                                                            <div class="invalid-feedback position-absolute bottom-0">
+                                                                Please provide a Profession.
+                                                            </div>
+                                                        </div>
+                                                        
+                                                    </div>
+                                                    <div class="col-lg-12 col-xl-6 ">
+                                                        <div class="mb-3">
+                                                            <label class="form-label" for="dob*">DOB</label>
+                                                            <input type="tel" class="form-control" id="dob" placeholder="Date of Birth" >
+                                                            <div class="invalid-feedback position-absolute bottom-0">dob
+                                                                Please provide a Profession.
+                                                            </div>
+                                                        </div>
+                                                        
+                                                    </div>
+                                                   
+                                                   
+                                                    
+                                                </div>
+                                                
+                                                <button class="btn btn-primary btn-lg mt-3" type="submit">Update</button>
+                                                <button class="btn btn-outline-light btn-lg mt-3 ms-3" type="reset">Delete</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                               
+                                </div>
+                            </div>
+                            <!-- end card -->
+                        </div> <!-- end col -->
+                        <div class="  col-md-6 col-xxl-7">
+                            <div class="top-wrap row mb-2">
+    
+                                <div class="col-md-6">
+    
+                                    <input type="text" class="form-control"  placeholder="Search" id="myinputsearch">
+                                </div>
+    
+                                <div class="col-md-6" id="datatable-buttons_wrapper">
+                                   
+                                </div>
+                            </div>
+                           
+                            
+                            <div class=" card   card-h-100" >
+                            
+                                <div class="card-body ">
+                                  
+                                    <div class="table-responsive" data-simplebar="" style="max-height:100%">
+                                        <table id="datatableseminar" class="table dt-responsive  nowrap  w-100">
+                                            <thead >
+                                                <tr  class=" ">
+                                                    <th  data-id="datepicker-range" class="filterhead" > ID</th>
+                                                    <th  data-timer="option" class="filterhead">View</th>
+                                                    <th  data-text="select" class="filterhead">Event Date</th>
+                                                    <th  data-text="text" class="filterhead">Title</th>
+                                              
+                                                </tr>
+                                            </thead>
+    
+    
+                                            <tbody>
+                                            <!--
+                                            <tr>
+                                                <td ><span class="skeleton skeleton-text"></span> </td>
+                                                <td ><span class="skeleton skeleton-text"></span></td>
+                                                <td><span class="skeleton skeleton-text"></span></td>
+                                                <td><span class="skeleton skeleton-text"></span></td>
+                                                <td><span class="skeleton skeleton-text"></span></td>
+                                                <td class="text-end"><span class="skeleton skeleton-text"></span></td>
+                                            </tr>
+                                            <tr>
+                                                <td ><span class="skeleton skeleton-text"></span> </td>
+                                                <td ><span class="skeleton skeleton-text"></span></td>
+                                                <td><span class="skeleton skeleton-text"></span></td>
+                                                <td><span class="skeleton skeleton-text"></span></td>
+                                                <td><span class="skeleton skeleton-text"></span></td>
+                                                <td class="text-end"><span class="skeleton skeleton-text"></span></td>
+                                            </tr>
+                                            <tr>
+                                                <td ><span class="skeleton skeleton-text"></span> </td>
+                                                <td ><span class="skeleton skeleton-text"></span></td>
+                                                <td><span class="skeleton skeleton-text"></span></td>
+                                                <td><span class="skeleton skeleton-text"></span></td>
+                                                <td><span class="skeleton skeleton-text"></span></td>
+                                                <td class="text-end"><span class="skeleton skeleton-text"></span></td>
+                                            </tr>
+                                            <tr>
+                                                <td ><span class="skeleton skeleton-text"></span> </td>
+                                                <td ><span class="skeleton skeleton-text"></span></td>
+                                                <td><span class="skeleton skeleton-text"></span></td>
+                                                <td><span class="skeleton skeleton-text"></span></td>
+                                                <td><span class="skeleton skeleton-text"></span></td>
+                                                <td class="text-end"><span class="skeleton skeleton-text"></span></td>
+                                            </tr>
+                                            <tr>
+                                                <td ><span class="skeleton skeleton-text"></span> </td>
+                                                <td ><span class="skeleton skeleton-text"></span></td>
+                                                <td><span class="skeleton skeleton-text"></span></td>
+                                                <td><span class="skeleton skeleton-text"></span></td>
+                                                <td><span class="skeleton skeleton-text"></span></td>
+                                                <td class="text-end"><span class="skeleton skeleton-text"></span></td>
+                                            </tr>
+                                            <tr>
+                                                <td ><span class="skeleton skeleton-text"></span> </td>
+                                                <td ><span class="skeleton skeleton-text"></span></td>
+                                                <td><span class="skeleton skeleton-text"></span></td>
+                                                <td><span class="skeleton skeleton-text"></span></td>
+                                                <td><span class="skeleton skeleton-text"></span></td>
+                                                <td class="text-end"><span class="skeleton skeleton-text"></span></td>
+                                            </tr>
+                                            <tr>
+                                                <td ><span class="skeleton skeleton-text"></span> </td>
+                                                <td ><span class="skeleton skeleton-text"></span></td>
+                                                <td><span class="skeleton skeleton-text"></span></td>
+                                                <td><span class="skeleton skeleton-text"></span></td>
+                                                <td><span class="skeleton skeleton-text"></span></td>
+                                                <td class="text-end"><span class="skeleton skeleton-text"></span></td>
+                                            </tr>
+                                            <tr>
+                                                <td ><span class="skeleton skeleton-text"></span> </td>
+                                                <td ><span class="skeleton skeleton-text"></span></td>
+                                                <td><span class="skeleton skeleton-text"></span></td>
+                                                <td><span class="skeleton skeleton-text"></span></td>
+                                                <td><span class="skeleton skeleton-text"></span></td>
+                                                <td class="text-end"><span class="skeleton skeleton-text"></span></td>
+                                            </tr>
+                                            <tr>
+                                                <td ><span class="skeleton skeleton-text"></span> </td>
+                                                <td ><span class="skeleton skeleton-text"></span></td>
+                                                <td><span class="skeleton skeleton-text"></span></td>
+                                                <td><span class="skeleton skeleton-text"></span></td>
+                                                <td><span class="skeleton skeleton-text"></span></td>
+                                                <td class="text-end"><span class="skeleton skeleton-text"></span></td>
+                                            </tr>
+                                            <tr>
+                                                <td ><span class="skeleton skeleton-text"></span> </td>
+                                                <td ><span class="skeleton skeleton-text"></span></td>
+                                                <td><span class="skeleton skeleton-text"></span></td>
+                                                <td><span class="skeleton skeleton-text"></span></td>
+                                                <td><span class="skeleton skeleton-text"></span></td>
+                                                <td class="text-end"><span class="skeleton skeleton-text"></span></td>
+                                            </tr>-->
+                                       
+                                                <tr>
+                                                    <td data-order="1558357779">001</td>
+                                                    <td><a href="">View</a></td>
+                                                    <td>12-10-2022</td>
+                                                    <td>Looking out for oppertunity in a bear market is tricky</td>
+                                                
+                                                </tr>
+                                                <tr>
+                                                    <td data-order="1558357779">001</td>
+                                                    <td><a href="">View</a></td>
+                                                    <td>12-10-2022</td>
+                                                    <td>Looking out for oppertunity in a bear market is tricky</td>
+                                                
+                                                </tr>
+                                                <tr>
+                                                    <td data-order="1558357779">001</td>
+                                                    <td><a href="">View</a></td>
+                                                    <td>12-10-2022</td>
+                                                    <td>Looking out for oppertunity in a bear market is tricky</td>
+                                                
+                                                </tr>
+                                                <tr>
+                                                    <td data-order="1558357779">001</td>
+                                                    <td><a href="">View</a></td>
+                                                    <td>12-10-2022</td>
+                                                    <td>Looking out for oppertunity in a bear market is tricky</td>
+                                                </tr>
+                                               
+                                        
+                                            
+                                            </tbody>
+                                         
+                                        </table>
+                                    </div>
+                                    </div>
+                                    
+                            </div>
+                        </div>
+    
+    
+                    </div>
+                    <!-- end row-->
+    
+                    </div>
+                    <!-- container -->
+                </div>
+                <!-- End Page-content -->
+    
+                
+          </div>
+          {% include "common/right-sidebar.html" %}
+        
+            <!-- Right bar overlay-->
+    <div class="rightbar-overlay"></div>
+    <!-- datepicker js -->
+    <script src="{% static 'libs/flatpickr/flatpickr.min.js' %}"></script>
+    <!-- Datatable init js -->
+  
+    <script src="{% static 'js/pages/management-salesreport.init.js' %}"></script> 
+    <script src="{% static 'js/app.js' %}"></script>
+
+</body>
+
+</html>

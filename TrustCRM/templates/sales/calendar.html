@@ -103,11 +103,12 @@
                
                 var allEvents=data.events;
                 for(var i=0;i<allEvents.length;i++){
-                   
+                  var timeformat=allEvents[i][2]+"T"+allEvents[i][3]
+                  console.log("Time format===="+timeformat)
                   const  eventobj={
                     title: allEvents[i][0],
                    
-                    start: new Date(allEvents[i][2]), 
+                    start: new Date(timeformat), 
                     extendedProps: {
                         description:allEvents[i][1],
                     }                   
@@ -136,9 +137,12 @@
                 eventClick: function(info) {
                     $("#userMsg").empty()
                     selectedEvent = info.event;
-                    $("#userMsg").append(selectedEvent.extendedProps['description']);
-                    console.log("Event description====="+selectedEvent.extendedProps['description'])
-                    addEvent.modal('show');
+                    if(selectedEvent.extendedProps['description']!=""){
+                        $("#userMsg").append(selectedEvent.extendedProps['description']);
+                        console.log("Event description====="+selectedEvent.extendedProps['description'])
+                        addEvent.modal('show');
+                    }
+                   
                 },
                 dateClick: function(info) {
                     addNewEvent(info);

@@ -401,19 +401,28 @@ class DashboardSelector:
         seminar_daily_pie=[]
         seminar_weekly_pie=[]
         halfyearly_bar=[]
+        ticket_summary_bar=[]
         try:
             date_today=datetime.today().date()
             week_day=datetime.today().weekday() # Monday is 0 and Sunday is 6
             date_today=date_today.strftime("%Y-%m-%d")
             if(week_day==0):
-                date_yesterday = datetime.today()-timedelta(3)
+                date_yesterday_for_week = datetime.today()-timedelta(3)
+                date_yesterday_for_today=datetime.today()-timedelta(3)
             else:
-                date_yesterday = datetime.today()-timedelta(1)
-            
-            date_yesterday=date_yesterday.strftime("%Y-%m-%d")
+                date_yesterday_for_week = datetime.today()-timedelta(week_day)
+                date_yesterday_for_today=datetime.today()-timedelta(1)
+
+            date_yesterday_for_today=date_yesterday_for_today.strftime("%Y-%m-%d")
+            date_yesterday_for_week=date_yesterday_for_week.strftime("%Y-%m-%d")
+            print("Date yesterday========================",date_yesterday_for_week)
+            print("Date yesterday========================",date_yesterday_for_today)
             Cursor=connection.cursor()
-            Cursor.execute("set nocount on;exec SP_GetNewAccountsCount %s,%s",[date_yesterday,date_today])
+            Cursor.execute("set nocount on;exec SP_GetNewAccountsCount %s,%s",[date_yesterday_for_week,date_today])
             live_count=Cursor.fetchone()
+            print("Live count this week======")
+            Cursor.execute("set nocount on;exec SP_GetNewAccountsCount %s,%s",[date_yesterday_for_today,date_today])
+            live_count_today=Cursor.fetchone()
             print("Live count======",live_count)
             if live_count:
                 
@@ -421,6 +430,9 @@ class DashboardSelector:
                 live_nonfund_week=live_count[1]
                 pending_approved=live_count[2]
                 pending_waiting=live_count[3]
+            if live_count_today:
+                live_funded_today=live_count_today[0]
+                live_nonfund_today=live_count_today[1]
             Cursor.execute("set nocount on;exec SP_GetSeminarInfoCount")
             weekly_webinar=Cursor.fetchall() 
             if weekly_webinar:
@@ -447,6 +459,14 @@ class DashboardSelector:
             active_campaigns=Cursor.fetchall()  
             Cursor.execute("exec SP_GetSummaryToday %s",[userId])
             reminders=Cursor.fetchall()  
+            while (Cursor.nextset()):
+                reminder_count = Cursor.fetchall()
+                print("Reminder count-------",reminder_count)
+                reminder_count=reminder_count[0]
+                reminder_count=reminder_count[0]
+            print("Reminder count-------",type(reminder_count))
+            reminder_count=int(reminder_count)
+            print("Reminder count=======",reminder_count)
             Cursor.execute("set nocount on;exec SP_GetLeadsStatusGraph")
             status_graph=Cursor.fetchall()
 
@@ -465,6 +485,20 @@ class DashboardSelector:
             Cursor.execute("set nocount on;exec SP_GetHalfyearlySummary_PY")
             halfyearly_data=Cursor.fetchall()
 
+            Cursor.execute("set nocount on;exec SP_GetMonthlyCount")
+            monthly_summary=Cursor.fetchall()
+            Cursor.execute("set nocount on;exec SP_TicketsInterestedSummary")
+            ticket_summary=Cursor.fetchall()
+
+            if ticket_summary:
+                for tickets in ticket_summary:
+                    percent=(tickets[1]/tickets[2])*100
+                    ticket_summary_bar.append({
+                        'name': tickets[0],
+                        'percent':percent
+                    })
+
+            print("Ticket summary bar=====",ticket_summary_bar)
             for data in halfyearly_data:
                 halfyearly_bar.append({
 
@@ -531,8 +565,8 @@ class DashboardSelector:
 
                     })
           
-            manager_data={'funded_week':live_funded_week,'nonfunded_week':live_nonfund_week,'webinars':weekly_webinar,'livechat':live_chat,'calls':spokencall,'campaigns':active_campaigns,'reminders':reminders,
-                           'approved':pending_approved,'waiting':pending_waiting,
+            manager_data={'funded_today':live_funded_today,'nonfunded_today':live_nonfund_today,'funded_week':live_funded_week,'nonfunded_week':live_nonfund_week,'webinars':weekly_webinar,'livechat':live_chat,'calls':spokencall,'campaigns':active_campaigns,'reminders':reminders,
+                           'approved':pending_approved,'waiting':pending_waiting,'summary':monthly_summary,'ticket_summary':ticket_summary_bar,'remindercount':reminder_count,
                            'leads_graph':status_bar,'meeting_daily_pie': meeting_daily_pie,'meeting_weekly_pie':meeting_weekly_pie,'seminar_weekly_pie': seminar_weekly_pie,'seminar_daily_pie':seminar_daily_pie,'halfyearly_bar':halfyearly_bar}    
         except Exception as e:
             print("!!!!!!!!!!!!!!!!!!!!!!Exception!!!!!!!!!!!!!!!!!!!!!!!!!!",e.__class__)   

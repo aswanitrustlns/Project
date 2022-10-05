@@ -236,37 +236,6 @@ $('.nav-item').on('click',function(){
    
 });
 
-function mysubmitformsset(){
-    $('#formtypeleads_info')[0].reset();
-    $('#formtypeleads_personals')[0].reset();
-    $('#formtypeleads_leads')[0].reset();
-    $("#ticketno").val("")
-    $("#regdate").empty()
-    $("#ipaddr").empty()
-    $("#accountno").val("")
-    $("#activityList").empty()
-    $("#summary_div").empty()
-    $("#chatsDiv").hide()
-    $("#journal-nothing").show()
-    nowebinar()
-    gauge1(0)
-    gauge2(0)
-
-	// $is_invalid=0;
-    // console.log("Reset called======")
-	//  const formp = document.querySelectorAll('.formsset');
-	//  Array.prototype.slice.call(formp).forEach((form) => {
-		
-	// 	 $s=form.checkValidity();
-		 
-	// 	 if(!$s){
-	// 		 $is_invalid=1;
-	// 		 form.reportValidity();
-    //          form.classList.add('was-validated');
-	// 	 }
-	//  });
-	
-}
 
 //colorswitch
 

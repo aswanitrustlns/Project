@@ -3,5 +3,5 @@ from .services import Services
 service=Services()
 # Create your views here.
 def view_seminars(request):
-    seminars=service.get_seminars()
-    return render(request,'')
+    
+    return render(request,'seminars/eventregistration.html')

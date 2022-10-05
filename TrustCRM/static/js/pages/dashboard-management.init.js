@@ -41,6 +41,7 @@ username_w=Object.values(username_w)
 console.log(username_w)
 
 function renderMeetingDonut($series,$id,$label){
+    
 var donutColors = getChartColorsArray($id);
 var options = {
     dataLabels: {
@@ -78,6 +79,20 @@ var options = {
         vertical: 4,
     },
   },
+  noData: {
+        
+    text:'Nothing to display',
+    align: "center",
+    verticalAlign: "middle",
+
+    style: {
+        color: undefined,
+        fontSize: '14px',
+        fontFamily: 'giloryregular',
+    },
+   
+    
+},
   responsive: [{
       breakpoint: 1550,
       options: {

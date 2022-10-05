@@ -439,7 +439,7 @@
                                                                                             required name="country">
                                                                                             <option value="0">Select</option>
                                                                                         {% for country in country_list%}
-                                                                                            <option value={{country.0}}>{{country.1}}</option>
+                                                                                            <option value={{country.0}} data-value={{country.2}}>{{country.1}}</option>
                                                                                             
                                                                                         {%endfor%}
                                                                                         </select>
@@ -2124,7 +2124,19 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
         var input2;
         var errorMsg;
         var validMsg;
-        
+        var defaultEvents = [];
+        var addEvent=$("#event-modal");
+        var modalTitle = $("#modal-title");
+        var formEvent = $("#form-event");
+        var selectedEvent = null;
+        var newEventData = null;
+        var forms = document.getElementsByClassName('needs-validation');
+        var selectedEvent = null;
+        var reminderflag=0
+        var eventObject = null;
+        var calendarEl = document.getElementById('calendar');
+        var calendar
+        var date = new Date();
         $(document).ready(function () {
             // $("#temp-chinese").hide()
             var leadscore=0
@@ -2249,7 +2261,10 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
         // });
 
         $("#country").change(function(){ 
-            // var countrycode=
+            var countrycode=$('option:selected',this).data("value")
+            console.log("Country code==================="+countrycode)
+            iti.setCountry(countrycode);
+            iti2.setCountry(countrycode);
             // var input = document.querySelector("#phone") 
             // var iti = window.intlTelInput(input, {        
             //     initialCountry: "in",
@@ -2535,6 +2550,28 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
                
 
     });
+    function mysubmitformsset(){
+    $('#formtypeleads_info')[0].reset();
+    $('#formtypeleads_personals')[0].reset();
+    $('#formtypeleads_leads')[0].reset();
+    $("#ticketno").val("")
+    $("#regdate").empty()
+    $("#ipaddr").empty()
+    $("#accountno").val("")
+    $("#activityList").empty()
+    $("#summary_div").empty()
+    $("#chatsDiv").hide()
+    $("#journal-nothing").show()
+    calendar.removeAllEvents()
+   
+    nowebinar()
+    gauge1(0)
+    gauge2(0)
+
+	
+	
+}
+
 
     function chatSend(chat){
         var ticket=document.getElementById("ticketno").value
@@ -2654,6 +2691,7 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
         }
 
     }
+  
     function updateActivitylog(){
         var ticket=document.getElementById("ticketno").value
         $.ajax({
@@ -2967,7 +3005,7 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
     }
 
     
-    function sendReminder(ticket,timer,chatText,category,selDate){
+    function sendReminder(ticket,timer,chatText,category,selDate,flag){
 
         var ticket=document.getElementById("ticketno").value
         var accno=document.getElementById("accountno").value
@@ -2990,15 +3028,38 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
                         'date':selDate,
                         'time':timer,                
                         'ticket':ticket,
-                        'login':accno
+                        'login':accno,
+                        'flag':flag
                         
                     },
                     
                     
                     success: function(data){
+                        var reminders=data.reminders
                         $("#userMsg").empty()
                             $("#userMsg").append("Reminder send")
                             $("#alertpopup").modal('show')
+                            defaultEvents=[]
+                            for(var i=0;i<reminders.length;i++){
+                                    var timeformat=reminders[i][2]+"T"+reminders[i][3]
+                                    console.log("Time format===="+timeformat)
+                                    const  eventobj={
+                                        title: reminders[i][0],
+                                    
+                                        start: new Date(timeformat), 
+                                        extendedProps: {
+                                            description:reminders[i][5],
+                                        }                   
+                                        
+                                 }
+                
+                defaultEvents.push(eventobj)
+               
+                }
+                var eventSources = calendar.getEventSources();
+                eventSources[0].remove();
+                calendar.addEventSource(defaultEvents);
+                // calendar.refetchEvents();
                             updateActivitylog()
                     }
                 })
@@ -3843,6 +3904,7 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
                         var acno=data.accountno
                         var countrycode=data.code
                         var countryList=data.country_list
+                        var reminders=data.reminders
                         addCountries(countryList)
                         console.log("Leads length--------"+leads)
                         
@@ -3969,9 +4031,10 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
                         updateTicketSummary(ticketSummary)
                         console.log("Webinar List=========================="+webinarList)
                         updateWebinarList(webinarList)
+                        console.log("Reminders========================="+reminders)
+                        getReminders(reminders)
                         // $('#digital-container').load(document.URL +  ' #digital-container   ')
-                        console.log("Country================================="+country)
-                        console.log("Country================================="+countrycode)
+                       
                         if(country!=0){                           
                           
                             iti.setCountry(countrycode);
@@ -3993,12 +4056,90 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
         }
     }
     }
+    function addNewEvent(info) {
+                console.log("New event added ======"+info)
+                addEvent.modal('show');
+                formEvent.removeClass("was-validated");
+                formEvent[0].reset();
+
+                $("#event-title").val();
+                $('#event-category').val();
+                modalTitle.text('Add Reminder');
+                newEventData = info;
+                console.log("Event data============================="+newEventData)
+            } 
+    function getReminders(reminders){
+        defaultEvents = [];
+        for(var i=0;i<reminders.length;i++){
+                  var timeformat=reminders[i][2]+"T"+reminders[i][3]
+                  console.log("Time format===="+timeformat)
+                  const  eventobj={
+                    title: reminders[i][0],
+                   
+                    start: new Date(timeformat), 
+                    extendedProps: {
+                        description:reminders[i][5],
+                    }                   
+                    
+                }
+                defaultEvents.push(eventobj)
+    }
+        calendar = new FullCalendar.Calendar(calendarEl, {
+                plugins: [ 'bootstrap', 'interaction', 'dayGrid', 'timeGrid'],
+                editable: true,
+                droppable: true,
+                selectable: true,
+                defaultView: 'dayGridMonth',
+                themeSystem: 'bootstrap',
+                header: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'dayGridMonth,timeGridWeek,timeGridDay,listMonth'
+                },
+                eventClick: function(info) {
+                    
+                    addEvent.modal('show');
+                    formEvent[0].reset();
+                    selectedEvent = info.event;
+                    
+                    newEventData = new Date(selectedEvent.start);
+                   
+                    $("#event-title").val(selectedEvent.title);
+                    $('#event-category').val(selectedEvent.extendedProps['description']);
+                    
+                    flatpickr('#event-timepicker', {
+                        //inline: true,
+                        "allowInput":true,
+                        altInput: true,
+                        mode: "single",
+                        enableTime: true,
+                        noCalendar: true,
+                        dateFormat: "H:i",
+                        defaultDate: selectedEvent.start
+                    });
+                    console.log("Selected Time======"+selectedEvent.start)
+                    reminderflag=1
+                    modalTitle.text('Edit Reminder');
+                    
+                },
+                dateClick: function(info) {
+                    addNewEvent(info);
+                },
+                events : defaultEvents
+            });
+
+            calendar.render();
+        
+  
+   
+    console.log("Default events**************************************************"+defaultEvents)
+}
 
     function addCountries(countryList){
         var option=""
         for(i=0;i<countryList.length;i++){
             
-            option+="<option value="+countryList[i][0]+">"+countryList[i][1]+"</option>"
+            option+="<option value="+countryList[i][0]+" data-value="+countryList[i][2]+">"+countryList[i][1]+"</option>"
         }
         $("#country").empty()
         $("#country").append(option)

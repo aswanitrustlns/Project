@@ -81,7 +81,7 @@
                                         </div>
 
                                         <div class="d-flex w-100 justify-content-between">
-                                            <p class=" gilory-semibold-type color-color1 fs-16 m-0 text-red me-2 text-xl-center mb-lg-2">Today <span class="badge  rounded-pill  p-2 fs-11 ms-2" style="background-color:rgba(238, 110, 110, 0.2) ;"> 04</span></p>
+                                            <p class=" gilory-semibold-type color-color1 fs-16 m-0 text-red me-2 text-xl-center mb-lg-2">Today <span class="badge  rounded-pill  p-2 fs-11 ms-2" style="background-color:rgba(238, 110, 110, 0.2) ;">{{funded_today}}</span></p>
                                             <p class=" gilory-semibold-type color-color1 fs-16 m-0 text-green text-xl-center">This week  <span class="badge  rounded-pill  p-2 fs-11 ms-2" style="background-color:rgba(38, 171, 95, 0.2) ;">{{funded_week}}</span></p>
 
                                         </div>
@@ -104,7 +104,7 @@
                                         </div>
 
                                         <div class="d-flex w-100 justify-content-between">
-                                            <p class=" gilory-semibold-type color-color1 fs-16 m-0 text-red me-2 text-xl-center ">Today <span class="badge  rounded-pill  p-2 fs-11 ms-2" style="background-color:rgba(238, 110, 110, 0.2) ;"> 04</span></p>
+                                            <p class=" gilory-semibold-type color-color1 fs-16 m-0 text-red me-2 text-xl-center ">Today <span class="badge  rounded-pill  p-2 fs-11 ms-2" style="background-color:rgba(238, 110, 110, 0.2) ;">{{nonfunded_today}}</span></p>
                                             <p class=" gilory-semibold-type color-color1 fs-16 m-0 text-green text-xl-center">This week  <span class="badge  rounded-pill  p-2 fs-11 ms-2" style="background-color:rgba(38, 171, 95, 0.2) ;"> {{nonfunded_week}}</span></p>
 
                                         </div>
@@ -476,51 +476,16 @@
                                             </tr>
                                         </thead>
                                         <tbody class="gilory-regular-type fs-14 text-white"  >
+                                            
+                                        {% for monthly in summary%}    
                                             <tr>
-                                                <td scope="row">April 2022</td>
-                                                <td>01</td>
-                                                <td>67</td>
-                                                <td class="text-end">77</td>
+                                                <th scope="row">{{monthly.0}} {{monthly.7}}</th>
+                                                <td>{{monthly.5}}</td>
+                                                <td>{{monthly.2}}</td>
+                                                <td class="text-end">{{monthly.3}}</td>
                                             </tr>
-                                            <tr>
-                                                <td scope="row">April 2022</td>
-                                                <td>01</td>
-                                                <td>67</td>
-                                                <td class="text-end">77</td>
-                                            </tr>
-                                            <tr>
-                                                <td scope="row">April 2022</td>
-                                                <td>01</td>
-                                                <td>67</td>
-                                                <td class="text-end">77</td>
-                                            </tr>
-                                            <tr>
-                                                <td scope="row">April 2022</td>
-                                                <td>01</td>
-                                                <td>67</td>
-                                                <td class="text-end">77</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">April 2022</th>
-                                                <td>01</td>
-                                                <td>67</td>
-                                                <td class="text-end">77</td>
-                                            </tr>
-
-                                            <tr>
-                                                <td scope="row">April 2022</td>
-                                                <td>01</td>
-                                                <td>67</td>
-                                                <td class="text-end">77</td>
-                                            </tr>
-
-                                            <tr>
-                                                <td scope="row">April 2022</td>
-                                                <td>01</td>
-                                                <td>67</td>
-                                                <td class="text-end">77</td>
-                                            </tr>
-
+                                        {%endfor%}
+                                          
                                         </tbody>
                                     </table>
                                 </div>
@@ -668,7 +633,7 @@
 
                                 <div data-simplebar="" style="max-height:220px ;">
                                     
-                                  {%if reminders %}
+                                    {%if reminder_count > 0%}
                                     {%for reminder in reminders%} 
 
                                     <div class=" mb-3 px-3 py-3 card  ">
@@ -782,106 +747,29 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row   justify-content-between align-items-center m-0 mb-3">
-                                    <div class="progress  col-xl-8    p-0 progress-xl bg-soft-gunmetal">
-                                        <div class="progress-bar progress-bar-striped" role="progressbar  "
-                                            style="width: 25%;background-color: #7AD3FF;" aria-valuenow="25"
-                                            aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                    <div class=" col-xl-4    px-0  ps-xl-2 d-flex align-items-center ">
-                                        <svg width="10" height="11" viewBox="0 0 10 11" fill="none"
-                                            xmlns="http://www.w3.org/2000/svg">
-                                            <circle cx="4.77273" cy="5.73769" r="4.77273" fill="#7AD3FF" />
-                                        </svg>
-
-                                        <span class="  ms-1 text-truncate"> Yara Hajji Youssef</span>
-                                    </div>
-
-                                </div>
-                                <div class="row   justify-content-between align-items-center m-0 mb-3">
-                                    <div class="progress   col-xl-8    p-0 progress-xl bg-soft-gunmetal">
-                                        <div class="progress-bar  progress-bar-striped" role="progressbar  "
-                                            style="width: 25%;background-color:#FF9364;" aria-valuenow="25"
-                                            aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                    <div class=" col-xl-4      px-0 ps-xl-2  d-flex align-items-center">
-                                        <svg width="10" height="11" viewBox="0 0 10 11" fill="none"
-                                            xmlns="http://www.w3.org/2000/svg">
-                                            <circle cx="4.77273" cy="5.73769" r="4.77273" fill="#FF9364" />
-                                        </svg>
-
-
-                                        <span class="  ms-1 text-truncate "> Amra Osman</span>
-                                    </div>
-
-                                </div>
+                              
+                               {%for tickets in ticket_summary%}
                                 <div class="row   justify-content-between align-items-center m-0 mb-3">
                                     <div class="progress   col-xl-8   p-0 progress-xl progress-xl bg-soft-gunmetal">
                                         <div class="progress-bar progress-bar-striped" role="progressbar  "
-                                            style="width: 35%;background-color:#B09FFF;" aria-valuenow="35"
+                                            style="width: {{tickets.percent}}%;background-color: {%cycle '#7AD3FF' '#FF9364' '#B09FFF' '#FE6C6C' '#99FFA3' '#FFD572'  %}" aria-valuenow="35"
                                             aria-valuemin="0" aria-valuemax="100"></div>
                                     </div>
                                     <div class=" col-xl-4  
                                     px-0  ps-lg-2 d-flex align-items-center">
                                         <svg width="10" height="11" viewBox="0 0 10 11" fill="none"
                                             xmlns="http://www.w3.org/2000/svg">
-                                            <circle cx="4.77273" cy="5.73769" r="4.77273" fill="#B09FFF" />
+                                            <circle cx="4.77273" cy="5.73769" r="4.77273" fill="{%cycle '#7AD3FF' '#FF9364' '#B09FFF' '#FE6C6C' '#99FFA3' '#FFD572'  %}" />
                                         </svg>
 
 
-                                        <span class="  ms-1 text-truncate"> Fatima Omar</span>
+                                        <span class="  ms-1 text-truncate"> {{tickets.name}}</span>
                                     </div>
 
                                 </div>
-                                <div class="row   justify-content-between align-items-center m-0 mb-3">
-                                    <div class="progress   col-xl-8   p-0 progress-xl bg-soft-gunmetal">
-                                        <div class="progress-bar progress-bar-striped" role="progressbar  "
-                                            style="width: 45%;background-color:#FE6C6C" aria-valuenow="25"
-                                            aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                    <div class="  col-xl-4     px-0  ps-xl-2  d-flex align-items-center">
-                                        <svg width="10" height="11" viewBox="0 0 10 11" fill="none"
-                                            xmlns="http://www.w3.org/2000/svg">
-                                            <circle cx="4.77273" cy="5.73769" r="4.77273" fill="#FE6C6C" />
-                                        </svg>
-
-                                        <span class="  ms-1 text-truncate"> Firas Hachache</span>
-                                    </div>
-
-                                </div>
-                                <div class="row   justify-content-between align-items-center m-0 mb-3">
-                                    <div class="progress   col-xl-8   p-0 progress-xl bg-soft-gunmetal">
-                                        <div class="progress-bar progress-bar-striped" role="progressbar  "
-                                            style="width: 65%;background-color:#99FFA3" aria-valuenow="25"
-                                            aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                    <div class="  col-xl-4    px-0  ps-xl-2  d-flex align-items-center">
-                                        <svg width="10" height="11" viewBox="0 0 10 11" fill="none"
-                                            xmlns="http://www.w3.org/2000/svg">
-                                            <circle cx="4.77273" cy="5.73769" r="4.77273" fill="#99FFA3" />
-                                        </svg>
-
-                                        <span class="  ms-1 text-truncate"> Firas Monzer</span>
-                                    </div>
-
-                                </div>
-
-                                <div class="row   justify-content-between align-items-center m-0 mb-3">
-                                    <div class="progress   col-xl-8  p-0 progress-xl bg-soft-gunmetal">
-                                        <div class="progress-bar progress-bar-striped" role="progressbar  "
-                                            style="width: 65%;background-color:#FFD572" aria-valuenow="25"
-                                            aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                    <div class="  col-xl-4     px-0  ps-xl-2  d-flex align-items-center">
-                                        <svg width="10" height="11" viewBox="0 0 10 11" fill="none"
-                                            xmlns="http://www.w3.org/2000/svg">
-                                            <circle cx="4.77273" cy="5.73769" r="4.77273" fill="#FFD572" />
-                                        </svg>
-
-                                        <span class="  ms-1 text-truncate">Jad Khodor</span>
-                                    </div>
-
-                                </div>
+                             
+                                
+                                {%endfor%}
                             
 
                             </div>
@@ -917,11 +805,15 @@
                                             </div>
                                         </div>
                                     </div>
+                                    
                                     <div style='height: 220px' id="tab03" class="d-block">
                                         <div id="weekly-seminar_d" data-colors='["#FF4929","#19BDB4","#5D62AB","#2C2E57","#ED589D","#E9BBD5"]'
                                         class="apex-charts"></div>
 
                                     </div>
+
+                                    
+
                                     <div style='height: 220px' id="tab04" class="d-none">
                                         <div id="weekly-seminar_w" data-colors='["#FF4929","#19BDB4","#5D62AB","#2C2E57","#ED589D","#E9BBD5"]'
                                         class="apex-charts"></div>

@@ -13,14 +13,12 @@ File: Calendar init js
 
     CalendarPage.prototype.init = function() {
 
-            var addEvent=$("#event-modal");
-            var modalTitle = $("#modal-title");
-            var formEvent = $("#form-event");
+            
             var selectedEvent = null;
-            var newEventData = null;
+            
             var forms = document.getElementsByClassName('needs-validation');
             var selectedEvent = null;
-            var newEventData = null;
+           
             var eventObject = null;
             /* initialize the calendar */
             var date = new Date();
@@ -39,57 +37,18 @@ File: Calendar init js
                     };
                 }
             });*/
-            var defaultEvents = [
-                
-        ];
+           
 
            // var draggableEl = document.getElementById('external-events');
-            var calendarEl = document.getElementById('calendar');
-
-            function addNewEvent(info) {
-                addEvent.modal('show');
-                formEvent.removeClass("was-validated");
-                formEvent[0].reset();
-
-                $("#event-title").val();
-                $('#event-category').val();
-                modalTitle.text('Add Reminder');
-                newEventData = info;
-                console.log("Event data============================="+newEventData)
-            }
             
 
-            var calendar = new FullCalendar.Calendar(calendarEl, {
-                plugins: [ 'bootstrap', 'interaction', 'dayGrid', 'timeGrid'],
-                editable: true,
-                droppable: true,
-                selectable: true,
-                defaultView: 'dayGridMonth',
-                themeSystem: 'bootstrap',
-                header: {
-                    left: 'prev,next today',
-                    center: 'title',
-                    right: 'dayGridMonth,timeGridWeek,timeGridDay,listMonth'
-                },
-                eventClick: function(info) {
-                    addEvent.modal('show');
-                    formEvent[0].reset();
-                    selectedEvent = info.event;
-                    $("#event-title").val(selectedEvent.title);
-                    $('#event-category').val(selectedEvent.classNames[0]);
-                    newEventData = null;
-                    modalTitle.text('Edit Event');
-                    newEventData = null;
-                },
-                dateClick: function(info) {
-                    addNewEvent(info);
-                },
-                events : defaultEvents
-            });
+            
+            
+
             // calendar.render();
             $( document ).ready(function() {
-
-                calendar.render();
+                
+            
 
          
 
@@ -114,7 +73,7 @@ File: Calendar init js
                 var updatedTitle = $("#eventtitle").val();
                 var updatedCategory =  $('#event-category').val();
                 var timer=$("#event-timepicker").val()
-               
+                var remDate
                 // validation
                 if (forms[0].checkValidity() === false) {
                         event.preventDefault();
@@ -129,21 +88,22 @@ File: Calendar init js
                          console.log("Inputsssssss"+inputs)
                         var ticket=document.getElementById("ticketno").value
                         // var subject=$("#subject").val()
-                        var newEvent = {
-                            title: updatedTitle,
-                            start: newEventData.date,
-                            allDay: newEventData.allDay,
-                            className: updatedCategory
+                        // var newEvent = {
+                        //     title: updatedTitle,
+                        //     start: newEventData.date,
+                        //     allDay: newEventData.allDay,
+                        //     className: updatedCategory
+                        // }
+                        // calendar.addEvent(newEvent);
+                        
+                        console.log("Reminder flag==================================="+reminderflag)
+                        if(newEventData.date==undefined || newEventData==""){
+                            remDate=formatDate(newEventData)
+                        }else{
+                            remDate=formatDate(newEventData.date)
                         }
-                        calendar.addEvent(newEvent);
-                        console.log("subject----"+subject)
-                        console.log("ticket==="+ticket)
-                        console.log("time chosen-----"+timer)
-                        console.log("Detials==="+updatedTitle)
-                        console.log("Category====="+updatedCategory)
-                        console.log("All day-----"+newEventData.date)
-                        var remDate=formatDate(newEventData.date)
-                        sendReminder(ticket,timer,updatedTitle,updatedCategory,remDate)
+                       
+                        sendReminder(ticket,timer,updatedTitle,updatedCategory,remDate,reminderflag)
                     }
                     addEvent.modal('hide');
                 }
