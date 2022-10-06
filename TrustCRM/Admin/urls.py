@@ -22,6 +22,7 @@ urlpatterns=[
     path('NewAccounts',new_accounts,name="NewAccounts"),
     path('NewAccountsClick',new_accounts_click,name="NewAccountsClick"),
     path('AccountsFilter',new_accounts_variants,name="AccountsFilter"),
+    path('WeeklyFilter',new_accounts_variants_weekly,name="WeeklyFilter"),
     path('LeadSubmit',lead_registration_check,name="LeadSubmit"),
     path('LeadProcessing',lead_processing,name="LeadProcessing"),
     path('Pendingtickets',pending_tickets,name='PendingTickets'),
@@ -75,6 +76,7 @@ urlpatterns=[
     path('EmailData',email_data,name="EmailData"),
     path('Calendar',show_calendar,name="Calendar"),
     path('Events',show_events,name="Events"),
+   
     path('logout',logout,name="Logout"),
     
    

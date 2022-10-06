@@ -6,12 +6,10 @@ from django.conf import settings
 from django.views.generic import TemplateView
 from .views import *
 urlpatterns=[
-     path('seminars',view_seminars,name="Seminars"),
-     path('AddEn',add_button_click,name="AddEn"),
-     path('Info',get_webinar_info,name="Info"),
-     path("Delete",delete_seminar,name="Delete")
+      path('ChangePassword',change_password,name='ChangePassword'),
+     
     
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
-app_name='Seminars'
+app_name='Backoffice'

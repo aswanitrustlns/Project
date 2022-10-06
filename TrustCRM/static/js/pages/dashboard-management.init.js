@@ -84,7 +84,7 @@ var options = {
     text:'Nothing to display',
     align: "center",
     verticalAlign: "middle",
-
+    
     style: {
         color: undefined,
         fontSize: '14px',

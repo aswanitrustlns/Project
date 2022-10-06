@@ -1,12 +1,15 @@
 from django.db import connection
 from datetime import datetime, timedelta
+
 class Services:
 #Get Last seminar
 
     def get_last_seminar(self):
         try:
             Cursor=connection.cursor()
-            last_seminar=Cursor.execute("set nocount on;exec SP_GetLastSeminar")
+            Cursor.execute("set nocount on;exec SP_GetSeminars")
+            last_seminar=Cursor.fetchall()
+            print("Last seminar=====",last_seminar)
         except Exception as e:
                 print("Exception---",e)
         finally:
@@ -30,7 +33,9 @@ class Services:
     def get_seminar_info_list(self):
         try:
             Cursor=connection.cursor()
-            seminar_info_list=Cursor.execute("set nocount on;exec SP_GetSeminarInfolist")
+            Cursor.execute("set nocount on;exec SP_GetSeminarInfolist")
+            seminar_info_list=Cursor.fetchall()
+            print("Seminar info list================",seminar_info_list)
         except Exception as e:
                 print("Exception---",e)
         finally:
@@ -42,16 +47,38 @@ class Services:
     def save_new_event_details(self,request):
         try:
             Cursor=connection.cursor()
-            title=request.POST.get('title')
-            name=request.POST.get('name')
+            titleen=request.POST.get('titleen')
+            titlear=request.POST.get('titlear')
+            if titleen:
+                title=titleen
+            if titlear:
+                title=titlear
+            name=request.POST.get('seminarname')
             location=request.POST.get('location')
             aname=request.POST.get('aname')
             alocation=request.POST.get('alocation')
-            elvl=request.POST.get('elvl')
-            webp=request.POST.get('webp')
+            elvlen=request.POST.get('elvlen')
+            elvlar=request.POST.get('elvlar')
+            if elvlen:
+                elvl=elvlen
+            if elvlar:
+                elvl=elvlar
+            webpen=request.POST.get('webpen')
+            webpar=request.POST.get('webpar')
+            if webpen:
+                if webpen=="on":
+                    webp=1
+                else:
+                    webp=0
+            if webpar:
+                if webpen=="on":
+                    webp=1
+                else:
+                    webp=0
+            print("webp=================================",webp)
             description=request.POST.get('description')
             ardesc=request.POST.get('ardesc')
-            subdes=request.POST.get('subdes')
+            subdes=request.POST.get('subdescription')
             arsubdes=request.POST.get('arsubdes')
             bullet1=request.POST.get('bullet1')
             bullet2=request.POST.get('bullet2')
@@ -63,8 +90,12 @@ class Services:
             abullet3=request.POST.get('abullet3')
             abullet4=request.POST.get('abullet4')
             abullet5=request.POST.get('abullet5')
-            regdate=request.POST.get('regdate')
-            Cursor.execute("set nocount on;exec SP_SaveNewEventDetails %s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s",[title,name,location,aname,alocation,elvl,webp,description,ardesc,subdes,arsubdes,bullet1,bullet2,bullet3,bullet4,bullet5,abullet1,abullet2,abullet3,abullet4,abullet5,regdate])
+            regdate=request.POST.get('date')
+            reg_time=request.POST.get('time')
+            reg=regdate+" "+reg_time
+            print("======================",title,name,location,aname,alocation,elvl,webp,description,ardesc,subdes,arsubdes,bullet1,bullet2,bullet3,bullet4,bullet5,abullet1,abullet2,abullet3,abullet4,abullet5,regdate)
+            Cursor.execute("set nocount on;exec SP_SaveNewEventDetails %s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s",[title,name,location,aname,alocation,elvl,webp,description,ardesc,subdes,arsubdes,bullet1,bullet2,bullet3,bullet4,bullet5,abullet1,abullet2,abullet3,abullet4,abullet5,reg])
+            print("saved")
         except Exception as e:
                 print("Exception---",e)
         finally:
@@ -74,16 +105,36 @@ class Services:
     def update_event_details(self,request):
         try:
             Cursor=connection.cursor()
-            title=request.POST.get('title')
-            name=request.POST.get('name')
+            titleen=request.POST.get('titleen')
+            titlear=request.POST.get('titlear')
+            if titleen:
+                title=titleen
+            if titlear:
+                title=titlear
+            name=request.POST.get('seminarname')
             location=request.POST.get('location')
             aname=request.POST.get('aname')
             alocation=request.POST.get('alocation')
-            elvl=request.POST.get('elvl')
-            webp=request.POST.get('webp')
+            elvlen=request.POST.get('elvlen')
+            elvlar=request.POST.get('elvlar')
+            if elvlen:
+                elvl=elvlen
+            if elvlar:
+                elvl=elvlar
+            webpen=request.POST.get('webpen')
+            print("webpen========================",webpen)
+            
+  
+            if webpen=="on":
+                    webp=1
+            else:
+                    webp=0
+       
+                
+            
             description=request.POST.get('description')
             ardesc=request.POST.get('ardesc')
-            subdes=request.POST.get('subdes')
+            subdes=request.POST.get('subdescription')
             arsubdes=request.POST.get('arsubdes')
             bullet1=request.POST.get('bullet1')
             bullet2=request.POST.get('bullet2')
@@ -95,8 +146,11 @@ class Services:
             abullet3=request.POST.get('abullet3')
             abullet4=request.POST.get('abullet4')
             abullet5=request.POST.get('abullet5')
-            regdate=request.POST.get('regdate')
-            Cursor.execute("set nocount on;exec SP_UpdateEventDetails %s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s",[title,name,location,aname,alocation,elvl,webp,description,ardesc,subdes,arsubdes,bullet1,bullet2,bullet3,bullet4,bullet5,abullet1,abullet2,abullet3,abullet4,abullet5,regdate])
+            regdate=request.POST.get('date')
+            reg_time=request.POST.get('time')
+            reg=regdate+" "+reg_time
+            Cursor.execute("set nocount on;exec SP_UpdateEventDetails %s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s",[title,name,location,aname,alocation,elvl,webp,description,ardesc,subdes,arsubdes,bullet1,bullet2,bullet3,bullet4,bullet5,abullet1,abullet2,abullet3,abullet4,abullet5,reg])
+            print("saved")
         except Exception as e:
                 print("Exception---",e)
         finally:
@@ -126,10 +180,11 @@ class Services:
 
 #View webinar
 
-    def view_webinar(self,userId):
+    def view_webinar(self,seminarId):
         try:
             Cursor=connection.cursor()
-            webinar_info=Cursor.execute("set nocount on;exec SP_GetSeminarInfo %s",[userId])
+            Cursor.execute("set nocount on;exec SP_GetSeminarInfo %s",[seminarId])
+            webinar_info=Cursor.fetchone()
         except Exception as e:
                 print("Exception---",e)
         finally:

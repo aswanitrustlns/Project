@@ -76,13 +76,13 @@
                                             <svg width="21" height="21" class="me-2"  viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                 <path d="M10.5002 0.0830078C4.75016 0.0830078 0.0834961 4.74967 0.0834961 10.4997C0.0834961 16.2497 4.75016 20.9163 10.5002 20.9163C16.2502 20.9163 20.9168 16.2497 20.9168 10.4997C20.9168 4.74967 16.2502 0.0830078 10.5002 0.0830078ZM15.9689 10.8434C15.9689 11.2705 15.6147 11.6247 15.1877 11.6247C14.7606 11.6247 14.4064 11.2705 14.4064 10.8434V7.69759L6.36475 15.7393C6.2085 15.8955 6.01058 15.9684 5.81266 15.9684C5.61475 15.9684 5.41683 15.8955 5.26058 15.7393C4.9585 15.4372 4.9585 14.9372 5.26058 14.6351L13.3022 6.59342H10.1564C9.72933 6.59342 9.37516 6.23926 9.37516 5.81217C9.37516 5.38509 9.72933 5.03092 10.1564 5.03092H15.1877C15.6147 5.03092 15.9689 5.38509 15.9689 5.81217V10.8434Z" fill="#00A651"/>
                                             </svg>
-                                            <a href="{% url 'Admin:AccountsFilter' %}?&change=Funded"> <h5 class=" gilory-medium-type fs-18">Funded</h5></a>
+                                             <h5 class=" gilory-medium-type fs-18">Funded</h5>
 
                                         </div>
 
                                         <div class="d-flex w-100 justify-content-between">
-                                            <p class=" gilory-semibold-type color-color1 fs-16 m-0 text-red me-2 text-xl-center mb-lg-2">Today <span class="badge  rounded-pill  p-2 fs-11 ms-2" style="background-color:rgba(238, 110, 110, 0.2) ;">{{funded_today}}</span></p>
-                                            <p class=" gilory-semibold-type color-color1 fs-16 m-0 text-green text-xl-center">This week  <span class="badge  rounded-pill  p-2 fs-11 ms-2" style="background-color:rgba(38, 171, 95, 0.2) ;">{{funded_week}}</span></p>
+                                            <a href="{% url 'Admin:AccountsFilter' %}?&change=Funded"><p class=" gilory-semibold-type color-color1 fs-16 m-0 text-red me-2 text-xl-center mb-lg-2">Today <span class="badge  rounded-pill  p-2 fs-11 ms-2" style="background-color:rgba(238, 110, 110, 0.2) ;">{{funded_today}}</span></p></a>
+                                            <a href="{% url 'Admin:WeeklyFilter' %}?&change=Funded"><p class=" gilory-semibold-type color-color1 fs-16 m-0 text-green text-xl-center">This week  <span class="badge  rounded-pill  p-2 fs-11 ms-2" style="background-color:rgba(38, 171, 95, 0.2) ;">{{funded_week}}</span></p></a>
 
                                         </div>
                                         
@@ -99,13 +99,13 @@
                                                 <path d="M10.5002 0.0830078C4.75016 0.0830078 0.0834961 4.74967 0.0834961 10.4997C0.0834961 16.2497 4.75016 20.9163 10.5002 20.9163C16.2502 20.9163 20.9168 16.2497 20.9168 10.4997C20.9168 4.74967 16.2502 0.0830078 10.5002 0.0830078ZM16.2606 5.84343L8.21891 13.8851H11.3647C11.7918 13.8851 12.146 14.2393 12.146 14.6663C12.146 15.0934 11.7918 15.4476 11.3647 15.4476H6.3335C5.90641 15.4476 5.55225 15.0934 5.55225 14.6663V9.63509C5.55225 9.20801 5.90641 8.85384 6.3335 8.85384C6.76058 8.85384 7.11475 9.20801 7.11475 9.63509V12.7809L15.1564 4.73926C15.3127 4.58301 15.5106 4.51009 15.7085 4.51009C15.9064 4.51009 16.1043 4.58301 16.2606 4.73926C16.5627 5.04134 16.5627 5.54134 16.2606 5.84343Z" fill="#FF0001"/>
                                                 </svg>
                                                 
-                                                <a href="{% url 'Admin:AccountsFilter' %}?&change=NonFunded"><h5 class=" gilory-medium-type fs-18">Non Funded</h5></a>
+                                                <h5 class=" gilory-medium-type fs-18">Non Funded</h5>
 
                                         </div>
 
                                         <div class="d-flex w-100 justify-content-between">
-                                            <p class=" gilory-semibold-type color-color1 fs-16 m-0 text-red me-2 text-xl-center ">Today <span class="badge  rounded-pill  p-2 fs-11 ms-2" style="background-color:rgba(238, 110, 110, 0.2) ;">{{nonfunded_today}}</span></p>
-                                            <p class=" gilory-semibold-type color-color1 fs-16 m-0 text-green text-xl-center">This week  <span class="badge  rounded-pill  p-2 fs-11 ms-2" style="background-color:rgba(38, 171, 95, 0.2) ;"> {{nonfunded_week}}</span></p>
+                                            <a href="{% url 'Admin:AccountsFilter' %}?&change=NonFunded"> <p class=" gilory-semibold-type color-color1 fs-16 m-0 text-red me-2 text-xl-center ">Today <span class="badge  rounded-pill  p-2 fs-11 ms-2" style="background-color:rgba(238, 110, 110, 0.2) ;">{{nonfunded_today}}</span></p></a>
+                                            <a href="{% url 'Admin:WeeklyFilter' %}?&change=NonFunded"><p class=" gilory-semibold-type color-color1 fs-16 m-0 text-green text-xl-center">This week  <span class="badge  rounded-pill  p-2 fs-11 ms-2" style="background-color:rgba(38, 171, 95, 0.2) ;"> {{nonfunded_week}}</span></p></a>
 
                                         </div>
                                     
@@ -401,7 +401,13 @@
                             <div class="card-body">
                                 <div class="d-flex flex-wrap align-items-center mb-4">
                                     <h5 class="card-title me-2 almarenamonolight-type fs-21">Sales Calls</h5>
+                                    <div class="ms-auto">
+                                        <div>
+                                            <a  class=" mb-0 my-n1  gilorymedium-type fs-15"
+                                                style="color: var(--color1);">Today’s Calls</a>
 
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="row align-items-center">
                                     <div class="col-xl-12" data-simplebar="" style="max-height:220px ;">                                     
@@ -530,15 +536,18 @@
                                         sheduled</p>
     
                                 </div>
+                                
                                 <div id="meetings_report_tabdaily" class="d-block">
-
+                                    
                                     <div class="" style="height: 220px">
                                             <div id="meetings_report_d"
                                             data-colors='["#E7CE79","#645993","#D18C42","#71CCFF","#FF4929","#00A54F"]'
                                             class="apex-charts" dir="ltr">
                                             </div>
                                     </div>
+                                    
                                 </div>
+                                
                                 <div id="meetings_report_tabweekly" class="d-none">
                                     <div class="" style="height: 220px">
                                         <!--id="meetings_report_w"-->
@@ -746,7 +755,7 @@
                                         </div>
                                     </div>
                                 </div>
-                              
+                            {%if ticket_summary%} 
                                {%for tickets in ticket_summary%}
                                 <div class="row   justify-content-between align-items-center m-0 mb-3">
                                     <div class="progress   col-xl-8   p-0 progress-xl progress-xl bg-soft-gunmetal">
@@ -769,6 +778,17 @@
                              
                                 
                                 {%endfor%}
+                                {%else%}
+                                <div class="  text-center  d-block">
+                                    <img src="{% static 'images/nodata/nodata.png' %}" alt="" style="max-height: 120px;">                                                   
+                                       
+
+                                    <p class="gilory-regular-type fs-20 mt-2">No Reminders</p>
+                                
+                                
+                                 </div>
+
+                                {%endif%}
                             
 
                             </div>
@@ -874,6 +894,16 @@
     var seminar_weekly_pie={{seminar_weekly_pie|safe}}
     var halfyearly_bar={{halfyearly_bar|safe}}
     console.log("Half yearly bar"+halfyearly_bar)
+    $(function() {
+        $("#salesreps").change(function(){
+            var selrep=$("#salesreps").val()
+            console.log("Selected sales rep isss======"+selrep)
+            var url="{% url 'Admin:Dashboard'%}"
+            window.location.href=url+"?&repId="+selrep
+        })
+
+
+    })
 </script>
 <script src="{%static 'libs/apexcharts/apexcharts.min.js' %}"></script>
 <script src="{%static 'js/pages/dashboard-management.init.js' %}"></script>

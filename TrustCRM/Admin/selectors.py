@@ -30,7 +30,8 @@ class Selector:
     def get_loged_user_info(self,username):
        
         try:
-            Cursor=connection.cursor()            
+            Cursor=connection.cursor()  
+                      
             Cursor.execute("set nocount on;exec SP_GetLoginDetails %s",[username])
             UserId=Cursor.fetchone()
             UserId=UserId[0]          
@@ -416,6 +417,19 @@ class Selector:
                
 
         #         live_accounts[index] = tuple(itemlist)
+        return live_accounts
+#Get new Accounts weekly filter
+    def get_new_accounts_weekly_filter(self,change,date_from,date_to):
+        try:
+           Cursor=connection.cursor()
+           
+           Cursor.execute("set nocount on;exec SP_GetNewActsFromDashboard %s,%s,%s",[date_from,date_to,change])  
+           live_accounts=Cursor.fetchall()
+         
+        except Exception as e:
+            print("Exception---",e)
+        finally:
+            Cursor.close()
         return live_accounts
         
 #Duplicate lead check

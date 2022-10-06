@@ -58,12 +58,14 @@ def login_check(request):
            
         UserId=selector.get_loged_user_info(username)  
         print("User Id==================",UserId,type(UserId))
+        request.session['UserId'] = UserId
         if UserId==21:
             print("Admin login===================================")
             adminrole="admin" 
+            request.session['role']="manager"
         else:
-            adminrole="sales"      
-        request.session['UserId'] = UserId
+            adminrole="sales" 
+            request.session['role']="salesrep"
         # request.session['UserId'] = 30
         connect=selector.exe_connection(username,server_name,password)
         
@@ -103,10 +105,9 @@ def dashboard(request):
             UserId=selrep
         # else:
         #     UserId=request.session.get('UserId')
-        
-        print("Selected rep=================",selrep)
        
-        print("User Id=========================================",UserId)
+        
+       
         permission_check=selector.user_role_selection(UserId)    
 
         manager=permission_check[11]
@@ -142,8 +143,7 @@ def dashboard(request):
             # return render(request,'sales/dashboard.html',dashbord_data)
         print("Admin value============================",adminrole)
         if manager:
-             
-             request.session['role']="manager"
+                          
             
              print("Role============================manager")
             #  dashbord_data=sales_dash.admin_dashboard(UserId)  
@@ -153,7 +153,7 @@ def dashboard(request):
              return render(request,'sales/managerdashboard.html',dashbord_data)
         if salesRep:
             
-             request.session['role']="salesrep"
+             
              dashbord_data=sales_dash.sales_dashboard(UserId)     
              print("sales dashboard procedure end",datetime.now().time()) 
              return render(request,'sales/dashboard.html',dashbord_data)
@@ -561,6 +561,35 @@ def new_accounts_variants(request):
         # accounts_count=selector.get_new_accounts_count_variants(date_yesterday,date_today,change)
         print("Accounts count-----------",accounts_count)
             # terminated_data=selector.get_new_accounts("Terminated")
+        return render(request,'admin/newAccounts.html',{'accounts_data':accounts_data,'accounts_count':accounts_count,"active":json.dumps(active)})
+                
+    else:
+        return redirect('/login')
+
+#new account weekly
+def new_accounts_variants_weekly(request):
+    active="Live"
+    if 'UserId' in request.session:
+        change=request.GET.get("change")
+        date_today=datetime.today().date()    
+        date_today=date_today.strftime("%Y-%m-%d")
+        week_day=datetime.today().weekday() # Monday is 0 and Sunday is 6
+        if(week_day==0):
+                date_yesterday = datetime.today()-timedelta(3)
+        else:
+                date_yesterday = datetime.today()-timedelta(week_day)
+
+        date_yesterday=date_yesterday.strftime("%Y-%m-%d")
+        print("Date yesterday==========",date_yesterday)
+        if (change =="TempApproved" or change=="WaitingApproval"):
+            active="pending"
+        print("Status----------------------",change)
+        
+        accounts_data=selector.get_new_accounts_weekly_filter(change,date_yesterday,date_today)
+        accounts_count=selector.get_new_accounts_count(date_yesterday,date_today)   
+        
+        print("Accounts count-----------",accounts_count)
+            
         return render(request,'admin/newAccounts.html',{'accounts_data':accounts_data,'accounts_count':accounts_count,"active":json.dumps(active)})
                 
     else:
@@ -1189,6 +1218,9 @@ def show_events(request):
         return JsonResponse({"events":reminders})
     else:
         return redirect('/login')
+
+
+
 
 
 

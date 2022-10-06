@@ -108,22 +108,10 @@
                                     <div class="tab-content">
                                         <div class="tab-pane active" id="actions-en-tab" role="tabpanel">
     
-                                            <div class="d-flex justify-content-end mb-2">
-                                                <button class="btn btn-outline-light btn-lg ms-3" >Add <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                    <path d="M10 18.3332C14.5833 18.3332 18.3333 14.5832 18.3333 9.99984C18.3333 5.4165 14.5833 1.6665 10 1.6665C5.41667 1.6665 1.66667 5.4165 1.66667 9.99984C1.66667 14.5832 5.41667 18.3332 10 18.3332Z" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                                    <path d="M6.66667 10H13.3333" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                                    <path d="M10 13.3332V6.6665" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                                    </svg>
-                                                    
-                                                </button>
+                                       
     
-                                                <button class="btn btn-outline-light btn-lg  ms-3" type="reset">Reset <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                    <path d="M18.3333 9.99984C18.3333 14.5998 14.6 18.3332 10 18.3332C5.40001 18.3332 2.59167 13.6998 2.59167 13.6998M2.59167 13.6998H6.35834M2.59167 13.6998V17.8665M1.66667 9.99984C1.66667 5.39984 5.36667 1.6665 10 1.6665C15.5583 1.6665 18.3333 6.29984 18.3333 6.29984M18.3333 6.29984V2.13317M18.3333 6.29984H14.6333" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                                    </svg>
-                                                    </button>
-                                            </div>
-    
-                                            <form class="needs-validation" novalidate>
+                                            <form   id="form-en">
+                                                {% csrf_token %}
                                                 <div class="row">
                                                      
                                                     <!--<div class="d-flex flex-wrap align-items-center mb-2">
@@ -135,9 +123,10 @@
                                                     <div class="col-lg-6 col-xl-2">
                                                         <div class="mb-3">
                                                             <label class="form-label" for="title">Title<span class="color-orange">*</span></label>
-                                                            <select  class="form-select" id="title"  value="" required>
-                                                                <option value="">Mr</option>
-                                                                <option value="">Mrs</option>
+                                                            <select  class="form-select" id="title"  name="titleen" value="" required >
+                                                                {%for title in titles%}
+                                                                <option value="{{title.0}}">{{title.0}}</option>
+                                                               {%endfor%}
                                                             </select>
                                                             <div class="invalid-feedback position-absolute bottom-0">
                                                                 Please provide a valid entry.
@@ -147,7 +136,11 @@
                                                     <div class="col-lg-6 col-xl-4">
                                                         <div class="mb-3">
                                                             <label class="form-label" for="Categorization">Categorization<span class="color-orange">*</span></label>
-                                                            <input type="text" class="form-control" id="Categorization" placeholder="both name(s) e.g Jon Doe" value="" required>
+                                                            <select  class="form-select" id="title"  value="" required name="elvlen">
+                                                                <option value="0">Beginner</option>
+                                                                <option value="1">Intermediate</option>
+                                                                <option value="2">Advanced</option>
+                                                            </select>
                                                             <div class="invalid-feedback position-absolute bottom-0">
                                                                 Please provide a valid entry.
                                                             </div>
@@ -156,25 +149,25 @@
                                                     <div class="col-lg-12 col-xl-6 ">
                                                         <div class="mb-3">
                                                             <label class="form-label" for="firstname*">Name<span class="color-orange">*</span></label>
-                                                            <input type="text" class="form-control" id="firstname" placeholder="both name(s) e.g Jon Doe" value="" required>
+                                                            <input type="text" class="form-control" id="seminarname" name="seminarname" placeholder="both name(s) e.g Jon Doe" value="" required>
                                                             <div class="invalid-feedback position-absolute bottom-0">
                                                                 Please provide a valid entry.
                                                             </div>
                                                         </div>
                                                     </div>
                                               
-                                                    <div class="col-lg-12 col-xl-6">
+                                                    <div class="col-lg-12 col-xl-12">
                                                         <div class="mb-3">
                                                             <label class="form-label" for="Location">Location <span class="color-orange">*</span></label>
                                                             
-                                                            <input type="email" class="form-control" id="Location" placeholder=" " required>
+                                                            <input type="email" class="form-control" id="location" name="location" placeholder=" " required>
                                                             <div class="invalid-feedback position-absolute bottom-0">
                                                                 Please provide a valid  Email.
                                                             </div>
                                                         </div>
                                                     </div>
                                                    
-                                                    <div class="col-lg-12 col-xl-6">
+                                                    <!-- <div class="col-lg-12 col-xl-6">
                                                         <div class="mb-0 d-flex  card-h-100  align-items-end">
                                                             <a class="text-info gilorysemibold-type mt-0">Get Zoom Link <svg width="67" height="15" viewBox="0 0 67 15" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                                 <path fill-rule="evenodd" clip-rule="evenodd" d="M26.9167 2.19375C25.4618 0.731249 23.5591 0 21.6379 0C19.7353 0 17.814 0.731249 16.359 2.19375C13.4492 5.11875 13.4492 9.8625 16.359 12.8063C19.2689 15.7313 23.9882 15.7313 26.9167 12.8063C29.8266 9.88125 29.8266 5.11875 26.9167 2.19375ZM24.8089 10.6875C23.0555 12.45 20.2202 12.45 18.4855 10.6875C16.7321 8.925 16.7321 6.075 18.4855 4.33125C20.2389 2.56875 23.0742 2.56875 24.8089 4.33125C26.5436 6.075 26.5436 8.925 24.8089 10.6875Z" fill="#2D8CFF"/>
@@ -182,14 +175,14 @@
                                                                 </svg>
                                                             </a>
                                                         </div>
-                                                    </div>
+                                                    </div> -->
             
                                                     <div class="col-lg-12 col-xl-6">
                                                         
                                                         <div class="mb-3">
                                                             <label class="form-label" for="Date">Date <span class="color-orange">*</span></label>
                                                             
-                                                            <input type="email" class="form-control" id="Date" placeholder="e.g Steve@gmail.com" required>
+                                                            <input type="email" class="form-control" id="Date" name="date" required>
                                                             <div class="invalid-feedback position-absolute bottom-0" >
                                                                 Please provide a valid  Email.
                                                             </div>
@@ -199,20 +192,27 @@
                                                     <div class="col-lg-12 col-xl-6 ">
                                                         <div class="mb-3">
                                                             <label class="form-label" for="Time">Time</label>
-                                                            <input type="number" class="form-control" id="Time" placeholder="" >
+                                                            <input type="number" class="form-control" id="time" name="time" placeholder="" >
                                                             <div class="invalid-feedback position-absolute bottom-0">
                                                                 Please provide a valid Age.
                                                             </div>
                                                         </div>
                                                     </div>
                                                    
-            
-                                                    
+                                                    <div class="col-lg-12 col-xl-12 ">
+                                                    <div class="mb-3">
+                                                        <input type="checkbox" class="form-check-input" id="webp" name="webpen">
+                                                        <label class="form-check-label fs-12" for="emailUav">Show in Website</label>
+                                                        <div class="invalid-feedback fs-10 py-0 " id="email_agree">
+                                                            You must agree before submitting.
+                                                        </div>
+                                                    </div>
+                                                </div>
             
                                                     <div class="col-lg-12 col-xl-6 ">
                                                         <div class="mb-3">
                                                             <label class="form-label" for="Description">Description<span class="color-orange">*</span></label>
-                                                            <textarea name="" id="Description" cols="20" rows="5" class="form-control" required></textarea>
+                                                            <textarea name="" id="Description" cols="20" rows="5" class="form-control" name="description" required ></textarea>
                                                         </div>
                                                         <div class="invalid-feedback position-absolute bottom-0">
                                                             Please provide a valid Age.
@@ -222,16 +222,16 @@
                                                     
                                                     <div class="col-lg-12 col-xl-6 ">
                                                         <div class="mb-3">
-                                                            <label class="form-label" for="Description2">Description<span class="color-orange">*</span></label>
-                                                            <textarea name="" id="Description2" cols="20" rows="5" class="form-control"></textarea>
+                                                            <label class="form-label" for="Description2">Sub Description<span class="color-orange">*</span></label>
+                                                            <textarea name="" id="Description2" cols="20" rows="5" class="form-control" name="subdescription"></textarea>
                                                         </div>
                                                         
                                                     </div>
                                                    
                                                     <div class="col-lg-12 col-xl-6 ">
                                                         <div class="mb-3">
-                                                            <label class="form-label" for="City">City</label>
-                                                            <input type="tel" class="form-control" id="City" placeholder="" lang='ar'>
+                                                            <label class="form-label" for="City"></label>
+                                                            <input type="text" class="form-control" id="bullet1"  name="bullet1">
                                                             <div class="invalid-feedback position-absolute bottom-0">
                                                                 Please provide a Profession.
                                                             </div>
@@ -240,8 +240,8 @@
                                                     </div>
                                                     <div class="col-lg-12 col-xl-6 ">
                                                         <div class="mb-3">
-                                                            <label class="form-label" for="Zipcode">Zip code</label>
-                                                            <input type="tel" class="form-control" id="Zipcode" placeholder="" >
+                                                            <label class="form-label" for="Zipcode"></label>
+                                                            <input type="text" class="form-control" id="bullet2" placeholder="" name="bullet2">
                                                             <div class="invalid-feedback position-absolute bottom-0">
                                                                 Please provide a Profession.
                                                             </div>
@@ -250,8 +250,8 @@
                                                     </div>
                                                     <div class="col-lg-12 col-xl-6 ">
                                                         <div class="mb-3">
-                                                            <label class="form-label" for="State*">State</label>
-                                                            <input type="tel" class="form-control" id="State" placeholder="" >
+                                                            <label class="form-label" for="State*"></label>
+                                                            <input type="text" class="form-control" id="bullet3" placeholder="" name="bullet3">
                                                             <div class="invalid-feedback position-absolute bottom-0">
                                                                 Please provide a Profession.
                                                             </div>
@@ -260,8 +260,8 @@
                                                     </div>
                                                     <div class="col-lg-12 col-xl-6 ">
                                                         <div class="mb-3">
-                                                            <label class="form-label" for="dob*">DOB</label>
-                                                            <input type="tel" class="form-control" id="dob" placeholder="Date of Birth" >
+                                                            <label class="form-label" for="dob*"></label>
+                                                            <input type="text" class="form-control" id="bullet4"  name="bullet4">
                                                             <div class="invalid-feedback position-absolute bottom-0">dob
                                                                 Please provide a Profession.
                                                             </div>
@@ -272,9 +272,21 @@
                                                    
                                                     
                                                 </div>
+                                                <button class="btn btn-outline-light btn-lg mt-3" type="button" onclick="addEnForm()">Add <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M10 18.3332C14.5833 18.3332 18.3333 14.5832 18.3333 9.99984C18.3333 5.4165 14.5833 1.6665 10 1.6665C5.41667 1.6665 1.66667 5.4165 1.66667 9.99984C1.66667 14.5832 5.41667 18.3332 10 18.3332Z" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                                    <path d="M6.66667 10H13.3333" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                                    <path d="M10 13.3332V6.6665" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                                    </svg>
+                                                    
+                                                </button>
+    
+                                                <button class="btn btn-outline-light btn-lg  mt-3" type="button" onclick="resetform()">Reset <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M18.3333 9.99984C18.3333 14.5998 14.6 18.3332 10 18.3332C5.40001 18.3332 2.59167 13.6998 2.59167 13.6998M2.59167 13.6998H6.35834M2.59167 13.6998V17.8665M1.66667 9.99984C1.66667 5.39984 5.36667 1.6665 10 1.6665C15.5583 1.6665 18.3333 6.29984 18.3333 6.29984M18.3333 6.29984V2.13317M18.3333 6.29984H14.6333" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                                    </svg>
+                                                    </button>
                                                 
-                                                <button class="btn btn-primary btn-lg mt-3" type="submit">Update</button>
-                                                <button class="btn btn-outline-light btn-lg mt-3 ms-3" type="reset">Delete</button>
+                                                <button class="btn btn-primary btn-lg mt-3" type="button" onclick="editEnForm()">Update</button>
+                                                <button class="btn btn-outline-light btn-lg mt-3 ms-3" type="button" onclick="deleteSeminar()">Delete</button>
                                             </form>
     
                                         </div>
@@ -293,9 +305,10 @@
                                                     <div class="col-lg-6 col-xl-2">
                                                         <div class="mb-3">
                                                             <label class="form-label" for="title">Title<span class="color-orange">*</span></label>
-                                                            <select  class="form-select" id="title"  value="" required>
-                                                                <option value="">Mr</option>
-                                                                <option value="">Mrs</option>
+                                                            <select  class="form-select" id="titlear"  name="title" value="" required >
+                                                                {%for title in titles%}
+                                                                <option value="{{title.0}}">{{title.0}}</option>
+                                                               {%endfor%}
                                                             </select>
                                                             <div class="invalid-feedback position-absolute bottom-0">
                                                                 Please provide a valid entry.
@@ -305,7 +318,11 @@
                                                     <div class="col-lg-6 col-xl-4">
                                                         <div class="mb-3">
                                                             <label class="form-label" for="Categorization">Categorization<span class="color-orange">*</span></label>
-                                                            <input type="text" class="form-control" id="Categorization" placeholder="both name(s) e.g Jon Doe" value="" required>
+                                                            <select  class="form-select" id="title"  value="" required name="elvlar">
+                                                                <option value="0">Beginner</option>
+                                                                <option value="1">Intermediate</option>
+                                                                <option value="2">Advanced</option>
+                                                            </select>
                                                             <div class="invalid-feedback position-absolute bottom-0">
                                                                 Please provide a valid entry.
                                                             </div>
@@ -314,25 +331,25 @@
                                                     <div class="col-lg-12 col-xl-6 ">
                                                         <div class="mb-3">
                                                             <label class="form-label" for="firstname*">Name<span class="color-orange">*</span></label>
-                                                            <input type="text" class="form-control" id="firstname" placeholder="both name(s) e.g Jon Doe" value="" required>
+                                                            <input type="text" class="form-control" id="firstname" placeholder="both name(s) e.g Jon Doe" value="" required name="aname">
                                                             <div class="invalid-feedback position-absolute bottom-0">
                                                                 Please provide a valid entry.
                                                             </div>
                                                         </div>
                                                     </div>
                                               
-                                                    <div class="col-lg-12 col-xl-6">
+                                                    <div class="col-lg-12 col-xl-12">
                                                         <div class="mb-3">
                                                             <label class="form-label" for="Location">Location <span class="color-orange">*</span></label>
                                                             
-                                                            <input type="email" class="form-control" id="Location" placeholder=" " required>
+                                                            <input type="email" class="form-control" id="Location" placeholder=" " required name="alocation">
                                                             <div class="invalid-feedback position-absolute bottom-0">
                                                                 Please provide a valid  Email.
                                                             </div>
                                                         </div>
                                                     </div>
                                                    
-                                                    <div class="col-lg-12 col-xl-6">
+                                                    <!-- <div class="col-lg-12 col-xl-6">
                                                         <div class="mb-0 d-flex  card-h-100  align-items-end">
                                                             <a class="text-info gilorysemibold-type mt-0">Get Zoom Link <svg width="67" height="15" viewBox="0 0 67 15" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                                 <path fill-rule="evenodd" clip-rule="evenodd" d="M26.9167 2.19375C25.4618 0.731249 23.5591 0 21.6379 0C19.7353 0 17.814 0.731249 16.359 2.19375C13.4492 5.11875 13.4492 9.8625 16.359 12.8063C19.2689 15.7313 23.9882 15.7313 26.9167 12.8063C29.8266 9.88125 29.8266 5.11875 26.9167 2.19375ZM24.8089 10.6875C23.0555 12.45 20.2202 12.45 18.4855 10.6875C16.7321 8.925 16.7321 6.075 18.4855 4.33125C20.2389 2.56875 23.0742 2.56875 24.8089 4.33125C26.5436 6.075 26.5436 8.925 24.8089 10.6875Z" fill="#2D8CFF"/>
@@ -340,7 +357,7 @@
                                                                 </svg>
                                                             </a>
                                                         </div>
-                                                    </div>
+                                                    </div> -->
             
                                                     <div class="col-lg-12 col-xl-6">
                                                         
@@ -363,7 +380,15 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                   
+                                                    <div class="col-lg-12 col-xl-12 ">
+                                                        <div class="mb-3">
+                                                            <input type="checkbox" class="form-check-input" id="webp" name="webpar">
+                                                            <label class="form-check-label fs-12" for="emailUav">Show in Website</label>
+                                                            <div class="invalid-feedback fs-10 py-0 " id="email_agree">
+                                                                You must agree before submitting.
+                                                            </div>
+                                                        </div>
+                                                    </div>
             
                                                     
             
@@ -380,7 +405,7 @@
                                                     
                                                     <div class="col-lg-12 col-xl-6 ">
                                                         <div class="mb-3">
-                                                            <label class="form-label" for="Description2">Description<span class="color-orange">*</span></label>
+                                                            <label class="form-label" for="Description2">Sub Description<span class="color-orange">*</span></label>
                                                             <textarea name="" id="Description2" cols="20" rows="5" class="form-control"></textarea>
                                                         </div>
                                                         
@@ -430,9 +455,26 @@
                                                    
                                                     
                                                 </div>
+                                                <button class="btn btn-outline-light btn-lg mt-3" >Add <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M10 18.3332C14.5833 18.3332 18.3333 14.5832 18.3333 9.99984C18.3333 5.4165 14.5833 1.6665 10 1.6665C5.41667 1.6665 1.66667 5.4165 1.66667 9.99984C1.66667 14.5832 5.41667 18.3332 10 18.3332Z" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                                    <path d="M6.66667 10H13.3333" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                                    <path d="M10 13.3332V6.6665" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                                    </svg>
+                                                    
+                                                </button>
+    
+                                                <button class="btn btn-outline-light btn-lg  mt-3" type="reset">Reset <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M18.3333 9.99984C18.3333 14.5998 14.6 18.3332 10 18.3332C5.40001 18.3332 2.59167 13.6998 2.59167 13.6998M2.59167 13.6998H6.35834M2.59167 13.6998V17.8665M1.66667 9.99984C1.66667 5.39984 5.36667 1.6665 10 1.6665C15.5583 1.6665 18.3333 6.29984 18.3333 6.29984M18.3333 6.29984V2.13317M18.3333 6.29984H14.6333" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                                    </svg>
+                                                    </button>
                                                 
                                                 <button class="btn btn-primary btn-lg mt-3" type="submit">Update</button>
                                                 <button class="btn btn-outline-light btn-lg mt-3 ms-3" type="reset">Delete</button>
+                                               
+                                                    
+                                              
+                                                
+                                                
                                             </form>
                                         </div>
                                     </div>
@@ -457,7 +499,7 @@
                             
                             <div class=" card   card-h-100" >
                             
-                                <div class="card-body ">
+                                <div class="card-body " id="allseminar">
                                   
                                     <div class="table-responsive" data-simplebar="" style="max-height:100%">
                                         <table id="datatableseminar" class="table dt-responsive  nowrap  w-100">
@@ -473,117 +515,18 @@
     
     
                                             <tbody>
-                                            <!--
-                                            <tr>
-                                                <td ><span class="skeleton skeleton-text"></span> </td>
-                                                <td ><span class="skeleton skeleton-text"></span></td>
-                                                <td><span class="skeleton skeleton-text"></span></td>
-                                                <td><span class="skeleton skeleton-text"></span></td>
-                                                <td><span class="skeleton skeleton-text"></span></td>
-                                                <td class="text-end"><span class="skeleton skeleton-text"></span></td>
-                                            </tr>
-                                            <tr>
-                                                <td ><span class="skeleton skeleton-text"></span> </td>
-                                                <td ><span class="skeleton skeleton-text"></span></td>
-                                                <td><span class="skeleton skeleton-text"></span></td>
-                                                <td><span class="skeleton skeleton-text"></span></td>
-                                                <td><span class="skeleton skeleton-text"></span></td>
-                                                <td class="text-end"><span class="skeleton skeleton-text"></span></td>
-                                            </tr>
-                                            <tr>
-                                                <td ><span class="skeleton skeleton-text"></span> </td>
-                                                <td ><span class="skeleton skeleton-text"></span></td>
-                                                <td><span class="skeleton skeleton-text"></span></td>
-                                                <td><span class="skeleton skeleton-text"></span></td>
-                                                <td><span class="skeleton skeleton-text"></span></td>
-                                                <td class="text-end"><span class="skeleton skeleton-text"></span></td>
-                                            </tr>
-                                            <tr>
-                                                <td ><span class="skeleton skeleton-text"></span> </td>
-                                                <td ><span class="skeleton skeleton-text"></span></td>
-                                                <td><span class="skeleton skeleton-text"></span></td>
-                                                <td><span class="skeleton skeleton-text"></span></td>
-                                                <td><span class="skeleton skeleton-text"></span></td>
-                                                <td class="text-end"><span class="skeleton skeleton-text"></span></td>
-                                            </tr>
-                                            <tr>
-                                                <td ><span class="skeleton skeleton-text"></span> </td>
-                                                <td ><span class="skeleton skeleton-text"></span></td>
-                                                <td><span class="skeleton skeleton-text"></span></td>
-                                                <td><span class="skeleton skeleton-text"></span></td>
-                                                <td><span class="skeleton skeleton-text"></span></td>
-                                                <td class="text-end"><span class="skeleton skeleton-text"></span></td>
-                                            </tr>
-                                            <tr>
-                                                <td ><span class="skeleton skeleton-text"></span> </td>
-                                                <td ><span class="skeleton skeleton-text"></span></td>
-                                                <td><span class="skeleton skeleton-text"></span></td>
-                                                <td><span class="skeleton skeleton-text"></span></td>
-                                                <td><span class="skeleton skeleton-text"></span></td>
-                                                <td class="text-end"><span class="skeleton skeleton-text"></span></td>
-                                            </tr>
-                                            <tr>
-                                                <td ><span class="skeleton skeleton-text"></span> </td>
-                                                <td ><span class="skeleton skeleton-text"></span></td>
-                                                <td><span class="skeleton skeleton-text"></span></td>
-                                                <td><span class="skeleton skeleton-text"></span></td>
-                                                <td><span class="skeleton skeleton-text"></span></td>
-                                                <td class="text-end"><span class="skeleton skeleton-text"></span></td>
-                                            </tr>
-                                            <tr>
-                                                <td ><span class="skeleton skeleton-text"></span> </td>
-                                                <td ><span class="skeleton skeleton-text"></span></td>
-                                                <td><span class="skeleton skeleton-text"></span></td>
-                                                <td><span class="skeleton skeleton-text"></span></td>
-                                                <td><span class="skeleton skeleton-text"></span></td>
-                                                <td class="text-end"><span class="skeleton skeleton-text"></span></td>
-                                            </tr>
-                                            <tr>
-                                                <td ><span class="skeleton skeleton-text"></span> </td>
-                                                <td ><span class="skeleton skeleton-text"></span></td>
-                                                <td><span class="skeleton skeleton-text"></span></td>
-                                                <td><span class="skeleton skeleton-text"></span></td>
-                                                <td><span class="skeleton skeleton-text"></span></td>
-                                                <td class="text-end"><span class="skeleton skeleton-text"></span></td>
-                                            </tr>
-                                            <tr>
-                                                <td ><span class="skeleton skeleton-text"></span> </td>
-                                                <td ><span class="skeleton skeleton-text"></span></td>
-                                                <td><span class="skeleton skeleton-text"></span></td>
-                                                <td><span class="skeleton skeleton-text"></span></td>
-                                                <td><span class="skeleton skeleton-text"></span></td>
-                                                <td class="text-end"><span class="skeleton skeleton-text"></span></td>
-                                            </tr>-->
+                                            {%for seminar in seminars%}
                                        
-                                                <tr>
-                                                    <td data-order="1558357779">001</td>
+                                                <tr onclick='loadSeminardetails("{{seminar.0}}")'>
+                                                    <td data-order="1558357779">{{seminar.0}}</td>
                                                     <td><a href="">View</a></td>
-                                                    <td>12-10-2022</td>
-                                                    <td>Looking out for oppertunity in a bear market is tricky</td>
+                                                    <td>{{seminar.1}}</td>
+                                                    <td>{{seminar.2}}</td>
                                                 
                                                 </tr>
-                                                <tr>
-                                                    <td data-order="1558357779">001</td>
-                                                    <td><a href="">View</a></td>
-                                                    <td>12-10-2022</td>
-                                                    <td>Looking out for oppertunity in a bear market is tricky</td>
-                                                
-                                                </tr>
-                                                <tr>
-                                                    <td data-order="1558357779">001</td>
-                                                    <td><a href="">View</a></td>
-                                                    <td>12-10-2022</td>
-                                                    <td>Looking out for oppertunity in a bear market is tricky</td>
-                                                
-                                                </tr>
-                                                <tr>
-                                                    <td data-order="1558357779">001</td>
-                                                    <td><a href="">View</a></td>
-                                                    <td>12-10-2022</td>
-                                                    <td>Looking out for oppertunity in a bear market is tricky</td>
-                                                </tr>
+                                            
                                                
-                                        
+                                            {%endfor%}
                                             
                                             </tbody>
                                          
@@ -605,11 +548,222 @@
     
                 
           </div>
+          <div class="modal fade" id="confirmation" tabindex="-1" >
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+        
+                    <div class="modal-body ">
+
+                        <div class="  px-3 border rounded-3 py-4">
+                        
+                            <div class="modal-header py-0 px-0 border-bottom-0">
+                                <!-- <h5 class="modal-title mb-3" id="modal-title">Confirmation</h5> -->
+
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
+
+                            </div>
+                       
+                            
+                                
+                                <div class="row">
+                                
+                                    <div class="col-12">
+                                        <div class="mb-3">
+                                            <!--<label class="form-label">Event Name</label>-->
+                                           <h5>Are you sure you want to add this Seminar ? </h5>
+                                            
+                                            
+                                        </div>
+                                        <div class="row mt-2">
+                                            <div class="col-6">
+                                                <button type="button"  class="btn btn-success" id="btn-save-event" onclick="submitEnForm()">Yes</button>
+                                                <button type="button" data-bs-dismiss="modal" class="btn btn-danger" id="btn-delete-event">No</button>
+                                            </div>
+                                          
+                                        </div>
+                                    </div>
+                               
+                                </div>
+                                
+                            
+                        </div>
+                    
+                    </div>
+                </div> <!-- end modal-content-->
+            </div> <!-- end modal dialog-->
+        </div>  
+        <div class="modal fade bs-example-modal-insta" tabindex="-1" role="dialog" aria-hidden="true" id="alertpopup">
+            <div class="modal-dialog modal-dialog-centered"   style="z-index: 10555;">
+                <div class="modal-content">
+                    <div class="modal-header border-0">
+                        <h5 class=" fs-16">
+                            <div id="userMsg"></div>
+                        </h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                                            
+                            <!-- <div class="modal-body" >
+                
+                
+                                    <div data-simplebar style="max-height: 230px;">
+                    
+                                      
+                                        
+                                    </div>
+                                </div> -->
+                   
+                </div>
+             </div>
+            </div>
           {% include "common/right-sidebar.html" %}
         
             <!-- Right bar overlay-->
     <div class="rightbar-overlay"></div>
+    <script>
+        function resetform(){
+           
+            $('#form-en')[0].reset();
+        }
+        function loadSeminardetails(seminarId){
+            console.log("Seminar Id==============="+seminarId)
+            $.ajax({
+               type : "GET", 
+               url: "{% url 'Seminars:Info' %}",
+               data: {
+                'id':seminarId,
+               },
+               
+               success: function(data){
+                var info=data.info
+                console.log("Info================="+info[7]+info[8])
+                $("#title").val(info[0])
+                $("#seminarname").val(info[1])
+                $("#location").val(info[3])
+                $("#Date").val(info[5])
+                $("#time").val(info[6])
+                $("#elvlen").val(info[7])
+                if(info[7]==1){
+                    $("#webp").attr('checked',true)
+                }
+                else{
+                    $("#webp").attr('checked',false)
+                }
+               }
+            })
+
+
+        }
+        function deleteSeminar(){
+            var seminarId=$("#title").val()
+            console.log("Semianr Id"+seminarId)
+            $.ajax({
+               type : "GET", 
+               url: "{% url 'Seminars:Delete' %}",
+               data: {
+                'id':seminarId,
+               },
+               
+               success: function(data){
+                console.log("deleted")
+                $("#userMsg").empty()
+                $("#userMsg").append("Seminar Deleted")
+                $("#alertpopup").modal('show')
+                $('#allseminar').load(document.URL +  ' #allseminar')
+               }
+            })
+
+        }
+        function validateForm(){
+            var flag=0
+            var seminarname=$("#seminarname").val()
+            console.log("Seminar name====="+seminarname)
+            var location=$("#location").val()
+            var dates=$("#date").val()
+            if(dates==""){
+                $("#userMsg").empty()
+                $("#userMsg").append("Please select Date")
+                $("#alertpopup").modal('show')
+                flag=1
+
+            }
+            if(location==""){
+                $("#userMsg").empty()
+                $("#userMsg").append("Please Enter Location")
+                $("#alertpopup").modal('show')
+                flag=1
+            }
+            if(seminarname==""){
+                $("#userMsg").empty()
+                $("#userMsg").append("Please Enter Seminar Name")
+                $("#alertpopup").modal('show')
+                flag=1
+            }
+            if(location!="" && seminarname!=""){
+                flag=0
+            }
+            return flag
+        }
+        function addEnForm(){
+            var validates=validateForm()
+            console.log("Validates====="+validates)
+            if(validates==0){
+                $("#confirmation").modal('show')
+            
+            }
+           
+
+        }
+        function submitEnForm(){
+            $("#confirmation").modal('hide')
+            var form_data=$("#form-en").serialize()
+            console.log("Serialize=========================="+form_data)
+            $.ajax({
+               type : "POST", 
+               url: "{% url 'Seminars:AddEn' %}",
+               data: form_data,
+               
+               success: function(data){
+                console.log("Success")
+                if(data.saved=="success"){
+                    $("#userMsg").empty()
+                $("#userMsg").append("Seminar details saved successfully")
+                $("#alertpopup").modal('show')
+                $('#allseminar').load(document.URL +  ' #allseminar')
+
+                }
+               
+               }
+            })
+        }
+        function editEnForm(){
+            var validates=validateForm()
+            var form_data=$("#form-en").serialize()
+            if(validates==0){
+                $.ajax({
+               type : "POST", 
+               url: "{% url 'Seminars:AddEn' %}",
+               data: form_data,
+               
+               success: function(data){
+                console.log("Success")
+                if(data.saved=="success"){
+                    $("#userMsg").empty()
+                $("#userMsg").append("Seminar details saved successfully")
+                $("#alertpopup").modal('show')
+                $('#allseminar').load(document.URL +  ' #allseminar')
+
+                }
+               
+               }
+            })
+
+            }
+
+        }
+    </script>
     <!-- datepicker js -->
+    <script src="{% static 'libs/datatables.net/js/jquery.dataTables.min.js' %}"></script>
+    <script src="{% static 'libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js' %}"></script>
     <script src="{% static 'libs/datatables.net-buttons/js/dataTables.buttons.min.js' %}"></script>
     <script src="{% static 'libs/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js' %}"></script>
     <script src="{% static 'libs/jszip/jszip.min.js' %}"></script>
@@ -621,7 +775,7 @@
     <script src="{% static 'libs/flatpickr/flatpickr.min.js' %}"></script>
     <!-- Datatable init js -->
   
-    <script src="{% static 'js/pages/management-salesreport.init.js' %}"></script> 
+    <script src="{% static 'js/pages/datatables-seminars.init.js' %}"></script> 
     <script src="{% static 'js/app.js' %}"></script>
 
 </body>
