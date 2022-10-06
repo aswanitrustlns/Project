@@ -987,7 +987,8 @@ def save_reminder_details(request):
         flag=int(request.POST.get('flag'))
         # if(subject==None):
         #     subject=" "
-        print("Flag=====================================",flag)
+        print("Flag=====================================",type(flag))
+        print("User id=====================================",type(userid))
         print("EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE",type(date),type(time),type(color),type(login))
         selector.save_reminder(userid,ticket,subject,date,time,login,color,mail,flag)
         reminders=selector.load_ticket_reminders(userid,ticket)

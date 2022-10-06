@@ -61,19 +61,23 @@
                     </div>
                     <!-- end page title -->
     
-                    <div class="row">
+                    <div class="row mb-2">
     
-                        <div class="col-md-12">
+                        <div class="col-md-12 ">
     
-                            <p class="color-color1 giloryregular-type">This page allows you to add/edit upcoming seminars.</p>
+                            <p class="color-color1 gilroyregular-type fs-17 mb-4 ">This page allows you to add/edit upcoming seminars.</p>
+                            <div>
+    
+                                <p class="d-flex align-items-center my-2"><svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <circle cx="6.5" cy="6.5" r="6.5" fill="#FFA023"/>
+                                    </svg>
+                                    <span class="gilroyregular-type fs-17 mx-2">Last Seminar Scheduled <span class="badge   mx-2 rounded-pill rounded-circle p-2 fs-11 float-end" style="background-color:
+                                        
+        
+                                        rgba(255, 160, 35, 0.1) ;color: rgba(255, 160, 35, 1);">04</span></p>
+                            </div>
                         </div>
-                        <div>
-    
-                            <p><svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <circle cx="6.5" cy="6.5" r="6.5" fill="#FFA023"/>
-                                </svg>
-                                <span>Last Seminar Scheduled <span>7</span></p>
-                        </div>
+                        
                     </div>
                     <!--Analytics overview-->
                     <div class="row">
@@ -438,14 +442,14 @@
                             <!-- end card -->
                         </div> <!-- end col -->
                         <div class="  col-md-6 col-xxl-7">
-                            <div class="top-wrap row mb-2">
+                            <div class="top-wrap row mb-2 align-items-center">
     
-                                <div class="col-md-6">
+                                <div class="col-md-12 col-lg-5 col-xxl-7">
     
                                     <input type="text" class="form-control"  placeholder="Search" id="myinputsearch">
                                 </div>
     
-                                <div class="col-md-6" id="datatable-buttons_wrapper">
+                                <div class="col-md-12 col-lg-7 col-xxl-5" id="datatable-buttons_wrapper">
                                    
                                 </div>
                             </div>
@@ -585,7 +589,7 @@
                                          
                                         </table>
                                     </div>
-                                    </div>
+                                </div>
                                     
                             </div>
                         </div>
@@ -606,6 +610,14 @@
             <!-- Right bar overlay-->
     <div class="rightbar-overlay"></div>
     <!-- datepicker js -->
+    <script src="{% static 'libs/datatables.net-buttons/js/dataTables.buttons.min.js' %}"></script>
+    <script src="{% static 'libs/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js' %}"></script>
+    <script src="{% static 'libs/jszip/jszip.min.js' %}"></script>
+    <script src="{% static 'libs/pdfmake/build/pdfmake.min.js' %}"></script>
+    <script src="{% static 'libs/pdfmake/build/vfs_fonts.js' %}"></script>
+    <script src="{% static 'libs/datatables.net-buttons/js/buttons.html5.min.js' %}"></script>
+    <script src="{% static 'libs/datatables.net-buttons/js/buttons.print.min.js' %}"></script>
+    <script src="{% static 'libs/datatables.net-buttons/js/buttons.colVis.min.js' %}"></script>
     <script src="{% static 'libs/flatpickr/flatpickr.min.js' %}"></script>
     <!-- Datatable init js -->
   

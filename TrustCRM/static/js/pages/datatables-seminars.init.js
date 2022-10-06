@@ -24,17 +24,18 @@ var table = $('#datatableseminar').DataTable({
    //orderCellsTop: true,
    //paging: false,
    ordering: true,
-    info: false,
-   fixedHeader: true,
-   buttons: ['copy', 'excel', 'pdf'],
-  
-
-
+    info: true,
+    fixedHeader: true,
+   buttons: [ 'print','copy','csv',],
 });
 
 table.buttons().container()
 .appendTo('#datatable-buttons_wrapper ');
- 
+
+$('#datatable-buttons_wrapper .dt-buttons').find('.btn').eq(0).prepend('<img src="assets/images/printer.png" class="me-1">');
+$('#datatable-buttons_wrapper .dt-buttons').find('.btn').eq(1).prepend('<img src="assets/images/copy.png" class="me-1">');
+$('#datatable-buttons_wrapper .dt-buttons').find('.btn').eq(2).prepend('<img src="assets/images/document-text.png" class="me-1">');
+$('#datatable-buttons_wrapper').find('.btn').addClass('me-2 d-inline-block flex-grow-0  my-1');
 
 $('#myinputsearch').keyup(function(){
     table.search($(this).val()).draw() ;

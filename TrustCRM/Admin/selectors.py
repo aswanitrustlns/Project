@@ -1223,15 +1223,17 @@ class Selector:
             subject="Reminder set for Ticket "+ticket+" on "+date+" at "+time
             badge="Green"
             desc=subject
-            rdate=date
+            rdate=datetime.today().date()
             if login=="":
                 login=0
             print("Type of login========================",type(login))
             Cursor=connection.cursor()
             date_today=datetime.today().date()  
+            # date = datetime.strptime(date, '%Y-%m-%d').date()
+            print("Inputs======================",userid,subject,desc,ticket,date,time,rdate,color,login,badge,flag)
+            # date_today=date_today.strftime("%Y-%m-%d")
 
-            date_today=date_today.strftime("%Y-%m-%d")
-            Cursor.execute("set nocount on;exec SP_SetReminder %s,%s,%s,%s,%s,%s,%s,%s,%s,%s",[userid,subject,desc,ticket,date,time,rdate,color,login,badge,flag])
+            Cursor.execute("set nocount on;exec SP_SetReminder %s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s",[userid,subject,desc,ticket,date,time,rdate,color,login,badge,flag])
             fulltime=date+" "+time
             apdate=datetime.strptime(fulltime,'%Y-%m-%d %H:%M')
             
