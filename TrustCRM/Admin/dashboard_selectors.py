@@ -424,15 +424,15 @@ class DashboardSelector:
             Cursor.execute("set nocount on;exec SP_GetNewAccountsCount %s,%s",[date_yesterday_for_today,date_today])
             live_count_today=Cursor.fetchone()
             print("Live count======",live_count)
-            if live_count:
-                
-                live_funded_week=live_count[0]
-                live_nonfund_week=live_count[1]
-                pending_approved=live_count[2]
-                pending_waiting=live_count[3]
             if live_count_today:
+                
                 live_funded_today=live_count_today[0]
                 live_nonfund_today=live_count_today[1]
+                pending_approved=live_count_today[2]
+                pending_waiting=live_count_today[3]
+            if live_count:
+                live_funded_week=live_count[0]
+                live_nonfund_week=live_count[1]
             Cursor.execute("set nocount on;exec SP_GetSeminarInfoCount")
             weekly_webinar=Cursor.fetchall() 
             if weekly_webinar:

@@ -76,7 +76,7 @@
                                             <svg width="21" height="21" class="me-2"  viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                 <path d="M10.5002 0.0830078C4.75016 0.0830078 0.0834961 4.74967 0.0834961 10.4997C0.0834961 16.2497 4.75016 20.9163 10.5002 20.9163C16.2502 20.9163 20.9168 16.2497 20.9168 10.4997C20.9168 4.74967 16.2502 0.0830078 10.5002 0.0830078ZM15.9689 10.8434C15.9689 11.2705 15.6147 11.6247 15.1877 11.6247C14.7606 11.6247 14.4064 11.2705 14.4064 10.8434V7.69759L6.36475 15.7393C6.2085 15.8955 6.01058 15.9684 5.81266 15.9684C5.61475 15.9684 5.41683 15.8955 5.26058 15.7393C4.9585 15.4372 4.9585 14.9372 5.26058 14.6351L13.3022 6.59342H10.1564C9.72933 6.59342 9.37516 6.23926 9.37516 5.81217C9.37516 5.38509 9.72933 5.03092 10.1564 5.03092H15.1877C15.6147 5.03092 15.9689 5.38509 15.9689 5.81217V10.8434Z" fill="#00A651"/>
                                             </svg>
-                                            <h5 class=" gilory-medium-type fs-18">Funded</h5>
+                                            <a href="{% url 'Admin:AccountsFilter' %}?&change=Funded"> <h5 class=" gilory-medium-type fs-18">Funded</h5></a>
 
                                         </div>
 
@@ -99,7 +99,7 @@
                                                 <path d="M10.5002 0.0830078C4.75016 0.0830078 0.0834961 4.74967 0.0834961 10.4997C0.0834961 16.2497 4.75016 20.9163 10.5002 20.9163C16.2502 20.9163 20.9168 16.2497 20.9168 10.4997C20.9168 4.74967 16.2502 0.0830078 10.5002 0.0830078ZM16.2606 5.84343L8.21891 13.8851H11.3647C11.7918 13.8851 12.146 14.2393 12.146 14.6663C12.146 15.0934 11.7918 15.4476 11.3647 15.4476H6.3335C5.90641 15.4476 5.55225 15.0934 5.55225 14.6663V9.63509C5.55225 9.20801 5.90641 8.85384 6.3335 8.85384C6.76058 8.85384 7.11475 9.20801 7.11475 9.63509V12.7809L15.1564 4.73926C15.3127 4.58301 15.5106 4.51009 15.7085 4.51009C15.9064 4.51009 16.1043 4.58301 16.2606 4.73926C16.5627 5.04134 16.5627 5.54134 16.2606 5.84343Z" fill="#FF0001"/>
                                                 </svg>
                                                 
-                                            <h5 class=" gilory-medium-type fs-18">Non Funded</h5>
+                                                <a href="{% url 'Admin:AccountsFilter' %}?&change=NonFunded"><h5 class=" gilory-medium-type fs-18">Non Funded</h5></a>
 
                                         </div>
 
@@ -136,14 +136,13 @@
                                 <div class="row align-items-center">
 
                                     <div class="col-xl-6  mb-2  mb-xl-0 flex-shrink-0 ">
-
+                                        <a href="{% url 'Admin:AccountsFilter' %}?&change=TempApproved">
                                         <div class="border-0 rounded-3  p-2 font-size-20  text-center " style="background-color:rgba(28, 29, 52, 1) ;">
                                             
                                                 <h1 class="m-0 gilory-medium-type fs-25 mb-2 m-0">{{approved}}</h1>
                                                 <p class="m-0 color-color1 fs-15">Approved Temporarily</p>
                                         </div>
-
-                                
+                                    </a>                           
                                         
                                             
                                         
@@ -152,12 +151,12 @@
 
                                     </div>
                                     <div class="col-xl-6  flex-shrink-0 ">
-
+                                        <a href="{% url 'Admin:AccountsFilter' %}?&change=WaitingApproval">
                                         <div class="border-0 rounded-3  p-2 font-size-20  text-center " style="background-color:rgba(28, 29, 52, 1) ;">
                                                 <h1 class="m-0 gilory-medium-type fs-25 mb-2 m-0">{{waiting}}</h1>
                                                 <p class="m-0 color-color1 fs-15">Waiting for approval</p>
                                         </div>
-
+                                    </a>
                                 
                                         
                                             

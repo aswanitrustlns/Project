@@ -392,6 +392,7 @@ var options = {
                if(seriesIndex==0){
                 pageRedirect("Funded")
                 
+                
                }else if(seriesIndex==1){
                 pageRedirect("NonFunded")
                }
