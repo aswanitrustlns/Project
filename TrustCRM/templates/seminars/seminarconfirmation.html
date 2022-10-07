@@ -1,0 +1,273 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8" />
+    <title>Trust Capital CRM</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
+    <meta content="Themesbrand" name="author" />
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" lang="ar">
+    <!-- App favicon -->
+    {% load  static %}
+     <!-- DataTables -->
+     <link href="{% static 'libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css' %}" rel="stylesheet" type="text/css" />
+     <link href="{% static 'libs/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css' %}" rel="stylesheet" type="text/css" />
+     <!-- plugin css -->
+     <!--<link href="assets/libs/admin-resources/jquery.vectormap/jquery-jvectormap-1.2.2.css" rel="stylesheet"
+         type="text/css" />-->
+      <!-- datepicker css -->
+      <link rel="stylesheet" href="{% static 'libs/flatpickr/flatpickr.min.css' %}">
+    {% include "common/link.html" %}
+    {% include "common/scripts.html" %}
+
+   
+
+ 
+</head>
+<body data-layout-mode="dark">
+
+    <!-- <body data-layout="horizontal"> -->
+    
+    <!-- Begin page -->
+    <div id="layout-wrapper">
+    
+        {% include "common/header.html" %}
+    
+
+        <!-- ========== Left Sidebar Start ========== -->
+        {% include "common/sidebar.html" %}
+
+        <div class="main-content">
+
+            <div class="page-content" id="sales">
+                <div class="container-fluid">
+                    
+                    <div class="row">
+    
+                        <div class="col-12">
+                            <div class="d-flex align-items-center">
+                                <h4 class="card-title almarenamonolight-type mb-4 fs-23">Seminar Confirmation</h4>
+                            </div>
+                            <div class=" mb-4">
+                                <p class="gilroymedium-type fs-15 color-color1 mb-0">This page allows you to view the details regarding Sales
+                                    This page allows you to view the Sales Inquiries for sending Seminar Confirmation.</p>
+                            </div>
+    
+                     
+                            
+                        </div>
+                        
+                    </div>
+                    <hr class="my-4">
+                    <div class="row justify-content-between">
+    
+                        <div class="col-12">
+                            <!--<h4 class="card-title almarenamonolight-type mb-2 fs-23">
+                                View Accounts Opened</h4>-->
+                            <form>
+                                <div class="row align-items-end ">
+    
+                                    <div class="col-lg-4 col-xxl-3">
+                                        <div class="mb-2">
+                                            <label class="form-label " for="fromdate-semr">From Date<span class="color-orange">*</span></label>
+                                            <input  type="date" class="form-control" id="fromdate-semr" placeholder="yyyy-mm-dd"  required>
+                                        </div>
+                                    </div>
+    
+                                    <div class="col-lg-4 col-xxl-3">
+                                        <div class="mb-2">
+                                            <label class="form-label " for="todate-semr">To Date<span class="color-orange">*</span></label>
+                                            <input  type="date" class="form-control" id="todate-semr" placeholder="yyyy-mm-dd" required>
+                                            
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4 col-xxl-3">
+                                        <div class="mb-2">
+                                            <label class="form-label " for="Source">Source<span class="color-orange">*</span></label>
+                                            <input  type="text" class="form-control" id="Source" placeholder="" required>
+                                            
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4 col-xxl-3">
+                                        <div class="mb-2">
+                                            <label class="form-label " for="Nationality">Nationality<span class="color-orange">*</span></label>
+                                            <select  type="text" class="form-select" id="Nationality" placeholder="" required>
+                                                <option value="">1</option>
+                                            </select>
+                                            
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4 col-xxl-3">
+                                        <div class="mb-2">
+                                            <label class="form-label " for="SalesRep">Sales Rep<span class="color-orange">*</span></label>
+                                            <select  type="text" class="form-select" id="SalesRep" placeholder="" required>
+                                                <option value="">1</option>
+                                            </select>
+                                            
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4 col-xxl-3">
+                                        <div class="mb-2">
+                                            <label class="form-label " for="Country">Country<span class="color-orange">*</span></label>
+                                            <select  type="text" class="form-select" id="Country" placeholder="" required>
+                                                <option value="">1</option>
+                                            </select>
+                                            
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4 col-xxl-3">
+                                                
+                                                
+                                        <div class="mb-3">
+                                            <label class="form-label">&nbsp;</label>
+                                            <div class="form-check">
+                                                <input type="checkbox" class="form-check-input" id="LebanonLeads" required="">
+                                                <label class="form-check-label fs-12" for="LebanonLeads">Include Lebanon Leads</label>
+                                              
+                                            </div>
+                                        </div>    
+                                            
+                                                    
+                                      
+                                                
+                                         
+                                    </div>
+                                
+                                    <div class="col-lg-4 col-xxl-3">
+                                        <button class="btn btn-outline-light  btn-lg mb-2    me-2
+                                        " type="reset" id="load-btn-sr">Reset</button>
+                                      
+                                        <button class="btn btn-info btn-lg mb-2  
+                                        " type="submit" id="load-btn-sc">Load</button>
+                                   
+                                       
+                                    </div>
+                                  
+                                    
+                            </div> 
+                            </form>
+    
+    
+                        </div>
+    
+                     
+                    </div>
+               
+                    <hr class="my-5">
+                    <div class="row">
+    
+                        <div class="col-12">
+                            <div class=" card   card-h-100" >
+                                <div class="card-body ">
+                                    <div class="position-absolute " style="right:10px;z-index:1055">
+                                        <input type="text" class="form-control "  placeholder="Search" id="myinputsearch-semconf" style="width:369px">
+                                    </div>
+                                    <div class="table-responsive mt-3" data-simplebar="" style="max-height:100%">
+                                        <table id="datatableseminar-confirm" class="table dt-responsive  nowrap  w-100 change">
+                                            <thead >
+                                                <tr  class=" gilory-medium-type fs-17">
+                                                    <th  class="ps-0"> Updated
+                                                        Dated</th>
+                                                    <th >Ticket No</th>
+                                                    <th  >Name</th>
+                                                    <th  >Phone</th>
+                                                    <th>Email</th>
+                                                    <th>Country</th>
+                                                    <th>Source</th>
+                                                    <th>Status</th>
+                                                    <th>SMS</th>
+                                                    <th>Potentail</th>
+                                                    <th>User Name</th>
+                                                    <th class="text-end ">Comments</th>
+                                                    
+                                                </tr>
+                                            </thead>
+    
+    
+                                            <tbody class="text-white gilory-regular-type fs-16">
+                                       
+                                                <tr>
+                                                   <td class="ps-0">2C2E45</td>
+                                                   <td>Online</td>
+                                                   <td>Firas</td>
+                                                   <td>Sumitha test</td>
+                                                   <td>Qatar</td>
+                                                   <td>Live account reg</td>
+                                                   <td>Attended</td>
+                                                   <td><button class="btn  btn-sm  color-green fs-15" style="background-color:
+                                                    rgba(0, 165, 79, 0.15) ;">Intrested</button></td>
+                                                   <td>--</td>
+                                                   <td>845682</td>
+                                                   <td>0</td>
+                                                   <td class="text-end ">--</td>
+                                                
+                                                </tr>
+                                                <tr>
+                                                    <td class="ps-0">2C2E45</td>
+                                                    <td>Online</td>
+                                                    <td>Firas</td>
+                                                    <td>Sumitha test</td>
+                                                    <td>Qatar</td>
+                                                    <td>Live account reg</td>
+                                                    <td>Attended</td>
+                                                    <td><button class="btn  btn-sm  text-warning fs-15" style="background-color:
+                                                        rgba(221, 174, 6, 0.15) ;">Pending</button></td>
+                                                    <td>--</td>
+                                                    <td>845682</td>
+                                                    <td>0</td>
+                                                    <td class="text-end ">--</td>
+                                                 
+                                                 </tr>
+                                                 <tr>
+                                                    <td class="ps-0">2C2E45</td>
+                                                    <td>Online</td>
+                                                    <td>Firas</td>
+                                                    <td>Sumitha test</td>
+                                                    <td>Qatar</td>
+                                                    <td>Live account reg</td>
+                                                    <td>Attended</td>
+                                                    <td><button class="btn  btn-sm  text-danger fs-15" style="background-color:
+                                                        rgba(255, 3, 3, 0.15) ;">Not Intrested</button></td>
+                                                    <td>--</td>
+                                                    <td>845682</td>
+                                                    <td>0</td>
+                                                    <td class="text-end ">--</td>
+                                                 
+                                                 </tr>
+                                              
+                                               
+                                        
+                                            
+                                            </tbody>
+                                         
+                                        </table>
+                                    </div>
+                                </div>
+                                    
+                            </div>
+                        
+                        </div>
+                  
+                    </div>
+                    
+                </div>
+                <!-- End Page-content -->
+    
+                
+            </div>
+            <!-- end main content-->
+    
+        </div>
+        {% include "common/right-sidebar.html" %}
+        
+        <!-- Right bar overlay-->
+<div class="rightbar-overlay"></div>
+<script src="{% static 'js/pages/seminarconfirm.init.js' %}"></script> 
+
+<script src="{% static 'js/app.js' %}"></script>
+
+    </body>
+
+    </html>

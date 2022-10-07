@@ -1485,11 +1485,7 @@ def dll_demo_account(name,email,phone,country,password):
         demoserver = "50.57.14.224:443"
         demopwd = "Tc2022"
         demouser = "601"    
-        # name="Aswani test"
-        # email="aswani@trustlns.ae"
-        # phone='0565662073'
-        # country='United Arab Emirates'
-        # password="123asw89"
+      
         details="NAME="+name+"^EMAIL="+email+"^PHONE="+phone+"^USER_COUNTRY"+country+"^USER_PASSWORD"+password
         received="reciveddata"
         hllDll = CDLL(r"C:\\pyenv\\TrustManagerAPI.dll") 

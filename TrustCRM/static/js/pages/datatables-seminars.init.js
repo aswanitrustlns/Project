@@ -52,7 +52,28 @@ flatpickr('#Date', {
 
    
 });
+flatpickr('#ardate', {
+
+       
+    "allowInput":true,
+    dateFormat: "Y-m-d",
+    altFormat:"Y-m-d",
+   
+    altInput: true, // Human Readable
+    
+
+   
+});
 flatpickr('#time', {
+    //inline: true,
+    "allowInput":true,
+    altInput: true,
+    mode: "single",
+    enableTime: true,
+    noCalendar: true,
+    dateFormat: "H:i",
+});
+flatpickr('#artime', {
     //inline: true,
     "allowInput":true,
     altInput: true,

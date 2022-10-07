@@ -2,7 +2,7 @@ from django.db import connection
 from datetime import datetime, timedelta
 
 class Services:
-#Get Last seminar
+#Get seminar
 
     def get_last_seminar(self):
         try:
@@ -27,6 +27,18 @@ class Services:
         finally:
             Cursor.close()
         return seminar_list
+#Get Last Seminars
+
+    def get_seminars_last(self):
+        try:
+            Cursor=connection.cursor()
+            Cursor.execute("set nocount on;exec SP_GetLastSeminar")
+            seminar_last=Cursor.fetchone()
+        except Exception as e:
+                print("Exception---",e)
+        finally:
+            Cursor.close()
+        return seminar_last
 
 #Get seminar Info list
 
@@ -35,7 +47,7 @@ class Services:
             Cursor=connection.cursor()
             Cursor.execute("set nocount on;exec SP_GetSeminarInfolist")
             seminar_info_list=Cursor.fetchall()
-            print("Seminar info list================",seminar_info_list)
+            
         except Exception as e:
                 print("Exception---",e)
         finally:
@@ -65,17 +77,18 @@ class Services:
                 elvl=elvlar
             webpen=request.POST.get('webpen')
             webpar=request.POST.get('webpar')
-            if webpen:
+            webp=0
+            if webpen!=None:
                 if webpen=="on":
                     webp=1
                 else:
                     webp=0
-            if webpar:
+            if webpar!=None:
                 if webpen=="on":
                     webp=1
                 else:
                     webp=0
-            print("webp=================================",webp)
+            
             description=request.POST.get('description')
             ardesc=request.POST.get('ardesc')
             subdes=request.POST.get('subdescription')
@@ -197,19 +210,35 @@ class Services:
     def get_seminar_details(self):
         try:
             Cursor=connection.cursor()
-            seminar_details_list=Cursor.execute("set nocount on;exec SP_GetSeminarDetails")
+            Cursor.execute("set nocount on;exec SP_GetSeminarDetails")
+            seminar_details_list=Cursor.fetchall()
+            seminarList=[]
+            for items in seminar_details_list:
+                item=items[0]
+                
+                ids=item.split('/')
+                ids=ids[0]
+                seminarList.append({
+                    "id":ids,
+                    "name":items[0]
+                })
+            seminarList = sorted(seminarList, key=lambda k: k['id'], reverse=True)
+            print("Seminars..................",seminarList)  
         except Exception as e:
                 print("Exception---",e)
         finally:
             Cursor.close()
-        return seminar_details_list
+        return seminarList
 
 #Load seminars to grid
 
     def load_seminar_grid(self,seminar):
         try:
             Cursor=connection.cursor()
-            grid_list=Cursor.execute("set nocount on;exec SP_GetSeminarsGrid %s",[seminar])
+
+            Cursor.execute("set nocount on;exec SP_GetSeminarsGrid %s",[seminar])
+            grid_list=Cursor.fetchall()
+            # print("Grid list================================",grid_list)
         except Exception as e:
                 print("Exception---",e)
         finally:
@@ -221,7 +250,8 @@ class Services:
     def get_seminar_report(self,seminar):
         try:
             Cursor=connection.cursor()
-            seminar_report=Cursor.execute("set nocount on;exec SP_GetSeminarsReport %s",[seminar])
+            Cursor.execute("set nocount on;exec SP_GetSeminarsReport %s",[seminar])
+            seminar_report=Cursor.fetchall()
         except Exception as e:
                 print("Exception---",e)
         finally:
@@ -230,19 +260,20 @@ class Services:
 
 #Get Accounts Opened
 
-    def get_accounts_opened(self):
+    def get_accounts_opened(self,fromdate,todate):
         try:
             Cursor=connection.cursor()
-            date_today=datetime.today().date()    
-            date_today=date_today.strftime("%Y-%m-%d")
-            week_day=datetime.today().weekday() # Monday is 0 and Sunday is 6
-            if(week_day==0):
-                date_yesterday = datetime.today()-timedelta(3)
-            else:
-                date_yesterday = datetime.today()-timedelta(1)
+            # date_today=datetime.today().date()    
+            # date_today=date_today.strftime("%Y-%m-%d")
+            # week_day=datetime.today().weekday() # Monday is 0 and Sunday is 6
+            # if(week_day==0):
+            #     date_yesterday = datetime.today()-timedelta(3)
+            # else:
+            #     date_yesterday = datetime.today()-timedelta(1)
 
-            date_yesterday=date_yesterday.strftime("%Y-%m-%d")
-            seminar_accounts=Cursor.execute("set nocount on;exec SP_SeminarAccounts %s,%s",[date_yesterday,date_today])
+            # date_yesterday=date_yesterday.strftime("%Y-%m-%d")
+            Cursor.execute("set nocount on;exec SP_SeminarAccounts %s,%s",[fromdate,todate])
+            seminar_accounts=Cursor.fetchall()
         except Exception as e:
                 print("Exception---",e)
         finally:
@@ -259,7 +290,19 @@ class Services:
                 print("Exception---",e)
         finally:
             Cursor.close()
-       
+#Get seminar count
+
+    def get_seminar_count(self,seminarId):
+        try:
+            Cursor=connection.cursor()
+            Cursor.execute("set nocount on;exec GetSemCount %s",[seminarId])
+            seminar_count=Cursor.fetchone()
+        except Exception as e:
+                print("Exception---",e)
+        finally:
+            Cursor.close()
+        return seminar_count
+
 
        
 

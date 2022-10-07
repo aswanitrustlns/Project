@@ -9,7 +9,12 @@ urlpatterns=[
      path('seminars',view_seminars,name="Seminars"),
      path('AddEn',add_button_click,name="AddEn"),
      path('Info',get_webinar_info,name="Info"),
-     path("Delete",delete_seminar,name="Delete")
+     path("Delete",delete_seminar,name="Delete"),
+     path("Update",edit_button_click,name="Update"),
+     path('SeminarReport',view_seminar_report,name="SeminarReport"),
+     path('LoadSeminar',report_load,name="LoadSeminar"),
+     path('ViewOpened',view_opened_account,name="ViewOpened"),
+     path('AttendanceUpdate',update_account,name="AttendanceUpdate")
     
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

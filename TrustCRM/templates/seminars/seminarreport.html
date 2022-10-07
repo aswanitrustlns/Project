@@ -1,0 +1,511 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8" />
+    <title>Trust Capital CRM</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
+    <meta content="Themesbrand" name="author" />
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" lang="ar">
+    <!-- App favicon -->
+    {% load  static %}
+     <!-- DataTables -->
+     <link href="{% static 'libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css' %}" rel="stylesheet" type="text/css" />
+     <link href="{% static 'libs/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css' %}" rel="stylesheet" type="text/css" />
+     <!-- plugin css -->
+     <!--<link href="assets/libs/admin-resources/jquery.vectormap/jquery-jvectormap-1.2.2.css" rel="stylesheet"
+         type="text/css" />-->
+      <!-- datepicker css -->
+      <link rel="stylesheet" href="{% static 'libs/flatpickr/flatpickr.min.css' %}">
+    {% include "common/link.html" %}
+    {% include "common/scripts.html" %}
+
+   
+
+ 
+</head>
+<body data-layout-mode="dark">
+
+    <!-- <body data-layout="horizontal"> -->
+    
+    <!-- Begin page -->
+    <div id="layout-wrapper">
+    
+        {% include "common/header.html" %}
+    
+
+        <!-- ========== Left Sidebar Start ========== -->
+        {% include "common/sidebar.html" %}
+        <div class="main-content">
+
+            <div class="page-content" id="sales">
+                <div class="container-fluid">
+                  
+                    <div class="row">
+    
+                        <div class="col-12">
+                            <div class="d-flex align-items-center">
+                                <h4 class="card-title almarenamonolight-type mb-4 fs-23">Seminar Reports</h4>
+                               
+                                
+                            </div>
+                           
+                       
+                            
+                            <div class=" mb-4">
+                                <p class="gilroymedium-type fs-15 color-color1 mb-0">This page allows you to view the details regarding Sales
+                                    This page allows you to generate reports on events/seminars.</p>
+                            </div>
+    
+                     
+                            
+                        </div>
+                        <div class="col-lg-12 col-xxl-6">
+                           
+                                <form>
+                                    <div class="row align-items-end ">
+    
+                                            <div class="col-lg-6">
+                                                <div class="mb-2">
+                                                    <label class="form-label " for="Seminars">Select the Seminar</label>
+                                                    <select   class=" form-select" id="Seminars"> 
+                                                        {% for detail in details%}
+                                                        <option value="{{detail.id}}">{{detail.name}}</option>
+                                                        {%endfor%}
+                                                    </select>
+    
+                                                    
+                                                </div>
+                                            </div>
+                                        
+                                            <div class="col-lg-6 ">
+                                                <button class="btn btn-info btn-md mb-2  noPrint me-2" type="button" id="load-btn-sr" onclick="changeSeminar()">Load</button>
+                                                <button class="btn btn-outline-light  btn-md mb-2  "  type="button" onclick="printAttendees()">Print Attendees</button>
+                                            </div>
+                                    </div> 
+                                </form>
+                        </div>
+                    </div>
+                    <hr class="my-4">
+                    <div class="row justify-content-between">
+    
+                        <div class="col-lg-6 col-xxl-5">
+                            <h4 class="card-title almarenamonolight-type mb-2 fs-23">
+                                View Accounts Opened</h4>
+                            <form>
+                                <div class="row align-items-end ">
+    
+                                    <div class="col-sm-4 col-xxl-5">
+                                        <div class="mb-2">
+                                            <label class="form-label " for="fromdate-semr">From Date</label>
+                                            <input  type="date" class="form-control" id="fromdate-semr" placeholder="yyyy-mm-dd" >
+    
+                                            
+                                        </div>
+                                    </div>
+    
+                                    <div class="col-sm-4 col-xxl-5">
+                                        <div class="mb-2">
+                                            <label class="form-label " for="todate-semr">To Date</label>
+                                            <input  type="date" class="form-control" id="todate-semr" placeholder="yyyy-mm-dd" >
+                                            
+                                        </div>
+                                    </div>
+                                
+                                    <div class="col-sm-4 col-xxl-2">
+                                        <button class="btn btn-info btn-md mb-2  
+                                         me-2 w-100" type="button" id="load-btn-sem" onclick="showAcoountsOpened()">Show</button>
+                                       
+                                    </div>
+                            </div> 
+                            </form>
+    
+    
+                        </div>
+    
+                        <div class="col-lg-6 col-xxl-5">
+                            <h4 class="card-title almarenamonolight-type mb-2 fs-23">
+                                Update Attending Status</h4>
+    
+                            <form>
+                                <div class="row align-items-end ">
+    
+                                        <div class="col-md-4 col-xxl-5">
+                                            <div class="mb-2">
+                                                <label class="form-label " for="TicketNo">Ticket No*</label>
+                                                <input type="text"  class=" form-control" id="TicketNo"> 
+                                                
+    
+                                                
+                                            </div>
+                                        </div>
+    
+                                        <div class="col-md-4 col-xxl-5">
+                                            <div class="mb-2">
+                                                <label class="form-label " for="Attending">Attending</label>
+                                                <select   class=" form-select" id="Attending"> 
+                                                    <option value="Attended">Attended</option>
+                                                    <option value="Not_Attended">Not Attended</option>
+                                                    <option value="Attending">Attendeding</option>
+                                                    <option value="Not_Attending">Not Attending</option>
+                                                </select>
+    
+                                                
+                                            </div>
+                                        </div>
+                                    
+                                        <div class="col-md-4 col-xxl-2 ">
+                                            <button class="btn btn-info btn-md mb-2  noPrint me-2 w-100" type="button" onclick="updateAttendance()">Update</button>
+                                           
+                                        </div>
+                                </div> 
+                            </form>
+    
+    
+                        </div>
+                    </div>
+                    <hr class="my-4">
+                    <div class="row">
+    
+                        <div class="col-12">
+                           
+                                    
+                                    <div class=" px-1 table-responsive" id="seminar-rep" style="max-height: 453px;">
+                                        
+                                        <table class="table mb-0  change " >
+    
+                                            <thead class="gilory-medium-type fs-16">
+                                                <tr>
+                                                    <td class=" ps-0">Name:</td>
+                                                    <td >Location:</td>
+                                                    <td>Date:</td>
+                                                    <td >Resolved:</td>
+                                                    <td >Attending:</td>
+                                                    <td >Attended:</td>
+                                                    <td >Not Attended:</td>
+                                                    <td  class="text-end" >Registered:</td>
+                                                </tr>
+                                            </thead>
+                                           
+                                            <tbody class="gilory-regular-type fs-15 text-white" id="info-body">
+                                                <tr>
+                                                    <td class=" ps-0 color-orange">{{webinarInfo.1}}</td>
+                                                    <td class=" color-orange"><span class="d-block">
+                                                        {{webinarInfo.3}}
+                                                    </span></td>
+                                                    <td class=" color-orange">{{webinarInfo.5}}</td>
+                                                    <td  class=" color-orange">{{count.4}}</td>
+                                                    <td class=" color-orange">{{count.3}}</td>
+                                                    <td class=" color-orange" >{{count.2}}</td>
+                                                    <td class=" color-orange" >{{count.1}}</td>
+                                                    <td  class="text-end color-orange">{{count.0}}</td>
+                                                </tr>
+                                               
+    
+                                            </tbody>
+                                          
+                                        </table>
+                                    </div>
+                                  
+                                    
+    
+                           
+    
+                        </div> <!-- end col -->
+                      
+    
+    
+    
+                    </div>
+                    <hr class="my-5">
+                    <div class="row">
+    
+                        <div class="col-12">
+                            <div class=" card   card-h-100" >
+                                <div class="card-body ">
+                                    <div class="position-absolute " style="right:10px;z-index:1055">
+                                        <input type="text" class="form-control "  placeholder="Search" id="myinputsearch-semrep" style="width:369px">
+                                    </div>
+                                    <div class="table-responsive mt-3" data-simplebar="" style="max-height:100%">
+                                        <table id="datatableseminar-report" class="table dt-responsive  nowrap  w-100 change">
+                                            <thead >
+                                                <tr  class=" gilory-medium-type fs-17">
+                                                    <th  > Ticket</th>
+                                                    <th >Sales Rep</th>
+                                                    <th  >Re Assigned</th>
+                                                    <th  >Client Name</th>
+                                                    <th>Country</th>
+                                                    <th>Source</th>
+                                                    <th>Attended</th>
+                                                    <th>Attending</th>
+                                                    <th>SMS</th>
+                                                    <th>Account</th>
+                                                    <th>Application</th>
+                                                    <!-- <th>Edit</th> -->
+                                                    
+                                                </tr>
+                                            </thead>
+    
+    
+                                            <tbody class="text-white gilory-regular-type fs-16"  id="grid-items">
+                                              {%for grid in grids%}
+                                                <tr onclick='loadTicket("{{grid.0}}")'>
+                                                   <td>{{grid.0}}</td>
+                                                   <td>{{grid.1}}</td>
+                                                   <td>{{grid.2}}</td>
+                                                   <td>{{grid.3}}</td>
+                                                   <td>{{grid.4}}</td>
+                                                   <td>{{grid.5}}</td>
+                                                   <td>{{grid.6}}</td>
+                                                   <td>{{grid.7}}</td>
+                                                   <td>{{grid.8}}</td>
+                                                   <td>{{grid.9}}</td>
+                                                   <td>{{grid.10}}</td>
+                                                   <!-- <td><div class="dropdown align-self-start">
+                                                    <a class="dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                        <i class="bx bx-dots-vertical-rounded"></i>
+                                                    </a>
+                                                    <div class="dropdown-menu">
+                                                        <a class="dropdown-item" href="#">Copy</a>
+                                                        <a class="dropdown-item" href="#">Save</a>
+                                                        <a class="dropdown-item" href="#">Forward</a>
+                                                        <a class="dropdown-item" href="#">Delete</a>
+                                                    </div>
+                                                </div></td> -->
+                                                
+                                                </tr>
+                                            {%endfor%} 
+                                            
+                                        
+                                            
+                                            </tbody>
+                                         
+                                        </table>
+                                    </div>
+                                </div>
+                                    
+                            </div>
+                        
+                        </div>
+                  
+                    </div>
+                    
+                </div>
+                <!-- End Page-content -->
+    
+                <!--@@include("partials/footer.html")-->
+            </div>
+            <!-- end main content-->
+    
+        </div>
+        {% include "common/right-sidebar.html" %}
+        
+        <!-- Right bar overlay-->
+<div class="rightbar-overlay"></div>
+<div class="modal fade" id="account-opened" tabindex="-1" >
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+
+            <div class="modal-body ">
+
+                <div class="  px-3 border rounded-3 py-4">
+                
+                    <div class="modal-header py-0 px-0 border-bottom-0">
+                        <!-- <h5 class="modal-title mb-3" id="modal-title">Monthly Report</h5> -->
+
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
+
+                    </div>
+               
+                    
+                        
+                        <div class="row">
+                        
+                            <div class="col-12">
+                                <table id="datatableseminar" class="table dt-responsive  nowrap  w-100">
+                                    <thead >
+                                        <tr  class=" ">
+                                    
+                                            <th  data-text="text" class="filterhead">Account</th>
+                                            <th  data-text="text" class="filterhead">Sales Rep</th>
+                                            <th  data-text="text" class="filterhead">ReassignedRep</th>
+                                            <th  data-text="text" class="filterhead">Source</th>
+                                            <th  data-text="text" class="filterhead">SeminarsAttended</th>
+                                            <th  data-text="text" class="filterhead">RegDate</th>
+                                      
+                                        </tr>
+                                    </thead>
+
+
+                                    <tbody id="account-opend-body">
+                                    
+                               
+                                      
+                                    
+                                       
+                                    
+                                    
+                                    </tbody>
+                                 
+                                </table>
+                                
+                            </div>
+                       
+                        </div>
+                        
+                    
+                </div>
+            
+            </div>
+        </div> <!-- end modal-content-->
+    </div> <!-- end modal dialog-->
+</div>  
+<div class="modal fade bs-example-modal-insta" tabindex="-1" role="dialog" aria-hidden="true" id="alertpopup">
+    <div class="modal-dialog modal-dialog-centered"   style="z-index: 10555;">
+        <div class="modal-content">
+            <div class="modal-header border-0">
+                <h5 class=" fs-16">
+                    <div id="userMsg"></div>
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                                    
+                    <!-- <div class="modal-body" >
+        
+        
+                            <div data-simplebar style="max-height: 230px;">
+            
+                              
+                                
+                            </div>
+                        </div> -->
+           
+        </div>
+     </div>
+    </div>
+<script>
+    
+    $(document).ready(function () {
+        
+    });
+    function printAttendees(){
+        seminarid=$("#Seminars").val()
+        
+
+    }
+   
+    function showAcoountsOpened(){
+       
+        fromdate=$("#fromdate-semr").val()
+        todate=$("#todate-semr").val()
+        var rows
+        console.log("From date========"+fromdate+todate)
+        $.ajax({
+               type : "GET", 
+               url: "{% url 'Seminars:ViewOpened' %}",
+               data: {
+                'from':fromdate,
+                'to':todate,
+               },
+               
+               success: function(data){
+                var datas=data.grid
+                for(var i=0;i<datas.length;i++){
+                    rows+= "<tr><td>"+datas[i][0]+"</td><td>"+datas[i][1]+"</td><td>"+datas[i][2]+"</td><td>"+datas[i][3]+"</td><td>"+datas[i][4]+"</td><td>"+datas[i][5]+"</td></tr>"
+                }
+
+                $("#account-opend-body").append(rows)
+                $("#account-opened").modal('show')
+                console.log("data=========================="+data.grid)
+               }
+            })
+    }
+    function loadTicket(ticket){
+        console.log("Ticket===================="+ticket)
+        console.log("Load ticket====")
+        $("#TicketNo").val(ticket)
+    }
+    function updateAttendance(){
+        ticket=$("#TicketNo").val()
+        status=$("#Attending").val()
+        seminarid=$("#Seminars").val()
+        console.log("Status updated========="+ticket+status+seminarid)
+        $.ajax({
+               type : "GET", 
+               url: "{% url 'Seminars:AttendanceUpdate' %}",
+               data: {
+                'ticket':ticket,
+                'status':status,
+                'seminarid':seminarid
+               },
+               
+               success: function(data){
+                console.log("data======"+data.grid)
+                loadGrid(data.grid)
+                $("#userMsg").empty()
+                $("#userMsg").append("Updated attending status successfully")
+                $("#alertpopup").modal('show')
+               }
+            })
+
+    }
+    function loadGrid(grid){
+        $("#grid-items").empty()
+        var gridlength=grid.length
+        var row;
+        console.log("Grid length---------"+gridlength)
+        for(var i=0;i<gridlength;i++){
+            
+            row+="<tr onclick=loadTicket("+grid[i][0]+")><td>"+grid[i][0]+"</td><td>"+grid[i][1]+"</td><td>"+grid[i][2]+"</td><td>"+grid[i][3]+"</td><td>"+grid[i][4]+"</td><td>"+grid[i][5]+"</td><td>"+grid[i][6]+"</td><td>"+grid[i][7]+"</td>"+
+            "<td>"+grid[i][8]+"</td><td>"+grid[i][9]+"</td><td>"+grid[i][10]+"</td></tr>"
+            // "<td><div class='dropdown align-self-start'>"+
+            // "<a class='dropdown-toggle' href='#'' role='button' data-bs-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>"+
+            // "<i class='bx bx-dots-vertical-rounded'></i></a><div class='dropdown-menu'><a class='dropdown-item' href='#''>Copy</a>"+
+            // "<a class='dropdown-item' href='#''>Save</a><a class='dropdown-item' href='#'>Forward</a><a class='dropdown-item' href='#'>Delete</a>"+
+            // "</div></div></td>";
+
+        }
+        $("#grid-items").append(row)
+    }
+    function changeSeminar(){
+        var seminarId=$("#Seminars").val()
+        console.log("Semianr Id======="+seminarId)
+        $.ajax({
+               type : "GET", 
+               url: "{% url 'Seminars:LoadSeminar' %}",
+               data: {
+                'id':seminarId,
+               },
+               
+               success: function(data){
+                var count=data.count
+                var info=data.info
+                var grid=data.grid
+                console.log("Data==========="+count)
+                console.log("Data==========="+info)
+                console.log("Data==========="+grid)
+                $("#info-body").empty()
+                var info_row="<tr><td class='ps-0 color-orange'>"+info[1]+"</td><td class='color-orange'><span class='d-block'>"+info[3]+"</span></td>"+
+                             "<td class='color-orange'>"+info[5]+"</td><td  class='color-orange'>"+count[4]+"</td><td class='color-orange'>"+count[3]+"</td>"+
+                             "<td class='color-orange' >"+count[2]+"</td><td class='color-orange'>"+count[1]+"</td><td  class='text-end color-orange'>"+count[0]+"</td></tr>"
+                             $("#info-body").append(info_row)
+                loadGrid(grid)
+
+               }
+            })
+    }
+</script>
+<script src="{% static 'libs/datatables.net/js/jquery.dataTables.min.js'%}"></script>
+<script src="{% static 'libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js'%}"></script>
+<script src="{% static 'libs/flatpickr/flatpickr.min.js' %}"></script>
+<script src="{% static 'js/app.js' %}"></script>
+         <!-- Datatable init js -->
+<script src="{% static 'js/pages/seminarreport.init.js' %}"></script> 
+     
+
+   
+</body>
+     
+</html>

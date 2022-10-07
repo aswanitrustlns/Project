@@ -6,7 +6,9 @@ from django.conf import settings
 from django.views.generic import TemplateView
 from .views import *
 urlpatterns=[
+      path('Generate',generate_passwords,name="Generate"),
       path('ChangePassword',change_password,name='ChangePassword'),
+      path('Change',change_password_request,name="Change")
      
     
 ]
