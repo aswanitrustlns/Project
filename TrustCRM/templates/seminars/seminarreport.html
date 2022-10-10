@@ -55,7 +55,7 @@
                        
                             
                             <div class=" mb-4">
-                                <p class="gilroymedium-type fs-15 color-color1 mb-0">This page allows you to view the details regarding Sales
+                                <p class="gilroymedium-type fs-15 color-color1 mb-0">
                                     This page allows you to generate reports on events/seminars.</p>
                             </div>
     
@@ -392,6 +392,10 @@
     });
     function printAttendees(){
         seminarid=$("#Seminars").val()
+        
+                var url="{% url 'Seminars:AttendeesPrint' %}"
+                var fullurl=url+"?&seminar="+seminarid
+                window.open(fullurl,'_blank')
         
 
     }

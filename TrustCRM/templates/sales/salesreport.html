@@ -345,6 +345,7 @@
                 console.log("Nothing to print")
             }
             else{
+                
                 var url="{% url 'Admin:PrintReport' %}"
                 var fullurl=url+"?&SalesRep="+repId+"&from="+from_date+"&to="+to_date
                 window.open(fullurl,'_blank')

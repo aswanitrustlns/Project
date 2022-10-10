@@ -14,7 +14,13 @@ urlpatterns=[
      path('SeminarReport',view_seminar_report,name="SeminarReport"),
      path('LoadSeminar',report_load,name="LoadSeminar"),
      path('ViewOpened',view_opened_account,name="ViewOpened"),
-     path('AttendanceUpdate',update_account,name="AttendanceUpdate")
+     path('AttendanceUpdate',update_account,name="AttendanceUpdate"),
+     path('Confirmation',seminar_confirmation,name="Confirmation"),
+     path('LoadConfirmation', confirmation_grid,name="LoadConfirmation"),
+     path('RegistrationSeminar',registerSeminars,name="RegistrationSeminar"),
+     path('EmailTemplate',send_email_templates,name="EmailTemplate"),
+     path('AttendeesPrint',print_attendees,name="AttendeesPrint"),
+     path('UpcomingDetails',upcoming_details,name="UpcomingDetails")
     
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

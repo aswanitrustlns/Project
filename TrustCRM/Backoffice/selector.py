@@ -8,7 +8,7 @@ class Selector:
            master_pwd=random_pwd_gen()
            investor_pwd=random_pwd_gen()
            phone_pwd=random_pwd_gen()
-           
+           print("master",master_pwd,"Investor",investor_pwd,"phone",phone_pwd)
         except Exception as e:
             print("Exception----",e)
         return master_pwd,investor_pwd,phone_pwd
@@ -16,6 +16,6 @@ class Selector:
    
 #Random password generator
 def random_pwd_gen():
-        all = string.ascii_letters + string.digits + string.punctuation
+        all = string.ascii_letters + string.digits
         password = "".join(random.sample(all,8))
         return password

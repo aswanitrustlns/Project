@@ -95,20 +95,20 @@
                                         </thead>
                                         
                                         <tbody class="gilory-regular-type fs-15 text-white" >
-                                            {%for report in reports %}    
-                                            {% if not forloop.last %}
+                                            {%for attend in attendees %}    
+                                            
                                             <tr>
-                                                <td scope="row" >{{report.0}}</td>
-                                                <td>{{report.1}}</td>
-                                                <td>{{report.2}}</td>
-                                                <td>{{report.3}}</td>
-                                                <td>{{report.4}}</td>
-                                                <td >{{report.5}}</td>
+                                                <td scope="row" >{{attend.0}}</td>
+                                                <td>{{attend.1}}</td>
+                                                <td>{{attend.2}}</td>
+                                                <td>{{attend.3}}</td>
+                                                <td>{{attend.4}}</td>
+                                                <td >{{attend.5}}</td>
                                                
-                                                <td class="text-end">{{report.6}}</td>
+                                                <td>{{attend.6}}</td>
                                             </tr>
                                             
-                                            {%endif%}
+                                           
                                            
                                            
                                             {%endfor%} 

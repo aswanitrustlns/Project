@@ -85,7 +85,7 @@
                         <div class="  col-md-6 col-xxl-5">
                             <div class="card  card-h-100">
                              
-                                <div class="card-body"> 
+                                <div class="card-body" id="form-div"> 
                                      <!--Navigation-->
                                      <ul class="nav justify-content-start nav-tabs-custom  px-0 gilroymedium-type fs-25 my-3  nav-tabs-custom-after-top border-0" role="tablist">
                                         <li class="nav-item" style=" width:calc(100% / 2 );">
@@ -160,7 +160,7 @@
                                                         <div class="mb-3">
                                                             <label class="form-label" for="Location">Location <span class="color-orange">*</span></label>
                                                             
-                                                            <input type="email" class="form-control" id="location" name="location" placeholder=" " required>
+                                                            <input type="text" class="form-control" id="location" name="location" placeholder=" " required>
                                                             <div class="invalid-feedback position-absolute bottom-0">
                                                                 Please provide a valid  Email.
                                                             </div>
@@ -212,7 +212,7 @@
                                                     <div class="col-lg-12 col-xl-6 ">
                                                         <div class="mb-3">
                                                             <label class="form-label" for="Description">Description<span class="color-orange">*</span></label>
-                                                            <textarea name="" id="description" cols="20" rows="5" class="form-control" name="description" required ></textarea>
+                                                            <textarea  id="description" cols="20" rows="5" class="form-control" name="description" required ></textarea>
                                                         </div>
                                                         <div class="invalid-feedback position-absolute bottom-0">
                                                             Please provide a valid Age.
@@ -223,7 +223,7 @@
                                                     <div class="col-lg-12 col-xl-6 ">
                                                         <div class="mb-3">
                                                             <label class="form-label" for="Description2">Sub Description<span class="color-orange">*</span></label>
-                                                            <textarea name="" id="subdescription" cols="20" rows="5" class="form-control" name="subdescription"></textarea>
+                                                            <textarea  id="subdescription" cols="20" rows="5" class="form-control" name="subdescription"></textarea>
                                                         </div>
                                                         
                                                     </div>
@@ -272,7 +272,7 @@
                                                    
                                                     
                                                 </div>
-                                                <button class="btn btn-outline-light btn-lg mt-3" type="button" onclick="addEnForm()">Add <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <!-- <button class="btn btn-outline-light btn-lg mt-3" type="button" onclick="addEnForm()">Add <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                     <path d="M10 18.3332C14.5833 18.3332 18.3333 14.5832 18.3333 9.99984C18.3333 5.4165 14.5833 1.6665 10 1.6665C5.41667 1.6665 1.66667 5.4165 1.66667 9.99984C1.66667 14.5832 5.41667 18.3332 10 18.3332Z" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                                                     <path d="M6.66667 10H13.3333" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                                                     <path d="M10 13.3332V6.6665" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -287,13 +287,14 @@
                                                 
                                                 <button class="btn btn-primary btn-lg mt-3" type="button" onclick="updateEnForm()">Update</button>
                                                 <button class="btn btn-outline-light btn-lg mt-3 ms-3" type="button" onclick="deleteEnForm()">Delete</button>
-                                            </form>
+                                            </form> -->
     
                                         </div>
                                         <div class="tab-pane" id="actions-ar-tab" role="tabpanel">
     
     
-                                            <form id="form-ar">
+                                            <!-- <form id="form-ar"> -->
+                                                {% csrf_token %}
                                                 <div class="row">
                                                      
                                                     <!--<div class="d-flex flex-wrap align-items-center mb-2">
@@ -342,7 +343,7 @@
                                                         <div class="mb-3">
                                                             <label class="form-label" for="Location">Location <span class="color-orange">*</span></label>
                                                             
-                                                            <input type="email" class="form-control" id="arlocation" placeholder=" " required name="alocation">
+                                                            <input type="text" class="form-control" id="arlocation" placeholder=" " required name="alocation">
                                                             <div class="invalid-feedback position-absolute bottom-0">
                                                                 Please provide a valid  Email.
                                                             </div>
@@ -364,7 +365,7 @@
                                                         <div class="mb-3">
                                                             <label class="form-label" for="Date">Date <span class="color-orange">*</span></label>
                                                             
-                                                            <input type="email" class="form-control" id="ardate" placeholder="e.g Steve@gmail.com" required>
+                                                            <input type="email" class="form-control" id="ardate"  required name="ardate">
                                                             <div class="invalid-feedback position-absolute bottom-0" >
                                                                 Please provide a valid  Email.
                                                             </div>
@@ -374,7 +375,7 @@
                                                     <div class="col-lg-12 col-xl-6 ">
                                                         <div class="mb-3">
                                                             <label class="form-label" for="Time">Time</label>
-                                                            <input type="number" class="form-control" id="artime" placeholder="" >
+                                                            <input type="number" class="form-control" id="artime" placeholder="" name="artime">
                                                             <div class="invalid-feedback position-absolute bottom-0">
                                                                 Please provide a valid Age.
                                                             </div>
@@ -395,7 +396,7 @@
                                                     <div class="col-lg-12 col-xl-6 ">
                                                         <div class="mb-3">
                                                             <label class="form-label" for="Description">Description<span class="color-orange">*</span></label>
-                                                            <textarea name="" id="descriptionar" cols="20" rows="5" class="form-control" name="ardesc" required></textarea>
+                                                            <textarea  id="descriptionar" cols="20" rows="5" class="form-control" name="ardesc" required></textarea>
                                                         </div>
                                                         <div class="invalid-feedback position-absolute bottom-0">
                                                            
@@ -406,7 +407,7 @@
                                                     <div class="col-lg-12 col-xl-6 ">
                                                         <div class="mb-3">
                                                             <label class="form-label" for="Description2">Sub Description<span class="color-orange">*</span></label>
-                                                            <textarea name="" id="subdescriptionar" cols="20" rows="5" class="form-control" name="arsubdes"></textarea>
+                                                            <textarea id="subdescriptionar" cols="20" rows="5" class="form-control" name="arsubdes"></textarea>
                                                         </div>
                                                         
                                                     </div>
@@ -454,27 +455,24 @@
                                                    
                                                     
                                                 </div>
-                                                <button class="btn btn-outline-light btn-lg mt-3" onclick="addArForm()">Add <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                    <path d="M10 18.3332C14.5833 18.3332 18.3333 14.5832 18.3333 9.99984C18.3333 5.4165 14.5833 1.6665 10 1.6665C5.41667 1.6665 1.66667 5.4165 1.66667 9.99984C1.66667 14.5832 5.41667 18.3332 10 18.3332Z" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                                    <path d="M6.66667 10H13.3333" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                                    <path d="M10 13.3332V6.6665" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                                    </svg>
-                                                    
-                                                </button>
-    
-                                                <button class="btn btn-outline-light btn-lg  mt-3" type="button" onclick="resetform()">Reset <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                    <path d="M18.3333 9.99984C18.3333 14.5998 14.6 18.3332 10 18.3332C5.40001 18.3332 2.59167 13.6998 2.59167 13.6998M2.59167 13.6998H6.35834M2.59167 13.6998V17.8665M1.66667 9.99984C1.66667 5.39984 5.36667 1.6665 10 1.6665C15.5583 1.6665 18.3333 6.29984 18.3333 6.29984M18.3333 6.29984V2.13317M18.3333 6.29984H14.6333" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                                    </svg>
-                                                    </button>
-                                                
-                                                <button class="btn btn-primary btn-lg mt-3" type="button" onclick="updateArForm()">Update</button>
-                                                <button class="btn btn-outline-light btn-lg mt-3 ms-3" type="button" onclick="deleteEnForm()">Delete</button>
-                                               
-                                                    
-                                              
-                                                
                                                 
                                             </form>
+                                            <button class="btn btn-outline-light btn-lg mt-3" onclick="addArForm()">Add <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M10 18.3332C14.5833 18.3332 18.3333 14.5832 18.3333 9.99984C18.3333 5.4165 14.5833 1.6665 10 1.6665C5.41667 1.6665 1.66667 5.4165 1.66667 9.99984C1.66667 14.5832 5.41667 18.3332 10 18.3332Z" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                                <path d="M6.66667 10H13.3333" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                                <path d="M10 13.3332V6.6665" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                                </svg>
+                                                
+                                            </button>
+
+                                            <button class="btn btn-outline-light btn-lg  mt-3" type="button" onclick="resetform()">Reset <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M18.3333 9.99984C18.3333 14.5998 14.6 18.3332 10 18.3332C5.40001 18.3332 2.59167 13.6998 2.59167 13.6998M2.59167 13.6998H6.35834M2.59167 13.6998V17.8665M1.66667 9.99984C1.66667 5.39984 5.36667 1.6665 10 1.6665C15.5583 1.6665 18.3333 6.29984 18.3333 6.29984M18.3333 6.29984V2.13317M18.3333 6.29984H14.6333" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                                </svg>
+                                                </button>
+                                            
+                                            <button class="btn btn-primary btn-lg mt-3" type="button" onclick="updateArForm()">Update</button>
+                                            <button class="btn btn-outline-light btn-lg mt-3 ms-3" type="button" onclick="deleteEnForm()">Delete</button>
+                                           
                                         </div>
                                     </div>
                                
@@ -838,8 +836,8 @@
                 $("#arlocation").val(info[4])
                 $("#description").val(info[8])
                 $("#subdescription").val(info[10])
-                $("#descriptionar").val(info[8])
-                $("#subdescriptionar").val(info[10])
+                $("#descriptionar").val(info[9])
+                $("#subdescriptionar").val(info[11])
                 $("#bullet1").val(info[12])
                 $("#abullet1").val(info[13])
                 $("#bullet2").val(info[14])
@@ -862,7 +860,7 @@
                         altInput: true,
                         mode: "single",
                     
-                        noCalendar: true,
+                       
                         
                         defaultDate: loadDate
                     });
@@ -884,7 +882,7 @@
                         altInput: true,
                         mode: "single",
                         
-                        noCalendar: true,
+                      
                         
                         defaultDate: loadDate
                     });
@@ -974,6 +972,7 @@
                 $("#userMsg").append("Seminar Deleted")
                 $("#alertpopup").modal('show')
                 $('#allseminar').load(document.URL +  ' #allseminar')
+                $("#form-div").load(document.URL +  ' #form-div')
                }
             })
 
@@ -1074,7 +1073,7 @@
                 $("#userMsg").append("Seminar details saved successfully")
                 $("#alertpopup").modal('show')
                 $('#allseminar').load(document.URL +  ' #allseminar')
-
+                $("#form-div").load(document.URL +  ' #form-div')
                 }
                
                }
@@ -1096,7 +1095,7 @@
                 $("#userMsg").append("Seminar details saved successfully")
                 $("#alertpopup").modal('show')
                 $('#allseminar').load(document.URL +  ' #allseminar')
-
+                $("#form-div").load(document.URL +  ' #form-div')
                 }
                
                }
@@ -1137,7 +1136,7 @@
                 console.log("Success")
                 if(data.saved=="success"){
                     $("#userMsg").empty()
-                $("#userMsg").append("Seminar details saved successfully")
+                $("#userMsg").append("Seminar details updated successfully")
                 $("#alertpopup").modal('show')
                 $('#allseminar').load(document.URL +  ' #allseminar')
 
@@ -1159,7 +1158,7 @@
                 console.log("Success")
                 if(data.saved=="success"){
                     $("#userMsg").empty()
-                $("#userMsg").append("Seminar details saved successfully")
+                $("#userMsg").append("Seminar details updated successfully")
                 $("#alertpopup").modal('show')
                 $('#allseminar').load(document.URL +  ' #allseminar')
 

@@ -11,7 +11,7 @@ $(document).ready(function () {
     var table = $('#datatableseminar-confirm').DataTable({
         responsive: true,
         //orderCellsTop: true,
-        //paging: false,
+        paging: true,
         ordering: true,
          info: true,
          fixedHeader: true,
@@ -62,7 +62,7 @@ $(document).ready(function () {
     ).click(function() {
         flatpickerfromdate.clear();
         flatpickertodate.clear();
-        flatpickr.clear();
+        // flatpickr.clear();
         
      })
      

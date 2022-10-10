@@ -1,6 +1,7 @@
 from django.db import connection
 from datetime import datetime, timedelta
-
+from .emailservices import EmailServices
+emailservice=EmailServices()
 class Services:
 #Get seminar
 
@@ -61,9 +62,10 @@ class Services:
             Cursor=connection.cursor()
             titleen=request.POST.get('titleen')
             titlear=request.POST.get('titlear')
-            if titleen:
-                title=titleen
-            if titlear:
+            title=""
+            if titleen=="None":
+                title=titlear
+            if titlear=="None":
                 title=titlear
             name=request.POST.get('seminarname')
             location=request.POST.get('location')
@@ -105,7 +107,22 @@ class Services:
             abullet5=request.POST.get('abullet5')
             regdate=request.POST.get('date')
             reg_time=request.POST.get('time')
-            reg=regdate+" "+reg_time
+            regdatear=request.POST.get('ardate')
+
+            reg_time=request.POST.get('time')
+            reg_timear=request.POST.get('artime')
+            print("=================================",aname,alocation,elvl,webp,description,ardesc,subdes,arsubdes,regdatear,regdate,reg_time,reg_timear)
+            if regdate==None and reg_time==None:
+                if reg_timear:
+                    reg=regdatear+" "+reg_timear
+                else:
+                    reg=regdatear
+            if regdate!=None and reg_time!=None:
+                if reg_time:
+                    reg=regdate+" "+reg_time
+                else:
+                    reg=regdate
+            print("Date time==========",reg)
             print("======================",title,name,location,aname,alocation,elvl,webp,description,ardesc,subdes,arsubdes,bullet1,bullet2,bullet3,bullet4,bullet5,abullet1,abullet2,abullet3,abullet4,abullet5,regdate)
             Cursor.execute("set nocount on;exec SP_SaveNewEventDetails %s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s",[title,name,location,aname,alocation,elvl,webp,description,ardesc,subdes,arsubdes,bullet1,bullet2,bullet3,bullet4,bullet5,abullet1,abullet2,abullet3,abullet4,abullet5,reg])
             print("saved")
@@ -135,15 +152,19 @@ class Services:
             if elvlar:
                 elvl=elvlar
             webpen=request.POST.get('webpen')
-            print("webpen========================",webpen)
-            
-  
-            if webpen=="on":
+            webpar=request.POST.get('webpar')
+            webp=0
+            if webpen!=None:
+                if webpen=="on":
                     webp=1
-            else:
+                else:
                     webp=0
-       
-                
+            if webpar!=None:
+                if webpen=="on":
+                    webp=1
+                else:
+                    webp=0
+           
             
             description=request.POST.get('description')
             ardesc=request.POST.get('ardesc')
@@ -160,9 +181,24 @@ class Services:
             abullet4=request.POST.get('abullet4')
             abullet5=request.POST.get('abullet5')
             regdate=request.POST.get('date')
+            regdatear=request.POST.get('ardate')
+
             reg_time=request.POST.get('time')
-            reg=regdate+" "+reg_time
-            Cursor.execute("set nocount on;exec SP_UpdateEventDetails %s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s",[title,name,location,aname,alocation,elvl,webp,description,ardesc,subdes,arsubdes,bullet1,bullet2,bullet3,bullet4,bullet5,abullet1,abullet2,abullet3,abullet4,abullet5,reg])
+            reg_timear=request.POST.get('artime')
+            print("=================================",aname,alocation,elvl,webp,description,ardesc,subdes,arsubdes,regdatear,regdate,reg_time,reg_timear)
+            if regdate==None and reg_time==None:
+                if reg_timear:
+                    reg=regdatear+""+reg_timear
+                else:
+                    reg=regdatear
+            if regdate!=None and reg_time!=None:
+                if reg_time:
+                    reg=regdate+""+reg_time
+                else:
+                    reg=regdate
+            regDate=datetime.strptime(reg,"%Y-%m-%d%H:%M")
+            print("Date time==========",regDate,type(regDate))
+            Cursor.execute("set nocount on;exec SP_UpdateEventDetails %s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s",[title,name,location,aname,alocation,regDate,elvl,webp,description,ardesc,subdes,arsubdes,bullet1,bullet2,bullet3,bullet4,bullet5,abullet1,abullet2,abullet3,abullet4,abullet5])
             print("saved")
         except Exception as e:
                 print("Exception---",e)
@@ -250,6 +286,7 @@ class Services:
     def get_seminar_report(self,seminar):
         try:
             Cursor=connection.cursor()
+            print("SEmianr id=====",seminar)
             Cursor.execute("set nocount on;exec SP_GetSeminarsReport %s",[seminar])
             seminar_report=Cursor.fetchall()
         except Exception as e:
@@ -302,6 +339,169 @@ class Services:
         finally:
             Cursor.close()
         return seminar_count
+
+#Load sales rep
+
+    def get_salesrep_permission(self,userId):
+        try:
+            Cursor=connection.cursor()           
+            Cursor.execute("set nocount on;exec SP_GetSalesRepPermission  %s",[userId]) 
+            permission=Cursor.fetchall()
+        except Exception as e:
+                print("Exception------",e)
+        finally:
+                Cursor.close()
+        return permission
+#Load Country
+    def loadCountry(self):
+        try:
+            Cursor=connection.cursor()           
+            Cursor.execute("set nocount on;exec SP_GetSalesLeadCountry") 
+            all_country=Cursor.fetchall()
+        except Exception as e:
+                print("Exception------",e)
+        finally:
+                Cursor.close()
+        return all_country
+#Source List Ticket
+    def load_source_list(self):
+        try:
+            Cursor=connection.cursor()           
+            Cursor.execute("set nocount on;exec SP_GetSourceListTicket") 
+            source_list=Cursor.fetchall()
+        except Exception as e:
+                print("Exception------",e)
+        finally:
+                Cursor.close()
+        return source_list
+
+#Load nationality
+    def load_nationality(self):
+        try:
+            Cursor=connection.cursor()           
+            Cursor.execute("set nocount on;exec SP_GetNationality") 
+            nationality=Cursor.fetchall()
+        except Exception as e:
+                print("Exception------",e)
+        finally:
+                Cursor.close()
+        return nationality
+
+#Load language
+    def load_language(self):
+        try:
+            Cursor=connection.cursor()           
+            Cursor.execute("set nocount on;exec SP_GetLanguageList") 
+            language_list=Cursor.fetchall()
+        except Exception as e:
+                print("Exception------",e)
+        finally:
+                Cursor.close()
+        return language_list
+    
+#Load Confirmation grid
+    def load_confirmation_grid(self,request):
+        try:
+            Cursor=connection.cursor()           
+            userid=request.session.get('UserId')
+            fromdate=request.GET.get('from')
+            todate=request.GET.get('to')
+            load_data=[]
+            # status=request.POST.get('source')
+            status="P"
+            repId=request.GET.get('repId')
+            if repId:
+                repId=int(repId)
+            country=request.GET.get('country')
+            if country:
+                country=int(country)
+            search=request.GET.get('search')
+            source=request.GET.get('source')
+            if source=="0":
+                source=""
+        
+            nationality=request.GET.get('nationality')
+            if nationality:
+                nationality=int(nationality)
+            # pageno=request.POST.get('pageno')
+            pageno=0
+            # pagecount=0
+            # pagecount=request.POST.get('pagecount')
+            lbflag=request.GET.get('lbflag')
+           
+            Cursor.execute("set nocount on;exec SP_GetSalesLeadsListCount_PY %s,%s,%s,%s,%s",[userid,fromdate,todate,status,repId])
+            pagecount=Cursor.fetchone()
+            if pagecount:
+                pagecount=int(pagecount[0])
+            print("PageCount=================================",pagecount)
+            print("Data===========================================",userid,fromdate,todate,status,repId,country,search,source,nationality,pageno,pagecount,lbflag)
+            if pagecount>0:
+                Cursor.execute("set nocount on;exec SP_GetSalesLeadsListPaginate %s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s",[userid,fromdate,todate,status,repId,country,search,source,nationality,pageno,pagecount,lbflag]) 
+                load_data=Cursor.fetchall()
+        except Exception as e:
+                print("Exception------",e)
+        finally:
+                Cursor.close()
+        return load_data
+        
+ #Get Upcoming seminar
+    def get_upcoming_seminar(self):
+        try:
+            Cursor=connection.cursor()           
+            Cursor.execute("set nocount on;exec SP_UpcomingSeminars") 
+            seminarlist_upcoming=Cursor.fetchall()
+        except Exception as e:
+                print("Exception------",e)
+        finally:
+                Cursor.close()
+        return seminarlist_upcoming
+   # Register Seminar
+    def register_seminar(self,title,name,to_addr,seminartitle,ticket,userid):
+        register_msg=""
+        try:
+            Cursor=connection.cursor()           
+            Cursor.execute("set nocount on;exec SP_SeminarConfirmation %s,%s,%s",[ticket,userid,seminartitle]) 
+            register_msg=Cursor.fetchone()
+            print("Register mesage================",register_msg)
+            
+            if register_msg:
+                if(register_msg[0]=='Seminar Confirmed Successfully'):
+                   emailservice.seminar_confirmation_email(title,name,to_addr,seminartitle)
+        except Exception as e:
+                print("Exception------",e)
+        finally:
+                Cursor.close()
+        return register_msg
+    #Email template send---
+
+    def email_template_selection(self,lang,subject,fromaddr,to,title,name,userId,ticket,salesrep):
+        try:
+            Cursor=connection.cursor()
+            emailservice.send_email_templates(lang,subject,to,title,name,salesrep)
+            print("Selector----",lang,subject,fromaddr,to,title,name)
+            history="Send --xxxxxx[Eng]-- SMS for Ticket xxx"
+            chattype=""
+            dept=""
+            Cursor.execute("set nocount on;exec SP_UpdateChatAndLog %s,%s,%s,%s,%s",[userId,history,chattype,ticket,dept])
+        except Exception as e:
+            print("Exception------",e)
+        finally:
+            Cursor.close()
+    def upcoming_seminar_details(self,seminarId):
+        try:
+            Cursor=connection.cursor()
+            Cursor.execute("set nocount on;exec SP_UpcomingSeminarByTitle %s",[seminarId])
+            details=Cursor.fetchone()
+        except Exception as e:
+            print("Exception------",e)
+        finally:
+            Cursor.close()
+        return details
+
+        
+
+
+        
 
 
        

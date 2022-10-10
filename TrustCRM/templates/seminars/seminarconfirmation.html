@@ -51,8 +51,7 @@
                                 <h4 class="card-title almarenamonolight-type mb-4 fs-23">Seminar Confirmation</h4>
                             </div>
                             <div class=" mb-4">
-                                <p class="gilroymedium-type fs-15 color-color1 mb-0">This page allows you to view the details regarding Sales
-                                    This page allows you to view the Sales Inquiries for sending Seminar Confirmation.</p>
+                                <p class="gilroymedium-type fs-15 color-color1 mb-0">This page allows you to view the Sales Inquiries for sending Seminar Confirmation.</p>
                             </div>
     
                      
@@ -66,35 +65,45 @@
                         <div class="col-12">
                             <!--<h4 class="card-title almarenamonolight-type mb-2 fs-23">
                                 View Accounts Opened</h4>-->
-                            <form>
+                            <form id="load-confirm">
+                                {% csrf_token %}
                                 <div class="row align-items-end ">
     
                                     <div class="col-lg-4 col-xxl-3">
                                         <div class="mb-2">
                                             <label class="form-label " for="fromdate-semr">From Date<span class="color-orange">*</span></label>
-                                            <input  type="date" class="form-control" id="fromdate-semr" placeholder="yyyy-mm-dd"  required>
+                                            <input  type="date" class="form-control" id="fromdate-semr" placeholder="yyyy-mm-dd" name="from" required>
+                                            
                                         </div>
                                     </div>
     
                                     <div class="col-lg-4 col-xxl-3">
                                         <div class="mb-2">
                                             <label class="form-label " for="todate-semr">To Date<span class="color-orange">*</span></label>
-                                            <input  type="date" class="form-control" id="todate-semr" placeholder="yyyy-mm-dd" required>
-                                            
+                                            <input  type="date" class="form-control" id="todate-semr" placeholder="yyyy-mm-dd" name="to" required>
+                                            <input type="hidden" name="search" id="hidden-search">
                                         </div>
                                     </div>
                                     <div class="col-lg-4 col-xxl-3">
                                         <div class="mb-2">
                                             <label class="form-label " for="Source">Source<span class="color-orange">*</span></label>
-                                            <input  type="text" class="form-control" id="Source" placeholder="" required>
+                                            <select  type="text" class="form-select" id="Source" placeholder="" required name="source">
+                                                <option value="0">Select</option>
+                                                {%for source in sources%}
+                                                <option value="{{source.0}}">{{source.0}}</option>
+                                                {%endfor%}
+                                            </select>
                                             
                                         </div>
                                     </div>
                                     <div class="col-lg-4 col-xxl-3">
                                         <div class="mb-2">
                                             <label class="form-label " for="Nationality">Nationality<span class="color-orange">*</span></label>
-                                            <select  type="text" class="form-select" id="Nationality" placeholder="" required>
-                                                <option value="">1</option>
+                                            <select  type="text" class="form-select" id="Nationality" placeholder="" required name="nationality">
+                                                <option value="0">Select</option>
+                                                {%for nation in nationality%}
+                                                <option value={{nation.0}}>{{nation.1}}</option>
+                                                {%endfor%}
                                             </select>
                                             
                                         </div>
@@ -102,8 +111,11 @@
                                     <div class="col-lg-4 col-xxl-3">
                                         <div class="mb-2">
                                             <label class="form-label " for="SalesRep">Sales Rep<span class="color-orange">*</span></label>
-                                            <select  type="text" class="form-select" id="SalesRep" placeholder="" required>
-                                                <option value="">1</option>
+                                            <select  type="text" class="form-select" id="Reps" placeholder="" required name="repId">
+                                                <option value="0">Select</option>
+                                                {%for rep in reps%} 
+                                                <option value={{rep.0}}>{{rep.1}}</option>
+                                                {%endfor%}
                                             </select>
                                             
                                         </div>
@@ -111,8 +123,11 @@
                                     <div class="col-lg-4 col-xxl-3">
                                         <div class="mb-2">
                                             <label class="form-label " for="Country">Country<span class="color-orange">*</span></label>
-                                            <select  type="text" class="form-select" id="Country" placeholder="" required>
-                                                <option value="">1</option>
+                                            <select  type="text" class="form-select" id="Country" placeholder="" required name="country">
+                                                <option value="0">Select</option>
+                                                {%for country in countries %} 
+                                                <option value={{country.0}}>{{country.1}}</option>
+                                                {%endfor%}
                                             </select>
                                             
                                         </div>
@@ -123,7 +138,7 @@
                                         <div class="mb-3">
                                             <label class="form-label">&nbsp;</label>
                                             <div class="form-check">
-                                                <input type="checkbox" class="form-check-input" id="LebanonLeads" required="">
+                                                <input type="checkbox" class="form-check-input" id="LebanonLeads" required="" name="lbflag">
                                                 <label class="form-check-label fs-12" for="LebanonLeads">Include Lebanon Leads</label>
                                               
                                             </div>
@@ -137,10 +152,10 @@
                                 
                                     <div class="col-lg-4 col-xxl-3">
                                         <button class="btn btn-outline-light  btn-lg mb-2    me-2
-                                        " type="reset" id="load-btn-sr">Reset</button>
+                                        " type="button" id="load-btn-sr" onclick="resetform()">Reset</button>
                                       
                                         <button class="btn btn-info btn-lg mb-2  
-                                        " type="submit" id="load-btn-sc">Load</button>
+                                        " type="button" id="load-btn-sc" onclick="LoadGrid()">Load</button>
                                    
                                        
                                     </div>
@@ -162,7 +177,7 @@
                             <div class=" card   card-h-100" >
                                 <div class="card-body ">
                                     <div class="position-absolute " style="right:10px;z-index:1055">
-                                        <input type="text" class="form-control "  placeholder="Search" id="myinputsearch-semconf" style="width:369px">
+                                        <input type="text" class="form-control "  placeholder="Search" id="inputsearch" style="width:369px" >
                                     </div>
                                     <div class="table-responsive mt-3" data-simplebar="" style="max-height:100%">
                                         <table id="datatableseminar-confirm" class="table dt-responsive  nowrap  w-100 change">
@@ -177,7 +192,7 @@
                                                     <th>Country</th>
                                                     <th>Source</th>
                                                     <th>Status</th>
-                                                    <th>SMS</th>
+                                                    <!-- <th>SMS</th> -->
                                                     <th>Potentail</th>
                                                     <th>User Name</th>
                                                     <th class="text-end ">Comments</th>
@@ -186,25 +201,9 @@
                                             </thead>
     
     
-                                            <tbody class="text-white gilory-regular-type fs-16">
+                                            <tbody class="text-white gilory-regular-type fs-16" id="grid-body">
                                        
-                                                <tr>
-                                                   <td class="ps-0">2C2E45</td>
-                                                   <td>Online</td>
-                                                   <td>Firas</td>
-                                                   <td>Sumitha test</td>
-                                                   <td>Qatar</td>
-                                                   <td>Live account reg</td>
-                                                   <td>Attended</td>
-                                                   <td><button class="btn  btn-sm  color-green fs-15" style="background-color:
-                                                    rgba(0, 165, 79, 0.15) ;">Intrested</button></td>
-                                                   <td>--</td>
-                                                   <td>845682</td>
-                                                   <td>0</td>
-                                                   <td class="text-end ">--</td>
-                                                
-                                                </tr>
-                                                <tr>
+                                                <!-- <tr>
                                                     <td class="ps-0">2C2E45</td>
                                                     <td>Online</td>
                                                     <td>Firas</td>
@@ -212,30 +211,16 @@
                                                     <td>Qatar</td>
                                                     <td>Live account reg</td>
                                                     <td>Attended</td>
-                                                    <td><button class="btn  btn-sm  text-warning fs-15" style="background-color:
-                                                        rgba(221, 174, 6, 0.15) ;">Pending</button></td>
+                                                    <td><button class="btn  btn-sm  color-green fs-15" style="background-color:
+                                                     rgba(0, 165, 79, 0.15) ;">Intrested</button></td>
                                                     <td>--</td>
                                                     <td>845682</td>
                                                     <td>0</td>
                                                     <td class="text-end ">--</td>
                                                  
                                                  </tr>
-                                                 <tr>
-                                                    <td class="ps-0">2C2E45</td>
-                                                    <td>Online</td>
-                                                    <td>Firas</td>
-                                                    <td>Sumitha test</td>
-                                                    <td>Qatar</td>
-                                                    <td>Live account reg</td>
-                                                    <td>Attended</td>
-                                                    <td><button class="btn  btn-sm  text-danger fs-15" style="background-color:
-                                                        rgba(255, 3, 3, 0.15) ;">Not Intrested</button></td>
-                                                    <td>--</td>
-                                                    <td>845682</td>
-                                                    <td>0</td>
-                                                    <td class="text-end ">--</td>
-                                                 
-                                                 </tr>
+                                         -->
+                                               
                                               
                                                
                                         
@@ -261,9 +246,397 @@
     
         </div>
         {% include "common/right-sidebar.html" %}
+
+        <div class="modal fade" id="optionmodel" tabindex="-1" >
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+        
+                    <div class="modal-body ">
+
+                        <div class="  px-3 border rounded-3 py-4">
+                        
+                            <div class="modal-header py-0 px-0 border-bottom-0">
+                                <h5 class="modal-title mb-3" id="modal-title">Select Option</h5>
+
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
+
+                            </div>
+                       
+                            
+                                
+                                <div class="row">
+                                
+                                    <div class="col-12">
+                                        <div class="mb-3">
+                                            <!--<label class="form-label">Event Name</label>-->
+                                            <button class="btn btn-primary btn-lg mt-3" type="button" onclick="sendSeminarEmail()">Seminar Emails</button>
+                                            <button class="btn btn-primary btn-lg mt-3" type="button" onclick="sendEmailTempalte()">Send Email Template</button>
+                                            
+                                        </div>
+                                        <!-- <div class="row mt-2">
+                                            <div class="col-6">
+                                                <button type="button"  class="btn btn-success" id="btn-save-event" onclick="countPopUpSelection()">Load</button>
+                                                <button type="button" data-bs-dismiss="modal" class="btn btn-danger" id="btn-delete-event">Cancel</button>
+                                            </div>
+                                          
+                                        </div> -->
+                                    </div>
+                               
+                                </div>
+                                
+                            
+                        </div>
+                    
+                    </div>
+                </div> <!-- end modal-content-->
+            </div> <!-- end modal dialog-->
+        </div>
+        <div class="modal fade" id="seminaremail" tabindex="-1" >
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+        
+                    <div class="modal-body ">
+
+                        <div class="  px-3 border rounded-3 py-4">
+                        
+                            <div class="modal-header py-0 px-0 border-bottom-0">
+                                <!-- <h5 class="modal-title mb-3" id="modal-title">Select Option</h5> -->
+
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
+
+                            </div>
+                       
+                            
+                                
+                                <div class="row">
+                                
+                                    <div class="col-12">
+                                        <div class="mb-3">
+                                            <!--<label class="form-label">Event Name</label>-->
+                                            {%if upcoming%}
+                                            <label for="html">Seminar Title</label>
+                                            <select  type="text" class="form-select" id="seminartitle" placeholder="" required name="seminartitle">
+                                                <option value="0">Select</option>
+                                                {%for coming in upcoming%}
+                                                <option value={{coming.5}}>{{coming.0}}</option>
+                                                {%endfor%}
+                                            </select>
+                                            <br>
+                                            
+                                          
+                                                
+                                                <label class="form-label w-100 " for="email1">Name </label>
+                                                <input type="text" id="seminarname" class="form-control" required name="email" >
+                                                <label class="form-label w-100 " for="email1">Location </label>
+                                                <input type="text" id="seminar-location" class="form-control" required name="seminarlocation" >
+                                                <label class="form-label w-100 " for="email1">Date </label>
+                                                <input type="text" id="seminar-date" class="form-control" required name="seminardate" >
+                                                <br>
+                                            
+                                            <button class="btn btn-primary btn-lg mt-3" type="button" onclick="registerSeminar()">Register For Seminar</button>
+                                            
+                                            {%else%}
+                                            <h3>No Upcoming Semianrs </h3>
+                                            {%endif%}
+                                            
+                                        </div>
+                                        <!-- <div class="row mt-2">
+                                            <div class="col-6">
+                                                <button type="button"  class="btn btn-success" id="btn-save-event" onclick="countPopUpSelection()">Load</button>
+                                                <button type="button" data-bs-dismiss="modal" class="btn btn-danger" id="btn-delete-event">Cancel</button>
+                                            </div>
+                                          
+                                        </div> -->
+                                    </div>
+                               
+                                </div>
+                                
+                            
+                        </div>
+                    
+                    </div>
+                </div> <!-- end modal-content-->
+            </div> <!-- end modal dialog-->
+        </div>
+        <div class="modal fade" id="seminartemplate" tabindex="-1" >
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+        
+                    <div class="modal-body ">
+
+                        <div class="  px-3 border rounded-3 py-4">
+                        
+                            <div class="modal-header py-0 px-0 border-bottom-0">
+                                <!-- <h5 class="modal-title mb-3" id="modal-title">Select Option</h5> -->
+
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
+
+                            </div>
+                       
+                            
+                                
+                                <div class="row">
+                                
+                                    <div class="col-12">
+                                        <div class="mb-3">
+                                            <!--<label class="form-label">Event Name</label>-->
+                                           
+                                            <label for="html">Language</label>
+                                            <select  type="text" class="form-select" id="language" placeholder="" required >
+                                                <option value="0">Select</option>
+                                              
+                                                <option value="en">English</option>
+                                                <option value="ch">chinese</option>
+                                             
+                                            </select>
+                                            <br>
+                                            <label for="html">Template</label>
+                                            <select  type="text" class="form-select" id="templatesubject" placeholder="" required >
+                                                <option value="0">Select</option>
+                                                <option value="About Trust Capital">About Trust Capital</option>
+                                                <option value="Rejection Of Application">Rejection Of Application</option>
+                                                <option value="Webinar Registration">Webinar Registration </option>
+                                                <option value="POR And POI">POR And POI</option>
+                                                <option value="Unreachable">Unreachable</option>
+                                                <option value="MetaTrader 4 Advantages">MetaTrader 4 Advantages</option>
+                                                <option value="Mobile Trading">Mobile Trading</option>
+                                                <option value="Trading Instruments">Trading Instruments</option>
+                                                <option value="Unreachable SMS">Unreachable SMS</option>
+                                                <option value="Sales Call Interested SMS">Sales Call Interested SMS</option>
+                                                <option value="TC Limited - Missing POR">Missing POR</option>
+                                                <option value="TC Limited - Missing ID">Missing POI</option>
+                                                
+                                            </select>
+                                            <br>
+                                           
+                                        </div>
+                                        <div class="row mt-2">
+                                            <div class="col-6">
+                                                <button type="button"  class="btn btn-success" id="btn-save-event" onclick="sendTemplate()">Send</button>
+                                                <button type="button" data-bs-dismiss="modal" class="btn btn-danger" id="btn-delete-event">Cancel</button>
+                                            </div>
+                                          
+                                        </div>
+                                    </div>
+                               
+                                </div>
+                                
+                            
+                        </div>
+                    
+                    </div>
+                </div> <!-- end modal-content-->
+            </div> <!-- end modal dialog-->
+        </div>
+        <div class="modal fade bs-example-modal-insta" tabindex="-1" role="dialog" aria-hidden="true" id="alertpopup">
+            <div class="modal-dialog modal-dialog-centered"   style="z-index: 10555;">
+                <div class="modal-content">
+                    <div class="modal-header border-0">
+                        <h5 class=" fs-16" id="userMsg">
+                            
+                        </h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                                            
+                            <!-- <div class="modal-body" >
+                
+                
+                                    <div data-simplebar style="max-height: 230px;">
+                    
+                                      
+                                        
+                                    </div>
+                                </div> -->
+                   
+                </div>
+             </div>
+            </div>
         
         <!-- Right bar overlay-->
 <div class="rightbar-overlay"></div>
+<script>
+    var seminartitle=""
+    var ticket
+    var name
+    var email
+    var salesrep
+    $(function(){
+    
+    $('#datatableseminar-confirm tbody').on('click', 'tr', function (e) {
+        var table = $("#datatableseminar-confirm").DataTable();
+        console.log("row clicked----")
+        var data = table.row( this ).data();       
+        $("#optionmodel").modal('show')
+        ticket=data[1]
+        name=data[2]
+        email=data[4]
+        salesrep=data[9]
+    })
+    $('#seminartitle').change(function(){
+        var id=$('option:selected',this).val()
+        console.log("row clicked----"+id)
+        $.ajax({
+                    
+                    type : "GET", 
+                    url: "{% url 'Seminars:UpcomingDetails' %}",
+                    
+                    data:{
+                        'id':id,
+                    },
+                    success: function(data){
+                        var details=data.details
+                        $("#seminarname").val(details[0])
+                        $("#seminar-location").val(details[1])
+                        $("#seminar-date").val(details[2])
+                        console.log("Success==="+data.details)
+                    }
+
+        })
+    })
+
+
+
+})
+function sendSeminarEmail(){
+    $("#optionmodel").modal('hide')
+    $("#seminaremail").modal('show')
+}
+
+function sendEmailTempalte(){
+    $("#optionmodel").modal('hide')
+
+    $("#seminartemplate").modal('show')
+
+}
+function sendTemplate(){
+    $("#seminartemplate").modal('hide')
+    var subject=$("#templatesubject").val()
+    var language=$("#language").val()
+    $.ajax({
+                    
+                    type : "GET", 
+                    url: "{% url 'Seminars:EmailTemplate' %}",
+                    
+                    data:{
+                        'sub':subject,
+                                                
+                        'to':email,
+                        'lan':language,
+                        'name':name,
+                        'ticket':ticket,
+                        'rep':salesrep
+                        
+                    },
+                    
+                    
+                    success: function(data){
+                        
+                    console.log(data.success)
+                    $("#userMsg").empty()
+                     $("#userMsg").append("Template send successfully")
+                    $("#alertpopup").modal('show')
+                    
+
+                    }
+                })
+
+}
+    function registerSeminar(){
+        $("#seminaremail").modal('hide')
+        seminartitle=$("#seminartitle").val()
+        $.ajax({
+            
+            type : "GET", 
+            url: "{% url 'Seminars:RegistrationSeminar' %}",
+            data:{
+                'ticket':ticket,
+             
+                "name":name,
+                "to_addr":email,
+                "seminartitle":seminartitle
+            },
+            success: function(data){
+                    $("#userMsg").empty()
+                     $("#userMsg").append("Seminar Registered successfully")
+                    $("#alertpopup").modal('show')
+            }
+        })
+    }
+
+    function LoadGrid(){
+       
+        
+        var search=$("#inputsearch").val()
+        document.getElementById("hidden-search").value=search
+        var lbflag=0
+        var form_data=$("#load-confirm").serialize()
+        var from=$("#fromdate-semr").val()
+        var to=$("#todate-semr").val()
+        var source=$("#Source").val()
+        var nationality=$("#Nationality").val()
+        var repId=$("#Reps").val()
+        var country=$("#Country").val()
+       var lbflagcheck=$('#LebanonLeads').is(':checked');
+        if(lbflagcheck){
+            lbflag=1
+        }
+            
+        else{
+            lbflag=0
+        }
+
+        console.log(  'from'+from+'to'+to+'source'+source+'nationality'+nationality+'repId'+repId+'country'+country+'search'+search+'lbflag'+lbflag)
+        $('#datatableseminar-confirm').dataTable().fnClearTable();
+            $('#datatableseminar-confirm').dataTable().fnDestroy();
+            $("#datatableseminar-confirm").DataTable({
+                
+                "language": {
+                            'loadingRecords': "<span class='fa-stack fa-lg'>\n\
+                            <i class='fa fa-spinner fa-spin fa-stack-2x fa-fw'></i>\n\
+                            </span>&emsp;Loading Details ...",
+                                },
+                
+                "paging":true,   
+                           
+                "ajax":{
+                   url: "{% url 'Seminars:LoadConfirmation' %}",
+                   data:{ 
+                    'from':from,
+                    'to':to,
+                    'source':source,
+                    'nationality':nationality,
+                    'repId':repId,
+                    'country':country,
+                    'search':search,
+                    'lbflag':lbflag
+
+                   },
+                   
+                  dataSrc:function(json_data){
+                    
+               
+                    var items = [];
+                    for ( var i=0, ien=json_data.length ; i<ien ; i++ ) {
+
+                         items[i] =[json_data[i][0],json_data[i][1],json_data[i][2],json_data[i][3],json_data[i][4],json_data[i][5],json_data[i][6],json_data[i][7],json_data[i][8],json_data[i][9],json_data[i][10],json_data[i][11]]; 
+                        
+                            
+                        }
+                        
+                        return items;
+                   }
+                }
+           
+    })
+}
+    function resetform(){
+        $("#load-confirm")[0].reset()
+
+    }
+</script>
+<script src="{% static 'libs/flatpickr/flatpickr.min.js' %}"></script>
+<script src="{% static 'libs/datatables.net/js/jquery.dataTables.min.js' %}"></script>
+<script src="{% static 'libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js' %}"></script>
 <script src="{% static 'js/pages/seminarconfirm.init.js' %}"></script> 
 
 <script src="{% static 'js/app.js' %}"></script>
