@@ -294,7 +294,7 @@
     
     
                                             <!-- <form id="form-ar"> -->
-                                                {% csrf_token %}
+                                                <!-- {% csrf_token %} -->
                                                 <div class="row">
                                                      
                                                     <!--<div class="d-flex flex-wrap align-items-center mb-2">
@@ -360,7 +360,7 @@
                                                         </div>
                                                     </div> -->
             
-                                                    <div class="col-lg-12 col-xl-6">
+                                                    <!-- <div class="col-lg-12 col-xl-6">
                                                         
                                                         <div class="mb-3">
                                                             <label class="form-label" for="Date">Date <span class="color-orange">*</span></label>
@@ -380,7 +380,7 @@
                                                                 Please provide a valid Age.
                                                             </div>
                                                         </div>
-                                                    </div>
+                                                    </div> -->
                                                     <div class="col-lg-12 col-xl-12 ">
                                                         <div class="mb-3">
                                                             <input type="checkbox" class="form-check-input" id="webpar" name="webpar">
@@ -457,24 +457,25 @@
                                                 </div>
                                                 
                                             </form>
-                                            <button class="btn btn-outline-light btn-lg mt-3" onclick="addArForm()">Add <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M10 18.3332C14.5833 18.3332 18.3333 14.5832 18.3333 9.99984C18.3333 5.4165 14.5833 1.6665 10 1.6665C5.41667 1.6665 1.66667 5.4165 1.66667 9.99984C1.66667 14.5832 5.41667 18.3332 10 18.3332Z" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                                <path d="M6.66667 10H13.3333" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                                <path d="M10 13.3332V6.6665" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                                </svg>
-                                                
-                                            </button>
-
-                                            <button class="btn btn-outline-light btn-lg  mt-3" type="button" onclick="resetform()">Reset <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M18.3333 9.99984C18.3333 14.5998 14.6 18.3332 10 18.3332C5.40001 18.3332 2.59167 13.6998 2.59167 13.6998M2.59167 13.6998H6.35834M2.59167 13.6998V17.8665M1.66667 9.99984C1.66667 5.39984 5.36667 1.6665 10 1.6665C15.5583 1.6665 18.3333 6.29984 18.3333 6.29984M18.3333 6.29984V2.13317M18.3333 6.29984H14.6333" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                                </svg>
-                                                </button>
-                                            
-                                            <button class="btn btn-primary btn-lg mt-3" type="button" onclick="updateArForm()">Update</button>
-                                            <button class="btn btn-outline-light btn-lg mt-3 ms-3" type="button" onclick="deleteEnForm()">Delete</button>
                                            
                                         </div>
                                     </div>
+                                    <button class="btn btn-outline-light btn-lg mt-3" onclick="addEnForm()">Add <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M10 18.3332C14.5833 18.3332 18.3333 14.5832 18.3333 9.99984C18.3333 5.4165 14.5833 1.6665 10 1.6665C5.41667 1.6665 1.66667 5.4165 1.66667 9.99984C1.66667 14.5832 5.41667 18.3332 10 18.3332Z" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M6.66667 10H13.3333" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M10 13.3332V6.6665" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+                                        
+                                    </button>
+
+                                    <button class="btn btn-outline-light btn-lg  mt-3" type="button" onclick="resetform()">Reset <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M18.3333 9.99984C18.3333 14.5998 14.6 18.3332 10 18.3332C5.40001 18.3332 2.59167 13.6998 2.59167 13.6998M2.59167 13.6998H6.35834M2.59167 13.6998V17.8665M1.66667 9.99984C1.66667 5.39984 5.36667 1.6665 10 1.6665C15.5583 1.6665 18.3333 6.29984 18.3333 6.29984M18.3333 6.29984V2.13317M18.3333 6.29984H14.6333" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+                                        </button>
+                                    
+                                    <button class="btn btn-primary btn-lg mt-3" type="button" onclick="updateEnForm()">Update</button>
+                                    <button class="btn btn-outline-light btn-lg mt-3 ms-3" type="button" onclick="deleteEnForm()">Delete</button>
+                                   
                                
                                 </div>
                             </div>
@@ -807,7 +808,7 @@
         function resetform(){
            
             $('#form-en')[0].reset();
-            $('#form-ar')[0].reset();
+            // $('#form-ar')[0].reset();
            $("#webp").attr('checked',false)
             $("#webp").attr('checked',false)
         }
@@ -852,28 +853,28 @@
                 loadDate=dates[0]
                 loadTime=dates[1]
                 console.log("Seperate date time========"+loadDate+loadTime)
-                flatpickr('#ardate', {
-                        //inline: true,
-                        "allowInput":true,
-                        dateFormat: "Y-m-d",//MMMM Do YYYY
-                        altFormat: "Y-m-d",
-                        altInput: true,
-                        mode: "single",
+                // flatpickr('#ardate', {
+                //         //inline: true,
+                //         "allowInput":true,
+                //         dateFormat: "Y-m-d",//MMMM Do YYYY
+                //         altFormat: "Y-m-d",
+                //         altInput: true,
+                //         mode: "single",
                     
                        
                         
-                        defaultDate: loadDate
-                    });
-                    flatpickr('#artime', {
-                        //inline: true,
-                        "allowInput":true,
-                        altInput: true,
-                        mode: "single",
-                        enableTime: true,
-                        noCalendar: true,
-                        dateFormat: "H:i",
-                        defaultDate: loadTime
-                    });
+                //         defaultDate: loadDate
+                //     });
+                //     flatpickr('#artime', {
+                //         //inline: true,
+                //         "allowInput":true,
+                //         altInput: true,
+                //         mode: "single",
+                //         enableTime: true,
+                //         noCalendar: true,
+                //         dateFormat: "H:i",
+                //         defaultDate: loadTime
+                //     });
                 flatpickr('#Date', {
                         //inline: true,
                         "allowInput":true,
@@ -903,9 +904,11 @@
                 $("#elvar").val(info[7])
                 if(info[7]==1){
                     $("#webp").attr('checked',true)
+                    $("#webpar").attr('checked',true)
                 }
                 else{
                     $("#webp").attr('checked',false)
+                    $("#webpar").attr('checked',false)
                 }
                }
             })
@@ -1126,7 +1129,7 @@
         function editEnForm(){
             $("#edit-confirmation").modal('hide')
             var form_data=$("#form-en").serialize()
-            
+            console.log("Update data======"+form_data)
                 $.ajax({
                type : "POST", 
                url: "{% url 'Seminars:Update' %}",

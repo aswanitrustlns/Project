@@ -186,6 +186,7 @@ class Services:
             reg_time=request.POST.get('time')
             reg_timear=request.POST.get('artime')
             print("=================================",aname,alocation,elvl,webp,description,ardesc,subdes,arsubdes,regdatear,regdate,reg_time,reg_timear)
+            print("Bullettt======",bullet1,bullet2,bullet3,bullet4,bullet5,abullet1,abullet2,abullet3,abullet4,abullet5)
             if regdate==None and reg_time==None:
                 if reg_timear:
                     reg=regdatear+""+reg_timear
