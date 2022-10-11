@@ -1,3 +1,4 @@
+import email
 from django.db import connection
 from .emailservice import EmailServices
 from datetime import datetime, timedelta
@@ -28,6 +29,123 @@ class Services:
             print("Exception----",e)
         finally:
             Cursor.close()
+    #Update details=======
+    def update_details(self,request):
+        try:
+            login=int(request.POST.get('accno'))
+            ticket=request.POST.get('ticket')
+            name=request.POST.get('firstname')
+            groups=request.POST.get('Group')
+            
+            country=int(request.POST.get('country1'))
+            city=request.POST.get('city')
+
+            zipcode=int(request.POST.get('zipcode'))
+            print("Zip code========",zipcode)
+            address=request.POST.get('address')
+            phone=request.POST.get('phone')
+            email1=request.POST.get('email1')
+            idno=request.POST.get('idno')
+            leverage=int(request.POST.get('Leverage'))
+            print("Leverage======",leverage)
+            regdate=request.POST.get('regdate')
+            comment=request.POST.get('comment')
+            taxrate=0.0
+            tinno=request.POST.get('tinno')
+            enabled=request.POST.get('enabled')
+            if(enabled=="on"):
+                enabled=1
+            else:
+                enabled=0
+            color=request.POST.get('color')
+            if color:
+                color=int(color)
+            agent=request.POST.get('agent')
+            if agent:
+                agent=int(agent)
+            rdonly=request.POST.get('readonly')
+            if(rdonly=="on"):
+                rdonly=1
+            else:
+                rdonly=0
+            sendreport=request.POST.get('sendreport')
+            if(sendreport=="on"):
+                sendreport=1
+            else:
+                sendreport=0
+            changepwd=request.POST.get('changepwd')
+            if(changepwd=="on"):
+                changepwd=1
+            else:
+                changepwd=0
+            ppwd=request.POST.get('ppwd')
+            refcode=request.POST.get('refcode')
+            source=request.POST.get('source')
+            mothername=request.POST.get('mothername')
+            nationality=int(request.POST.get('nationality'))
+            
+            created=request.POST.get('createdby')
+            if created:
+                created=int(created)
+            else:
+                created=0
+            dob=request.POST.get('dob')
+            income=request.POST.get('income')
+            if income:
+                income=float(income)
+            worth=request.POST.get('worth')
+            if worth:
+                worth=float(worth)
+            deposit=request.POST.get('deposit')
+            
+            if deposit:
+                deposit=float(deposit)
+            profession=request.POST.get('profession')
+            risk=request.POST.get('Risk')
+            riskCategory=int(request.POST.get('RiskCategory'))
+            acctype=request.POST.get('Account')
+            if acctype:
+                acctype=int(acctype)
+            else:
+                acctype=0
+            email2=request.POST.get('email2')
+            phone2=request.POST.get('phone2')
+            title=request.POST.get('title')
+            terminated=request.POST.get('terminated')
+            if terminated=="on":
+                terminated=1
+            else:
+                terminated=0
+            state=request.POST.get('state')
+            
+            red=0
+            blue=0
+            green=0
+            score=request.POST.get('score')
+            if score:
+                score=float(score)
+            else:
+                score=0.0
+            termComment=request.POST.get('terComment')
+            rdonlycomment=request.POST.get('comment')
+            country2=request.POST.get('country2')
+            if country2:
+                country2=int(country2)
+            else:
+                country2=0
+            user=request.session.get('UserId')
+            mpwd=request.POST.get('mpwd')
+            ipwd=request.POST.get('ipwd')
+            print("Data=======1",)
+            print("Data2=====",)
+            print("Date3=========",)
+            Cursor=connection.cursor()
+            Cursor.execute("exec SP_UpdateClientDetailsWithLog %s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s",[login,ticket,name,groups,country,city,zipcode,address,phone,email1,idno,leverage,regdate,comment,taxrate,tinno,enabled,color,agent,rdonly,sendreport,changepwd,ppwd,refcode,source,mothername,nationality,created,dob,income,worth,deposit,profession,risk,riskCategory,acctype,email2,phone2,title,terminated,state,risk,red,blue,green,score,termComment,rdonlycomment,country2,user,mpwd,ipwd])
+        except Exception as e:
+            print("Exception----",e)
+        finally:
+            Cursor.close()
+
 
 #dll for change password
 def dll_chnage_password(masterPwd,investorPwd,phonePwd,accountno):
@@ -43,3 +161,33 @@ def dll_chnage_password(masterPwd,investorPwd,phonePwd,accountno):
     account_no=c_int(accountno)
     connect=Passwords_Change(c_char_p(demoserver.encode('utf-8')).value,login.value,c_char_p(demopwd.encode('utf-8')).value,account_no,c_char_p(masterPwd.encode('utf-8')).value,c_char_p(investorPwd.encode('utf-8')).value,c_char_p(phonePwd.encode('utf-8')).value)
     return connect
+
+#dll update client MT4
+def dll_update_user(recvdata):
+    demoserver = "50.57.14.224:443"
+    demopwd = "Tc2022"
+    demouser = "601" 
+    hllDll = CDLL(r"C:\\pyenv\\TrustManagerAPI.dll") 
+    Update_User = hllDll.Update_User
+    hllDll.Update_User = c_char_p,c_int,c_char_p,c_char_p
+    hllDll.Update_User.restype = c_char_p
+    username=int(demouser)
+    login = c_int(username)
+    
+    currency=Update_User(c_char_p(demoserver.encode('utf-8')).value,login.value,c_char_p(demopwd.encode('utf-8')).value,c_char_p(recvdata))
+    return currency
+
+#dll get currency
+def dll_get_currency(accountno):
+    demoserver = "50.57.14.224:443"
+    demopwd = "Tc2022"
+    demouser = "601" 
+    hllDll = CDLL(r"C:\\pyenv\\TrustManagerAPI.dll") 
+    GetCurrency = hllDll.GetCurrency
+    hllDll.GetCurrency = c_char_p,c_int,c_char_p,c_char_p
+    hllDll.GetCurrency.restype = c_char_p
+    username=int(demouser)
+    login = c_int(username)
+    account_no=c_int(accountno)
+    currency=GetCurrency(c_char_p(demoserver.encode('utf-8')).value,login.value,c_char_p(demopwd.encode('utf-8')).value,account_no)
+    return currency
