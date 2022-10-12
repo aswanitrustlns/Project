@@ -1,0 +1,1151 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8" />
+    <title>Trust Capital CRM</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
+    <meta content="Themesbrand" name="author" />
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" lang="ar">
+    <!-- App favicon -->
+    {% load  static %}
+     <!-- DataTables -->
+     <link href="{% static 'libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css' %}" rel="stylesheet" type="text/css" />
+     <link href="{% static 'libs/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css' %}" rel="stylesheet" type="text/css" />
+     <!-- plugin css -->
+     <!--<link href="assets/libs/admin-resources/jquery.vectormap/jquery-jvectormap-1.2.2.css" rel="stylesheet"
+         type="text/css" />-->
+      <!-- datepicker css -->
+      <link rel="stylesheet" href="{% static 'libs/flatpickr/flatpickr.min.css' %}">
+      
+      <link href="{% static 'css/input-tel.min.css' %}" rel="stylesheet"   type="text/css" />
+    {% include "common/link.html" %}
+    {% include "common/scripts.html" %}
+
+   
+
+ 
+</head>
+<body data-layout-mode="dark">
+
+    <!-- <body data-layout="horizontal"> -->
+    
+    <!-- Begin page -->
+    <div id="layout-wrapper">
+    
+        {% include "common/header.html" %}
+    
+
+        <!-- ========== Left Sidebar Start ========== -->
+        {% include "common/sidebar.html" %}
+        <div class="main-content">
+
+            <div class="page-content" id="sales">
+                <div class="container-fluid">
+                    <div class=" card   card-h-100" >
+                        <div class="card-body ">
+                    
+                            <div class="row">
+    
+                                <div class="col-12">
+                                    <div class="d-flex align-items-center">
+                                        <h4 class="card-title almarenamonolight-type mb-4 fs-23">Crypto Approvel</h4>
+                                    </div>
+                                    <div class=" mb-4">
+                                        <p class="gilroymedium-type fs-15 color-color1 mb-0">This brief form allows you to approve/reject credit card.</p>
+                                    </div>
+                                    
+                                </div>
+                                
+                            </div>
+                           
+                            <div class="row justify-content-between">
+                                <ul class="nav justify-content-start nav-tabs-custom  px-0 gilroymedium-type fs-25 my-3  nav-tabs-custom-after-top border-0" role="tablist">
+                                    <li class="nav-item" style=" width:calc(100% / 3 );">
+                                        <a class="nav-link active text-center" data-bs-toggle="tab" href="#actions-cc-tab" role="tab">
+                                        
+                                            <span class=""> Credit card</span>
+                                        
+                                        </a>
+                                    </li>
+                                    <li class="nav-item" style=" width:calc(100% / 3 );">
+                                        <a class="nav-link  text-center " data-bs-toggle="tab" href="#actions-bank-tab" role="tab">
+                                        
+                                            <span class="">  Bank</span>
+                                        
+                                        </a>
+                                    </li>
+                                    <li class="nav-item" style=" width:calc(100% / 3 );">
+                                        <a class="nav-link  text-center " data-bs-toggle="tab" href="#actions-crypto-tab" role="tab">
+                                        
+                                            <span class=""> Crypto</span>
+                                        
+                                        </a>
+                                    </li> 
+                                </ul> 
+    
+                                <div class="col-12">
+                                    <!--<h4 class="card-title almarenamonolight-type mb-2 fs-23">
+                                        View Accounts Opened</h4>-->
+                                        <div class="tab-content">
+                                            <!--Credit card-->
+                                            <div class="tab-pane active" id="actions-cc-tab" role="tabpanel">
+    
+                                                <form>
+                                                    <div class="row align-items-end  justify-content-start">
+                        
+                                                        <div class="col-md-2 col-xxl-1">
+                                                            <div class="mb-2">
+                                                                <label class="form-label " for="Accountno">Account no</label>
+                                                                <input  type="text" class="form-control" id="Accountno" placeholder=""  required>
+                                                            </div>
+                                                        </div>
+                        
+                                                    
+                                                    
+                                                        <div class="col-md-2 col-xxl-1">
+                                                         
+                                                        
+                                                            <button class="btn btn-info btn-lg mb-2   w-100
+                                                            " type="button" id="load" onclick="LoadDetails()">Load</button>
+                                                    
+                                                        
+                                                        </div>
+                                                        <div class="col-md-4 col-xxl-3">
+                                                            <div class="mb-2">
+                                                                <label class="form-label " for="Fullname">Full name</label>
+                                                                <input  type="text" class="form-control" id="Fullname" placeholder=""  required readonly>
+                                                            </div>
+                                                        </div>
+                                                        
+                                                        <div class="col-md-3 col-xxl-3">
+                                                            <!--<button class="btn btn-outline-light  btn-lg mb-2    me-2
+                                                            " type="reset" id="load-btn-sr">Reset</button>-->
+                                                        
+                                                            <button class="btn btn-outline-light btn-lg mb-2 w-100 color-color1 border-dashed
+                                                            " type="button" id="load-btn-sc" onclick="addCard()"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg" >
+                                                                <g clip-path="url(#clip0_2753_12999)">
+                                                                <path d="M9 0C4.0371 0 0 4.0371 0 9C0 13.9629 4.0371 18 9 18C13.9629 18 18 13.9622 18 9C18 4.0378 13.9629 0 9 0ZM9 16.6057C4.80674 16.6057 1.39426 13.194 1.39426 9C1.39426 4.80603 4.80674 1.39426 9 1.39426C13.1933 1.39426 16.6057 4.80603 16.6057 9C16.6057 13.194 13.194 16.6057 9 16.6057Z" fill="#73759D"/>
+                                                                <path d="M12.4849 8.23958H9.69637V5.45105C9.69637 5.06623 9.38475 4.75391 8.99923 4.75391C8.6137 4.75391 8.30208 5.06623 8.30208 5.45105V8.23958H5.51355C5.12803 8.23958 4.81641 8.55191 4.81641 8.93673C4.81641 9.32155 5.12803 9.63387 5.51355 9.63387H8.30208V12.4224C8.30208 12.8072 8.6137 13.1195 8.99923 13.1195C9.38475 13.1195 9.69637 12.8072 9.69637 12.4224V9.63387H12.4849C12.8704 9.63387 13.182 9.32155 13.182 8.93673C13.182 8.55191 12.8704 8.23958 12.4849 8.23958Z" fill="#73759D"/>
+                                                                </g>
+                                                                <defs>
+                                                                <clipPath id="clip0_2753_12999">
+                                                                <rect width="18" height="18" fill="white"/>
+                                                                </clipPath>
+                                                                </defs>
+                                                                </svg>
+                                                                Add wallet</button>
+                                                    
+                                                        
+                                                        </div>
+                                                    
+                                                        
+                                                </div> 
+                                                </form>
+    
+                                                <hr class="my-5">
+                                                    <div class=" card   card-h-100" >
+                                                        <div class="card-body " id="card-div">
+                                                            <h4 class="card-title almarenamonolight-type mb-4 fs-23">Card Details</h4>
+    
+                                                            <div class="table-responsive " data-simplebar="" style="max-height:100%" >
+                                                                <table  class="table dt-responsive  nowrap  w-100 change" id="card-table">
+                                                                    <thead >
+                                                                        <tr  class=" gilory-medium-type fs-17">
+                                                                            <th  class="ps-0"> Order No</th>
+                                                                            <th >Name</th>
+                                                                            <th  >Card No</th>
+                                                                            <th  >Status</th>
+                                                                            <th>Exp year</th>
+                                                                            <th>Month</th>
+                                                                            <th>Type</th>
+                                                                            
+                                                                            <th class="text-end ">&nbsp;
+                                                                            </th>
+                                                                            
+                                                                        </tr>
+                                                                    </thead>
+                    
+                    
+                                                                    <tbody class="text-white gilory-regular-type fs-16" id="credit-details">
+                                                            
+                                                                        
+                                                                       
+                                                                       
+                                                                    
+                                                                
+                                                                    
+                                                                    </tbody>
+                                                                
+                                                                </table>
+                                                            </div>
+    
+                                                            </div>
+                                                    </div>
+                                            </div>
+                                            <div class="tab-pane " id="actions-bank-tab" role="tabpanel">
+    
+                                                <form class="mb-5">
+                                                    <div class="row align-items-end  justify-content-start">
+                        
+                                                        <div class="col-md-3 col-xxl-2">
+                                                            <div class="mb-2">
+                                                                <label class="form-label " for="Accountno">Account no</label>
+                                                                <input  type="text" class="form-control" id="bankAccountno" placeholder=""  required>
+                                                            </div>
+                                                        </div>
+                        
+                                                    
+                                                    
+                                                        <div class="col-md-2 col-xxl-1">
+                                                            <!--<button class="btn btn-outline-light  btn-lg mb-2    me-2
+                                                            " type="reset" id="load-btn-sr">Reset</button>-->
+                                                        
+                                                            <button class="btn btn-info btn-lg mb-2   w-100
+                                                            " type="button" id="bankLoad" onclick="LoadBankDetails()">Load</button>
+                                                    
+                                                        
+                                                        </div>
+                                                       
+                                                    
+                                                        
+                                                </div> 
+                                                </form>
+    
+                                                <form>
+                                                    <div class="row align-items-end ">
+                        
+                                                      
+                                                        <div class="col-lg-4 col-xxl-3">
+                                                            <div class="mb-2">
+                                                                <label class="form-label " for="Accountname">Account name<span class="color-orange">*</span></label>
+                                                                <input  type="text" class="form-control" id="Bank-Accountname" name="Bank-Accountname" placeholder="" required>
+                                                                
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-4 col-xxl-3">
+                                                            <div class="mb-2">
+                                                                <label class="form-label " for="Accountno">Account no<span class="color-orange">*</span></label>
+                                                                <input  type="text" class="form-select" id="Bank-Accountno" name="Bank-Accountno"placeholder="" required>
+                                                                    
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-4 col-xxl-3">
+                                                            <div class="mb-2">
+                                                                <label class="form-label " for="Bankname">Bank name<span class="color-orange">*</span></label>
+                                                                <input  type="text" class="form-select" id="Bankname" name="Bankname" placeholder="" required>
+                                                                    
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-4 col-xxl-3">
+                                                            <div class="mb-2">
+                                                                <label class="form-label " for="Bankaddress">Bank address<span class="color-orange">*</span></label>
+                                                                <input  type="text" class="form-select" id="Bankaddress"  name="Bankaddress" placeholder="" required>
+                                                                    
+                                                                
+                                                            </div>
+                                                        </div>
+                                                       
+                                                        <div class="col-lg-4 col-xxl-3">
+                                                            <div class="mb-2">
+                                                                <label class="form-label " for=" Swiftcode"> Swift code<span class="color-orange">*</span></label>
+                                                                <input  type="text" class="form-select" id="Swiftcode" name="Swiftcode" placeholder="" required>
+                                                                    
+                                                                
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-4 col-xxl-3">
+                                                            <div class="mb-2">
+                                                                <label class="form-label " for=" Otherinformation*"> Other information<span class="color-orange">*</span></label>
+                                                                <input  type="text" class="form-select" id="Otherinformation" name="Otherinformation" placeholder="" required>
+                                                                    
+                                                                
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-4 col-xxl-3">
+                                                            <div class="mb-2">
+                                                                <label class="form-label " for=" Otherinformation*">IBAN<span class="color-orange">*</span></label>
+                                                                <input  type="text" class="form-select" id="iban" name="iban" placeholder="" required>
+                                                                    
+                                                                
+                                                            </div>
+                                                        </div>
+                                                       
+                                                       
+                                                        <div class="col-12">
+                                                            <div class="mt-4">
+                                                            <button class="btn  btn-success  btn-lg mb-2  me-2
+                                                            " type="submit" id="">Save</button>
+                                                            <button class="btn btn-outline-light  btn-lg mb-2    me-2
+                                                            " type="reset" id="load-btn-sr">Reset</button>
+                                                        
+                                                            </div> 
+                                                        
+                                                        </div>
+                                                    
+                                                        
+                                                </div> 
+                                                </form>
+    
+                                              
+    
+                                                <hr class="my-5">
+                                                <div class=" card   card-h-100" >
+                                                    <div class="card-body ">
+                                                        <h4 class="card-title almarenamonolight-type mb-4 fs-23">Bank Details</h4>
+                                                        <div class="table-responsive " data-simplebar="" style="max-height:100%">
+                                                            <table  class="table dt-responsive  nowrap  w-100 change">
+                                                                <thead >
+                                                                    <tr  class=" gilory-medium-type fs-17">
+                                                                        <th  class="ps-0"> Acc name</th>
+                                                                        <th >Acc No</th>
+                                                                        <th  >Bank name</th>
+                                                                        <th  >Status</th>
+                                                                   
+                                                                        <th>Bank Address</th>
+                                                                        <th>Other info</th>
+                                                                        <th>Swift code</th>
+                                                                        <th>Iban</th>
+                                                                        <th class="text-end ">&nbsp;
+                                                                        </th>
+                                                                        
+                                                                    </tr>
+                                                                </thead>
+                
+                
+                                                                <tbody class="text-white gilory-regular-type fs-16" id="bank-account-table">
+                                                            
+                                                                
+                                                                </tbody>
+                                                            
+                                                            </table>
+                                                        </div>
+    
+                                                        </div>
+                                                    </div>
+                                            </div>
+                                            <div class="tab-pane" id="actions-crypto-tab" role="tabpanel">
+                                                <div class="row">
+    
+                                                    <div class="col-xxl-8 col-lg-7
+    
+    
+                                                    ">
+                                                        <form>
+                                                            <div class="row align-items-end  justify-content-start">
+                                
+                                                                <div class="col-md-3 col-xxl-3">
+                                                                    <div class="mb-2">
+                                                                        <label class="form-label " for="Accountno">Account no</label>
+                                                                        <input  type="text" class="form-control" id="cryptoAccountno" placeholder=""  required>
+                                                                    </div>
+                                                                </div>
+                                
+                                                            
+                                                            
+                                                                <div class="col-md-3 col-xxl-2">
+                                                                 
+                                                                
+                                                                    <button class="btn btn-info btn-lg mb-2   w-100
+                                                                    " type="submit" id="cryptoLoad">Load</button>
+                                                            
+                                                                
+                                                                </div>
+                                                                <div class="col-md-3 col-xxl-4">
+                                                                    <div class="mb-2">
+                                                                        <label class="form-label " for="Fullname">Full name</label>
+                                                                        <input  type="text" class="form-control" id="Fullname" placeholder=""  required>
+                                                                    </div>
+                                                                </div>
+                                                                
+                                                                <div class="col-md-3 col-xxl-3">
+                                                                    <!--<button class="btn btn-outline-light  btn-lg mb-2    me-2
+                                                                    " type="reset" id="load-btn-sr">Reset</button>-->
+                                                                
+                                                                    <button class="btn btn-outline-light btn-lg mb-2 w-100 color-color1
+                                                                    " type="submit" id="load-btn-sc"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                        <g clip-path="url(#clip0_2753_12999)">
+                                                                        <path d="M9 0C4.0371 0 0 4.0371 0 9C0 13.9629 4.0371 18 9 18C13.9629 18 18 13.9622 18 9C18 4.0378 13.9629 0 9 0ZM9 16.6057C4.80674 16.6057 1.39426 13.194 1.39426 9C1.39426 4.80603 4.80674 1.39426 9 1.39426C13.1933 1.39426 16.6057 4.80603 16.6057 9C16.6057 13.194 13.194 16.6057 9 16.6057Z" fill="#73759D"/>
+                                                                        <path d="M12.4849 8.23958H9.69637V5.45105C9.69637 5.06623 9.38475 4.75391 8.99923 4.75391C8.6137 4.75391 8.30208 5.06623 8.30208 5.45105V8.23958H5.51355C5.12803 8.23958 4.81641 8.55191 4.81641 8.93673C4.81641 9.32155 5.12803 9.63387 5.51355 9.63387H8.30208V12.4224C8.30208 12.8072 8.6137 13.1195 8.99923 13.1195C9.38475 13.1195 9.69637 12.8072 9.69637 12.4224V9.63387H12.4849C12.8704 9.63387 13.182 9.32155 13.182 8.93673C13.182 8.55191 12.8704 8.23958 12.4849 8.23958Z" fill="#73759D"/>
+                                                                        </g>
+                                                                        <defs>
+                                                                        <clipPath id="clip0_2753_12999">
+                                                                        <rect width="18" height="18" fill="white"/>
+                                                                        </clipPath>
+                                                                        </defs>
+                                                                        </svg>
+                                                                        Add wallet</button>
+                                                            
+                                                                
+                                                                </div>
+                                                            
+                                                                
+                                                        </div> 
+                                                        </form>
+            
+                                                        <hr class="my-5">
+                                                        <div class=" card  " >
+                                                            <div class="card-body ">
+                                                                <h4 class="card-title almarenamonolight-type mb-4 fs-23">Crypto Details</h4>
+            
+                                                               
+                                                            <div class="table-responsive " data-simplebar="" style="max-height:100%">
+                                                                <table  class="table dt-responsive  nowrap  w-100 change">
+                                                                    <thead >
+                                                                        <tr  class=" gilory-medium-type fs-17">
+                                                                            <th  class="ps-0"> Order No</th>
+                                                                            <th >Name</th>
+                                                                            <th  >Card No</th>
+                                                                            <th  >Status</th>
+                                                                      
+                                                                            <th>Type</th>
+                                                                            
+                                                                            <th class="text-end ">&nbsp;
+                                                                            </th>
+                                                                            
+                                                                        </tr>
+                                                                    </thead>
+                    
+                    
+                                                                    <tbody class="text-white gilory-regular-type fs-16">
+                                                            
+                                                                        <tr>
+                                                                        <td class="ps-0">2C2E45</td>
+                                                                        <td>Online</td>
+                                                                        <td>Firas</td>
+                                                                        <td><button class="btn  btn-sm  color-green fs-15" style="background-color:
+                                                                            rgba(0, 165, 79, 0.15) ;">Intrested</button></td>
+                                                                    
+                                                                        <td>Sumitha test</td>
+                                                              
+                                                                    
+                                                                        
+                                                                        <td><div class="dropdown align-self-start">
+                                                                            <a class="dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                                <i class="bx bx-dots-vertical-rounded"></i>
+                                                                            </a>
+                                                                            <div class="dropdown-menu">
+                                                                                <a class="dropdown-item" href="#">Copy</a>
+                                                                                <a class="dropdown-item" href="#">Save</a>
+                                                                                <a class="dropdown-item" href="#">Forward</a>
+                                                                                <a class="dropdown-item" href="#">Delete</a>
+                                                                            </div>
+                                                                        </div></td>
+                                                                        
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td class="ps-0">2C2E45</td>
+                                                                            <td>Online</td>
+                                                                            <td>Firas</td>
+                                                                            <td><button class="btn  btn-sm  text-warning fs-15" style="background-color:
+                                                                                rgba(221, 174, 6, 0.15) ;">Pending</button></td>
+                                                                            <td>Sumitha test</td>
+                                                                            
+                                                                        
+                                                                        
+                                                                        
+                                                                            <td><div class="dropdown align-self-start">
+                                                                                <a class="dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                                    <i class="bx bx-dots-vertical-rounded"></i>
+                                                                                </a>
+                                                                                <div class="dropdown-menu">
+                                                                                    <a class="dropdown-item" href="#">Copy</a>
+                                                                                    <a class="dropdown-item" href="#">Save</a>
+                                                                                    <a class="dropdown-item" href="#">Forward</a>
+                                                                                    <a class="dropdown-item" href="#">Delete</a>
+                                                                                </div>
+                                                                            </div></td>
+                                                                        
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td class="ps-0">2C2E45</td>
+                                                                            <td>Online</td>
+                                                                            <td>Firas</td>
+                                                                            <td><button class="btn  btn-sm  text-danger fs-15" style="background-color:
+                                                                                rgba(255, 3, 3, 0.15) ;">Not Intrested</button></td>
+                                                                            
+                                                                            <td>Sumitha test</td>
+                                                                     
+                                                                        
+                                                                        
+                                                                            <td><div class="dropdown align-self-start">
+                                                                                <a class="dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                                    <i class="bx bx-dots-vertical-rounded"></i>
+                                                                                </a>
+                                                                                <div class="dropdown-menu">
+                                                                                    <a class="dropdown-item" href="#">Copy</a>
+                                                                                    <a class="dropdown-item" href="#">Save</a>
+                                                                                    <a class="dropdown-item" href="#">Forward</a>
+                                                                                    <a class="dropdown-item" href="#">Delete</a>
+                                                                                </div>
+                                                                            </div></td>
+                                                                        
+                                                                        </tr>
+                                                                    
+                                                                    
+                                                                
+                                                                    
+                                                                    </tbody>
+                                                                
+                                                                </table>
+                                                            </div>
+            
+                                                            </div>
+                                                        </div>
+    
+                                                    </div>
+                                                    <div class="col-xxl-4 col-lg-5">
+                                                        <div class=" card  border-0 card-h-100" style="background-color:
+                                                        #17182B ;">
+                                                         
+                                                            <div class="card-body ">
+                                                                <div class=" ">
+                                                                    <h4 class="card-title fs-50 almarenamonolight-type mt-5  mb-2 py-1">Drive
+                                                                        <br>  <span class="text-success">more sales!</span>
+                                                                    </h4>
+                                                                    <p class="fs-16 color-color1">Enhance Your Sales with Better Data</p>
+                                                                    <div class="  pt-5">
+                                                                        <img src="{%static 'images/bo.png' %}" class="mt-4" alt="" style="width: 100%;">
+                                                                    </div>
+                                                                    
+                                
+                                
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                             
+                                            </div>
+                                          
+                                        </div>
+                                
+    
+    
+                                </div>
+    
+                            
+                            </div>
+                    
+                            
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+                <!-- End Page-content -->
+    
+                
+            </div>
+            <!-- end main content-->
+    
+        </div>
+    </div>
+    <!-- END layout-wrapper -->
+{% include "common/right-sidebar.html" %}
+    
+    <!-- Right bar overlay-->
+<div class="rightbar-overlay"></div>  
+    <!-- Datatable init js -->
+    <div class="modal fade bs-example-modal-insta" tabindex="-1" role="dialog" aria-hidden="true" id="alertpopup">
+        <div class="modal-dialog modal-dialog-centered"   style="z-index: 10555;">
+            <div class="modal-content">
+                <div class="modal-header border-0">
+                    <h5 class=" fs-16" id="userMsg">
+                        
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                                        
+                        <!-- <div class="modal-body" >
+            
+            
+                                <div data-simplebar style="max-height: 230px;">
+                
+                                  
+                                    
+                                </div>
+                            </div> -->
+               
+            </div>
+         </div>
+        </div>
+    <div class="modal fade" id="approve" tabindex="-1" >
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+        
+                    <div class="modal-body ">
+    
+                        <div class="  px-3 border rounded-3 py-4">
+                        
+                            <div class="modal-header py-0 px-0 border-bottom-0">
+                                <h5 class="modal-title mb-3" id="modal-title">Approve</h5>
+    
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
+    
+                            </div>
+                       
+                            
+                                
+                                <div class="row">
+                                
+                                    <div class="col-12">
+                                        <div class="mb-3">
+                                            <!--<label class="form-label">Event Name</label>-->
+                                           <h6>Credit card is being processed. Please confirm to Approve. </h6>
+                                            <input type="hidden" name="status" id="status">
+                                            <input type="hidden" name="id" id="id">
+                                            <input type="hidden" name="card" id="card">
+
+                                           
+                                        </div>
+                                        <div class="row mt-2">
+                                            <div class="col-6">
+                                                <button type="button"  class="btn btn-success" id="btn-save-event" onclick="approveCard()">Confirm</button>
+                                                <button type="button" data-bs-dismiss="modal" class="btn btn-danger" id="btn-delete-event">Close</button>
+                                            </div>
+                                          
+                                        </div>
+                                    </div>
+                               
+                                </div>
+                                
+                            
+                        </div>
+                    
+                    </div>
+                </div> <!-- end modal-content-->
+            </div> <!-- end modal dialog-->
+        </div>
+    <div class="modal fade" id="bank-reject" tabindex="-1" >
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+        
+                    <div class="modal-body ">
+    
+                        <div class="  px-3 border rounded-3 py-4">
+                        
+                            <div class="modal-header py-0 px-0 border-bottom-0">
+                                <h5 class="modal-title mb-3" id="modal-title">Reject</h5>
+    
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
+    
+                            </div>
+                       
+                            
+                                
+                                <div class="row">
+                                
+                                    <div class="col-12">
+                                        <div class="mb-3">
+                                            <!--<label class="form-label">Event Name</label>-->
+                                           <h6>Are you sure you want to reject the Bank details? </h6>
+                                            <input type="hidden" name="status" id="rejbankstatus">
+                                            <input type="hidden" name="id" id="rejbankid">
+                                            <input type="hidden" name="card" id="rejbankcard">
+
+                                           
+                                        </div>
+                                        <div class="row mt-2">
+                                            <div class="col-6">
+                                                <button type="button"  class="btn btn-success" id="btn-save-event" onclick="rejectBank()">Confirm</button>
+                                                <button type="button" data-bs-dismiss="modal" class="btn btn-danger" id="btn-delete-event">Close</button>
+                                            </div>
+                                          
+                                        </div>
+                                    </div>
+                               
+                                </div>
+                                
+                            
+                        </div>
+                    
+                    </div>
+                </div> <!-- end modal-content-->
+            </div> <!-- end modal dialog-->
+        </div>
+        <div class="modal fade" id="reject" tabindex="-1" >
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+        
+                    <div class="modal-body ">
+    
+                        <div class="  px-3 border rounded-3 py-4">
+                        
+                            <div class="modal-header py-0 px-0 border-bottom-0">
+                                <h5 class="modal-title mb-3" id="modal-title">Reject</h5>
+    
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
+    
+                            </div>
+                       
+                            
+                                
+                                <div class="row">
+                                
+                                    <div class="col-12">
+                                        <div class="mb-3">
+                                            <!--<label class="form-label">Event Name</label>-->
+                                           <h6>Are you sure you want to reject the bankdetails? </h6>
+                                            <input type="hidden" name="status" id="rejstatus">
+                                            <input type="hidden" name="id" id="rejid">
+                                            <input type="hidden" name="card" id="rejcard">
+
+                                           
+                                        </div>
+                                        <div class="row mt-2">
+                                            <div class="col-6">
+                                                <button type="button"  class="btn btn-success" id="btn-save-event" onclick="rejectCard()">Confirm</button>
+                                                <button type="button" data-bs-dismiss="modal" class="btn btn-danger" id="btn-delete-event">Close</button>
+                                            </div>
+                                          
+                                        </div>
+                                    </div>
+                               
+                                </div>
+                                
+                            
+                        </div>
+                    
+                    </div>
+                </div> <!-- end modal-content-->
+            </div> <!-- end modal dialog-->
+        </div>
+    <div class="modal fade" id="add-card" tabindex="-1" >
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+        
+                    <div class="modal-body ">
+
+                        <div class="  px-3 border rounded-3 py-4">
+                        
+                            <div class="modal-header py-0 px-0 border-bottom-0">
+                                <h5 class="modal-title mb-3" id="modal-title">Add New Card</h5>
+
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
+
+                            </div>
+                       
+                            
+                                
+                                <div class="row">
+                                
+                                    <div class="col-12">
+                                        <div class="mb-3">
+                                            
+                                            <form id="add-card-form" enctype="multipart/form-data">  
+                                                {% csrf_token %}  
+                                                <label class="form-label w-100 " for="email1">Name* </label>
+                                                <input type="text" id="holdername" class="form-control" required name="holdername" ><br>
+                                                <label class="form-label w-100 " for="email1">Last four digits* </label>
+                                                <input type="text" id="digits" class="form-control" required name="digits" ><br>
+                                                <label class="form-label w-100 " for="email1">Type </label>
+                                                <select  type="text" class="form-select" id="cardType" placeholder="" required name="cardtype">
+                                                    <!-- <option value="0">Select</option> -->
+                                                  
+                                                    <option value="credit">Credit</option>
+                                                    <option value="debit">Debit</option>
+                                                 
+                                                </select><br>
+                                                <label class="form-label w-100 " for="email1">Exp Year</label>
+                                                <select  type="text" class="form-select" id="expyear" name="expyear" placeholder="" required >
+                                                    <option value="0">Select</option>
+                                                  
+                                                    <option value="2022">2022</option>
+                                                    <option value="2023">2023</option>
+                                                    <option value="2024">2024</option>
+                                                </select><br>
+                                                <label class="form-label w-100 " for="email1">Exp Month</label>
+                                                <select  type="text" class="form-select" id="expmonth" name="expmonth" placeholder="" required >
+                                                    <!-- <option value="0">Select</option> -->
+                                                  
+                                                    <option value="1">January</option>
+                                                    <option value="2">February</option>
+                                                    <option value="3">March</option>
+                                                    <option value="4">April</option>
+                                                    <option value="5">May</option>
+                                                    <option value="6">June</option>
+                                                    <option value="7">July</option>
+                                                    <option value="8">August</option>
+                                                    <option value="9">September</option>
+                                                    <option value="10">October</option>
+                                                    <option value="11">November</option>
+                                                    <option value="12">December</option>
+                                                </select><br>
+                                                <br>
+                                                
+                                                <input type="file" id="front" name="front">
+                                                <input type="file" id="back" name="back">
+                                                <input type="hidden" name="accno" id="accountnumber">
+                                             </form>   
+                                            
+                                            
+                                            
+                                        </div>
+                                        <div class="row mt-2">
+                                            <div class="col-6">
+                                                <button type="button"  class="btn btn-success" id="btn-save-event" onclick="saveCard()">Save</button>
+                                                <button type="button" data-bs-dismiss="modal" class="btn btn-danger" id="btn-delete-event">Close</button>
+                                            </div>
+                                          
+                                        </div>
+                                    </div>
+                               
+                                </div>
+                                
+                            
+                        </div>
+                    
+                    </div>
+                </div> <!-- end modal-content-->
+            </div> <!-- end modal dialog-->
+        </div>
+    <div class="modal fade" id="bank-approve" tabindex="-1" >
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+        
+                    <div class="modal-body ">
+    
+                        <div class="  px-3 border rounded-3 py-4">
+                        
+                            <div class="modal-header py-0 px-0 border-bottom-0">
+                                <h5 class="modal-title mb-3" id="modal-title">Approve</h5>
+    
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
+    
+                            </div>
+                       
+                            
+                                
+                                <div class="row">
+                                
+                                    <div class="col-12">
+                                        <div class="mb-3">
+                                            <!--<label class="form-label">Event Name</label>-->
+                                           <h6>Verifying Bank details.Please Confirm to approve. </h6>
+                                            <input type="hidden" name="bankstatus" id="bankstatus">
+                                            <input type="hidden" name="bankid" id="bankid">
+                                            <input type="hidden" name="bankaccount" id="bankaccount">
+
+                                           
+                                        </div>
+                                        <div class="row mt-2">
+                                            <div class="col-6">
+                                                <button type="button"  class="btn btn-success" id="btn-save-event" onclick="approveBank()">Confirm</button>
+                                                <button type="button" data-bs-dismiss="modal" class="btn btn-danger" id="btn-delete-event">Close</button>
+                                            </div>
+                                          
+                                        </div>
+                                    </div>
+                               
+                                </div>
+                                
+                            
+                        </div>
+                    
+                    </div>
+                </div> <!-- end modal-content-->
+            </div> <!-- end modal dialog-->
+        </div>
+<script>
+
+    function LoadDetails(){
+        var accno=$("#Accountno").val()
+        $("#accountnumber").val(accno)
+        if(accno==""){
+            $("#userMsg").empty()
+            $("#userMsg").append("Please enter account number")
+            $("#alertpopup").modal('show')
+        }
+        else{
+                $.ajax({
+                    
+                    type : "GET", 
+                    url: "{% url 'Backoffice:CardDetails' %}",
+                    dataType: 'json',
+                    data:{
+                        'account':accno,
+                    },
+                    success: function(data){
+                        var details=data.details
+                        var name=data.name
+                        var datalen=details.length
+                        var row=""
+                        $("#Fullname").val(name)
+                        $("#credit-details").empty()
+                        for(var i=0;i<datalen;i++){
+                            row+="<tr><td class='ps-0'>"+details[i][0]+"</td><td>"+details[i][1]+"</td><td>"+details[i][2]+"</td><td><button class='btn  btn-sm  color-green fs-15' style='background-color:rgba(0, 165, 79, 0.15) ;''>"+details[i][4]+"</button></td>"+
+                                 "<td>"+details[i][5]+"</td><td>"+details[i][6]+"</td><td>"+details[i][8]+"</td><td><div class='dropdown align-self-start'><a class='dropdown-toggle' href='#' role='button' data-bs-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>"+
+                                 "<i class='bx bx-dots-vertical-rounded'></i></a><div class='dropdown-menu'><a class='dropdown-item' onclick=approve('"+details[i][4]+"','"+details[i][7]+"','"+details[i][2]+"')>Approve</a><a class='dropdown-item' onclick=reject('"+details[i][4]+"','"+details[i][7]+"','"+details[i][2]+"')>Reject</a>"+
+                                 "<a class='dropdown-item' href='#'>Edit</a><a class='dropdown-item' href='#'>View Card Front</a><a class='dropdown-item' href='#'>View Card Back</a></div></div></td></tr>"
+                        }
+                        $("#credit-details").append(row)
+                        console.log("Details======="+data)
+                       
+                    }
+                })
+            }
+    }
+    function approve(status,id,card){
+        console.log("Status========================="+status)
+            
+        if(status=="Approved"){
+            $("#userMsg").empty()
+            $("#userMsg").append("Card Approved")
+            $("#alertpopup").modal('show')
+
+        }else{
+            $("#status").val(status)
+            $("#id").val(id)
+            $("#card").val(card)
+            $("#approve").modal('show')
+        }
+    }
+    function reject(status,id,card){
+        console.log("Status========================="+status)
+            
+        if(status=="Rejected"){
+            $("#userMsg").empty()
+            $("#userMsg").append("Card Rejected")
+            $("#alertpopup").modal('show')
+
+        }else{
+            $("#rejstatus").val(status)
+            $("#rejid").val(id)
+            $("#rejcard").val(card)
+            $("#reject").modal('show')
+        }
+    }
+    function rejectCard(){
+        $("#reject").modal('hide')
+        status=$("#rejstatus").val()
+        id=$("#rejid").val()
+        card=$("#rejcard").val()
+        accno=$("#Accountno").val()
+        $.ajax({
+                    
+                    type : "GET", 
+                    url: "{% url 'Backoffice:ApproveCard' %}",
+                    dataType: 'json',
+                    data:{
+                        
+                        'id':id,
+                        'accno':accno,
+                        'card':card,
+                        'status':"Rejected"
+                    },
+                    success: function(data){
+                        LoadDetails()
+                        
+                        $("#userMsg").empty()
+                        $("#userMsg").append("Card Rejected")
+                        $("#alertpopup").modal('show')
+                    }
+        })
+
+    }
+    function addCard(){
+    var accno=$("#Accountno").val()
+    var name= $("#Fullname").val()
+    $("#holdername").val(name)
+        if(accno==""){
+            $("#userMsg").empty()
+            $("#userMsg").append("Please enter account number")
+            $("#alertpopup").modal('show')
+        }
+        else{
+            $("#add-card").modal('show')
+        }
+
+
+   }
+
+    function approveCard(){
+        $("#approve").modal('hide')
+        status=$("#status").val()
+        id=$("#id").val()
+        card=$("#card").val()
+        accno=$("#Accountno").val()
+        $.ajax({
+                    
+                    type : "GET", 
+                    url: "{% url 'Backoffice:ApproveCard' %}",
+                    dataType: 'json',
+                    data:{
+                        
+                        'id':id,
+                        'accno':accno,
+                        'card':card,
+                        'status':"Approved"
+                    },
+                    success: function(data){
+                        LoadDetails()
+                        
+                        $("#userMsg").empty()
+                        $("#userMsg").append("Credit Card Approved and Updated")
+                        $("#alertpopup").modal('show')
+                    }
+        })
+
+    }
+
+    function saveCard(){
+        var form_data=$("#add-card-form").serialize()
+        console.log("Form data======"+form_data)
+        $.ajax({
+                    
+                    type : "POST", 
+                    url: "{% url 'Backoffice:SaveCard' %}",
+                    
+                    data:form_data,
+                    success: function(data){
+                    }
+        })
+
+    }
+    function LoadBankDetails(){
+        var accno=$("#bankAccountno").val()
+        console.log("Account number======"+accno)
+        
+        if(accno==""){
+            $("#userMsg").empty()
+            $("#userMsg").append("Please enter account number")
+            $("#alertpopup").modal('show')
+        }
+        else{
+                $.ajax({
+                    
+                    type : "GET", 
+                    url: "{% url 'Backoffice:BankDetails' %}",
+                    dataType: 'json',
+                    data:{
+                        'account':accno,
+                    },
+                    success: function(data){
+                        var details=data.details
+                        console.log("Details=====",details)
+                        
+                        var datalen=details.length
+                        var row=""
+                        
+                        $("#bank-account-table").empty()
+                        for(var i=0;i<datalen;i++){
+                            row+="<tr><td class='ps-0'>"+details[i][1]+"</td><td>"+details[i][2]+"</td><td>"+details[i][3]+"</td><td><button class='btn  btn-sm  color-green fs-15' style='background-color:rgba(0, 165, 79, 0.15) ;'>"+details[i][4]+"</button></td>"+
+                                 "<td>"+details[i][5]+"</td><td>"+details[i][7]+"</td><td>"+details[i][6]+"</td><td>"+details[i][8]+"</td><td><div class='dropdown align-self-start'>"+
+                                 "<a class='dropdown-toggle' href='#' role='button' data-bs-toggle='dropdown' aria-haspopup='true' aria-expanded='false'><i class='bx bx-dots-vertical-rounded'></i>"+
+                                 "</a><div class='dropdown-menu'><a class='dropdown-item' onclick=bankApproval('"+details[i][2]+"','"+details[i][0]+"','"+details[i][2]+"')>Approve</a><a class='dropdown-item' onclick=bankReject('"+details[i][2]+"','"+details[i][0]+"','"+details[i][2]+"')>Reject</a>"+
+                                 "<a class='dropdown-item' href='#''>Edit</a></div></div></td></tr>"
+                                 
+                        }
+                        $("#bank-account-table").append(row)
+                        console.log("Details======="+data)
+                       
+                    }
+                })
+            }
+    }
+    function bankApproval(status,id,acNo){
+        
+        console.log("Status========================="+status)
+            
+        if(status=="Approved"){
+            $("#userMsg").empty()
+            $("#userMsg").append("Approved")
+            $("#alertpopup").modal('show')
+
+        }else{
+            $("#bankstatus").val(status)
+            $("#bankid").val(id)
+            $("#bankaccount").val(acNo)
+            $("#bank-approve").modal('show')
+        }
+    
+    }
+    function bankReject(status,id,acNo){
+        
+        console.log("Status========================="+status)
+            
+        if(status=="Approved"){
+            $("#userMsg").empty()
+            $("#userMsg").append("Approved")
+            $("#alertpopup").modal('show')
+
+        }else{
+            $("#rejbankstatus").val(status)
+            $("#rejbankid").val(id)
+            $("#rejbankaccount").val(acNo)
+            $("#bank-reject").modal('show')
+        }
+    
+    }
+    function approveBank(){
+        $("#bank-approve").modal('hide')
+        status=$("#bankstatus").val()
+        id=$("#bankid").val()
+        card=$("#bankaccountno").val()
+        accno=$("#bankAccountno").val()
+        $.ajax({
+                    
+                    type : "GET", 
+                    url: "{% url 'Backoffice:ApproveBank' %}",
+                    dataType: 'json',
+                    data:{
+                        
+                        'id':id,
+                        'accno':accno,
+                        'card':card,
+                        'status':"Approved"
+                    },
+                    success: function(data){
+                        LoadBankDetails()
+                        
+                        $("#userMsg").empty()
+                        $("#userMsg").append("Bank details Approved successfully")
+                        $("#alertpopup").modal('show')
+                    }
+        })
+
+
+        }
+    function rejectBank(){
+        $("#bank-reject").modal('hide')
+        status=$("#bankstatus").val()
+        id=$("#rejbankid").val()
+        card=$("#rejbankcard").val()
+        accno=$("#bankAccountno").val()
+        $.ajax({
+                    
+                    type : "GET", 
+                    url: "{% url 'Backoffice:ApproveBank' %}",
+                    dataType: 'json',
+                    data:{
+                        
+                        'id':id,
+                        'accno':accno,
+                        'card':card,
+                        'status':"Rejected"
+                    },
+                    success: function(data){
+                        LoadBankDetails()
+                        
+                        $("#userMsg").empty()
+                        $("#userMsg").append("Rejected")
+                        $("#alertpopup").modal('show')
+                    }
+        })
+
+
+        }
+
+
+
+</script>
+<script src="{% static 'js/pages/bocardapproval.init.js' %}"></script> 
+
+<script src="{% static 'js/app.js' %}"></script>
+
+</body>
+
+</html>

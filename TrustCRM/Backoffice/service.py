@@ -3,7 +3,15 @@ from django.db import connection
 from .emailservice import EmailServices
 from datetime import datetime, timedelta
 from ctypes import *
+from .dllservice import DllService
+
+demoserver = "50.57.14.224:443"
+demopwd = "Tc2022"
+demouser = "601"
+dllservice=DllService(demoserver,demopwd,demouser)
+
 emailservice=EmailServices()
+
 class Services:
     def change_password(self,request):
         try:
@@ -17,7 +25,7 @@ class Services:
             
             Cursor=connection.cursor()    
             Cursor.execute("exec SP_ChangePasswords %s,%s,%s,%s,%s",[masterPwd,investorPwd,phonePwd,login,userId])
-            #dll_chnage_password(masterPwd,investorPwd,phonePwd,login)
+            # dllservice.dll_chnage_password(masterPwd,investorPwd,phonePwd,login)
             if(Cursor.nextset()):
 
                 print("Result========================================",Cursor.nextset())
@@ -145,49 +153,36 @@ class Services:
             print("Exception----",e)
         finally:
             Cursor.close()
+    #Save activity log
+    def save_activity_log(self,logdata,user,type):
+        try:
+            Cursor=connection.cursor()    
+            Cursor.execute("exec SP_SaveActivityLog %s,%s,%s",[logdata,user,type])
+        except Exception as e:
+            print("Exception----",e)
+        finally:
+            Cursor.close()
+     #Save card
+    def save_credit_card(self,request):
+        try:
+            accno=request.POST.get('accno')
+            name=request.POST.get('holdername')
+            cardno=request.POST.get('digits')
+            expmonth=request.POST.get('expmonth')
+            expyear=request.POST.get('expyear')
+            cardtype=request.POST.get('cardtype')
+            front=request.FILES['front']
+            back=request.FILES['back']
+            userid=request.session.get('UserId')
+            print("Account data===============================",accno,name,cardno,expmonth,expyear,cardtype,front,back,userid)
+            # Cursor=connection.cursor()    
+            # Cursor.execute("exec SP_SaveActivityLog %s,%s,%s",[logdata,user,type])
+        except Exception as e:
+            print("Exception----",e)
+        finally:
+            pass
+            # Cursor.close()
+
+  
 
 
-#dll for change password
-def dll_chnage_password(masterPwd,investorPwd,phonePwd,accountno):
-    demoserver = "50.57.14.224:443"
-    demopwd = "Tc2022"
-    demouser = "601" 
-    hllDll = CDLL(r"C:\\pyenv\\TrustManagerAPI.dll") 
-    Passwords_Change = hllDll.Passwords_Change
-    hllDll.Passwords_Change = c_char_p,c_int,c_char_p,c_char_p
-    hllDll.Passwords_Change.restype = c_int
-    username=int(demouser)
-    login = c_int(username)
-    account_no=c_int(accountno)
-    connect=Passwords_Change(c_char_p(demoserver.encode('utf-8')).value,login.value,c_char_p(demopwd.encode('utf-8')).value,account_no,c_char_p(masterPwd.encode('utf-8')).value,c_char_p(investorPwd.encode('utf-8')).value,c_char_p(phonePwd.encode('utf-8')).value)
-    return connect
-
-#dll update client MT4
-def dll_update_user(recvdata):
-    demoserver = "50.57.14.224:443"
-    demopwd = "Tc2022"
-    demouser = "601" 
-    hllDll = CDLL(r"C:\\pyenv\\TrustManagerAPI.dll") 
-    Update_User = hllDll.Update_User
-    hllDll.Update_User = c_char_p,c_int,c_char_p,c_char_p
-    hllDll.Update_User.restype = c_char_p
-    username=int(demouser)
-    login = c_int(username)
-    
-    currency=Update_User(c_char_p(demoserver.encode('utf-8')).value,login.value,c_char_p(demopwd.encode('utf-8')).value,c_char_p(recvdata))
-    return currency
-
-#dll get currency
-def dll_get_currency(accountno):
-    demoserver = "50.57.14.224:443"
-    demopwd = "Tc2022"
-    demouser = "601" 
-    hllDll = CDLL(r"C:\\pyenv\\TrustManagerAPI.dll") 
-    GetCurrency = hllDll.GetCurrency
-    hllDll.GetCurrency = c_char_p,c_int,c_char_p,c_char_p
-    hllDll.GetCurrency.restype = c_char_p
-    username=int(demouser)
-    login = c_int(username)
-    account_no=c_int(accountno)
-    currency=GetCurrency(c_char_p(demoserver.encode('utf-8')).value,login.value,c_char_p(demopwd.encode('utf-8')).value,account_no)
-    return currency

@@ -12,7 +12,14 @@ urlpatterns=[
       path('Manage',manage_account,name="Manage"),
       path('AccountDetails',load_account_details,name="AccountDetails"),
       path('DuplicateAccount',check_duplicate,name="DuplicateAccount"),
-      path('BackofficeUpdate',backoffice_update,name="BackofficeUpdate")
+      path('BackofficeUpdate',backoffice_update,name="BackofficeUpdate"),
+      path('Approval',bank_approval,name="Approval"),
+      path('CardDetails',load_card_data,name="CardDetails"),
+      path('ApproveCard',approve_card,name="ApproveCard"),
+      path('ApproveBank',approve_bank,name="ApproveBank"),
+      path('SaveCard',save_card,name="SaveCard"),
+      path('BankDetails',load_bankaccount_details,name="BankDetails"),
+
      
     
 ]
