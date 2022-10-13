@@ -1,9 +1,15 @@
 import email
+from email import message
+from fileinput import filename
+import string
 from django.db import connection
+
+from TrustCRM.settings import PROJECT_ROOT, UPLOAD_ROOT
 from .emailservice import EmailServices
 from datetime import datetime, timedelta
 from ctypes import *
 from .dllservice import DllService
+import os
 
 demoserver = "50.57.14.224:443"
 demopwd = "Tc2022"
@@ -168,20 +174,193 @@ class Services:
             accno=request.POST.get('accno')
             name=request.POST.get('holdername')
             cardno=request.POST.get('digits')
-            expmonth=request.POST.get('expmonth')
-            expyear=request.POST.get('expyear')
+            expmonth=int(request.POST.get('expmonth'))
+            expyear=int(request.POST.get('expyear'))
             cardtype=request.POST.get('cardtype')
-            front=request.FILES['front']
-            back=request.FILES['back']
-            userid=request.session.get('UserId')
-            print("Account data===============================",accno,name,cardno,expmonth,expyear,cardtype,front,back,userid)
-            # Cursor=connection.cursor()    
-            # Cursor.execute("exec SP_SaveActivityLog %s,%s,%s",[logdata,user,type])
+            front=request.FILES.get('front',None)
+            back=request.FILES.get('back',None)
+            userid=int(request.session.get('UserId'))
+            imagedata1=""
+            imagedata2=""
+            extension1=""
+            extension2=""
+            imagename=""
+            contenttype=""
+            contenttypebk=""
+            message="Please try again"
+            if front:
+                
+
+                extension1 = os.path.splitext(str(front))[1]
+                imagename=front.name
+                file_path=UPLOAD_ROOT+"\\"+accno
+                # file_path=os.path.join(UPLOAD_ROOT,accno)
+                print("File existance======",file_path,os.path.isfile(file_path))
+                if os.path.isfile(file_path):
+                    os.mkdir(file_path)
+                fullpath=cardno+"front"+extension1
+                fullfilepath=os.path.join(file_path,fullpath)
+                with open(fullfilepath, 'wb+') as destination:
+                    for chunk in front.chunks():
+                        imagedata1=chunk
+                        destination.write(chunk)
+            if back:  
+                imagename=back.name  
+                extension2 = os.path.splitext(str(back))[1]
+                # file_path=os.path.join(UPLOAD_ROOT,accno)
+                if os.path.isfile(file_path):
+                    os.mkdir(file_path)
+                fullpath=cardno+"back"+extension1
+                fullfilepath=os.path.join(file_path,fullpath)
+                with open(fullfilepath, 'wb+') as destination:
+                    for chunk in back.chunks():
+                        imagedata2=chunk
+                        destination.write(chunk)   
+                              
+            if(extension1==".doc"):
+                contenttype = "application/vnd.ms-word"
+            if(extension1== ".docx"):
+                contenttype = "application/vnd.ms-word"
+            if(extension1==".xls"):
+                contenttype = "application/vnd.ms-excel"
+            if(extension1==".xlsx"):
+                contenttype = "application/vnd.ms-excel"
+            if(extension1==".jpg"):
+                contenttype = "image/jpg"
+            if(extension1==".JPG"):
+                contenttype = "image/jpg"
+            if(extension1==".JPEG"):
+                contenttype = "image/jpg"
+            if(extension1==".jpeg"):
+                contenttype = "image/jpg"
+            if(extension1==".png"):
+                contenttype = "image/png"
+            if(extension1==".PNG"):
+                contenttype = "image/png"
+        
+            if(extension1==".gif"):
+                contenttype = "image/gif"
+                
+            if(extension1==".GIF"):
+                contenttype = "image/gif"
+            if(extension1==".bmp"):
+                contenttype = "image/bmp"
+            if(extension1==".BMP"):
+                contenttype = "image/bmp"
+            if(extension1== ".pdf"):
+                contenttype = "application/pdf"
+            if(extension1==".PDF"):
+                contenttype = "application/pdf"
+
+            if(extension2==".doc"):
+                contenttypebk = "application/vnd.ms-word"
+            if(extension2== ".docx"):
+                contenttypebk = "application/vnd.ms-word"
+            if(extension2==".xls"):
+                contenttypebk = "application/vnd.ms-excel"
+            if(extension2==".xlsx"):
+                contenttypebk = "application/vnd.ms-excel"
+            if(extension2==".jpg"):
+                contenttypebk = "image/jpg"
+            if(extension2==".JPG"):
+                contenttypebk = "image/jpg"
+            if(extension2==".JPEG"):
+                contenttypebk = "image/jpg"
+            if(extension2==".jpeg"):
+                contenttypebk = "image/jpg"
+            if(extension2==".png"):
+                contenttypebk = "image/png"
+            if(extension2==".PNG"):
+                contenttypebk = "image/png"
+        
+            if(extension2==".gif"):
+                contenttypebk = "image/gif"
+                
+            if(extension2==".GIF"):
+                contenttypebk = "image/gif"
+            if(extension2==".bmp"):
+                contenttypebk = "image/bmp"
+            if(extension2==".BMP"):
+                contenttypebk = "image/bmp"
+            if(extension2== ".pdf"):
+                contenttypebk = "application/pdf"
+            if(extension2==".PDF"):
+                contenttypebk = "application/pdf"
+                            
+                
+         
+            accno=int(accno)   
+            encoding = 'utf-8'
+            # imagedata1.decode(encoding)
+            # imagedata2.decode(encoding)
+            
+            print("Image data 1=====",type(imagedata1))
+            print("Account data===============================",accno,name,cardno,expmonth,expyear,cardtype,userid,front,back,extension1,extension2)
+            Cursor=connection.cursor()    
+            Cursor.execute("exec SP_AddNewCard %s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s",[accno,name,cardno,expmonth,expyear,0,imagedata1,imagedata2,imagename,contenttype,contenttypebk,cardtype,userid])
+            message="Credit Card added Successfully"
         except Exception as e:
             print("Exception----",e)
         finally:
-            pass
-            # Cursor.close()
+            Cursor.close()
+        return message
+     #Save bank account
+    def save_bank_account(self,request):
+        try:
+            message="Please try again"
+            acNo=int(request.POST.get('bankAccountno'))
+            actname=request.POST.get('Bank-Accountname')
+            actno=request.POST.get('Bank-Accountno')
+            bankname=request.POST.get('Bankname')
+            bankaddress=request.POST.get('Bankaddress')
+            swiftcode=request.POST.get('Swiftcode')
+            otherinfo=request.POST.get('Otherinformation')
+            iban=request.POST.get('iban')
+            userid=int(request.session.get('UserId'))
+            flag=request.POST.get('flag')
+            id=request.POST.get('id')
+            print("Flag=======,id",flag,id)
+            if(flag=="0"):
+                flag=int(flag)
+            else:
+                flag=1
+            if(id==""):
+                id=0
+            else:
+                id=int(id)
+            print("eeeeeeeeeeeeeeeeeeeeeeee",acNo,actname,actno,bankname,bankaddress,swiftcode,otherinfo,0,0,userid,iban)
+            Cursor=connection.cursor()    
+            Cursor.execute("exec SP_SaveBankDetails %s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s",[acNo,actname,actno,bankname,bankaddress,swiftcode,otherinfo,flag,id,userid,iban])
+            message="Bank details saved successfully"
+        except Exception as e:
+            print("Exception----",e)
+        finally:
+            Cursor.close()
+        return message
+
+    #Save credit card details
+    def save_crypto_card(self,request):
+        try:
+            message="Please try again"
+            accno=request.GET.get('accno')
+            orderno=request.GET.get('orderno')
+            if orderno=="":
+                orderno=0
+            else:
+                orderno=int(orderno)
+            name=request.GET.get('name')
+            cardno=request.POST.get('cardno')
+        
+            userid=int(request.session.get('UserId'))
+            Cursor=connection.cursor()    
+            Cursor.execute("exec SP_UpdateCreditCardDetails %s,%s,%s,%s,%s,%s,%s,%s,%s",[accno,orderno,name,cardno,1,0,0,"Crypto",userid])
+            message="Crypto saved successfully"
+        except Exception as e:
+            print("Exception----",e)
+        finally:
+            Cursor.close()
+        return message
+
 
   
 

@@ -271,8 +271,21 @@ class Selector:
     #Load  creditcard details
     def load_credit_card_details(self,accno):
         try:
+            details=""
             Cursor=connection.cursor()    
             Cursor.execute("set nocount on;exec SP_GetCreditCardDetails %s",[accno])
+            details=Cursor.fetchall()
+        except Exception as e:
+            print("Exception----",e)
+        finally:
+            Cursor.close
+        return details
+     #Load  crypto details
+    def load_crypto_card_details(self,accno):
+        try:
+            details=""
+            Cursor=connection.cursor()    
+            Cursor.execute("set nocount on;exec SP_GetCryptoCardDetails %s",[accno])
             details=Cursor.fetchall()
         except Exception as e:
             print("Exception----",e)
@@ -318,6 +331,7 @@ class Selector:
     def get_bank_details(self,accno):
         
         try:
+            bankdetails=""
             Cursor=connection.cursor()    
             Cursor.execute("set nocount on;exec SP_GetBankDetails %s",[accno])
             bankdetails=Cursor.fetchall()    
@@ -336,6 +350,30 @@ class Selector:
             print("Exception----",e)
         finally:
             Cursor.close
+
+    #Get front side image
+    def get_card_front(self,id,accno):
+        try:
+            Cursor=connection.cursor()    
+            Cursor.execute("set nocount on;exec SP_GetCreditCardClicked %s,%s,%s",[id,accno,0])
+            image_detail=Cursor.fetchone()
+        except Exception as e:
+            print("Exception----",e)
+        finally:
+            Cursor.close
+        return image_detail
+    #Get back side image
+    def get_card_front(self,id,accno):
+        try:
+            Cursor=connection.cursor()    
+            Cursor.execute("set nocount on;exec SP_GetCreditCardClicked %s,%s,%s",[id,accno,1])
+            image_detail=Cursor.fetchone()
+        except Exception as e:
+            print("Exception----",e)
+        finally:
+            Cursor.close
+        return image_detail
+
         
         
 

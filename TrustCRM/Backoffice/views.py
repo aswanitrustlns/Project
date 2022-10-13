@@ -102,10 +102,27 @@ def bank_approval(request):
 
 #load credit card data
 def load_card_data(request):
+
     if 'UserId' in request.session:
+        details=""
         accno=request.GET.get('account')
         print("Account number=====",accno)
         details=selector.load_credit_card_details(accno)
+        userdetails=selector.get_user_details(accno)
+        if userdetails:
+            userdetails=userdetails[0]
+            name=userdetails[1]
+        
+        return JsonResponse({"details":details,"name":name}) 
+    else:
+        return redirect('/login')
+#load crypto card data
+def load_crypto_data(request):
+    if 'UserId' in request.session:
+        accno=request.GET.get('account')
+        details=""
+        print("Account number=====",accno)
+        details=selector.load_crypto_card_details(accno)
         userdetails=selector.get_user_details(accno)
         if userdetails:
             userdetails=userdetails[0]
@@ -141,6 +158,7 @@ def approve_card(request):
 def approve_bank(request):
     if 'UserId' in request.session:
         print("Approve bank is here")
+        details=""
         status=request.GET.get('status')
         id=request.GET.get('id')
         userid=request.session.get('UserId')
@@ -164,7 +182,47 @@ def save_card(request):
             print("Count==========",count)
             if(count>5):
                 message="Cannot upload more than five Credit Cards"
-        service.save_credit_card(request)
+            else:
+                message=service.save_credit_card(request)
+        return JsonResponse({"message":message}) 
+    else:
+        return redirect('/login')
+
+#Save Bank account
+def save_bank_account(request):
+    if 'UserId' in request.session:
+        message=""
+        
+        print("Save bank account=======")
+        message=service.save_bank_account(request)
+        return JsonResponse({"message":message}) 
+    else:
+        return redirect('/login')
+#Save Bank account
+def save_bank_account(request):
+    if 'UserId' in request.session:
+        message=""
+        
+        print("Save crypto account=======")
+        message=service.save_crypto_card(request)
+        return JsonResponse({"message":message}) 
+    else:
+        return redirect('/login')
+#View Card Front
+def load_card_front(request):
+    if 'UserId' in request.session:
+        message=""
+        id=request.GET.get('accno')
+        accno=request.GET.get('accno')
+        side=request.GET.get('side')
+        print("view card front")
+        image_details=selector.get_card_front(id,accno)
+        if image_details:
+            image_details=image_details[0]
+            imagedata=image_details[0]
+            imagetype=image_details[1]
+            imagename=image_details[2]
+
         return JsonResponse({"message":message}) 
     else:
         return redirect('/login')

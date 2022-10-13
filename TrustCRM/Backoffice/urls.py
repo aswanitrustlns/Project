@@ -19,6 +19,9 @@ urlpatterns=[
       path('ApproveBank',approve_bank,name="ApproveBank"),
       path('SaveCard',save_card,name="SaveCard"),
       path('BankDetails',load_bankaccount_details,name="BankDetails"),
+      path('SaveBankAccount',save_bank_account,name="SaveBankAccount"),
+      path('Cryptodetails',load_crypto_data,name="Cryptodetails"),
+      path('CryptoSave',save_bank_account,name="CryptoSave")
 
      
     
