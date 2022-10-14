@@ -527,6 +527,7 @@
                                             <input type="hidden" name="status" id="status">
                                             <input type="hidden" name="id" id="id">
                                             <input type="hidden" name="card" id="card">
+                                            <input type="hidden" name="cardtype" id="cardtype">
 
                                            
                                         </div>
@@ -620,7 +621,8 @@
                                            <h6>Are you sure you want to reject the creditcard? </h6>
                                             <input type="hidden" name="status" id="rejstatus">
                                             <input type="hidden" name="id" id="rejid">
-                                            <input type="hidden" name="card" id="rejcard">
+                                            <input type="hidden" name="rejcard" id="rejcard">
+                                            <input type="hidden" name="rejcardtype" id="rejcardtype">
 
                                            
                                         </div>
@@ -972,7 +974,38 @@
             </div> <!-- end modal dialog-->
         </div>
     </div>
+    <div class="modal fade" id="image-modal" tabindex="-1" >
+        <div class="modal-dialog modal-dialog-centered modal-xl" >
+            <div class="modal-content">
+    
+                <div class="modal-body ">
+
+                    <div class="  px-3 border rounded-3 py-4">
+                    
+                        <div class="modal-header py-0 px-0 border-bottom-0">
+                            <!-- <h5 class="modal-title mb-3" id="modal-title">Add New Card</h5> -->
+
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
+
+                        </div>
+                        <iframe id="image" style="width: 50%;height: 50vh; "></iframe>
+                        
+                            
+                            
+                            
+                        
+                    </div>
+                
+                </div>
+            </div> <!-- end modal-content-->
+        </div> <!-- end modal dialog-->
+    </div>
+</div>
+
+ 
 <script>
+
+
 
     function LoadDetails(){
         var accno=$("#Accountno").val()
@@ -1001,8 +1034,8 @@
                         for(var i=0;i<datalen;i++){
                             row+="<tr><td class='ps-0'>"+details[i][0]+"</td><td>"+details[i][1]+"</td><td>"+details[i][2]+"</td><td><button class='btn  btn-sm  color-green fs-15' style='background-color:rgba(0, 165, 79, 0.15) ;''>"+details[i][4]+"</button></td>"+
                                  "<td>"+details[i][5]+"</td><td>"+details[i][6]+"</td><td>"+details[i][8]+"</td><td><div class='dropdown align-self-start'><a class='dropdown-toggle' href='#' role='button' data-bs-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>"+
-                                 "<i class='bx bx-dots-vertical-rounded'></i></a><div class='dropdown-menu'><a class='dropdown-item' onclick=approve('"+details[i][4]+"','"+details[i][7]+"','"+details[i][2]+"')>Approve</a><a class='dropdown-item' onclick=reject('"+details[i][4]+"','"+details[i][7]+"','"+details[i][2]+"')>Reject</a>"+
-                                 "<a class='dropdown-item' onclick=editCardDetails('"+ encodeURIComponent(details[i][1])+"','"+details[i][2]+"','"+details[i][5]+"','"+details[i][6]+"','"+details[i][8]+"')>Edit</a><a class='dropdown-item' onclick=viewCardFront("+details[i][2]+")>View Card Front</a><a class='dropdown-item' href='#'>View Card Back</a></div></div></td></tr>"
+                                 "<i class='bx bx-dots-vertical-rounded'></i></a><div class='dropdown-menu'><a class='dropdown-item' onclick=approve('"+details[i][4]+"','"+details[i][7]+"','"+details[i][2]+"','"+details[i][8]+"')>Approve</a><a class='dropdown-item' onclick=reject('"+details[i][4]+"','"+details[i][7]+"','"+details[i][2]+"','"+details[i][8]+"')>Reject</a>"+
+                                 "<a class='dropdown-item' onclick=editCardDetails('"+ encodeURIComponent(details[i][1])+"','"+details[i][2]+"','"+details[i][5]+"','"+details[i][6]+"','"+details[i][8]+"')>Edit</a><a class='dropdown-item' onclick=viewCard('"+details[i][7]+"','0')>View Card Front</a><a class='dropdown-item' onclick=viewCard('"+details[i][7]+"','1')>View Card Back</a></div></div></td></tr>"
                         }
                         $("#credit-details").append(row)
                         console.log("Details======="+data)
@@ -1050,8 +1083,8 @@
             }
 
     }
-    function approve(status,id,card){
-        console.log("Status========================="+status)
+    function approve(status,id,card,cardtype){
+        console.log("Status========================="+status+id+card+cardtype)
             
         if(status=="Approved"){
             $("#userMsg").empty()
@@ -1062,11 +1095,12 @@
             $("#status").val(status)
             $("#id").val(id)
             $("#card").val(card)
+            $("#cardtype").val(cardtype)
             $("#approve").modal('show')
         }
     }
-    function reject(status,id,card){
-        console.log("Status========================="+status)
+    function reject(status,id,card,CardType){
+        console.log("Status========================="+status+id+card+CardType)
             
         if(status=="Rejected"){
             $("#userMsg").empty()
@@ -1077,6 +1111,7 @@
             $("#rejstatus").val(status)
             $("#rejid").val(id)
             $("#rejcard").val(card)
+            $("#rejcardtype").val(cardType)
             $("#reject").modal('show')
         }
     }
@@ -1099,6 +1134,7 @@
         status=$("#rejstatus").val()
         id=$("#rejid").val()
         card=$("#rejcard").val()
+        cardtype=$("#rejcardtype").val()
         accno=$("#Accountno").val()
         $.ajax({
                     
@@ -1110,6 +1146,7 @@
                         'id':id,
                         'accno':accno,
                         'card':card,
+                        'type':cardtype,
                         'status':"Rejected"
                     },
                     success: function(data){
@@ -1206,7 +1243,9 @@
         status=$("#status").val()
         id=$("#id").val()
         card=$("#card").val()
-        accno=$("#CryptoAccountno").val()
+        accno=$("#Accountno").val()
+        cardtype=$("#cardtype").val()
+        console.log("Inputs========================"+id+status+card+accno+cardtype)
         $.ajax({
                     
                     type : "GET", 
@@ -1217,13 +1256,15 @@
                         'id':id,
                         'accno':accno,
                         'card':card,
-                        'status':"Approved"
+                        'type':cardtype,
+                        'status':"Approved",
+                        
                     },
                     success: function(data){
                         LoadDetails()
                         
                         $("#userMsg").empty()
-                        $("#userMsg").append("Credit Card Approved and Updated")
+                        $("#userMsg").append("Card Approved and Updated")
                         $("#alertpopup").modal('show')
                     }
         })
@@ -1234,7 +1275,7 @@
         status=$("#cryptostatus").val()
         id=$("#cryptoid").val()
         card=$("#cryptocard").val()
-        accno=$("#Accountno").val()
+        accno=$("#cryptoAccountno").val()
         $.ajax({
                     
                     type : "GET", 
@@ -1245,6 +1286,7 @@
                         'id':id,
                         'accno':accno,
                         'card':card,
+                        'type':"Crypto",
                         'status':"Approved"
                     },
                     success: function(data){
@@ -1290,7 +1332,7 @@
             
             var form = $('#add-card-form')[0];
             var formData = new FormData(form);
-        // var form_data=$("#add-card-form").serialize()
+        
             console.log("Form data======"+formData)
             let csrftoken = '{{ csrf_token }}'
             $.ajax({
@@ -1472,12 +1514,32 @@
         $("#add-card").modal('show')
 
     }
-    function viewCardFront(cardNo)
+    function viewCard(orderno,side)
     {
         var accno=$("#Accountno").val()
-        path="../uploads/"+accno+"/"+cardNo+"front"
-        console.log("Path=========================="+path)
-        // path="uploads\301684\1234back.png"
+        $.ajax({
+                        
+                        type : "GET", 
+                        
+                        url: "{% url 'Backoffice:CardView' %}",
+                       
+                        data:{
+                            "accno":accno,
+                            "orderno":orderno,
+                            "side":side,
+                        },
+                        success: function(data){
+                        imagepath=data.imagepath
+                        console.log("Image path====="+imagepath)
+                        let image = document.getElementById("image");
+ 
+                         image.src =imagepath
+                        $("#image-modal").modal('show')
+                        // $("#userMsg").empty()
+                        // $("#userMsg").append(data.message)
+                        // $("#alertpopup").modal('show')
+                        }
+                    })
     }
     function saveBankAccount(){
         var accno=$("#bankAccountno").val()

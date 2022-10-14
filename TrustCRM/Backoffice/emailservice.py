@@ -165,7 +165,7 @@ class EmailServices:
            
                 
             email_from = 'cs@trusttc.com'
-            print("Mail======",title,name,remail,cardno,subject)
+            print("Mail======",title,name,remail,cardno,subject,cardtype)
             # bcc1="crm@trusttc.com"
             # bcc2="backoffice@trusttc.com"
             # bcc3="compliance@trusttc.com"
@@ -177,12 +177,28 @@ class EmailServices:
                 "cardno":cardno
                 
             }  
-            if (status=="Approved"):
-                subject = "Credit Card Approved"
-                path="email/backoffice/CreditCardApproved.html"
-            if(status=="Rejected"):
-                subject = "Credit Card Rejected"
-                path="email/backoffice/CreditCardRejected.html"
+            if cardtype=="Credit":
+                if (status=="Approved"):
+                    subject = "Credit Card Approved"
+                    path="email/backoffice/CreditCardApproved.html"
+                if(status=="Rejected"):
+                    subject = "Credit Card Rejected"
+                    path="email/backoffice/CreditCardRejected.html"
+            if cardtype=="Debit":
+                if (status=="Approved"):
+                    subject = "Debit Card Approved"
+                    path="email/backoffice/DebitCardApproved.html"
+                if(status=="Rejected"):
+                    subject = "Debit Card Rejected"
+                    path="email/backoffice/DebitCardRejected.html"
+            if cardtype=="Crypto":
+                if (status=="Approved"):
+                    subject = "Crypto Card Approved"
+                    path="email/backoffice/CryptoCardApproved.html"
+                if(status=="Rejected"):
+                    subject = "Debit Card Rejected"
+                    path="email/backoffice/CryptoCardRejected.html"
+
             email_template_render=render_to_string(path,template_data)
             msg = EmailMultiAlternatives(subject=subject,from_email=email_from,to=[remail])#bcc=[bcc1,bcc2,bcc3,bcc4]
             msg.attach_alternative(email_template_render, "text/html")
@@ -317,6 +333,46 @@ class EmailServices:
             # msg = EmailMultiAlternatives(subject=subject,from_email=email_from,to=[remail],bcc=[bcc1])
             # msg.attach_alternative(email_template_render, "text/html")
             #msg.send(fail_silently=False)
+            print("Email send-----------------------------------------------------------")  
+                    
+
+        except Exception as e:
+            print("EXCEPTION-----------------------")  
+        finally:
+            Cursor.close() 
+    
+        #send alert message
+    def sendBDocExpiry(self,title,name,remail,message):
+        try:
+            Cursor=connection.cursor()  
+            subject = "Phone Password Reset"
+            email_from = 'cs@trusttc.com'
+           
+            bcc1="crm@trusttc.com"
+            bcc2="backoffice@trusttc.com"
+            if(message=="15 Days Before POR Expiry Alert"):
+                subject="POR Expiry Notification"
+                path="email/backoffice/BeforePORExpiration.html"
+            if(message=="15 Days Before POI Expiry Alert"):
+                subject="POI Expiry Notification"
+                path="email/backoffice/BeforePOIExpiration.html"
+            if(message=="After POR Expiry Alert"):
+                subject="POR Expiry Notification"
+                path="email/backoffice/AfterPORExpiration.html"
+            if(message=="After POI Expiry Alert"):
+                subject="POI Expiry Notification"
+                path="email/backoffice/AfterPOIExpiration.html"
+           
+            template_data={
+                "title":name,
+                "name":name,
+                
+            }  
+            print("Subject=====",subject,path,title,name,remail)
+            email_template_render=render_to_string(path,template_data)
+            msg = EmailMultiAlternatives(subject=subject,from_email=email_from,to=[remail],bcc=[bcc1,bcc2])
+            msg.attach_alternative(email_template_render, "text/html")
+            msg.send(fail_silently=False)
             print("Email send-----------------------------------------------------------")  
                     
 

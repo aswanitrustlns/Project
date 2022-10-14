@@ -192,8 +192,8 @@ class Services:
                 
 
                 extension1 = os.path.splitext(str(front))[1]
-                imagename=front.name
-                file_path=UPLOAD_ROOT+"\\"+accno
+                imagename=os.path.splitext(str(front))[0]
+                file_path="static\\uploads\\"
                 # file_path=os.path.join(UPLOAD_ROOT,accno)
                 print("File existance======",file_path,os.path.isfile(file_path))
                 if os.path.isfile(file_path):
@@ -203,9 +203,10 @@ class Services:
                 with open(fullfilepath, 'wb+') as destination:
                     for chunk in front.chunks():
                         imagedata1=chunk
-                        destination.write(chunk)
-            if back:  
-                imagename=back.name  
+                        # destination.write(chunk)
+            if back: 
+                if imagename=="" :
+                    imagename=os.path.splitext(str(back))[0]
                 extension2 = os.path.splitext(str(back))[1]
                 # file_path=os.path.join(UPLOAD_ROOT,accno)
                 if os.path.isfile(file_path):
@@ -215,7 +216,7 @@ class Services:
                 with open(fullfilepath, 'wb+') as destination:
                     for chunk in back.chunks():
                         imagedata2=chunk
-                        destination.write(chunk)   
+                        # destination.write(chunk)   
                               
             if(extension1==".doc"):
                 contenttype = "application/vnd.ms-word"
@@ -237,10 +238,8 @@ class Services:
                 contenttype = "image/png"
             if(extension1==".PNG"):
                 contenttype = "image/png"
-        
             if(extension1==".gif"):
                 contenttype = "image/gif"
-                
             if(extension1==".GIF"):
                 contenttype = "image/gif"
             if(extension1==".bmp"):
@@ -360,6 +359,102 @@ class Services:
         finally:
             Cursor.close()
         return message
+    #save client documnets
+    def save_cliet_documents(self,request):
+        try:
+            print("Request=======",request)
+            accno=int(request.POST.get('accno'))
+            expdate=request.POST.get('expdate')
+            docId=request.POST.get('doctype')
+            date_today=datetime.today().date()  
+
+            uploaded_date=date_today.strftime("%Y-%m-%d")
+            docfile=request.FILES.get('docfile',None)
+            
+            userid=int(request.session.get('UserId'))
+            imagedata=""
+            
+            extension=""
+            
+            imagename=""
+            contenttype=""
+           
+            message="Please try again"
+
+            if docfile:
+
+                extension = os.path.splitext(str(docfile))[1]
+                imagename=os.path.splitext(str(docfile))[0]
+                file_path="static\\uploads\\"
+                # file_path=os.path.join(UPLOAD_ROOT,accno)
+                print("File existance======",file_path,os.path.isfile(file_path))
+                if os.path.isfile(file_path):
+                    os.mkdir(file_path)
+                fullpath=imagename
+                fullfilepath=os.path.join(file_path,fullpath)
+                with open(fullfilepath, 'wb+') as destination:
+                    for chunk in docfile.chunks():
+                        imagedata=chunk
+                        # destination.write(chunk)
+            
+                              
+            if(extension==".doc"):
+                contenttype = "application/vnd.ms-word"
+            if(extension== ".docx"):
+                contenttype = "application/vnd.ms-word"
+            if(extension==".xls"):
+                contenttype = "application/vnd.ms-excel"
+            if(extension==".xlsx"):
+                contenttype = "application/vnd.ms-excel"
+            if(extension==".jpg"):
+                contenttype = "image/jpg"
+            if(extension==".JPG"):
+                contenttype = "image/jpg"
+            if(extension==".JPEG"):
+                contenttype = "image/jpg"
+            if(extension==".jpeg"):
+                contenttype = "image/jpg"
+            if(extension==".png"):
+                contenttype = "image/png"
+            if(extension==".PNG"):
+                contenttype = "image/png"
+            if(extension==".gif"):
+                contenttype = "image/gif"
+            if(extension==".GIF"):
+                contenttype = "image/gif"
+            if(extension==".bmp"):
+                contenttype = "image/bmp"
+            if(extension==".BMP"):
+                contenttype = "image/bmp"
+            if(extension== ".pdf"):
+                contenttype = "application/pdf"
+            if(extension==".PDF"):
+                contenttype = "application/pdf"
+            
+            print("Account data===============================",accno,imagedata,imagename,contenttype,"",uploaded_date,expdate,userid,docId,1)
+            Cursor=connection.cursor()    
+            Cursor.execute("exec SP_SaveClientDocuments %s,%s,%s,%s,%s,%s,%s,%s,%s,%s",[accno,imagedata,imagename,contenttype,"",uploaded_date,expdate,userid,docId,1])
+            message="Document Uploaded Successfully"
+        except Exception as e:
+            print("Exception----",e)
+        finally:
+            Cursor.close()
+        return message
+    #Approve client documnets
+    def approve_client_documents(self,accno,docslist,userid):
+        try:
+            print("Request=======",accno,docslist,userid)
+            strdoclist=' '.join([str(elem) for elem in docslist])
+            
+            Cursor=connection.cursor()   
+            Cursor.execute("exec SP_RejectDocumentWithEmail %s,%s,%s,%s,%s",[accno,userid,"A","reason",strdoclist])
+        except Exception as e:
+            print("Exception----",e)
+        finally:
+            Cursor.close()
+    
+   
+
 
 
   

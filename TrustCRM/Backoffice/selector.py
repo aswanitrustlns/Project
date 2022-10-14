@@ -3,6 +3,9 @@ from django.db import connection
 import string
 import random
 from django.template.loader import render_to_string
+import binascii
+
+from TrustCRM.settings import UPLOAD_ROOT
 from .dllservice import DllService
 demoserver = "50.57.14.224:443"
 demopwd = "Tc2022"
@@ -351,30 +354,114 @@ class Selector:
         finally:
             Cursor.close
 
-    #Get front side image
-    def get_card_front(self,id,accno):
+    #view side image
+    def get_card_front(self,id,accno,side):
         try:
             Cursor=connection.cursor()    
-            Cursor.execute("set nocount on;exec SP_GetCreditCardClicked %s,%s,%s",[id,accno,0])
+            Cursor.execute("set nocount on;exec SP_GetCreditCardClicked %s,%s,%s",[accno,id,side])
             image_detail=Cursor.fetchone()
+            image_path=""
+            if image_detail:
+                
+                imagedata=image_detail[0]
+                imagetype=image_detail[1]
+                imagename=image_detail[2]
+                image_path=create_image(imagedata,imagetype,imagename)
         except Exception as e:
             print("Exception----",e)
         finally:
             Cursor.close
-        return image_detail
-    #Get back side image
-    def get_card_front(self,id,accno):
+        return image_path
+    #Get client documents
+    def get_client_documents(self,accno):
         try:
             Cursor=connection.cursor()    
-            Cursor.execute("set nocount on;exec SP_GetCreditCardClicked %s,%s,%s",[id,accno,1])
-            image_detail=Cursor.fetchone()
+            Cursor.execute("set nocount on;exec SP_GetClientDocuments %s",[accno])
+            doc_details=Cursor.fetchall()
         except Exception as e:
             print("Exception----",e)
         finally:
             Cursor.close
-        return image_detail
-
+        return doc_details
+    #Get activity details
+    def get_client_activites(self,accno):
+        try:
+            Cursor=connection.cursor()    
+            Cursor.execute("set nocount on;exec SP_GetDocumentsLog %s",[accno])
+            doc_log=Cursor.fetchall()
+        except Exception as e:
+            print("Exception----",e)
+        finally:
+            Cursor.close
+        return doc_log
+    #Check mandatory documents
+    def check_mandatory_documents(self,accno):
+        try:
+            Cursor=connection.cursor()    
+            Cursor.execute("set nocount on;exec SP_CheckMandatoryDocs %s",[accno])
+            result=Cursor.fetchone()
+        except Exception as e:
+            print("Exception----",e)
+        finally:
+            Cursor.close
+        return result
+   
+  
+  
+#create image
+def create_image(imagedata,imagetype,imagename):
+    print("Image name=====",imagename)
+    print("Image type=====",imagetype)
+    contenttype=imagetype
+    if(imagetype=="application/vnd.ms-word"):
+            contenttype = ".doc"
+    if(imagetype=="application/vnd.ms-word"):
+        contenttype = ".docx"
+    if(imagetype=="application/vnd.ms-excel"):
+        contenttype = ".xls"
+    if(imagetype=="application/vnd.ms-excel"):
+        contenttype = ".xlsx"
+    if(imagetype=="image/jpg"):
+        contenttype =".jpg" 
+    if(imagetype=="image/jpg"):
+        contenttype = ".JPG"
+    if(imagetype=="image/jpg"):
+        contenttype = ".JPEG"
+    if(imagetype=="image/jpg"):
+        contenttype = ".jpeg"
+    if(imagetype=="image/png"):
+        contenttype = ".png"
+    if(imagetype=="image/png"):
+        contenttype =".PNG" 
         
+    if(imagetype=="image/gif"):
+        contenttype =".gif" 
+                
+    if(imagetype=="image/gif"):
+        contenttype =".GIF" 
+    if(imagetype=="image/bmp"):
+        contenttype = ".bmp"
+    if(imagetype=="image/bmp"):
+        contenttype = ".BMP"
+    if(imagetype== "application/pdf"):
+        contenttype = ".pdf"
+    if(imagetype=="application/pdf"):
+        contenttype = ".PDF"
+    print("Content type====",contenttype)
+    
+    imagename=imagename+contenttype
+    print("Image name====",imagename)
+    file_path="static\\uploads"+"\\"+imagename
+    print("Image name=====",imagename)
+    # with open('binary_file') as file: 
+    #     data = file.read() 
+    res = ''.join(format(x, '02x') for x in imagedata)
+    result=str(res)
+    data = bytes.fromhex(result) 
+    with open(file_path, 'wb') as file: 
+        file.write(data)
+    return file_path
+
         
 
 

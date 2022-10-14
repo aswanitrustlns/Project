@@ -105,6 +105,7 @@ def load_card_data(request):
 
     if 'UserId' in request.session:
         details=""
+        name=""
         accno=request.GET.get('account')
         print("Account number=====",accno)
         details=selector.load_credit_card_details(accno)
@@ -139,8 +140,8 @@ def approve_card(request):
         userid=request.session.get('UserId')
         accno=request.GET.get('accno')
         card=request.GET.get('card')
-        
-        print("Account number=====",accno,card,status)
+        cardtype=request.GET.get('type')
+        print("Account number=====",accno,card,status,cardtype)
         details=selector.verify_redit_card_details(id,accno,status,userid)
         userdetails=selector.get_user_details(accno)
         if userdetails:
@@ -148,7 +149,7 @@ def approve_card(request):
             title=userdetails[2]
             name=userdetails[1]
             email=userdetails[0]
-            emailservice.SendCardApprovalmail(title,name,email,card,"Credit",status)
+            emailservice.SendCardApprovalmail(title,name,email,card,cardtype,status)
         print("User details=========",userdetails)
         
         return JsonResponse({"details":details}) 
@@ -212,20 +213,83 @@ def save_bank_account(request):
 def load_card_front(request):
     if 'UserId' in request.session:
         message=""
-        id=request.GET.get('accno')
+        id=request.GET.get('orderno')
         accno=request.GET.get('accno')
         side=request.GET.get('side')
-        print("view card front")
-        image_details=selector.get_card_front(id,accno)
-        if image_details:
-            image_details=image_details[0]
-            imagedata=image_details[0]
-            imagetype=image_details[1]
-            imagename=image_details[2]
-
-        return JsonResponse({"message":message}) 
+        print("view card front",id,accno,side)
+        image_path=selector.get_card_front(id,accno,side)
+        return JsonResponse({"imagepath":image_path}) 
     else:
         return redirect('/login')
+#View and upload page
+def view_document(request):
+    if 'UserId' in request.session:
+        # accno=request.GET.get('accno')
+        accno=300135
+        docs=selector.get_client_documents(accno)
+        logs=selector.get_client_activites(accno)
+        return render(request,"backoffice/viewandupload.html",{"docs":docs,'logs':logs})
+    else:
+        return redirect('/login')
+#Upload document
+def upload_document(request):
+    if 'UserId' in request.session:
+        message=service.save_cliet_documents(request)
+        return JsonResponse({"message":message})
+    else:
+        return redirect('/login')
+#Update log
+def update_log(request):
+    if 'UserId' in request.session:
+        # accno=request.GET.get('accno')
+        accno=300135
+        logs=selector.get_client_activites(accno)
+        return JsonResponse({"logs":logs})
+    else:
+        return redirect('/login')
+#Approve document
+def approve_document(request):
+    if 'UserId' in request.session:
+        msg="Please try again"
+        
+        accno=int(request.GET.get('accno'))
+        docs=selector.get_client_documents(accno)
+
+        docslist=[x[6] for x in docs]
+        print("Docslist=====",docslist)
+        userid=int(request.session.get('UserId'))
+        service.approve_client_documents(accno,docslist,userid)
+        doc_check=selector.check_mandatory_documents(accno)
+        if doc_check:
+            if doc_check[0]=="SUCCESS":
+                msg="Documents approved successfully"
+            else:
+                msg="Please upload the mandatory documents, Passport Copy(With expiry date)/Proof Of Address/Indivual Account Opening Form to continue"
+        return JsonResponse({"message":msg})
+    else:
+        return redirect('/login')
+ #Document expiry alert
+def send_expiry_alert(request):
+   if 'UserId' in request.session:
+    msg=""
+    accno=int(request.GET.get('accountno'))
+    alert=request.GET.get('alert')
+    userdetails=selector.get_user_details(accno)
+    if userdetails:
+        userdetails=userdetails[0]
+        title=userdetails[2]
+        name=userdetails[1]
+        email=userdetails[0]
+        emailservice.sendBDocExpiry(title,name,email,alert)
+        msg="email send"
+    return JsonResponse({"message":msg})
+   else:
+        return redirect('/login')
+            
+
+
+
+
 
 
 
