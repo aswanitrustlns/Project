@@ -115,9 +115,10 @@ class Selector:
         try:
             Cursor=connection.cursor()           
             Cursor.execute("set nocount on;exec SP_GetDuplicateAccounts %s",[accno]) 
-            duplicate=Cursor.fetchone()
+            duplicate=Cursor.fetchall()
             if duplicate:
                 duplicate=duplicate[0]
+            print("Duplicate========",duplicate)
         except Exception as e:
                 print("Exception------",e)
         finally:
@@ -267,10 +268,12 @@ class Selector:
         try:
             Cursor=connection.cursor()    
             Cursor.execute("set nocount on;exec SP_LoadCommissionStructure %s",[accno])
+            commision=Cursor.fetchone()
         except Exception as e:
             print("Exception----",e)
         finally:
             Cursor.close()
+        return commision
     #Load  creditcard details
     def load_credit_card_details(self,accno):
         try:
@@ -372,6 +375,25 @@ class Selector:
         finally:
             Cursor.close
         return image_path
+     #view document image
+    def get_documnet_image(self,id,accno):
+        try:
+            Cursor=connection.cursor()    
+            Cursor.execute("set nocount on;exec SP_GetDocumentClicked %s,%s",[accno,id])
+            image_detail=Cursor.fetchone()
+            
+            image_path=""
+            if image_detail:
+                
+                imagedata=image_detail[0]
+                imagetype=image_detail[1]
+                imagename=image_detail[2]
+                image_path=create_image(imagedata,imagetype,imagename)
+        except Exception as e:
+            print("Exception----",e)
+        finally:
+            Cursor.close
+        return image_path
     #Get client documents
     def get_client_documents(self,accno):
         try:
@@ -405,13 +427,37 @@ class Selector:
         finally:
             Cursor.close
         return result
+    #Get reject reasons Using reason id 
+    def get_reason(self,reasons):
+        try:
+            reasonStr=[]
+            for reason in reasons:
+                print("Reasons=====",reason)
+                Cursor=connection.cursor()    
+                Cursor.execute("set nocount on;select Rejected_Reason from tbl_RejectReason_Master where id=%s",[reason])
+                result=Cursor.fetchone()
+                reasonStr.append(result[0])
+            print("Result=====",reasonStr)    
+        except Exception as e:
+            print("Exception----",e)
+        finally:
+            Cursor.close
+        return reasonStr  
+    #MT4 password checking
+    def mt4_password_checking(self,username,server,password):
+        try:
+          connect=dllservice.dll_connection(username,server,password)
+        except Exception as e:
+            print("Exception----",e)
+        finally:
+            Cursor.close
+        return connect
    
   
   
 #create image
 def create_image(imagedata,imagetype,imagename):
-    print("Image name=====",imagename)
-    print("Image type=====",imagetype)
+   
     contenttype=imagetype
     if(imagetype=="application/vnd.ms-word"):
             contenttype = ".doc"
@@ -450,7 +496,7 @@ def create_image(imagedata,imagetype,imagename):
     print("Content type====",contenttype)
     
     imagename=imagename+contenttype
-    print("Image name====",imagename)
+    
     file_path="static\\uploads"+"\\"+imagename
     print("Image name=====",imagename)
     # with open('binary_file') as file: 

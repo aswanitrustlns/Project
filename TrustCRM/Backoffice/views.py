@@ -49,7 +49,7 @@ def manage_account(request):
         leverage=selector.loadLeverage()
         accountType=selector.loadAccountType()
         risk=selector.loadRiskCategory()
-        return render(request,'backoffice/officemanagement.html',{"nations":nationality,'country':country,'leverage':leverage,'account':accountType,'risks':risk}) 
+        return render(request,'backoffice/backofficemanagement.html',{"nations":nationality,'country':country,'leverage':leverage,'account':accountType,'risks':risk}) 
     else:
         return redirect('/login')
 
@@ -83,9 +83,13 @@ def check_duplicate(request):
 def backoffice_update(request):
     if 'UserId' in request.session:
         msg=""
-        acc_no=request.POST.get('accno')
+        print("Back office update====")
+        acc_no=request.POST.get('formacc')
+
         leverage=int(request.POST.get("Leverage"))
+        
         category=selector.duplicate_account(acc_no)
+        print("category=======",category)
         if(category=="RC" and leverage>30):
             msg="Retail clients cannot have leverage greater than 30"
         else:
@@ -122,6 +126,7 @@ def load_crypto_data(request):
     if 'UserId' in request.session:
         accno=request.GET.get('account')
         details=""
+        name=""
         print("Account number=====",accno)
         details=selector.load_crypto_card_details(accno)
         userdetails=selector.get_user_details(accno)
@@ -224,11 +229,23 @@ def load_card_front(request):
 #View and upload page
 def view_document(request):
     if 'UserId' in request.session:
-        # accno=request.GET.get('accno')
-        accno=300135
+        accno=request.GET.get('accno')
+        
         docs=selector.get_client_documents(accno)
         logs=selector.get_client_activites(accno)
         return render(request,"backoffice/viewandupload.html",{"docs":docs,'logs':logs})
+    else:
+        return redirect('/login')
+#View documnet image
+def load_document_image(request):
+    if 'UserId' in request.session:
+        message=""
+        id=request.GET.get('orderno')
+        accno=request.GET.get('accno')
+        
+        print("view card front",id,accno)
+        image_path=selector.get_documnet_image(id,accno)
+        return JsonResponse({"imagepath":image_path}) 
     else:
         return redirect('/login')
 #Upload document
@@ -253,18 +270,35 @@ def approve_document(request):
         msg="Please try again"
         
         accno=int(request.GET.get('accno'))
-        docs=selector.get_client_documents(accno)
-
-        docslist=[x[6] for x in docs]
-        print("Docslist=====",docslist)
+        # docs=selector.get_client_documents(accno)
+        docs=request.GET.getlist('docsId[]')
+        reasons=request.GET.getlist('reasons[]')
+        status=request.GET.get('status')
+        print("Docs========",docs,reasons,status)
+        # docslist=[x[6] for x in docs]
+        # print("Docslist=====",docslist)
         userid=int(request.session.get('UserId'))
-        service.approve_client_documents(accno,docslist,userid)
-        doc_check=selector.check_mandatory_documents(accno)
-        if doc_check:
-            if doc_check[0]=="SUCCESS":
-                msg="Documents approved successfully"
-            else:
-                msg="Please upload the mandatory documents, Passport Copy(With expiry date)/Proof Of Address/Indivual Account Opening Form to continue"
+        duplicate_accounts=selector.duplicate_account(accno)
+        print("Duplicate accounts=======",duplicate_accounts,type(duplicate_accounts))
+        service.approve_client_documents(accno,docs,status,reasons,userid)
+        if status=="A":
+            doc_check=selector.check_mandatory_documents(accno)
+            if doc_check:
+                if doc_check[0]=="SUCCESS":
+                    msg="Documents approved successfully"
+                else:
+                    msg="Please upload the mandatory documents, Passport Copy(With expiry date)/Proof Of Address/Indivual Account Opening Form to continue"
+        else:
+            print("type of reason=====",type(reasons))
+            userdetails=selector.get_user_details(accno)
+            if userdetails:
+                userdetails=userdetails[0]
+                title=userdetails[2]
+                name=userdetails[1]
+                email=userdetails[0]
+            reason=selector.get_reason(reasons)
+            emailservice.rejectLiveaccountDocs(title,name,email,reason)
+            msg="Document rejected successfully"
         return JsonResponse({"message":msg})
     else:
         return redirect('/login')
@@ -285,6 +319,44 @@ def send_expiry_alert(request):
     return JsonResponse({"message":msg})
    else:
         return redirect('/login')
+#MT4 Password checking
+def check_mt4_password(request):
+   if 'UserId' in request.session:
+    message="fail"
+    user=request.session.get('user')
+    server=request.session.get('server')
+    password=request.GET.get('password')
+    connect=selector.mt4_password_checking(user,server,password)
+    if connect==0:
+        message="success"
+    return JsonResponse({"message":message})
+   else:
+        return redirect('/login')
+#create multple account
+def multiple_account_create(request):
+    if 'UserId' in request.session:
+        message="Please try again"
+        userid=request.session.get('UserId')
+        accno=request.GET.get('account')
+        print("data   account=======",userid,accno)
+        message=service.create_multiple_account(accno,userid)
+        return JsonResponse({"message":message}) 
+    else:
+        return redirect('/login')
+
+#commision structure load
+def load_commision_structure(request):
+    if 'UserId' in request.session:
+        message="Please try again"
+        userid=request.session.get('UserId')
+        accno=request.GET.get('account')
+        print("data   account=======",userid,accno)
+        commision=selector.load_commision_structure(accno)
+        return JsonResponse({"data":commision}) 
+    else:
+        return redirect('/login')
+        
+
             
 
 

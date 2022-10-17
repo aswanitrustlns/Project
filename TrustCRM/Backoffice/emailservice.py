@@ -380,6 +380,38 @@ class EmailServices:
             print("EXCEPTION-----------------------")  
         finally:
             Cursor.close() 
+    #Reject Live account documents
+    def rejectLiveaccountDocs(self,title,name,remail,reasons):
+        try:
+            Cursor=connection.cursor()  
+            reasonstring=""
+            for reason in reasons:
+                reasonstring+=reason+" "
+            print("Reason strin-====",reasonstring)
+            email_from = 'cs@trusttc.com'
+            subject = "Live Account Documents Rejected"
+            bcc1="crm@trusttc.com"
+            # bcc2="magt@trusttc.com"
+            # bcc3="backoffice@trusttc.com"
+          
+           
+            template_data={
+                "title":title,
+                "name":name,
+                'reasons':reasons,
+                
+            }  
+            email_template_render=render_to_string("email/backoffice/LiveAccountDocumentsRejected.html",template_data)
+            msg = EmailMultiAlternatives(subject=subject,from_email=email_from,to=[remail],bcc=[bcc1])
+            msg.attach_alternative(email_template_render, "text/html")
+            msg.send(fail_silently=False)
+            print("Email send-----------------------------------------------------------")  
+                    
+
+        except Exception as e:
+            print("EXCEPTION-----------------------")  
+        finally:
+            Cursor.close() 
 
 
 

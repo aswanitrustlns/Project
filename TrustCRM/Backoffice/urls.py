@@ -27,7 +27,11 @@ urlpatterns=[
       path('UploadDocumnents',upload_document,name="UploadDocuments"),
       path('LogUpdate',update_log,name="LogUpdate"),
       path('ApproveDocument',approve_document,name="ApproveDocument"),
-      path('ExpiryAlert',send_expiry_alert,name='ExpiryAlert')
+      path('ExpiryAlert',send_expiry_alert,name='ExpiryAlert'),
+      path('ViewDocumentImage',load_document_image,name="ViewDocumentImage"),
+      path('MT4password',check_mt4_password,name="MT4password"),
+      path('Multipleaccount',multiple_account_create,name="Multipleaccount"),
+      path('CommisionStructure',load_commision_structure,name="CommisionStructure")
 
      
     

@@ -2,6 +2,7 @@ import email
 from email import message
 from fileinput import filename
 import string
+from turtle import st
 from django.db import connection
 
 from TrustCRM.settings import PROJECT_ROOT, UPLOAD_ROOT
@@ -46,7 +47,9 @@ class Services:
     #Update details=======
     def update_details(self,request):
         try:
-            login=int(request.POST.get('accno'))
+
+            login=int(request.POST.get('formacc'))
+            print("Login====",login)
             ticket=request.POST.get('ticket')
             name=request.POST.get('firstname')
             groups=request.POST.get('Group')
@@ -54,7 +57,11 @@ class Services:
             country=int(request.POST.get('country1'))
             city=request.POST.get('city')
 
-            zipcode=int(request.POST.get('zipcode'))
+            zipcode=request.POST.get('zipcode')
+            if zipcode!=None:
+                zipcode=int(zipcode)
+            else:
+                zipcode=0
             print("Zip code========",zipcode)
             address=request.POST.get('address')
             phone=request.POST.get('phone')
@@ -62,7 +69,10 @@ class Services:
             idno=request.POST.get('idno')
             leverage=int(request.POST.get('Leverage'))
             print("Leverage======",leverage)
-            regdate=request.POST.get('regdate')
+            regdates=request.POST.get('regdate')
+            # if regdate!=None:
+            #     regdates=datetime.strptime(regdate,"%Y-%m-%d%H:%M")
+            # print("Reg date======",regdates,type(regdates))
             comment=request.POST.get('comment')
             taxrate=0.0
             tinno=request.POST.get('tinno')
@@ -72,11 +82,15 @@ class Services:
             else:
                 enabled=0
             color=request.POST.get('color')
-            if color:
+            if color!=None:
                 color=int(color)
+            else:
+                color=0
             agent=request.POST.get('agent')
-            if agent:
+            if agent!=None:
                 agent=int(agent)
+            else:
+                agent=0
             rdonly=request.POST.get('readonly')
             if(rdonly=="on"):
                 rdonly=1
@@ -99,26 +113,32 @@ class Services:
             nationality=int(request.POST.get('nationality'))
             
             created=request.POST.get('createdby')
-            if created:
+            if created!=None:
                 created=int(created)
             else:
                 created=0
             dob=request.POST.get('dob')
             income=request.POST.get('income')
-            if income:
+            if income!=None:
                 income=float(income)
+            else:
+                income=0
             worth=request.POST.get('worth')
-            if worth:
+            if worth!=None:
                 worth=float(worth)
+            else:
+                worth=0
             deposit=request.POST.get('deposit')
             
-            if deposit:
+            if deposit!=None:
                 deposit=float(deposit)
+            else:
+                deposit=0
             profession=request.POST.get('profession')
             risk=request.POST.get('Risk')
             riskCategory=int(request.POST.get('RiskCategory'))
             acctype=request.POST.get('Account')
-            if acctype:
+            if acctype!=None:
                 acctype=int(acctype)
             else:
                 acctype=0
@@ -136,25 +156,23 @@ class Services:
             blue=0
             green=0
             score=request.POST.get('score')
-            if score:
+            if score!=None:
                 score=float(score)
             else:
                 score=0.0
             termComment=request.POST.get('terComment')
             rdonlycomment=request.POST.get('comment')
             country2=request.POST.get('country2')
-            if country2:
+            if country2!=None:
                 country2=int(country2)
             else:
                 country2=0
             user=request.session.get('UserId')
             mpwd=request.POST.get('mpwd')
             ipwd=request.POST.get('ipwd')
-            print("Data=======1",)
-            print("Data2=====",)
-            print("Date3=========",)
+          
             Cursor=connection.cursor()
-            Cursor.execute("exec SP_UpdateClientDetailsWithLog %s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s",[login,ticket,name,groups,country,city,zipcode,address,phone,email1,idno,leverage,regdate,comment,taxrate,tinno,enabled,color,agent,rdonly,sendreport,changepwd,ppwd,refcode,source,mothername,nationality,created,dob,income,worth,deposit,profession,risk,riskCategory,acctype,email2,phone2,title,terminated,state,risk,red,blue,green,score,termComment,rdonlycomment,country2,user,mpwd,ipwd])
+            Cursor.execute("exec SP_UpdateClientDetailsWithLog %s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s",[login,ticket,name,groups,country,city,zipcode,address,phone,email1,idno,leverage,regdates,comment,taxrate,tinno,enabled,color,agent,rdonly,sendreport,changepwd,ppwd,refcode,source,mothername,nationality,created,dob,income,worth,deposit,profession,risk,riskCategory,acctype,email2,phone2,title,terminated,state,risk,red,blue,green,score,termComment,rdonlycomment,country2,user,mpwd,ipwd])
         except Exception as e:
             print("Exception----",e)
         finally:
@@ -441,17 +459,36 @@ class Services:
             Cursor.close()
         return message
     #Approve client documnets
-    def approve_client_documents(self,accno,docslist,userid):
+    def approve_client_documents(self,accno,docs,status,reasons,userid):
         try:
-            print("Request=======",accno,docslist,userid)
-            strdoclist=' '.join([str(elem) for elem in docslist])
-            
+            print("Request=======",accno,docs,status,reasons,userid)
+            strdoclist=','.join([str(elem) for elem in docs])
+            strreasons=','.join([str(elem) for elem in reasons])
+            # docs=str(docs)
+            print("Strrrrrr",strdoclist)
+            print("Strrrrrr",strreasons)
             Cursor=connection.cursor()   
-            Cursor.execute("exec SP_RejectDocumentWithEmail %s,%s,%s,%s,%s",[accno,userid,"A","reason",strdoclist])
+            Cursor.execute("exec SP_RejectDocumentWithEmail %s,%s,%s,%s,%s",[accno,userid,status,strreasons,strdoclist])
+            print("Query execurted")
         except Exception as e:
             print("Exception----",e)
         finally:
             Cursor.close()
+    #create multiple account
+    def create_multiple_account(self,accno,userid):
+        try:
+            message=""
+            Cursor=connection.cursor()   
+            Cursor.execute("exec SP_CreateMultipleAccount %s,%s",[accno,userid])
+            print("Query executed")
+            message="Multiple accounts created successfully"
+        except Exception as e:
+            print("Exception----",e)
+        finally:
+            Cursor.close()
+        return message
+    
+    
     
    
 

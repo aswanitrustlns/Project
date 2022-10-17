@@ -44,13 +44,7 @@
 
             <div class="page-content" id="sales">
                 <div class="container-fluid">
-    
-                    
-                           
-                           
                             <div class="row ">
-                               
-    
                                 <div class="col-md-6 col-xxl-5">
                                  
                                     <div class=" card   card-h-100" >
@@ -223,7 +217,7 @@
     
                                       
                                     <div class=" card   card-h-100" >
-                                        <div class="card-body ">
+                                        <div class="card-body" id="upload-docs-div">
                                             <h4 class="card-title almarenamonolight-type mb-4 fs-23">Upload Documents
                                                 Details
                                             </h4>
@@ -257,7 +251,7 @@
                                             
                                                         <tr>
                                                         <td class="ps-0"><div class="form-check">
-                                                            <input type="checkbox" class="form-check-input" id="1" required="">
+                                                            <input type="checkbox" class="form-check-input" id="1" name="uploadcheck[]" value={{doc.6}} required="">
                                                             <label class="form-check-label fs-12" for="1"></label>
                                                          
                                                         </div></td>
@@ -267,7 +261,7 @@
                                                        
                                                         <td>{{doc.2}}</td>
                                                         <td>{{doc.3}}</td>
-                                                        <td>{{doc.4}}<input type="hidden" name="docid" val="{{doc.6}}"></td>
+                                                        <td>{{doc.4}}</td>
                                                         
                                                         <td><button class="btn  btn-sm  color-green fs-15" style="background-color:
                                                             rgba(0, 165, 79, 0.15) ;">{{doc.5}}</button></td>
@@ -276,8 +270,8 @@
                                                                 <i class="bx bx-dots-vertical-rounded"></i>
                                                             </a>
                                                             <div class="dropdown-menu">
-                                                                <a class="dropdown-item" href="#">View</a>
-                                                                <a class="dropdown-item" href="#">Edit</a>
+                                                                <a class="dropdown-item" onclick="viewDocs({{doc.6}})">View</a>
+                                                                <a class="dropdown-item" onclick="editDocs({{doc.7}})">Edit</a>
                                                                 
                                                             </div>
                                                         </div></td>
@@ -339,11 +333,11 @@
                                         
                                         <label class="form-label w-100 " for="email1">Please select the reasons for document rejection. </label><br>
                                         
-                                        <input type="checkbox" class="form-check-input" id="generic" required="" name="reasons[]">Generic<br>
-                                        <input type="checkbox" class="form-check-input" id="belgium" required="" name="reasons[]">Belgium<br>
-                                        <input type="checkbox" class="form-check-input" id="thirdcountry" required=""name="reasons[]">Third Country (we don't offer services to)<br>
-                                        <input type="checkbox" class="form-check-input" id="vulnerable" required="" name="reasons[]">Vulnerable<br>
-                                        <input type="checkbox" class="form-check-input" id="generic" required="" name="reasons[]">Appropriateness Test<br>
+                                        <input type="checkbox" class="form-check-input" id="generic" required="" name="reasons[]" value="23">Generic<br>
+                                        <input type="checkbox" class="form-check-input" id="belgium" required="" name="reasons[]" value="24">Belgium<br>
+                                        <input type="checkbox" class="form-check-input" id="thirdcountry" required=""name="reasons[]" value="25">Third Country (we don't offer services to)<br>
+                                        <input type="checkbox" class="form-check-input" id="vulnerable" required="" name="reasons[]" value="26">Vulnerable<br>
+                                        <input type="checkbox" class="form-check-input" id="generic" required="" name="reasons[]" value="27">Appropriateness Test<br>
                                         
                                     
                                 </div>
@@ -388,11 +382,124 @@
         </div>
      </div>
     </div>
+<div class="modal fade" id="image-modal" tabindex="-1" >
+        <div class="modal-dialog modal-dialog-centered modal-xl" >
+            <div class="modal-content">
+    
+                <div class="modal-body ">
+
+                    <div class="  px-3 border rounded-3 py-4">
+                    
+                        <div class="modal-header py-0 px-0 border-bottom-0">
+                            <!-- <h5 class="modal-title mb-3" id="modal-title">Add New Card</h5> -->
+
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
+
+                        </div>
+                        <iframe id="image" style="width: 100%;height: 50vh; "></iframe>
+                        
+                            
+                            
+                            
+                        
+                    </div>
+                
+                </div>
+            </div> <!-- end modal-content-->
+        </div> <!-- end modal dialog-->
+    </div>
+<div class="modal fade" id="edit-document" tabindex="-1" >
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+    
+                <div class="modal-body ">
+
+                    <div class="  px-3 border rounded-3 py-4">
+                    
+                        <div class="modal-header py-0 px-0 border-bottom-0">
+                            <h5 class="modal-title mb-3" id="modal-title">Edit Document</h5>
+
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
+
+                        </div>
+                   
+                        
+                            
+                            <div class="row">
+                            
+                                <div class="col-12">
+                                    <div class="mb-3">
+                                        
+                                        <form id="add-card-form" enctype="multipart/form-data">  
+                                            {% csrf_token %}  
+                                          
+                                     
+                                        <div>
+                                            <label class="form-label w-100 " for="email1">Documnet Type </label>
+                                            <select  type="text" class="form-select" id="docID" placeholder="" name="doctype" required >
+                                                <option value="0">Select</option>
+                                                <option value="25">Account Update Form</option>
+                                                <option value="10">Articles of Association</option>
+                                                <option value="11">Bank Statement</option>
+                                                <option value="12">Business Plan</option>
+                                                <option value="15">Certificate Of Formation </option>
+                                                <option value="17">Closed Account</option>
+                                                <option value="20">CRS Report</option>
+                                                <option value="2">ID/Passport Copy</option>
+                                                <option value="5">Individual Account Opening</option>
+                                                <option value="13">Login Confirmation</option>
+                                                <option value="14">Memorandum</option>
+                                                <option value="18">Miscellaneous</option>
+                                                <option value="21">Professional Client Form</option>
+                                                <option value="3">Proof of Address</option>
+                                                <option value="23">Risk Assessment Form</option>
+                                                <option value="6">Signature</option>
+                                                <option value="16">Termination Letter</option>
+                                                <option value="24">Trading Statements</option>
+                                                <option value="19">World Compliance Check</option>
+                                                <option value="22">Other</option>
+                                            </select>
+                                         </div>
+                                        <br>
+                                        <div>
+                                            <label class="form-label w-100 " for="email1">Expiry Date</label>
+                                            <input  type="text" class="form-control" id="expirydate" name="expdate" required />
+                                            
+                                        </div>
+                                        <br>
+                                        <br>
+                                            <input type="file" id="document-img" name="docfile">
+                                            
+                                            <input type="hidden" name="docname" id="document">
+                                         </form>   
+                                        
+                                        
+                                        
+                                    </div>
+                                    <div class="row mt-2">
+                                        <div class="col-6">
+                                            <button type="button"  class="btn btn-success" id="btn-save-event" onclick="">Save</button>
+                                            <button type="button" data-bs-dismiss="modal" class="btn btn-danger" id="btn-delete-event">Close</button>
+                                        </div>
+                                      
+                                    </div>
+                                </div>
+                           
+                            </div>
+                            
+                        
+                    </div>
+                
+                </div>
+            </div> <!-- end modal-content-->
+        </div> <!-- end modal dialog-->
+    </div>
+
 <script>
      $(document).ready(function () {
         var searchParams = new URLSearchParams(window.location.search)
-        var accountno = searchParams.get('accountno')
-
+        var accountno = searchParams.get('accno')
+        $("#Accountno").val(accountno)
 
 
      });
@@ -406,49 +513,112 @@
                             
             //             })
          
-            $('#doc-data-table').on('click', 'tr', function(e){
-                var currentRow=$(this).closest("tr"); 
-         
-         var col1=currentRow.find("td:eq(6) input").val() // get current row 1st TD value
-         var col2=currentRow.find("td:eq(1)").text(); // get current row 2nd TD
-         var col3=currentRow.find("td:eq(2)").text(); // get current row 3rd TD
-         var data=col2+"\n"+col3;
-        console.log("Data====="+col1)      
-                    });
-
+   
 
     })
    
 
      function loadDocuments(){
+        var accno=$("#Accountno").val()
+
+        accno=301684
+        var row=""
+        // row+="<tr><td class='ps-0'><div class='form-check'><input type='checkbox' class='form-check-input' name='uploadcheck[]' value={{doc.6}}>"+
+        //     "<label class='form-check-label fs-12' for='1'></label></div></td><td>{{doc.0}}</td><td>{{doc.1}}</td><td>{{doc.2}}</td><td>{{doc.3}}</td>"+
+        //     "<td>{{doc.4}}</td><td><button class='btn  btn-sm  color-green fs-15' style='background-color:rgba(0, 165, 79, 0.15) ;''>{{doc.5}}</button></td>"+
+        //     "<td class='text-end'><div class='dropdown align-self-start'><a class='dropdown-toggle' href='#' role='button' data-bs-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>"+
+        //     "<i class='bx bx-dots-vertical-rounded'></i></a><div class='dropdown-menu'><a class='dropdown-item' onclick='viewDocs()'>View</a>"+
+        //     "<a class='dropdown-item' onclick='editDocs()'>Edit</a></div></div></td></tr>"
 
      }
-     
+     function viewDocs(orderno)
+    {
+        var accno=$("#Accountno").val()
+        accno=300135
+        $.ajax({
+                        
+                        type : "GET", 
+                        
+                        url: "{% url 'Backoffice:ViewDocumentImage' %}",
+                       
+                        data:{
+                            "accno":accno,
+                            "orderno":orderno,
+                            
+                        },
+                        success: function(data){
+                        imagepath=data.imagepath
+                        console.log("Image path====="+imagepath)
+                        let image = document.getElementById("image");
+ 
+                         image.src =imagepath
+                        $("#image-modal").modal('show')
+                        // $("#userMsg").empty()
+                        // $("#userMsg").append(data.message)
+                        // $("#alertpopup").modal('show')
+                        }
+                    })
+    }
+     function editDocs(docID){
+        $("#docID").val(docID)
+        $("#edit-document").modal('show')
+        let csrftoken = '{{ csrf_token }}'
+            $.ajax({
+                        
+                        type : "POST", 
+                        headers:{'X-CSRFToken':csrftoken},
+                        url: "{% url 'Backoffice:UploadDocuments' %}",
+                        async: false,
+                        cache: false,
+                        contentType: false,
+                        enctype: 'multipart/form-data',
+                        processData: false,
+                        data:formData,
+                        success: function(data){
+                            var message=data.message
+                            $("#userMsg").empty()
+                            $("#userMsg").append(message)
+                            $("#alertpopup").modal('show')
+
+                        }
+            })
+     }
 
     function rejectDoc(){
         $("#reject-doc").modal('show')
     }
     function approveDoc(){
         var accno=$("#Accountno").val()
-        accno=301684
+
+        accno=300135
+        var selected = [];
+        var status="A"
+        var reasons=[]
+        $('[name="uploadcheck[]"]:checked').each(function(checkbox) {
+        
+        selected.push(this.value);
+        });
+        console.log("Selected======="+selected)
         $.ajax({
-                        
-                        type : "GET", 
-                        
-                        url: "{% url 'Backoffice:ApproveDocument' %}",
-                       
-                        data:{
+                    type : "GET", 
+                    url: "{% url 'Backoffice:ApproveDocument' %}",
+                    data:{
                             
                             'accno':accno,
+                            'docsId':selected,
+                            'status':status,
+                            'reasons':reasons
                             
-                        },
-                        success: function(data){
-                            console.log("message"+data)
-                            // $("#userMsg").empty()
-                            // $("#userMsg").append("Email send successfully")
-                            // $("#alertpopup").modal('show')
-                        }
-                    })
+                    },
+                    success: function(data){
+                            console.log("message"+data.message)
+                            $('#upload-docs-div').load(document.URL +  ' #upload-docs-div')
+                            
+                            $("#userMsg").empty()
+                            $("#userMsg").append(data.message)
+                            $("#alertpopup").modal('show')
+                    }
+                })
 
 
     }
@@ -548,6 +718,49 @@
 
     }
     function rejectProceed(){
+        $("#reject-doc").modal('hide')
+        var accno=$("#Accountno").val()
+        accno=301684
+        var reasons= [];
+        var selected= [];
+        $('[name="reasons[]"]:checked').each(function(checkbox) {
+        
+        reasons.push(this.value);
+        });
+        $('[name="uploadcheck[]"]:checked').each(function(checkbox) {
+        
+        selected.push(this.value);
+        });
+        console.log("Selected====="+selected)
+        console.log("Reasons====="+reasons)
+        if(reasons==[]){
+            $("#userMsg").empty()
+            $("#userMsg").append("Please select the reason to reject")
+            $("#alertpopup").modal('show')
+
+        }else{
+            $.ajax({
+                    type : "GET", 
+                    url: "{% url 'Backoffice:ApproveDocument' %}",
+                    data:{
+                            
+                            'accno':accno,
+                            'docsId':selected,
+                            'status':"R",
+                            'reasons':reasons
+                            
+                    },
+                    success: function(data){
+                            console.log("message"+data.message)
+                            $('#upload-docs-div').load(document.URL +  ' #upload-docs-div')
+                            $("#userMsg").empty()
+                            $("#userMsg").append(data.message)
+                            $("#alertpopup").modal('show')
+                    }
+                })
+
+
+        }
 
     }
 </script>    
