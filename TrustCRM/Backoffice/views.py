@@ -58,6 +58,7 @@ def load_account_details(request):
     if 'UserId' in request.session:
         acc_no=request.GET.get('account')
         details=selector.loadAccountDetails(acc_no)
+        
         return JsonResponse({"detail":details}) 
     else:
         return redirect('/login')
@@ -204,16 +205,16 @@ def save_bank_account(request):
         return JsonResponse({"message":message}) 
     else:
         return redirect('/login')
-#Save Bank account
-def save_bank_account(request):
-    if 'UserId' in request.session:
-        message=""
+# #Save Bank account
+# def save_crypto_account(request):
+#     if 'UserId' in request.session:
+#         message=""
         
-        print("Save crypto account=======")
-        message=service.save_crypto_card(request)
-        return JsonResponse({"message":message}) 
-    else:
-        return redirect('/login')
+#         print("Save crypto account=======")
+#         message=service.save_crypto_card(request)
+#         return JsonResponse({"message":message}) 
+#     else:
+#         return redirect('/login')
 #View Card Front
 def load_card_front(request):
     if 'UserId' in request.session:
@@ -258,10 +259,34 @@ def upload_document(request):
 #Update log
 def update_log(request):
     if 'UserId' in request.session:
-        # accno=request.GET.get('accno')
-        accno=300135
+        accno=request.GET.get('accno')
         logs=selector.get_client_activites(accno)
         return JsonResponse({"logs":logs})
+    else:
+        return redirect('/login')
+#Get Ticket Summary
+def summary_ticket(request):
+    if 'UserId' in request.session:
+        ticket=request.GET.get('ticket')
+        summary=selector.get_ticket_summary(ticket)
+        return JsonResponse({"summary":summary})
+    else:
+        return redirect('/login')
+#Get Ticket Summary
+def journal_update(request):
+    if 'UserId' in request.session:
+        ticket=request.GET.get('ticket')
+        activity=selector.get_activities_log(ticket)
+        return JsonResponse({"activity":activity})
+    else:
+        return redirect('/login')
+#Load Reminders
+def load_reminders(request):
+    if 'UserId' in request.session:
+        userid=request.session.get('UserId')
+        ticket=request.GET.get('ticket')
+        reminders=selector.load_ticket_reminders(userid,ticket)
+        return JsonResponse({"reminders":reminders})
     else:
         return redirect('/login')
 #Approve document
@@ -355,6 +380,183 @@ def load_commision_structure(request):
         return JsonResponse({"data":commision}) 
     else:
         return redirect('/login')
+#Reset Phone Password
+def reset_phone_pwd(request):
+    if 'UserId' in request.session:
+        message="Please try again"
+        userid=int(request.session.get('UserId'))
+        accno=request.GET.get('account')
+        print("data   account=======",userid,accno)
+        phonepwd=selector.phone_password_reset(accno)
+        message="MT4 Error!! Cannot change password"
+        userdetails=selector.get_user_details(accno)
+        service.save_activity_log("Phone password reset",userid,"Phone PWD Reset")
+        if userdetails:
+            userdetails=userdetails[0]
+            title=userdetails[2]
+            name=userdetails[1]
+            email=userdetails[0]
+            emailservice.sendResetPWD(title,name,email,phonepwd)
+        message="Password changed successfully"
+        return JsonResponse({"message":message}) 
+    else:
+        return redirect('/login')
+#Update Client area
+def update_client_area_credential(request):
+    if 'UserId' in request.session:
+        message="Please try again"
+        userid=int(request.session.get('UserId'))
+        accno=request.GET.get('account')
+        oldemail=request.GET.get('old')
+        newemail=request.GET.get('new')
+        print("data   account=======",userid,accno,oldemail,newemail)
+        
+        service.update_client_area(accno,oldemail,newemail)
+        userdetails=selector.get_user_details(accno)
+        if userdetails:
+            userdetails=userdetails[0]
+            title=userdetails[2]
+            name=userdetails[1]
+            email=userdetails[0]
+            # emailservice.ClientAreaCredentialUpdate(title,name,email,accno)
+            # emailservice.ClientAreaCredentialUpdateNotify(accno)
+        message="Updated successfully"
+        return JsonResponse({"message":message}) 
+    else:
+        return redirect('/login')
+#Final approval
+def final_approval(request):
+    if 'UserId' in request.session:
+        message="Please try again"
+        userid=int(request.session.get('UserId'))
+        accno=request.GET.get('account')
+        status=selector.get_docs_verified(accno)
+        docverified=1
+        PORstatus=""
+        if status:
+            docverified=status[0]
+            PORstatus=status[3]
+        if docverified==0 or PORstatus=="Not Verified":
+            message="POI and POR are mandatory before complete approval"
+        else:
+           message=selector.approveClient(accno,userid)
+
+        userdetails=selector.get_email_details(accno)
+        if userdetails:
+            title=userdetails[3]
+            name=userdetails[1]
+            email=userdetails[0]
+            email=userdetails[0]
+            # emailservice.SendFinalApprovalEmail(title,name,email,accno)
+            
+        
+        return JsonResponse({"message":message}) 
+    else:
+        return redirect('/login')
+#Temperory approval
+def temperory_approval(request):
+    if 'UserId' in request.session:
+        message="Please try again"
+        userid=int(request.session.get('UserId'))
+        accno=request.GET.get('account')
+        status=selector.get_docs_verified_poi(accno)
+        print("Status=========",status[3])
+        docverified=1
+        POIstatus=""
+        if status:
+            docverified=status[0]
+            POIstatus=status[3]
+        if docverified==0 or POIstatus=="Not Verified":
+            message="POI is mandatory for temporary approval"
+        else:
+           message=selector.tmpApproveClient(accno,userid)
+        
+        userdetails=selector.get_email_details(accno)
+        if userdetails:
+           
+            title=userdetails[3]
+            name=userdetails[1]
+            email=userdetails[0]
+            acctype=userdetails[9]
+            #emailservice.SendTempAccountDetails(title,name,email,accno,acctype)
+            
+        
+        return JsonResponse({"message":message}) 
+    else:
+        return redirect('/login')
+#Email Bank Details
+def email_bank_details(request):
+    if 'UserId' in request.session:
+        message="Please try again"
+        accno=request.GET.get('account')
+        bankname=request.GET.get('name')
+        address=request.GET.get('address')
+        beneficiary=request.GET.get('beneficiary')
+        swift=request.GET.get('swift')
+        iban=request.GET.get('iban')
+        ffc=request.GET.get('ffc')
+        print("Email Bank account")
+        userdetails=selector.get_email_details(accno)
+        if userdetails:
+           
+            title=userdetails[3]
+            name=userdetails[1]
+            email=userdetails[0]
+        emailservice.sendBankDetails(accno,bankname,address,beneficiary,swift,iban,ffc,title,name,email)
+        message="Email send successfully"
+        return JsonResponse({"message":message}) 
+    else:
+        return redirect('/login')
+#Terminate Account
+def terminate_account(request):
+    if 'UserId' in request.session:
+        message="Please try again"
+        userid=int(request.session.get('UserId'))
+        accno=request.GET.get('account')
+        reasonid=request.GET.get('reasonId')
+        description=request.GET.get('description')
+        status=""
+        print("data====",accno,reasonid,description,status,userid)
+        # status=selector.get_docs_verified(accno)
+        # docverified=1
+        # PORstatus=""
+        # if status:
+        #     docverified=status[0]
+        #     PORstatus=status[3]
+        message=selector.rejectdocument(accno,reasonid,description,status,userid)
+
+        userdetails=selector.get_email_details(accno)
+        if userdetails:
+            title=userdetails[3]
+            name=userdetails[1]
+            email=userdetails[0]
+            
+            # emailservice.terminationofaccount(title,name,email,reasonid)
+            
+        
+        return JsonResponse({"message":message}) 
+    else:
+        return redirect('/login')
+#Send email template
+def email_template(request):
+    if 'UserId' in request.session:
+        message="Please try again"
+        accno=request.GET.get('account')
+        template=request.GET.get('template')
+       
+        print("Account no=====",accno,template)
+        userdetails=selector.get_email_details(accno)
+        if userdetails:
+           
+            title=userdetails[3]
+            name=userdetails[1]
+            email=userdetails[0]
+        emailservice.sendtemplate(title,name,email,template)
+        message="Email send successfully"
+        return JsonResponse({"message":message}) 
+    else:
+        return redirect('/login')
+
         
 
             

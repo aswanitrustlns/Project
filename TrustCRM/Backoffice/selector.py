@@ -1,9 +1,11 @@
+from email import message
 from sqlite3 import Cursor
 from django.db import connection
 import string
 import random
 from django.template.loader import render_to_string
 import binascii
+from datetime import datetime
 
 from TrustCRM.settings import UPLOAD_ROOT
 from .dllservice import DllService
@@ -144,23 +146,25 @@ class Selector:
             Cursor=connection.cursor()           
             Cursor.execute("set nocount on;exec SP_TmpApproveClient %s,%s",[accno,userId]) 
             # category=Cursor.fetchone()
-            
+            msg="Account approved successfully"
         except Exception as e:
                 print("Exception------",e)
         finally:
                 Cursor.close()
-    
+        return msg
      #approve client
     def approveClient(self,accno,userId):
         try:
+            msg="Account approved in MT4. Database update failed"
             Cursor=connection.cursor()           
             Cursor.execute("set nocount on;exec SP_ApproveClient %s,%s",[accno,userId]) 
-            # category=Cursor.fetchone()
             
+            msg="Account approved successfully"
         except Exception as e:
                 print("Exception------",e)
         finally:
                 Cursor.close()
+        return msg
 
     #Get email details
     def get_email_details(self,accno):
@@ -178,14 +182,15 @@ class Selector:
     #Reject documnet
     def rejectdocument(self,accno,reasonId,description,status,user):
         try:
+            
             Cursor=connection.cursor()           
             Cursor.execute("set nocount on;exec SP_RejectDocument %s,%s,%s,%s,%s",[accno,reasonId,description,status,user]) 
-            
+            message="Account terminated successfully"
         except Exception as e:
                 print("Exception------",e)
         finally:
                 Cursor.close()
-    
+        return message
     #Update account status
     def update_account_status(self,livestatus,accno,clientarealogin,userId):
         try:
@@ -236,7 +241,7 @@ class Selector:
     def get_complains_details(self,complaintId):
         try:
             Cursor=connection.cursor()           
-            Cursor.execute("set nocount on;exec SP_GetComplianceDetails %s",[complaintId]) 
+            Cursor.execute("set nocount on;exec SP_GetComplianceDetails %s,%s",[complaintId,"nodata"]) 
             result=Cursor.fetchone()
         except Exception as e:
                 print("Exception------",e)
@@ -452,6 +457,84 @@ class Selector:
         finally:
             Cursor.close
         return connect
+     #Phone password reset
+    def phone_password_reset(self,accno):
+        try:
+            newPwd=random_pwd_gen()
+            print("New password====",newPwd)
+            Cursor=connection.cursor()    
+            Cursor.execute("set nocount on; exec SP_ChangePhonePasswords %s,%s",[newPwd,accno])
+            # connect=dllservice.dll_phone_pwd(accno,newPwd)
+        except Exception as e:
+            print("Exception----",e)
+        finally:
+            Cursor.close
+        return newPwd
+
+    # Get Ticket Summary
+    def get_ticket_summary(self,ticket):
+        summary_list=[]
+        
+        try:
+            ticket=ticket.strip()
+            Cursor=connection.cursor()
+            Cursor.execute("set nocount on;exec SP_GetSalesSummary %s",[ticket])
+            ticket_summary=Cursor.fetchall()
+           
+            for summary in ticket_summary:
+                
+                summary_text=summary[1].split(":",1)  #index out of range
+               
+                summary_list.append({
+                    'summary_head':summary_text[0],
+                    'summary_text':summary_text[1]
+                })
+            print("Summary list===",summary_list)
+        except Exception as e:
+            print("Exception------",e)
+        finally:
+            Cursor.close()
+        return summary_list
+    #Get Activities log
+    def get_activities_log(self,ticket):
+        try:
+            Cursor=connection.cursor()
+            current=datetime.now()
+            ticket=str(ticket)
+            log_time=current.strftime("%H:%M:%S")
+            print("Current timeeeeeeeeeeeeeeeeeee",log_time)
+            Cursor.execute("set nocount on;exec SP_GetTicketLogs %s,%s",[ticket,log_time])
+            activity_logs=Cursor.fetchall()
+            print("activity Logs")
+        except Exception as e:
+            print("Exception------",e)
+        finally:
+            Cursor.close()
+        return activity_logs
+
+    #Insert ticket logs procedure
+    def insert_ticket_logs(self,userid,logdata,logtype,ticket):
+        try:
+            Cursor=connection.cursor()
+            print("Insert ticket logs data=======",userid,logdata,logtype,ticket)
+            Cursor.execute("set nocount on;exec SP_InsertTicketLogs %s,%s,%s,%s",[userid,logdata,logtype,ticket])
+            print("Ticket log inster done")
+        except Exception as e:
+            print("Exception------",e)
+        finally:
+            Cursor.close()
+    #Load Ticket Reminders
+    def load_ticket_reminders(self,userid,ticket):
+        try:
+            Cursor=connection.cursor()           
+            Cursor.execute("set nocount on;exec SP_GetTicketReminders %s,%s",[userid,ticket]) 
+            all_reminders=Cursor.fetchall()
+        except Exception as e:
+                print("Exception------",e)
+        finally:
+                Cursor.close()
+        return all_reminders
+    
    
   
   

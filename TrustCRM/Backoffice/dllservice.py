@@ -91,4 +91,16 @@ class DllService:
         account_no=c_int(accountno)
         info=Get_ClientInfo(c_char_p(self.demoserver.encode('utf-8')).value,login.value,c_char_p(self.demopwd.encode('utf-8')).value,account_no.value)
         return info
+     #dll phone password
+    def dll_phone_pwd(self,accountno,phone):
+        
+        hllDll = CDLL(r"C:\\pyenv\\TrustManagerAPI.dll") 
+        PhonePassword_Change = hllDll.changePhonePassword
+        hllDll.changePhonePassword = c_char_p,c_int,c_char_p,c_int,c_char_p
+        hllDll.changePhonePassword.restype = c_int
+        username=int(self.demouser)
+        login = c_int(username)
+        account_no=c_int(accountno)
+        pwdchange=PhonePassword_Change(c_char_p(self.demoserver.encode('utf-8')).value,login.value,c_char_p(self.demopwd.encode('utf-8')).value,account_no.value,c_char_p(phone.encode('utf-8')))
+        return pwdchange
     

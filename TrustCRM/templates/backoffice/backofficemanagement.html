@@ -18,6 +18,10 @@
      <!--<link href="assets/libs/admin-resources/jquery.vectormap/jquery-jvectormap-1.2.2.css" rel="stylesheet"
          type="text/css" />-->
       <!-- datepicker css -->
+      <link href="{% static 'libs/@fullcalendar/core/main.min.css' %}" rel="stylesheet" type="text/css" />
+     <link href="{% static 'libs/@fullcalendar/daygrid/main.min.css'%}" rel="stylesheet" type="text/css" />
+     <link href="{% static 'libs/@fullcalendar/bootstrap/main.min.css' %}" rel="stylesheet" type="text/css" />
+     <link href="{% static 'libs/@fullcalendar/timegrid/main.min.css'%}" rel="stylesheet" type="text/css" />
       <link rel="stylesheet" href="{% static 'libs/flatpickr/flatpickr.min.css' %}">
       
       <link href="{% static 'css/input-tel.min.css' %}" rel="stylesheet"   type="text/css" />
@@ -680,249 +684,52 @@
                                                                         <div class="card-body">
     
                                                                             <div id="ticketsummary" >
+                                                                                {%if ticket_summary %}
+                                                                                <div>
+
+                                                                                    <div class="d-flex py-2">
+                                                                                        <div class="d-flex justify-content-between align-items-center ">
+                                                                                            <span class=" p-2 p-xxl-3  me-xxl-3 me-2 " style="background-color:rgba(35, 36, 54, 1);">
+                        
+                                                                                                <svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                                                    <path d="M12.7994 6.77875L8.49978 2.47917L4.2002 6.77875" stroke="#73759D" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                                                                                                    <path d="M8.5 14.5208V2.59958" stroke="#73759D" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                                                                                                    </svg>
+                                                                                                    
+                                                                                            </span>
+                                                                                            <p class="gilroymedium-type m-0 ">
+                                                                                               
+                                                                                                <span class="color-color1 fs-15"></span>
+                                                                                                <span class="text-white d-block mt-1 fs-15 "></span>
+                                                                                            </p>
+                        
+                                                                                        </div>
+                                                                                        
+                                                                                        <span class="ms-auto my-0 py-0">
+                        
+                                                                                            <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                                                <path d="M5.35205 3.08788L9.25104 6.98687C9.7115 7.44733 9.7115 8.20082 9.25104 8.66128L5.35205 12.5603" stroke="#73759D" stroke-width="1.53772" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                                                                                                </svg>
+                                                                                                
+                                                                                        </span>
+                                                                                    </div>
+                                                                                    <hr>
+                                                                                </div>
+                                                                                {%else%}
+                                                                                <div class="  text-center d-block ">
+                                                        
+                                                                                    <img src="{%static 'images/nodata/nodata.png' %}" alt="">
+                                                                                    
+                                                                                        
+                                                
+                                                                                    <p class="gilory-regular-type fs-20 mt-2">Nothing To show</p>
+                                                                                    
+                                                                                </div> 
+                                    
+                                                                                {%endif%}
                                                                             
-                                                                                
                                                                             <!--Item1-->
-                                                                            <div>
-    
-                                                                                <div class="d-flex py-2">
-                                                                                    <div class="d-flex justify-content-between align-items-center ">
-                                                                                        <span class=" p-2 p-xxl-3  me-xxl-3 me-2 " style="background-color:rgba(35, 36, 54, 1);">
-                    
-                                                                                            <svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                                                <path d="M12.7994 6.77875L8.49978 2.47917L4.2002 6.77875" stroke="#73759D" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
-                                                                                                <path d="M8.5 14.5208V2.59958" stroke="#73759D" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
-                                                                                                </svg>
-                                                                                                
-                                                                                        </span>
-                                                                                        <p class="gilroymedium-type m-0 ">
-                        
-                                                                                            <span class="color-color1 fs-15">Sales templates sent</span>
-                                                                                            <span class="text-white d-block mt-1 fs-15 ">21</span>
-                                                                                        </p>
-                    
-                                                                                    </div>
-                                                                                    
-                                                                                    <span class="ms-auto my-0 py-0">
-                    
-                                                                                        <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                                            <path d="M5.35205 3.08788L9.25104 6.98687C9.7115 7.44733 9.7115 8.20082 9.25104 8.66128L5.35205 12.5603" stroke="#73759D" stroke-width="1.53772" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
-                                                                                            </svg>
-                                                                                            
-                                                                                    </span>
-                                                                                </div>
-                                                                                <hr>
-                                                                            </div>
-                                                                            <div>
-    
-                                                                                <div class="d-flex py-2">
-                                                                                    <div class="d-flex justify-content-between align-items-center ">
-                                                                                        <span class=" p-2 p-xxl-3  me-xxl-3 me-2 " style="background-color:rgba(35, 36, 54, 1);">
-                    
-                                                                                            <svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                                                <path d="M12.7994 6.77875L8.49978 2.47917L4.2002 6.77875" stroke="#73759D" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
-                                                                                                <path d="M8.5 14.5208V2.59958" stroke="#73759D" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
-                                                                                                </svg>
-                                                                                                
-                                                                                        </span>
-                                                                                        <p class="gilroymedium-type m-0 ">
-                        
-                                                                                            <span class="color-color1 fs-15">Sales templates sent</span>
-                                                                                            <span class="text-white d-block mt-1 fs-15 ">21</span>
-                                                                                        </p>
-                    
-                                                                                    </div>
-                                                                                    
-                                                                                    <span class="ms-auto my-0 py-0">
-                    
-                                                                                        <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                                            <path d="M5.35205 3.08788L9.25104 6.98687C9.7115 7.44733 9.7115 8.20082 9.25104 8.66128L5.35205 12.5603" stroke="#73759D" stroke-width="1.53772" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
-                                                                                            </svg>
-                                                                                            
-                                                                                    </span>
-                                                                                </div>
-                                                                                <hr>
-                                                                            </div>
-                                                                            <div>
-    
-                                                                                <div class="d-flex py-2">
-                                                                                    <div class="d-flex justify-content-between align-items-center ">
-                                                                                        <span class=" p-2 p-xxl-3  me-xxl-3 me-2 " style="background-color:rgba(35, 36, 54, 1);">
-                    
-                                                                                            <svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                                                <path d="M12.7994 6.77875L8.49978 2.47917L4.2002 6.77875" stroke="#73759D" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
-                                                                                                <path d="M8.5 14.5208V2.59958" stroke="#73759D" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
-                                                                                                </svg>
-                                                                                                
-                                                                                        </span>
-                                                                                        <p class="gilroymedium-type m-0 ">
-                        
-                                                                                            <span class="color-color1 fs-15">Sales templates sent</span>
-                                                                                            <span class="text-white d-block mt-1 fs-15 ">21</span>
-                                                                                        </p>
-                    
-                                                                                    </div>
-                                                                                    
-                                                                                    <span class="ms-auto my-0 py-0">
-                    
-                                                                                        <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                                            <path d="M5.35205 3.08788L9.25104 6.98687C9.7115 7.44733 9.7115 8.20082 9.25104 8.66128L5.35205 12.5603" stroke="#73759D" stroke-width="1.53772" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
-                                                                                            </svg>
-                                                                                            
-                                                                                    </span>
-                                                                                </div>
-                                                                                <hr>
-                                                                            </div>
-                                                                            <div>
-    
-                                                                                <div class="d-flex py-2">
-                                                                                    <div class="d-flex justify-content-between align-items-center ">
-                                                                                        <span class=" p-2 p-xxl-3  me-xxl-3 me-2 " style="background-color:rgba(35, 36, 54, 1);">
-                    
-                                                                                            <svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                                                <path d="M12.7994 6.77875L8.49978 2.47917L4.2002 6.77875" stroke="#73759D" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
-                                                                                                <path d="M8.5 14.5208V2.59958" stroke="#73759D" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
-                                                                                                </svg>
-                                                                                                
-                                                                                        </span>
-                                                                                        <p class="gilroymedium-type m-0 ">
-                        
-                                                                                            <span class="color-color1 fs-15">Sales templates sent</span>
-                                                                                            <span class="text-white d-block mt-1 fs-15 ">21</span>
-                                                                                        </p>
-                    
-                                                                                    </div>
-                                                                                    
-                                                                                    <span class="ms-auto my-0 py-0">
-                    
-                                                                                        <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                                            <path d="M5.35205 3.08788L9.25104 6.98687C9.7115 7.44733 9.7115 8.20082 9.25104 8.66128L5.35205 12.5603" stroke="#73759D" stroke-width="1.53772" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
-                                                                                            </svg>
-                                                                                            
-                                                                                    </span>
-                                                                                </div>
-                                                                                <hr>
-                                                                            </div>
-                                                                            <div>
-    
-                                                                                <div class="d-flex py-2">
-                                                                                    <div class="d-flex justify-content-between align-items-center ">
-                                                                                        <span class=" p-2 p-xxl-3  me-xxl-3 me-2 " style="background-color:rgba(35, 36, 54, 1);">
-                    
-                                                                                            <svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                                                <path d="M12.7994 6.77875L8.49978 2.47917L4.2002 6.77875" stroke="#73759D" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
-                                                                                                <path d="M8.5 14.5208V2.59958" stroke="#73759D" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
-                                                                                                </svg>
-                                                                                                
-                                                                                        </span>
-                                                                                        <p class="gilroymedium-type m-0 ">
-                        
-                                                                                            <span class="color-color1 fs-15">Sales templates sent</span>
-                                                                                            <span class="text-white d-block mt-1 fs-15 ">21</span>
-                                                                                        </p>
-                    
-                                                                                    </div>
-                                                                                    
-                                                                                    <span class="ms-auto my-0 py-0">
-                    
-                                                                                        <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                                            <path d="M5.35205 3.08788L9.25104 6.98687C9.7115 7.44733 9.7115 8.20082 9.25104 8.66128L5.35205 12.5603" stroke="#73759D" stroke-width="1.53772" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
-                                                                                            </svg>
-                                                                                            
-                                                                                    </span>
-                                                                                </div>
-                                                                                <hr>
-                                                                            </div>
-                                                                            <div>
-    
-                                                                                <div class="d-flex py-2">
-                                                                                    <div class="d-flex justify-content-between align-items-center ">
-                                                                                        <span class=" p-2 p-xxl-3  me-xxl-3 me-2 " style="background-color:rgba(35, 36, 54, 1);">
-                    
-                                                                                            <svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                                                <path d="M12.7994 6.77875L8.49978 2.47917L4.2002 6.77875" stroke="#73759D" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
-                                                                                                <path d="M8.5 14.5208V2.59958" stroke="#73759D" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
-                                                                                                </svg>
-                                                                                                
-                                                                                        </span>
-                                                                                        <p class="gilroymedium-type m-0 ">
-                        
-                                                                                            <span class="color-color1 fs-15">Sales templates sent</span>
-                                                                                            <span class="text-white d-block mt-1 fs-15 ">21</span>
-                                                                                        </p>
-                    
-                                                                                    </div>
-                                                                                    
-                                                                                    <span class="ms-auto my-0 py-0">
-                    
-                                                                                        <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                                            <path d="M5.35205 3.08788L9.25104 6.98687C9.7115 7.44733 9.7115 8.20082 9.25104 8.66128L5.35205 12.5603" stroke="#73759D" stroke-width="1.53772" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
-                                                                                            </svg>
-                                                                                            
-                                                                                    </span>
-                                                                                </div>
-                                                                                <hr>
-                                                                            </div>
-                                                                            <div>
-    
-                                                                                <div class="d-flex py-2">
-                                                                                    <div class="d-flex justify-content-between align-items-center ">
-                                                                                        <span class=" p-2 p-xxl-3  me-xxl-3 me-2 " style="background-color:rgba(35, 36, 54, 1);">
-                    
-                                                                                            <svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                                                <path d="M12.7994 6.77875L8.49978 2.47917L4.2002 6.77875" stroke="#73759D" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
-                                                                                                <path d="M8.5 14.5208V2.59958" stroke="#73759D" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
-                                                                                                </svg>
-                                                                                                
-                                                                                        </span>
-                                                                                        <p class="gilroymedium-type m-0 ">
-                        
-                                                                                            <span class="color-color1 fs-15">Sales templates sent</span>
-                                                                                            <span class="text-white d-block mt-1 fs-15 ">21</span>
-                                                                                        </p>
-                    
-                                                                                    </div>
-                                                                                    
-                                                                                    <span class="ms-auto my-0 py-0">
-                    
-                                                                                        <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                                            <path d="M5.35205 3.08788L9.25104 6.98687C9.7115 7.44733 9.7115 8.20082 9.25104 8.66128L5.35205 12.5603" stroke="#73759D" stroke-width="1.53772" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
-                                                                                            </svg>
-                                                                                            
-                                                                                    </span>
-                                                                                </div>
-                                                                                <hr>
-                                                                            </div>
-                                                                            <!--Item1-->
-                                                                            <div>
-                                                                                <div class="d-flex py-2">
-                                                                                    <div class="d-flex justify-content-between align-items-center ">
-                                                                                        <span class=" p-2 p-xxl-3 me-xxl-3 me-2 " style="background-color:rgba(35, 36, 54, 1);">
-                    
-                                                                                            <svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                                                <path d="M12.7994 6.77875L8.49978 2.47917L4.2002 6.77875" stroke="#73759D" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
-                                                                                                <path d="M8.5 14.5208V2.59958" stroke="#73759D" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
-                                                                                                </svg>
-                                                                                                
-                                                                                        </span>
-                                                                                        <p class="gilroymedium-type m-0 ">
-                        
-                                                                                            <span class="color-color1 fs-15">Sales templates sent</span>
-                                                                                            <span class="text-white d-block mt-1 fs-15 ">21</span>
-                                                                                        </p>
-                    
-                                                                                    </div>
-                                                                                    
-                                                                                    <span class="ms-auto my-0 py-0">
-                    
-                                                                                        <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                                            <path d="M5.35205 3.08788L9.25104 6.98687C9.7115 7.44733 9.7115 8.20082 9.25104 8.66128L5.35205 12.5603" stroke="#73759D" stroke-width="1.53772" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
-                                                                                            </svg>
-                                                                                            
-                                                                                    </span>
-                                                                                </div>
-                                                                                <hr>
-                                                                            </div>
+                                                                              
                                                                             </div>
     
     
@@ -1165,12 +972,13 @@
         
         
                                                                                 <div  class="px-0"  id="journal-block"  ><!-- style="max-height: 200px"-->
-                                                                                    <ul class="list-unstyled activity-wid activity-wid-manage-tickets " >
+                                                                                    <ul class="list-unstyled activity-wid activity-wid-manage-tickets " id="activityList">
                                                                                     
                                                                                     
                                                 
                                                                                         <!--activity x-->
-                                        
+                                                                                        {%if activity_log %}
+                                                                                  
                                                                                         <li class="activity-list activity-border">
                                                                                             <div class="activity-icon avatar-sm ms-2">
                                                                                                 <span class="avatar-title bg-soft-boxgray1 text-warning rounded-circle">
@@ -1201,165 +1009,23 @@
                                                                                                 </div>
                                                                                             </div> 
                                                                                         </li>
-                                                                                        <!--activity x-->
-                                        
-                                                                                        <li class="activity-list activity-border">
-                                                                                            <div class="activity-icon avatar-sm ms-2">
-                                                                                                <span class="avatar-title bg-soft-boxgray1 text-warning rounded-circle">
-                                                                                                <!--<i class="bx bx-bitcoin font-size-24"></i>-->
-                                                                                                </span>
-                                                                                            </div>
-                                                                                            <div class="timeline-list-item">
-                                                                                                <div class="d-flex">
-                                                                                                    <div class="flex-grow-1 overflow-hidden me-4 gilroyregular-type">
-                                                                                                        <p class="font-size-14 mb-1 color-color1">May 19, 2022</p>
-                                                                                                        <div class="mt-2 bg-soft-boxgray1 px-3 py-3 fs-13 rounded-3 d-flex flex-wrap">
-                                                                                                            <img class="rounded-circle avatar-md mb-2 me-2" alt="200x200" src="assets/images/users/avatar-4.jpg" data-holder-rendered="true">
-                                                                                                            <div class="">
-                                                                                                                <p class=" color-color1  mb-0 ">Admin</p>
-                                                                                                                <p class=" text-white  mb-0 fs-15"><span class="me-2 d-inline-block">Register ticket</span> <svg width="10" height="8" viewBox="0 0 10 8" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                                                                    <path d="M0.75 4.00004L3.58 6.83004L9.25 1.17004" stroke="#00A54F" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                                                                                                    </svg>
-                                                                                                                    </p>
-                                                                                                                
-                                                                                                                <p class=" color-color1  mb-0">12:34 Pm by admin</p>
-                                                                                                                <p class=" color-color1  mb-0" style="max-width: 250px"> Lorem ipsum dolor sit amet consectetur adipisicing elit. Non, harum dignissimos ut minima consequatur ipsa praesentium dolorem distinctio eaque, recusandae architecto aperiam similique amet necessitatibus deserunt numquam iure velit voluptates.</p>
-                                                                                                            </div>
-                                                                                                            
-                                                                                                        </div>
-                                                                                                        
-                                                                                                    </div>
-                                                                                                    
-                                                                                                </div>
-                                                                                            </div> 
-                                                                                        </li>
-                                                                                        <li class="activity-list activity-border">
-                                                                                            <div class="activity-icon avatar-sm ms-2">
-                                                                                                <span class="avatar-title bg-soft-boxgray1 text-warning rounded-circle">
-                                                                                                <!--<i class="bx bx-bitcoin font-size-24"></i>-->
-                                                                                                </span>
-                                                                                            </div>
-                                                                                            <div class="timeline-list-item">
-                                                                                                <div class="d-flex">
-                                                                                                    <div class="flex-grow-1 overflow-hidden me-4 gilroyregular-type">
-                                                                                                        <p class="font-size-14 mb-1 color-color1">May 19, 2022</p>
-                                                                                                        <div class="mt-2 bg-soft-boxgray1 px-3 py-3 fs-13 rounded-3 d-flex flex-wrap">
-                                                                                                            <img class="rounded-circle avatar-md mb-2 me-2" alt="200x200" src="assets/images/users/avatar-4.jpg" data-holder-rendered="true">
-                                                                                                            <div class="">
-                                                                                                                <p class=" color-color1  mb-0 ">Admin</p>
-                                                                                                                <p class=" text-white  mb-0 fs-15"><span class="me-2 d-inline-block">Register ticket</span> <svg width="10" height="8" viewBox="0 0 10 8" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                                                                    <path d="M0.75 4.00004L3.58 6.83004L9.25 1.17004" stroke="#00A54F" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                                                                                                    </svg>
-                                                                                                                    </p>
-                                                                                                                
-                                                                                                                <p class=" color-color1  mb-0">12:34 Pm by admin</p>
-                                                                                                                <p class=" color-color1  mb-0" style="max-width: 250px"> Lorem ipsum dolor sit amet consectetur adipisicing elit. Non, harum dignissimos ut minima consequatur ipsa praesentium dolorem distinctio eaque, recusandae architecto aperiam similique amet necessitatibus deserunt numquam iure velit voluptates.</p>
-                                                                                                            </div>
-                                                                                                            
-                                                                                                        </div>
-                                                                                                        
-                                                                                                    </div>
-                                                                                                    
-                                                                                                </div>
-                                                                                            </div> 
-                                                                                        </li>
-        
-                                                                                        <li class="activity-list activity-border">
-                                                                                            <div class="activity-icon avatar-sm ms-2">
-                                                                                                <span class="avatar-title bg-soft-boxgray1 text-warning rounded-circle">
-                                                                                                <!--<i class="bx bx-bitcoin font-size-24"></i>-->
-                                                                                                </span>
-                                                                                            </div>
-                                                                                            <div class="timeline-list-item">
-                                                                                                <div class="d-flex">
-                                                                                                    <div class="flex-grow-1 overflow-hidden me-4 gilroyregular-type">
-                                                                                                        <p class="font-size-14 mb-1 color-color1">May 19, 2022</p>
-                                                                                                        <div class="mt-2 bg-soft-boxgray1 px-3 py-3 fs-13 rounded-3 d-flex flex-wrap">
-                                                                                                            <img class="rounded-circle avatar-md mb-2 me-2" alt="200x200" src="assets/images/users/avatar-4.jpg" data-holder-rendered="true">
-                                                                                                            <div class="">
-                                                                                                                <p class=" color-color1  mb-0 ">Admin</p>
-                                                                                                                <p class=" text-white  mb-0 fs-15"><span class="me-2 d-inline-block">Register ticket</span> <svg width="10" height="8" viewBox="0 0 10 8" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                                                                    <path d="M0.75 4.00004L3.58 6.83004L9.25 1.17004" stroke="#00A54F" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                                                                                                    </svg>
-                                                                                                                    </p>
-                                                                                                                
-                                                                                                                <p class=" color-color1  mb-0">12:34 Pm by admin</p>
-                                                                                                                <p class=" color-color1  mb-0" style="max-width: 250px"> Lorem ipsum dolor sit amet consectetur adipisicing elit. Non, harum dignissimos ut minima consequatur ipsa praesentium dolorem distinctio eaque, recusandae architecto aperiam similique amet necessitatibus deserunt numquam iure velit voluptates.</p>
-                                                                                                            </div>
-                                                                                                            
-                                                                                                        </div>
-                                                                                                        
-                                                                                                    </div>
-                                                                                                    
-                                                                                                </div>
-                                                                                            </div> 
-                                                                                        </li>
-                                                                                        <li class="activity-list activity-border">
-                                                                                            <div class="activity-icon avatar-sm ms-2">
-                                                                                                <span class="avatar-title bg-soft-boxgray1 text-warning rounded-circle">
-                                                                                                <!--<i class="bx bx-bitcoin font-size-24"></i>-->
-                                                                                                </span>
-                                                                                            </div>
-                                                                                            <div class="timeline-list-item">
-                                                                                                <div class="d-flex">
-                                                                                                    <div class="flex-grow-1 overflow-hidden me-4 gilroyregular-type">
-                                                                                                        <p class="font-size-14 mb-1 color-color1">May 19, 2022</p>
-                                                                                                        <div class="mt-2 bg-soft-boxgray1 px-3 py-3 fs-13 rounded-3 d-flex flex-wrap">
-                                                                                                            <img class="rounded-circle avatar-md mb-2 me-2" alt="200x200" src="assets/images/users/avatar-4.jpg" data-holder-rendered="true">
-                                                                                                            <div class="">
-                                                                                                                <p class=" color-color1  mb-0 ">Admin</p>
-                                                                                                                <p class=" text-white  mb-0 fs-15"><span class="me-2 d-inline-block">Register ticket</span> <svg width="10" height="8" viewBox="0 0 10 8" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                                                                    <path d="M0.75 4.00004L3.58 6.83004L9.25 1.17004" stroke="#00A54F" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                                                                                                    </svg>
-                                                                                                                    </p>
-                                                                                                                
-                                                                                                                <p class=" color-color1  mb-0">12:34 Pm by admin</p>
-                                                                                                                <p class=" color-color1  mb-0" style="max-width: 250px"> Lorem ipsum dolor sit amet consectetur adipisicing elit. Non, harum dignissimos ut minima consequatur ipsa praesentium dolorem distinctio eaque, recusandae architecto aperiam similique amet necessitatibus deserunt numquam iure velit voluptates.</p>
-                                                                                                            </div>
-                                                                                                            
-                                                                                                        </div>
-                                                                                                        
-                                                                                                    </div>
-                                                                                                    
-                                                                                                </div>
-                                                                                            </div> 
-                                                                                        </li>
-                                                                                        <li class="activity-list activity-border">
-                                                                                            <div class="activity-icon avatar-sm ms-2">
-                                                                                                <span class="avatar-title bg-soft-boxgray1 text-warning rounded-circle">
-                                                                                                <!--<i class="bx bx-bitcoin font-size-24"></i>-->
-                                                                                                </span>
-                                                                                            </div>
-                                                                                            <div class="timeline-list-item">
-                                                                                                <div class="d-flex">
-                                                                                                    <div class="flex-grow-1 overflow-hidden me-4 gilroyregular-type">
-                                                                                                        <p class="font-size-14 mb-1 color-color1">May 19, 2022</p>
-                                                                                                        <div class="mt-2 bg-soft-boxgray1 px-3 py-3 fs-13 rounded-3 d-flex flex-wrap">
-                                                                                                            <img class="rounded-circle avatar-md mb-2 me-2" alt="200x200" src="assets/images/users/avatar-4.jpg" data-holder-rendered="true">
-                                                                                                            <div class="">
-                                                                                                                <p class=" color-color1  mb-0 ">Admin</p>
-                                                                                                                <p class=" text-white  mb-0 fs-15"><span class="me-2 d-inline-block">Register ticket</span> <svg width="10" height="8" viewBox="0 0 10 8" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                                                                    <path d="M0.75 4.00004L3.58 6.83004L9.25 1.17004" stroke="#00A54F" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                                                                                                    </svg>
-                                                                                                                    </p>
-                                                                                                                
-                                                                                                                <p class=" color-color1  mb-0">12:34 Pm by admin</p>
-                                                                                                                <p class=" color-color1  mb-0" style="max-width: 250px"> Lorem ipsum dolor sit amet consectetur adipisicing elit. Non, harum dignissimos ut minima consequatur ipsa praesentium dolorem distinctio eaque, recusandae architecto aperiam similique amet necessitatibus deserunt numquam iure velit voluptates.</p>
-                                                                                                            </div>
-                                                                                                            
-                                                                                                        </div>
-                                                                                                        
-                                                                                                    </div>
-                                                                                                    
-                                                                                                </div>
-                                                                                            </div> 
-                                                                                        </li>
+                                                                                            {%else%}
+                                                                                    <div class="  text-center d-block " id="journal-nothing">
+                                                            
+                                                                                        <img src="{%static 'images/nodata/nodata.png' %}" alt="">
                                                                                         
+                                                                                            
+                                                    
+                                                                                        <p class="gilory-regular-type fs-20 mt-2">Nothing To show</p>
+                                                    
+                                                                                    </div> 
+                                        
+                                                                        {%endif%}  
                                                                                         
                                                                                     
                                                                                     </ul>
                                                                                 </div>
-                                                                                <div  class="px-0" >
+                                                                                <div  class="px-0" id="chatsDiv" >
                                                                                     
                                                                                 
                                                                                     <div class=" mt-3">
@@ -1367,54 +1033,50 @@
         
                                                                                             <div class="col-md-12 mb-2 position-relative">
         
-                                                                                                <textarea name="" id="" cols="30" rows="3" class="form-control" style="background-color: transparent !important;"></textarea>
+                                                                                                <textarea name="" id="chatsId" cols="30" rows="3" class="form-control" style="background-color: transparent !important;"></textarea>
             
-                                                                                                <button  class="btn btn-sm btn-primary me-2   position-absolute" type="submit" style="right: 15px; bottom: 10px;" >Send</button>
+                                                                                                <!-- <button  class="btn btn-sm btn-primary me-2   position-absolute" type="submit" style="right: 15px; bottom: 10px;" >Send</button> -->
                                                                                             </div>
                                                                                             <div class="col-md-12  ">
-            
                                                                                                 <div class="row">
-            
                                                                                                     <div class="col-md-3 mb-2">
                                                                                                         <label class="form-label mb-1" for="Call">Call</label>
-                                                                                                        <select class=" form-select  py-1" id="Call" style="background-color: transparent !important;">
-                                                                                                            <option value="">
-                                                                                                                1
-                                                                                                            </option>
-                                                                                                        <select>
+                                                                                                        <select class=" form-select  py-1" id="chatCall" style="background-color: var(--bs-card-bg)  !important;">
+                                                                                                            <option value="None">None</option>
+                                                                                                            <option value="B">B:Busy</option>
+                                                                                                            <option value="N">N:No Reply</option>
+                                                                                                            <option value="S">S:Spoken</option>
+                                                                                                            <option value="W">W:Wrong No</option>
+                                                                                                        </select>
                                                                                                     </div>
                                                                                                     <div class="col-md-3 mb-1">
                                                                                                         <label class="form-label mb-1" for="Interest">Interest</label>
-                
-                                                                                                        <select class=" form-select  py-1" id="Interest" style="background-color: var(--bs-card-bg)  !important;">
-                                                                                                            <option value="">
-                                                                                                                1
-                                                                                                            </option>
-                                                                                                            <option value="">
-                                                                                                                1
-                                                                                                            </option>
-                                                                                                        <select>
+                                                                                                        <select class=" form-select  py-1" id="chatInterest" style="background-color: var(--bs-card-bg)  !important;">
+                                                                                                            <option value="None">None</option>
+                                                                                                            <option value="I">I:Interest</option>
+                                                                                                            <option value="M">M:May be</option>
+                                                                                                            <option value="N">N:Not Interest</option>
+                                                                                                        </select>
                                                                                                     </div>
                                                                                                     <div class="col-md-3 mb-1">
                                                                                                         <label class="form-label mb-1" for="Exp">Exp</label>
-                
-                                                                                                        <select class=" form-select  py-1" id="Exp" style="background-color: transparent  !important;">
-                                                                                                            <option value="">
-                                                                                                                1
-                                                                                                            </option>
-                                                                                                        <select>
+                                                                                                        <select class=" form-select  py-1" id="chatExp" style="background-color: var(--bs-card-bg)  !important;">
+                                                                                                            <option value="None">None</option>
+                                                                                                            <option value="Y">Y:Yes</option>
+                                                                                                            <option value="N">N:No</option>
+                                                                                                        </select>
                                                                                                     </div>
                                                                                                     <div class="col-md-3 mb-1">
                                                                                                         <label class="form-label mb-1" for="temp">None</label>
-                
-                                                                                                        <select class=" form-select py-1" style="background-color: transparent !important ;">
-                                                                                                            <option value="">
-                                                                                                                1
-                                                                                                            </option>
-                                                                                                        <select>
+                                                                                                        <select class=" form-select py-1" style="background-color: var(--bs-card-bg)  !important;" id="chatNone">
+                                                                                                            <option value="None">None</option>
+                                                                                                            <option value="F">F:Follow Up</option>
+                                                                                                            <option value="R">R:Resolve</option>
+                                                                                                            <option value="C">C:Convert To CS</option>
+                                                                                                            <option value="T">T:To Live</option>
+                                                                                                        </select>
                                                                                                     </div>
                                                                                                 </div>
-            
                                                                                             </div>
                                                                                         </form>
                                                                                       
@@ -1497,7 +1159,7 @@
                                                                                         <form action="" class="formtype_leads ">
         
                                                                                   
-                                                                                            <div class="row align-items-center mb-2">
+                                                                                            <!-- <div class="row align-items-center mb-2">
                                                                                                 <label class="form-label col-sm-2" for="">From : </label>
                                                                                                 <div class="col-sm-9">
             
@@ -1506,7 +1168,7 @@
                                                                                                 </div>
                                                                                                 
                                                                                               
-                                                                                            </div>
+                                                                                            </div> -->
                                                                                             <div class="row align-items-center mb-2">
                                                                                                 <label class="form-label col-sm-2" for="">Subject : </label>
                                                                                                 <div class="col-sm-9">
@@ -1522,7 +1184,7 @@
                                                                                             
             
                                                                                     
-                                                                                        <div id="ckeditor-classic"></div>
+                                                                                        <div id="editor"></div>
             
                                                                                         <div>
                                                                                             <button class="btn btn-info btn-md mt-3 me-2 rounded-2" type="submit">Send</button>
@@ -1631,7 +1293,7 @@
                                                                                 <div class="row">
                            
                                                                                         
-                                                                                    <div class="col-md-12">
+                                                                                    <!-- <div class="col-md-12">
                                                                                         <div class="mb-3">
                                                                                             <label class="form-label " for="fromtemp">From</label>
                                                                                             <input type="text" class="form-control  " id="fromtemp">
@@ -1640,7 +1302,7 @@
                                                                                                 Please provide a valid entry.
                                                                                             </div>
                                                                                         </div>
-                                                                                    </div>
+                                                                                    </div> -->
                                                                                         <div class="col-md-12">
                                                                                             <div class="mb-3">
                                                                                                 <label class="form-label " for="sub">Subject</label>
@@ -1658,7 +1320,7 @@
                                                                                         <div class="col-md-12">
                                                                                             <div class="mb-3">
                                                                                                 <label class="form-label " for="temp">Template</label>
-                                                                                                <select class="form-select border-1" id="temp" value="" required="">
+                                                                                                <select class="form-select border-1" id="template" value="" required="">
                                                                                                     <option value="6">Webinar Registration</option>                            
                                                                                                     <option value="8">KYC Documents</option>
                                                                                                     <option value="9">Stop Out Notification</option>
@@ -1683,9 +1345,9 @@
                                                                                    
                                                                                       
                                                                                         <div class="col-md-12">
-                                                                                            <button class="btn  btn-md btn-info  me-1 mb-2" type="submit">Send</button>
+                                                                                            <button class="btn  btn-md btn-info  me-1 mb-2" type="button" onclick="sendTemplate()">Send</button>
                                                                                             <button class="btn btn-outline-light btn-md me-1 mb-2" type="reset">Cancel</button>
-                                                                                            <button class="btn btn-outline-light btn-md me-1 mb-2" type="">Preview</button>
+                                                                                            <!-- <button class="btn btn-outline-light btn-md me-1 mb-2" type="">Preview</button> -->
                                                                                         </div>
                                 
                                
@@ -1705,36 +1367,14 @@
                                                         </div>
                                                     </div>
                                                     <div class="tab-pane" id="actions-reminders-tab" role="tabpanel">
-    
+
                                                         <div class="row">
     
                                                             <div class="col-12">
                                    
                                                                 <div class="row">
-                                                                   <!--<div class="col-12">
-    
-                                                                    <div id="external-events" class="mt-2">
-                                                                        <br>
-                                                                        <p class="text-muted">Drag and drop your event or click in the calendar</p>
-                                                                        <div class="external-event fc-event text-success bg-soft-success" data-class="bg-success">
-                                                                            <i class="mdi mdi-checkbox-blank-circle font-size-11 me-2"></i>New Event Planning
-                                                                        </div>
-                                                                        <div class="external-event fc-event text-info bg-soft-info" data-class="bg-info">
-                                                                            <i class="mdi mdi-checkbox-blank-circle font-size-11 me-2"></i>Meeting
-                                                                        </div>
-                                                                        <div class="external-event fc-event text-warning bg-soft-warning" data-class="bg-warning">
-                                                                            <i class="mdi mdi-checkbox-blank-circle font-size-11 me-2"></i>Generating Reports
-                                                                        </div>
-                                                                        <div class="external-event fc-event text-danger bg-soft-danger" data-class="bg-danger">
-                                                                            <i class="mdi mdi-checkbox-blank-circle font-size-11 me-2"></i>Create New theme
-                                                                        </div>
-                                                                        <div class="external-event fc-event text-dark bg-soft-dark" data-class="bg-dark">
-                                                                            <i class="mdi mdi-checkbox-blank-circle font-size-11 me-2"></i>Team Meeting
-                                                                        </div>
-                                                                    </div>
-                                                                   </div>-->
-                                
-                                                                    <div class="col-xl-12 col-lg-12">
+                                                                    
+                                                                    <div class="col-xl-12 col-lg-12" >
                                                                         <div class="card border-0">
                                                                             <div class="card-body ">
                                                                                 <div id="calendar"></div>
@@ -1744,7 +1384,7 @@
                                 
                                                                 </div>
                                                                 <!-- end row -->
-                    
+                                
                                                                 <div style='clear:both'></div>
                                 
                                                                 <!-- Add New Event MODAL -->
@@ -1757,19 +1397,20 @@
                                                                                 <div class="  px-3 border rounded-3 py-4">
     
                                                                                     <div class="modal-header py-0 px-0 border-bottom-0">
-                                                                                        <h5 class="modal-title mb-3" id="modal-title">Add reminder</h5>
+                                                                                        <h5 class="modal-title mb-3" id="modal-title">Add Reminder</h5>
                                         
                                                                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
                                         
                                                                                     </div>
     
                                                                                     <form class="needs-validation" name="event-form" id="form-event" novalidate>
+                                                                                        {% csrf_token %}
                                                                                         <div class="row">
                                                                                             <div class="col-12">
                                                                                                 <div class="mb-3">
                                                                                                     <label class="form-label">Choose time</label>
                                                                                                     <input class="form-control" placeholder="Insert Event Time"
-                                                                                                        type="text"  name="time" id="event-timepicker" required value="" />
+                                                                                                        type="text"  name="time" id="event-timepicker" required  />
                                                                                                    
                                                                                                 </div>
                                                                                             </div>
@@ -1777,7 +1418,7 @@
                                                                                                 <div class="mb-3">
                                                                                                     <!--<label class="form-label">Event Name</label>-->
                                                                                                     <textarea class="form-control" placeholder="Insert Event Name"
-                                                                                                        type="text" name="title" id="event-title" required value="" > </textarea>
+                                                                                                        type="text" name="title" id="eventtitle" required ></textarea>
                                                                                                     <div class="invalid-feedback">Please provide a valid event name</div>
                                                                                                 </div>
                                                                                             </div>
@@ -1786,22 +1427,20 @@
                                                                                                     <label class="form-label">Category</label>
                                                                                                     <select class="form-control form-select" name="category" id="event-category">
                                                                                                         <option  selected> --Select-- </option>
-                                                                                                        <option value="bg-danger">Danger</option>
-                                                                                                        <option value="bg-success">Success</option>
-                                                                                                        <option value="bg-primary">Primary</option>
-                                                                                                        <option value="bg-info">Info</option>
-                                                                                                        <option value="bg-dark">Dark</option>
-                                                                                                        <option value="bg-warning">Warning</option>
+                                                                                                        <option value="Live">Live</option>
+                                                                                                        <option value="Seminar">Seminar</option>
+                                                                                                        <option value="Meeting">Meeting</option>
+                                                                                                        
                                                                                                     </select>
                                                                                                     <div class="invalid-feedback">Please select a valid event category</div>
                                                                                                 </div>
                                                                                             </div>
                                                                                         </div>
                                                                                         <div class="row mt-2">
-                                                                                            <div class="col-6">
+                                                                                            <!-- <div class="col-6">
                                                                                                 <button type="button" class="btn btn-danger" id="btn-delete-event">Delete</button>
-                                                                                            </div>
-                                                                                            <div class="col-6 text-end">
+                                                                                            </div> -->
+                                                                                            <div class="col-12 text-end">
                                                                                                 <button type="button" class="btn btn-light me-1" data-bs-dismiss="modal">Close</button>
                                                                                                 <button type="submit" class="btn btn-success" id="btn-save-event">Save</button>
                                                                                             </div>
@@ -1921,11 +1560,11 @@
                                                                         <!--<label class="form-label">Event Name</label>-->
                                                                        
                                                                         <label for="html">Login</label>
-                                                                        <input type="password" id="comlogin" class="form-control" required name="" ><br>
-                                                                        <label for="html">Spot FX</label><input type="password" id="comfx" class="form-control" required  >
-                                                                        <label for="html">Spot Metals</label><input type="password" id="comspot" class="form-control" required name="email" >
-                                                                        <label for="html">Futures</label><input type="password" id="comfuture" class="form-control" required name="email" >
-                                                                        <label for="html">Comments</label><input type="password" id="comComment" class="form-control" required name="email" >
+                                                                        <input type="text" id="comlogin" class="form-control" required name="" readonly><br>
+                                                                        <label for="html">Spot FX</label><input type="text" id="comfx" class="form-control" readonly  >
+                                                                        <label for="html">Spot Metals</label><input type="text" id="comspot" class="form-control" name="email" readonly>
+                                                                        <label for="html">Futures</label><input type="text" id="comfuture" class="form-control" name="email" readonly>
+                                                                        <label for="html">Comments</label><input type="text" id="comComment" class="form-control" name="email" readonly>
                                                                        
                                                                     </div>
                                                                     <div class="row mt-2">
@@ -1951,11 +1590,11 @@
     
                                                  <!-- modal-Chat Logs -->
                                         <button type="button" class="btn bg-soft-secondarycolor text-white me-2"
-                                        data-bs-toggle="modal" data-bs-target=".bs-example-modal-chatlogs"
-                                        style="background-color: var(--bs-card-bg) ;">Email bank details</button>
+                                        
+                                        style="background-color: var(--bs-card-bg) ;" onclick="emailBankDetails()">Email bank details</button>
     
                                     <div class="modal fade  bs-example-modal-chatlogs" tabindex="-1" role="dialog"
-                                        aria-hidden="true">
+                                        aria-hidden="true" id="Email-Bank">
     
                                         <div class="modal-dialog modal-dialog-centered  ">
                                      
@@ -1966,202 +1605,44 @@
     
     
                                                 <div class="modal-body ">
-    
-    
-                                                    <div class="mx-2 my-1 border rounded-3">
-    
-                                                        <div class="modal-header border-0 ">
-                                                            <h5 class="modal-title fs-21 ">Live Chat Logs  </h5>
-        
-                                                            <a href="" data-bs-dismiss="modal" aria-label="Close">
-                                                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                    <path d="M9.16992 14.83L14.8299 9.17" stroke="var(--white)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
-                                                                    <path d="M14.8299 14.83L9.16992 9.17" stroke="var(--white)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
-                                                                    <path d="M9 22H15C20 22 22 20 22 15V9C22 4 20 2 15 2H9C4 2 2 4 2 9V15C2 20 4 22 9 22Z" stroke="white" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
-                                                                    </svg>
-                
-                                                                </a>
+                                
+                                                    <div class="  px-3 border rounded-3 py-4">
+                                                    
+                                                        <div class="modal-header py-0 px-0 border-bottom-0">
+                                                            <h5 class="modal-title mb-3" id="modal-title">Select Bank</h5>
+                                
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
+                                
                                                         </div>
+                                                            <div class="row">
+                                                            
+                                                                <div class="col-12">
+                                                                    <div class="mb-3">
+                                                                        <!--<label class="form-label">Event Name</label>-->
+                                                                       <form>
+                                                                        <label for="html">Receiving Bank</label>
+                                                                        <input type="text" id="bankname" class="form-control" required name="" ><br>
+                                                                        <label for="html">Receiving Bank Address</label><input type="text" id="bankaddr" class="form-control" required>
+                                                                        <label for="html">Receiving Bank SWIFT</label><input type="text" id="bankswift" class="form-control" name="email" required>
+                                                                        <label for="html">Beneficiary IBAN</label><input type="text" id="bankiban" class="form-control" name="email" required>
+                                                                        <label for="html">Beneficiary Bank</label><input type="text" id="beneficiary" class="form-control" name="email" required>
+                                                                        <label for="html">FFC/Reference</label><input type="text" id="ffc" placeholder="Trust Capital XXXXXXXXXX" class="form-control" name="email" required>
+                                                                       </form>
+                                                                    </div>
+                                                                    <div class="row mt-2">
+                                                                        <div class="col-6">
+                                                                            <button type="button"  class="btn btn-success" id="btn-save-event" onclick="sendBankDetails()">Send</button>
+                                                                            <button type="button" data-bs-dismiss="modal" class="btn btn-danger" id="btn-delete-event">Close</button>
+                                                                        </div>
+                                                                      
+                                                                    </div>
+                                                                </div>
+                                                           
+                                                            </div>
+                                                            
                                                         
-    
-                                                        <div class="chat-logs mx-3" style="max-height: 372px;" id="chat-block">
-    
-    
-    
-                                                                  <!--Chat-->
-                                                                  <div class="border rounded-3 px-3 py-3 mb-3 ">
-    
-                                                                    <div class="d-flex justify-content-between mb-2 align-items-center">
-    
-    
-                                                                        <div class="d-flex my-0  align-items-center flex-shrink-0">
-                                                                            <div class="activity-icon avatar-sm ms-2 me-3">
-                                                                                <span class="avatar-title   rounded-circle">
-                                                                                    <!--<i class="bx bx-bitcoin font-size-24"></i>-->
-                                                                                    <img class="rounded-circle avatar-md"
-                                                                                        src="assets/images/users/firasmonzer.png" alt="">
-                                                                                </span>
-                                                                            </div>
-                                                                            <p class="fs-16 gilorysemibold-type color-color m-0"> Firas Monzer</p>
-                                                                        </div>
-                                                                        <span class="fs-14 color-color1">May-24-2022 - 01:05 Pm</span>
-                                                                    </div>
-    
-                                                                    <div class="">
-                                                                        <p class="mb-0  fs-13  color-color1 me-2">
-                                                                            Lorem Ipsum has been the industry's standard dummy
-                                                                            text
-                                                                        </p>
-                                                                    </div>
-    
-                                                                </div>
-                                                                <!--Chat-->
-                                                                <div class="border rounded-3 px-3 py-3 mb-3 ">
-    
-                                                                    <div class="d-flex justify-content-between mb-2 align-items-center">
-    
-    
-                                                                        <div class="d-flex my-0  align-items-center flex-shrink-0">
-                                                                            <div class="activity-icon avatar-sm ms-2 me-3">
-                                                                                <span class="avatar-title   rounded-circle">
-                                                                                    <!--<i class="bx bx-bitcoin font-size-24"></i>-->
-                                                                                    <img class="rounded-circle avatar-md"
-                                                                                        src="assets/images/users/firasmonzer.png" alt="">
-                                                                                </span>
-                                                                            </div>
-                                                                            <p class="fs-16 gilorysemibold-type color-color m-0"> Firas Monzer</p>
-                                                                        </div>
-                                                                        <span class="fs-14 color-color1">May-24-2022 - 01:05 Pm</span>
-                                                                    </div>
-    
-                                                                    <div class="">
-                                                                        <p class="mb-0  fs-13  color-color1 me-2">
-                                                                            Lorem Ipsum has been the industry's standard dummy
-                                                                            text
-                                                                        </p>
-                                                                    </div>
-    
-                                                                </div>
-                                                                <!--Chat-->
-                                                                <div class="border rounded-3 px-3 py-3 mb-3 ">
-    
-                                                                    <div class="d-flex justify-content-between mb-2 align-items-center">
-    
-    
-                                                                        <div class="d-flex my-0  align-items-center flex-shrink-0">
-                                                                            <div class="activity-icon avatar-sm ms-2 me-3">
-                                                                                <span class="avatar-title   rounded-circle">
-                                                                                    <!--<i class="bx bx-bitcoin font-size-24"></i>-->
-                                                                                    <img class="rounded-circle avatar-md"
-                                                                                        src="assets/images/users/firasmonzer.png" alt="">
-                                                                                </span>
-                                                                            </div>
-                                                                            <p class="fs-16 gilorysemibold-type color-color m-0"> Firas Monzer</p>
-                                                                        </div>
-                                                                        <span class="fs-14 color-color1">May-24-2022 - 01:05 Pm</span>
-                                                                    </div>
-    
-                                                                    <div class="">
-                                                                        <p class="mb-0  fs-13  color-color1 me-2">
-                                                                            Lorem Ipsum has been the industry's standard dummy
-                                                                            text
-                                                                        </p>
-                                                                    </div>
-    
-                                                                </div>
-                                                                <!--Chat-->
-                                                                <div class="border rounded-3 px-3 py-3 mb-3 ">
-    
-                                                                    <div class="d-flex justify-content-between mb-2 align-items-center">
-    
-    
-                                                                        <div class="d-flex my-0  align-items-center flex-shrink-0">
-                                                                            <div class="activity-icon avatar-sm ms-2 me-3">
-                                                                                <span class="avatar-title   rounded-circle">
-                                                                                    <!--<i class="bx bx-bitcoin font-size-24"></i>-->
-                                                                                    <img class="rounded-circle avatar-md"
-                                                                                        src="assets/images/users/firasmonzer.png" alt="">
-                                                                                </span>
-                                                                            </div>
-                                                                            <p class="fs-16 gilorysemibold-type color-color m-0"> Firas Monzer</p>
-                                                                        </div>
-                                                                        <span class="fs-14 color-color1">May-24-2022 - 01:05 Pm</span>
-                                                                    </div>
-    
-                                                                    <div class="">
-                                                                        <p class="mb-0  fs-13  color-color1 me-2">
-                                                                            Lorem Ipsum has been the industry's standard dummy
-                                                                            text
-                                                                        </p>
-                                                                    </div>
-    
-                                                                </div>
-                                                                <!--Chat-->
-                                                                <div class="border rounded-3 px-3 py-3 mb-3 ">
-    
-                                                                    <div class="d-flex justify-content-between mb-2 align-items-center">
-    
-    
-                                                                        <div class="d-flex my-0  align-items-center flex-shrink-0">
-                                                                            <div class="activity-icon avatar-sm ms-2 me-3">
-                                                                                <span class="avatar-title   rounded-circle">
-                                                                                    <!--<i class="bx bx-bitcoin font-size-24"></i>-->
-                                                                                    <img class="rounded-circle avatar-md"
-                                                                                        src="assets/images/users/firasmonzer.png" alt="">
-                                                                                </span>
-                                                                            </div>
-                                                                            <p class="fs-16 gilorysemibold-type color-color m-0"> Firas Monzer</p>
-                                                                        </div>
-                                                                        <span class="fs-14 color-color1">May-24-2022 - 01:05 Pm</span>
-                                                                    </div>
-    
-                                                                    <div class="">
-                                                                        <p class="mb-0  fs-13  color-color1 me-2">
-                                                                            Lorem Ipsum has been the industry's standard dummy
-                                                                            text
-                                                                        </p>
-                                                                    </div>
-    
-                                                                </div>
-                                                                <!--Chat-->
-                                                                <div class="border rounded-3 px-3 py-3 mb-3 ">
-    
-                                                                    <div class="d-flex justify-content-between mb-2 align-items-center">
-    
-    
-                                                                        <div class="d-flex my-0  align-items-center flex-shrink-0">
-                                                                            <div class="activity-icon avatar-sm ms-2 me-3">
-                                                                                <span class="avatar-title   rounded-circle">
-                                                                                    <!--<i class="bx bx-bitcoin font-size-24"></i>-->
-                                                                                    <img class="rounded-circle avatar-md"
-                                                                                        src="assets/images/users/firasmonzer.png" alt="">
-                                                                                </span>
-                                                                            </div>
-                                                                            <p class="fs-16 gilorysemibold-type color-color m-0"> Firas Monzer</p>
-                                                                        </div>
-                                                                        <span class="fs-14 color-color1">May-24-2022 - 01:05 Pm</span>
-                                                                    </div>
-    
-                                                                    <div class="">
-                                                                        <p class="mb-0  fs-13  color-color1 me-2">
-                                                                            Lorem Ipsum has been the industry's standard dummy
-                                                                            text
-                                                                        </p>
-                                                                    </div>
-    
-                                                                </div>
-    
-    
-    
-                                                        </div>
                                                     </div>
-    
-    
-    
-    
-    
-    
-    
+                                                
                                                 </div>
                                             </div><!-- /.modal-content -->
     
@@ -2173,10 +1654,9 @@
     
                                     <!-- modal-Chat Logs -->
                                     <button type="button" class="btn bg-soft-secondarycolor text-white me-2"
-                                        data-bs-toggle="modal" data-bs-target=".bs-example-modal-meeting"
-                                        style="background-color: var(--bs-card-bg) ;">Reset phone password </button>
-                                    <div class="modal fade  bs-example-modal-meeting" tabindex="-1" role="dialog"
-                                        aria-hidden="true">
+                                        data-bs-toggle="modal" 
+                                        style="background-color: var(--bs-card-bg) ;" onclick="resetPhone()">Reset phone password </button>
+                                    <div class="modal fade  bs-example-modal-meeting" tabindex="-1" role="dialog" aria-hidden="true" id="reset-phone">
     
                                         <div class="modal-dialog modal-dialog-centered  ">
     
@@ -2192,7 +1672,7 @@
                                                     <div class="  px-3 border rounded-3">
     
                                                         <div class="modal-header border-0 ">
-                                                            <h5 class="modal-title fs-21 ">Business Development Strategy Webinar  </h5>
+                                                            <h5 class="modal-title fs-21 ">Check and Reset Phone Password </h5>
         
                                                             <a href="" data-bs-dismiss="modal" aria-label="Close">
                                                                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -2207,408 +1687,114 @@
     
                                                         <form class="needs-validation pt-3" novalidate="" id="action-call">
                                                             <div class="row">
-           
-            
                                                                     <div class="col-md-12">
-                                                                        <div class="mb-3">
-                                                                            <label class="form-label " for="Webinarlevel">Webinar level</label>
-                                                                            <select class="form-select" id="Webinarlevel" value="" required="">
-                                                                                <option value="Webinarlevel">Webinarlevel</option>
-                                                                                <option value="Mobile trading">Webinarlevel</option>
-                                                                            </select>
-                        
-                                                                            <div class="invalid-feedback">
-                                                                                Please provide a valid entry.
-                                                                            </div>
-                                                                        </div>
+                                                                       
+                                                                            
+                                                                            <input type="password" class="form-control" id="resetpwd" value="" required=""><span  id="pp_Check"></span> 
+                                                                            <input type="hidden" name="ppwd" id="ppwd">
+
+                                                                            
+                                                                            
+                                                                       
                                                                     </div>
                                                                     <div class="col-md-12">
-    
-                                                                        <div class="mb-3">
-                                                                            <label class="form-label " for="datepicker">Date</label>
-                        
-                                                                            <input type="text" class="form-control" id="datepickerwebinar">
-                                                                            <div class="invalid-feedback">
-                                                                                Please provide a valid entry.
-                                                                            </div>
-                                                                        </div>
-    
-                    
-    
-    
-                                                                    </div>
-                                                                    <div class="col-md-12">
-                                                                        <div class="mb-3">
-                                                                            <label class="form-label " for="time">Time</label>
-                                                                            <input type="text" id="timepickerweb"  class="form-control">
-                        
-                                                                            <div class="invalid-feedback">
-                                                                                Please provide a valid entry.
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-md-12">
-                                                                        <div class="mb-3">
-                                                                            <label class="form-label " for="description">Description</label>
-                                                                            <textarea name="" id="description" cols="30" rows="5" class="form-control"></textarea>
-                        
-                                                                            <div class="invalid-feedback">
-                                                                                Please provide a valid entry.
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-md-12">
-                                                                        <div class="mb-3">
-                                                                            <label class="form-label " for="createlink">Create link</label>
-                                                                            <input class="form-control" id="createlink" value="" required="">
-                           
-                        
-                                                                            <div class="invalid-feedback">
-                                                                                Please provide a valid entry.
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-md-12">
-                                                                        <button class="btn btn-primary btn-lg my-3 " type="submit">Submit form</button>
+                                                                        <button class="btn btn-primary btn-lg my-3 " type="button" onclick="checkpwd()">Check</button>
+                                                                        <button class="btn btn-primary btn-lg my-3 " type="button" onclick="pwdreset()">Reset Password</button>
+                                                                        <button type="button" data-bs-dismiss="modal" class="btn btn-danger" id="btn-delete-event">Close</button>
                 
                                                                     </div>
-                
-               
-               
-               
-            
             
                                                             </div>
-       
         
                                                         </form>
     
-    
-    
-    
-    
-    
-    
                                                     </div>
                                                 </div><!-- /.modal-content -->
-    
-    
     
                                             </div><!-- /.modal-dialog -->
                                         </div>
                                         <!-- /.modal -->
     
     
-    
-    
-    
-    
-    
-    
-    
                                     </div>
     
                                     <button type="button" class="btn bg-soft-secondarycolor text-white me-2"
-                                    data-bs-toggle="modal" data-bs-target=".bs-example-modal-meeting"
-                                    style="background-color: var(--bs-card-bg) ;">Update client portal credential </button>
+                                    data-bs-toggle="modal" 
+                                    style="background-color: var(--bs-card-bg) ;" onclick="mt4pwdCheck('client')">Update client portal credential </button>
+                                    <div class="modal fade  bs-example-modal-meeting" tabindex="-1" role="dialog" aria-hidden="true" id="update-client">
+    
+                                        <div class="modal-dialog modal-dialog-centered  ">
+    
+    
+    
+                                            <div class="modal-content ">
+    
+    
+    
+                                                <div class="modal-body ">
+    
+    
+                                                    <div class="  px-3 border rounded-3">
+    
+                                                        <div class="modal-header border-0 ">
+                                                            <h5 class="modal-title fs-21 ">Update Client Portal Credential </h5>
+        
+                                                            <a href="" data-bs-dismiss="modal" aria-label="Close">
+                                                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                    <path d="M9.16992 14.83L14.8299 9.17" stroke="var(--white)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                                    <path d="M14.8299 14.83L9.16992 9.17" stroke="var(--white)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                                    <path d="M9 22H15C20 22 22 20 22 15V9C22 4 20 2 15 2H9C4 2 2 4 2 9V15C2 20 4 22 9 22Z" stroke="white" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                                    </svg>
+                
+                                                                </a>
+                                                        </div>
+    
+    
+                                                        <form class="needs-validation pt-3" novalidate="" id="action-call">
+                                                            <div class="row">
+                                                                    <div class="col-md-12">
+                                                                       
+                                                                            
+                                                                            <input type="text" class="form-control" placeholder="Enter old email" id="oldemail" value="" required>
+                                                                            <br>
+                                                                            <div id="noemail"></div><br>
+
+                                                                            <input type="text" class="form-control" placeholder="Enter new email" id="newemail" value="" required>
+                                                                            <div id="nonew"></div><br>
+                                                                            
+                                                                            
+                                                                       
+                                                                    </div>
+                                                                    <div class="col-md-12">
+                                                                        
+                                                                        <button class="btn btn-primary btn-lg my-3 " type="button" onclick="clientporatlUpdate()">OK</button>
+                                                                        <button type="button" data-bs-dismiss="modal" class="btn btn-danger" id="btn-delete-event">Close</button>
+                
+                                                                    </div>
+            
+                                                            </div>
+        
+                                                        </form>
+    
+                                                    </div>
+                                                </div><!-- /.modal-content -->
+    
+                                            </div><!-- /.modal-dialog -->
+                                        </div>
+                                        <!-- /.modal -->
+    
+    
+                                    </div>
                                             </div>
     
                                         <div class="btn-group d-block mb-2">
                                                <!-- modal-seminar -->
-                                        <button type="button" class="btn bg-soft-secondarycolor text-white me-2" data-bs-toggle="modal" data-bs-target=".bs-example-modal-seminars" style="background-color: var(--bs-card-bg) ;">Set language</button>
+                                        <!-- <button type="button" class="btn bg-soft-secondarycolor text-white me-2" data-bs-toggle="modal" data-bs-target=".bs-example-modal-seminars" style="background-color: var(--bs-card-bg) ;">Set language</button> -->
     
-                                        <div class="modal fade  bs-example-modal-seminars" tabindex="-1" role="dialog" aria-hidden="true">
-                                              
-                                               <div class="modal-dialog modal-dialog-centered  modal-lg d-block">
-                                                
-    
-                                            
-                                                   <div class="modal-content mb-4">
-                                                    
-                                                       
-                                              
-                                                       <div class="modal-body">
-    
-                                                       
-    
-                                                         
-                                                        <div class="border-dashed rounded-3 px-3 py-3">
-                                                            <div class="modal-header border-0 ">
-                                                                <h5 class="modal-title fs-21 ">Up Coming Webinar  </h5>
-        
-                                                                <a href="" data-bs-dismiss="modal" aria-label="Close">
-                                                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                        <path d="M9.16992 14.83L14.8299 9.17" stroke="var(--white)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
-                                                                        <path d="M14.8299 14.83L9.16992 9.17" stroke="var(--white)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
-                                                                        <path d="M9 22H15C20 22 22 20 22 15V9C22 4 20 2 15 2H9C4 2 2 4 2 9V15C2 20 4 22 9 22Z" stroke="white" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
-                                                                        </svg>
-                
-                                                                    </a>
-                                                            </div>
-                                                        
-    
-                                                            <div class="table-responsive" data-simplebar style="max-height: 352px;">
-                                                                <table class="table mb-0 ">
-    
-            
-                                                                    <tbody class="gilroyregular-type fs-15">
-                                                                        <tr>
-                                                                            <th scope="row" style="color:#43B5F4; ">20<br>
-                                                                                APR</th>
-                                                                            <td ><span class="color-color1 d-block">Seminar title</span>
-                                                                                <span class="text-uppercase text-white">Crypto trading</span> </td>
-                                                                            <td><span class="color-color1 d-block">Time</span>
-                                                                                <span class="text-white">10.00 AM</span></td>
-                                                                            <td class="text-end"><span class="color-color1 d-block">Location</span>
-                                                                                <a href="#">https://us02web.zoom.us/j/85431030959?pwd=NUpXMytqeTFmUjdx</a></td>
-                
-                                                                        </tr>
-                                                                        <tr>
-                                                                            <th scope="row" style="color:#43B5F4 ;">20<br>
-                                                                                APR</th>
-                                                                            <td><span class="color-color1 d-block">Seminar title</span>
-                                                                                <span class="text-uppercase text-white">Crypto trading</span> </td>
-                                                                            <td><span class="color-color1 d-block">Time</span>
-                                                                                <span class="text-white">10.00 AM</span></td>
-                                                                            <td class="text-end"><span class="color-color1 d-block">Location</span>
-                                                                                <a href="#">https://us02web.zoom.us/j/85431030959?pwd=NUpXMytqeTFmUjdx</a></td>
-                
-                                                                        </tr>
-              
-    
-    
-                                                                    </tbody>
-                                                                </table>
-    
-                                                                <div class="d-flex justify-content-end mt-4 ">
-    
-                                                                    <button type="button" class="btn bg-soft-green text-white me-2 btn-lg me-3 rounded-2" >Register for webinar</button>
-                                                                    <button type="button" class="btn btn-outline-light text-white me-2 btn-lg rounded-2" >Send reminder</button>
-                                                                </div>
-                                                            </div>
-    
-     
-                                                        </div>
-                                                        
-                                                           
-                                                       </div>
-    
-                                                       
-                                                   </div><!-- /.modal-content -->
-    
-                                                   <div class="modal-content mb-4">
-                                                    
-                                                       
-                                              
-                                                    <div class="modal-body">
-    
-                                                    
-    
-                                                      
-                                                         <div class="modal-header border-0 ">
-                                                             <h5 class="modal-title fs-21 ">Webinar Details  </h5>
-        
-                                                             <a href="" data-bs-dismiss="modal" aria-label="Close">
-                                                                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                     <path d="M9.16992 14.83L14.8299 9.17" stroke="var(--white)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
-                                                                     <path d="M14.8299 14.83L9.16992 9.17" stroke="var(--white)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
-                                                                     <path d="M9 22H15C20 22 22 20 22 15V9C22 4 20 2 15 2H9C4 2 2 4 2 9V15C2 20 4 22 9 22Z" stroke="white" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
-                                                                     </svg>
-                
-                                                                 </a>
-                                                         </div>
-                                                     
-    
-                                                         <div class="table-responsive" data-simplebar style="max-height: 352px;">
-                                                             <table class="table mb-0 ">
-    
-                                                                 <thead>
-                                                                     <tr class="almarenamonolight-type fs-14">
-                                                                         <th>Seminars</th>
-                                                                         <th>Level</th>
-                                                                         <th>Invited</th>
-                                                                         <th>App form</th>
-                                                                         <th>Status</th>
-                                                                         <th>Feedback</th>
-                                                                         <th class="text-end">Edit</th>
-                                                                     </tr>
-                                                                 </thead>
-                                                                 <tbody class="gilroyregular-type fs-15">
-                                                                     <tr>
-                                                                         <th scope="row">02</th>
-                                                                         <td>26-05-2022</td>
-                                                                         <td>13:00</td>
-                                                                         <td>TC Limitted office</td>
-                                                                         <td>Introduce</td>
-                                                                         <td class="text-success">Attended</td>
-                                                                         <td class="text-end">
-    
-                                                                             <!--PopUp Actions-->
-                                                                             <div class="dropdown d-inline-block">
-                                                                                 <a class="ms-2 " href="#" id="edit-table-row1" data-bs-toggle="dropdown" aria-haspopup="true"
-                                                                                     aria-expanded="false" class="position-relative">
-                                                                                     <svg width="22" height="23" viewBox="0 0 22 23" fill="none"
-                                                                                         xmlns="http://www.w3.org/2000/svg">
-                                                                                         <path
-                                                                                             d="M12.8333 4.99215C12.8333 3.98381 12.0083 3.15881 10.9999 3.15881C9.99159 3.15881 9.16659 3.98381 9.16659 4.99215C9.16659 6.00048 9.99159 6.82548 10.9999 6.82548C12.0083 6.82548 12.8333 6.00048 12.8333 4.99215Z"
-                                                                                             stroke="#73759D" stroke-width="1.5" />
-                                                                                         <path
-                                                                                             d="M12.8333 17.8255C12.8333 16.8172 12.0083 15.9922 10.9999 15.9922C9.99159 15.9922 9.16659 16.8172 9.16659 17.8255C9.16659 18.8339 9.99159 19.6589 10.9999 19.6589C12.0083 19.6589 12.8333 18.8339 12.8333 17.8255Z"
-                                                                                             stroke="#73759D" stroke-width="1.5" />
-                                                                                         <path
-                                                                                             d="M12.8333 11.409C12.8333 10.4007 12.0083 9.57568 10.9999 9.57568C9.99159 9.57568 9.16659 10.4007 9.16659 11.409C9.16659 12.4173 9.99159 13.2423 10.9999 13.2424C12.0083 13.2424 12.8333 12.4174 12.8333 11.409Z"
-                                                                                             stroke="#73759D" stroke-width="1.5" />
-                                                                                     </svg>
-    
-    
-                                                                                 </a>
-    
-    
-    
-    
-                                                                                 <!--PopUp -->
-                                                                                 <div class="dropdown-menu dropdown-menu-sm dropdown-menu-end p-0 border-0 "
-                                                                                     aria-labelledby="edit-table-row1" >
-    
-                                                                                     <div class="d-flex justify-content-end" >    <!--width: auto-->
-                                                                                         <button 
-                                                                                             class="btn btn-sm me-2 fs-14 gilory-semibold-type bg-soft-purple text-white  flex-shrink-0" >Send
-                                                                                             Reminder</button>
-                                                                                         <button 
-                                                                                             class="btn btn-sm  me-2  fs-14 gilory-semibold-type bg-soft-purple text-white flex-shrink-0" >Cancel
-                                                                                             Meeting</button>
-                                                                                             <button 
-                                                                                             class="btn btn-sm  me-2  fs-14 gilory-semibold-type bg-soft-purple text-white flex-shrink-0" >Cancel
-                                                                                             Meeting</button>
-                                                                                     </div>
-    
-    
-    
-                                                                                 </div>
-                                                                             </div>
-                                                                         </td>
-                                                                     </tr>
-                                                                     <tr>
-                                                                         <th scope="row">02</th>
-                                                                         <td>26-05-2022</td>
-                                                                         <td>13:00</td>
-                                                                         <td>TC Limitted office</td>
-                                                                         <td>Introduce</td>
-                                                                         <td class="text-danger">Not attended</td>
-                                                                         <td class="text-end">
-                                                                             <!--PopUp Actions-->
-                                                                             <!--PopUp Actions-->
-                                                                             <div class="dropdown d-inline-block">
-                                                                                 <a class="ms-2 " href="#" id="edit-table-row2" data-bs-toggle="dropdown" aria-haspopup="true"
-                                                                                     aria-expanded="false" class="position-relative">
-                                                                                     <svg width="22" height="23" viewBox="0 0 22 23" fill="none"
-                                                                                         xmlns="http://www.w3.org/2000/svg">
-                                                                                         <path
-                                                                                             d="M12.8333 4.99215C12.8333 3.98381 12.0083 3.15881 10.9999 3.15881C9.99159 3.15881 9.16659 3.98381 9.16659 4.99215C9.16659 6.00048 9.99159 6.82548 10.9999 6.82548C12.0083 6.82548 12.8333 6.00048 12.8333 4.99215Z"
-                                                                                             stroke="#73759D" stroke-width="1.5" />
-                                                                                         <path
-                                                                                             d="M12.8333 17.8255C12.8333 16.8172 12.0083 15.9922 10.9999 15.9922C9.99159 15.9922 9.16659 16.8172 9.16659 17.8255C9.16659 18.8339 9.99159 19.6589 10.9999 19.6589C12.0083 19.6589 12.8333 18.8339 12.8333 17.8255Z"
-                                                                                             stroke="#73759D" stroke-width="1.5" />
-                                                                                         <path
-                                                                                             d="M12.8333 11.409C12.8333 10.4007 12.0083 9.57568 10.9999 9.57568C9.99159 9.57568 9.16659 10.4007 9.16659 11.409C9.16659 12.4173 9.99159 13.2423 10.9999 13.2424C12.0083 13.2424 12.8333 12.4174 12.8333 11.409Z"
-                                                                                             stroke="#73759D" stroke-width="1.5" />
-                                                                                     </svg>
-    
-    
-                                                                                 </a>
-    
-    
-    
-    
-                                                                                 <!--PopUp -->
-                                                                                 <div class="dropdown-menu dropdown-menu-sm dropdown-menu-end p-0 border-0 "
-                                                                                     aria-labelledby="edit-table-row2" style="background-color: var(--bs-card-bg);">
-    
-                                                                                     <div class=" py-2 px-2 d-flex flex-column">
-                                                                                         <button type="button"
-                                                                                             class="btn btn-md btn-bg-soft-color1 mb-2 fs-14 gilory-semibold-type bg-soft-purple text-white ">Send
-                                                                                             Reminder</button>
-                                                                                         <button type="button"
-                                                                                             class="btn btn-md btn-bg-soft-color1   fs-14 gilory-semibold-type bg-soft-purple text-white">Cancel
-                                                                                             Meeting</button>
-                                                                                     </div>
-    
-    
-    
-                                                                                 </div>
-                                                                             </div>
-    
-    
-                                                                         </td>
-                                                                     </tr>
-                                                                     <tr>
-                                                                         <th scope="row">02</th>
-                                                                         <td>26-05-2022</td>
-                                                                         <td>13:00</td>
-                                                                         <td>TC Limitted office</td>
-                                                                         <td>Introduce</td>
-                                                                         <td class="text-warning">Pending</td>
-                                                                         <td class="text-end">
-                                                                             <!--PopUp Actions-->
-                                                                             <div class="dropdown d-inline-block">
-                                                                                 <a class="ms-2 " href="#" id="edit-table-row3" data-bs-toggle="dropdown" aria-haspopup="true"
-                                                                                     aria-expanded="false" class="position-relative">
-                                                                                     <svg width="22" height="23" viewBox="0 0 22 23" fill="none"
-                                                                                         xmlns="http://www.w3.org/2000/svg">
-                                                                                         <path
-                                                                                             d="M12.8333 4.99215C12.8333 3.98381 12.0083 3.15881 10.9999 3.15881C9.99159 3.15881 9.16659 3.98381 9.16659 4.99215C9.16659 6.00048 9.99159 6.82548 10.9999 6.82548C12.0083 6.82548 12.8333 6.00048 12.8333 4.99215Z"
-                                                                                             stroke="#73759D" stroke-width="1.5" />
-                                                                                         <path
-                                                                                             d="M12.8333 17.8255C12.8333 16.8172 12.0083 15.9922 10.9999 15.9922C9.99159 15.9922 9.16659 16.8172 9.16659 17.8255C9.16659 18.8339 9.99159 19.6589 10.9999 19.6589C12.0083 19.6589 12.8333 18.8339 12.8333 17.8255Z"
-                                                                                             stroke="#73759D" stroke-width="1.5" />
-                                                                                         <path
-                                                                                             d="M12.8333 11.409C12.8333 10.4007 12.0083 9.57568 10.9999 9.57568C9.99159 9.57568 9.16659 10.4007 9.16659 11.409C9.16659 12.4173 9.99159 13.2423 10.9999 13.2424C12.0083 13.2424 12.8333 12.4174 12.8333 11.409Z"
-                                                                                             stroke="#73759D" stroke-width="1.5" />
-                                                                                     </svg>
-    
-    
-                                                                                 </a>
-    
-    
-    
-    
-                                                                                 <!--PopUp Actions-->
-                                                                                 <!--PopUp -->
-                                                                                 <div class="dropdown-menu dropdown-menu-sm dropdown-menu-end p-0 border-0 "
-                                                                                     aria-labelledby="edit-table-row3" >
-    
-                                                                                     <div class="d-flex justify-content-end" >    <!--width: auto-->
-                                                                                         <button 
-                                                                                             class="btn btn-sm me-2 fs-14 gilory-semibold-type bg-soft-purple text-white  flex-shrink-0" >Send
-                                                                                             Reminder</button>
-                                                                                         <button 
-                                                                                             class="btn btn-sm  me-2  fs-14 gilory-semibold-type bg-soft-purple text-white flex-shrink-0" >Cancel
-                                                                                             Meeting</button>
-                                                                                             <button 
-                                                                                             class="btn btn-sm  me-2  fs-14 gilory-semibold-type bg-soft-purple text-white flex-shrink-0" >Cancel
-                                                                                             Meeting</button>
-                                                                                     </div>
-                                                         </div>
-                                                         </td>
-                                                         </tr>
-    
-                                                         </tbody>
-                                                         </table>
-                                                         </div> 
-                                                    
-                                                        
-                                                    </div>
-    
-                                                    
-                                                </div><!-- /.modal-content -->
-    
-                                                  
-    
-                                               </div><!-- /.modal-dialog -->
-                                        </div>
+                                        
                                         <button type="button" class="btn bg-soft-secondarycolor text-white me-2" onclick="viewDocs()">View documents</button>
-                                        <button type="button" class="btn bg-soft-secondarycolor text-white me-2" data-bs-toggle="modal" data-bs-target=".bs-example-modal-seminars" style="background-color: var(--bs-card-bg) ;">Close account</button>
-                                        <button type="button" class="btn bg-soft-secondarycolor text-white me-2" data-bs-toggle="modal" data-bs-target=".bs-example-modal-seminars" style="background-color: var(--bs-card-bg) ;">Terminates</button>
+                                        <!-- <button type="button" class="btn bg-soft-secondarycolor text-white me-2" data-bs-toggle="modal" data-bs-target=".bs-example-modal-seminars" style="background-color: var(--bs-card-bg) ;">Close account</button> -->
+                                        <button type="button" class="btn bg-soft-secondarycolor text-white me-2" onclick="terminate()">Terminate</button>
                                         </div>
     
                             </div>
@@ -2616,10 +1802,10 @@
     
                         <div class="col-lg-12 mt-4">
     
-                            <button id="submitftype" class="btn btn-lg btn-primary me-2  " type="button"  onclick="mt4pwdCheck()">Update</button>
+                            <button id="submitftype" class="btn btn-lg btn-primary me-2  " type="button"  onclick="mt4pwdCheck('update')">Update</button>
                             <!-- <button id="resetftype" class="btn   btn-lg btn-outline-light me-2 " type="button" >Reset</button> -->
-                            <button  class="btn   btn-lg btn-outline-light  color-color1 me-2 "  >Temporary approve</button>
-                            <button  class="btn   btn-lg btn-outline-light  color-color1 me-2 "  >Final approve</button>
+                            <button  class="btn   btn-lg btn-outline-light  color-color1 me-2 " onclick="mt4pwdCheck('temp')">Temporary approve</button>
+                            <button  class="btn   btn-lg btn-outline-light  color-color1 me-2 "  onclick="mt4pwdCheck('final')">Final approve</button>
                         </div>
     
                         <!-- end row-->
@@ -2638,6 +1824,65 @@
     
         <!-- Right bar overlay-->
     <div class="rightbar-overlay"></div> 
+    <div class="modal fade" id="terminate" tabindex="-1" >
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+    
+                <div class="modal-body ">
+    
+                    <div class="  px-3 border rounded-3 py-4">
+                    
+                        <div class="modal-header py-0 px-0 border-bottom-0">
+                            <h5 class="modal-title mb-3" id="modal-title">Reason for Termination</h5>
+    
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
+    
+                        </div>
+                   
+                        
+                            
+                            <div class="row">
+                            
+                                <div class="col-12">
+                                    <div class="mb-3">
+                                        <select  class="form-control" id="reasonId">
+                                            <option value="0">Select</option>
+                                            <option value="28">Appropriateness Test; Vulnerable;</option>
+                                            <option value="29">Appropriateness Test; Vulnerable;(Remaining balance is refunded)</option>
+                                            <option value="30">AML Documents not provided</option>
+                                           <option value="31">AML (generic)</option>  
+                                             <option value="34">KYC Documents not provided</option>
+                                            <option value="35">KYC (generic)</option>  
+                                              
+            
+                                        </select>
+            
+                                            
+                                        
+                                    </div>
+                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                        <textarea class="form-control" rows="3" id="description" runat="server" placeholder="Description"></textarea>
+                                            
+                                      </div>
+              
+                                    <div class="row mt-2">
+                                        <div class="col-6">
+                                            <button type="button"  class="btn btn-success" id="btn-save-event" onclick="terminProceed()">Proceed</button>
+                                            <button type="button" data-bs-dismiss="modal" class="btn btn-danger" id="btn-delete-event">Close</button>
+                                        </div>
+                                      
+                                    </div>
+                                </div>
+                           
+                            </div>
+                            
+                        
+                    </div>
+                
+                </div>
+            </div> <!-- end modal-content-->
+        </div> <!-- end modal dialog-->
+    </div>
     <div class="modal fade bs-example-modal-insta" tabindex="-1" role="dialog" aria-hidden="true" id="alertpopup">
         <div class="modal-dialog modal-dialog-centered"   style="z-index: 10555;">
             <div class="modal-content">
@@ -2686,7 +1931,7 @@
                                            
                                             <label for="html">Enter your MT4 Password</label>
                                             <input type="password" id="mt4pass" class="form-control" required name="pass" >
-                                           
+                                            <input type="hidden" name="origin" id="origin">
                                         </div>
                                         <div class="row mt-2">
                                             <div class="col-6">
@@ -2755,19 +2000,139 @@
 <!-- datepicker js -->
 <script>
     var duplicateCheck=0
+    var enterPressed = false;
+    var calendarEl = document.getElementById('calendar');
     $(function() {
             $("#Accountno").on("keydown", function(event) {
                         if(event.which == 13){
                             event.preventDefault()
-                        LoadData()
+                            
+                            LoadData()
 
                         }
                             
                         })
+            
          
    
 
     })
+    function pwdreset()
+    {
+        $("#reset-phone").modal('hide')
+        var accno=$("#Accountno").val()
+        $.ajax({
+                            
+                            type : "GET", 
+                            url: "{% url 'Backoffice:ResetPhonePassword' %}",
+                            dataType: 'json',
+                            data:{
+                                'account':accno,
+                            },
+                            success: function(data){
+                                $("#userMsg").empty()
+                                $("#userMsg").append(data.message)
+                                $("#alertpopup").modal('show')
+                            }
+                })
+    }
+    function sendTemplate(){
+        var accno=$("#Accountno").val()
+        var template=$("#template").val()
+        console.log("Template===="+template)
+        if(accno==""){
+            $("#userMsg").empty()
+            $("#userMsg").append("Please enter account number")
+            $("#alertpopup").modal('show')
+
+        }else{
+            $.ajax({
+                            
+                            type : "GET", 
+                            url: "{% url 'Backoffice:EmailTemplates' %}",
+                            dataType: 'json',
+                            data:{
+                                'account':accno,
+                                'template':template
+                               
+                            },
+                            success: function(data){
+                                $("#userMsg").empty()
+                                $("#userMsg").append("Email template send")
+                                $("#alertpopup").modal('show')
+                            }
+                })
+        }
+
+    }
+
+
+
+
+    function terminate(){
+        var accno=$("#Accountno").val()
+        if(accno==""){
+            $("#userMsg").empty()
+            $("#userMsg").append("Please enter account number")
+            $("#alertpopup").modal('show')
+
+        }else{
+                $("#terminate").modal('show')
+        }
+    }
+    function terminProceed(){
+        $("#terminate").modal('hide')
+        
+        var accno=$("#Accountno").val()
+        var reason=$("#reasonId").val()
+        var desc=$("#description").val()
+        console.log("Termin proceed"+reason+desc)
+        $.ajax({
+                            
+                            type : "GET", 
+                            url: "{% url 'Backoffice:TerminateAccount' %}",
+                            dataType: 'json',
+                            data:{
+                                'account':accno,
+                                'reasonId':reason,
+                                'description':desc,
+                            },
+                            success: function(data){
+                                $("#userMsg").empty()
+                                $("#userMsg").append(data.message)
+                                $("#alertpopup").modal('show')
+                            }
+                })
+
+    }
+    function resetPhone(){
+        var accno=$("#Accountno").val()
+        if(accno==""){
+            $("#userMsg").empty()
+            $("#userMsg").append("Please enter account number")
+            $("#alertpopup").modal('show')
+
+        }else{
+            $("#resetpwd").val("")
+            document.getElementById('pp_Check').innerHTML =""
+            $("#reset-phone").modal('show')
+        }
+
+    }
+  
+    function checkpwd(){
+        var resetpwd=$("#resetpwd").val()
+        var ppwd=$("#ppwd").val()
+        if(resetpwd==ppwd){
+            document.getElementById('pp_Check').innerHTML = "✓ Valid";
+            document.getElementById('pp_Check').style.color = "#00C900";
+
+        }else{
+            document.getElementById('pp_Check').innerHTML = "× Not Valid";
+            document.getElementById('pp_Check').style.color = "red";
+
+        }
+    }
     function viewcommisionstructure(){
         var accno=$("#Accountno").val()
         if(accno==""){
@@ -2785,10 +2150,96 @@
                                 'account':accno,
                             },
                             success: function(data){
+                                
+                                var comdata=data.data
+                                console.log("data===="+comdata[0])
+                                $("#comlogin").val(comdata[0])
+                                $("#comfx").val(comdata[1])
+                                $("#comspot").val(comdata[2])
+                                $("#comfuture").val(comdata[3])
+                                $("#comComment").val(comdata[4])
                             }
                 })
                 $("#sales-commision").modal('show')
         }
+    }
+    function emailBankDetails(){
+        var accno=$("#Accountno").val()
+        if(accno==""){
+            $("#userMsg").empty()
+            $("#userMsg").append("Please enter account number")
+            $("#alertpopup").modal('show')
+
+        }else{
+            console.log("Email bank details")
+            $("#Email-Bank").modal('show')
+           
+        }
+
+    }
+    function sendBankDetails(){
+        var bankname=$("#bankname").val()
+        var bankaddr=$("#bankaddr").val()
+        var bankswift=$("#bankswift").val()
+        var bankaddr=$("#bankaddr").val()
+        var bankiban=$("#bankiban").val()
+        var beneficiary=$("#beneficiary").val()
+        var ffc=$("#ffc").val()
+        var validflag=0
+        if(bankname==""){
+            $("#userMsg").empty()
+            $("#userMsg").append("Please enter bank name")
+            $("#alertpopup").modal('show')
+            validflag=1
+        }
+        if(banknaddr==""){
+            $("#userMsg").empty()
+            $("#userMsg").append("Please enter bank address")
+            $("#alertpopup").modal('show')
+            validflag=1
+        }
+        if(bankiban==""){
+            $("#userMsg").empty()
+            $("#userMsg").append("Please enter bank iban")
+            $("#alertpopup").modal('show')
+            validflag=1
+        }
+        if(beneficiary==""){
+            $("#userMsg").empty()
+            $("#userMsg").append("Please enter beneficiary")
+            $("#alertpopup").modal('show')
+            validflag=1
+        }
+        if(ffc==""){
+            $("#userMsg").empty()
+            $("#userMsg").append("Please enter ffc")
+            $("#alertpopup").modal('show')
+            validflag=1
+        }
+        if (validflag==0){
+            $.ajax({
+                    
+                    type : "GET", 
+                    url: "{% url 'Backoffice:EmailBankDetails' %}",
+                    dataType: 'json',
+                    data:{
+                        'account':accno,
+                        'name':bankname,
+                        'address':bankaddr,
+                        'swift':bankswift,
+                        'iban':bankiban,
+                        'beneficiary':beneficiary,
+                        'ffc':ffc
+                    },
+                    success: function(data){
+                        ("#userMsg").empty()
+                        $("#userMsg").append(data.message)
+                        $("#alertpopup").modal('show')
+                    }
+            })
+
+        }
+        
     }
 
      function LoadData(){
@@ -2994,7 +2445,9 @@
                             $("#source").append(source)
                             $("#ticket").append(ticket)
                             $("#rep").append(salesrepId)
-                           
+                            updateTicketSummary(ticket)
+                            updatejournal(ticket)
+                            getReminders(ticket)
                            
                         }
                         
@@ -3003,6 +2456,70 @@
 
         }
      
+
+    }
+    function updateTicketSummary(ticket){
+        $.ajax({
+                    
+                    type : "GET", 
+                    url: "{% url 'Backoffice:TicketSummary' %}",
+                    dataType: 'json',
+                    data:{
+                        'ticket':ticket,
+                    },
+                    success: function(data){
+                        var ticketsummary=data.summary
+                        var summary=""
+                        $("#ticketsummary").empty()
+                        for(i=0;i<ticketsummary.length;i++){
+                            summary+="<div><div class='d-flex py-2'> <div class='d-flex justify-content-between align-items-center'>"+
+                                     "<span class='p-2 p-xxl-3 me-xxl-3 me-2' style='background-color:rgba(35, 36, 54, 1);'>"+
+                                    "<svg width='17' height='17' viewBox='0 0 17 17' fill='none' xmlns='http://www.w3.org/2000/svg'>"+
+                                    "<path d='M12.7994 6.77875L8.49978 2.47917L4.2002 6.77875' stroke='#73759D' stroke-width='1.5' stroke-miterlimit='10' stroke-linecap='round' stroke-linejoin='round'/>"+
+                                    "<path d='M8.5 14.5208V2.59958' stroke='#73759D' stroke-width='1.5' stroke-miterlimit='10' stroke-linecap='round' stroke-linejoin='round'/></svg>"+
+                                    "</span><p class='gilroymedium-type m-0'><span class='color-color1 fs-15'>"+ticketsummary[i]["summary_head"]+"</span>"+
+                                    "<span class='text-white d-block mt-1 fs-15'>"+ticketsummary[i]["summary_text"]+"</span></p></div><span class='ms-auto my-0 py-0'>"+
+                                    "<svg width='15' height='15' viewBox='0 0 15 15' fill='none' xmlns='http://www.w3.org/2000/svg'>"+
+                                    "<path d='M5.35205 3.08788L9.25104 6.98687C9.7115 7.44733 9.7115 8.20082 9.25104 8.66128L5.35205 12.5603' stroke='#73759D' stroke-width='1.53772' stroke-miterlimit='10' stroke-linecap='round' stroke-linejoin='round'/>"+
+                                    "</svg></span></div><hr></div>"
+                        }
+                        $("#ticketsummary").append(summary)
+                    }
+                })
+    }
+    function updatejournal(ticket){
+        $.ajax({
+                    
+                    type : "GET", 
+                    url: "{% url 'Backoffice:JournalUpdate' %}",
+                    dataType: 'json',
+                    data:{
+                        'ticket':ticket,
+                    },
+                    success: function(data){
+                        $("#activityList").empty()
+                        activities=data.activity
+                        var activity=""
+                        var logData=""
+                        var chatlength=activities.length;
+                        
+                        for(i=0;i<activities.length;i++){
+                                            
+                                            logData=activities[i][3]
+
+                                            activity+="  <li class='activity-list activity-border'><div class='activity-icon avatar-sm ms-2'><span class='avatar-title bg-soft-boxgray1 text-warning rounded-circle'>"+
+                                                    "</span></div><div class='timeline-list-item'><div class='d-flex'><div class='flex-grow-1 overflow-hidden me-4 gilroyregular-type'>"+
+                                                    "<p class='font-size-14 mb-1 color-color1'>"+activities[i][0]+"</p><div class='mt-2 bg-soft-boxgray1 px-3 py-3 fs-13 rounded-3 d-flex flex-wrap'>"+
+                                                    "<img class='rounded-circle avatar-md mb-2 me-2' alt='200x200' src='../static/images/users/"+activities[i][7]+".png' onerror=this.src='../static/images/users/user.png'  data-holder-rendered='true'>"+
+                                                    "<div><p class='color-color1  mb-0 ''>"+activities[i][7]+"</p><p class='text-white  mb-0 fs-15'><span class='me-2 d-inline-block'>"+activities[i][4]+"</span> "+
+                                                        "<svg width='10' height='8' viewBox='0 0 10 8' fill='none' xmlns='http://www.w3.org/2000/svg'><path d='M0.75 4.00004L3.58 6.83004L9.25 1.17004' stroke='#00A54F' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/>"+
+                                                        "</svg></p><p class='color-color1  mb-0'>"+activities[i][1]+" by "+activities[i][7]+"</p><p class='color-color1  mb-0' style='max-width: 250px'>"+activities[i][3]+"</p></div></div></div></div></div></li>"
+                        }
+                        $("#activityList").append(activity)
+                        $("#chatsDiv").show()
+                        simpleBarJournal.getScrollElement().scrollTop = simpleBarJournal.getScrollElement().scrollHeight;
+                    }
+        })
 
     }
     function multipleAccount(){
@@ -3034,11 +2551,50 @@
             }
 
     }
+    function finalApproval(){
+        var accno=$("#Accountno").val()
+
+        $.ajax({
+                    
+                    type : "GET", 
+                    url: "{% url 'Backoffice:FinalApproval' %}",
+                    dataType: 'json',
+                    data:{
+                        'account':accno,
+                    },
+                    success: function(data){
+                        message=data.message
+                        $("#userMsg").empty()
+                        $("#userMsg").append(message)
+                        $("#alertpopup").modal('show')
+                        
+                    }
+                })
+    }
+    function tempApproval(){
+        var accno=$("#Accountno").val()
+
+        $.ajax({
+                    
+                    type : "GET", 
+                    url: "{% url 'Backoffice:TemporaryApproval' %}",
+                    dataType: 'json',
+                    data:{
+                        'account':accno,
+                    },
+                    success: function(data){
+                        message=data.message
+                        $("#userMsg").empty()
+                        $("#userMsg").append(message)
+                        $("#alertpopup").modal('show')
+                        
+                    }
+                })
+
+    }
     function duplicateCheckFun(){
         $("#mt4PWD").modal('hide')
         var accno=$("#Accountno").val()
-        
-        console.log("Accno"+accno)
         if(accno==""){
             $("#userMsg").empty()
             $("#userMsg").append("Please enter account number")
@@ -3070,13 +2626,81 @@
             }
 
     }
-    function mt4pwdCheck(){
+    function mt4pwdCheck(check){
+        var accno=$("#Accountno").val()
+        if(accno==""){
+            $("#userMsg").empty()
+            $("#userMsg").append("Please enter account number")
+            $("#alertpopup").modal('show')
+
+        }else{
+        $("#origin").val(check)
         $("#mt4PWD").modal('show')
+            
+        }
 
     }
+    function clientporatlUpdate(){
+        $("#update-client").modal('hide')
+        var validflag=0
+        var oldemail=$("#oldemail").val()
+        var newemail=$("#newemail").val()
+        var accno=$("#Accountno").val()
+        $("#noemail").val("")
+        $("#nonew").val("")
+      
+        if(oldemail==""){
+            document.getElementById('noemail').innerHTML="Please enter your old email"
+            validflag=1
+        }
+        if(oldemail==""){
+            document.getElementById('nonew').innerHTML="Please enter your new email"
+            validflag=1
+        }
+        if(validflag==0){
+            $("#noemail").val("")
+            $("#nonew").val("")
+            $.ajax({
+                    
+                    type : "GET", 
+                    url: "{% url 'Backoffice:UpdateClientCredential' %}",
+                    dataType: 'json',
+                    data:{
+                        'account':accno,
+                        'old':oldemail,
+                        'new':newemail,
+                    },
+                    success: function(data){
+                        $("#userMsg").empty()
+                        $("#userMsg").append(data.message)
+                        $("#alertpopup").modal('show')
+                       
+                    }
+                })
+        }
+
+
+    }
+    
     function checkMT4(){
+        $("#mt4PWD").modal('hide')
         var password=$("#mt4pass").val()
-        duplicateCheckFun()
+        var check=$("#origin").val()
+        console.log("Check===="+check)
+        if(check=="client"){
+            $("#update-client").modal('show')
+            
+        }
+        if(check=="final"){
+            finalApproval()
+        }
+        if(check=="temp"){
+            tempApproval()
+        }
+        else{
+            duplicateCheckFun()
+        }
+        
         // $.ajax({
                     
         //             type : "GET", 
@@ -3149,6 +2773,87 @@
 
         
     }
+    function getReminders(ticket){
+        var reminders=""
+        $.ajax({
+                    
+                    type : "GET", 
+                    url: "{% url 'Backoffice:ReminderLoading' %}",
+                    dataType: 'json',
+                    data:{
+                        'ticket':ticket,
+                    },
+                    success: function(data){
+                        reminders=data.reminders
+                        console.log("Reminders===="+reminders)
+                    }
+        })
+        console.log("Reminders======="+reminders)
+        defaultEvents = [];
+        for(var i=0;i<reminders.length;i++){
+                  var timeformat=reminders[i][2]+"T"+reminders[i][3]
+                  console.log("Time format===="+timeformat)
+                  const  eventobj={
+                    title: reminders[i][0],
+                   
+                    start: new Date(timeformat), 
+                    extendedProps: {
+                        description:reminders[i][5],
+                    }                   
+                    
+                }
+                defaultEvents.push(eventobj)
+        }
+        calendar = new FullCalendar.Calendar(calendarEl, {
+                plugins: [ 'bootstrap', 'interaction', 'dayGrid', 'timeGrid'],
+                editable: true,
+                droppable: true,
+                selectable: true,
+                defaultView: 'dayGridMonth',
+                themeSystem: 'bootstrap',
+                header: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'dayGridMonth,timeGridWeek,timeGridDay,listMonth'
+                },
+                eventClick: function(info) {
+                    
+                    addEvent.modal('show');
+                    formEvent[0].reset();
+                    selectedEvent = info.event;
+                    
+                    newEventData = new Date(selectedEvent.start);
+                   
+                    $("#event-title").val(selectedEvent.title);
+                    $('#event-category').val(selectedEvent.extendedProps['description']);
+                    
+                    flatpickr('#event-timepicker', {
+                        //inline: true,
+                        "allowInput":true,
+                        altInput: true,
+                        mode: "single",
+                        enableTime: true,
+                        noCalendar: true,
+                        dateFormat: "H:i",
+                        defaultDate: selectedEvent.start
+                    });
+                    console.log("Selected Time======"+selectedEvent.start)
+                    reminderflag=1
+                    modalTitle.text('Edit Reminder');
+                    
+                },
+                dateClick: function(info) {
+                    addNewEvent(info);
+                },
+                events : defaultEvents
+            });
+
+            calendar.render();
+        
+  
+   
+    console.log("Default events**************************************************"+defaultEvents)
+}
 
     
     function resetForm(){
@@ -3208,7 +2913,7 @@
  <script src="{% static 'libs/@fullcalendar/interaction/main.min.js' %}"></script>
      
  <!-- Calendar init -->
- <script src="{% static 'js/pages/calendar-mangetickets.init.js' %}"></script>
+ <script src="{% static 'js/pages/backofficecalender.init.js' %}"></script>
  <script src="{% static 'js/app.js' %}"></script>
  </body>
 

@@ -4297,10 +4297,9 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
     }
     function updateTicketSummary(ticketsummary){
         $("#summary_div").empty()
-        console.log("activities====="+ticketsummary.length)
-        console.log("activities====="+typeof(ticketsummary))
+        
         var summarylength= Object.keys(ticketsummary).length;
-        console.log("Summary length============"+summarylength)
+        
         var summary=""
         for(i=0;i<ticketsummary.length;i++){
             

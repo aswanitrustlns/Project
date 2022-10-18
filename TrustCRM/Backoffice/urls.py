@@ -31,7 +31,17 @@ urlpatterns=[
       path('ViewDocumentImage',load_document_image,name="ViewDocumentImage"),
       path('MT4password',check_mt4_password,name="MT4password"),
       path('Multipleaccount',multiple_account_create,name="Multipleaccount"),
-      path('CommisionStructure',load_commision_structure,name="CommisionStructure")
+      path('CommisionStructure',load_commision_structure,name="CommisionStructure"),
+      path('ResetPhonePassword',reset_phone_pwd,name="ResetPhonePassword"),
+      path('UpdateClientCredential',update_client_area_credential,name="UpdateClientCredential"),
+      path('FinalApproval',final_approval,name="FinalApproval"),
+      path('TemporaryApproval',temperory_approval,name="TemporaryApproval"),
+      path('TicketSummary',summary_ticket,name="TicketSummary"),
+      path('JournalUpdate',journal_update,name="JournalUpdate"),
+      path('ReminderLoading',load_reminders,name="ReminderLoading"),
+      path('EmailBankDetails',email_bank_details,name="EmailBankDetails"),
+      path('TerminateAccount',terminate_account,name="TerminateAccount"),
+      path('EmailTemplates',email_template,name="EmailTemplates")
 
      
     

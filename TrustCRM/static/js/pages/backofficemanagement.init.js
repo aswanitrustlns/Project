@@ -32,11 +32,62 @@ File: Form validation Js File
 
 /* Form editor Init Js File
 */
+// ClassicEditor
+//     .create( document.querySelector( '#ckeditor-classic' ),
+
+//     {
+      
+//         fontFamily: {
+//             options: [
+//                 'default',
+//                 'Arial, Helvetica, sans-serif',
+//                 'Courier New, Courier, monospace',
+//                 'Georgia, serif',
+//                 'Lucida Sans Unicode, Lucida Grande, sans-serif',
+//                 'Tahoma, Geneva, sans-serif',
+//                 'Times New Roman, Times, serif',
+//                 'Trebuchet MS, Helvetica, sans-serif',
+//                 'Verdana, Geneva, sans-serif'
+//             ],
+//             supportAllValues: true
+//         },
+//         // https://ckeditor.com/docs/ckeditor5/latest/features/font.html#configuring-the-font-size-feature
+//         fontSize: {
+//             options: [ 10, 12, 14, 'default', 18, 20, 22 ],
+//             supportAllValues: true
+//         },
+
+//         extraPlugins: 'uploadimage',
+//         uploadUrl: '/apps/ckfinder/3.4.5/core/connector/php/connector.php?command=QuickUpload&type=Files&responseType=json',
+//         filebrowserImageBrowseUrl: '/apps/ckfinder/3.4.5/ckfinder.html?type=Images',
+//         filebrowserUploadUrl: '/apps/ckfinder/3.4.5/core/connector/php/connector.php?command=QuickUpload&type=Files',
+//         filebrowserImageUploadUrl: '/apps/ckfinder/3.4.5/core/connector/php/connector.php?command=QuickUpload&type=Images',
+//         } 
+//      )
+//     .then( function(editor) {
+//         editor.model.document.on('change:data', () => {
+//             someContent = editor.getData();
+//             console.log(someContent);
+//         })
+      
+//         //editor.ui.view.editable.element.style.height = '100px';
+
+       
+//     } )
+//     .catch( function(error) {
+//         console.error(error);
+//     } 
+    
+//     );
+
+let editorinstance;
 ClassicEditor
-    .create( document.querySelector( '#ckeditor-classic' ),
+    .create( document.querySelector('#editor'),
 
     {
-      
+        ckfinder: {
+        uploadUrl: 'Ckfinder/upload'
+    },   
         fontFamily: {
             options: [
                 'default',
@@ -56,21 +107,16 @@ ClassicEditor
             options: [ 10, 12, 14, 'default', 18, 20, 22 ],
             supportAllValues: true
         },
-
-        extraPlugins: 'uploadimage',
-        uploadUrl: '/apps/ckfinder/3.4.5/core/connector/php/connector.php?command=QuickUpload&type=Files&responseType=json',
-        filebrowserImageBrowseUrl: '/apps/ckfinder/3.4.5/ckfinder.html?type=Images',
-        filebrowserUploadUrl: '/apps/ckfinder/3.4.5/core/connector/php/connector.php?command=QuickUpload&type=Files',
-        filebrowserImageUploadUrl: '/apps/ckfinder/3.4.5/core/connector/php/connector.php?command=QuickUpload&type=Images',
-        } 
+        
+    } 
      )
-    .then( function(editor) {
-        editor.model.document.on('change:data', () => {
-            someContent = editor.getData();
-            console.log(someContent);
-        })
-      
-        //editor.ui.view.editable.element.style.height = '100px';
+    .then( editor => {
+        editorinstance =editor;
+        console.log( editor );
+    },function(editor) {
+
+        
+        editor.ui.view.editable.element.style.height = '100px';
 
        
     } )
@@ -79,7 +125,6 @@ ClassicEditor
     } 
     
     );
-
 function onloadEditmode($id,$class) {
     $('#'+$id).find('select').attr("disabled", "disabled");
     $('#'+$id).find('input').attr("disabled", "disabled");
@@ -201,8 +246,8 @@ intTel();
 
 //simpleBar Init
 const simpleBarJournal = new SimpleBar(document.getElementById('journal-block'));
-const simpleBarChatlog = new SimpleBar(document.getElementById('chat-block'));
-const simpleBarReademail = new SimpleBar(document.getElementById('read-email-content'));
+// const simpleBarChatlog = new SimpleBar(document.getElementById('chat-block'));
+// const simpleBarReademail = new SimpleBar(document.getElementById('read-email-content'));
 const simpleBarticketsummary=new SimpleBar(document.getElementById('ticketsummary'));
 $('#ticketsummary').css('max-height', $('#formtype_account').innerHeight()-100+'px');
 //$('#journal-block').css('max-height', $('#formtype_account').innerHeight()-300+'px');

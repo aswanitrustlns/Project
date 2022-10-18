@@ -128,6 +128,76 @@ class EmailServices:
             print("EXCEPTION-----------------------")  
         finally:
             Cursor.close()  
+
+    #send email template
+    def sendtemplate(self,title,name,remail,tempId):
+        try:
+            Cursor=connection.cursor()  
+           
+            email_from = 'cs@trusttc.com'
+            bcc1="crm@trusttc.com"
+            # bcc2="backoffice@trusttc.com"
+            # bcc3="compliance@trusttc.com"
+            # bcc4="magt@trusttc.com"
+            template_data={
+                "title":title,
+                "name":name,
+                
+            }  
+
+            if (tempId == 6):
+                Subject = "Webinar Registration"
+                path = "email/backoffice/WebinarRegistration.html"
+            if (tempId == 8):
+                Subject = "KYC Documents"
+                path = "email/backoffice/KYCNotification.html"
+            if (tempId == 9):
+                Subject = "Account reached Stop Out "
+                path = "email/backoffice/StopOut.html"
+            if (tempId == 10):
+                Subject = "Margin Call Notification "
+                path = "email/backoffice/MarginCall.html"
+            if (tempId == 11):
+                Subject = "About Trust Capital"
+                path = "email/backoffice/AboutTrustCapitalTC.html"
+            if (tempId == 12):
+                Subject = "Unreachable"
+                path = "email/backoffice/unreachable.html"
+            if (tempId == 13):
+                Subject = "MetaTrader 4 Advantages"
+                path = "email/backoffice/MetaTrader4Advantages.html"
+            if (tempId == 14):
+                Subject = "Mobile Trading"
+                path = "email/backoffice/MobileTrading.html"
+            if (tempId == 15):
+                Subject = "Types Of Account"
+                path = "email/backoffice/TypesOfAccounts.html"
+            if (tempId == 16):
+                Subject = "Trading Instruments"
+                path = "email/backoffice/TradingInstruments.html"
+            if (tempId == 17):
+                Subject = "Spreads"
+                path = "email/backoffice/Spreads.html"
+            if (tempId == 18):
+                Subject = "Trust Capital - Missing POR"
+                path = "email/backoffice/MissingProofofResidence.html"
+            if (tempId == 19):
+                Subject = "Trust Capital - Missing ID"
+                path = "email/backoffice/MissingId.html"
+            email_template_render=render_to_string(path,template_data)
+            msg = EmailMultiAlternatives(subject=Subject,from_email=email_from,to=[remail],bcc=[bcc1])
+            msg.attach_alternative(email_template_render, "text/html")
+            msg.send(fail_silently=False)
+            print("Email send-----------------------------------------------------------")  
+                    
+
+        except Exception as e:
+            print("EXCEPTION-----------------------")  
+        finally:
+            Cursor.close()
+
+
+
     #Send Temperory Account Details
     def SendTempAccountDetails(self,title,name,remail,accno,acctype):
         try:
@@ -226,7 +296,7 @@ class EmailServices:
                 "account":accno
                 
             }  
-            email_template_render=render_to_string("email/backoffice/TempAccountDetails.html",template_data)
+            email_template_render=render_to_string("email/backoffice/FinalApprovalClient.html",template_data)
             msg = EmailMultiAlternatives(subject=subject,from_email=email_from,to=[remail],bcc=[bcc1,bcc2,bcc3,bcc4])
             msg.attach_alternative(email_template_render, "text/html")
             msg.send(fail_silently=False)
@@ -237,6 +307,33 @@ class EmailServices:
             print("EXCEPTION-----------------------")  
         finally:
             Cursor.close() 
+
+    # def SendTempApprovalEmail(self,title,name,remail,accno,acctype):
+    #     try:
+    #         Cursor=connection.cursor()  
+    #         subject = "Your Live Trust Capital Account Details"
+    #         email_from = 'cs@trusttc.com'
+    #         bcc1="crm@trusttc.com"
+    #         bcc2="backoffice@trusttc.com"
+    #         bcc3="compliance@trusttc.com"
+    #         bcc4="magt@trusttc.com"
+    #         template_data={
+    #             "title":title,
+    #             "name":name,
+    #             "account":accno,
+    #             "acctype":acctype
+    #         }  
+    #         email_template_render=render_to_string("email/backoffice/TempAccountDetails.html",template_data)
+    #         msg = EmailMultiAlternatives(subject=subject,from_email=email_from,to=[remail],bcc=[bcc1,bcc2,bcc3,bcc4])
+    #         msg.attach_alternative(email_template_render, "text/html")
+    #         msg.send(fail_silently=False)
+    #         print("Email send-----------------------------------------------------------")  
+                    
+
+    #     except Exception as e:
+    #         print("EXCEPTION-----------------------")  
+    #     finally:
+    #         Cursor.close() 
 
     def ClientAreaCredentialUpdateNotify(self,accno):
         try:
@@ -296,8 +393,6 @@ class EmailServices:
             email_from = 'cs@trusttc.com'
            
             bcc1="crm@trusttc.com"
-          
-           
             template_data={
               
                 "name":name,
@@ -315,7 +410,7 @@ class EmailServices:
         finally:
             Cursor.close() 
         #Reset password 
-    def sendBankDetails(self,iban,bankname,reference,recbank,recbnkaddress,recreference):
+    def sendBankDetailsdraft(self,iban,bankname,reference,recbank,recbnkaddress,recreference):
         try:
             Cursor=connection.cursor()  
             subject = "Phone Password Reset"
@@ -340,6 +435,39 @@ class EmailServices:
             print("EXCEPTION-----------------------")  
         finally:
             Cursor.close() 
+    #Send Bank Details
+    def sendBankDetails(self,accno,bankname,address,beneficiary,swift,iban,ffc,title,name,remail):
+        try:
+            Cursor=connection.cursor()  
+            subject = "Bank Transfer Details"
+            email_from = 'cs@trusttc.com'
+           
+            bcc1="crm@trusttc.com"
+            bcc2="backoffice@trusttc.com"
+            bcc3="magt@trusttc.com"
+          
+           
+            template_data={
+                "title":title,
+                "name":name,
+                "bankname":bankname,
+                "address":address,
+                "beneficiary":beneficiary,
+                "swift":swift,
+                "iban":iban,
+                "ffc":ffc
+            }  
+            email_template_render=render_to_string("email/backoffice/BankTransferDetails.html",template_data)
+            msg = EmailMultiAlternatives(subject=subject,from_email=email_from,to=[remail],bcc=[bcc1,bcc2,bcc3])
+            msg.attach_alternative(email_template_render, "text/html")
+            msg.send(fail_silently=False)
+            print("Email send-----------------------------------------------------------")  
+                    
+
+        except Exception as e:
+            print("EXCEPTION-----------------------")  
+        finally:
+            Cursor.close()
     
         #send alert message
     def sendBDocExpiry(self,title,name,remail,message):

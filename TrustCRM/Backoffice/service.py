@@ -186,6 +186,15 @@ class Services:
             print("Exception----",e)
         finally:
             Cursor.close()
+     #Update Client Area Credential
+    def update_client_area(self,accno,oldemail,newemail):
+        try:
+            Cursor=connection.cursor()    
+            Cursor.execute("exec SP_UpdateClientAreaCredential %s,%s,%s",[oldemail,newemail,accno])
+        except Exception as e:
+            print("Exception----",e)
+        finally:
+            Cursor.close()
      #Save card
     def save_credit_card(self,request):
         try:
