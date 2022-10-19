@@ -133,7 +133,7 @@ class EmailServices:
     def sendtemplate(self,title,name,remail,tempId):
         try:
             Cursor=connection.cursor()  
-           
+            print("email data====",title,name,remail,tempId)
             email_from = 'cs@trusttc.com'
             bcc1="crm@trusttc.com"
             # bcc2="backoffice@trusttc.com"
@@ -144,46 +144,47 @@ class EmailServices:
                 "name":name,
                 
             }  
-
-            if (tempId == 6):
+            print("Temp data=====",template_data)
+            if (tempId == "6"):
                 Subject = "Webinar Registration"
                 path = "email/backoffice/WebinarRegistration.html"
-            if (tempId == 8):
+            if (tempId == "8"):
                 Subject = "KYC Documents"
                 path = "email/backoffice/KYCNotification.html"
-            if (tempId == 9):
+            if (tempId == "9"):
                 Subject = "Account reached Stop Out "
                 path = "email/backoffice/StopOut.html"
-            if (tempId == 10):
+            if (tempId == "10"):
                 Subject = "Margin Call Notification "
                 path = "email/backoffice/MarginCall.html"
-            if (tempId == 11):
+            if (tempId == "11"):
                 Subject = "About Trust Capital"
                 path = "email/backoffice/AboutTrustCapitalTC.html"
-            if (tempId == 12):
+            if (tempId == "12"):
                 Subject = "Unreachable"
                 path = "email/backoffice/unreachable.html"
-            if (tempId == 13):
+            if (tempId == "13"):
                 Subject = "MetaTrader 4 Advantages"
                 path = "email/backoffice/MetaTrader4Advantages.html"
-            if (tempId == 14):
+            if (tempId == "14"):
                 Subject = "Mobile Trading"
                 path = "email/backoffice/MobileTrading.html"
-            if (tempId == 15):
+            if (tempId == "15"):
                 Subject = "Types Of Account"
                 path = "email/backoffice/TypesOfAccounts.html"
-            if (tempId == 16):
+            if (tempId == "16"):
                 Subject = "Trading Instruments"
                 path = "email/backoffice/TradingInstruments.html"
-            if (tempId == 17):
+            if (tempId == "17"):
                 Subject = "Spreads"
                 path = "email/backoffice/Spreads.html"
-            if (tempId == 18):
+            if (tempId == "18"):
                 Subject = "Trust Capital - Missing POR"
                 path = "email/backoffice/MissingProofofResidence.html"
-            if (tempId == 19):
+            if (tempId == "19"):
                 Subject = "Trust Capital - Missing ID"
                 path = "email/backoffice/MissingId.html"
+            print("Email",path,template_data)    
             email_template_render=render_to_string(path,template_data)
             msg = EmailMultiAlternatives(subject=Subject,from_email=email_from,to=[remail],bcc=[bcc1])
             msg.attach_alternative(email_template_render, "text/html")

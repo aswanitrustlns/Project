@@ -368,13 +368,13 @@ class Services:
     def save_crypto_card(self,request):
         try:
             message="Please try again"
-            accno=request.GET.get('accno')
-            orderno=request.GET.get('orderno')
+            accno=request.POST.get('accno')
+            orderno=request.POST.get('orderno')
             if orderno=="":
                 orderno=0
             else:
                 orderno=int(orderno)
-            name=request.GET.get('name')
+            name=request.POST.get('name')
             cardno=request.POST.get('cardno')
         
             userid=int(request.session.get('UserId'))

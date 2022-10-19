@@ -25,11 +25,9 @@ File: Calendar init js
             var d = date.getDate();
             var m = date.getMonth();
             var y = date.getFullYear();
-            var addEvent=$("#event-modal");
-            var modalTitle = $("#modal-title");
-            var formEvent = $("#form-event");
-            var selectedEvent = null;
-            var newEventData = null;
+        
+           
+           
             var Draggable = FullCalendarInteraction.Draggable;
             //var externalEventContainerEl = document.getElementById('external-events');
             // init dragable
@@ -91,7 +89,7 @@ File: Calendar init js
                     } else {
                         ev.preventDefault()
                          console.log("Inputsssssss"+inputs)
-                        var ticket=document.getElementById("ticketno").value
+                        var ticket=document.getElementById("tickets").value
                         // var subject=$("#subject").val()
                         // var newEvent = {
                         //     title: updatedTitle,

@@ -1,0 +1,591 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8" />
+    <title>Trust Capital CRM</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
+    <meta content="Themesbrand" name="author" />
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" lang="ar">
+    <!-- App favicon -->
+    {% load  static %}
+     <!-- DataTables -->
+     <link href="{% static 'libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css' %}" rel="stylesheet" type="text/css" />
+     <link href="{% static 'libs/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css' %}" rel="stylesheet" type="text/css" />
+     <!-- plugin css -->
+     <!--<link href="assets/libs/admin-resources/jquery.vectormap/jquery-jvectormap-1.2.2.css" rel="stylesheet"
+         type="text/css" />-->
+      <!-- datepicker css -->
+      <link rel="stylesheet" href="{% static 'libs/flatpickr/flatpickr.min.css' %}">
+      
+      <link href="{% static 'css/input-tel.min.css' %}" rel="stylesheet"   type="text/css" />
+    {% include "common/link.html" %}
+    {% include "common/scripts.html" %}
+
+   
+
+ 
+</head>
+<body data-layout-mode="dark">
+
+    <!-- <body data-layout="horizontal"> -->
+    
+    <!-- Begin page -->
+    <div id="layout-wrapper">
+    
+        {% include "common/header.html" %}
+    
+
+        <!-- ========== Left Sidebar Start ========== -->
+        {% include "common/sidebar.html" %}
+        <div class="main-content">
+
+            <div class="page-content" id="sales">
+                <div class="container-fluid">
+                    <!--container-fluid px-md-5 me-md5-->
+
+                    
+                
+            
+
+                    <!--row0-->
+                    <div class="row">
+
+                        <div class="col-xxl-5  col-md-6">
+                            <!-- card -->
+                            <div class="card card-h-100">
+                                <!-- card body -->
+                                <div class="card-body">
+                                    <div class="d-flex flex-wrap align-items-center mb-4">
+                                        <h5 class="card-title me-2 almarenamonolight-type fs-21">Live Accounts</h5>
+
+                                    </div>
+                                    <div class="row align-items-center">
+
+                                        <div class="col-xxl-6 col-xl-6  col-md-12 mb-4 mb-xl-0 pe-xxl-5">
+
+                                            <div class="d-flex mb-2">
+                                                <svg width="21" height="21" class="me-2"  viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M10.5002 0.0830078C4.75016 0.0830078 0.0834961 4.74967 0.0834961 10.4997C0.0834961 16.2497 4.75016 20.9163 10.5002 20.9163C16.2502 20.9163 20.9168 16.2497 20.9168 10.4997C20.9168 4.74967 16.2502 0.0830078 10.5002 0.0830078ZM15.9689 10.8434C15.9689 11.2705 15.6147 11.6247 15.1877 11.6247C14.7606 11.6247 14.4064 11.2705 14.4064 10.8434V7.69759L6.36475 15.7393C6.2085 15.8955 6.01058 15.9684 5.81266 15.9684C5.61475 15.9684 5.41683 15.8955 5.26058 15.7393C4.9585 15.4372 4.9585 14.9372 5.26058 14.6351L13.3022 6.59342H10.1564C9.72933 6.59342 9.37516 6.23926 9.37516 5.81217C9.37516 5.38509 9.72933 5.03092 10.1564 5.03092H15.1877C15.6147 5.03092 15.9689 5.38509 15.9689 5.81217V10.8434Z" fill="#00A651"/>
+                                                </svg>
+                                                <h5 class=" gilory-medium-type fs-18">Funded</h5>
+
+                                            </div>
+
+                                            <div class="d-flex w-100 justify-content-between">
+                                                <a href="{% url 'Admin:AccountsFilter' %}?&change=Funded"><p class=" gilory-semibold-type color-color1 fs-16 m-0 text-red me-2 text-xl-center mb-lg-2">Today <span class="badge  rounded-pill  p-2 fs-11 ms-2" style="background-color:rgba(238, 110, 110, 0.2) ;">{{funded_today}}</span></p></a>
+                                                <a href="{% url 'Admin:WeeklyFilter' %}?&change=Funded"><p class=" gilory-semibold-type color-color1 fs-16 m-0 text-green text-xl-center">This week  <span class="badge  rounded-pill  p-2 fs-11 ms-2" style="background-color:rgba(38, 171, 95, 0.2) ;">{{funded_week}}</span></p></a>
+
+                                            </div>
+                                            
+                                                
+                                            
+
+
+
+                                        </div>
+                                        <div class="col-xxl-6 col-xl-6  col-md-12 ps-xxl-5">
+
+                                            <div class="d-flex mb-2">
+                                                <svg width="21" height="21"  class="me-2" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M10.5002 0.0830078C4.75016 0.0830078 0.0834961 4.74967 0.0834961 10.4997C0.0834961 16.2497 4.75016 20.9163 10.5002 20.9163C16.2502 20.9163 20.9168 16.2497 20.9168 10.4997C20.9168 4.74967 16.2502 0.0830078 10.5002 0.0830078ZM16.2606 5.84343L8.21891 13.8851H11.3647C11.7918 13.8851 12.146 14.2393 12.146 14.6663C12.146 15.0934 11.7918 15.4476 11.3647 15.4476H6.3335C5.90641 15.4476 5.55225 15.0934 5.55225 14.6663V9.63509C5.55225 9.20801 5.90641 8.85384 6.3335 8.85384C6.76058 8.85384 7.11475 9.20801 7.11475 9.63509V12.7809L15.1564 4.73926C15.3127 4.58301 15.5106 4.51009 15.7085 4.51009C15.9064 4.51009 16.1043 4.58301 16.2606 4.73926C16.5627 5.04134 16.5627 5.54134 16.2606 5.84343Z" fill="#FF0001"/>
+                                                    </svg>
+                                                    
+                                                <h5 class=" gilory-medium-type fs-18">Non Funded</h5>
+
+                                            </div>
+
+                                            <div class="d-flex w-100 justify-content-between">
+                                                <a href="{% url 'Admin:AccountsFilter' %}?&change=NonFunded"><p class=" gilory-semibold-type color-color1 fs-16 m-0 text-red me-2 text-xl-center ">Today <span class="badge  rounded-pill  p-2 fs-11 ms-2" style="background-color:rgba(238, 110, 110, 0.2) ;"> {{nonfunded_today}}</span></p><a href="{% url 'Admin:AccountsFilter' %}?&change=NonFunded"></a>
+                                                <a href="{% url 'Admin:WeeklyFilter' %}?&change=NonFunded"><p class=" gilory-semibold-type color-color1 fs-16 m-0 text-green text-xl-center">This week  <span class="badge  rounded-pill  p-2 fs-11 ms-2" style="background-color:rgba(38, 171, 95, 0.2) ;">{{nonfunded_week}}</span></p></a>
+
+                                            </div>
+                                        
+
+
+                                        </div>
+                                    
+                                    
+
+
+
+                                    </div><!-- end card body -->
+                                </div><!-- end card -->
+                            </div><!-- end col -->
+
+
+
+                        </div>
+                      
+                        <div class="col-xxl-4 col-md-6">
+                            <!-- card -->
+                            <div class="card card-h-100">
+                                <!-- card body -->
+                                <div class="card-body">
+                                    <div class="d-flex flex-wrap align-items-center mb-4">
+                                        <h5 class="card-title me-2 almarenamonolight-type fs-21">Pending Accounts</h5>
+
+                                    </div>
+                                    <div class="row align-items-center">
+
+                                        <div class="col-xl-6  mb-2  mb-xl-0 flex-shrink-0 ">
+
+                                            <div class="border-0 rounded-3  p-2 font-size-20  text-center " style="background-color:rgba(28, 29, 52, 1) ;">
+                                                
+                                                    <h1 class="m-0 gilory-medium-type fs-25 mb-2 m-0">{{approved}}</h1>
+                                                    <p class="m-0 color-color1 fs-15">Approved Temporarily</p>
+                                            </div>
+
+                                    
+                                            
+                                                
+                                            
+
+
+
+                                        </div>
+                                        <div class="col-xl-6  flex-shrink-0 ">
+
+                                            <div class="border-0 rounded-3  p-2 font-size-20  text-center " style="background-color:rgba(28, 29, 52, 1) ;">
+                                                    <h1 class="m-0 gilory-medium-type fs-25 mb-2 m-0">{{waiting}}</h1>
+                                                    <p class="m-0 color-color1 fs-15">Waiting for approval</p>
+                                            </div>
+
+                                    
+                                            
+                                                
+                                            
+
+
+
+                                        </div>
+                                    
+                                    
+                                    
+
+
+
+                                    </div><!-- end card body -->
+                                </div><!-- end card -->
+                            </div><!-- end col -->
+
+
+
+                        </div>
+                        <div class="col-xxl-3 col-md-12">
+
+                            <div class="row ">
+
+                                <div class="col-xxl-12 ">
+                                    <!--Live chats this week-->
+                                    <div class="card card-h-100">
+
+
+                                        <div class="card-body ">
+
+
+                                            <div class="d-flex flex-no-wrap align-items-center ">
+                                                <h5 class="card-title me-2 almarenamonolight-type fs-21">Pending Crypto Approval
+                                                </h5>
+                                                <div class="ms-auto flex-shrink-0">
+                                                    <div class="dropdown d-inline-block">
+                                                        <a class="  position-relative " id="live-chats-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+
+                                                            <span class="badge bg-soft-orange rounded-pill rounded-circle p-2 fs-11">{{pending_crypto_count}}</span>
+                                                        </a>
+                                                      
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="table-responsive" data-simplebar="" style="max-height: 100px ;">
+                                                <table class="table mb-0  change  w-100" id="dtpendingcryptoapproval">
+        
+                                                    <thead class="gilory-medium-type fs-14 color-color1">
+                                                        <tr >
+                                                            <th class="ps-0">Login</th>
+                                                           
+                                                            <th class="text-end">Name</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody class="gilory-regular-type fs-14 text-white"  >
+                                                        {%for crypto in pending_crypto%}
+                                                        <tr>
+                                                            <td scope="row" class="ps-0">{{crypto.0}}</td>
+                                                            
+                                                            <td class="text-end">{{crypto.1}}</td>
+                                                        </tr>
+                                                        {%endfor%}
+                                                       
+        
+                                                    </tbody>
+                                                </table>
+                                            </div>
+
+
+
+
+                                        </div>
+                                        <!-- end card body -->
+                                    </div>
+
+                                </div>
+                            
+                            </div>
+                        </div>
+
+                        <!-- end row-->
+                    
+                    </div>
+
+                    <!--row1-->
+                    <div class="row">
+                  
+                          <!--Journal-->
+                          <div class="col-xxl-6 col-md-12  order-xxl-0">
+                            <div class="card card-h-100">
+
+
+
+
+                                <div class="card-body ">
+
+                                    <div class="d-flex flex-wrap align-items-left flex-column mb-3 ">
+                                        <h5 class="card-title me-2 almarenamonolight-type fs-21 mb-0">Journal</h5>
+
+
+                                    </div>
+                                    <span class="mb-4  gilroymedium-type fs-13 color-color1">Recent
+                                        activities</span>
+                                    <div class="ps-3 pt-2 " data-simplebar
+                                        style="max-height: 145px;margin-left: -20px;">
+                                        <ul class="list-unstyled activity-wid mb-0 journel2 ">
+                                            {%if journel%}        
+                                            {% for journels in journel %}  
+                                            <li class="activity-list activity-border ">
+                                                <div class="activity-icon avatar-sm me-3">
+                                                    <span class="avatar-title   rounded-circle">
+                                                        <!--<i class="bx bx-bitcoin font-size-24"></i>-->
+                                                        <img class="rounded-circle avatar-md"
+                                                        src="{%static 'images/users/'%}{{journels.0}}.png" 
+                                                        onerror='this.src="{% static 'images/users/user.png' %}"'>
+                                                    </span>
+                                                </div>
+                                                <div class="timeline-list-item flex-grow-1">
+                                                    <div class="d-flex">
+                                                      
+                                                        <div class="flex-grow-1 overflow-hidden me-4">
+                                                            <h5 class="font-size-14 mb-1 gilroymedium-type fs-15">
+                                                                {{journels.0}}</h5>
+                                                            <p
+                                                                class="text-truncate color-color1 font-size-13 gilroymedium-type fs-12 d-flex justify-content-between mb-0">
+                                                                {{journels.1}}
+
+                                                                <span class="flex-shrink-0 text-end me-3">
+                                                                    <svg width="15" height="15" viewBox="0 0 15 15"
+                                                                        fill="none"
+                                                                        xmlns="http://www.w3.org/2000/svg">
+                                                                        <path
+                                                                            d="M13.75 7.5C13.75 10.95 10.95 13.75 7.5 13.75C4.05 13.75 1.25 10.95 1.25 7.5C1.25 4.05 4.05 1.25 7.5 1.25C10.95 1.25 13.75 4.05 13.75 7.5Z"
+                                                                            stroke="var(--color1)" stroke-width="1.5"
+                                                                            stroke-linecap="round"
+                                                                            stroke-linejoin="round" />
+                                                                        <path
+                                                                            d="M9.81875 9.48751L7.88125 8.33126C7.54375 8.13126 7.26875 7.65001 7.26875 7.25626V4.69376"
+                                                                            stroke="var(--color1)"
+                                                                            stroke-width="1.5"
+                                                                            stroke-linecap="round"
+                                                                            stroke-linejoin="round" />
+                                                                    </svg> <span class="ms-1 color-color1">{{journels.2}}</span>
+                                                                </span>
+
+                                                            </p>
+                                                        </div>
+                                                        
+
+
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            {%endfor%}
+                                                        {%else%}
+                                                           
+                                                            <div class="  text-center  d-block">
+                                                                <img src="{% static 'images/nodata/nodata.png' %}" alt="" style="max-height: 80px;">                                                   
+                                                                
+                            
+                                                                <p class="gilory-regular-type fs-20 mt-2">No Journals</p>
+                                                            
+                                                            
+                                                            </div>
+            
+                                                        {%endif%}
+
+                                        </ul>
+                                    </div>
+                                </div>
+                                <!-- end card body -->
+                            </div>
+                            <!-- end card -->
+                        </div>
+                        <!--Missing Documents-->
+                        <div class="col-xxl-3 col-md-6 order-2 order-xxl-1">
+
+                            <div class="card card-h-100">
+
+
+                                <div class="card-body ">
+
+
+                                    <div class="d-flex flex-no-wrap align-items-start mb-4">
+                                        <h5 class="card-title me-2 almarenamonolight-type fs-21">Missing Documents
+
+                                            <span class="color-color1  gilroyregular-type fs-14 m-0 d-block mt-2">          
+                                                The list of all client accounts with the missing documents</span>
+                                        </h5>
+                                        <div class="ms-auto flex-shrink-0">
+                                            <div class="dropdown d-inline-block">
+                                                <a class="  position-relative " id="live-chats-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+
+                                                    <span class="badge rounded-pill rounded-circle p-2 fs-11" style="background-color: #E33399;">{{missing_docs_count}}</span>
+                                                </a>
+                                              
+                                            </div>
+                                        </div>
+                                    </div>
+                         
+                                    <div class="table-responsive"  data-simplebar="" style="max-height: 114px;">
+                                        {%if missing_docs%}  
+                                        <table class="table mb-0  change   dt-responsive  nowrap w-100 color-color1" id="dtmissingdocuments">
+
+                                            <thead class="gilory-medium-type fs-14">
+                                                <tr >
+                                                    <th class="ps-0">Login</th>
+                                                   
+                                                    <th class="text-end">Name</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody class="gilory-regular-type fs-14 text-white"  >
+                                                      
+                                                {% for docs in missing_docs %}  
+                                                <tr>
+                                                    <td scope="row"  class="ps-0">{{docs.0}}</td>
+                                                    
+                                                    <td class="text-end">{{docs.1}}</td>
+                                                </tr>
+                                                {%endfor%}
+                                                
+                                               
+
+                                            </tbody>
+                                        </table>
+                                        {%else%}
+                                                   
+                                                    <div class="  text-center  d-block">
+                                                        <img src="{% static 'images/nodata/nodata.png' %}" alt="" style="max-height: 80px;">                                                   
+                                                        
+                    
+                                                        <p class="gilory-regular-type fs-20 mt-2">Nothing to show</p>
+                                                    
+                                                    
+                                                    </div>
+    
+                                                {%endif%}
+                                    </div>
+                                </div>
+                                <!-- end card body -->
+                            </div>
+
+
+                        </div>
+                         <!--Pending Credit Card
+Approval-->
+                         <div class="col-xxl-3 col-md-6 order-2 order-xxl-1">
+
+                            <div class="card card-h-100">
+
+
+                                <div class="card-body">
+
+
+                                    <div class="d-flex flex-no-wrap align-items-start mb-4">
+                                        <h5 class="card-title me-2 almarenamonolight-type fs-21">Pending Credit Card
+                                            Approval</h5>
+                                        <div class="ms-auto">
+                                            <div class="dropdown d-inline-block">
+                                                <a class="  position-relative ">
+                                                    <span class="badge  rounded-pill rounded-circle p-2 fs-11" style="background-color: 
+                                                    #CE8536;">{{pending_credit_count}}</span>
+                                                </a>
+                                              
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+
+                                    <div class="table-responsive" data-simplebar="" style="max-height: 145px;">
+                                        {%if pending_credit%}        
+                                                 
+                                        <table class="table mb-0  change   dt-responsive  nowrap w-100" id="dtpendingccapproval">
+
+                                            <thead class="gilory-medium-type fs-14 color-color1">
+                                                <tr >
+                                                    <th class="ps-0">Login</th>
+                                                   
+                                                    <th class="text-end">Name</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody class="gilory-regular-type fs-14 text-white"  >
+                                                {% for credit in pending_credit %} 
+                                                <tr>
+                                                    <td scope="row"  class="ps-0">April 2022</td>
+                                                    
+                                                    <td class="text-end">77</td>
+                                                </tr>
+                                                {%endfor%}
+                                               
+
+                                            </tbody>
+                                        </table>
+                                        {%else%}
+                                                   
+                                                    <div class="  text-center  d-block">
+                                                        <img src="{% static 'images/nodata/nodata.png' %}" alt="" style="max-height: 80px;">                                                   
+                                                        
+                    
+                                                        <p class="gilory-regular-type fs-20 mt-2">Nothing to show</p>
+                                                    
+                                                    
+                                                    </div>
+    
+                                                {%endif%}
+
+                                    </div>
+                                </div>
+                                <!-- end card body -->
+                            </div>
+
+
+                        </div>
+                      
+                    
+                    </div>
+                    <!--row2-->
+                    <div class="row">
+                        <!--Active Campaigns-->
+                        <div class="col-xxl-12 col-md-12 ">
+                            <div class="card card-h-100">
+
+
+                                <div class="card-body ">
+
+                                    <div class="d-flex flex-wrap align-items-center mb-4">
+                                        <h5 class="card-title me-2 almarenamonolight-type fs-21">Pending Transations</h5>
+                                        <div class="ms-auto">
+
+                                            
+
+                                        </div>
+                                    </div>
+                                    <div class="table-responsive mt-3" data-simplebar="" style="max-height:100%">
+                                        {%if pending_trans%}
+                                        <table id="dtpendingtransations" class="table dt-responsive  nowrap  w-100 change">
+                                            <thead          class="color-color1">
+                                                <tr  class=" gilory-medium-type fs-17 ">
+                                                    <th  class="ps-0"> ID</th>
+                                                    <th >Transaction Date</th>
+                                                    <th  >Log In</th>
+                                                    <th  >Amount</th>
+                                                    <th>Type</th>
+                                                    <th>Status</th>
+                                                    
+                                                    <th class="text-end ">Remarks</th>
+                                                    
+                                                </tr>
+                                            </thead>
+    
+    
+                                            <tbody class="text-white gilory-regular-type fs-16">
+                                                {%for trans in pending_trans%}
+                                                <tr>
+                                                   <td class="ps-0">{{trans.0}}</td>
+                                                   <td>{{trans.1}}</td>
+                                                   <td>{{trans.2}}</td>
+                                                   <td>{{trans.3}}</td>
+                                                   <td>{{trans.5}}</td>
+                                                   
+                                                   <td><button class="btn  btn-sm  color-green fs-15" style="background-color:
+                                                    rgba(0, 165, 79, 0.15) ;">{{trans.6}}</button></td>
+                                                  
+                                                   <td class="text-end ">{{trans.7}}</td>
+                                                
+                                                </tr>
+                                                {%endfor%}
+                                                 
+                                              
+                                               
+                                        
+                                            
+                                            </tbody>
+                                         
+                                        </table>
+                                        {%else%}
+                                                   
+                                                    <div class="  text-center  d-block">
+                                                        <img src="{% static 'images/nodata/nodata.png' %}" alt="" style="max-height: 80px;">                                                   
+                                                        
+                    
+                                                        <p class="gilory-regular-type fs-20 mt-2">No Transactions</p>
+                                                    
+                                                    
+                                                    </div>
+    
+                                                {%endif%}
+                                    </div>
+                                </div>
+                                <!-- end card body -->
+                            </div>
+                            <!-- end card -->
+                        </div>
+                      
+                   
+
+
+
+
+                    </div>
+                   
+
+                
+                
+                
+
+
+                </div>
+                <!-- container-fluid -->
+            </div>
+            <!-- End Page-content -->
+
+
+
+            
+        </div>
+        <!-- end main content-->
+
+    </div>
+    {% include "common/right-sidebar.html" %}
+    
+    <!-- Right bar overlay-->
+<div class="rightbar-overlay"></div>  
+    <!-- apexcharts -->
+    <script src="{% static 'libs/apexcharts/apexcharts.min.js' %}"></script>
+
+    <!-- Required datatable js -->
+    <script src="{% static 'libs/datatables.net/js/jquery.dataTables.min.js' %}"></script>
+    <script src="{% static 'libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js' %}"></script>
+    <!-- dashboard init -->
+    <script src="{% static 'js/pages/bo-db.init.js' %}"></script>
+
+    <script src="{% static 'js/app.js' %}"></script>

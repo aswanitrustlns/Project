@@ -5,7 +5,7 @@ import string
 import random
 from django.template.loader import render_to_string
 import binascii
-from datetime import datetime
+from datetime import datetime,timedelta
 
 from TrustCRM.settings import UPLOAD_ROOT
 from .dllservice import DllService
@@ -534,6 +534,62 @@ class Selector:
         finally:
                 Cursor.close()
         return all_reminders
+    #Dashboard data
+    def dashboard_selector(self,userId):
+        dash_data={}
+        try:
+            Cursor=connection.cursor()           
+            date_today=datetime.today().date()
+            week_day=datetime.today().weekday() # Monday is 0 and Sunday is 6
+            date_today=date_today.strftime("%Y-%m-%d")
+            if(week_day==0):
+                date_yesterday_for_week = datetime.today()-timedelta(3)
+                date_yesterday_for_today=datetime.today()-timedelta(3)
+            else:
+                date_yesterday_for_week = datetime.today()-timedelta(week_day)
+                date_yesterday_for_today=datetime.today()-timedelta(1)
+
+            date_yesterday_for_today=date_yesterday_for_today.strftime("%Y-%m-%d")
+            date_yesterday_for_week=date_yesterday_for_week.strftime("%Y-%m-%d")
+            Cursor=connection.cursor()
+            Cursor.execute("set nocount on;exec SP_GetNewAccountsCount %s,%s",[date_yesterday_for_week,date_today])
+            live_count=Cursor.fetchone()
+            print("Live count this week======")
+            Cursor.execute("set nocount on;exec SP_GetNewAccountsCount %s,%s",[date_yesterday_for_today,date_today])
+            live_count_today=Cursor.fetchone()
+            print("Live count======",live_count)
+            if live_count_today:
+                
+                live_funded_today=live_count_today[0]
+                live_nonfund_today=live_count_today[1]
+                pending_approved=live_count_today[2]
+                pending_waiting=live_count_today[3]
+            if live_count:
+                live_funded_week=live_count[0]
+                live_nonfund_week=live_count[1]
+            Cursor.execute("set nocount on;exec SP_GetActivityLogsDB %s",[userId])
+            journels=Cursor.fetchall()
+            Cursor.execute("set nocount on;exec SP_GetPendingCryptoApproval_PY")
+            pending_crypto=Cursor.fetchall() 
+            pending_crypto_count=len(pending_crypto)
+            Cursor.execute("set nocount on;exec SP_GetPendingCreditCardApproval_PY")
+            pending_credit=Cursor.fetchall() 
+            pending_credit_count=len(pending_credit)
+            Cursor.execute("set nocount on;exec SP_GetMissingDocuments_PY")
+            missing_docs=Cursor.fetchall() 
+            missing_docs_count=len(missing_docs)
+            Cursor.execute("set nocount on;exec SP_GetEWalletTransHistory %s,%s,%s",[date_yesterday_for_today,date_today,4])
+            pending_trans=Cursor.fetchall() 
+            dash_data={'funded_today':live_funded_today,'nonfunded_today':live_nonfund_today,'funded_week':live_funded_week,'nonfunded_week':live_nonfund_week,
+            'approved':pending_approved,'waiting':pending_waiting,'journel':journels,'pending_crypto':pending_crypto,'pending_crypto_count':pending_crypto_count,
+            'pending_credit':pending_credit,'pending_credit_count':pending_credit_count,'missing_docs':missing_docs,'missing_docs_count':missing_docs_count,
+            'pending_trans':pending_trans}
+        except Exception as e:
+                print("Exception------",e)
+        finally:
+                Cursor.close()
+        return dash_data
+
     
    
   

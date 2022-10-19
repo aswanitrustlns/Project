@@ -247,7 +247,7 @@ intTel();
 //simpleBar Init
 const simpleBarJournal = new SimpleBar(document.getElementById('journal-block'));
 // const simpleBarChatlog = new SimpleBar(document.getElementById('chat-block'));
-// const simpleBarReademail = new SimpleBar(document.getElementById('read-email-content'));
+const simpleBarReademail = new SimpleBar(document.getElementById('read-email-content'));
 const simpleBarticketsummary=new SimpleBar(document.getElementById('ticketsummary'));
 $('#ticketsummary').css('max-height', $('#formtype_account').innerHeight()-100+'px');
 //$('#journal-block').css('max-height', $('#formtype_account').innerHeight()-300+'px');
@@ -271,6 +271,15 @@ $(document).ready(function () {
         //inline: true,
         dateFormat: "M-d-Y",
         //defaultDate: new Date(),
+    });
+    flatpickr('#event-timepicker', {
+        //inline: true,
+		"allowInput":true,
+        altInput: true,
+        mode: "single",
+        enableTime: true,
+        noCalendar: true,
+        dateFormat: "H:i",
     });
     
 

@@ -402,6 +402,7 @@ class DashboardSelector:
         seminar_weekly_pie=[]
         halfyearly_bar=[]
         ticket_summary_bar=[]
+        
         try:
             date_today=datetime.today().date()
             week_day=datetime.today().weekday() # Monday is 0 and Sunday is 6

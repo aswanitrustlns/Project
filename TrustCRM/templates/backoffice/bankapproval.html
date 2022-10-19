@@ -22,6 +22,14 @@
       
       <link href="{% static 'css/input-tel.min.css' %}" rel="stylesheet"   type="text/css" />
     {% include "common/link.html" %}
+    <style>
+        table td .dropdown-menu.show{
+                right: 0px;
+        left: auto;
+        transform: none;
+        display: flex;
+        }
+    </style>
     {% include "common/scripts.html" %}
 
    
@@ -399,7 +407,9 @@
                                                                         <tr  class=" gilory-medium-type fs-17">
                                                                             <th  class="ps-0"> Order No</th>
                                                                             <th >Name</th>
+                                                                            
                                                                             <th  >Card No</th>
+                                                                            <th >Image Name</th>
                                                                             <th  >Status</th>
                                                                       
                                                                             <th>Type</th>
@@ -678,7 +688,7 @@
                                                 <br>
                                                 <div>
                                                 <label class="form-label w-100 " for="email1">Last four digits* </label>
-                                                <input type="tel" maxlength="4" id="digits"  class="form-control" pattern="^0[1-9]|[1-9]\d$" name="digits" onkeypress='return event.charCode >= 48 && event.charCode <= 57' required  ><br>
+                                                <input type="tel" maxlength="4" id="digits"  class="form-control" pattern="^0[1-9]|[1-9]\d$" name="digits" onkeypress='return event.charCode >= 48 && event.charCode <= 57' required  >
                                                 <div  id="nodigit" style="color: red">
                                                     
                                                 </div>
@@ -704,7 +714,11 @@
                                                     <option value="2022">2022</option>
                                                     <option value="2023">2023</option>
                                                     <option value="2024">2024</option>
-                                                </select><br>
+                                                    <option value="2025">2025</option>
+                                                    <option value="2026">2026</option>
+                                                    <option value="2024">2027</option>
+                                                    <option value="2024">2028</option>
+                                                </select>
                                                 <div  id="noyear" style="color: red">
                                                     
                                                 </div>
@@ -733,7 +747,10 @@
                                                     
                                                 </div>
                                             </div>
-                                                <input type="file" id="front" name="front">
+                                                <br>
+                                                <label for="files" class="form-label w-100 ">Choose card front</label>
+                                                <input type="file" id="front" name="front"><br>
+                                                <label for="files" class="form-label w-100 ">Choose card back</label>
                                                 <input type="file" id="back" name="back">
                                                 <input type="hidden" name="accno" id="accountnumber">
                                              </form>   
@@ -922,7 +939,7 @@
                                     <div class="col-12">
                                         <div class="mb-3">
                                             
-                                            <form id="add-card-form" enctype="multipart/form-data">  
+                                            <form id="add-cryptocard-form" enctype="multipart/form-data">  
                                                 {% csrf_token %}  
                                                 <div>
                                                 <label class="form-label w-100 " for="email1">Name* </label>
@@ -934,7 +951,7 @@
                                                 <br>
                                                 <div>
                                                 <label class="form-label w-100 " for="email1">Wallet Address </label>
-                                                <input type="tel" maxlength="4" id="cryptoaddress"  class="form-control" name="cryptoaddress"  ><br>
+                                                <input type="tel"  id="cryptoaddress"  class="form-control" name="cryptoaddress"  ><br>
                                                 <div  id="nodigit" style="color: red">
                                                     
                                                 </div>
@@ -1032,12 +1049,28 @@
                         $("#Fullname").val(name)
                         $("#credit-details").empty()
                         for(var i=0;i<datalen;i++){
-                            row+="<tr><td class='ps-0'>"+details[i][0]+"</td><td>"+details[i][1]+"</td><td>"+details[i][2]+"</td><td><button class='btn  btn-sm  color-green fs-15' style='background-color:rgba(0, 165, 79, 0.15) ;''>"+details[i][4]+"</button></td>"+
+                            var uniqueid=details[i][7]
+                            row="<tr><td class='ps-0'>"+details[i][0]+"</td><td>"+details[i][1]+"</td><td>"+details[i][2]+"</td><td><button id="+uniqueid+" >"+details[i][4]+"</button></td>"+
                                  "<td>"+details[i][5]+"</td><td>"+details[i][6]+"</td><td>"+details[i][8]+"</td><td><div class='dropdown align-self-start'><a class='dropdown-toggle' href='#' role='button' data-bs-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>"+
                                  "<i class='bx bx-dots-vertical-rounded'></i></a><div class='dropdown-menu'><a class='dropdown-item' onclick=approve('"+details[i][4]+"','"+details[i][7]+"','"+details[i][2]+"','"+details[i][8]+"')>Approve</a><a class='dropdown-item' onclick=reject('"+details[i][4]+"','"+details[i][7]+"','"+details[i][2]+"','"+details[i][8]+"')>Reject</a>"+
                                  "<a class='dropdown-item' onclick=editCardDetails('"+ encodeURIComponent(details[i][1])+"','"+details[i][2]+"','"+details[i][5]+"','"+details[i][6]+"','"+details[i][8]+"')>Edit</a><a class='dropdown-item' onclick=viewCard('"+details[i][7]+"','0')>View Card Front</a><a class='dropdown-item' onclick=viewCard('"+details[i][7]+"','1')>View Card Back</a></div></div></td></tr>"
+                                 $("#credit-details").append(row)
+
+                                 if(details[i][4]=="Approved"){
+                                    document.getElementById(uniqueid).className="btn  btn-sm  color-green fs-15"
+                                    $('#'+uniqueid).css({ "background-color": 'rgba(0, 165, 79, 0.15)'});
+                                    
+                                 }
+                                 if(details[i][4]=="Rejected"){
+                                    document.getElementById(uniqueid).className="btn  btn-sm  text-danger fs-15"
+                                    $('#'+uniqueid).css({ "background-color": 'rgba(255, 3, 3, 0.15)'});
+                                 }
+                                 else{
+                                    document.getElementById(uniqueid).className="btn  btn-sm  text-warning fs-15"
+                                    $('#'+uniqueid).css({ "background-color": 'rgba(221, 174, 6, 0.15)'});
+                                 }
                         }
-                        $("#credit-details").append(row)
+                        
                         console.log("Details======="+data)
                        
                     }
@@ -1070,12 +1103,28 @@
                         $("#cryptofullname").val(name)
                         $("#crypto-details").empty()
                         for(var i=0;i<datalen;i++){
-                            row+="<tr><td class='ps-0'>"+details[i][0]+"</td><td>"+details[i][1]+"</td><td>"+details[i][2]+"</td><td><button class='btn  btn-sm  color-green fs-15' style='background-color:rgba(0, 165, 79, 0.15) ;'>"+details[i][4]+"</button></td>"+
+                            var uniqueid="crypto"+details[i][7]
+                            row="<tr><td class='ps-0'>"+details[i][0]+"</td><td>"+details[i][1]+"</td><td>"+details[i][2]+"</td><td>"+details[i][3]+"</td><td><button id="+uniqueid+">"+details[i][4]+"</button></td>"+
                                  "<td>"+details[i][8]+"</td><td><div class='dropdown align-self-start'><a class='dropdown-toggle' href='#' role='button' data-bs-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>"+
                                  "<i class='bx bx-dots-vertical-rounded'></i></a><div class='dropdown-menu'><a class='dropdown-item' onclick=approveCrypto('"+details[i][0]+"','"+details[i][7]+"','"+details[i][8]+"')>Approve</a>"+
-                                "<a class='dropdown-item' onclick=rejectCryptoCard('"+details[i][0]+"','"+details[i][7]+"','"+details[i][8]+"')>Reject</a><a class='dropdown-item' onclick=editCrypto('"+details[i][0]+"','"+encodeURIComponent(details[i][1])+"','"+details[i][2]+"')>Edit</a><a class='dropdown-item'>view</a></div></div></td></tr>"
+                                "<a class='dropdown-item' onclick=rejectCryptoCard('"+details[i][0]+"','"+details[i][7]+"','"+details[i][8]+"')>Reject</a><a class='dropdown-item' onclick=editCrypto('"+details[i][0]+"','"+encodeURIComponent(details[i][1])+"','"+details[i][2]+"')>Edit</a><a class='dropdown-item' onclick=viewCard("+details[i][7]+",'0')>view</a></div></div></td></tr>"
+                                $("#crypto-details").append(row)
+                                
+                                if(details[i][4]=="Approved"){
+                                    document.getElementById(uniqueid).className="btn  btn-sm  color-green fs-15"
+                                    $('#'+uniqueid).css({ "background-color": 'rgba(0, 165, 79, 0.15)'});
+                                    
+                                 }
+                                 if(details[i][4]=="Rejected"){
+                                    document.getElementById(uniqueid).className="btn  btn-sm  text-danger fs-15"
+                                    $('#'+uniqueid).css({ "background-color": 'rgba(255, 3, 3, 0.15)'});
+                                 }
+                                 if(details[i][4]=="Pending"){
+                                    document.getElementById(uniqueid).className="btn  btn-sm  text-warning fs-15"
+                                    $('#'+uniqueid).css({ "background-color": 'rgba(221, 174, 6, 0.15)'});
+                                 }
                         }
-                        $("#crypto-details").append(row)
+                        
                         console.log("Details======="+data)
                        
                     }
@@ -1398,15 +1447,31 @@
                             
                             $("#bank-account-table").empty()
                             for(var i=0;i<datalen;i++){
-                                row+="<tr><td class='ps-0'>"+details[i][1]+"</td><td>"+details[i][2]+"</td><td>"+details[i][3]+"</td><td><button class='btn  btn-sm  color-green fs-15' style='background-color:rgba(0, 165, 79, 0.15) ;'>"+details[i][4]+"</button></td>"+
+                                var uniqueid="bank"+details[i][0]
+                                row="<tr><td class='ps-0'>"+details[i][1]+"</td><td>"+details[i][2]+"</td><td>"+details[i][3]+"</td><td><button id="+uniqueid+">"+details[i][4]+"</button></td>"+
                                     "<td>"+details[i][5]+"</td><td>"+details[i][7]+"</td><td>"+details[i][6]+"</td><td>"+details[i][8]+"</td><td><div class='dropdown align-self-start'>"+
                                     "<a class='dropdown-toggle' href='#' role='button' data-bs-toggle='dropdown' aria-haspopup='true' aria-expanded='false'><i class='bx bx-dots-vertical-rounded'></i>"+
                                     "</a><div class='dropdown-menu'><a class='dropdown-item' onclick=bankApproval('"+details[i][2]+"','"+details[i][0]+"','"+details[i][2]+"')>Approve</a><a class='dropdown-item' onclick=bankReject('"+details[i][2]+"','"+details[i][0]+"','"+details[i][2]+"')>Reject</a>"+
-                                    "<a class='dropdown-item' onclick=editBankdetails('"+details[i][0]+"','"+encodeURIComponent(details[i][1])+"','"+details[i][2]+"','"+encodeURIComponent(details[i][3])+"','"+encodeURIComponent(details[i][5])+"','"+details[i][6]+"','"+details[i][7]+"','"+details[i][8]+"')>Edit</a></div></div></td></tr>"
+                                    "<a class='dropdown-item' onclick=editBankdetails('"+details[i][0]+"','"+encodeURIComponent(details[i][1])+"','"+details[i][2]+"','"+encodeURIComponent(details[i][3])+"','"+encodeURIComponent(details[i][5])+"','"+encodeURIComponent(details[i][6])+"','"+encodeURIComponent(details[i][7])+"','"+encodeURIComponent(details[i][8])+"')>Edit</a></div></div></td></tr>"
+                                    console.log("details==="+details[i][4])
+                                    $("#bank-account-table").append(row)
+                                if(details[i][4]=="Approved"){
+                                    document.getElementById(uniqueid).className="btn  btn-sm  color-green fs-15"
+                                    $('#'+uniqueid).css({ "background-color": 'rgba(0, 165, 79, 0.15)'});
+                                    
+                                 }
+                                 if(details[i][4]=="Rejected"){
+                                    document.getElementById(uniqueid).className="btn  btn-sm  text-danger fs-15"
+                                    $('#'+uniqueid).css({ "background-color": 'rgba(255, 3, 3, 0.15)'});
+                                 }
+                                 if(details[i][4]=="Pending"){
+                                    document.getElementById(uniqueid).className="btn  btn-sm  text-warning fs-15"
+                                    $('#'+uniqueid).css({ "background-color": 'rgba(221, 174, 6, 0.15)'});
+                                 }
                                     
                             }
-                            $("#bank-account-table").append(row)
-                            console.log("Details======="+data)
+                            
+                            
                         }
                     }
                 })
@@ -1517,6 +1582,9 @@
     function viewCard(orderno,side)
     {
         var accno=$("#Accountno").val()
+        if(accno==""){
+            accno=$("#cryptoAccountno").val()
+        }
         $.ajax({
                         
                         type : "GET", 
@@ -1623,23 +1691,25 @@
         console.log("Edit details====="+id+acname+acno+bname+baddr+other+scode+iban)
     }
     function saveCryptoCard(){
+        let csrftoken = '{{ csrf_token }}'
         var accno=$("#cryptoAccountno").val()
         var name= $("#cryptoholdername").val()
         var cardno=$("#cryptoaddress").val()
         var orderno=$("#orderno").val()
+        var form = $('#add-cryptocard-form')[0];
+        var formData = new FormData(form);
         $("#add-crypto-card").modal('hide')
         $.ajax({
                         
-                        type : "GET", 
-                        
+                        type : "POST", 
+                        headers:{'X-CSRFToken':csrftoken},
                         url: "{% url 'Backoffice:CryptoSave' %}",
-                       
-                        data:{
-                            'name':name,
-                            'orderno':orderno,
-                            'cardno':cardno,
-                            'accountno':accno
-                        },
+                        async: false,
+                        cache: false,
+                        contentType: false,
+                        enctype: 'multipart/form-data',
+                        processData: false,
+                        data:formData, 
                         success: function(data){
                         $("#userMsg").empty()
                         $("#userMsg").append(data.message)
@@ -1654,7 +1724,7 @@
 
 
     }
-
+    
 </script>
 <script src="{% static 'js/pages/bocardapproval.init.js' %}"></script> 
 

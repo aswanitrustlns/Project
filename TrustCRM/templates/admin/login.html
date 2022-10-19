@@ -132,13 +132,15 @@
                                             <div class="input-group auth-pass-inputgroup">
                                                 <input type="password" class="form-control" placeholder="Enter password"
                                                     aria-label="Password" aria-describedby="password-addon" name="password" required>
-                                                <button class="btn btn-light shadow-none ms-0" type="button"
+                                                <input type="hidden" name="servername" id="servername" value="50.57.14.225:443">
+                                                    <button class="btn btn-light shadow-none ms-0" type="button"
                                                     id="password-addon"><i class="mdi mdi-eye-outline"></i></button>
+
                                             </div>
                                         </div>
                                         <div class="mb-3">
                                             <!--<label class="form-label">Select</label>-->
-                                            <select class="form-select" name="server">
+                                            <select class="form-select" name="server" id="server">
                                                 <option value="50.57.14.225:443">Trust Capital Live Server</option>
                                                 <option value="50.57.14.224:443">Trust Capital Demo Server</option>
                                                 <!-- <option>user</option> -->
@@ -192,6 +194,39 @@
 <!-- pace js -->
 
 <!-- password addon init -->
+<script>
+    // $(document).ready(function(){
+    //     console.log("ready function")
+
+        
+    // })
+    $(function() {
+
+        $('#server').on('click', function (e) {
+
+		console.log("server changed")    
+		var id = $("#username").val();
+		
+		if(id=="601"){
+			$('#server').prop('disabled',false);
+		}
+		else{
+		$('#server').prop('disabled',true);
+        $("#servername").val("50.57.14.225:443")
+		}
+	});
+    $('#server').on('change', function (e) {
+
+        console.log("server changed")    
+        var serverVal = $(this).val();
+        console.log("Server val===="+serverVal)
+        $("#servername").val(serverVal)
+       
+        });
+
+     
+    })
+</script>
 <script src="{%static 'js/pages/pass-addon.init.js' %}"></script>
 <script src="{%static 'js/pages/form-validation.init.js' %}"></script>
 </body>

@@ -166,10 +166,10 @@
                                                                         </div>
                 
                                                                         <div class=" ms-auto d-flex align-items-center justify-content-between ">
-                                                                            <p class="gilroyregular-type fs-16 me-3 mb-0 color-color1 ">Reg date: <span id="regdate"> </span> </p>
+                                                                            <p class="gilroyregular-type fs-16 me-3 mb-0 color-color1 ">Reg date: <span id="regdate" class="text-white"> </span> </p>
                                                                             <input type="hidden" name="regdate">
                                                                         </div>
-                
+                                                                        <input type="hidden" name="tickets" id="tickets">
                 
                                                                     </div>
                                                                     
@@ -197,31 +197,31 @@
                                                         
                                                                     <div class="col-xxl-12 col-md-3 col-sm-4">
                                                                         <div class=" gilroyregular-type  mb-2 ">
-                                                                            <span class="text-white fs-16">IP</span>
+                                                                            <span class="color-color1 fs-14 fs-16">IP</span>
                                                                             
                                                                     
                                                                         </div>
                                                                     </div>
                                                                     <div class="col-xxl-12 col-md-3 col-sm-4">
                                                                         <div class=" gilroyregular-type  mb-2 ">
-                                                                            <p class=" mb-0   text-white fs-16"> MT4 IP </p>
-                                                                            <span class=" color-color1 fs-14" id="mt4IP"></span>
+                                                                            <p class=" mb-0 color-color1 fs-14 fs-16"> MT4 IP </p>
+                                                                            <span class="text-white" id="mt4IP"></span>
                                                                             
                                                                     
                                                                         </div>
                                                                     </div>
                                                                     <div class="col-xxl-12 col-md-3 col-sm-4">
                                                                         <div class=" gilroyregular-type  mb-2 ">
-                                                                            <p class=" mb-0   text-white fs-16"> Registration </p>
-                                                                            <span class=" color-color1 fs-14" id="regIP"></span>
+                                                                            <p class=" mb-0  color-color1 fs-14 fs-16"> Registration </p>
+                                                                            <span class=" text-white" id="regIP"></span>
                                                                         
                                                                     
                                                                         </div>
                                                                     </div>
                                                                     <div class="col-xxl-12 col-md-3 col-sm-4">
                                                                         <div class=" gilroyregular-type  mb-2 ">
-                                                                            <p class=" mb-0   text-white fs-16">Client Area IP </p>
-                                                                            <span class=" color-color1 fs-14" id="clientareaIP"></span>
+                                                                            <p class=" mb-0  color-color1 fs-14 fs-16">Client Area IP </p>
+                                                                            <span class=" text-white" id="clientareaIP"></span>
                                                                         
                                                                         </div>
                                                                     
@@ -682,11 +682,11 @@
                                                                     <div class="card  border-0"  style="background-color: #1B1C2E; height: calc(100% - 50px);"><!---->
     
                                                                         <div class="card-body">
-    
+                                                                            
                                                                             <div id="ticketsummary" >
-                                                                                {%if ticket_summary %}
-                                                                                <div>
-
+                                                                                {%if ticket_summary %}  
+                                                                                <div >
+                                                                                   
                                                                                     <div class="d-flex py-2">
                                                                                         <div class="d-flex justify-content-between align-items-center ">
                                                                                             <span class=" p-2 p-xxl-3  me-xxl-3 me-2 " style="background-color:rgba(35, 36, 54, 1);">
@@ -714,9 +714,10 @@
                                                                                         </span>
                                                                                     </div>
                                                                                     <hr>
+                                                                                
                                                                                 </div>
                                                                                 {%else%}
-                                                                                <div class="  text-center d-block ">
+                                                                                <div class="  text-center d-block " id="noticketsummary">
                                                         
                                                                                     <img src="{%static 'images/nodata/nodata.png' %}" alt="">
                                                                                     
@@ -727,10 +728,12 @@
                                                                                 </div> 
                                     
                                                                                 {%endif%}
+                                                                                
                                                                             
                                                                             <!--Item1-->
                                                                               
                                                                             </div>
+                                                                            
     
     
                                                                         </div>
@@ -1114,10 +1117,10 @@
                                                                             Compose
                                                                         </button>-->
                                                                         <div class="mail-list mt-0 d-flex d-xxl-block justify-content-center">
-                                                                            <a href="#compose-email"  data-id="compose-email" onclick="tabswitchemail(this)" class=" rounded-2 gilroymedium-type fs-15  mb-2 text-white text-center mx-2 mx-xxl-0 flex-grow-1" style="background-color:
+                                                                            <a   data-id="compose-email" onclick="tabswitchemail(this)" class=" rounded-2 gilroymedium-type fs-15  mb-2 text-white text-center mx-2 mx-xxl-0 flex-grow-1" style="background-color:
                                                                         rgba(2, 126, 194, 1) ;">
                                     Compose </a>
-                                                                            <a href="#sent-email" data-id="sent-email" onclick="tabswitchemail(this)" class=" rounded-2 gilroymedium-type fs-15 color-color1 mb-2 mx-2 mx-xxl-0 flex-grow-1" style="background-color:
+                                                                            <a  data-id="sent-email" onclick="tabswitchemail(this);loadSendItems()" class=" rounded-2 gilroymedium-type fs-15 color-color1 mb-2 mx-2 mx-xxl-0 flex-grow-1" style="background-color:
                                                                             rgba(32, 33, 52, 1) ;">
                                     <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M7.13245 3.17248L13.5525 6.38248C16.4325 7.82248 16.4325 10.1775 13.5525 11.6175L7.13245 14.8275C2.81245 16.9875 1.04995 15.2175 3.20995 10.905L3.86245 9.60748C4.02745 9.27748 4.02745 8.72998 3.86245 8.39998L3.20995 7.09498C1.04995 2.78248 2.81995 1.01248 7.13245 3.17248Z" stroke="#9295D0" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -1173,7 +1176,7 @@
                                                                                                 <label class="form-label col-sm-2" for="">Subject : </label>
                                                                                                 <div class="col-sm-9">
             
-                                                                                                    <input type="subj" class="form-control border-0   text-start" id="" placeholder="e.g Steve@gmail.com" value="steve@trusttech.in" required="" >
+                                                                                                    <input type="subj" class="form-control border-0   text-start" id="emailsub" placeholder="e.g Steve@gmail.com" required="" >
             
                                                                                                 </div>
                                                                                                 
@@ -1187,7 +1190,7 @@
                                                                                         <div id="editor"></div>
             
                                                                                         <div>
-                                                                                            <button class="btn btn-info btn-md mt-3 me-2 rounded-2" type="submit">Send</button>
+                                                                                            <button class="btn btn-info btn-md mt-3 me-2 rounded-2" type="button" onclick="composeEmailSend()">Send</button>
                                                                                             <button class="btn btn-outline-light btn-md mt-3  rounded-2" type="reset">Cancel</button>
                                                                                         </div>
             
@@ -1196,41 +1199,12 @@
         
                                                                                     </div>
                                                                                     <div id="sent-email"  class="d-none">
-        
-                                                                                        <ul class="message-list" data-simplebar style="max-height: 300px;">
-                                                                                            <li class="fs-16" href="#read-email" data-id="read-email" onclick="tabswitchemail(this)">
-                                                                                                <div class="col-mail col-mail-1">
-                                                                                                    <div class="checkbox-wrapper-mail">
-                                                                                                        <input type="checkbox" id="chk1">
-                                                                                                        <label for="chk1" class="toggle"></label>
-                                                                                                    </div>
-                                                                                                    <a href="#" class="title text-white gilroysemibold-type">Peter, me (3)</a><span class="star-toggle far fa-star" style="color:var(--color1) ;"></span>
-                                                                                                </div>
-                                                                                                <div class="col-mail col-mail-2">
-                                                                                                    <a href="#" class="subject color-color1 gilroyregular">Hello – <span class="teaser">Trip home from Colombo has been arranged, then Jenna will come get me from Stockholm. :)</span>
-                                                                                                    </a>
-                                                                                                    <div class="date text-white gilroymedium-type">Mar 6</div>
-                                                                                                </div>
-                                                                                            </li>
-                                                                                            <hr class="mx-3 my-0">
-                                                                                            <li class="fs-16" href="#read-email" data-id="read-email" onclick="tabswitchemail(this)">
-                                                                                                <div class="col-mail col-mail-1">
-                                                                                                    <div class="checkbox-wrapper-mail">
-                                                                                                        <input type="checkbox" id="chk2" >
-                                                                                                        <label for="chk2" class="toggle" style="color:var(--color1) ;"></label>
-                                                                                                    </div>
-                                                                                                    <a href="#" class="title text-white gilroysemibold-type">Peter, me (3)</a><span class="star-toggle far fa-star" style="color:var(--color1) ;"></span>
-                                                                                                </div>
-                                                                                                <div class="col-mail col-mail-2">
-                                                                                                    <a href="#" class="subject color-color1 gilroyregular">Hello – <span class="teaser">Trip home from Colombo has been arranged, then Jenna will come get me from Stockholm. :)</span>
-                                                                                                    </a>
-                                                                                                    <div class="date text-white gilroymedium-type">Mar 6</div>
-                                                                                                </div>
-                                                                                            </li>
-                                                                                            
+                                                                                        <div id="send-block" style="max-height: 300px;">
+                                                                                            <ul class="message-list" id="sendmailList">
                                                                                            
-                                                        
-                                                                                        </ul>
+                                                                                                
+                                                                                            </ul>
+                                                                                            </div>
                                                                                     </div>
                                                                                     <div id="read-email" class="d-none">
     
@@ -1241,23 +1215,10 @@
     
                                                                                                     <div style="max-height: 320px" id="read-email-content" >
     
-                                                                                                        <div class="d-flex align-items-center mb-4">
-                                                                                                            <!--<div class="flex-shrink-0 me-3">
-                                                                                                                <img class="rounded-circle avatar-sm" src="assets/images/users/avatar-2.jpg" alt="Generic placeholder image">
-                                                                                                            </div>-->
-                                                                                                            <div class="flex-grow-1 gilroymedium-type ">
-                                                                                                                <h5 class="fs-14 mb-0 text-white">Humberto D. Champion</h5>
-                                                                                                                <small class="fs-11 color-color1">support@domain.com</small>
+                                                                                                       
+                                                                                                        <div class="card-body" id="sendread">
+
                                                                                                             </div>
-                                                                                                        </div>
-                                                                
-                                                                                                        <h4 class="fs-16  gilroymedium-type text-white">This Week's Top Stories</h4>
-                                                                
-                                                                                                        <p class="gilroyregular-type color-color1 fs-16">Dear Lorem Ipsum,</p>
-                                                                                                        <p class="gilroyregular-type color-color1 fs-16">Praesent dui ex, dapibus eget mauris ut, finibus vestibulum enim. Quisque arcu leo, facilisis in fringilla id, luctus in tortor. Nunc vestibulum est quis orci varius viverra. Curabitur dictum volutpat massa vulputate molestie. In at felis ac velit maximus convallis.
-                                                                                                        </p>
-                                                                                                        <p class="gilroyregular-type color-color1 fs-16">Sed elementum turpis eu lorem interdum, sed porttitor eros commodo. Nam eu venenatis tortor, id lacinia diam. Sed aliquam in dui et porta. Sed bibendum orci non tincidunt ultrices. Vivamus fringilla, mi lacinia dapibus condimentum, ipsum urna lacinia lacus, vel tincidunt mi nibh sit amet lorem.</p>
-                                                                                                        <p class="gilroyregular-type color-color1 fs-16">Sincerly,</p>
     
     
                                                                                                     </div>
@@ -1308,7 +1269,7 @@
                                                                                                 <label class="form-label " for="sub">Subject</label>
                                                                                                 <select class="form-select border-1" id="sub" value="" required="">
                                                                                                     <option value="en">English</option>
-                                                                                                    <option value="ar">Arabic</option>
+                                                                                                    <!-- <option value="ar">Arabic</option> -->
                                                                                                 </select>
                                         
                                                                                                 <div class="invalid-feedback">
@@ -1548,7 +1509,7 @@
                                                     <div class="  px-3 border rounded-3 py-4">
                                                     
                                                         <div class="modal-header py-0 px-0 border-bottom-0">
-                                                            <h5 class="modal-title mb-3" id="modal-title">Set commision structure</h5>
+                                                            <h5 class="modal-title mb-3" id="modal-title">Sales commision structure</h5>
                                 
                                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
                                 
@@ -1585,7 +1546,7 @@
                                             </div> <!-- end modal-content-->
                                         </div><!-- /.modal-dialog -->
                                     </div>
-                                       
+                                        </div>    
                                             <div class="btn-group d-block mb-2">
     
                                                  <!-- modal-Chat Logs -->
@@ -2001,7 +1962,18 @@
 <script>
     var duplicateCheck=0
     var enterPressed = false;
+    var addEvent=$("#event-modal");
+    var modalTitle = $("#modal-title");
+    var formEvent = $("#form-event");
+    
+    var newEventData = null;
+    var forms = document.getElementsByClassName('needs-validation');
+    var selectedEvent = null;
+    var reminderflag=0
+    var eventObject = null;
     var calendarEl = document.getElementById('calendar');
+    var calendar
+    var date = new Date();
     $(function() {
             $("#Accountno").on("keydown", function(event) {
                         if(event.which == 13){
@@ -2012,11 +1984,300 @@
                         }
                             
                         })
+            $('#sendmailList').on('click','li', function(event){
+                event.preventDefault();
+                ms_id=$(this).data("msid")
+                console.log(ms_id);
+                readSendItems(ms_id)
+            });
+            $("#chatsId").on("keydown", function(event) {
+                if(event.which == 13){
+                    event.preventDefault()
+                    var chat=$("#chatsId").val()
+                    console.log("typed text-----"+chat)
+                    chatSend(chat)
+
+                }
+                    
+                });
             
          
    
 
     })
+    function addNewEvent(info) {
+                console.log("New event added ======"+info)
+                addEvent.modal('show');
+                formEvent.removeClass("was-validated");
+                formEvent[0].reset();
+
+                $("#event-title").val();
+                $('#event-category').val();
+                modalTitle.text('Add Reminder');
+                newEventData = info;
+                console.log("Event data============================="+newEventData)
+            } 
+            function chatSend(chat){
+        var ticket=document.getElementById("tickets").value
+        var call=$("#chatCall").val()
+        var interest=$("#chatInterest").val()
+        var chatexp=$("#chatExp").val()
+        var chatnone=$("#chatNone").val()
+        var chatText=chat+" Call: "+call+" Interest: "+interest+" Experience: "+chatexp+" None: "+chatnone
+        console.log("=========================="+call+interest+chatexp+chatnone+chatText)
+        if(call=="S" && interest=="None"){
+            $("#userMsg").empty()
+            $("#userMsg").append("Please enter Interested or Not Interested to continue")
+            $("#alertpopup").modal('show')
+            return false
+        }
+        else{
+                if((interest=="I" ||interest=="M") && call=="S"){
+                        remindermust=1
+                        document.getElementById('reminderClick').click();
+                        $("#userMsg").empty()
+                        $("#userMsg").append("Please set rminder to continue")
+                        $("#alertpopup").modal('show')
+                        
+
+                    }
+                else{
+                        $.ajax({
+            
+                         type : "GET", 
+                        data : {
+                            "ticket":ticket,
+                            "logdata":chatText,
+                            "logtype":"sales call"
+                        },
+                        url: "{% url 'Admin:TicketLogs' %}",
+                        success: function(data){
+                            $("#chatsId").val('')
+                            console.log("Insertion done and updation called")
+                            
+                            updatejournal(ticket)
+
+                
+                
+
+                        }   
+                    })   
+
+                }
+            
+            
+            
+        }
+        
+    }
+
+    function sendReminder(ticket,timer,chatText,category,selDate,flag){
+
+                var ticket=document.getElementById("tickets").value
+                var accno=document.getElementById("Accountno").value
+
+                var csrftoken = $("[name=csrfmiddlewaretoken]").val();  
+                if(ticket == ''){
+                    $("#alertpopup").modal('show')
+                    
+                }else{   
+                        $.ajax({
+            
+                        type : "POST", 
+                        url: "{% url 'Admin:ReminderSave' %}",
+                        headers:{
+                                    "X-CSRFToken": csrftoken
+                        },
+                        data:{
+                            'color':category,
+                            'subject':chatText,
+                            'date':selDate,
+                            'time':timer,                
+                            'ticket':ticket,
+                            'login':accno,
+                            'flag':flag
+                            
+                        },
+            
+            
+                    success: function(data){
+                        var reminders=data.reminders
+                        $("#userMsg").empty()
+                            $("#userMsg").append("Reminder send")
+                            $("#alertpopup").modal('show')
+                            defaultEvents=[]
+                            for(var i=0;i<reminders.length;i++){
+                                    var timeformat=reminders[i][2]+"T"+reminders[i][3]
+                                    console.log("Time format===="+timeformat)
+                                    const  eventobj={
+                                        title: reminders[i][0],
+                                    
+                                        start: new Date(timeformat), 
+                                        extendedProps: {
+                                            description:reminders[i][5],
+                                        }                   
+                                        
+                                }
+                
+                defaultEvents.push(eventobj)
+            
+                }
+                var eventSources = calendar.getEventSources();
+                eventSources[0].remove();
+                calendar.addEventSource(defaultEvents);
+                // calendar.refetchEvents();
+                updateTicketSummary(ticket)
+                updatejournal(ticket)
+               
+                           
+                    }
+                })
+        }
+
+    }
+
+
+    function readSendItems(msgId){
+       
+        
+       var leadsmail=document.getElementById("Email1").value
+       if (leadsmail==""){
+           leadsmail=document.getElementById("Email2").value
+       }
+       
+       var read=""
+       $.ajax({
+                   
+               type : "GET", 
+               url: "{% url 'Admin:ReadSendItems' %}",
+               data:{
+                   "message":msgId,
+                   "mail":leadsmail
+               },             
+                                   
+                                   
+               success: function(data){
+                   var message=data.message
+                   var subject=data.subject
+                   var multipart=data.multipart
+                   console.log("Multi part is present================================"+multipart)
+                   $("#sendread").empty()
+                   if(multipart=="true"){
+                       console.log("Multi part is present================================"+multipart)
+                       $("#sendread").load("{% url 'Admin:EmailData'%}"); 
+
+                   }else{
+                       read= "<div class='d-flex align-items-center mb-4'><div class='flex-grow-1 gilroymedium-type'>"+
+                              "<h5 class='fs-14 mb-0 text-white'></h5>"+subject+"<small class='fs-11 color-color1'></small>"+
+                              "</div></div><p class='gilroyregular-type color-color1 fs-16'>"+message+"</p>" ;
+                              $("#sendread").append(read)
+                       }                                                                  
+                   }
+                      
+                   })
+                   const simpleBarReademail = new SimpleBar(document.getElementById('read-email-content'));
+
+   }
+    function composeEmailSend(){
+        let csrftoken = '{{ csrf_token }}' 
+        
+        var to=""
+        var from=""
+        to=$("#email1").val()
+        // from=$("#emailto").val()
+        sub=$("#emailsub").val()
+        if(to==""){
+            to=$("#email2").val()
+        }
+       
+        var email_data =editorinstance.getData();        
+        var accno=$("#Accountno").val()
+        if(accno == ''){
+            $("#userMsg").empty()
+            $("#userMsg").append("Please enter account number")
+            $("#alertpopup").modal('show')
+            
+        }else{
+        $.ajax({
+               type : "POST", 
+               headers:{
+                        "X-CSRFToken": csrftoken
+                },
+              
+               url: "{% url 'Admin:ComposeMail' %}",
+               
+               data:{
+                // 'from':from,
+                'to':to,               
+               
+                'subject':sub,
+                'body':email_data
+               },
+               success: function(data){
+                $("#emailsub").val("")
+                $("#userMsg").empty()
+                $("#userMsg").append("Email Send Successfully")
+                $("#alertpopup").modal('show')
+               
+               }
+            })
+        }
+
+    }
+    function loadSendItems(){
+        
+        const simpleBarSendMail = new SimpleBar(document.getElementById('send-block'));
+        // simpleBarSendMail.recalculate();
+        var accno=$("#Accountno").val()
+        if(accno == ''){
+            $("#userMsg").empty()
+            $("#userMsg").append("Please enter account number")
+            $("#alertpopup").modal('show')
+            
+        }else{ 
+             var leadsmail=document.getElementById("Email1").value
+            if (leadsmail==""){
+                leadsmail=document.getElementById("Email2").value
+            }
+            
+
+            inboxlist=""
+            $("#sendmailList").empty()
+            $.ajax({
+                    
+                    type : "GET", 
+                    url: "{% url 'Admin:sendItems' %}",
+                    data:{
+                        "mail":leadsmail
+                    },
+                    
+                    
+                    success: function(data){
+                        var count=data.count
+                        var items=data.send
+                        
+                        for(var i=0;i<count;i++){ 
+                
+                    
+                            var ms_id=items[i][2]
+
+                            inboxlist +=  "<li class='fs-16' data-msid='"+ms_id+"' href='#read-email' data-id='read-email' onclick='tabswitchemail(this);'>"+
+                            "<div class='col-mail col-mail-1'><div class='checkbox-wrapper-mail'><input type='checkbox' id='chk1'>"+
+                            "<label for='chk1' class='toggle'></label></div><a class='title text-white gilroysemibold-type'>"+items[i][0]+"</a>"+
+                            "<span class='star-toggle far fa-star' style='color:var(--color1) ;''></span></div><div class='col-mail col-mail-2'>"+
+                            "<a class='subject color-color1 gilroyregular'><span class='teaser'></span></a><div class='date text-white gilroymedium-type'>"+items[i][1]+"</div>"+
+                            "</div></li><hr class='mx-3 my-0'>"                         
+                
+            
+                        }
+                        $("#sendmailList").append(inboxlist)
+            
+                    }
+                })
+            }
+    }
+
+
     function pwdreset()
     {
         $("#reset-phone").modal('hide')
@@ -2155,8 +2416,8 @@
                                 console.log("data===="+comdata[0])
                                 $("#comlogin").val(comdata[0])
                                 $("#comfx").val(comdata[1])
-                                $("#comspot").val(comdata[2])
-                                $("#comfuture").val(comdata[3])
+                                $("#comspot").val(comdata[3])
+                                $("#comfuture").val(comdata[2])
                                 $("#comComment").val(comdata[4])
                             }
                 })
@@ -2177,6 +2438,7 @@
         }
 
     }
+    
     function sendBankDetails(){
         var bankname=$("#bankname").val()
         var bankaddr=$("#bankaddr").val()
@@ -2260,17 +2522,19 @@
                         'account':accno,
                     },
                     success: function(data){
-                        $("#created").append()
-                        $("#regdate").append()
-                        $("#regIP").append()
-                        $("#clientareaIP").append()
-                        $("#master").append()
-                        $("#balance").append()
-                        $("#e-wallet").append()
-                        $("#avl-margin").append()
-                        $("#source").append()
-                        $("#ticket").append()
-                        $("#rep").append()
+                        $("#created").html("")
+                        $("#regdate").html("")
+                        $("#regIP").html("")
+                        $("#clientareaIP").html("")
+                        $("#master").html("")
+                        $("#balance").html("")
+                        $("#e-wallet").html("")
+                        $("#avl-margin").html("")
+                        $("#source").html("")
+                        $("#ticket").html("")
+                        $("#rep").html("")
+                        $("#approvedby").html("")
+                        $("#approval-date").html("")
                         $("#Enabled").attr('checked',false)
                         $("#Sendreports").attr('checked',false)
                         $("#AllowchangePWD").attr('checked',false)
@@ -2310,8 +2574,8 @@
                             $("#country1").val(country1)
                             var country2=details[50]
                             $("#country2").val(country2)
-                            var created=details[35]
-                            $("#created").val(created)
+                            // var created=details[35]
+                            // $("#created").val(created)
                             var dob=details[36]
                             flatpickr('#dob', {
                         //inline: true,
@@ -2372,15 +2636,22 @@
                             var tercmts=details[49]
                             $("#terComment").val(tercmts)
                             var created=details[35]
+                            if(created=="0"){
+                                created=" "
+                            }
                             var source=details[28]
                             
                             var mother=details[29]
                             $("#mothername").val(mother)
                             var ticket=details[1]
-                            $("#ticket").val(ticket)
+                            $("#tickets").val(ticket)
                             var regdate=details[12]
+                            regdate=new Date(regdate)
+                            regdate=regdate.toISOString().substring(0, 10)
                             $("#regdate").val(regdate)
                             var approve=details[63]
+                            approve=new Date(approve)
+                            approve=approve.toISOString().substring(0, 10)
                             $("#approval-date").append(approve)
                             var approvalby=details[64]
                             $("#approvedby").append(approvalby)
@@ -2423,6 +2694,32 @@
                                 $("#Terminated").attr('checked',false)
                             }
                             var salesrepId=details[60]
+                            var repname=""
+                            if(salesrepId==20){
+                                repname="Farah Hawilo"
+                            }
+                            if(salesrepId==30){
+                                repname="Firas monzer"
+                            }
+                            if(salesrepId==31){
+                                repname="Firas Hachache"
+                            }
+                            if(salesrepId==56){
+                                repname="Noura Mikati"
+                            }
+                            if(salesrepId==57){
+                                repname="Areej"
+                            }
+                            if(salesrepId==58){
+                                repname="Michella"
+                            }
+                            if(salesrepId==59){
+                                repname="Czarina Villaflores"
+                            }
+                            if(salesrepId==60){
+                                repname="Online"
+                            }
+
                             var cliIp=details[61]
                             var regIP=details[68]
                             var master=details[0]
@@ -2430,6 +2727,7 @@
                             var Ipwd=details[25]
                             var ppwd=details[26]
                             var recode=details[27]
+                            getReminders(ticket)
                             $("#mpwd").val(mpwd)
                             $("#ipwd").val(Ipwd)
                             $("#ppwd").val(ppwd)
@@ -2444,10 +2742,9 @@
                             $("#avl-margin").append()
                             $("#source").append(source)
                             $("#ticket").append(ticket)
-                            $("#rep").append(salesrepId)
+                            $("#rep").append(repname)
                             updateTicketSummary(ticket)
                             updatejournal(ticket)
-                            getReminders(ticket)
                            
                         }
                         
@@ -2780,6 +3077,7 @@
                     type : "GET", 
                     url: "{% url 'Backoffice:ReminderLoading' %}",
                     dataType: 'json',
+                    async:false,
                     data:{
                         'ticket':ticket,
                     },
@@ -2804,6 +3102,7 @@
                 }
                 defaultEvents.push(eventobj)
         }
+        console.log("Default events===="+defaultEvents)
         calendar = new FullCalendar.Calendar(calendarEl, {
                 plugins: [ 'bootstrap', 'interaction', 'dayGrid', 'timeGrid'],
                 editable: true,
@@ -2860,22 +3159,30 @@
         $("#Accountno").val("")
         $("#office-form")[0].reset()
         $("#formtype_account")[0].reset()
-        $("#created").append()
-        $("#regdate").append()
-        $("#regIP").append()
-        $("#clientareaIP").append()
-        $("#master").append()
-        $("#balance").append()
-        $("#e-wallet").append()
-        $("#avl-margin").append()
-        $("#source").append()
-        $("#ticket").append()
-        $("#rep").append()
+        $("#formtype_contact")[0].reset()
+        $("#created").html("")
+        $("#regdate").html("")
+        $("#regIP").html("")
+        $("#clientareaIP").html("")
+        $("#master").html("")
+        $("#balance").html("")
+        $("#e-wallet").html("")
+        $("#avl-margin").html("")
+        $("#source").html("")
+        $("#ticket").html("")
+        $("#rep").html("")
+        $("#approvedby").html("")
+        $("#approval-date").html("")
         $("#Enabled").attr('checked',false)
         $("#Sendreports").attr('checked',false)
         $("#AllowchangePWD").attr('checked',false)
         $("#Readonly").attr('checked',false)
         $("#Terminated").attr('checked',false)
+        $("#ticketsummary").empty()
+        $("#activityList").empty()
+        $("#chatsDiv").hide()
+        
+        calendar.removeAllEvents()
     }
     function viewDocs(){
         var accno=$("#Accountno").val()

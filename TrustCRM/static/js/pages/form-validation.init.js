@@ -23,6 +23,10 @@ File: Form validation Js File
 			}, false);
 		});
 	}, false);
+
+
+
+
 })();
 
 
@@ -39,8 +43,8 @@ window.onload = function () {
 
 	// });
 
-	var lead_registration=document.getElementById("lead_register")
-	lead_registration.addEventListener('click',lead_validation)
+	// var lead_registration=document.getElementById("lead_register")
+	// lead_registration.addEventListener('click',lead_validation)
 
 	
 

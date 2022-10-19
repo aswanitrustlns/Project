@@ -21,7 +21,7 @@ urlpatterns=[
       path('BankDetails',load_bankaccount_details,name="BankDetails"),
       path('SaveBankAccount',save_bank_account,name="SaveBankAccount"),
       path('Cryptodetails',load_crypto_data,name="Cryptodetails"),
-      path('CryptoSave',save_bank_account,name="CryptoSave"),
+      path('CryptoSave',save_crypto_account,name="CryptoSave"),
       path('CardView',load_card_front,name="CardView"),
       path('ViewandUploadDocument',view_document,name="ViewandUploadDocument"),
       path('UploadDocumnents',upload_document,name="UploadDocuments"),
@@ -41,7 +41,8 @@ urlpatterns=[
       path('ReminderLoading',load_reminders,name="ReminderLoading"),
       path('EmailBankDetails',email_bank_details,name="EmailBankDetails"),
       path('TerminateAccount',terminate_account,name="TerminateAccount"),
-      path('EmailTemplates',email_template,name="EmailTemplates")
+      path('EmailTemplates',email_template,name="EmailTemplates"),
+      path('BackofficeDashboard',backoffice_dashboard,name="BackofficeDashboard")
 
      
     

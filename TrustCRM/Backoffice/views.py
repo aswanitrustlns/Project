@@ -205,16 +205,16 @@ def save_bank_account(request):
         return JsonResponse({"message":message}) 
     else:
         return redirect('/login')
-# #Save Bank account
-# def save_crypto_account(request):
-#     if 'UserId' in request.session:
-#         message=""
+#Save Bank account
+def save_crypto_account(request):
+    if 'UserId' in request.session:
+        message=""
         
-#         print("Save crypto account=======")
-#         message=service.save_crypto_card(request)
-#         return JsonResponse({"message":message}) 
-#     else:
-#         return redirect('/login')
+        print("Save crypto account=======")
+        message=service.save_crypto_card(request)
+        return JsonResponse({"message":message}) 
+    else:
+        return redirect('/login')
 #View Card Front
 def load_card_front(request):
     if 'UserId' in request.session:
@@ -551,9 +551,19 @@ def email_template(request):
             title=userdetails[3]
             name=userdetails[1]
             email=userdetails[0]
-        emailservice.sendtemplate(title,name,email,template)
+            print("Details===",title,name,email,template)
+            emailservice.sendtemplate(title,name,email,template)
         message="Email send successfully"
         return JsonResponse({"message":message}) 
+    else:
+        return redirect('/login')
+#Dashboard
+def backoffice_dashboard(request):
+    if 'UserId' in request.session:
+        userid=request.session.get('UserId')
+        data=selector.dashboard_selector(userid)
+        print("data========",data)
+        return render(request,"backoffice/dashboard.html",data)
     else:
         return redirect('/login')
 

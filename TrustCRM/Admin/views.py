@@ -53,7 +53,8 @@ def login_check(request):
     if request.method == 'POST':
         username=request.POST.get('username')
         password=request.POST.get('password')
-        server_name=request.POST['server']
+        server_name=request.POST.get('servername')
+        print("login=====",username,server_name,password)
     try:  
            
         UserId=selector.get_loged_user_info(username)  
