@@ -315,10 +315,23 @@ class Selector:
         finally:
             Cursor.close
         return details
+     #Get All Country
+    def get_all_country(self):
+        try:
+            Cursor=connection.cursor()
+            Cursor.execute("SELECT ID,Country,Code FROM tbl_Country")
+            country_list=Cursor.fetchall()
+            
+        except Exception as e:
+            print("Exception---",e)
+        finally:
+            Cursor.close()
+        return country_list
 
     #varify credit card
     def verify_redit_card_details(self,id,accno,status,userid):
         try:
+            print("card======",id,accno,status,userid)
             Cursor=connection.cursor()    
             Cursor.execute("set nocount on;exec SP_VerifyCreditCard %s,%s,%s,%s",[id,accno,status,userid])
             
@@ -589,6 +602,78 @@ class Selector:
         finally:
                 Cursor.close()
         return dash_data
+     #Get live status
+    def get_live_status(self,userid,amount):
+        try:
+            Cursor=connection.cursor()           
+            Cursor.execute("set nocount on;exec SP_LiveStatus %s,%s",[userid,amount]) 
+            result=Cursor.fetchone()
+        except Exception as e:
+                print("Exception------",e)
+        finally:
+                Cursor.close()
+
+    #Get wallet transactions
+    def get_wallet_transactions(self,account):
+        try:
+            Cursor=connection.cursor()           
+            Cursor.execute("set nocount on;exec SP_GetWalletTransactions %s",[account]) 
+            result=Cursor.fetchone()
+        except Exception as e:
+                print("Exception------",e)
+        finally:
+                Cursor.close()
+
+    #Get next depart yearly
+    def get_nextdepart_yearly(self,account):
+        try:
+            Cursor=connection.cursor()           
+            Cursor.execute("set nocount on;exec SP_GetNextDepYearly %s",[account]) 
+            result=Cursor.fetchone()
+        except Exception as e:
+                print("Exception------",e)
+        finally:
+                Cursor.close()
+     #Get profile status
+    def get_profile_status(self,account):
+        try:
+            Cursor=connection.cursor()           
+            Cursor.execute("set nocount on;exec SP_CheckProfileStatus %s",[account]) 
+            result=Cursor.fetchone()
+        except Exception as e:
+                print("Exception------",e)
+        finally:
+                Cursor.close()
+    #Get trades count
+    def get_trades_count(self,userid):
+        try:
+            Cursor=connection.cursor()           
+            Cursor.execute("set nocount on;exec SP_GetTradesCount %s",[userid]) 
+            result=Cursor.fetchone()
+        except Exception as e:
+                print("Exception------",e)
+        finally:
+                Cursor.close()
+    #Get ewallet report by login
+    def get_ewallet_report(self,accno,from_date,to_date):
+        try:
+            Cursor=connection.cursor()           
+            Cursor.execute("set nocount on;exec SP_GetEWalletEquityReportByLogin %s",[from_date,to_date,accno]) 
+            result=Cursor.fetchone()
+        except Exception as e:
+                print("Exception------",e)
+        finally:
+                Cursor.close()
+    #dormant check
+    def dormant_check(self,userid):
+        try:
+            Cursor=connection.cursor()           
+            Cursor.execute("set nocount on;exec SP_IsDormant %s",[userid]) 
+            result=Cursor.fetchone()
+        except Exception as e:
+                print("Exception------",e)
+        finally:
+                Cursor.close()
 
     
    

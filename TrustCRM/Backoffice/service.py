@@ -70,9 +70,10 @@ class Services:
             leverage=int(request.POST.get('Leverage'))
             print("Leverage======",leverage)
             regdates=request.POST.get('regdate')
-            # if regdate!=None:
-            #     regdates=datetime.strptime(regdate,"%Y-%m-%d%H:%M")
-            # print("Reg date======",regdates,type(regdates))
+            print("reg dates======",regdates,type(regdates))
+            if regdates!="":
+                regdates=datetime.strptime(regdates,"%Y-%m-%d")
+            print("Reg date======",regdates,type(regdates))
             comment=request.POST.get('comment')
             taxrate=0.0
             tinno=request.POST.get('tinno')
@@ -172,11 +173,14 @@ class Services:
             ipwd=request.POST.get('ipwd')
           
             Cursor=connection.cursor()
-            Cursor.execute("exec SP_UpdateClientDetailsWithLog %s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s",[login,ticket,name,groups,country,city,zipcode,address,phone,email1,idno,leverage,regdates,comment,taxrate,tinno,enabled,color,agent,rdonly,sendreport,changepwd,ppwd,refcode,source,mothername,nationality,created,dob,income,worth,deposit,profession,risk,riskCategory,acctype,email2,phone2,title,terminated,state,risk,red,blue,green,score,termComment,rdonlycomment,country2,user,mpwd,ipwd])
+            print("data",login,ticket,name,groups,country,city,zipcode,address,phone,email1,idno,leverage,regdates,comment,taxrate,tinno,enabled,color,agent,rdonly,sendreport,changepwd,ppwd,refcode,source,mothername,nationality,created,dob,income,worth,deposit,profession,risk,riskCategory,acctype,email2,phone2,title,terminated,state,red,blue,green,score,termComment,rdonlycomment,country2,user,mpwd,ipwd)
+            Cursor.execute("exec SP_UpdateClientDetailsWithLog %s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s",[login,ticket,name,groups,country,city,zipcode,address,phone,email1,idno,leverage,regdates,comment,taxrate,tinno,enabled,color,agent,rdonly,sendreport,changepwd,ppwd,refcode,source,mothername,nationality,created,dob,income,worth,deposit,profession,risk,riskCategory,acctype,email2,phone2,title,terminated,state,red,blue,green,score,termComment,rdonlycomment,country2,user,mpwd,ipwd])
+            message="Updated Successfully"
         except Exception as e:
             print("Exception----",e)
         finally:
             Cursor.close()
+            return message
     #Save activity log
     def save_activity_log(self,logdata,user,type):
         try:
@@ -205,22 +209,26 @@ class Services:
             expyear=int(request.POST.get('expyear'))
             cardtype=request.POST.get('cardtype')
             front=request.FILES.get('front',None)
+            print("Front=====",front)
             back=request.FILES.get('back',None)
             userid=int(request.session.get('UserId'))
-            imagedata1=""
-            imagedata2=""
-            extension1=""
-            extension2=""
+            imagedata1=None
+            imagedata2=None
+            extension1=None
+            extension2=None
             imagename=""
             contenttype=""
             contenttypebk=""
             message="Please try again"
-            if front:
+            message="Please upload Card "
+            file_path="static\\uploads\\"
+            print("File path===")
+            if front!=None:
                 
 
                 extension1 = os.path.splitext(str(front))[1]
                 imagename=os.path.splitext(str(front))[0]
-                file_path="static\\uploads\\"
+                
                 # file_path=os.path.join(UPLOAD_ROOT,accno)
                 print("File existance======",file_path,os.path.isfile(file_path))
                 if os.path.isfile(file_path):
@@ -231,14 +239,15 @@ class Services:
                     for chunk in front.chunks():
                         imagedata1=chunk
                         # destination.write(chunk)
-            if back: 
+            print("Front image")
+            if back!=None: 
                 if imagename=="" :
                     imagename=os.path.splitext(str(back))[0]
                 extension2 = os.path.splitext(str(back))[1]
                 # file_path=os.path.join(UPLOAD_ROOT,accno)
                 if os.path.isfile(file_path):
                     os.mkdir(file_path)
-                fullpath=cardno+"back"+extension1
+                fullpath=cardno+"back"+extension2
                 fullfilepath=os.path.join(file_path,fullpath)
                 with open(fullfilepath, 'wb+') as destination:
                     for chunk in back.chunks():
@@ -324,7 +333,8 @@ class Services:
             print("Account data===============================",accno,name,cardno,expmonth,expyear,cardtype,userid,front,back,extension1,extension2)
             Cursor=connection.cursor()    
             Cursor.execute("exec SP_AddNewCard %s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s",[accno,name,cardno,expmonth,expyear,0,imagedata1,imagedata2,imagename,contenttype,contenttypebk,cardtype,userid])
-            message="Credit Card added Successfully"
+            
+            message="   Card added Successfully"
         except Exception as e:
             print("Exception----",e)
         finally:
@@ -354,7 +364,7 @@ class Services:
                 id=0
             else:
                 id=int(id)
-            print("eeeeeeeeeeeeeeeeeeeeeeee",acNo,actname,actno,bankname,bankaddress,swiftcode,otherinfo,0,0,userid,iban)
+            print("eeeeeeeeeeeeeeeeeeeeeeee",acNo,actname,actno,bankname,bankaddress,swiftcode,otherinfo,id,userid,iban)
             Cursor=connection.cursor()    
             Cursor.execute("exec SP_SaveBankDetails %s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s",[acNo,actname,actno,bankname,bankaddress,swiftcode,otherinfo,flag,id,userid,iban])
             message="Bank details saved successfully"
@@ -379,8 +389,9 @@ class Services:
         
             userid=int(request.session.get('UserId'))
             Cursor=connection.cursor()    
+            print("Save crypto card=====",accno,orderno,name,cardno,userid)
             Cursor.execute("exec SP_UpdateCreditCardDetails %s,%s,%s,%s,%s,%s,%s,%s,%s",[accno,orderno,name,cardno,1,0,0,"Crypto",userid])
-            message="Crypto saved successfully"
+            message="Crypto card saved successfully"
         except Exception as e:
             print("Exception----",e)
         finally:
@@ -389,11 +400,60 @@ class Services:
     #save client documnets
     def save_cliet_documents(self,request):
         try:
-            print("Request=======",request)
+            
             accno=int(request.POST.get('accno'))
             expdate=request.POST.get('expdate')
             docId=request.POST.get('doctype')
-            date_today=datetime.today().date()  
+            
+            Id=request.POST.get('id')
+            print("Id=====",Id)
+            if(Id==""):
+                Id=0
+            else:
+                Id=int(Id)
+            date_today=datetime.today().date() 
+            description="" 
+            if(docId=="25"):
+                description="Account Update Form"
+            if(docId=="10"):
+                description="Articles of Association"
+            if(docId=="11"):
+                description="Bank Statement"
+            if(docId=="12"):
+                description="Business Plan"
+            if(docId=="15"):
+                description="Certificate Of Formation"
+            if(docId=="17"):
+                description="Closed Account"
+            if(docId=="20"):
+                description="CRS Report"
+            if(docId=="2"):
+                description="ID/Passport Copy"
+            if(docId=="5"):
+                description="Individual Account Opening"
+            if(docId=="13"):
+                description="Login Confirmation"
+            if(docId=="14"):
+                description="Memorandum"
+            if(docId=="18"):
+                description="Miscellaneous"
+            if(docId=="21"):
+                description="Professional Client Form"
+            if(docId=="3"):
+                description="Proof of Address"
+            if(docId=="23"):
+                description="Risk Assessment Form"
+            if(docId=="6"):
+                description="Signature"
+            if(docId=="16"):
+                description="Termination Letter"
+            if(docId=="24"):
+                description="Trading Statements"
+            if(docId=="19"):
+                description="World Compliance Check"
+            if(docId=="22"):
+                description="Other"
+
 
             uploaded_date=date_today.strftime("%Y-%m-%d")
             docfile=request.FILES.get('docfile',None)
@@ -405,6 +465,7 @@ class Services:
             
             imagename=""
             contenttype=""
+           
            
             message="Please try again"
 
@@ -458,9 +519,9 @@ class Services:
             if(extension==".PDF"):
                 contenttype = "application/pdf"
             
-            print("Account data===============================",accno,imagedata,imagename,contenttype,"",uploaded_date,expdate,userid,docId,1)
+            print("Account data===============================",accno,contenttype,"",uploaded_date,expdate,userid,docId,Id)
             Cursor=connection.cursor()    
-            Cursor.execute("exec SP_SaveClientDocuments %s,%s,%s,%s,%s,%s,%s,%s,%s,%s",[accno,imagedata,imagename,contenttype,"",uploaded_date,expdate,userid,docId,1])
+            Cursor.execute("exec SP_SaveClientDocuments %s,%s,%s,%s,%s,%s,%s,%s,%s,%s",[accno,imagedata,imagename,contenttype,description,uploaded_date,expdate,userid,docId,Id])
             message="Document Uploaded Successfully"
         except Exception as e:
             print("Exception----",e)
@@ -496,7 +557,50 @@ class Services:
         finally:
             Cursor.close()
         return message
-    
+
+    #Save transaction
+    def save_transactions(self,request):
+
+        try:
+            accno=request.POST.get('accno')
+            fullname=request.POST.get('fullname')
+            balance=float(request.POST.get('balance'))
+            avl_margin=float(request.POST.get('avlmargin'))
+            creditin=float(request.POST.get('creditin'))
+            creditout=float(request.POST.get('creditout'))
+            deposit=float(request.POST.get('deposit'))
+            withdrawal=float(request.POST.get('withdrawel'))
+            credit=float(request.POST.get('credit'))
+            expdate=request.POST.get('expdate')
+            comment=request.POST.get('comment')
+            initial=int(request.POST.get('initial'))
+            repId=int(request.POST.get('repId'))
+            Cursor=connection.cursor()    
+            Cursor.execute("exec SP_SaveTransaction %s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s",[accno,fullname,balance,avl_margin,creditin,creditout,deposit,withdrawal,credit,expdate,comment,initial,repId])
+        except Exception as e:
+            print("Exception----",e)
+        finally:
+            Cursor.close()
+
+    #Update ewallet transaction
+    def update_ewallet_transactions(self,request):
+
+        try:
+            accno=request.POST.get('accno')
+            
+            deposit=float(request.POST.get('deposit'))
+            withdrawal=float(request.POST.get('withdrawal'))
+            repId=int(request.POST.get('repId'))
+                    
+            transId=int(request.POST.get('transId'))
+            status=int(request.POST.get('status'))
+            remarks=request.POST.get('remarks')
+            Cursor=connection.cursor()    
+            Cursor.execute("exec SP_SaveTransaction %s,%s,%s,%s,%s,%s,%s",[accno,deposit,withdrawal,repId,transId,status,remarks])
+        except Exception as e:
+            print("Exception----",e)
+        finally:
+            Cursor.close()
     
     
    

@@ -91,6 +91,19 @@ class DllService:
         account_no=c_int(accountno)
         info=Get_ClientInfo(c_char_p(self.demoserver.encode('utf-8')).value,login.value,c_char_p(self.demopwd.encode('utf-8')).value,account_no.value)
         return info
+       #dll client Info
+    def dll_client_info_without_history(self,accountno):
+        
+        hllDll = CDLL(r"C:\\pyenv\\TrustManagerAPI.dll") 
+        Get_ClientInfo_without_history = hllDll.Get_ClientInfo_without_history
+        hllDll.Get_ClientInfo_without_history= c_char_p,c_int,c_char_p,c_char_p
+        hllDll.Get_ClientInfo_without_history = c_int
+        username=int(self.demouser)
+        login = c_int(username)
+        account_no=c_int(accountno)
+        info=Get_ClientInfo_without_history(c_char_p(self.demoserver.encode('utf-8')).value,login.value,c_char_p(self.demopwd.encode('utf-8')).value,account_no.value)
+        return info
+  
      #dll phone password
     def dll_phone_pwd(self,accountno,phone):
         

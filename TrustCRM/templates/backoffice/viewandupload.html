@@ -49,9 +49,9 @@
                                 <div class="col-md-6 col-xxl-5">
                                     
                                     <div class=" card   card-h-100" >
-                                        <a class="btn bg-soft-secondarycolor btn-sm text-white me-2" style="cursor:pointer" onclick="history.back()"><i class="fa fa-chevron-left me-2"></i>Back</a>
+                                        
                                         <div class="card-body ">
-                                            
+                                            <a class="btn bg-soft-secondarycolor btn-sm text-white me-2 mb-2" style="cursor:pointer" onclick="history.back()"><i class="fa fa-chevron-left me-2"></i>Back</a>
                                             <h4 class="card-title almarenamonolight-type mb-4 fs-23">View & Upload Documents
                                             </h4>
     
@@ -71,26 +71,26 @@
                                                             <label class="form-label " for="Documenttype">Documenttype<span class="color-orange">*</span></label>
                                                             <select  type="text" class="form-select" id="Documenttype" placeholder="" name="doctype" required >
                                                                 <option value="0" data-id="0">Select</option>
-                                                                <option value="25" data-id="Account Update Form">Account Update Form</option>
-                                                                <option value="10" data-id="Articles of Association">Articles of Association</option>
-                                                                <option value="11" data-id="Bank Statement">Bank Statement</option>
-                                                                <option value="12" data-id="Business Plan">Business Plan</option>
-                                                                <option value="15" data-id="Certificate Of Formation">Certificate Of Formation </option>
-                                                                <option value="17" data-id="Closed Account">Closed Account</option>
-                                                                <option value="20" data-id="CRS Report">CRS Report</option>
-                                                                <option value="2" data-id="ID/Passport Copy">ID/Passport Copy</option>
-                                                                <option value="5" data-id="Individual Account Opening">Individual Account Opening</option>
-                                                                <option value="13" data-id="Login Confirmation">Login Confirmation</option>
-                                                                <option value="14" data-id="Memorandum">Memorandum</option>
-                                                                <option value="18" data-id="Miscellaneous">Miscellaneous</option>
-                                                                <option value="21" data-id="Professional Client Form">Professional Client Form</option>
-                                                                <option value="3" data-id="Proof of Address">Proof of Address</option>
-                                                                <option value="23" data-id="Risk Assessment Form">Risk Assessment Form</option>
-                                                                <option value="6" data-id="Signature">Signature</option>
-                                                                <option value="16" data-id="Termination Letter">Termination Letter</option>
-                                                                <option value="24" data-id="Trading Statements">Trading Statements</option>
-                                                                <option value="19" data-id="World Compliance Check">World Compliance Check</option>
-                                                                <option value="22" data-id="Other">Other</option>
+                                                                <option value="25" >Account Update Form</option>
+                                                                <option value="10" >Articles of Association</option>
+                                                                <option value="11" >Bank Statement</option>
+                                                                <option value="12" >Business Plan</option>
+                                                                <option value="15" >Certificate Of Formation </option>
+                                                                <option value="17" >Closed Account</option>
+                                                                <option value="20" >CRS Report</option>
+                                                                <option value="2" >ID/Passport Copy</option>
+                                                                <option value="5" >Individual Account Opening</option>
+                                                                <option value="13" >Login Confirmation</option>
+                                                                <option value="14" >Memorandum</option>
+                                                                <option value="18" >Miscellaneous</option>
+                                                                <option value="21" >Professional Client Form</option>
+                                                                <option value="3" >Proof of Address</option>
+                                                                <option value="23" >Risk Assessment Form</option>
+                                                                <option value="6" >Signature</option>
+                                                                <option value="16" >Termination Letter</option>
+                                                                <option value="24" >Trading Statements</option>
+                                                                <option value="19" >World Compliance Check</option>
+                                                                <option value="22" >Other</option>
                                                             </select>
                                                             
                                                         </div>
@@ -102,6 +102,7 @@
                                                             
                                                         </div>
                                                     </div>
+                                                    <input type="hidden" name="status" value="1">
                                                     <div class="col-sm-6 col-xxl-6">
                                                         <div class="mb-3">
                                                             <label class="form-label " for="Choosefile">Choosefile<span class="color-orange">*</span></label>
@@ -270,10 +271,10 @@
                                                             {%if doc.5 == 'Approved' %}
                                                             <button class="btn  btn-sm  color-green fs-15" style="background-color:
                                                             rgba(0, 165, 79, 0.15) ;">{{doc.5}}</button></td>
-                                                            {%elif doc.5 == 'Pending' %}
+                                                            {%elif doc.5 == 'Not Verified' %}
                                                             <button class="btn  btn-sm  text-warning fs-15" style="background-color:
                                                                 rgba(221, 174, 6, 0.15) ;">{{doc.5}}</button>
-                                                            {%elif doc.5 == 'Not Verified' %}
+                                                            {%elif doc.5 == 'Rejected' %}
                                                             <button class="btn  btn-sm  text-danger fs-15" style="background-color:
                                                                 rgba(255, 3, 3, 0.15) ;">{{doc.5}}</button>
                                                             {%else %}
@@ -285,8 +286,8 @@
                                                                 <i class="bx bx-dots-vertical-rounded"></i>
                                                             </a>
                                                             <div class="dropdown-menu">
-                                                                <a class="dropdown-item" onclick="viewDocs({{doc.6}})">View</a>
-                                                                <a class="dropdown-item" onclick="editDocs({{doc.7}})">Edit</a>
+                                                                <a class="dropdown-item" style="cursor: pointer;" onclick="viewDocs({{doc.6}})">View</a>
+                                                                <a class="dropdown-item" style="cursor: pointer;" onclick="editDocs({{doc.6}},{{doc.7}},'{{doc.4}}')">Edit</a>
                                                                 
                                                             </div>
                                                         </div></td>
@@ -450,6 +451,7 @@
                                           
                                      
                                         <div>
+                                            <input type="hidden" name="id" id="ID">
                                             <label class="form-label w-100 " for="email1">Documnet Type </label>
                                             <select  type="text" class="form-select" id="docID" placeholder="" name="doctype" required >
                                                 <option value="0" data-id="0">Select</option>
@@ -478,7 +480,7 @@
                                         <br>
                                         <div>
                                             <label class="form-label w-100 " for="email1">Expiry Date</label>
-                                            <input  type="text" class="form-control" id="expirydate" name="expdate" required />
+                                            <input  type="text" class="form-control" id="expirydateup" name="expdate" required />
                                             
                                         </div>
                                         <br>
@@ -519,14 +521,14 @@
 
      });
      $(function() {
-        $('#Documenttype').on('change', function (e) {
+        // $('#Documenttype').on('change', function (e) {
 
-        console.log("server changed")    
-        var doctype = $(this).attr('data-id')
-        console.log("documentdescription val===="+doctype)
+        // console.log("server changed")    
+        // var doctype = $(this).attr('data-id')
+        // console.log("documentdescription val===="+doctype)
        
 
-        });
+        // });
 
 
        
@@ -539,7 +541,7 @@
      function loadDocuments(){
         var accno=$("#Accountno").val()
 
-        accno=301684
+        
         var row=""
         // row+="<tr><td class='ps-0'><div class='form-check'><input type='checkbox' class='form-check-input' name='uploadcheck[]' value={{doc.6}}>"+
         //     "<label class='form-check-label fs-12' for='1'></label></div></td><td>{{doc.0}}</td><td>{{doc.1}}</td><td>{{doc.2}}</td><td>{{doc.3}}</td>"+
@@ -577,13 +579,29 @@
                         }
                     })
     }
-     function editDocs(docID){
+     function editDocs(Id,docID,expdate){
+        console.log("Id====="+expdate)
+        $("#ID").val(Id)
         $("#docID").val(docID)
+        let ft=flatpickr('#expirydateup', {
+                        //inline: true,
+                        "allowInput":true,
+                        dateFormat: "Y-m-d",//MMMM Do YYYY
+                        altFormat: "Y-m-d",
+                        altInput: true,
+                        mode: "single",
+                        
+                      
+                        
+                        defaultDate: expdate
+                    });
         $("#edit-document").modal('show')
+
         
      }
      function updateDocs(){
         $("#edit-document").modal('hide')
+        $("#expirydate").val("")
         var accno=$("#Accountno").val()
         $("#documentAcno").val(accno)
         var form = $('#add-doc-form')[0];
@@ -749,7 +767,7 @@
     function rejectProceed(){
         $("#reject-doc").modal('hide')
         var accno=$("#Accountno").val()
-        accno=301684
+        
         var reasons= [];
         var selected= [];
         $('[name="reasons[]"]:checked').each(function(checkbox) {

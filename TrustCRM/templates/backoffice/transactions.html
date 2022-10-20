@@ -1,0 +1,1123 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8" />
+    <title>Trust Capital CRM</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
+    <meta content="Themesbrand" name="author" />
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" lang="ar">
+    <!-- App favicon -->
+    {% load  static %}
+     <!-- DataTables -->
+     <link href="{% static 'libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css' %}" rel="stylesheet" type="text/css" />
+     <link href="{% static 'libs/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css' %}" rel="stylesheet" type="text/css" />
+     <!-- plugin css -->
+     <!--<link href="assets/libs/admin-resources/jquery.vectormap/jquery-jvectormap-1.2.2.css" rel="stylesheet"
+         type="text/css" />-->
+      <!-- datepicker css -->
+      <link rel="stylesheet" href="{% static 'libs/flatpickr/flatpickr.min.css' %}">
+      
+      <link href="{% static 'css/input-tel.min.css' %}" rel="stylesheet"   type="text/css" />
+    {% include "common/link.html" %}
+    <style>
+        table td .dropdown-menu.show{
+                right: 0px;
+        left: auto;
+        transform: none;
+        display: flex;
+        }
+    </style>
+    {% include "common/scripts.html" %}
+
+   
+
+ 
+</head>
+<body data-layout-mode="dark">
+
+    <!-- <body data-layout="horizontal"> -->
+    
+    <!-- Begin page -->
+    <div id="layout-wrapper">
+    
+        {% include "common/header.html" %}
+    
+
+        <!-- ========== Left Sidebar Start ========== -->
+        {% include "common/sidebar.html" %}
+        <div class="main-content">
+
+            <div class="page-content" id="sales">
+                <div class="container-fluid">
+                    <div class=" card   card-h-100" >
+                        <div class="card-body ">
+                            <div class="row justify-content-between">
+                                <div class="col-12">
+                                    <div class="col-12">
+                                        <div class="d-flex align-items-center">
+                                            <h4 class="card-title almarenamonolight-type mb-4 fs-23" id="titlemain">Credit Facility
+                                            </h4>
+                                        </div>
+                                      
+                                        
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <ul class="nav justify-content-start nav-tabs-custom  px-0 gilroymedium-type fs-25 my-3  nav-tabs-custom-after-top border-0" role="tablist">
+                                        <li class="nav-item" style=" width:calc(100% / 3 );"  data-title="Credit Facility ">
+                                            <a class="nav-link active text-center" data-bs-toggle="tab" href="#actions-cf-tab" role="tab">
+                                            
+                                                <span class=""> Credit Facility
+                                                </span>
+                                            
+                                            </a>
+                                        </li>
+                                        <li class="nav-item" style=" width:calc(100% / 3 );" data-title="E-Wallet Deposit/Withdrawal">
+                                            <a class="nav-link  text-center " data-bs-toggle="tab" href="#actions-ew-tab" role="tab">
+                                            
+                                                <span class="">  E-Wallet</span>
+                                            
+                                            </a>
+                                        </li>
+                                        <li class="nav-item" style=" width:calc(100% / 3 );" data-title="Inter Account Transfer ">
+                                            <a class="nav-link  text-center " data-bs-toggle="tab" href="#actions-intacctr-tab" role="tab">
+                                            
+                                                <span class=""> Inter account transfer</span>
+                                            
+                                            </a>
+                                        </li> 
+                                    </ul> 
+    
+                                </div>
+                              
+    
+                                <div class="col-12">
+                        
+                                        <div class="tab-content">
+                                            <!--Credit Facility-->
+                                            <div class="tab-pane active" id="actions-cf-tab" role="tabpanel">
+                                                <div class="row">
+                                                    <div class="col-12">
+                                                        <form class="mb-4">
+                                                            <div class="row align-items-end  justify-content-start">
+                                
+                                                                <div class="col-sm-4 col-lg-2 col-xxl-1">
+                                                                    <div class="mb-2">
+                                                                        <label class="form-label " for="Login">Log in</label>
+                                                                        <input  type="text" class="form-control" id="creditlogin" placeholder=""  required>
+                                                                    </div>
+                                                                </div>
+                                                            
+                                                                <div class="col">
+                                                                
+                                                                    <button class="btn btn-info btn-lg mb-2  
+                                                                    " type="button" id="creditLoad" onclick="creditLoad()">Load</button>
+                                                            
+                                                                
+                                                                </div>
+                                                               
+                                                            
+                                                                
+                                                        </div> 
+                                                        </form>
+                                                        <form>
+                                                            <div class="row align-items-end ">
+                                                              
+                                                                <div class="col-sm-6 col-md-4 col-xxl-3">
+                                                                    <div class="mb-2">
+                                                                        <label class="form-label " for="Fullname">Full name<span class="color-orange">*</span></label>
+                                                                        <input  type="text" class="form-control" id="Fullname" name="fullname" placeholder="" required>
+                                                                        
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-sm-6 col-md-4 col-xxl-3">
+                                                                    <div class="mb-2">
+                                                                        <label class="form-label " for="Balance">Balance<span class="color-orange">*</span></label>
+                                                                        <input  type="number" class="form-control" id="Balance" name="balance" placeholder="" required>
+                                                                        
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-sm-6 col-md-4 col-xxl-3">
+                                                                    <div class="mb-2">
+                                                                        <label class="form-label " for="Avilablemargin">Avilable margin<span class="color-orange">*</span></label>
+                                                                        <input  type="number" class="form-control" id="margin" name="avlmargin" placeholder="" required>
+                                                                        
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-sm-6 col-md-4 col-xxl-3">
+                                                                    <div class="mb-2">
+                                                                        <label class="form-label " for="Credit">Credit<span class="color-orange">*</span></label>
+                                                                        <input  type="number" class="form-control" id="credit" name="credit" placeholder="" required>
+                                                                        
+                                                                    </div>
+                                                                </div>
+                                                               
+                                                                <div class="col-sm-6 col-md-4 col-xxl-3">
+                                                                    <div class="mb-2">
+                                                                        <label class="form-label " for=" Value"> Value<span class="color-orange">*</span></label>
+                                                                        <input  type="text" class="form-control" id="value" name="value" placeholder="" required>
+                                                                        
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-sm-6 col-md-4 col-xxl-3">
+                                                                    <div class="mb-2">
+                                                                        <label class="form-label " for=" Expiration date"> Expiration date<span class="color-orange">*</span></label>
+                                                                        <input  type="text" class="form-control" id="expdate" name="expdate" placeholder="" required>
+                                                                        
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-sm-6 col-md-4 col-xxl-3">
+                                                                    <div class="mb-2">
+                                                                        <label class="form-label " for="Comment"> Comment<span class="color-orange">*</span></label>
+                                                                        <input  type="text" class="form-control" id="comment" name="comment" placeholder="" required>
+                                                                        
+                                                                    </div>
+                                                                    
+                                                                   
+                                                                </div>
+                                                                <div class="col-sm-6 col-md-4 col-xxl-3">
+                                                                    <div class="mb-2">
+                                                                        <label class="form-label " for=" Action">  Action<span class="color-orange">*</span></label>
+                                                                        <select  type="text" class="form-select" id=" Action" placeholder="" required>
+                                                                            <option value="creditin">Credit In</option>
+                                                                            <option value="creditout">Credit Out</option>
+                                                                        </select>
+                                                                        
+                                                                    </div>
+                                                                    
+                                                                   
+                                                                </div>
+                                                               
+                                                               
+                                                                <div class="col-12">
+                                                                    <div class="mt-4">
+                                                                    <button class="btn  btn-primary  btn-lg mb-2  me-2
+                                                                    " type="button" id="creditInBtn" disabled>Credit in</button>
+                                                                    <button class="btn btn-outline-light  btn-lg mb-2    me-2
+                                                                    " type="button" id="creditnOutBtn" disabled> Credit out</button>
+                                                                
+                                                                    
+                                                                   
+                                                                    <button class="btn btn-outline-light  btn-lg mb-2    me-2
+                                                                    " type="button" >Reset</button>
+                                                                
+                                                                    </div> 
+                                                                 
+                                                                
+                                                                </div>
+                                                            
+                                                                
+                                                        </div> 
+                                                        </form>
+                                                        <hr class="my-4">
+                                                    </div>
+                                                    <div class="col-12">
+                                                       
+    
+    
+                                                        <h4 class="card-title almarenamonolight-type mb-4 fs-23">Credit Details</h4>
+            
+                                                        <form class="mb-5">
+                                                            <div class="row align-items-end ">
+                                                              
+                                                                <div class="col-sm-5 col-xxl-3">
+                                                                    <div class="mb-2">
+                                                                        <label class="form-label " for="Fromdate">From date<span class="color-orange">*</span></label>
+                                                                        <input  type="text" class="form-control" id="Fromdate" placeholder="" required>
+                                                                        
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-sm-5 col-xxl-3">
+                                                                    <div class="mb-2">
+                                                                        <label class="form-label " for="Todate">To date<span class="color-orange">*</span></label>
+                                                                        <input  type="text" class="form-control" id="Todate" placeholder="" required>
+                                                                            
+                                                                        
+                                                                    </div>
+                                                                </div>
+                                                               <div class="col" >
+                                                                    <button class="btn  btn-info  btn-lg mb-2  me-2
+                                                                    " type="submit" id="">History</button>
+                                                               </div>
+                                                               <div class="col-sm-10 col-xxl-4 d-flex justify-content-between">
+            
+                                                                    <div class=" gilroyregular-type  mb-2 me-1">
+                                                                        <p class=" mb-0  color-color1 fs-16"> Deposit </p>
+                                                                        <span class="  text-white  fs-14">30020400204</span>
+                                                                        
+                                                                    
+                                                                    </div>
+                                                                    <div class=" gilroyregular-type  mb-2 me-1">
+                                                                        <p class=" mb-0  color-color1 fs-16">Withdrawal </p>
+                                                                        <span class="  text-white  fs-14">30020400204</span>
+                                                                        
+                                                                    
+                                                                    </div>
+                                                                    <div class=" gilroyregular-type  mb-2  me-1">
+                                                                        <p class=" mb-0  color-color1 fs-16"> Credit </p>
+                                                                        <span class="  text-white  fs-14 text-wrap">30020400204</span>
+                                                                        
+                                                                    
+                                                                    </div>
+                                                               </div> 
+                                                        </div> 
+                                                        </form>
+                                                        <hr class="mb-5 mt-4">
+                                                        <div class="position-relative">
+                                                            <div class="position-absolute " style="right:10px;top:-10px;z-index:1055">
+                                                                <input type="text" class="form-control "  placeholder="Search" id="myinputsearch-bankdetails" style="width:369px">
+                                                            </div>
+                                                            <div class="table-responsive mt-3" data-simplebar="" style="max-height:100%">
+                                                                <table id="datatablebankdetails" class="table dt-responsive  nowrap  w-100 change">
+                                                                    <thead  class="color-color1">
+                                                                        <tr  class=" gilorymedium-type fs-17">
+                                                                            <th  class="ps-0"> Log in</th>
+                                                                            <th >Deal</th>
+                                                                            <th  >Comment</th>
+                                                                            <th  >Type</th>
+                                                                            <th>Currency</th>
+                                                                            <th>Amount</th>
+                                                                            
+                                                                            <th class="text-end">Open time</th>
+                                                                            
+                                                                        </tr>
+                                                                    </thead>
+                            
+                            
+                                                                    <tbody class="text-white giloryregular-type fs-16">
+                                                               
+                                                                        <tr>
+                                                                           <td class="ps-0">2C2E45</td>
+                                                                           <td>Online</td>
+                                                                           <td>Firas</td>
+                                                                           <td>Sumitha test</td>
+                                                                           <td>Qatar</td>
+                                                                           <td>Live account reg</td>
+                                                                           <td class="text-end">Attended</td>
+                                                                          
+                                                                       
+                                                                        
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td class="ps-0">2C2E45</td>
+                                                                            <td>Online</td>
+                                                                            <td>Firas</td>
+                                                                            <td>Sumitha test</td>
+                                                                            <td>Qatar</td>
+                                                                            <td>Live account reg</td>
+                                                                            <td class="text-end">Attended</td>
+                                                                           
+                                                                        
+                                                                         
+                                                                         </tr>
+                                                                         <tr>
+                                                                            <td class="ps-0">2C2E45</td>
+                                                                            <td>Online</td>
+                                                                            <td>Firas</td>
+                                                                            <td>Sumitha test</td>
+                                                                            <td>Qatar</td>
+                                                                            <td>Live account reg</td>
+                                                                            <td class="text-end">Attended</td>
+                                                                           
+                                                                        
+                                                                         
+                                                                         </tr>
+                                                                     
+                                                                       
+                                                                
+                                                                    
+                                                                    </tbody>
+                                                                 
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                             <!--E Wallet-->
+                                            <div class="tab-pane " id="actions-ew-tab" role="tabpanel">
+    
+    
+                                                <div class="row">
+                                                    <div class="col-12">
+    
+                                                            <form class="mb-4">
+                                                                <div class="row align-items-end  justify-content-start">
+                                    
+                                                                    <div class="col-sm-4 col-lg-2 col-xxl-1">
+                                                                        <div class="mb-2">
+                                                                            <label class="form-label " for="Login">Log in</label>
+                                                                            <input  type="text" class="form-control" id="Login" placeholder=""  required>
+                                                                        </div>
+                                                                    </div>
+                                                                
+                                                                    <div class="col">
+                                                                    
+                                                                        <button class="btn btn-info btn-lg mb-2  
+                                                                        " type="submit" id="">Load</button>
+                                                                
+                                                                    
+                                                                    </div>
+                                                                
+                                                                
+                                                                    
+                                                            </div> 
+                                                            </form>
+                                                            <form>
+                                                                <div class="row align-items-end ">
+                                                                
+                                                                    <div class="col-sm-6 col-md-4 col-xxl-3">
+                                                                        <div class="mb-2">
+                                                                            <label class="form-label " for="Fullname1">Full name<span class="color-orange">*</span></label>
+                                                                            <input  type="text" class="form-control" id="Fullname1" placeholder="" required>
+                                                                            
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-sm-6 col-md-4 col-xxl-3">
+                                                                        <div class="mb-2">
+                                                                            <label class="form-label " for="acountbalance">Account balance<span class="color-orange">*</span></label>
+                                                                            <input  type="text" class="form-control" id="accbalance" name="balance" placeholder="" required>
+                                                                            
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-sm-6 col-md-4 col-xxl-3">
+                                                                        <div class="mb-2">
+                                                                            <label class="form-label " for="Avilablemargin1">Avilable margin<span class="color-orange">*</span></label>
+                                                                            <input  type="text" class="form-control" id="margin" name="avlmargin" placeholder="" required>
+                                                                            
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-sm-6 col-md-4 col-xxl-3">
+                                                                        <div class="mb-2">
+                                                                            <label class="form-label " for="Credit1">Credit<span class="color-orange">*</span></label>
+                                                                            <input  type="number" class="form-control" id="credit" name="credit" placeholder="" required>
+                                                                            
+                                                                        </div>
+                                                                    </div>
+                                                                
+                                                                    <div class="col-sm-6 col-md-4 col-xxl-3">
+                                                                        <div class="mb-2">
+                                                                            <label class="form-label " for=" Ewalletbalance"> E-wallet balance<span class="color-orange">*</span></label>
+                                                                            <input  type="text" class="form-control" id="accbalance" name="balance" placeholder="" required>
+                                                                            
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-sm-6 col-md-4 col-xxl-3">
+                                                                        <div class="mb-2">
+                                                                            <label class="form-label " for=" Amount"> Amount<span class="color-orange">*</span></label>
+                                                                            <input  type="text" class="form-control" id="accbalance" name="balance" placeholder="" required>
+                                                                            
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-sm-6 col-md-4 col-xxl-3">
+                                                                        <div class="mb-2">
+                                                                            <label class="form-label " for="Comment1"> Comment<span class="color-orange">*</span></label>
+                                                                            <input  type="text" class="form-control" id="accbalance" name="balance" placeholder="" required>
+                                                                            
+                                                                        </div>
+                                                                        
+                                                                    
+                                                                    </div>
+                                                                    <div class="col-sm-6 col-md-4 col-xxl-3">
+                                                                        <div class="mb-2">
+                                                                            <label class="form-label " for=" Action1">  Action<span class="color-orange">*</span></label>
+                                                                            <select  type="text" class="form-select" id=" Action1" placeholder="" required>
+                                                                                <option value="">Deposit</option>
+                                                                                <option value="">Withdrawal</option>
+                                                                            </select>
+                                                                            
+                                                                        </div>
+                                                                        
+                                                                    
+                                                                    </div>
+                                                                    <div class="col-sm-6 col-md-4 col-xxl-3">
+                                                                        <div class="mb-2">
+                                                                            <label class="form-label " for=" Action1">Transaction Type<span class="color-orange">*</span></label>
+                                                                            <select  type="text" class="form-select" id=" Action1" placeholder="" required>
+                                                                                <option value="">Select</option>
+                                                                                <option value="">Direct Deposit to MT4 (External)</option>
+                                                                                <option value="">Direct Deposit to EWallet (External)</option>
+                                                                                <option value="">Deposit to MT4 from EWallet</option>
+                                                                                <option value="">Direct Withdrawal from MT4 (External)</option>
+                                                                                <option value="">Direct Withdrawal from EWallet (External)</option>
+                                                                                <option value="">Withdrawal from MT4 to EWallet</option>
+                                                                            </select>
+                                                                            
+                                                                        </div>
+                                                                        
+                                                                    
+                                                                    </div>
+                                                                
+                                                                
+                                                                    <div class="col-12">
+                                                                        <div class="mt-4">
+                                                                        <button class="btn  btn-primary  btn-lg mb-2  me-2
+                                                                        " type="submit" id="">Deposit</button>
+                                                                        <button class="btn btn-outline-light  btn-lg mb-2    me-2
+                                                                        " type="reset" > Withdrawal</button>
+                                                                    
+                                                                        
+                                                                    
+                                                                        <button class="btn btn-outline-light  btn-lg mb-2    me-2
+                                                                        " type="reset" >Reset</button>
+                                                                    
+                                                                        </div> 
+                                                                    
+                                                                    
+                                                                    </div>
+                                                                
+                                                                    
+                                                            </div> 
+                                                            </form>
+    
+    
+                                                    </div>
+                                                    <div class="col-12">
+                                                        <hr class="my-5">
+                                                        <div class="position-relative d-flex  justify-content-between ">
+                                                            <h4 class="card-title almarenamonolight-type mb-4 fs-23">E-Wallet transactions history
+                                                            </h4>
+                                                      
+                                                            <div>
+    
+                                                                <button type="button" class="btn text-white btn-sm fs-13 gilroyregular-type almarenamonolight-type bg-soft-gunmetal">
+                                                                    E-Wallet Report
+                                                                </button>
+                                                                
+                                                            </div>
+                                                            
+                                                        </div>
+                                                     
+                                                        <ul class="gilorymedium-type list-unstyled color-color1 fs-17 d-flex ">
+            
+                                                            <li> <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                <circle cx="6" cy="6" r="6" fill="#0CC165"></circle>
+                                                                </svg>
+                                                                <span class="text-white">Deposit:</span> <span style="color:#0CC165"> 0:00</span></li>
+                                                            <li class="ms-5"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                <circle cx="6" cy="6" r="6" fill="#2D8CFF"></circle>
+                                                                </svg>
+                                                            <span class="text-white">Withdrawal:  </span><span style="color:#2D8CFF">0:00</span></li>
+                                                            <li class="ms-5"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                <circle cx="6" cy="6" r="6" fill=" #FF1813
+                                                                "></circle>
+                                                                </svg>
+                                                            <span class="text-white">Credit:  </span><span style="color:#2D8CFF">0:00</span></li>
+                                                        </ul>
+                                                        <hr class="mt-4 mb-5"><!--divider-->
+                                                        <div class="position-relative">
+    
+                                                            <div class="position-absolute " style="right:10px;top:-10px;z-index:1055">
+                                                                <input type="text" class="form-control "  placeholder="Search" id="myinputsearch-ewtransactionshistory" style="width:369px">
+                                                            </div>
+                                                            <div class="table-responsive mt-3" data-simplebar="" style="max-height:100%">
+                                                                <table id="datatableewtransactionshistory" class="table dt-responsive  nowrap  w-100 change">
+                                                                    <thead >
+                                                                        <tr  class=" gilorymedium-type fs-17">
+                                                                            <th  class="ps-0" > Transaction Date</th>
+                                                                            <th >Amount</th>
+                                                                            <th  >Trans Type</th>
+                                                                            <th  >Remarks</th>
+                                                                            <th>Status</th>
+                                                                            
+                                                                            <th class="text-end">Proceed</th>
+                                                                            
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody class="text-white giloryregular-type fs-16">
+                                                                        <tr>
+                                                                            <td  class="ps-0">2C2E45</td>
+                                                                            <td>Online</td>
+                                                                            <td>Firas</td>
+                                                                            <td>Sumitha test</td>
+                                                                            <td><button class="btn  btn-sm  color-green fs-15" style="background-color:
+                                                                                rgba(0, 165, 79, 0.15) ;">Success</button></td>
+                                                                            <td class="text-end"><button class="btn  btn-sm  text-white fs-15 bg-soft-secondarycolor" >Proceed</button></td>
+                                                                           
+                                                                           
+                                                                           
+                                                                        
+                                                                        </tr>
+                                                 
+                                                                        
+                                                                
+                                                                    
+                                                                    </tbody>
+                                                                    
+                                                                </table>
+                                                            </div>
+                                                        </div>
+    
+                                                    </div>
+                                                    <div class="col-12">
+    
+                                                        <hr class="my-5">
+    
+    
+                                                    <h4 class="card-title almarenamonolight-type mb-4 fs-23">MT4 transactions history
+                                                    
+    
+                                                    </h4>
+                                                
+    
+                                                    <form class="">
+                                                        <div class="row align-items-end ">
+                                                        
+                                                            <div class="col-sm-4 col-xxl-3">
+                                                                <div class="mb-2">
+                                                                    <label class="form-label " for="Fromdate1">From date<span class="color-orange">*</span></label>
+                                                                    <input  type="text" class="form-control" id="Fromdate1" placeholder="" required>
+                                                                    
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-sm-4 col-xxl-3">
+                                                                <div class="mb-2">
+                                                                    <label class="form-label " for="Todate1">To date<span class="color-orange">*</span></label>
+                                                                    <input  type="text" class="form-control"  id="Todate1" placeholder="" required>
+                                                                     
+                                                                    
+                                                                </div>
+                                                            </div>
+                                                        <div class="col" >
+                                                               
+                                                                <button class="  btn btn-outline-light   btn-lg mb-2  me-2
+                                                                " type="submit" id="">History</button>
+                                                                <button class="btn  btn-info  btn-lg mb-2  me-2
+                                                                " type="submit" id="">Load</button>
+                                                        </div>
+                                       
+                                                        
+                                                      
+                                                        
+                                                        
+                                                            
+                                                    </div> 
+                                                    </form>
+                                                    <hr class="mt-4 mb-5">
+                                                    
+                                                            
+                                                    <div class="position-relative">
+    
+                                                        <div class="position-absolute " style="right:10px;top:-10px;z-index:1055">
+                                                            <input type="text" class="form-control "  placeholder="Search" id="myinputsearch-mt4transactionshistory" style="width:369px">
+                                                        </div>
+                                                        <div class="table-responsive mt-3" data-simplebar="" style="max-height:100%">
+                                                            <table id="datatablemt4transactionshistory" class="table dt-responsive  nowrap  w-100 change">
+                                                                <thead  class="color-color1">
+                                                                    <tr  class=" gilorymedium-type fs-17">
+                                                                        <th  class="ps-0"> Log in</th>
+                                                                        <th >Deal</th>
+                                                                        <th  >Comment</th>
+                                                                        <th  >Type</th>
+                                                                        <th>Currency</th>
+                                                                        <th>Amount</th>
+                                                                        
+                                                                        <th class="text-end">Open time</th>
+                                                                        
+                                                                    </tr>
+                                                                </thead>
+                        
+                        
+                                                                <tbody class="text-white giloryregular-type fs-16">
+                                                           
+                                                                    <tr>
+                                                                       <td class="ps-0">2C2E45</td>
+                                                                       <td>Online</td>
+                                                                       <td>Firas</td>
+                                                                       <td>Sumitha test</td>
+                                                                       <td>Qatar</td>
+                                                                       <td>Live account reg</td>
+                                                                       <td class="text-end">Attended</td>
+                                                                      
+                                                                   
+                                                                    
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td class="ps-0">2C2E45</td>
+                                                                        <td>Online</td>
+                                                                        <td>Firas</td>
+                                                                        <td>Sumitha test</td>
+                                                                        <td>Qatar</td>
+                                                                        <td>Live account reg</td>
+                                                                        <td class="text-end">Attended</td>
+                                                                       
+                                                                    
+                                                                     
+                                                                     </tr>
+                                                                     <tr>
+                                                                        <td class="ps-0">2C2E45</td>
+                                                                        <td>Online</td>
+                                                                        <td>Firas</td>
+                                                                        <td>Sumitha test</td>
+                                                                        <td>Qatar</td>
+                                                                        <td>Live account reg</td>
+                                                                        <td class="text-end">Attended</td>
+                                                                       
+                                                                    
+                                                                     
+                                                                     </tr>
+                                                                 
+                                                                   
+                                                            
+                                                                
+                                                                </tbody>
+                                                                
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                    </div>
+                                                </div>
+                                            </div>
+                                             <!--Inter Acc-->
+                                            <div class="tab-pane " id="actions-intacctr-tab" role="tabpanel">
+                                                <div class="row">
+    
+                                                    <div class="col-xxl-6 col-md-12">
+    
+                                                        <div class="card  mt-3  "  style="border-style: dashed">
+    
+                                                            <div class="card-body py-2 ">
+                                                               
+                                                                <h4 class="card-title almarenamonolight-type mb-4 fs-19">Withdrawal From</h4>
+                                                                <form class="mb-2">
+                                                                    <div class="row align-items-end  justify-content-start">
+                                                                        <div class="col-3">
+                                                                            <div class="mb-2">
+                                                                                <label class="form-label " for="Login">Account no</label>
+                                                                                
+                                                                            </div> 
+                                                                        </div>
+                                                                        <div class="col-sm-4  col-xxl-3">
+                                                                            <div class="mb-2">
+                                                                                
+                                                                                <input  type="text" class="form-control" id="Login" placeholder=""  required>
+                                                                            </div>
+                                                                        </div>
+                                                                    
+                                                                        <div class="col">
+                                                                        
+                                                                            <button class="btn btn-info btn-lg mb-2  
+                                                                            " type="submit" id="">Load</button>
+                                                                    
+                                                                        
+                                                                        </div>
+                                                                       
+                                                                    
+                                                                        
+                                                                </div> 
+                                                                </form>
+                                                                <div class="row justify-content-between">
+    
+                                                                    <div class="col">
+    
+    
+                                                                        <div class=" gilroyregular-type  mb-2 ">
+                                                                            <p class=" mb-0  color-color1 fs-16"> Full name </p>
+                                                                            <span class="  text-white  fs-18">6.00</span>
+                                                                            
+                                                                        
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col">
+    
+    
+                                                                        <div class=" gilroyregular-type  mb-2 ">
+                                                                            <p class=" mb-0  color-color1 fs-16"> Balance </p>
+                                                                            <span class="  text-white  fs-18">5.01</span>
+                                                                            
+                                                                        
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col">
+    
+    
+                                                                        <div class=" gilroyregular-type  mb-2 ">
+                                                                            <p class=" mb-0  color-color1 fs-16"> Credit</p>
+                                                                            <span class="  text-white  fs-18">0.00</span>
+                                                                            
+                                                                        
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col">
+    
+    
+                                                                        <div class=" gilroyregular-type  mb-2 ">
+                                                                            <p class=" mb-0  color-color1 fs-16"> Avilable margin</p>
+                                                                            <span class="  text-white  fs-18">0.00</span>
+                                                                            
+                                                                        
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col">
+    
+       
+                                                                        <div class=" gilroyregular-type  mb-2 ">
+                                                                            <p class=" mb-0  color-color1 fs-16"> Amount</p>
+                                                                            <span class="  text-white  fs-18">0.00</span>
+                                                                            
+                                                                        
+                                                                        </div>
+                                                                    </div>
+    
+                                                                </div>
+                                                               
+            
+                                                            </div>
+                                                        </div>
+    
+                                                    </div>
+                                                    <div class="col-xxl-6 col-md-12">
+    
+                                                        <div class="card  mt-3  "  style="border-style: dashed">
+    
+                                                            <div class="card-body py-2 ">
+                                                               
+                                                                <h4 class="card-title almarenamonolight-type mb-4 fs-19">Deposit To</h4>
+                                                                <form class="mb-2">
+                                                                    <div class="row align-items-end  justify-content-start">
+                                                                        <div class="col-3">
+                                                                            <div class="mb-2">
+                                                                                <label class="form-label " for="Login">Account no</label>
+                                                                                
+                                                                            </div> 
+                                                                        </div>
+                                                                        <div class="col-sm-4  col-xxl-3">
+                                                                            <div class="mb-2">
+                                                                                
+                                                                                <input  type="text" class="form-control" id="Login" placeholder=""  required>
+                                                                            </div>
+                                                                        </div>
+                                                                    
+                                                                        <div class="col">
+                                                                        
+                                                                            <button class="btn btn-info btn-lg mb-2  
+                                                                            " type="submit" id="">Load</button>
+                                                                    
+                                                                        
+                                                                        </div>
+                                                                       
+                                                                    
+                                                                        
+                                                                </div> 
+                                                                </form>
+                                                                <div class="row justify-content-between">
+    
+                                                                    <div class="col">
+    
+    
+                                                                        <div class=" gilroyregular-type  mb-2 ">
+                                                                            <p class=" mb-0  color-color1 fs-16"> Full name </p>
+                                                                            <span class="  text-white  fs-18">6.00</span>
+                                                                            
+                                                                        
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col">
+    
+    
+                                                                        <div class=" gilroyregular-type  mb-2 ">
+                                                                            <p class=" mb-0  color-color1 fs-16"> Balance </p>
+                                                                            <span class="  text-white  fs-18">5.01</span>
+                                                                            
+                                                                        
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col">
+    
+    
+                                                                        <div class=" gilroyregular-type  mb-2 ">
+                                                                            <p class=" mb-0  color-color1 fs-16"> Credit</p>
+                                                                            <span class="  text-white  fs-18">0.00</span>
+                                                                            
+                                                                        
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col">
+    
+    
+                                                                        <div class=" gilroyregular-type  mb-2 ">
+                                                                            <p class=" mb-0  color-color1 fs-16"> Avilable margin</p>
+                                                                            <span class="  text-white  fs-18">0.00</span>
+                                                                            
+                                                                        
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col">
+    
+       
+                                                                        <div class=" gilroyregular-type  mb-2 ">
+                                                                            <p class=" mb-0  color-color1 fs-16"> Amount</p>
+                                                                            <span class="  text-white  fs-18">0.00</span>
+                                                                            
+                                                                        
+                                                                        </div>
+                                                                    </div>
+    
+                                                                </div>
+                                                               
+            
+                                                            </div>
+                                                        </div>
+    
+                                                    </div>
+                                                    <div class="col-12">
+                                                        <hr class="my-4">
+                                                        <h4 class="card-title almarenamonolight-type mb-4 fs-23">Transaction Details</h4>
+                                                       <form>
+                                                    <div class="row align-items-end ">
+                                                      
+                                                        <div class="col-sm-6 col-md-4 col-xxl-3">
+                                                            <div class="mb-2">
+                                                                <label class="form-label " for="Fromdate2">From date<span class="color-orange">*</span></label>
+                                                                <input  type="text" class="form-control" id="Fromdate2" placeholder="" required>
+                                                                
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-6 col-md-4 col-xxl-3">
+                                                            <div class="mb-2">
+                                                                <label class="form-label " for="Todate2">To date<span class="color-orange">*</span></label>
+                                                                <input  type="text" class="form-control"  id="Todate2" placeholder="" required>
+                                                                    
+                                                                
+                                                            </div>
+                                                        </div>
+                                                        
+                                                       
+                                                       
+                                                        <div class="col">
+                                                            <div class="">
+                                                            <button class="btn btn-outline-light gilory-regulartype  btn-lg mb-2    me-2
+                                                            " type="submit" >Load all</button>
+                                                            <button class="btn  btn-info  gilory-regulartype  btn-lg mb-2  me-2
+                                                            " type="submit" id="">Load</button>
+                                                           
+                                                        
+                                                            
+                                                         
+                                                         
+                                                        
+                                                        </div>
+                                                    
+                                                        
+                                                    </div> 
+                                                        </form>
+                                                    </div>
+                                                    <div class="col-12">
+                                                        <div class="card  mt-3  border-0 " style="background-color: var(--bs-card-bg) ;">
+    
+                                                            <div class="card-body py-2 ">
+                                                               
+    
+    
+                                                                <div class="row">
+    
+                                                                    <div class="col-sm-6 col-xxl-6">
+                                                                        <h4 class="card-title almarenamonolight-type mb-4 fs-19">Withdrawal From</h4>
+                                                                        <div class="row">
+    
+                                                                            <div class="col-sm-4 col-xxl-4">
+    
+    
+                                                                                <div class=" gilroyregular-type  mb-2 ">
+                                                                                    <p class=" mb-0  color-color1 fs-16"> Deposit </p>
+                                                                                    <span class="  text-white  fs-18">6.00</span>
+                                                                                    
+                                                                                
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-sm-4 col-xxl-4">
+    
+    
+                                                                                <div class=" gilroyregular-type  mb-2 ">
+                                                                                    <p class=" mb-0  color-color1 fs-16"> Withdrawal </p>
+                                                                                    <span class="  text-white  fs-18">5.01</span>
+                                                                                    
+                                                                                
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-sm-4 col-xxl-4">
+    
+    
+                                                                                <div class=" gilroyregular-type  mb-2 ">
+                                                                                    <p class=" mb-0  color-color1 fs-16"> Credit </p>
+                                                                                    <span class="  text-white  fs-18">0.00</span>
+                                                                                    
+                                                                                
+                                                                                </div>
+                                                                            </div>
+    
+                                                                        </div>
+                                                                    </div>
+                                                                    
+                                                                    <div class="col-sm-6 col-xxl-6">
+                                                                        <h4 class="card-title almarenamonolight-type mb-4 fs-19">Deposit To</h4>
+                                                                        <div class="row">
+    
+                                                                            <div class="col-sm-4 col-xxl-4">
+    
+    
+                                                                                <div class=" gilroyregular-type  mb-2 ">
+                                                                                    <p class=" mb-0  color-color1 fs-16"> Deposit </p>
+                                                                                    <span class="  text-white  fs-18">6.00</span>
+                                                                                    
+                                                                                
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-sm-4 col-xxl-4">
+    
+    
+                                                                                <div class=" gilroyregular-type  mb-2 ">
+                                                                                    <p class=" mb-0  color-color1 fs-16"> Withdrawal </p>
+                                                                                    <span class="  text-white  fs-18">5.01</span>
+                                                                                    
+                                                                                
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-sm-4 col-xxl-4">
+    
+    
+                                                                                <div class=" gilroyregular-type  mb-2 ">
+                                                                                    <p class=" mb-0  color-color1 fs-16"> Credit </p>
+                                                                                    <span class="  text-white  fs-18">0.00</span>
+                                                                                    
+                                                                                
+                                                                                </div>
+                                                                            </div>
+    
+                                                                        </div>
+                                                                    </div>
+                                                                    
+                                                                </div>
+            
+                                                            </div>
+                                                        </div>
+                                                        <hr class="mt-4 mb-5">
+                                                        
+                                                    </div>
+                                                    <div class="col-12">
+    
+                                                       
+                                                        <div class="position-relative">
+            
+                                                            <div class="position-absolute " style="right:10px;top:-10px;z-index:1055">
+                                                                <input type="text" class="form-control "  placeholder="Search" id="myinputsearch-transactiondetails" style="width:369px">
+                                                            </div>
+                                                            <div class="table-responsive mt-3" data-simplebar="" style="max-height:100%">
+                                                                <table id="datatabletransactiondetails" class="table dt-responsive  nowrap  w-100 change">
+                                                                    <thead  class="color-color1">
+                                                                        <tr  class=" gilorymedium-type fs-17 ">
+                                                                            <th  class="ps-0"> Account No</th>
+                                                                            <th >Deal</th>
+                                                                            <th  >Comment</th>
+                                                                            <th  >Type</th>
+                                                                            <th>Currency</th>
+                                                                            <th>Amount</th>
+                                                                            <th class="text-end">Open time</th>
+                                                                           
+                                                                            
+                                                                        </tr>
+                                                                    </thead>
+                            
+                            
+                                                                    <tbody class="text-white giloryregular-type fs-16">
+                                                                
+                                                                        <tr>
+                                                                            <td>2C2E45</td>
+                                                                            <td>Online</td>
+                                                                            <td>Firas</td>
+                                                                            <td>Sumitha test</td>
+                                                                            <td>Qatar</td>
+                                                                            <td>Live account reg</td>
+                                                                            <td class="text-end">Attended</td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td>2C2E45</td>
+                                                                            <td>Online</td>
+                                                                            <td>Firas</td>
+                                                                            <td>Sumitha test</td>
+                                                                            <td>Qatar</td>
+                                                                            <td>Live account reg</td>
+                                                                            <td class="text-end">Attended</td>
+                                                                        </tr >
+                                                                      
+                                                                
+                                                                    
+                                                                    </tbody>
+                                                                    
+                                                                </table>
+                                                            </div>
+                                                        </div>
+    
+                                                    </div>
+    
+    
+                                                </div> 
+                                            </div>
+                                        </div>
+                                
+    
+    
+                                </div>
+    
+                            
+                            </div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+                <!-- End Page-content -->
+    
+                
+            </div>
+            <!-- end main content-->
+    
+        </div>
+    </div>
+
+    {% include "common/right-sidebar.html" %}
+    
+    <!-- Right bar overlay-->
+<div class="rightbar-overlay"></div>  
+ <!-- datepicker js -->
+ <script>
+    $(function() {
+            $("#creditlogin").on("keydown", function(event) {
+                        if(event.which == 13){
+                            event.preventDefault()
+                            
+                            creditLoad()
+
+                        }
+                            
+            })
+
+            $("#Fullname, #Balance, #current_password").keyup(function(){
+
+                    if($("#password_confirmation").val() && $("#password").val() && $("#current_password").val())
+
+                        $("#submitProfile").removeAttr("disabled");
+                });
+    })
+
+    function creditLoad(){
+        var creditlogin=$("#creditlogin").val()
+
+    }
+ </script>
+ <script src="{% static 'libs/flatpickr/flatpickr.min.js' %}"></script>
+ <!-- Required datatable js -->
+<script src="{% static 'libs/datatables.net/js/jquery.dataTables.min.js' %}"></script>
+<script src="{% static 'libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js' %} "></script>
+ <!-- Datatable init js -->
+ <script src="{% static 'js/pages/botrans.init.js' %}"></script> 
+
+ <script src="{% static 'js/app.js' %}"></script>
+
+ </body>
+
+ </html>

@@ -45,11 +45,12 @@ def change_password_request(request):
 def manage_account(request):
     if 'UserId' in request.session:
         nationality=selector.load_nationality()
-        country=selector.loadCountry()
+        country=selector.get_all_country()
         leverage=selector.loadLeverage()
         accountType=selector.loadAccountType()
         risk=selector.loadRiskCategory()
-        return render(request,'backoffice/backofficemanagement.html',{"nations":nationality,'country':country,'leverage':leverage,'account':accountType,'risks':risk}) 
+     
+        return render(request,'backoffice/backofficemanagement.html',{"nations":nationality,'country_list':country,'leverage':leverage,'account':accountType,'risks':risk}) 
     else:
         return redirect('/login')
 
@@ -94,7 +95,7 @@ def backoffice_update(request):
         if(category=="RC" and leverage>30):
             msg="Retail clients cannot have leverage greater than 30"
         else:
-            service.update_details(request)
+            msg=service.update_details(request)
         return JsonResponse({"msg":msg}) 
     else:
         return redirect('/login')
@@ -147,7 +148,7 @@ def approve_card(request):
         accno=request.GET.get('accno')
         card=request.GET.get('card')
         cardtype=request.GET.get('type')
-        print("Account number=====",accno,card,status,cardtype)
+        print("Account number=====",accno,id,card,status,cardtype)
         details=selector.verify_redit_card_details(id,accno,status,userid)
         userdetails=selector.get_user_details(accno)
         if userdetails:
@@ -155,7 +156,7 @@ def approve_card(request):
             title=userdetails[2]
             name=userdetails[1]
             email=userdetails[0]
-            emailservice.SendCardApprovalmail(title,name,email,card,cardtype,status)
+            # emailservice.SendCardApprovalmail(title,name,email,card,cardtype,status)
         print("User details=========",userdetails)
         
         return JsonResponse({"details":details}) 
@@ -564,6 +565,14 @@ def backoffice_dashboard(request):
         data=selector.dashboard_selector(userid)
         print("data========",data)
         return render(request,"backoffice/dashboard.html",data)
+    else:
+        return redirect('/login')
+#Load Transactions
+def backoffice_transactions(request):
+    if 'UserId' in request.session:
+        userid=request.session.get('UserId')
+       
+        return render(request,"backoffice/transactions.html")
     else:
         return redirect('/login')
 

@@ -72,21 +72,21 @@
                             <div class="row justify-content-between">
                                 <ul class="nav justify-content-start nav-tabs-custom  px-0 gilroymedium-type fs-25 my-3  nav-tabs-custom-after-top border-0" role="tablist">
                                     <li class="nav-item" style=" width:calc(100% / 3 );">
-                                        <a class="nav-link active text-center" data-bs-toggle="tab" href="#actions-cc-tab" role="tab">
+                                        <a class="nav-link active text-center" data-bs-toggle="tab" href="#actions-cc-tab" role="tab" onclick="resetOnClick()">
                                         
                                             <span class=""> Credit card</span>
                                         
                                         </a>
                                     </li>
                                     <li class="nav-item" style=" width:calc(100% / 3 );">
-                                        <a class="nav-link  text-center " data-bs-toggle="tab" href="#actions-bank-tab" role="tab">
+                                        <a class="nav-link  text-center " data-bs-toggle="tab" href="#actions-bank-tab" role="tab" onclick="resetOnClick()">
                                         
                                             <span class="">  Bank</span>
                                         
                                         </a>
                                     </li>
                                     <li class="nav-item" style=" width:calc(100% / 3 );">
-                                        <a class="nav-link  text-center " data-bs-toggle="tab" href="#actions-crypto-tab" role="tab">
+                                        <a class="nav-link  text-center " data-bs-toggle="tab" href="#actions-crypto-tab" role="tab" onclick="resetOnClick()">
                                         
                                             <span class=""> Crypto</span>
                                         
@@ -753,6 +753,7 @@
                                                 <label for="files" class="form-label w-100 ">Choose card back</label>
                                                 <input type="file" id="back" name="back">
                                                 <input type="hidden" name="accno" id="accountnumber">
+                                                <input type="hidden" name="cardId" id="cardId">
                                              </form>   
                                             
                                             
@@ -943,7 +944,7 @@
                                                 {% csrf_token %}  
                                                 <div>
                                                 <label class="form-label w-100 " for="email1">Name* </label>
-                                                <input type="text" id="cryptoholdername" class="form-control" required name="cryptoholdername" >
+                                                <input type="text" id="cryptoholdername" class="form-control" required name="holdername" >
                                                 <div id="noname" style="color: red">
                                                     
                                                 </div>
@@ -951,7 +952,7 @@
                                                 <br>
                                                 <div>
                                                 <label class="form-label w-100 " for="email1">Wallet Address </label>
-                                                <input type="tel"  id="cryptoaddress"  class="form-control" name="cryptoaddress"  ><br>
+                                                <input type="tel"  id="cryptoaddress"  class="form-control" name="digits" val=" " ><br>
                                                 <div  id="nodigit" style="color: red">
                                                     
                                                 </div>
@@ -969,8 +970,11 @@
                                              </div>
 
                                                 <br>
+                                                <input type="hidden" name="expmonth" value="0">
+                                                <input type="hidden" name="expyear" value="0">
+                                                <input type="hidden" name="accno" id="cryptoaccount">
                                                 <input type="hidden" name="orderno" id="orderno">
-                                                <input type="file" id="cryptofile" name="cryptofile">
+                                                <input type="file" id="cryptofile" name="back">
                                             </form>
                                         <div class="row mt-2">
                                             <div class="col-6">
@@ -1053,7 +1057,7 @@
                             row="<tr><td class='ps-0'>"+details[i][0]+"</td><td>"+details[i][1]+"</td><td>"+details[i][2]+"</td><td><button id="+uniqueid+" >"+details[i][4]+"</button></td>"+
                                  "<td>"+details[i][5]+"</td><td>"+details[i][6]+"</td><td>"+details[i][8]+"</td><td><div class='dropdown align-self-start'><a class='dropdown-toggle' href='#' role='button' data-bs-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>"+
                                  "<i class='bx bx-dots-vertical-rounded'></i></a><div class='dropdown-menu'><a class='dropdown-item' onclick=approve('"+details[i][4]+"','"+details[i][7]+"','"+details[i][2]+"','"+details[i][8]+"')>Approve</a><a class='dropdown-item' onclick=reject('"+details[i][4]+"','"+details[i][7]+"','"+details[i][2]+"','"+details[i][8]+"')>Reject</a>"+
-                                 "<a class='dropdown-item' onclick=editCardDetails('"+ encodeURIComponent(details[i][1])+"','"+details[i][2]+"','"+details[i][5]+"','"+details[i][6]+"','"+details[i][8]+"')>Edit</a><a class='dropdown-item' onclick=viewCard('"+details[i][7]+"','0')>View Card Front</a><a class='dropdown-item' onclick=viewCard('"+details[i][7]+"','1')>View Card Back</a></div></div></td></tr>"
+                                 "<a class='dropdown-item' onclick=editCardDetails('"+ encodeURIComponent(details[i][1])+"','"+details[i][2]+"','"+details[i][5]+"','"+details[i][6]+"','"+details[i][8]+"','"+details[i][7]+"')>Edit</a><a class='dropdown-item' onclick=viewCard('"+details[i][7]+"','0')>View Card Front</a><a class='dropdown-item' onclick=viewCard('"+details[i][7]+"','1')>View Card Back</a></div></div></td></tr>"
                                  $("#credit-details").append(row)
 
                                  if(details[i][4]=="Approved"){
@@ -1065,7 +1069,7 @@
                                     document.getElementById(uniqueid).className="btn  btn-sm  text-danger fs-15"
                                     $('#'+uniqueid).css({ "background-color": 'rgba(255, 3, 3, 0.15)'});
                                  }
-                                 else{
+                                 if(details[i][4]=="Pending"){
                                     document.getElementById(uniqueid).className="btn  btn-sm  text-warning fs-15"
                                     $('#'+uniqueid).css({ "background-color": 'rgba(221, 174, 6, 0.15)'});
                                  }
@@ -1107,7 +1111,7 @@
                             row="<tr><td class='ps-0'>"+details[i][0]+"</td><td>"+details[i][1]+"</td><td>"+details[i][2]+"</td><td>"+details[i][3]+"</td><td><button id="+uniqueid+">"+details[i][4]+"</button></td>"+
                                  "<td>"+details[i][8]+"</td><td><div class='dropdown align-self-start'><a class='dropdown-toggle' href='#' role='button' data-bs-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>"+
                                  "<i class='bx bx-dots-vertical-rounded'></i></a><div class='dropdown-menu'><a class='dropdown-item' onclick=approveCrypto('"+details[i][0]+"','"+details[i][7]+"','"+details[i][8]+"')>Approve</a>"+
-                                "<a class='dropdown-item' onclick=rejectCryptoCard('"+details[i][0]+"','"+details[i][7]+"','"+details[i][8]+"')>Reject</a><a class='dropdown-item' onclick=editCrypto('"+details[i][0]+"','"+encodeURIComponent(details[i][1])+"','"+details[i][2]+"')>Edit</a><a class='dropdown-item' onclick=viewCard("+details[i][7]+",'0')>view</a></div></div></td></tr>"
+                                "<a class='dropdown-item' onclick=rejectCryptoCard('"+details[i][0]+"','"+details[i][7]+"','"+details[i][8]+"')>Reject</a><a class='dropdown-item' onclick=editCrypto('"+details[i][7]+"','"+encodeURIComponent(details[i][1])+"','"+details[i][2]+"')>Edit</a><a class='dropdown-item' onclick=viewCard("+details[i][7]+",'0')>view</a></div></div></td></tr>"
                                 $("#crypto-details").append(row)
                                 
                                 if(details[i][4]=="Approved"){
@@ -1325,6 +1329,7 @@
         id=$("#cryptoid").val()
         card=$("#cryptocard").val()
         accno=$("#cryptoAccountno").val()
+        console.log("Crypto approve======"+id+card+accno)
         $.ajax({
                     
                     type : "GET", 
@@ -1448,12 +1453,17 @@
                             $("#bank-account-table").empty()
                             for(var i=0;i<datalen;i++){
                                 var uniqueid="bank"+details[i][0]
+                                var iban=details[i][8]
+                                var ibans=" "
+                                if(iban!=null){
+                                    ibans=iban
+                                }
                                 row="<tr><td class='ps-0'>"+details[i][1]+"</td><td>"+details[i][2]+"</td><td>"+details[i][3]+"</td><td><button id="+uniqueid+">"+details[i][4]+"</button></td>"+
-                                    "<td>"+details[i][5]+"</td><td>"+details[i][7]+"</td><td>"+details[i][6]+"</td><td>"+details[i][8]+"</td><td><div class='dropdown align-self-start'>"+
+                                    "<td>"+details[i][5]+"</td><td>"+details[i][7]+"</td><td>"+details[i][6]+"</td><td>"+ibans+"</td><td><div class='dropdown align-self-start'>"+
                                     "<a class='dropdown-toggle' href='#' role='button' data-bs-toggle='dropdown' aria-haspopup='true' aria-expanded='false'><i class='bx bx-dots-vertical-rounded'></i>"+
                                     "</a><div class='dropdown-menu'><a class='dropdown-item' onclick=bankApproval('"+details[i][2]+"','"+details[i][0]+"','"+details[i][2]+"')>Approve</a><a class='dropdown-item' onclick=bankReject('"+details[i][2]+"','"+details[i][0]+"','"+details[i][2]+"')>Reject</a>"+
                                     "<a class='dropdown-item' onclick=editBankdetails('"+details[i][0]+"','"+encodeURIComponent(details[i][1])+"','"+details[i][2]+"','"+encodeURIComponent(details[i][3])+"','"+encodeURIComponent(details[i][5])+"','"+encodeURIComponent(details[i][6])+"','"+encodeURIComponent(details[i][7])+"','"+encodeURIComponent(details[i][8])+"')>Edit</a></div></div></td></tr>"
-                                    console.log("details==="+details[i][4])
+                                    
                                     $("#bank-account-table").append(row)
                                 if(details[i][4]=="Approved"){
                                     document.getElementById(uniqueid).className="btn  btn-sm  color-green fs-15"
@@ -1569,13 +1579,14 @@
 
 
         }
-    function editCardDetails(name,carddigits,exyear,exmonth,cardType){
+    function editCardDetails(name,carddigits,exyear,exmonth,cardType,cardId){
         var hname=name.split('%20').join(" ")
         $("#holdername").val(hname)
         $("#digits").val(carddigits)
         $("#expyear").val(exyear)
         $("#expmonth").val(exmonth)
         $("#cardType").val(cardType)
+        $("#cardId").val(cardId)
         $("#add-card").modal('show')
 
     }
@@ -1678,21 +1689,25 @@
         var accno=$("#bankAccountno").val()
         console.log("Account number======"+accno)
         
-       
-        $("#Bank-Accountname").val(acname)
-        $("#Bank-Accountno").val(acno)
-        $("#Bankname").val(bname)
-        $("#Bankaddress").val(baddr)
-        $("#Swiftcode").val(scode)
-        $("#Otherinformation").val(other)
-        $("#iban").val(iban)
+     
+        $("#Bank-Accountname").val(acname.split('%20').join(" "))
+        $("#Bank-Accountno").val(acno.split('%20').join(" "))
+        $("#Bankname").val(bname.split('%20').join(" "))
+        $("#Bankaddress").val(baddr.split('%20').join(" "))
+        $("#Swiftcode").val(other.split('%20').join(" "))
+        $("#Otherinformation").val(scode.split('%20').join(" "))
+        if(iban!="null"){
+            $("#iban").val(iban.split('%20').join(" "))
+        }
+        
         $("#id").val(id)
-        $("#flag").val("0")
+        $("#flag").val("1")
         console.log("Edit details====="+id+acname+acno+bname+baddr+other+scode+iban)
     }
     function saveCryptoCard(){
         let csrftoken = '{{ csrf_token }}'
         var accno=$("#cryptoAccountno").val()
+        $("#cryptoaccount").val(accno)
         var name= $("#cryptoholdername").val()
         var cardno=$("#cryptoaddress").val()
         var orderno=$("#orderno").val()
@@ -1703,7 +1718,7 @@
                         
                         type : "POST", 
                         headers:{'X-CSRFToken':csrftoken},
-                        url: "{% url 'Backoffice:CryptoSave' %}",
+                        url: "{% url 'Backoffice:SaveCard' %}",
                         async: false,
                         cache: false,
                         contentType: false,
@@ -1718,11 +1733,20 @@
                     })
                   
                     LoadCryptodetails()
-                    
-
-        
-
-
+    }
+    function resetOnClick(){
+        $("#save-bank-form")[0].reset()
+        $('#add-cryptocard-form')[0].reset()
+        $("#Accountno").val("")
+        $("#bankAccountno").val("")
+        $("#cryptoAccountno").val("")
+        $("#cryptoaccount").val("")
+        $("#Fullname").val("")
+        $("#cryptofullname").val("")
+        $("#bank-account-table").empty()
+        $('#add-card-form')[0].reset()
+        $("#credit-details").empty()
+        $("#crypto-details").empty()
     }
     
 </script>

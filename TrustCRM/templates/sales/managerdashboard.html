@@ -581,7 +581,13 @@
                                 <div class="d-flex flex-wrap align-items-center mb-4">
                                     <h5 class="card-title me-2 almarenamonolight-type fs-21">Active Campaigns</h5>
                                     <div class="ms-auto">
-
+                                        <div class="dropdown d-inline-block">
+                                            <a  class="  position-relative " id="live-chats-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                               
+                                                <span class="badge bg-danger rounded-circle p-2">{{active_campaigns_count}}</span>
+                                            </a>
+                                            
+                                        </div>
                                         
 
                                     </div>
@@ -637,11 +643,22 @@
                             <div class="card-body">
                                 <div class="d-flex flex-wrap align-items-center mb-4">
                                     <h5 class="card-title me-2 almarenamonolight-type fs-21 ">Reminders</h5>
+                                    <div class="ms-auto">
+                                        <div class="dropdown d-inline-block">
+                                            <a class="  position-relative " id="live-chats-dropdown"
+                                                data-bs-toggle="dropdown" aria-haspopup="true"
+                                                aria-expanded="false">
+                                                
+                                                <span class="badge bg-info rounded-circle p-2" >{{reminder_count_show}}</span>
+                                            </a>
+                                      
+                                        </div>
+                                    </div>
                                 </div>
 
                                 <div data-simplebar="" style="max-height:220px ;">
                                     
-                                    {%if reminder_count > 0%}
+                                    {%if remindercount > 0%}
                                     {%for reminder in reminders%} 
 
                                     <div class=" mb-3 px-3 py-3 card  ">

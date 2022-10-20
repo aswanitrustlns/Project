@@ -42,7 +42,8 @@ urlpatterns=[
       path('EmailBankDetails',email_bank_details,name="EmailBankDetails"),
       path('TerminateAccount',terminate_account,name="TerminateAccount"),
       path('EmailTemplates',email_template,name="EmailTemplates"),
-      path('BackofficeDashboard',backoffice_dashboard,name="BackofficeDashboard")
+      path('BackofficeDashboard',backoffice_dashboard,name="BackofficeDashboard"),
+      path('Transactions',backoffice_transactions,name="Transactions")
 
      
     
