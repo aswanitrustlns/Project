@@ -43,7 +43,13 @@ urlpatterns=[
       path('TerminateAccount',terminate_account,name="TerminateAccount"),
       path('EmailTemplates',email_template,name="EmailTemplates"),
       path('BackofficeDashboard',backoffice_dashboard,name="BackofficeDashboard"),
-      path('Transactions',backoffice_transactions,name="Transactions")
+      path('Transactions',backoffice_transactions,name="Transactions"),
+      path('CreditInConfirmation',save_creditIn_information,name="CreditInConfirmation"),
+      path('LoadHistory',load_credit_history,name="LoadHistory"),
+      path('DepositinWallet',deposit_in_wallet,name="DepositinWallet"),
+      path('LoadAllTransaction',load_all_transaction_details,name="LoadAllTransaction"),
+      path('LoadTransactions',load_transaction_details,name="LoadTransactions"),
+
 
      
     

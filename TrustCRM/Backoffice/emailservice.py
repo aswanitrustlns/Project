@@ -541,6 +541,200 @@ class EmailServices:
             print("EXCEPTION-----------------------")  
         finally:
             Cursor.close() 
+    #send credit In confirmation
+    def SendCreditInConfirmation(self,title,name,remail,accno,currency,amount):
+        try:
+            Cursor=connection.cursor()  
+            subject = "Credit In Confirmation from Trust Capital"
+            email_from = 'cs@trusttc.com'
+          
+            bcc1="crm@trusttc.com"
+            bcc2="backoffice@trusttc.com"
+            bcc3="magt@trusttc.com"
+            template_data={
+                "title":title,
+                "name":name,
+                "account":accno,
+                "amount":amount
+                
+            }  
+            if(currency=="EUR"):                
+                email_template_render=render_to_string("email/backoffice/transaction/CreditinConfirmationfromTrustCapital_EN_EUR.html",template_data)
+            else:
+                email_template_render=render_to_string("email/backoffice/transaction/CreditinConfirmationfromTrustCapital_EN.html",template_data)
+
+            msg = EmailMultiAlternatives(subject=subject,from_email=email_from,to=[remail],bcc=[bcc1,bcc2,bcc3])
+            msg.attach_alternative(email_template_render, "text/html")
+            msg.send(fail_silently=False)
+            print("Email send-----------------------------------------------------------")  
+                    
+
+        except Exception as e:
+            print("EXCEPTION-----------------------")  
+        finally:
+            Cursor.close() 
+    #send credit out confirmation
+    def SendCreditOutConfirmation(self,title,name,remail,accno,currency,amount):
+        try:
+            Cursor=connection.cursor()  
+            subject = "Credit Out Confirmation from Trust Capital"
+            email_from = 'cs@trusttc.com'
+           
+            bcc1="crm@trusttc.com"
+            bcc2="backoffice@trusttc.com"
+            bcc3="magt@trusttc.com"
+            template_data={
+                "title":title,
+                "name":name,
+                "account":accno,
+                "amount":amount
+                
+            }  
+            if(currency=="EUR"):                
+                email_template_render=render_to_string("email/backoffice/transaction/CreditinConfirmationfromTrustCapital_EN_EUR.html",template_data)
+            else:
+                email_template_render=render_to_string("email/backoffice/transaction/CreditinConfirmationfromTrustCapital_EN.html",template_data)
+
+            msg = EmailMultiAlternatives(subject=subject,from_email=email_from,to=[remail],bcc=[bcc1,bcc2,bcc3])
+            msg.attach_alternative(email_template_render, "text/html")
+            msg.send(fail_silently=False)
+            print("Email send-----------------------------------------------------------")  
+                    
+
+        except Exception as e:
+            print("EXCEPTION-----------------------")  
+        finally:
+            Cursor.close() 
+     #send credit out confirmation
+    def SendDepositConfirmationWallet(self,title,name,remail,accno,currency,amount):
+        try:
+            Cursor=connection.cursor()  
+            subject = "Deposit Confirmation from Trust Capital"
+            email_from = 'cs@trusttc.com'
+           
+            bcc1="crm@trusttc.com"
+            bcc2="backoffice@trusttc.com"
+            bcc3="magt@trusttc.com"
+            template_data={
+                "title":title,
+                "name":name,
+                "account":accno,
+                "amount":amount
+                
+            }  
+            if(currency=="EUR"):                
+                email_template_render=render_to_string("email/backoffice/transaction/DepositConfirmationEWallet_EUR.html",template_data)
+            else:
+                email_template_render=render_to_string("email/backoffice/transaction/DepositConfirmationEWallet_USD.html",template_data)
+
+            msg = EmailMultiAlternatives(subject=subject,from_email=email_from,to=[remail],bcc=[bcc1,bcc2,bcc3])
+            msg.attach_alternative(email_template_render, "text/html")
+            msg.send(fail_silently=False)
+            print("Email send-----------------------------------------------------------")  
+                    
+
+        except Exception as e:
+            print("EXCEPTION-----------------------")  
+        finally:
+            Cursor.close() 
+    #deposit confirmation
+    def SendDepositConfirmation(self,title,name,remail,accno,currency,amount):
+        try:
+            Cursor=connection.cursor()  
+            subject = "Deposit Confirmation from Trust Capital"
+            email_from = 'cs@trusttc.com'
+           
+            bcc1="crm@trusttc.com"
+            bcc2="backoffice@trusttc.com"
+            bcc3="magt@trusttc.com"
+            template_data={
+                "title":title,
+                "name":name,
+                "account":accno,
+                "amount":amount
+                
+            }  
+            if(currency=="EUR"):                
+                email_template_render=render_to_string("email/backoffice/transaction/DepositConfirmationfromTrustCapital_EN_EUR.html",template_data)
+            else:
+                email_template_render=render_to_string("email/backoffice/transaction/DepositConfirmationfromTrustCapital_EN.html",template_data)
+
+            msg = EmailMultiAlternatives(subject=subject,from_email=email_from,to=[remail],bcc=[bcc1,bcc2,bcc3])
+            msg.attach_alternative(email_template_render, "text/html")
+            msg.send(fail_silently=False)
+            print("Email send-----------------------------------------------------------")  
+                    
+
+        except Exception as e:
+            print("EXCEPTION-----------------------")  
+        finally:
+            Cursor.close() 
+
+     #withdrawal confirmation
+    def SendWithdrawalConfirmation(self,title,name,remail,accno,currency,amount):
+        try:
+            Cursor=connection.cursor()  
+            subject = "Withdrawal Confirmation from Trust Capital"
+            email_from = 'cs@trusttc.com'
+           
+            bcc1="crm@trusttc.com"
+            bcc2="backoffice@trusttc.com"
+            bcc3="magt@trusttc.com"
+            template_data={
+                "title":title,
+                "name":name,
+                "account":accno,
+                "amount":amount
+                
+            }  
+            if(currency=="EUR"):                
+                email_template_render=render_to_string("email/backoffice/transaction/WithdrawalConfirmationfromTrustCapital_EN_EUR.html",template_data)
+            else:
+                email_template_render=render_to_string("email/backoffice/transaction/WithdrawalConfirmationfromTrustCapital_EN.html",template_data)
+
+            msg = EmailMultiAlternatives(subject=subject,from_email=email_from,to=[remail],bcc=[bcc1,bcc2,bcc3])
+            msg.attach_alternative(email_template_render, "text/html")
+            msg.send(fail_silently=False)
+            print("Email send-----------------------------------------------------------")  
+                    
+
+        except Exception as e:
+            print("EXCEPTION-----------------------")  
+        finally:
+            Cursor.close() 
+     #Inter account transfer
+    def SendInteraccountTransferConfirmation(self,title,name,remail,accdest,accsrc,currency,amount):
+        try:
+            Cursor=connection.cursor()  
+            subject = "Inter Account Transfer Confirmation from Trust Capital"
+            email_from = 'cs@trusttc.com'
+           
+            bcc1="crm@trusttc.com"
+            bcc2="backoffice@trusttc.com"
+            bcc3="magt@trusttc.com"
+            template_data={
+                "title":title,
+                "name":name,
+                "amount":amount,
+                "accountdest":accdest,
+                "accountsrc":accsrc
+                
+            }  
+            if(currency=="EUR"):                
+                email_template_render=render_to_string("email/backoffice/transaction/InterAccountTrfrConfromTrustCapital_EN_EUR.html",template_data)
+            else:
+                email_template_render=render_to_string("email/backoffice/transaction/WithdrawalConfirmationfromTrustCapital_EN.html",template_data)
+
+            msg = EmailMultiAlternatives(subject=subject,from_email=email_from,to=[remail],bcc=[bcc1,bcc2,bcc3])
+            msg.attach_alternative(email_template_render, "text/html")
+            msg.send(fail_silently=False)
+            print("Email send-----------------------------------------------------------")  
+                    
+
+        except Exception as e:
+            print("EXCEPTION-----------------------")  
+        finally:
+            Cursor.close() 
 
 
 

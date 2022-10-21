@@ -674,6 +674,33 @@ class Selector:
                 print("Exception------",e)
         finally:
                 Cursor.close()
+     #Credit history dll call
+    def history_dll_call(self,accno,fromdate,todate):
+
+        try:
+            fromdateformat=datetime.strptime(fromdate,"%Y-%m-%d")
+            fromday=fromdateformat.day
+            frommonth=fromdateformat.month
+            fromyear=fromdateformat.year
+            todateformat=datetime.strptime(todate,"%Y-%m-%d")
+            today=todateformat.day
+            tomonth=todateformat.month
+            toyear=todateformat.year
+            result=dllservice.dll_client_info_time(accno,fromdate,frommonth,fromyear,todate,tomonth,toyear)
+
+        except Exception as e:
+            print("Exception----",e)
+        return result
+    #Load credict 
+    def load_credit_dllcall(self,accno):
+
+        try:
+           
+           result= dllservice.dll_client_info_without_history(accno)
+
+        except Exception as e:
+            print("Exception----",e)
+        return result
 
     
    

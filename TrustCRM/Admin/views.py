@@ -80,7 +80,7 @@ def login_check(request):
     if(connect==0): 
             request.session['user']=username
             request.session['server']=server_name
-            
+            request.session['password']=password
             voice="True"            
             return redirect('dashboard/')
             # return redirect('salesdashboard/')

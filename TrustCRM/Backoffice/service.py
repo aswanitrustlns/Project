@@ -566,22 +566,39 @@ class Services:
             fullname=request.POST.get('fullname')
             balance=float(request.POST.get('balance'))
             avl_margin=float(request.POST.get('avlmargin'))
-            creditin=float(request.POST.get('creditin'))
-            creditout=float(request.POST.get('creditout'))
-            deposit=float(request.POST.get('deposit'))
-            withdrawal=float(request.POST.get('withdrawel'))
-            credit=float(request.POST.get('credit'))
+            creditin=request.POST.get('creditin')
+            if creditin=="" or creditin==None:
+                creditin=0.0
+            creditout=request.POST.get('creditout')
+            if creditin=="" or creditout==None:
+                creditout=0.0
+            deposit=request.POST.get('deposit')
+            if deposit=="" or deposit==None:
+                deposit=0.0
+            withdrawal=request.POST.get('withdrawel')
+            if withdrawal=="" or withdrawal==None:
+                withdrawal=0.0
+            credit=request.POST.get('credit')
+            if credit=="" or credit==None:
+                credit=0.0
             expdate=request.POST.get('expdate')
             comment=request.POST.get('comment')
-            initial=int(request.POST.get('initial'))
-            repId=int(request.POST.get('repId'))
+            # initial=int(request.POST.get('initial'))
+            # repId=int(request.POST.get('repId'))
+            initial=0
+            repId=0
             Cursor=connection.cursor()    
             Cursor.execute("exec SP_SaveTransaction %s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s",[accno,fullname,balance,avl_margin,creditin,creditout,deposit,withdrawal,credit,expdate,comment,initial,repId])
+            expdateformat=datetime.strptime(expdate,"%Y-%m-%d")
+            expday=expdateformat.day
+            expmonth=expdateformat.month
+            expyear=expdateformat.year
+            # dllservice.dll_creditin_with_comment(accno,comment,deposit,expday,expmonth,expyear)
         except Exception as e:
             print("Exception----",e)
         finally:
             Cursor.close()
-
+        return "success"
     #Update ewallet transaction
     def update_ewallet_transactions(self,request):
 
@@ -590,17 +607,24 @@ class Services:
             
             deposit=float(request.POST.get('deposit'))
             withdrawal=float(request.POST.get('withdrawal'))
-            repId=int(request.POST.get('repId'))
-                    
-            transId=int(request.POST.get('transId'))
-            status=int(request.POST.get('status'))
-            remarks=request.POST.get('remarks')
+            repId=request.POST.get('repId')
+            if(repId!=None):
+                repId=int(repId)
+            else:
+                repId=0                    
+            transId=int(request.POST.get('transactiontype'))
+            # status=int(request.POST.get('status'))
+            status=0
+            remarks=request.POST.get('comment')
             Cursor=connection.cursor()    
-            Cursor.execute("exec SP_SaveTransaction %s,%s,%s,%s,%s,%s,%s",[accno,deposit,withdrawal,repId,transId,status,remarks])
+            Cursor.execute("exec SP_UpdateEWalletTransaction %s,%s,%s,%s,%s,%s,%s",[accno,deposit,withdrawal,repId,transId,status,remarks])
         except Exception as e:
             print("Exception----",e)
         finally:
             Cursor.close()
+   
+        
+
     
     
    

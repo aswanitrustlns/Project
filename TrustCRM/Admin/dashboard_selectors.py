@@ -465,6 +465,9 @@ class DashboardSelector:
                 print("Reminder count-------",reminder_count)
                 reminder_count=reminder_count[0]
                 reminder_count=reminder_count[0]
+            reminder_count=int(reminder_count)
+            print("Reminder count====",reminder_count,type(reminder_count))
+
             if(reminder_count == 0):
                  reminder_count_show="00"
                  print("reminder count is zero")

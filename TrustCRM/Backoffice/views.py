@@ -1,12 +1,4 @@
-from email import message
-from turtle import title
 from django.shortcuts import render
-from asyncio import events
-from distutils.log import error
-
-from ipaddress import ip_address
-from sqlite3 import Cursor
-from urllib import request
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import redirect, render
 from django.db import connection
@@ -14,6 +6,7 @@ from django.views.decorators.csrf import csrf_exempt
 from .service import Services
 from .selector import Selector
 from .emailservice import EmailServices
+
 
 selector=Selector()
 service=Services()
@@ -575,6 +568,104 @@ def backoffice_transactions(request):
         return render(request,"backoffice/transactions.html")
     else:
         return redirect('/login')
+#save creditin 
+def save_creditIn_information(request):
+    if 'UserId' in request.session:
+        message="Please try again"
+        userid=request.session.get('UserId')
+        accno=request.POST.get('accno')
+        status=request.POST.get('status')
+        amount=request.POST.get('deposit')
+        print("Credit UIn========",accno,status)
+        result=service.save_transactions(request)
+        if(result=="success"):
+            userdetails=selector.get_user_details(accno)
+            if userdetails:
+                userdetails=userdetails[0]
+                title=userdetails[2]
+                name=userdetails[1]
+                email=userdetails[0]
+                currency=userdetails[5]
+                if status=="creditin":
+                    emailservice.SendCreditInConfirmation(title,name,email,accno,currency,amount)
+                    message="Credit In completed successfully"
+                if status=="creditout":
+                    emailservice.SendCreditOutConfirmation(title,name,email,accno,currency,amount)
+                    message="Credit Out completed successfully"
+        return JsonResponse({"message":message})
+    else:
+        return redirect('/login')
+
+#History Load
+def load_credit_history(request):
+    if 'UserId' in request.session:
+        data=[]
+        userid=request.session.get('UserId')
+        accno=request.GET.get('accno')
+        fromdate=request.GET.get('fromdate')
+        todate=request.GET.get('todate')
+        data=selector.history_dll_call(accno,fromdate,todate)
+        return JsonResponse({"datas":data})
+    else:
+        return redirect('/login')
+#Credit Load
+def load_credit(request):
+    if 'UserId' in request.session:
+        data={}
+       
+        accno=request.GET.get('accno')
+        data=selector.load_credit_dllcall(accno)
+        return JsonResponse({"datas":data})
+    else:
+        return redirect('/login')
+#deposit in wallet
+def deposit_in_wallet(request):
+    if 'UserId' in request.session:
+        message="Please try again"
+        userid=request.session.get('UserId')
+        service.update_ewallet_transactions(request)
+     
+        # if(result=="success"):
+        #     userdetails=selector.get_user_details(accno)
+        #     if userdetails:
+        #         userdetails=userdetails[0]
+        #         title=userdetails[2]
+        #         name=userdetails[1]
+        #         email=userdetails[0]
+        #         currency=userdetails[5]
+        #         if status=="creditin":
+        #             emailservice.SendCreditInConfirmation(title,name,email,accno,currency,amount)
+        #             message="Credit In completed successfully"
+        #         if status=="creditout":
+        #             emailservice.SendCreditOutConfirmation(title,name,email,accno,currency,amount)
+        #             message="Credit Out completed successfully"
+        return JsonResponse({"message":message})
+    else:
+        return redirect('/login')
+#Load all Transaction details
+def load_all_transaction_details(request):
+    if 'UserId' in request.session:
+        data={}
+       
+        accno=request.GET.get('accno')
+        
+        return JsonResponse({"datas":data})
+    else:
+        return redirect('/login')
+#Load all Transaction details
+def load_transaction_details(request):
+    if 'UserId' in request.session:
+        data={}
+       
+        accno=request.GET.get('accno')
+        
+        return JsonResponse({"datas":data})
+    else:
+        return redirect('/login')
+
+
+
+
 
         
 

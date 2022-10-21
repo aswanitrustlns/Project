@@ -101,13 +101,13 @@
                                             <div class="tab-pane active" id="actions-cf-tab" role="tabpanel">
                                                 <div class="row">
                                                     <div class="col-12">
-                                                        <form class="mb-4">
+                                                        <form class="mb-4" id="login-form">
                                                             <div class="row align-items-end  justify-content-start">
                                 
                                                                 <div class="col-sm-4 col-lg-2 col-xxl-1">
                                                                     <div class="mb-2">
                                                                         <label class="form-label " for="Login">Log in</label>
-                                                                        <input  type="text" class="form-control" id="creditlogin" placeholder=""  required>
+                                                                        <input  type="text" class="form-control" id="creditlogin" name="accno" placeholder=""  required>
                                                                     </div>
                                                                 </div>
                                                             
@@ -123,7 +123,7 @@
                                                                 
                                                         </div> 
                                                         </form>
-                                                        <form>
+                                                        <form id="facility-form">
                                                             <div class="row align-items-end ">
                                                               
                                                                 <div class="col-sm-6 col-md-4 col-xxl-3">
@@ -158,7 +158,7 @@
                                                                 <div class="col-sm-6 col-md-4 col-xxl-3">
                                                                     <div class="mb-2">
                                                                         <label class="form-label " for=" Value"> Value<span class="color-orange">*</span></label>
-                                                                        <input  type="text" class="form-control" id="value" name="value" placeholder="" required>
+                                                                        <input  type="text" class="form-control" id="value" name="deposit" placeholder="" required>
                                                                         
                                                                     </div>
                                                                 </div>
@@ -181,7 +181,7 @@
                                                                 <div class="col-sm-6 col-md-4 col-xxl-3">
                                                                     <div class="mb-2">
                                                                         <label class="form-label " for=" Action">  Action<span class="color-orange">*</span></label>
-                                                                        <select  type="text" class="form-select" id=" Action" placeholder="" required>
+                                                                        <select  type="text" class="form-select" id="Action" placeholder="" required>
                                                                             <option value="creditin">Credit In</option>
                                                                             <option value="creditout">Credit Out</option>
                                                                         </select>
@@ -190,14 +190,14 @@
                                                                     
                                                                    
                                                                 </div>
-                                                               
+                                                                <input type="status" name="status" id="status">
                                                                
                                                                 <div class="col-12">
                                                                     <div class="mt-4">
                                                                     <button class="btn  btn-primary  btn-lg mb-2  me-2
-                                                                    " type="button" id="creditInBtn" disabled>Credit in</button>
+                                                                    " type="button" id="creditInBtn" disabled onclick="creditIn('in')">Credit in</button>
                                                                     <button class="btn btn-outline-light  btn-lg mb-2    me-2
-                                                                    " type="button" id="creditnOutBtn" disabled> Credit out</button>
+                                                                    " type="button" id="creditOutBtn" disabled onclick="creditIn('out')"> Credit out</button>
                                                                 
                                                                     
                                                                    
@@ -240,25 +240,25 @@
                                                                 </div>
                                                                <div class="col" >
                                                                     <button class="btn  btn-info  btn-lg mb-2  me-2
-                                                                    " type="submit" id="">History</button>
+                                                                    " type="button" onclick="historyLoad()">History</button>
                                                                </div>
                                                                <div class="col-sm-10 col-xxl-4 d-flex justify-content-between">
             
                                                                     <div class=" gilroyregular-type  mb-2 me-1">
                                                                         <p class=" mb-0  color-color1 fs-16"> Deposit </p>
-                                                                        <span class="  text-white  fs-14">30020400204</span>
+                                                                        <span class="  text-white  fs-14"></span>
                                                                         
                                                                     
                                                                     </div>
                                                                     <div class=" gilroyregular-type  mb-2 me-1">
                                                                         <p class=" mb-0  color-color1 fs-16">Withdrawal </p>
-                                                                        <span class="  text-white  fs-14">30020400204</span>
+                                                                        <span class="  text-white  fs-14"></span>
                                                                         
                                                                     
                                                                     </div>
                                                                     <div class=" gilroyregular-type  mb-2  me-1">
                                                                         <p class=" mb-0  color-color1 fs-16"> Credit </p>
-                                                                        <span class="  text-white  fs-14 text-wrap">30020400204</span>
+                                                                        <span class="  text-white  fs-14 text-wrap"></span>
                                                                         
                                                                     
                                                                     </div>
@@ -289,30 +289,8 @@
                             
                                                                     <tbody class="text-white giloryregular-type fs-16">
                                                                
-                                                                        <tr>
-                                                                           <td class="ps-0">2C2E45</td>
-                                                                           <td>Online</td>
-                                                                           <td>Firas</td>
-                                                                           <td>Sumitha test</td>
-                                                                           <td>Qatar</td>
-                                                                           <td>Live account reg</td>
-                                                                           <td class="text-end">Attended</td>
-                                                                          
-                                                                       
+                                                                     
                                                                         
-                                                                        </tr>
-                                                                        <tr>
-                                                                            <td class="ps-0">2C2E45</td>
-                                                                            <td>Online</td>
-                                                                            <td>Firas</td>
-                                                                            <td>Sumitha test</td>
-                                                                            <td>Qatar</td>
-                                                                            <td>Live account reg</td>
-                                                                            <td class="text-end">Attended</td>
-                                                                           
-                                                                        
-                                                                         
-                                                                         </tr>
                                                                          <tr>
                                                                             <td class="ps-0">2C2E45</td>
                                                                             <td>Online</td>
@@ -350,14 +328,14 @@
                                                                     <div class="col-sm-4 col-lg-2 col-xxl-1">
                                                                         <div class="mb-2">
                                                                             <label class="form-label " for="Login">Log in</label>
-                                                                            <input  type="text" class="form-control" id="Login" placeholder=""  required>
+                                                                            <input  type="text" class="form-control" id="walletlogin" placeholder=""  required>
                                                                         </div>
                                                                     </div>
                                                                 
                                                                     <div class="col">
                                                                     
                                                                         <button class="btn btn-info btn-lg mb-2  
-                                                                        " type="submit" id="">Load</button>
+                                                                        " type="button" onclick="walletLoad()">Load</button>
                                                                 
                                                                     
                                                                     </div>
@@ -372,28 +350,28 @@
                                                                     <div class="col-sm-6 col-md-4 col-xxl-3">
                                                                         <div class="mb-2">
                                                                             <label class="form-label " for="Fullname1">Full name<span class="color-orange">*</span></label>
-                                                                            <input  type="text" class="form-control" id="Fullname1" placeholder="" required>
+                                                                            <input  type="text" class="form-control" id="walletFullname" placeholder="" required>
                                                                             
                                                                         </div>
                                                                     </div>
                                                                     <div class="col-sm-6 col-md-4 col-xxl-3">
                                                                         <div class="mb-2">
                                                                             <label class="form-label " for="acountbalance">Account balance<span class="color-orange">*</span></label>
-                                                                            <input  type="text" class="form-control" id="accbalance" name="balance" placeholder="" required>
+                                                                            <input  type="number" class="form-control" id="accbalance" name="balance" placeholder="" required>
                                                                             
                                                                         </div>
                                                                     </div>
                                                                     <div class="col-sm-6 col-md-4 col-xxl-3">
                                                                         <div class="mb-2">
                                                                             <label class="form-label " for="Avilablemargin1">Avilable margin<span class="color-orange">*</span></label>
-                                                                            <input  type="text" class="form-control" id="margin" name="avlmargin" placeholder="" required>
+                                                                            <input  type="number" class="form-control" id="walletmargin" name="avlmargin" placeholder="" required>
                                                                             
                                                                         </div>
                                                                     </div>
                                                                     <div class="col-sm-6 col-md-4 col-xxl-3">
                                                                         <div class="mb-2">
                                                                             <label class="form-label " for="Credit1">Credit<span class="color-orange">*</span></label>
-                                                                            <input  type="number" class="form-control" id="credit" name="credit" placeholder="" required>
+                                                                            <input  type="number" class="form-control" id="walletcredit" name="credit" placeholder="" required>
                                                                             
                                                                         </div>
                                                                     </div>
@@ -401,21 +379,21 @@
                                                                     <div class="col-sm-6 col-md-4 col-xxl-3">
                                                                         <div class="mb-2">
                                                                             <label class="form-label " for=" Ewalletbalance"> E-wallet balance<span class="color-orange">*</span></label>
-                                                                            <input  type="text" class="form-control" id="accbalance" name="balance" placeholder="" required>
+                                                                            <input  type="number" class="form-control" id="walletbalance" name="balance" placeholder="" required>
                                                                             
                                                                         </div>
                                                                     </div>
                                                                     <div class="col-sm-6 col-md-4 col-xxl-3">
                                                                         <div class="mb-2">
                                                                             <label class="form-label " for=" Amount"> Amount<span class="color-orange">*</span></label>
-                                                                            <input  type="text" class="form-control" id="accbalance" name="balance" placeholder="" required>
+                                                                            <input  type="number" class="form-control" id="walletamount" name="balance" placeholder="" required>
                                                                             
                                                                         </div>
                                                                     </div>
                                                                     <div class="col-sm-6 col-md-4 col-xxl-3">
                                                                         <div class="mb-2">
                                                                             <label class="form-label " for="Comment1"> Comment<span class="color-orange">*</span></label>
-                                                                            <input  type="text" class="form-control" id="accbalance" name="balance" placeholder="" required>
+                                                                            <input  type="text" class="form-control" id="walletcomment" name="balance" placeholder="" required>
                                                                             
                                                                         </div>
                                                                         
@@ -424,9 +402,9 @@
                                                                     <div class="col-sm-6 col-md-4 col-xxl-3">
                                                                         <div class="mb-2">
                                                                             <label class="form-label " for=" Action1">  Action<span class="color-orange">*</span></label>
-                                                                            <select  type="text" class="form-select" id=" Action1" placeholder="" required>
-                                                                                <option value="">Deposit</option>
-                                                                                <option value="">Withdrawal</option>
+                                                                            <select  class="form-select" id="walletAction" name="action" placeholder="" required>
+                                                                                <option value="deposit">Deposit</option>
+                                                                                <option value="withdrawal">Withdrawal</option>
                                                                             </select>
                                                                             
                                                                         </div>
@@ -436,28 +414,28 @@
                                                                     <div class="col-sm-6 col-md-4 col-xxl-3">
                                                                         <div class="mb-2">
                                                                             <label class="form-label " for=" Action1">Transaction Type<span class="color-orange">*</span></label>
-                                                                            <select  type="text" class="form-select" id=" Action1" placeholder="" required>
-                                                                                <option value="">Select</option>
-                                                                                <option value="">Direct Deposit to MT4 (External)</option>
-                                                                                <option value="">Direct Deposit to EWallet (External)</option>
-                                                                                <option value="">Deposit to MT4 from EWallet</option>
-                                                                                <option value="">Direct Withdrawal from MT4 (External)</option>
-                                                                                <option value="">Direct Withdrawal from EWallet (External)</option>
-                                                                                <option value="">Withdrawal from MT4 to EWallet</option>
+                                                                            <select  type="text" class="form-select" id="transactiontype" name="transactiontype" placeholder="" required>
+                                                                                <option value="0">Select</option>
+                                                                                <option value="1">Direct Deposit to MT4 (External)</option>
+                                                                                <option value="2">Direct Deposit to EWallet (External)</option>
+                                                                                <option value="3">Deposit to MT4 from EWallet</option>
+                                                                                <option value="4">Direct Withdrawal from MT4 (External)</option>
+                                                                                <option value="5">Direct Withdrawal from EWallet (External)</option>
+                                                                                <option value="6">Withdrawal from MT4 to EWallet</option>
                                                                             </select>
                                                                             
                                                                         </div>
                                                                         
                                                                     
                                                                     </div>
-                                                                
+                                                                </form>
                                                                 
                                                                     <div class="col-12">
                                                                         <div class="mt-4">
                                                                         <button class="btn  btn-primary  btn-lg mb-2  me-2
-                                                                        " type="submit" id="">Deposit</button>
+                                                                        " type="button" id="" onclick="walletDeposit('deposit')">Deposit</button>
                                                                         <button class="btn btn-outline-light  btn-lg mb-2    me-2
-                                                                        " type="reset" > Withdrawal</button>
+                                                                        " type="button" onclick="walletDeposit('withdraw')"> Withdrawal</button>
                                                                     
                                                                         
                                                                     
@@ -471,7 +449,7 @@
                                                                 
                                                                     
                                                             </div> 
-                                                            </form>
+                                                           
     
     
                                                     </div>
@@ -496,16 +474,16 @@
                                                             <li> <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                                 <circle cx="6" cy="6" r="6" fill="#0CC165"></circle>
                                                                 </svg>
-                                                                <span class="text-white">Deposit:</span> <span style="color:#0CC165"> 0:00</span></li>
+                                                                <span class="text-white">Deposit:</span> <span style="color:#0CC165"> </span></li>
                                                             <li class="ms-5"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                                 <circle cx="6" cy="6" r="6" fill="#2D8CFF"></circle>
                                                                 </svg>
-                                                            <span class="text-white">Withdrawal:  </span><span style="color:#2D8CFF">0:00</span></li>
+                                                            <span class="text-white">Withdrawal:  </span><span style="color:#2D8CFF"></span></li>
                                                             <li class="ms-5"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                                 <circle cx="6" cy="6" r="6" fill=" #FF1813
                                                                 "></circle>
                                                                 </svg>
-                                                            <span class="text-white">Credit:  </span><span style="color:#2D8CFF">0:00</span></li>
+                                                            <span class="text-white">Credit:  </span><span style="color:#2D8CFF"></span></li>
                                                         </ul>
                                                         <hr class="mt-4 mb-5"><!--divider-->
                                                         <div class="position-relative">
@@ -635,30 +613,8 @@
                                                                    
                                                                     
                                                                     </tr>
-                                                                    <tr>
-                                                                        <td class="ps-0">2C2E45</td>
-                                                                        <td>Online</td>
-                                                                        <td>Firas</td>
-                                                                        <td>Sumitha test</td>
-                                                                        <td>Qatar</td>
-                                                                        <td>Live account reg</td>
-                                                                        <td class="text-end">Attended</td>
-                                                                       
                                                                     
-                                                                     
-                                                                     </tr>
-                                                                     <tr>
-                                                                        <td class="ps-0">2C2E45</td>
-                                                                        <td>Online</td>
-                                                                        <td>Firas</td>
-                                                                        <td>Sumitha test</td>
-                                                                        <td>Qatar</td>
-                                                                        <td>Live account reg</td>
-                                                                        <td class="text-end">Attended</td>
-                                                                       
-                                                                    
-                                                                     
-                                                                     </tr>
+                                                                  
                                                                  
                                                                    
                                                             
@@ -717,7 +673,7 @@
     
                                                                         <div class=" gilroyregular-type  mb-2 ">
                                                                             <p class=" mb-0  color-color1 fs-16"> Full name </p>
-                                                                            <span class="  text-white  fs-18">6.00</span>
+                                                                            <span class="  text-white  fs-18"></span>
                                                                             
                                                                         
                                                                         </div>
@@ -727,7 +683,7 @@
     
                                                                         <div class=" gilroyregular-type  mb-2 ">
                                                                             <p class=" mb-0  color-color1 fs-16"> Balance </p>
-                                                                            <span class="  text-white  fs-18">5.01</span>
+                                                                            <span class="  text-white  fs-18"></span>
                                                                             
                                                                         
                                                                         </div>
@@ -737,7 +693,7 @@
     
                                                                         <div class=" gilroyregular-type  mb-2 ">
                                                                             <p class=" mb-0  color-color1 fs-16"> Credit</p>
-                                                                            <span class="  text-white  fs-18">0.00</span>
+                                                                            <span class="  text-white  fs-18"></span>
                                                                             
                                                                         
                                                                         </div>
@@ -747,7 +703,7 @@
     
                                                                         <div class=" gilroyregular-type  mb-2 ">
                                                                             <p class=" mb-0  color-color1 fs-16"> Avilable margin</p>
-                                                                            <span class="  text-white  fs-18">0.00</span>
+                                                                            <span class="  text-white  fs-18"></span>
                                                                             
                                                                         
                                                                         </div>
@@ -757,7 +713,7 @@
        
                                                                         <div class=" gilroyregular-type  mb-2 ">
                                                                             <p class=" mb-0  color-color1 fs-16"> Amount</p>
-                                                                            <span class="  text-white  fs-18">0.00</span>
+                                                                            <span class="  text-white  fs-18"></span>
                                                                             
                                                                         
                                                                         </div>
@@ -811,7 +767,7 @@
     
                                                                         <div class=" gilroyregular-type  mb-2 ">
                                                                             <p class=" mb-0  color-color1 fs-16"> Full name </p>
-                                                                            <span class="  text-white  fs-18">6.00</span>
+                                                                            <span class="  text-white  fs-18"></span>
                                                                             
                                                                         
                                                                         </div>
@@ -821,7 +777,7 @@
     
                                                                         <div class=" gilroyregular-type  mb-2 ">
                                                                             <p class=" mb-0  color-color1 fs-16"> Balance </p>
-                                                                            <span class="  text-white  fs-18">5.01</span>
+                                                                            <span class="  text-white  fs-18"></span>
                                                                             
                                                                         
                                                                         </div>
@@ -831,7 +787,7 @@
     
                                                                         <div class=" gilroyregular-type  mb-2 ">
                                                                             <p class=" mb-0  color-color1 fs-16"> Credit</p>
-                                                                            <span class="  text-white  fs-18">0.00</span>
+                                                                            <span class="  text-white  fs-18"></span>
                                                                             
                                                                         
                                                                         </div>
@@ -841,7 +797,7 @@
     
                                                                         <div class=" gilroyregular-type  mb-2 ">
                                                                             <p class=" mb-0  color-color1 fs-16"> Avilable margin</p>
-                                                                            <span class="  text-white  fs-18">0.00</span>
+                                                                            <span class="  text-white  fs-18"></span>
                                                                             
                                                                         
                                                                         </div>
@@ -851,7 +807,7 @@
        
                                                                         <div class=" gilroyregular-type  mb-2 ">
                                                                             <p class=" mb-0  color-color1 fs-16"> Amount</p>
-                                                                            <span class="  text-white  fs-18">0.00</span>
+                                                                            <span class="  text-white  fs-18"></span>
                                                                             
                                                                         
                                                                         </div>
@@ -924,7 +880,7 @@
     
                                                                                 <div class=" gilroyregular-type  mb-2 ">
                                                                                     <p class=" mb-0  color-color1 fs-16"> Deposit </p>
-                                                                                    <span class="  text-white  fs-18">6.00</span>
+                                                                                    <span class="  text-white  fs-18"></span>
                                                                                     
                                                                                 
                                                                                 </div>
@@ -934,7 +890,7 @@
     
                                                                                 <div class=" gilroyregular-type  mb-2 ">
                                                                                     <p class=" mb-0  color-color1 fs-16"> Withdrawal </p>
-                                                                                    <span class="  text-white  fs-18">5.01</span>
+                                                                                    <span class="  text-white  fs-18"></span>
                                                                                     
                                                                                 
                                                                                 </div>
@@ -944,7 +900,7 @@
     
                                                                                 <div class=" gilroyregular-type  mb-2 ">
                                                                                     <p class=" mb-0  color-color1 fs-16"> Credit </p>
-                                                                                    <span class="  text-white  fs-18">0.00</span>
+                                                                                    <span class="  text-white  fs-18"></span>
                                                                                     
                                                                                 
                                                                                 </div>
@@ -962,7 +918,7 @@
     
                                                                                 <div class=" gilroyregular-type  mb-2 ">
                                                                                     <p class=" mb-0  color-color1 fs-16"> Deposit </p>
-                                                                                    <span class="  text-white  fs-18">6.00</span>
+                                                                                    <span class="  text-white  fs-18"></span>
                                                                                     
                                                                                 
                                                                                 </div>
@@ -972,7 +928,7 @@
     
                                                                                 <div class=" gilroyregular-type  mb-2 ">
                                                                                     <p class=" mb-0  color-color1 fs-16"> Withdrawal </p>
-                                                                                    <span class="  text-white  fs-18">5.01</span>
+                                                                                    <span class="  text-white  fs-18"></span>
                                                                                     
                                                                                 
                                                                                 </div>
@@ -982,7 +938,7 @@
     
                                                                                 <div class=" gilroyregular-type  mb-2 ">
                                                                                     <p class=" mb-0  color-color1 fs-16"> Credit </p>
-                                                                                    <span class="  text-white  fs-18">0.00</span>
+                                                                                    <span class="  text-white  fs-18"></span>
                                                                                     
                                                                                 
                                                                                 </div>
@@ -1034,16 +990,7 @@
                                                                             <td>Live account reg</td>
                                                                             <td class="text-end">Attended</td>
                                                                         </tr>
-                                                                        <tr>
-                                                                            <td>2C2E45</td>
-                                                                            <td>Online</td>
-                                                                            <td>Firas</td>
-                                                                            <td>Sumitha test</td>
-                                                                            <td>Qatar</td>
-                                                                            <td>Live account reg</td>
-                                                                            <td class="text-end">Attended</td>
-                                                                        </tr >
-                                                                      
+                                                                       
                                                                 
                                                                     
                                                                     </tbody>
@@ -1082,7 +1029,165 @@
     {% include "common/right-sidebar.html" %}
     
     <!-- Right bar overlay-->
-<div class="rightbar-overlay"></div>  
+<div class="rightbar-overlay"></div>
+
+<div class="modal fade bs-example-modal-insta" tabindex="-1" role="dialog" aria-hidden="true" id="alertpopup">
+    <div class="modal-dialog modal-dialog-centered"   style="z-index: 10555;">
+        <div class="modal-content">
+            <div class="modal-header border-0">
+                <h5 class=" fs-16" id="userMsg">
+                    
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                                    
+                    <!-- <div class="modal-body" >
+        
+        
+                            <div data-simplebar style="max-height: 230px;">
+            
+                              
+                                
+                            </div>
+                        </div> -->
+           
+        </div>
+     </div>
+    </div>
+    <div class="modal fade" id="creditin-confirm" tabindex="-1" >
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+    
+                <div class="modal-body ">
+
+                    <div class="  px-3 border rounded-3 py-4">
+                    
+                        <div class="modal-header py-0 px-0 border-bottom-0">
+                            <h5 class="modal-title mb-3" id="credit-modal-title">credit-modal-titleCreditIn Confirmation</h5>
+
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
+
+                        </div>
+                   
+                        
+                            
+                            <div class="row">
+                            
+                                <div class="col-12">
+                                    <div class="mb-3">
+                                        
+                                       
+                                          
+                                            <div>
+                                            <label class="form-label w-100 " for="email1">Account No</label>
+                                            <input type="text" id="disaccno" class="form-control" readonly >
+                                         </div>
+                                            <br>
+                                            <div>
+                                            <label class="form-label w-100 " for="email1">Name</label>
+                                            <input type="tel"  id="disname"  class="form-control" readonly>
+                                           
+                                        </div>
+                                        <br>
+                                        <div>
+                                            <label class="form-label w-100 " for="email1">Amount</label>
+                                            <input type="tel"  id="disamount"  class="form-control" readonly>
+                                         </div>
+                                        <br>
+                                        <div>
+                                            <label class="form-label w-100 " for="email1">Free Margin</label>
+                                            <input type="tel"  id="dismargin"  class="form-control" readonly>
+                                         </div>
+                                        <br>
+                                        
+                                        <h5>Are you sure to continue?</h5>   
+                                        
+                                    <div class="row mt-2">
+                                        <div class="col-6">
+                                            <button type="button"  class="btn btn-success" id="btn-save-event" onclick="confirmCreditIn()">Proceed</button>
+                                            <button type="button" data-bs-dismiss="modal" class="btn btn-danger" id="btn-delete-event">Close</button>
+                                        </div>
+                                      
+                                    </div>
+                                </div>
+                           
+                            </div>
+                            
+                        
+                    </div>
+                
+                </div>
+            </div> <!-- end modal-content-->
+        </div> <!-- end modal dialog-->
+    </div>
+</div>
+<div class="modal fade" id="deposit-confirm" tabindex="-1" >
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+    
+                <div class="modal-body ">
+
+                    <div class="  px-3 border rounded-3 py-4">
+                    
+                        <div class="modal-header py-0 px-0 border-bottom-0">
+                            <h5 class="modal-title mb-3" id="wallet-modal-title"></h5>
+
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
+
+                        </div>
+                   
+                        
+                            
+                            <div class="row">
+                            
+                                <div class="col-12">
+                                    <div class="mb-3">
+                                        
+                                       
+                                          
+                                            <div>
+                                            <label class="form-label w-100 " for="email1">Account No</label>
+                                            <input type="text" id="depaccno" class="form-control" readonly >
+                                         </div>
+                                            <br>
+                                            <div>
+                                            <label class="form-label w-100 " for="email1">Name</label>
+                                            <input type="tel"  id="depname"  class="form-control" readonly>
+                                           
+                                        </div>
+                                        <br>
+                                        <div>
+                                            <label class="form-label w-100 " for="email1">Amount</label>
+                                            <input type="tel"  id="depamount"  class="form-control" readonly>
+                                         </div>
+                                        <br>
+                                        <div>
+                                            <label class="form-label w-100 " for="email1">Free Margin</label>
+                                            <input type="tel"  id="depmargin"  class="form-control" readonly>
+                                         </div>
+                                        <br>
+                                        
+                                        <h5>Are you sure to continue?</h5>   
+                                        
+                                    <div class="row mt-2">
+                                        <div class="col-6">
+                                            <button type="button"  class="btn btn-success" id="btn-save-event" onclick="confirmDeposit()">Confirm</button>
+                                            <button type="button" data-bs-dismiss="modal" class="btn btn-danger" id="btn-delete-event">Close</button>
+                                        </div>
+                                      
+                                    </div>
+                                </div>
+                           
+                            </div>
+                            
+                        
+                    </div>
+                
+                </div>
+            </div> <!-- end modal-content-->
+        </div> <!-- end modal dialog-->
+    </div>
+</div>
  <!-- datepicker js -->
  <script>
     $(function() {
@@ -1095,17 +1200,280 @@
                         }
                             
             })
+            $("#Action").change(function(){ 
+            var action=$('option:selected',this).val()
+            console.log("Action====="+action)
+            if(action=="creditin"){
+                if($("#Fullname").val() && $("#Balance").val() && $("#margin").val() && $("#credit").val() && $("#value").val() && $("#expdate").val() && $("#comment").val()){
+                    $("#creditOutBtn").attr("disabled",true);    
+                    $("#creditInBtn").removeAttr("disabled"); 
+                    $("#status").val("creditin") 
+                        
+                    }
+                
+            }
+            if(action=="creditout"){
+                if($("#Fullname").val() && $("#Balance").val() && $("#margin").val() && $("#credit").val() && $("#value").val() && $("#expdate").val() && $("#comment").val()){
+                    $("#creditInBtn").attr("disabled",true);
+                    $("#status").val("creditout")
+                    $("#creditOutBtn").removeAttr("disabled");  
+                        
+                    }
+                 
+            }
+           
+    });
 
-            $("#Fullname, #Balance, #current_password").keyup(function(){
+            $("#Fullname,#Balance,#margin,#credit,#value,#expdate,#comment").keyup(function(){
 
-                    if($("#password_confirmation").val() && $("#password").val() && $("#current_password").val())
+                    if($("#Fullname").val() && $("#Balance").val() && $("#margin").val() && $("#credit").val() && $("#value").val() && $("#expdate").val() && $("#comment").val()){
+                        $("#creditInBtn").removeAttr("disabled"); 
+                        $("#status").val("creditin") 
+                        
+                    }else{
+                        $("#creditInBtn").attr("disabled",true);
+                        $("#creditOutBtn").attr("disabled",true);
+                    }
 
-                        $("#submitProfile").removeAttr("disabled");
+                        
                 });
     })
 
     function creditLoad(){
         var creditlogin=$("#creditlogin").val()
+        if(creditlogin==""){
+            $("#userMsg").empty()
+            $("#userMsg").append("Please enter a login value")
+            $("#alertpopup").modal('show')
+            flag=1
+        }else{
+            $.ajax({
+                    
+                    type : "GET", 
+                    url: "{% url 'Backoffice:LoadHistory' %}",
+                    dataType: 'json',
+                    data:{
+                        'account':accno,
+                    },
+                    success: function(data){
+                    }
+                })
+
+        }
+
+
+    }
+    function walletDeposit(type){
+        var walletlogin=$("#walletlogin").val()
+        var fullname=$("#walletFullname").val()
+        var balance=$("#accbalance").val()
+        var margin=$("#walletmargin").val()
+        var credit=$("#walletcredit").val()
+        var walletbalance=$("#walletbalance").val()
+        var amount=$("#walletamount").val()
+        var expdate=$("#expdate").val()
+        var comment=$("#comment").val()
+        var validflag=0
+        if(creditlogin==""){
+            $("#userMsg").empty()
+            $("#userMsg").append("Please enter valid login")
+            $("#alertpopup").modal('show')
+            validflag=1
+        }
+        if(amount==""){
+            $("#userMsg").empty()
+            $("#userMsg").append("Please enter the amount to continue")
+            $("#alertpopup").modal('show')
+            validflag=1
+        }
+        if(amount<=0){
+            $("#userMsg").empty()
+            $("#userMsg").append("Amount should be grateer than zero")
+            $("#alertpopup").modal('show')
+            validflag=1
+        }
+        if(validflag==0)
+        {
+        $("#depaccno").val(walletlogin) 
+        $("#depname").val(fullname)
+        $("#depamount").val(amount)
+        $("#depmargin").val(margin)   
+        if(type=="deposit"){
+            document.getElementById("wallet-modal-title").innerHTML=""
+            document.getElementById("wallet-modal-title").innerHTML="Deposit Confirmation"
+            $("#deposit-confirm").modal('show')
+        }else{
+            document.getElementById("wallet-modal-title").innerHTML=""
+            document.getElementById("wallet-modal-title").innerHTML="Withdrawal Confirmation"
+            $("#deposit-confirm").modal('show')
+        }
+        
+        }
+
+    }
+    function walletLoad(){
+        var walletlogin=$("#walletlogin").val()
+        if(walletlogin==""){
+            $("#userMsg").empty()
+            $("#userMsg").append("Please enter a login value")
+            $("#alertpopup").modal('show')
+            
+        }else{
+            $.ajax({
+                    
+                    type : "GET", 
+                    url: "{% url 'Backoffice:LoadHistory' %}",
+                    dataType: 'json',
+                    data:{
+                        'account':accno,
+                    },
+                    success: function(data){
+                    }
+                })
+
+        }
+
+    }
+    function historyLoad(){
+        var creditlogin=$("#creditlogin").val()
+        var fromdate=$("#Fromdate").val()
+        var todate=$("#Todate").val()
+        var flag=0
+        if(creditlogin==""){
+            $("#userMsg").empty()
+            $("#userMsg").append("Please enter a login value")
+            $("#alertpopup").modal('show')
+            flag=1
+        }
+        if(fromdate==""){
+            $("#userMsg").empty()
+            $("#userMsg").append("Please enter a valid date")
+            $("#alertpopup").modal('show')
+            flag=1
+        }
+        if(todate==""){
+            $("#userMsg").empty()
+            $("#userMsg").append("Please enter a valid date")
+            $("#alertpopup").modal('show')
+            flag=1
+        }
+        if(flag==0){
+            $.ajax({
+                    
+                    type : "GET", 
+                    url: "{% url 'Backoffice:LoadHistory' %}",
+                    dataType: 'json',
+                    data:{
+                        'account':accno,
+                        'fromdate':fromdate,
+                        'todate':todate
+                    },
+                    success: function(data){
+                    }
+                })
+
+        }
+        
+    }
+    function confirmCreditIn(){
+        $("#creditin-confirm").modal('hide')
+        var formdata=$("#facility-form,#login-form").serialize()
+        let csrftoken = '{{ csrf_token }}' 
+        $.ajax({
+                    
+                    type : "POST", 
+                    headers:{
+                        "X-CSRFToken": csrftoken
+                    },
+                    dataType: 'json',
+                    url: "{% url 'Backoffice:CreditInConfirmation' %}",
+                    dataType: 'json',
+                    data:formdata,
+                    
+                    success: function(data){
+                        $("#userMsg").empty()
+                        $("#userMsg").append(data.message)
+                        $("#alertpopup").modal('show')
+                    }
+        })
+
+    }
+    function confirmDeposit(){
+        $("#deposit-confirm").modal('hide')
+        var formdata=$("#facility-form,#login-form").serialize()
+        let csrftoken = '{{ csrf_token }}' 
+        $.ajax({
+                    
+                    type : "POST", 
+                    headers:{
+                        "X-CSRFToken": csrftoken
+                    },
+                    dataType: 'json',
+                    url: "{% url 'Backoffice:DepositinWallet' %}",
+                    dataType: 'json',
+                    data:formdata,
+                    
+                    success: function(data){
+                        $("#userMsg").empty()
+                        $("#userMsg").append(data.message)
+                        $("#alertpopup").modal('show')
+                    }
+        })
+    }
+    function creditIn(status){
+        var creditlogin=$("#creditlogin").val()
+        var fullname=$("#Fullname").val()
+        var balance=$("#Balance").val()
+        var margin=$("#margin").val()
+        var credit=$("#credit").val()
+        var value=$("#value").val()
+        var expdate=$("#expdate").val()
+        var comment=$("#comment").val()
+        var validflag=0
+        if(creditlogin==""){
+            $("#userMsg").empty()
+            $("#userMsg").append("Please enter valid login")
+            $("#alertpopup").modal('show')
+
+        }
+        else{
+            $("#disaccno").val(creditlogin)
+            $("#disname").val(fullname)
+            $("#disamount").val(value)
+            $("#dismargin").val(margin)
+            if(value==0){
+                $("#userMsg").empty()
+                $("#userMsg").append("Amount should be greater than 0")
+                $("#alertpopup").modal('show')
+            }
+            else{
+                if(status=="in"){
+                    document.getElementById("credit-modal-title").innerHTML=""
+                    document.getElementById("credit-modal-title").innerHTML="CreditIn Confirmation"
+                    $("#creditin-confirm").modal('show')
+
+                }
+                if(status=="out"){
+                    if(margin<=0 || balance<=0){
+                        $("#userMsg").empty()
+                        $("#userMsg").append("not enough credit")
+                        $("#alertpopup").modal('show')
+
+                    }
+                    else{
+                        document.getElementById("credit-modal-title").innerHTML=""
+                        document.getElementById("credit-modal-title").innerHTML="CreditOut Confirmation"
+                        $("#creditin-confirm").modal('show')
+
+                    }
+                  
+
+                }
+               
+            }
+            
+        }
+
 
     }
  </script>
