@@ -92,13 +92,13 @@ class DllService:
         info=Get_ClientInfo(c_char_p(self.demoserver.encode('utf-8')).value,login.value,c_char_p(self.demopwd.encode('utf-8')).value,account_no.value)
         return info
      #dll client Info time
-    def dll_client_info_time(self,accountno,fdate,fmonth,fyear,tdate,tmonth,tyear):
+    def dll_client_info_time(self,user,server,password,accountno,fdate,fmonth,fyear,tdate,tmonth,tyear):
         
         hllDll = CDLL(r"C:\\pyenv\\TrustManagerAPI.dll") 
         Get_ClientInfo_time = hllDll.Get_ClientInfo_time
-        hllDll.Get_ClientInfo_time.argtype = c_char_p,c_int,c_char_p,c_char_p
-        hllDll.Get_ClientInfo_time.restype = c_int
-        username=int(self.demouser)
+        hllDll.Get_ClientInfo_time.argtype = c_char_p,c_int,c_char_p,c_int,c_int,c_int,c_int,c_int,c_int,c_int
+        hllDll.Get_ClientInfo_time.restype = POINTER(c_char_p)
+        username=int(user)
         login = c_int(username)
         account_no=c_int(accountno)
         fdate=c_int(fdate)
@@ -107,20 +107,24 @@ class DllService:
         tdate=c_int(tdate)
         tmonth=c_int(tmonth)
         tyear=c_int(tyear)
-        info=Get_ClientInfo_time(c_char_p(self.demoserver.encode('utf-8')).value,login.value,c_char_p(self.demopwd.encode('utf-8')).value,account_no.value,fdate.value,fmonth.value,fyear.value,tdate.value,tmonth.value,tyear.value)
-        return info
+        info=Get_ClientInfo_time(c_char_p(server.encode('utf-8')).value,login.value,c_char_p(password.encode('utf-8')).value,account_no.value,fdate.value,fmonth.value,fyear.value,tdate.value,tmonth.value,tyear.value)
+        resul=string_at(info)
+        result=str(resul, 'utf-8')
+        return result
     #dll client Info
-    def dll_client_info_without_history(self,accountno):
+    def dll_client_info_without_history(self,user,server,password,accountno):
         
         hllDll = CDLL(r"C:\\pyenv\\TrustManagerAPI.dll") 
         Get_ClientInfo_without_history = hllDll.Get_ClientInfo_without_history
-        hllDll.Get_ClientInfo_without_history.argtype= c_char_p,c_int,c_char_p,c_char_p
-        hllDll.Get_ClientInfo_without_history.restype = POINTER(c_char_p)
-        username=int(self.demouser)
+        hllDll.Get_ClientInfo_without_history.argtype= c_char_p,c_int,c_char_p,c_int
+        hllDll.Get_ClientInfo_without_history.restype =POINTER(c_char_p)
+        username=int(user)
         login = c_int(username)
         account_no=c_int(accountno)
-        info=Get_ClientInfo_without_history(c_char_p(self.demoserver.encode('utf-8')).value,login.value,c_char_p(self.demopwd.encode('utf-8')).value,account_no.value)
-        return info
+        info=Get_ClientInfo_without_history(c_char_p(server.encode('utf-8')).value,login.value,c_char_p(password.encode('utf-8')).value,account_no.value)
+        data=string_at(info)
+        result=str(data, 'utf-8')
+        return result
     #dll yearly deposit
     def dll_get_yearly_deposit(self,accountno):
         

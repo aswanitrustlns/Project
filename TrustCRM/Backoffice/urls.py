@@ -49,6 +49,11 @@ urlpatterns=[
       path('DepositinWallet',deposit_in_wallet,name="DepositinWallet"),
       path('LoadAllTransaction',load_all_transaction_details,name="LoadAllTransaction"),
       path('LoadTransactions',load_transaction_details,name="LoadTransactions"),
+      path('LoadCredit',load_credit,name="LoadCredit"),
+      path('TransactionHistory',transactions_history,name="TransactionHistory"),
+      path('EWalletReport',ewallet_report,name="EWalletReport"),
+      path('HistoryEWalletReport',history_ewallet_report,name="HistoryEWalletReport"),
+      path('TransactionHistorySearch',transactions_history_search,name="TransactionHistorySearch")
 
 
      

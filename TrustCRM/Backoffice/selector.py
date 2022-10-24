@@ -6,6 +6,7 @@ import random
 from django.template.loader import render_to_string
 import binascii
 from datetime import datetime,timedelta
+import re
 
 from TrustCRM.settings import UPLOAD_ROOT
 from .dllservice import DllService
@@ -657,9 +658,11 @@ class Selector:
     #Get ewallet report by login
     def get_ewallet_report(self,accno,from_date,to_date):
         try:
+           
             Cursor=connection.cursor()           
-            Cursor.execute("set nocount on;exec SP_GetEWalletEquityReportByLogin %s",[from_date,to_date,accno]) 
-            result=Cursor.fetchone()
+            Cursor.execute("set nocount on;exec SP_GetEWalletEquityReportByLogin %s,%s,%s",[from_date,to_date,accno]) 
+            result=Cursor.fetchall()
+            
         except Exception as e:
                 print("Exception------",e)
         finally:
@@ -692,15 +695,101 @@ class Selector:
             print("Exception----",e)
         return result
     #Load credict 
-    def load_credit_dllcall(self,accno):
+    def load_credit_dllcall(self,user,server,password,accno):
 
         try:
-           
-           result= dllservice.dll_client_info_without_history(accno)
-
+            details=[]
+            result=""
+            dataset=""
+            fromdateformat=datetime.today().date()  
+            fromday=fromdateformat.day
+            frommonth=fromdateformat.month
+            fromyear=fromdateformat.year
+            todateformat=datetime.today().date()  
+            today=todateformat.day
+            tomonth=todateformat.month
+            toyear=todateformat.year
+            # result= dllservice.dll_client_info_without_history(user,server,password,accno)
+            #dataset=dllservice.dll_client_info_time(user,server,password,accno,fromday,frommonth,fromyear,today,tomonth,toyear)
+            if(len(result)!=0):
+                
+                output_str=result.replace("~","")
+                output_str=output_str.split("^")  
+                if(output_str):              
+                    for i in output_str:
+                        data=i.split("=")
+                        details.append(data[1])
+                        print(data[1])
+            dataList={}
+            details=[]
+            if(len(dataset)!=0):
+                
+                outputstr=dataset.replace("\n","")
+                outputstr=re.split(r'[|~]+',outputstr)
+                # output_str=output_str.split("|")
+                if(outputstr):              
+                    for i in outputstr:
+                        lpdata=i.split('^')
+                        # print("Lp data",lpdata)
+                        dataList={}
+                        for j in lpdata:
+                            
+                            data=j.split("=")
+                            dataList[data[0]]=data[1] 
+                        details.append(dataList)
+            
+            data_list=[{'LOGIN': '301684', 'DEAL': '5047941', 'COMMENT': 'Credit In', 'TYPE': 'credit', 'USD': '100.00', 'OPENTIME': 'Fri Oct 21 07:02:39 2022'}, {'LOGIN': '301684', 'DEAL': '5047942', 'COMMENT': 'Credit In', 'TYPE': 'credit', 'USD': '500.00', 'OPENTIME': 'Fri Oct 21 07:06:36 2022'}, {'LOGIN': '301684', 'DEPOSIT': '0.00', 'WITHDRAW': '0.00', 'CREDIT': '600.00'}]
+            details=['301684', 'Sumitha Anish', '0.00', '600.00', '600.00', '3005']                        
         except Exception as e:
-            print("Exception----",e)
-        return result
+                print("Exception------",e)
+
+        return details,data_list
+   #Get ewallet balance
+    def get_ewallet_balance(self,currency):
+        try:
+            Cursor=connection.cursor()           
+            Cursor.execute("set nocount on;exec GetEWalletBalanceByCurrency %s",[currency]) 
+            ebalance=Cursor.fetchall()
+        except Exception as e:
+                print("Exception------",e)
+        finally:
+                Cursor.close()
+        return ebalance
+     #Get ewallet equity report
+    def get_ewallet_equityreport(self,fromdate,todate,type,currency):
+        try:
+            Cursor=connection.cursor()  
+            opening="" 
+            closing=""   
+            print("Data====",fromdate,todate,type,currency)     
+            Cursor.execute("set nocount on;exec SP_GetEWalletEquityReport %s,%s,%s,%s",[fromdate,todate,type,currency]) 
+            equityreport=Cursor.fetchall()
+            while(Cursor.nextset()):
+                opening=Cursor.fetchone()
+                while(Cursor.nextset()):
+                    closing=Cursor.fetchone()
+            
+           
+            
+        except Exception as e:
+                print("Exception------",e)
+        finally:
+                Cursor.close()
+        return equityreport,opening,closing
+     #Get ewallet transaction history
+    def get_ewallet_transactionhistory(self,fromdate,todate,transtype):
+        try:
+            Cursor=connection.cursor()           
+            Cursor.execute("set nocount on;exec SP_GetEWalletTransHistory %s,%s,%s",[fromdate,todate,transtype]) 
+            trans_history=Cursor.fetchall()
+        except Exception as e:
+                print("Exception------",e)
+        finally:
+                Cursor.close()
+        return trans_history
+
+  
+     
 
     
    

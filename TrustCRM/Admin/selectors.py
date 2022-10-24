@@ -1364,6 +1364,7 @@ class Selector:
         finally:
                 Cursor.close()
         return seminarlist
+    
     #Update seminar status
     def update_seminar_status(self,ticket,status,seminar,userid):
         try:

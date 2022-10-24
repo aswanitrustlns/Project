@@ -611,11 +611,14 @@ def load_credit_history(request):
 #Credit Load
 def load_credit(request):
     if 'UserId' in request.session:
-        data={}
-       
+        data=[]
+        userid=request.session.get('UserId')
+        user=request.session.get('user')
+        server=request.session.get('server')
+        password=request.session.get('password')
         accno=request.GET.get('accno')
-        data=selector.load_credit_dllcall(accno)
-        return JsonResponse({"datas":data})
+        data,datalist=selector.load_credit_dllcall(user,server,password,accno)
+        return JsonResponse({"datas":data,"datalist":datalist})
     else:
         return redirect('/login')
 #deposit in wallet
@@ -662,6 +665,53 @@ def load_transaction_details(request):
         return JsonResponse({"datas":data})
     else:
         return redirect('/login')
+# Transactions history
+def transactions_history(request):
+    if 'UserId' in request.session:
+        report,opening,closing=selector.get_ewallet_equityreport("","",4,"")
+        
+        return render(request,"backoffice/transactionhistory.html",{'reports':report,'opening':opening,'closing':closing})
+    else:
+        return redirect('/login')
+# Transactions history json load
+def transactions_history_search(request):
+    if 'UserId' in request.session:
+        from_date=request.GET.get('from')
+        to_date=request.GET.get('to')
+        transtype=int(request.GET.get('type'))
+        print("From====",from_date,to_date,transtype)
+        report,opening,closing=selector.get_ewallet_equityreport(from_date,to_date,transtype,"")
+        
+        return JsonResponse({"reports":report})
+    else:
+        return redirect('/login')
+
+
+def ewallet_report(request):
+    if 'UserId' in request.session:
+        return render(request,"backoffice/ewalletreport.html")
+    else:
+        return redirect('/login')
+def history_ewallet_report(request):
+    if 'UserId' in request.session:
+        from_date=request.GET.get('from')
+        to_date=request.GET.get('to')
+        transtype=request.GET.get('transaction')
+        print("Fromdate====",from_date,to_date)
+        if(from_date==" " and to_date==" "):
+            print("Iside ifff")
+            report,opening,closing=selector.get_ewallet_equityreport("","",4,"")
+        else:
+            if transtype:
+                transtype=int(transtype)
+            else:
+                transtype=2
+            report,opening,closing=selector.get_ewallet_equityreport(from_date,to_date,transtype,"")
+        return render(request,"backoffice/historyewalletreport.html",{'reports':report,'opening':opening,'closing':closing,'from':from_date,'to':to_date})
+    else:
+        return redirect('/login')
+
+
 
 
 

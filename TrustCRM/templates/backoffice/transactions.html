@@ -114,7 +114,7 @@
                                                                 <div class="col">
                                                                 
                                                                     <button class="btn btn-info btn-lg mb-2  
-                                                                    " type="button" id="creditLoad" onclick="creditLoad()">Load</button>
+                                                                    " type="button" id="creditLoad" onclick="creditLoadFN()">Load</button>
                                                             
                                                                 
                                                                 </div>
@@ -287,22 +287,10 @@
                                                                     </thead>
                             
                             
-                                                                    <tbody class="text-white giloryregular-type fs-16">
+                                                                    <tbody class="text-white giloryregular-type fs-16" id="credit-body">
                                                                
                                                                      
-                                                                        
-                                                                         <tr>
-                                                                            <td class="ps-0">2C2E45</td>
-                                                                            <td>Online</td>
-                                                                            <td>Firas</td>
-                                                                            <td>Sumitha test</td>
-                                                                            <td>Qatar</td>
-                                                                            <td>Live account reg</td>
-                                                                            <td class="text-end">Attended</td>
-                                                                           
-                                                                        
-                                                                         
-                                                                         </tr>
+                                                                       
                                                                      
                                                                        
                                                                 
@@ -461,7 +449,7 @@
                                                       
                                                             <div>
     
-                                                                <button type="button" class="btn text-white btn-sm fs-13 gilroyregular-type almarenamonolight-type bg-soft-gunmetal">
+                                                                <button type="button" class="btn text-white btn-sm fs-13 gilroyregular-type almarenamonolight-type bg-soft-gunmetal" onclick="loadewalletReport()">
                                                                     E-Wallet Report
                                                                 </button>
                                                                 
@@ -1195,7 +1183,7 @@
                         if(event.which == 13){
                             event.preventDefault()
                             
-                            creditLoad()
+                            creditLoadFN()
 
                         }
                             
@@ -1239,23 +1227,53 @@
                 });
     })
 
-    function creditLoad(){
+    function creditLoadFN(){
         var creditlogin=$("#creditlogin").val()
         if(creditlogin==""){
             $("#userMsg").empty()
-            $("#userMsg").append("Please enter a login value")
+            $("#userMsg").append("Please enter a valid login ")
             $("#alertpopup").modal('show')
             flag=1
         }else{
             $.ajax({
                     
                     type : "GET", 
-                    url: "{% url 'Backoffice:LoadHistory' %}",
+                    url: "{% url 'Backoffice:LoadCredit' %}",
                     dataType: 'json',
                     data:{
-                        'account':accno,
+                        'account':creditlogin,
                     },
                     success: function(data){
+                        console.log("Datas===",data.datas)
+                        logdata=data.datas
+                        alldata=data.datalist
+                        var rows=""
+                        console.log("datas----"+typeof(alldata)+alldata.length)
+                        if(logdata.length>0){
+                            $("#Fullname").val(logdata[1])
+                            $("#Balance").val(logdata[2])
+                            $("#margin").val(logdata[3])
+                             $("#credit").val(logdata[4])
+                             $("#credit-body").empty()
+                            if(alldata.length>0){
+                                for(i=0;i<alldata.length;i++){
+                                    console.log("alldata"+alldata[i]['LOGIN'])
+                                    currency=alldata[i][4]
+                                    console.log("Currency====="+currency)
+                                    rows+="<tr><td class='ps-0'>"+alldata[i]['LOGIN']+"</td><td>"+alldata[i]['DEAL']+"</td><td>"+alldata[i]['COMMENT']+"</td><td>"+alldata[i]['TYPE']+"</td>"+
+                                           "<td>USD</td><td>"+alldata[i]['USD']+"</td><td class='text-end'>"+alldata[i]['OPENTIME']+"</td></tr>"
+                                }
+                                $("#credit-body").append(rows)
+                            }
+
+                        }else{
+                            $("#userMsg").empty()
+                            $("#userMsg").append("This account not live in MT4")
+                            $("#alertpopup").modal('show')
+
+                        }
+                        
+                        
                     }
                 })
 
@@ -1475,6 +1493,11 @@
         }
 
 
+    }
+    function loadewalletReport(){
+        var url="{% url 'Backoffice:EWalletReport' %}"
+                var fullurl=url
+                window.open(fullurl)
     }
  </script>
  <script src="{% static 'libs/flatpickr/flatpickr.min.js' %}"></script>

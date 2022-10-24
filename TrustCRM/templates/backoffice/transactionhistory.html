@@ -1,0 +1,643 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8" />
+    <title>Trust Capital CRM</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
+    <meta content="Themesbrand" name="author" />
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" lang="ar">
+    <!-- App favicon -->
+    {% load  static %}
+     <!-- DataTables -->
+     <link href="{% static 'libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css' %}" rel="stylesheet" type="text/css" />
+     <link href="{% static 'libs/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css' %}" rel="stylesheet" type="text/css" />
+     <!-- plugin css -->
+     <!--<link href="assets/libs/admin-resources/jquery.vectormap/jquery-jvectormap-1.2.2.css" rel="stylesheet"
+         type="text/css" />-->
+      <!-- datepicker css -->
+      <link rel="stylesheet" href="{% static 'libs/flatpickr/flatpickr.min.css' %}">
+      
+      <link href="{% static 'css/input-tel.min.css' %}" rel="stylesheet"   type="text/css" />
+    {% include "common/link.html" %}
+    <style>
+        table td .dropdown-menu.show{
+                right: 0px;
+        left: auto;
+        transform: none;
+        display: flex;
+        }
+    </style>
+    {% include "common/scripts.html" %}
+
+   
+
+ 
+</head>
+<body data-layout-mode="dark">
+
+    <!-- <body data-layout="horizontal"> -->
+    
+    <!-- Begin page -->
+    <div id="layout-wrapper">
+    
+        {% include "common/header.html" %}
+    
+
+        <!-- ========== Left Sidebar Start ========== -->
+        {% include "common/sidebar.html" %}
+        <div class="main-content ">
+
+            <div class="page-content " id="sales">
+                <div class="container-fluid">
+                                         
+                           <div class=" card   card-h-100" >
+                            <div class="card-body ">
+                                <!--Navs-->
+                                <ul class="nav justify-content-start   gilorymedium-type f-22 rounded-pill  mb-4 px-0 d-inline-flex" role="tablist"   style="background-color: var(--bs-card-bg) ">
+                                    <li class="nav-item" >
+                                        <a class="nav-link text-center active rounded-pill bg-soft-purple px-4  text-white" data-bs-toggle="tab" href="#actions-mt4-tab" role="tab" aria-selected="true" >
+                                        
+                                            <span class=""> MT4 Transactions</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item" >
+                                        <a class="nav-link text-center rounded-pill px-4 color-color1" data-bs-toggle="tab" href="#actions-ew-tab" role="tab" aria-selected="false" >
+                                        
+                                            <span class="">  E-wallet transactions</span>
+                                        
+                                        </a>
+                                    </li>
+                                   
+                                </ul>
+                                <!--Tab Content-->
+                                <div class="tab-content">
+                                    <!--Tab1-->
+                                    <div class="tab-pane active" id="actions-mt4-tab">
+    
+                                        <div class="row">
+    
+                                            <div class="col-xxl-9 col-md-9 ">
+                
+                                                <div class="row">
+                
+                                                    <div class="col-sm-4    ">
+                                                        <!-- card -->
+                                                        <div class="card card-h-100 ">
+                                                            <!-- card body -->
+                                                            <div class="card-body py-2">
+                                                                <div class="">
+                                                                    <div class="d-flex align-items-center  flex-column flex-xxl-row">
+                                                                        <span class=" mb-3 lh-1 d-block flex-shrink-0 " >
+                                                                            <i class=" rounded-circle d-inline-block p-3  " style="background-color: var(--bs-card-bg);">
+                                                                                <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                                    <path d="M14.25 20.6244C14.25 22.0794 15.375 23.2494 16.755 23.2494H19.575C20.775 23.2494 21.75 22.2294 21.75 20.9544C21.75 19.5894 21.15 19.0944 20.265 18.7794L15.75 17.2044C14.865 16.8894 14.265 16.4094 14.265 15.0294C14.265 13.7694 15.24 12.7344 16.44 12.7344H19.26C20.64 12.7344 21.765 13.9044 21.765 15.3594" stroke="#00A651" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                                                                    <path d="M18 11.25V24.75" stroke="#00A651" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                                                                    <path d="M33 18C33 26.28 26.28 33 18 33C9.72 33 3 26.28 3 18C3 9.72 9.72 3 18 3" stroke="#00A651" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                                                                    <path d="M25.5 4.5V10.5H31.5" stroke="#00A651" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                                                                    <path d="M33 3L25.5 10.5" stroke="#00A651" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                                                                    </svg>
+                                
+                                                                            </i>
+                                                                        </span>
+                                                                        <div class=" mx-1 ms-xxl-2 flex-shrink-0">
+                                                                           
+                                                                            <div class="text-wrap mb-1 text-center text-xxl-start" >
+                                                                              
+                                                                                <span class=" color-color1 fs-20 almarenamonolight-type">Deposit</span>
+                                                                            </div>
+                                                                            <h2 class=" gilory-semibold-type fs-30 mb-0 text-center text-xxl-start text-truncate" data-target="12">182981.14</h2>
+                                                                        </div>
+                                                                        
+                                                                    </div>
+                                
+                                
+                                                                </div>
+                                                                
+                                                            </div><!-- end card body -->
+                                                        </div>
+                                                        <!-- end card -->
+                                                    </div><!-- end col -->
+                                                    <div class="col-sm-4    ">
+                                                        <!-- card -->
+                                                        <div class="card card-h-100 ">
+                                                            <!-- card body -->
+                                                            <div class="card-body py-2">
+                                                                <div class="">
+                                                                    <div class="d-flex align-items-center  flex-column flex-xxl-row">
+                                                                        <span class=" mb-3 lh-1 d-block flex-shrink-0 " >
+                                                                            <i class=" rounded-circle d-inline-block p-3  " style="background-color: var(--bs-card-bg);">
+                                                                                <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                                    <path d="M14.25 20.6244C14.25 22.0794 15.375 23.2494 16.755 23.2494H19.575C20.775 23.2494 21.75 22.2294 21.75 20.9544C21.75 19.5894 21.15 19.0944 20.265 18.7794L15.75 17.2044C14.865 16.8894 14.265 16.4094 14.265 15.0294C14.265 13.7694 15.24 12.7344 16.44 12.7344H19.26C20.64 12.7344 21.765 13.9044 21.765 15.3594" stroke="#FF0303" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                                                                    <path d="M18 11.25V24.75" stroke="#FF0303" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                                                                    <path d="M33 18C33 26.28 26.28 33 18 33C9.72 33 3 26.28 3 18C3 9.72 9.72 3 18 3" stroke="#FF0303" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                                                                    <path d="M33 9V3H27" stroke="#FF0303" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                                                                    <path d="M25.5 10.5L33 3" stroke="#FF0303" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                                                                    </svg>
+                                                                                    
+                                                                                    
+                                                                                    
+                                
+                                                                            </i>
+                                                                        </span>
+                                                                        <div class=" mx-1 ms-xxl-2 flex-shrink-0">
+                                                                           
+                                                                            <div class="text-wrap mb-1 text-center text-xxl-start" >
+                                                                              
+                                                                                <span class=" color-color1 fs-20 almarenamonolight-type">Deposit</span>
+                                                                            </div>
+                                                                            <h2 class=" gilory-semibold-type fs-30 mb-0 text-center text-xxl-start text-truncate" data-target="12">182981.14</h2>
+                                                                        </div>
+                                                                        
+                                                                    </div>
+                                
+                                
+                                                                </div>
+                                                                
+                                                            </div><!-- end card body -->
+                                                        </div>
+                                                        <!-- end card -->
+                                                    </div><!-- end col -->
+                                                    <div class="col-sm-4    ">
+                                                        <!-- card -->
+                                                        <div class="card card-h-100 ">
+                                                            <!-- card body -->
+                                                            <div class="card-body py-2">
+                                                                <div class="">
+                                                                    <div class="d-flex align-items-center  flex-column flex-xxl-row">
+                                                                        <span class=" mb-3 lh-1 d-block flex-shrink-0 " >
+                                                                            <i class=" rounded-circle d-inline-block p-3  " style="background-color: var(--bs-card-bg);">
+                                                                                <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                                    <path d="M3 12.75H20.25" stroke="#FFC90A" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                                                                                    <path d="M9 24.75H12" stroke="#FFC90A" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                                                                                    <path d="M15.75 24.75H21.75" stroke="#FFC90A" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                                                                                    <path d="M33 16.545V24.165C33 29.43 31.665 30.75 26.34 30.75H9.66C4.335 30.75 3 29.43 3 24.165V11.835C3 6.57 4.335 5.25 9.66 5.25H20.25" stroke="#FFC90A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                                                                    <path d="M24.75 9L27 11.25L33 5.25" stroke="#FFC90A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                                                                    </svg>
+                                                                                    
+                                
+                                                                            </i>
+                                                                        </span>
+                                                                        <div class=" mx-1 ms-xxl-2 flex-shrink-0">
+                                                                           
+                                                                            <div class="text-wrap mb-1 text-center text-xxl-start" >
+                                                                              
+                                                                                <span class=" color-color1 fs-20 almarenamonolight-type">Deposit</span>
+                                                                            </div>
+                                                                            <h2 class=" gilory-semibold-type fs-30 mb-0 text-center text-xxl-start text-truncate" data-target="12">182981.14</h2>
+                                                                        </div>
+                                                                        
+                                                                    </div>
+                                
+                                
+                                                                </div>
+                                                                
+                                                            </div><!-- end card body -->
+                                                        </div>
+                                                        <!-- end card -->
+                                                    </div><!-- end col -->
+                
+                                                    <div class="col-12">
+                
+                                                        <form class="">
+                                                            <div class="row align-items-end ">
+                                                              
+                                                                <div class="col-sm-4 col-xxl-3">
+                                                                    <div class="mb-2">
+                                                                        <label class="form-label " for="Fromdate">From date<span class="color-orange">*</span></label>
+                                                                        <input  type="text" class="form-control" id="Fromdate" placeholder="" required>
+                                                                        
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-sm-4 col-xxl-3">
+                                                                    <div class="mb-2">
+                                                                        <label class="form-label " for="Todate">To date<span class="color-orange">*</span></label>
+                                                                        <input  type="text" class="form-control" id="Todate" placeholder="" required>
+                                                                            
+                                                                        
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-sm-4 col-xxl-4">
+                                                                    <div class="mb-2">
+                                                                        <label class="form-label " for="Transactiontype">Transaction type<span class="color-orange">*</span></label>
+                                                                        
+                                                                        <select  type="text" class="form-select" id="Transactiontype1" placeholder="" required>
+                                                                            <option value="2">Select</option>
+                                                                            <option value="0">Deposit</option>
+                                                                            <option value="1">Withdrawal</option>
+                                                                        </select>   
+                                                                        
+                                                                    </div>
+                                                                </div>
+                                                               <div class="col d-flex justify-content-end" >
+                                                                    <button class="btn  btn-info  btn-lg mb-2  me-2
+                                                                    " type="button" id="" >History</button>
+                                                               </div>
+                                                               
+                                                        </div> 
+                                                        </form>
+                                                    </div>
+                                                
+                                                </div>
+                
+                                                    
+                                            </div>
+                                            <div class="col-xxl-3 col-md-3  d-none d-md-block ">
+                                                <div class=" card   card-h-100 border-0" style="background-color: var(--bs-card-bg) ;" >
+                                                    <div class="card-body d-flex align-items-center  justify-content-center ">
+                                                      
+                                                        <img src="{% static 'images/mt4trans.png' %}" alt="" style="width:245px; max-width:100% ;">
+                                                            
+                                                    </div>
+                                                
+                                                </div>
+                                            </div>
+                                            <div class="col">
+                                                <hr class=" my-4">
+                                            </div>    
+                                        </div>
+                                       
+                                        <div class="row">
+                                            <div class="col-12">
+                                                     
+                                                      
+                                                        
+                                                        <div class="table-responsive "  style="max-height:500px" data-simplebar="init" >
+                
+                                                            <div class="d-flex mb-4 justify-content-between" >
+                                                                <input type="text" class="form-control  " placeholder="Search" id="myinputsearch" style="width:369px">
+                                                                <div id="datatable-buttons_wrapper">
+                
+                                                                </div>
+                                                            </div>
+                                                            <table  class="table dt-responsive  nowrap  w-100 change" id="datatablemT4transactions">
+                                                                <thead class="color-color1">
+                                                                    <tr  class=" gilorymedium-type fs-17">
+                                                                        <th  class="ps-0"> Log in</th>
+                                                                        <th >Deal</th>
+                                                                        <th  >Comment</th>
+                                                                        <th  >Type</th>
+                                                                   
+                                                                        <th>Currency</th>
+                                                                        <th>Amount</th>
+                                                                       
+                                                                        <th class="text-end ">Transaction Date
+                                                                        </th>
+                                                                        
+                                                                    </tr>
+                                                                </thead>
+                
+                
+                                                                <tbody class="text-white giloryregular-type fs-16">
+                                                                    <tr>
+                                                                  
+                                                                    <td class="ps-0">300204</td>
+                                                                    <td>5032684</td>
+                                                                    <td>Comment</td>   
+                                                                    <td>Type</td>
+                                                                    <td>Currency</td>
+                                                                    <td>Amount</td>
+                                                                    <td class="text-end ">Transaction Date</td>
+                                                             
+                                                               
+                                                                    
+                                                                    </tr>
+                                                                
+                
+                                                                
+                                                                  
+                                                                
+                                                            
+                                                                
+                                                                </tbody>
+                                                            
+                                                            </table>
+                                                        </div>
+                
+                                             
+                                            </div>
+                                        </div>  
+    
+                                    </div>  
+                                     <!--Tab2-->
+                                    <div class="tab-pane" id="actions-ew-tab">
+                                        <div class="row">
+                                            <div class="col-xxl-9 col-md-9 ">
+                                                <div class="row">
+                                                    <div class="col-sm-6 ">
+                                                        <!-- card -->
+                                                        <div class="card card-h-100 ">
+                                                            <!-- card body -->
+                                                            <div class="card-body py-2">
+                                                                <div class="">
+                                                                    <div class="d-flex align-items-center  flex-column flex-xxl-row">
+                                                                        <span class=" mb-3 lh-1 d-block flex-shrink-0 " >
+                                                                            <i class=" rounded-circle d-inline-block p-3  " style="background-color: var(--bs-card-bg);">
+                                                                                <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                                    <path d="M16.1274 25.291V28.3361C16.1274 30.9161 13.7274 33.001 10.7724 33.001C7.81737 33.001 5.40234 30.9161 5.40234 28.3361V25.291C5.40234 27.871 7.80237 29.701 10.7724 29.701C13.7274 29.701 16.1274 27.856 16.1274 25.291Z" stroke="#DD9406" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                                                                    <path d="M16.1247 21.1656C16.1247 21.9156 15.9147 22.6056 15.5547 23.2056C14.6697 24.6606 12.8547 25.5756 10.7547 25.5756C8.6547 25.5756 6.83968 24.6456 5.95468 23.2056C5.59468 22.6056 5.38477 21.9156 5.38477 21.1656C5.38477 19.8756 5.98473 18.7206 6.94473 17.8806C7.91973 17.0256 9.25469 16.5156 10.7397 16.5156C12.2247 16.5156 13.5597 17.0406 14.5347 17.8806C15.5247 18.7056 16.1247 19.8756 16.1247 21.1656Z" stroke="#DD9406" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                                                                    <path d="M16.1274 21.165V25.29C16.1274 27.87 13.7274 29.7 10.7724 29.7C7.81737 29.7 5.40234 27.855 5.40234 25.29V21.165C5.40234 18.585 7.80237 16.5 10.7724 16.5C12.2574 16.5 13.5924 17.025 14.5674 17.865C15.5274 18.705 16.1274 19.875 16.1274 21.165Z" stroke="#DD9406" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                                                                    <path d="M33.0003 16.4557V19.5458C33.0003 20.3708 32.3403 21.0457 31.5003 21.0757H28.5603C26.9403 21.0757 25.4553 19.8908 25.3203 18.2708C25.2303 17.3258 25.5903 16.4407 26.2203 15.8257C26.7753 15.2557 27.5403 14.9258 28.3803 14.9258H31.5003C32.3403 14.9558 33.0003 15.6307 33.0003 16.4557Z" stroke="#DD9406" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                                                                    <path d="M3 15.75V12.75C3 8.67 5.46 5.82 9.285 5.34C9.675 5.28 10.08 5.25 10.5 5.25H24C24.39 5.25 24.765 5.26498 25.125 5.32498C28.995 5.77498 31.5 8.64 31.5 12.75V14.925H28.38C27.54 14.925 26.775 15.255 26.22 15.825C25.59 16.44 25.23 17.325 25.32 18.27C25.455 19.89 26.94 21.075 28.56 21.075H31.5V23.25C31.5 27.75 28.5 30.75 24 30.75H20.25" stroke="#DD9406" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                                                                    </svg>
+                                                                                    
+                                
+                                                                            </i>
+                                                                        </span>
+                                                                        <div class=" mx-1 ms-xxl-2 ">
+                                                                           
+                                                                            <div class="text-wrap mb-1 text-center text-xxl-start" >
+                                                                              
+                                                                                <span class=" color-color1 fs-20 almarenamonolight-type">E-Wallet Opening Balance</span>
+                                                                            </div>
+                                                                            <h2 class=" gilory-semibold-type fs-30 mb-0 text-center text-xxl-start  d-xxl-flex flex-wrap  " data-target="12">
+                                                                                
+                                                                               <span class="d-block">USD : <USD>${{opening.1}}</USD></span>   
+                                                                               <svg class="mx-2 d-none d-xxl-block"  width="2" height="36" viewBox="0 0 2 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                                    <line x1="0.951172" y1="2.18557e-08" x2="0.95117" y2="36" stroke="#73759D"/>
+                                                                                </svg>
+                                                                                <span class="d-block">EUR:<EUR>E{{opening.2}}</EUR></span>
+                                                                            </h2>
+                                                                        </div>
+                                                                        
+                                                                    </div>
+                                
+                                
+                                                                </div>
+                                                                
+                                                            </div><!-- end card body -->
+                                                        </div>
+                                                        <!-- end card -->
+                                                    </div><!-- end col -->
+                                                    <div class="col-sm-6    ">
+                                                        <!-- card -->
+                                                        <div class="card card-h-100 ">
+                                                            <!-- card body -->
+                                                            <div class="card-body py-2">
+                                                                <div class="">
+                                                                    <div class="d-flex align-items-center  flex-column flex-xxl-row">
+                                                                        <span class=" mb-3 lh-1 d-block flex-shrink-0 " >
+                                                                            <i class=" rounded-circle d-inline-block p-3  " style="background-color: var(--bs-card-bg);">
+                                                                                <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                                    <path d="M33 18V25.5C33 30 30 33 25.5 33H11.445C11.91 32.61 12.315 32.13 12.63 31.59C13.185 30.69 13.5 29.625 13.5 28.5C13.5 25.185 10.815 22.5 7.5 22.5C5.7 22.5 4.095 23.295 3 24.54V18C3 13.92 5.46 11.07 9.285 10.59C9.675 10.53 10.08 10.5 10.5 10.5H25.5C25.89 10.5 26.265 10.515 26.625 10.575C30.495 11.025 33 13.89 33 18Z" stroke="#00A651" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                                                                    <path d="M26.6271 10.575C26.2671 10.515 25.8921 10.5 25.5021 10.5H10.5021C10.0821 10.5 9.67711 10.53 9.28711 10.59C9.49711 10.17 9.79714 9.78001 10.1571 9.42001L15.0321 4.53C17.0871 2.49 20.4171 2.49 22.4721 4.53L25.0971 7.18494C26.0571 8.12994 26.5671 9.32995 26.6271 10.575Z" stroke="#00A651" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                                                                    <path d="M33 18.75H28.5C26.85 18.75 25.5 20.1 25.5 21.75C25.5 23.4 26.85 24.75 28.5 24.75H33" stroke="#00A651" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                                                                    <path d="M13.5 28.5C13.5 29.625 13.185 30.69 12.63 31.59C12.315 32.13 11.91 32.61 11.445 33C10.395 33.945 9.015 34.5 7.5 34.5C5.31 34.5 3.40503 33.33 2.37003 31.59C1.81503 30.69 1.5 29.625 1.5 28.5C1.5 26.985 2.07 25.605 3 24.54C4.095 23.295 5.7 22.5 7.5 22.5C10.815 22.5 13.5 25.185 13.5 28.5Z" stroke="#00A651" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                                                                                    <path d="M9.10638 30.0595L5.94141 26.8945" stroke="#00A651" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                                                                                    <path d="M9.05951 26.9395L5.89453 30.1044" stroke="#00A651" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                                                                                    </svg>
+                                                                                    
+                                                                                    
+                                                                                    
+                                                                                    
+                                
+                                                                            </i>
+                                                                        </span>
+                                                                        <div class=" mx-1 ms-xxl-2 ">
+                                                                           
+                                                                            <div class="text-wrap mb-1 text-center text-xxl-start" >
+                                                                              
+                                                                                <span class=" color-color1 fs-20 almarenamonolight-type">E-Wallet Closing Balance</span>
+                                                                            </div>
+                                                                            <h2 class=" gilory-semibold-type fs-30 mb-0 text-center text-xxl-start  d-xxl-flex flex-wrap  " data-target="12">
+                                                                                
+                                                                               <span class="d-block">USD : <USD>${{closing.1}}</USD></span>   
+                                                                               <svg class="mx-2 d-none d-xxl-block"  width="2" height="36" viewBox="0 0 2 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                                    <line x1="0.951172" y1="2.18557e-08" x2="0.95117" y2="36" stroke="#73759D"/>
+                                                                                </svg>
+                                                                                <span class="d-block">EUR:<EUR>E{{closing.2}}</EUR></span>
+                                                                            </h2>
+                                                                        </div>
+                                                                        
+                                                                    </div>
+                                
+                                
+                                                                </div>
+                                                                
+                                                            </div><!-- end card body -->
+                                                        </div>
+                                                        <!-- end card -->
+                                                    </div><!-- end col -->
+                                                    <div class="col-12">
+                                                        <form class="">
+                                                            <div class="row align-items-end ">
+                                                              
+                                                                <div class="col-sm-4 col-xxl-3">
+                                                                    <div class="mb-2">
+                                                                        <label class="form-label " for="Fromdate">From date<span class="color-orange">*</span></label>
+                                                                        <input  type="text" class="form-control" id="Fromdate1" placeholder="" required>
+                                                                        
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-sm-4 col-xxl-3">
+                                                                    <div class="mb-2">
+                                                                        <label class="form-label " for="Todate">To date<span class="color-orange">*</span></label>
+                                                                        <input  type="text" class="form-control" id="Todate1" placeholder="" required>
+                                                                            
+                                                                        
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-sm-4 col-xxl-4">
+                                                                    <div class="mb-2">
+                                                                        <label class="form-label " for="Transactiontype">Transaction type<span class="color-orange">*</span></label>
+                                                                        <select  type="text" class="form-select" id="Transactiontype" placeholder="" required>
+                                                                            <option value="2">Select</option>
+                                                                            <option value="0">Deposit</option>
+                                                                            <option value="1">Withdrawal</option>
+                                                                        </select>   
+                                                                       
+                                                                            
+                                                                        
+                                                                    </div>
+                                                                </div>
+                                                               <div class="col d-flex justify-content-end" >
+                                                                    <button class="btn  btn-info  btn-lg mb-2  me-2
+                                                                    " type="button" id=""  onclick="historyLoad()">History</button>
+                                                               </div>
+                                                               
+                                                        </div> 
+                                                        </form>
+                                                    </div>
+                                                
+                                                </div>
+                
+                                                    
+                                            </div>
+                                            <div class="col-xxl-3 col-md-3  d-none d-md-block ">
+                                                <div class=" card   card-h-100 border-0" style="background-color: var(--bs-card-bg) ;" >
+                                                    <div class="card-body d-flex align-items-center  justify-content-center ">
+                                                      
+                                                        <img src="{% static 'images/mt4trans.png' %}" alt="" style="width:245px; max-width:100% ;">
+                                                            
+                                                    </div>
+                                                
+                                                </div>
+                                            </div>
+                                            <div class="col">
+                                                <hr class=" my-4">
+                                            </div>    
+                                        </div>
+                                        <!--ewtransactions-->
+                                        <div class="row">
+                                            <div class="col-12">
+                                                        <div class="table-responsive "  data-simplebar="init" >
+                
+                                                            <div class="d-flex mb-4 justify-content-between" >
+                                                                <input type="text" class="form-control  " placeholder="Search" id="myinputsearch-ewtransactions" style="width:369px">
+                                                                <div >
+                                                                    <a  class="btn bg-soft-gunmetal text-white" onclick="walletReport()">E-Wallet Report</a>
+                                                                </div>
+                                                            </div>
+                                                            <table  class="table dt-responsive  nowrap  w-100 change" id="datatableewtransactions">
+                                                                <thead class="color-color1">
+                                                                    <tr  class=" gilorymedium-type fs-17">
+                                                                        <th  class="ps-0"> ID</th>
+                                                                        <th >Transaction Date</th>
+                                                                        <th  >Log In</th>
+                                                                        <th  >Amount</th>
+                                                                   
+                                                                        <th>Currency</th>
+                                                                        <th>Type</th>
+                                                                        <th>Status</th>
+                                                                        <!-- <th>Type</th> -->
+                                                                        <th>Remarks</th>
+                                                                       
+                                                                        <th class="text-end ">Decline
+                                                                        </th>
+                                                                        
+                                                                    </tr>
+                                                                </thead>
+                
+                                                                <tbody class="text-white giloryregular-type fs-16" id="report-body">
+                                                                {%for report in reports%}
+                                                                    <tr>
+                                                                  
+                                                                    <td class="ps-0">{{report.0}}</td>
+                                                                    <td>{{report.1}}</td>
+                                                                    <td>{{report.2}}</td>   
+                                                                    <td>{{report.9}}</td>
+                                                                    <td>{{report.5}}</td>
+                                                                    <td>{{report.10}}</td>
+                                                                    <td><button class="btn  btn-sm  text-warning fs-15" style="background-color:
+                                                                        rgba(221, 174, 6, 0.15) ;">Pending</button></td>
+                                                                    <!-- <td>--</td> -->
+                                                                    <td>{{report.13}}</td>
+                                                                    <td class="text-end "><button class="btn  btn-sm  text-danger fs-15" style="background-color:
+                                                                        rgba(255, 3, 3, 0.15) ;">Decline</button></td>
+                                                                    
+                                                                   
+                                                               
+                                                                    
+                                                                    </tr>
+                                                                {%endfor%}  
+                                                                  
+                                                                
+                                                            
+                                                                
+                                                                </tbody>
+                                                            
+                                                            </table>
+                                                        </div>
+                                            </div>
+                                        </div>  
+                                    </div>
+                                </div>
+                           
+                        </div>
+                    </div>
+                </div>
+                <!-- End Page-content -->
+                
+            </div>
+            <!-- end main content-->
+        </div>
+    </div>
+    {% include "common/right-sidebar.html" %}
+    
+    <!-- Right bar overlay-->
+<div class="rightbar-overlay"></div>
+<script>
+    function walletReport(){
+        var from_date=$("#Fromdate1").val()
+        var todate=$("#Todate1").val()
+        var type=$("#Transactiontype").val()
+        
+        var url="{% url 'Backoffice:HistoryEWalletReport' %}"
+                var fullurl=url
+                window.location.href=fullurl+"?&from="+from_date+"&to="+todate+"&transaction="+type
+               
+
+    }
+    function historyLoad(){
+        console.log("History load")
+        var from_date=$("#Fromdate1").val()
+        var todate=$("#Todate1").val()
+        var type=$("#Transactiontype").val()
+        var flag=0
+        console.log(from_date+todate+type)
+        if(from_date==""){
+                $("#userMsg").empty()
+                    $("#userMsg").append("Please select from date ")
+                    $("#alertpopup").modal('show')
+                    flag=1
+        }
+        if(todate==""){
+                $("#userMsg").empty()
+                    $("#userMsg").append("Please select to date ")
+                    $("#alertpopup").modal('show')
+                    flag=1
+        }
+        if(flag==0){
+               
+            $.ajax({
+                    
+                    type : "GET", 
+                    url: "{% url 'Backoffice:TransactionHistorySearch' %}",
+                    dataType: 'json',
+                    data:{
+                        'from':from_date,
+                        'to':todate,
+                        'type':type,
+                    },
+                    success: function(data){
+                        console.log("Datas===",data.reports)
+                        var reports=data.reports
+                        $("#report-body").empty()
+                        var rows=""
+                        for(i=0;i<reports.length;i++){
+                            rows+="<tr><td class='ps-0'>"+reports[i][0]+"</td><td>"+reports[i][1]+"</td><td>"+reports[i][2]+"</td><td>"+reports[i][9]+"</td>"+
+                                 "<td>"+reports[i][5]+"</td><td>"+reports[i][10]+"</td><td><button class='btn  btn-sm  text-warning fs-15' style='background-color:rgba(221, 174, 6, 0.15) ;'>Pending</button></td>"+
+                                 "<td>"+reports[i][13]+"</td><td class='text-end'><button class='btn  btn-sm  text-danger fs-15' style='background-color:rgba(255, 3, 3, 0.15) ;''>Decline</button></td></tr>"
+
+                        }
+                        $("#report-body").html(rows)
+                    }
+                })
+            }
+
+    
+}
+</script>
+<script src="{% static 'libs/flatpickr/flatpickr.min.js' %}"></script>
+<!-- Required datatable js -->
+<script src="{% static 'libs/datatables.net/js/jquery.dataTables.min.js' %}"></script>
+<script src="{% static 'libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js' %}"></script>
+<!-- Buttons examples -->
+<script src="{% static 'libs/datatables.net-buttons/js/dataTables.buttons.min.js' %}"></script>
+<script src="{% static 'libs/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js' %}"></script>
+<script src="{% static 'libs/jszip/jszip.min.js' %}"></script>
+<script src="{% static 'libs/pdfmake/build/pdfmake.min.js' %}"></script>
+<script src="{% static 'libs/pdfmake/build/vfs_fonts.js' %}"></script>
+<script src="{% static 'libs/datatables.net-buttons/js/buttons.html5.min.js' %}"></script>
+<script src="{% static 'libs/datatables.net-buttons/js/buttons.print.min.js' %}"></script>
+<script src="{% static 'libs/datatables.net-buttons/js/buttons.colVis.min.js' %}"></script>
+<!-- Datatable init js -->
+<script src="{% static 'js/pages/bo-transhistory.init.js' %}"></script> 
+
+<script src="{% static 'js/app.js' %}"></script>
+
+</body>
+
+</html>
