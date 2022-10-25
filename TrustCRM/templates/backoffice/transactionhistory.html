@@ -108,7 +108,7 @@
                                                                               
                                                                                 <span class=" color-color1 fs-20 almarenamonolight-type">Deposit</span>
                                                                             </div>
-                                                                            <h2 class=" gilory-semibold-type fs-30 mb-0 text-center text-xxl-start text-truncate" data-target="12">182981.14</h2>
+                                                                            <h2 class=" gilory-semibold-type fs-30 mb-0 text-center text-xxl-start text-truncate" data-target="12" id="mt4deposit">{{showdetail.0}}</h2>
                                                                         </div>
                                                                         
                                                                     </div>
@@ -146,9 +146,9 @@
                                                                            
                                                                             <div class="text-wrap mb-1 text-center text-xxl-start" >
                                                                               
-                                                                                <span class=" color-color1 fs-20 almarenamonolight-type">Deposit</span>
+                                                                                <span class=" color-color1 fs-20 almarenamonolight-type">Withdraw</span>
                                                                             </div>
-                                                                            <h2 class=" gilory-semibold-type fs-30 mb-0 text-center text-xxl-start text-truncate" data-target="12">182981.14</h2>
+                                                                            <h2 class=" gilory-semibold-type fs-30 mb-0 text-center text-xxl-start text-truncate" data-target="12" id="mt4withdraw">{{showdetail.1}}</h2>
                                                                         </div>
                                                                         
                                                                     </div>
@@ -184,9 +184,9 @@
                                                                            
                                                                             <div class="text-wrap mb-1 text-center text-xxl-start" >
                                                                               
-                                                                                <span class=" color-color1 fs-20 almarenamonolight-type">Deposit</span>
+                                                                                <span class=" color-color1 fs-20 almarenamonolight-type">Credit</span>
                                                                             </div>
-                                                                            <h2 class=" gilory-semibold-type fs-30 mb-0 text-center text-xxl-start text-truncate" data-target="12">182981.14</h2>
+                                                                            <h2 class=" gilory-semibold-type fs-30 mb-0 text-center text-xxl-start text-truncate" data-target="12" id="mt4credit">{{showdetail.2}}</h2>
                                                                         </div>
                                                                         
                                                                     </div>
@@ -225,15 +225,16 @@
                                                                         
                                                                         <select  type="text" class="form-select" id="Transactiontype1" placeholder="" required>
                                                                             <option value="2">Select</option>
-                                                                            <option value="0">Deposit</option>
-                                                                            <option value="1">Withdrawal</option>
+                                                                            <option value="Deposit">Deposit</option>
+                                                                            <option value="Withdrawal">Withdrawal</option>
+                                                                            <option value="Credit">Credit</option>
                                                                         </select>   
                                                                         
                                                                     </div>
                                                                 </div>
                                                                <div class="col d-flex justify-content-end" >
                                                                     <button class="btn  btn-info  btn-lg mb-2  me-2
-                                                                    " type="button" id="" >History</button>
+                                                                    " type="button" id="" onclick="mt4historyLoad()">History</button>
                                                                </div>
                                                                
                                                         </div> 
@@ -264,7 +265,7 @@
                                                      
                                                       
                                                         
-                                                        <div class="table-responsive "  style="max-height:500px" data-simplebar="init" >
+                                                        <div class="table-responsive "   data-simplebar="init" >
                 
                                                             <div class="d-flex mb-4 justify-content-between" >
                                                                 <input type="text" class="form-control  " placeholder="Search" id="myinputsearch" style="width:369px">
@@ -290,22 +291,23 @@
                                                                 </thead>
                 
                 
-                                                                <tbody class="text-white giloryregular-type fs-16">
+                                                                <tbody class="text-white giloryregular-type fs-16" id="mt4history">
+                                                                    {%for detail in rowdetails%}
                                                                     <tr>
-                                                                  
-                                                                    <td class="ps-0">300204</td>
-                                                                    <td>5032684</td>
-                                                                    <td>Comment</td>   
-                                                                    <td>Type</td>
-                                                                    <td>Currency</td>
-                                                                    <td>Amount</td>
-                                                                    <td class="text-end ">Transaction Date</td>
+                                                                        
+                                                                    <td class="ps-0">{{detail.LOGIN}}</td>
+                                                                    <td>{{detail.DEAL}}</td>
+                                                                    <td>{{detail.COMMENT}}</td>   
+                                                                    <td>{{detail.TYPE}}</td>
+                                                                    <td>{{detail.CURRENCY}}</td>
+                                                                    <td>{{detail.AMOUNT}}</td>
+                                                                    <td class="text-end ">{{detail.DATE}}</td>
                                                              
                                                                
                                                                     
                                                                     </tr>
                                                                 
-                
+                                                                    {%endfor%}
                                                                 
                                                                   
                                                                 
@@ -570,6 +572,62 @@
                
 
     }
+    function mt4historyLoad(){
+        var from_date=$("#Fromdate").val()
+        var todate=$("#Todate").val()
+        var type=$("#Transactiontype1").val()
+        var flag=0
+        console.log(from_date+todate+type)
+        if(from_date==""){
+                $("#userMsg").empty()
+                    $("#userMsg").append("Please select from date ")
+                    $("#alertpopup").modal('show')
+                    flag=1
+        }
+        if(todate==""){
+                $("#userMsg").empty()
+                    $("#userMsg").append("Please select to date ")
+                    $("#alertpopup").modal('show')
+                    flag=1
+        }
+        if(flag==0){
+               var rows=""
+               
+               document.getElementById("mt4withdraw").innerHTML=""
+               document.getElementById("mt4credit").innerHTML=""
+               document.getElementById("mt4deposit").innerHTML=""
+            $.ajax({
+                    
+                    type : "GET", 
+                    url: "{% url 'Backoffice:MT4TransactionHistory' %}",
+                    dataType: 'json',
+                    data:{
+                        'from':from_date,
+                        'to':todate,
+                        'type':type,
+                    },
+                    success: function(data){
+                        $("#mt4history").empty()
+                        showdata=data.showdetail
+                        datas=data.filter
+                        for(i=0;i<datas.length;i++){
+                            rows+="<tr><td class='ps-0'>"+datas[i]["LOGIN"]+"</td><td>"+datas[i]["DEAL"]+"</td>"+
+                            "<td>"+datas[i]["COMMENT"]+"</td><td>"+datas[i]["TYPE"]+"</td><td>"+datas[i]["CURRENCY"]+"</td>"+
+                            "<td>"+datas[i]["AMOUNT"]+"</td><td class='text-end'>"+datas[i]["DATE"]+"</td></tr>"
+                            
+                        }
+                        document.getElementById("mt4deposit").innerHTML=showdata[0]
+                        document.getElementById("mt4withdraw").innerHTML=showdata[1]
+                        document.getElementById("mt4credit").innerHTML=showdata[2]
+                        
+                        
+                        console.log(data)
+                        $("#mt4history").append(rows)
+                    }
+                })
+        
+    }
+}
     function historyLoad(){
         console.log("History load")
         var from_date=$("#Fromdate1").val()

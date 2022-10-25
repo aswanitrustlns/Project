@@ -53,7 +53,8 @@ urlpatterns=[
       path('TransactionHistory',transactions_history,name="TransactionHistory"),
       path('EWalletReport',ewallet_report,name="EWalletReport"),
       path('HistoryEWalletReport',history_ewallet_report,name="HistoryEWalletReport"),
-      path('TransactionHistorySearch',transactions_history_search,name="TransactionHistorySearch")
+      path('TransactionHistorySearch',transactions_history_search,name="TransactionHistorySearch"),
+      path('MT4TransactionHistory',mt4_transaction_history,name="MT4TransactionHistory")
 
 
      

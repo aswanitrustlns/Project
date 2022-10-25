@@ -8,7 +8,7 @@ import binascii
 from datetime import datetime,timedelta
 import re
 
-from TrustCRM.settings import UPLOAD_ROOT
+
 from .dllservice import DllService
 demoserver = "50.57.14.224:443"
 demopwd = "Tc2022"
@@ -678,29 +678,32 @@ class Selector:
         finally:
                 Cursor.close()
      #Credit history dll call
-    def history_dll_call(self,accno,fromdate,todate):
+    def history_dll_call(self,user,server,password,accno,fromdate,todate):
 
         try:
             fromdateformat=datetime.strptime(fromdate,"%Y-%m-%d")
-            fromday=fromdateformat.day
-            frommonth=fromdateformat.month
-            fromyear=fromdateformat.year
+            fromday=int(fromdateformat.day)
+            frommonth=int(fromdateformat.month)
+            fromyear=int(fromdateformat.year)
             todateformat=datetime.strptime(todate,"%Y-%m-%d")
-            today=todateformat.day
-            tomonth=todateformat.month
-            toyear=todateformat.year
-            result=dllservice.dll_client_info_time(accno,fromdate,frommonth,fromyear,todate,tomonth,toyear)
+            today=int(todateformat.day)
+            tomonth=int(todateformat.month)
+            toyear=int(todateformat.year)
+            print("Data=====",user,server,password,accno,fromdate,frommonth,fromyear,todate,tomonth,toyear)
+            row_details,showdetail=dllservice.dll_client_info_time(user,server,password,accno,fromday,frommonth,fromyear,today,tomonth,toyear)
 
         except Exception as e:
             print("Exception----",e)
-        return result
+        return row_details,showdetail
     #Load credict 
     def load_credit_dllcall(self,user,server,password,accno):
 
         try:
+            
             details=[]
-            result=""
-            dataset=""
+            row_details=[]
+            show_data=[]
+            showdetail=[]
             fromdateformat=datetime.today().date()  
             fromday=fromdateformat.day
             frommonth=fromdateformat.month
@@ -709,41 +712,12 @@ class Selector:
             today=todateformat.day
             tomonth=todateformat.month
             toyear=todateformat.year
-            # result= dllservice.dll_client_info_without_history(user,server,password,accno)
-            #dataset=dllservice.dll_client_info_time(user,server,password,accno,fromday,frommonth,fromyear,today,tomonth,toyear)
-            if(len(result)!=0):
-                
-                output_str=result.replace("~","")
-                output_str=output_str.split("^")  
-                if(output_str):              
-                    for i in output_str:
-                        data=i.split("=")
-                        details.append(data[1])
-                        print(data[1])
-            dataList={}
-            details=[]
-            if(len(dataset)!=0):
-                
-                outputstr=dataset.replace("\n","")
-                outputstr=re.split(r'[|~]+',outputstr)
-                # output_str=output_str.split("|")
-                if(outputstr):              
-                    for i in outputstr:
-                        lpdata=i.split('^')
-                        # print("Lp data",lpdata)
-                        dataList={}
-                        for j in lpdata:
-                            
-                            data=j.split("=")
-                            dataList[data[0]]=data[1] 
-                        details.append(dataList)
-            
-            data_list=[{'LOGIN': '301684', 'DEAL': '5047941', 'COMMENT': 'Credit In', 'TYPE': 'credit', 'USD': '100.00', 'OPENTIME': 'Fri Oct 21 07:02:39 2022'}, {'LOGIN': '301684', 'DEAL': '5047942', 'COMMENT': 'Credit In', 'TYPE': 'credit', 'USD': '500.00', 'OPENTIME': 'Fri Oct 21 07:06:36 2022'}, {'LOGIN': '301684', 'DEPOSIT': '0.00', 'WITHDRAW': '0.00', 'CREDIT': '600.00'}]
-            details=['301684', 'Sumitha Anish', '0.00', '600.00', '600.00', '3005']                        
+            details= dllservice.dll_client_info_without_history(user,server,password,accno)
+            row_details,showdetail=dllservice.dll_client_info_time(user,server,password,accno,fromday,frommonth,fromyear,today,tomonth,toyear)
         except Exception as e:
                 print("Exception------",e)
 
-        return details,data_list
+        return details,row_details,showdetail
    #Get ewallet balance
     def get_ewallet_balance(self,currency):
         try:
@@ -768,14 +742,37 @@ class Selector:
                 opening=Cursor.fetchone()
                 while(Cursor.nextset()):
                     closing=Cursor.fetchone()
-            
-           
-            
         except Exception as e:
                 print("Exception------",e)
         finally:
                 Cursor.close()
         return equityreport,opening,closing
+    #Get MT4 transactionhistory
+    def get_mt4_transhistory(self,user,server,password,fromdate,todate):
+        try:
+            details=[]
+            row_details=[]
+            show_data=[]
+            showdetail=[]
+            if(fromdate==""):
+                fromdateformat=datetime.today().replace(day=1)
+            else:
+                fromdateformat=datetime.strptime(fromdate,"%Y-%m-%d") 
+            if(todate==""):
+                todateformat=datetime.today().now()
+            else:
+               todateformat=datetime.strptime(todate,"%Y-%m-%d") 
+            print("date====",fromdateformat,todateformat)
+            fromday=fromdateformat.day
+            frommonth=fromdateformat.month
+            fromyear=fromdateformat.year
+            today=todateformat.day
+            tomonth=todateformat.month
+            toyear=todateformat.year
+            row_details,showdetail=dllservice.dll_get_history(user,server,password,fromday,frommonth,fromyear,today,tomonth,toyear)
+        except Exception as e:
+                print("Exception------",e)
+        return row_details,showdetail
      #Get ewallet transaction history
     def get_ewallet_transactionhistory(self,fromdate,todate,transtype):
         try:

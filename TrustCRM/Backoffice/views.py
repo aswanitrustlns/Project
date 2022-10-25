@@ -576,6 +576,7 @@ def save_creditIn_information(request):
         accno=request.POST.get('accno')
         status=request.POST.get('status')
         amount=request.POST.get('deposit')
+        
         print("Credit UIn========",accno,status)
         result=service.save_transactions(request)
         if(result=="success"):
@@ -601,11 +602,15 @@ def load_credit_history(request):
     if 'UserId' in request.session:
         data=[]
         userid=request.session.get('UserId')
-        accno=request.GET.get('accno')
+        user=request.session.get('user')
+        server=request.session.get('server')
+        password=request.session.get('password')
+        accno=int(request.GET.get('account'))
         fromdate=request.GET.get('fromdate')
         todate=request.GET.get('todate')
-        data=selector.history_dll_call(accno,fromdate,todate)
-        return JsonResponse({"datas":data})
+        print("data====",user,server,password,accno,fromdate,todate)
+        row_details,showdetail=selector.history_dll_call(user,server,password,accno,fromdate,todate)
+        return JsonResponse({"datalist":row_details,"showdata":showdetail})
     else:
         return redirect('/login')
 #Credit Load
@@ -616,9 +621,10 @@ def load_credit(request):
         user=request.session.get('user')
         server=request.session.get('server')
         password=request.session.get('password')
-        accno=request.GET.get('accno')
-        data,datalist=selector.load_credit_dllcall(user,server,password,accno)
-        return JsonResponse({"datas":data,"datalist":datalist})
+        accno=int(request.GET.get('account'))
+        print("Load credit======",user,server,password,accno)
+        data,datalist,showData=selector.load_credit_dllcall(user,server,password,accno)
+        return JsonResponse({"datas":data,"datalist":datalist,"showdata":showData})
     else:
         return redirect('/login')
 #deposit in wallet
@@ -668,9 +674,13 @@ def load_transaction_details(request):
 # Transactions history
 def transactions_history(request):
     if 'UserId' in request.session:
+        user=request.session.get('user')
+        server=request.session.get('server')
+        password=request.session.get('password')
         report,opening,closing=selector.get_ewallet_equityreport("","",4,"")
-        
-        return render(request,"backoffice/transactionhistory.html",{'reports':report,'opening':opening,'closing':closing})
+
+        row_details,showdetail=selector.get_mt4_transhistory(user,server,password,"","")
+        return render(request,"backoffice/transactionhistory.html",{'reports':report,'opening':opening,'closing':closing,'rowdetails':row_details,'showdetail':showdetail})
     else:
         return redirect('/login')
 # Transactions history json load
@@ -708,6 +718,21 @@ def history_ewallet_report(request):
                 transtype=2
             report,opening,closing=selector.get_ewallet_equityreport(from_date,to_date,transtype,"")
         return render(request,"backoffice/historyewalletreport.html",{'reports':report,'opening':opening,'closing':closing,'from':from_date,'to':to_date})
+    else:
+        return redirect('/login')
+#MT4 history 
+def mt4_transaction_history(request):
+    if 'UserId' in request.session:
+        from_date=request.GET.get('from')
+        to_date=request.GET.get('to')
+        transtype=request.GET.get('type')
+        user=request.session.get('user')
+        server=request.session.get('server')
+        password=request.session.get('password')
+        print("Fromdate====",from_date,to_date)
+        row_details,showdetail=selector.get_mt4_transhistory(user,server,password,from_date,to_date)
+        output_dict = [x for x in row_details if transtype in x['COMMENT'] ]
+        return JsonResponse({"showdetail":showdetail,"filter":output_dict})
     else:
         return redirect('/login')
 

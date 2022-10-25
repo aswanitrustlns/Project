@@ -1,4 +1,5 @@
 from ctypes import *
+import re
 #dll for change password
 class DllService:
      
@@ -7,16 +8,16 @@ class DllService:
          self.demopwd=demopwd
          self.demouser=demouser
 
-    def dll_chnage_password(self,masterPwd,investorPwd,phonePwd,accountno):
+    def dll_chnage_password(self,user,server,password,masterPwd,investorPwd,phonePwd,accountno):
         
         hllDll = CDLL(r"C:\\pyenv\\TrustManagerAPI.dll") 
         Passwords_Change = hllDll.Passwords_Change
         hllDll.Passwords_Change.argtype = c_char_p,c_int,c_char_p,c_char_p
         hllDll.Passwords_Change.restype = c_int
-        username=int(self.demouser)
+        username=int(user)
         login = c_int(username)
         account_no=c_int(accountno)
-        connect=Passwords_Change(c_char_p(self.demoserver.encode('utf-8')).value,login.value,c_char_p(self.demopwd.encode('utf-8')).value,account_no,c_char_p(masterPwd.encode('utf-8')).value,c_char_p(investorPwd.encode('utf-8')).value,c_char_p(phonePwd.encode('utf-8')).value)
+        connect=Passwords_Change(c_char_p(server.encode('utf-8')).value,login.value,c_char_p(password.encode('utf-8')).value,account_no,c_char_p(masterPwd.encode('utf-8')).value,c_char_p(investorPwd.encode('utf-8')).value,c_char_p(phonePwd.encode('utf-8')).value)
         return connect
 
     #dll update client MT4
@@ -94,6 +95,10 @@ class DllService:
      #dll client Info time
     def dll_client_info_time(self,user,server,password,accountno,fdate,fmonth,fyear,tdate,tmonth,tyear):
         
+        dataList={}
+        row_details=[]
+        show_data=[]
+        showdetail=[]
         hllDll = CDLL(r"C:\\pyenv\\TrustManagerAPI.dll") 
         Get_ClientInfo_time = hllDll.Get_ClientInfo_time
         hllDll.Get_ClientInfo_time.argtype = c_char_p,c_int,c_char_p,c_int,c_int,c_int,c_int,c_int,c_int,c_int
@@ -108,12 +113,52 @@ class DllService:
         tmonth=c_int(tmonth)
         tyear=c_int(tyear)
         info=Get_ClientInfo_time(c_char_p(server.encode('utf-8')).value,login.value,c_char_p(password.encode('utf-8')).value,account_no.value,fdate.value,fmonth.value,fyear.value,tdate.value,tmonth.value,tyear.value)
+        
         resul=string_at(info)
-        result=str(resul, 'utf-8')
-        return result
+        dataset=str(resul, 'utf-8')
+        if(len(dataset)!=0):
+                
+                output_str=dataset.replace("\n","")
+                check=output_str.find("~")
+                print("check value====",check)
+                if(check>0):
+                    show_details=re.split(r'[~]+',output_str)
+                
+                    show_data=show_details[1]
+                    output_str=re.split(r'[|]+',show_details[0])
+                    if(output_str):              
+                        for i in output_str:
+                            lpdata=i.split('^')
+                            m=0
+                            dataList={}
+                            for j in lpdata:
+                                data=j.split("=")
+                                
+                                if(m==4):
+                                    dataList['CURRENCY']=data[0]
+                                    dataList['AMOUNT']=data[1]
+                                else:
+                                    dataList[data[0]]=data[1]                              
+                                    
+                                m=m+1
+                        
+                            row_details.append(dataList)
+                else:
+                    show_data=output_str
+                show_detail=show_data.split("^")  
+                if(show_detail):              
+                        for i in show_detail:
+                            data=i.split("=")
+                            showdetail.append(data[1])
+                            print(data[1])
+            
+                print("DataList====",row_details,showdetail)                          
+
+        
+        return row_details,showdetail
     #dll client Info
     def dll_client_info_without_history(self,user,server,password,accountno):
-        
+        details=[]
         hllDll = CDLL(r"C:\\pyenv\\TrustManagerAPI.dll") 
         Get_ClientInfo_without_history = hllDll.Get_ClientInfo_without_history
         hllDll.Get_ClientInfo_without_history.argtype= c_char_p,c_int,c_char_p,c_int
@@ -124,7 +169,16 @@ class DllService:
         info=Get_ClientInfo_without_history(c_char_p(server.encode('utf-8')).value,login.value,c_char_p(password.encode('utf-8')).value,account_no.value)
         data=string_at(info)
         result=str(data, 'utf-8')
-        return result
+        if(len(result)!=0):
+                
+                output_str=result.replace("~","")
+                output_str=output_str.split("^")  
+                if(output_str):              
+                    for i in output_str:
+                        data=i.split("=")
+                        details.append(data[1])
+                        print(data[1])
+        return details
     #dll yearly deposit
     def dll_get_yearly_deposit(self,accountno):
         
@@ -191,33 +245,93 @@ class DllService:
         return pwdchange
 
     #credit in with comment
-    def dll_creditin_with_comment(self,accountno,comment,amount,expday,expmonth,expyear):
+    def dll_creditin_with_comment(self,user,server,password,accountno,comment,amount,expday,expmonth,expyear):
         
         hllDll = CDLL(r"C:\\pyenv\\TrustManagerAPI.dll") 
         CreditIn_WithComment = hllDll.CreditIn_WithComment
         hllDll.CreditIn_WithComment.argtype= c_char_p,c_int,c_char_p,c_char_p
         hllDll.CreditIn_WithComment.restype = c_int
-        username=int(self.demouser)
+        username=int(user)
         login = c_int(username)
         account_no=c_int(accountno)
         amount=c_double(amount)
         expday=c_int(expday)
         expmonth=c_int(expmonth)
         expyear=c_int(expyear)
-        info=CreditIn_WithComment(c_char_p(self.demoserver.encode('utf-8')).value,login.value,c_char_p(self.demopwd.encode('utf-8')).value,account_no.value,c_char_p(comment.encode('utf-8')),amount.value,expday.value,expmonth.value,expyear.value)
+        info=CreditIn_WithComment(c_char_p(server.encode('utf-8')).value,login.value,c_char_p(password.encode('utf-8')).value,account_no.value,c_char_p(comment.encode('utf-8')),amount.value,expday.value,expmonth.value,expyear.value)
         return info
       #credit out with comment
-    def dll_creditout_with_comment(self,accountno,comment,amount):
+    def dll_creditout_with_comment(self,user,server,password,accountno,comment,amount):
         
         hllDll = CDLL(r"C:\\pyenv\\TrustManagerAPI.dll") 
         CreditOut_WithComment = hllDll.CreditOut_WithComment
         hllDll.CreditOut_WithComment.argtype= c_char_p,c_int,c_char_p,c_char_p
         hllDll.CreditOut_WithComment.restype = c_int
-        username=int(self.demouser)
+        username=int(user)
         login = c_int(username)
         account_no=c_int(accountno)
         amount=c_double(amount)
         
-        info=CreditOut_WithComment(c_char_p(self.demoserver.encode('utf-8')).value,login.value,c_char_p(self.demopwd.encode('utf-8')).value,account_no.value,c_char_p(comment.encode('utf-8')),amount.value)
+        info=CreditOut_WithComment(c_char_p(server.encode('utf-8')).value,login.value,c_char_p(password.encode('utf-8')).value,account_no.value,c_char_p(comment.encode('utf-8')),amount.value)
         return info
+      #dll get history
+    def dll_get_history(self,user,server,password,fdate,fmonth,fyear,tdate,tmonth,tyear):
+        dataList={}
+        row_details=[]
+        show_data=[]
+        showdetail=[]
+        hllDll = CDLL(r"C:\\pyenv\\TrustManagerAPI.dll") 
+        GetHistory = hllDll.GetHistory
+        hllDll.GetHistory.argtype = c_char_p,c_int,c_char_p,c_int,c_int,c_int,c_int,c_int,c_int
+        hllDll.GetHistory.restype = POINTER(c_char_p)
+        username=int(user)
+        login = c_int(username)
+        
+        fdate=c_int(fdate)
+        fmonth=c_int(fmonth)
+        fyear=c_int(fyear)
+        tdate=c_int(tdate)
+        tmonth=c_int(tmonth)
+        tyear=c_int(tyear)
+        info=GetHistory(c_char_p(server.encode('utf-8')).value,login.value,c_char_p(password.encode('utf-8')).value,fdate.value,fmonth.value,fyear.value,tdate.value,tmonth.value,tyear.value)
+        resul=string_at(info)
+        dataset=str(resul, 'utf-8')
+        if(len(dataset)!=0):
+                
+                output_str=dataset.replace("\n","")
+                check=output_str.find("~")
+                print("check value====",check)
+                if(check>0):
+                    show_details=re.split(r'[~]+',output_str)
+                
+                    show_data=show_details[1]
+                    output_str=re.split(r'[|]+',show_details[0])
+                    if(output_str):              
+                        for i in output_str:
+                            lpdata=i.split('^')
+                            m=0
+                            dataList={}
+                            for j in lpdata:
+                                data=j.split("=")
+                                
+                                if(m==4):
+                                    dataList['CURRENCY']=data[0]
+                                    dataList['AMOUNT']=data[1]
+                                else:
+                                    dataList[data[0]]=data[1]                              
+                                    
+                                m=m+1
+                        
+                            row_details.append(dataList)
+                else:
+                    show_data=output_str
+                show_detail=show_data.split("^")  
+                if(show_detail):              
+                        for i in show_detail:
+                            data=i.split("=")
+                            showdetail.append(data[1])
+                            print(data[1])
+            
+                
+        return row_details,showdetail
     

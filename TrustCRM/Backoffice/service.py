@@ -5,7 +5,7 @@ import string
 from turtle import st
 from django.db import connection
 
-from TrustCRM.settings import PROJECT_ROOT, UPLOAD_ROOT
+
 from .emailservice import EmailServices
 from datetime import datetime, timedelta
 from ctypes import *
@@ -562,11 +562,12 @@ class Services:
     def save_transactions(self,request):
 
         try:
-            accno=request.POST.get('accno')
+            accno=int(request.POST.get('accno'))
             fullname=request.POST.get('fullname')
             balance=float(request.POST.get('balance'))
             avl_margin=float(request.POST.get('avlmargin'))
             creditin=request.POST.get('creditin')
+            status=request.POST.get('status')
             if creditin=="" or creditin==None:
                 creditin=0.0
             creditout=request.POST.get('creditout')
@@ -587,13 +588,19 @@ class Services:
             # repId=int(request.POST.get('repId'))
             initial=0
             repId=0
+            user=request.session.get('user')
+            server=request.session.get('server')
+            password=request.session.get('password')
             Cursor=connection.cursor()    
             Cursor.execute("exec SP_SaveTransaction %s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s",[accno,fullname,balance,avl_margin,creditin,creditout,deposit,withdrawal,credit,expdate,comment,initial,repId])
             expdateformat=datetime.strptime(expdate,"%Y-%m-%d")
-            expday=expdateformat.day
-            expmonth=expdateformat.month
-            expyear=expdateformat.year
-            # dllservice.dll_creditin_with_comment(accno,comment,deposit,expday,expmonth,expyear)
+            expday=int(expdateformat.day)
+            expmonth=int(expdateformat.month)
+            expyear=int(expdateformat.year)
+            if status=="creditin":
+                dllservice.dll_creditin_with_comment(user,server,password,accno,comment,deposit,expday,expmonth,expyear)
+            if status=="creditout":
+                dllservice.dll_creditout_with_comment(user,server,password,accno,comment)
         except Exception as e:
             print("Exception----",e)
         finally:

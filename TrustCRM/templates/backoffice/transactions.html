@@ -202,7 +202,7 @@
                                                                     
                                                                    
                                                                     <button class="btn btn-outline-light  btn-lg mb-2    me-2
-                                                                    " type="button" >Reset</button>
+                                                                    " type="button" onclick="resetfunction()">Reset</button>
                                                                 
                                                                     </div> 
                                                                  
@@ -246,19 +246,19 @@
             
                                                                     <div class=" gilroyregular-type  mb-2 me-1">
                                                                         <p class=" mb-0  color-color1 fs-16"> Deposit </p>
-                                                                        <span class="  text-white  fs-14"></span>
+                                                                        <span class="  text-white  fs-14" id="showDeposit"></span>
                                                                         
-                                                                    
+                                                                        
                                                                     </div>
                                                                     <div class=" gilroyregular-type  mb-2 me-1">
                                                                         <p class=" mb-0  color-color1 fs-16">Withdrawal </p>
-                                                                        <span class="  text-white  fs-14"></span>
+                                                                        <span class="  text-white  fs-14" id="showWithdraw"></span>
                                                                         
                                                                     
                                                                     </div>
                                                                     <div class=" gilroyregular-type  mb-2  me-1">
                                                                         <p class=" mb-0  color-color1 fs-16"> Credit </p>
-                                                                        <span class="  text-white  fs-14 text-wrap"></span>
+                                                                        <span class="  text-white  fs-14 text-wrap" id="showCredit"></span>
                                                                         
                                                                     
                                                                     </div>
@@ -462,16 +462,16 @@
                                                             <li> <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                                 <circle cx="6" cy="6" r="6" fill="#0CC165"></circle>
                                                                 </svg>
-                                                                <span class="text-white">Deposit:</span> <span style="color:#0CC165"> </span></li>
+                                                                <span class="text-white">Deposit:</span> <span style="color:#0CC165" id="walletdeposit"> </span></li>
                                                             <li class="ms-5"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                                 <circle cx="6" cy="6" r="6" fill="#2D8CFF"></circle>
                                                                 </svg>
-                                                            <span class="text-white">Withdrawal:  </span><span style="color:#2D8CFF"></span></li>
+                                                            <span class="text-white">Withdrawal:  </span><span style="color:#2D8CFF" id="walletwithdraw"></span></li>
                                                             <li class="ms-5"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                                 <circle cx="6" cy="6" r="6" fill=" #FF1813
                                                                 "></circle>
                                                                 </svg>
-                                                            <span class="text-white">Credit:  </span><span style="color:#2D8CFF"></span></li>
+                                                            <span class="text-white">Credit:  </span><span style="color:#2D8CFF" id="walletcredit"></span></li>
                                                         </ul>
                                                         <hr class="mt-4 mb-5"><!--divider-->
                                                         <div class="position-relative">
@@ -493,8 +493,8 @@
                                                                             
                                                                         </tr>
                                                                     </thead>
-                                                                    <tbody class="text-white giloryregular-type fs-16">
-                                                                        <tr>
+                                                                    <tbody class="text-white giloryregular-type fs-16" id="ewallet-history">
+                                                                        <!-- <tr>
                                                                             <td  class="ps-0">2C2E45</td>
                                                                             <td>Online</td>
                                                                             <td>Firas</td>
@@ -507,7 +507,7 @@
                                                                            
                                                                         
                                                                         </tr>
-                                                 
+                                                  -->
                                                                         
                                                                 
                                                                     
@@ -550,9 +550,9 @@
                                                         <div class="col" >
                                                                
                                                                 <button class="  btn btn-outline-light   btn-lg mb-2  me-2
-                                                                " type="submit" id="">History</button>
+                                                                " type="button" id="">History</button>
                                                                 <button class="btn  btn-info  btn-lg mb-2  me-2
-                                                                " type="submit" id="">Load</button>
+                                                                " type="button" id="">Load</button>
                                                         </div>
                                        
                                                         
@@ -587,8 +587,8 @@
                                                                 </thead>
                         
                         
-                                                                <tbody class="text-white giloryregular-type fs-16">
-                                                           
+                                                                <tbody class="text-white giloryregular-type fs-16" id="mt4-history">
+<!--                                                            
                                                                     <tr>
                                                                        <td class="ps-0">2C2E45</td>
                                                                        <td>Online</td>
@@ -600,7 +600,7 @@
                                                                       
                                                                    
                                                                     
-                                                                    </tr>
+                                                                    </tr> -->
                                                                     
                                                                   
                                                                  
@@ -1247,13 +1247,17 @@
                         console.log("Datas===",data.datas)
                         logdata=data.datas
                         alldata=data.datalist
+                        showdata=data.showdata
                         var rows=""
-                        console.log("datas----"+typeof(alldata)+alldata.length)
+                        console.log("datas----"+typeof(showdata)+showdata.length)
+                        document.getElementById("showDeposit").innerHTML=""
+                        document.getElementById("showWithdraw").innerHTML=""
+                        document.getElementById("showCredit").innerHTML=""
                         if(logdata.length>0){
                             $("#Fullname").val(logdata[1])
                             $("#Balance").val(logdata[2])
-                            $("#margin").val(logdata[3])
-                             $("#credit").val(logdata[4])
+                            $("#margin").val(logdata[4])
+                             $("#credit").val(logdata[3])
                              $("#credit-body").empty()
                             if(alldata.length>0){
                                 for(i=0;i<alldata.length;i++){
@@ -1261,10 +1265,14 @@
                                     currency=alldata[i][4]
                                     console.log("Currency====="+currency)
                                     rows+="<tr><td class='ps-0'>"+alldata[i]['LOGIN']+"</td><td>"+alldata[i]['DEAL']+"</td><td>"+alldata[i]['COMMENT']+"</td><td>"+alldata[i]['TYPE']+"</td>"+
-                                           "<td>USD</td><td>"+alldata[i]['USD']+"</td><td class='text-end'>"+alldata[i]['OPENTIME']+"</td></tr>"
+                                           "<td>"+alldata[i]['CURRENCY']+"</td><td>"+alldata[i]['AMOUNT']+"</td><td class='text-end'>"+alldata[i]['OPENTIME']+"</td></tr>"
                                 }
                                 $("#credit-body").append(rows)
                             }
+                           document.getElementById("showDeposit").innerHTML=showdata[1]
+                           document.getElementById("showWithdraw").innerHTML=showdata[2]
+                           document.getElementById("showCredit").innerHTML=showdata[3]
+                           
 
                         }else{
                             $("#userMsg").empty()
@@ -1330,6 +1338,7 @@
 
     }
     function walletLoad(){
+        console.log("Wallet load")
         var walletlogin=$("#walletlogin").val()
         if(walletlogin==""){
             $("#userMsg").empty()
@@ -1340,12 +1349,52 @@
             $.ajax({
                     
                     type : "GET", 
-                    url: "{% url 'Backoffice:LoadHistory' %}",
+                    url: "{% url 'Backoffice:LoadCredit' %}",
                     dataType: 'json',
                     data:{
-                        'account':accno,
+                        'account':walletlogin,
                     },
                     success: function(data){
+                        console.log("Datas===",data.datas)
+                        logdata=data.datas
+                        alldata=data.datalist
+                        showdata=data.showdata
+                        var rows=""
+                        console.log("datas----"+typeof(showdata)+showdata.length)
+                           
+                        document.getElementById("walletdeposit").innerHTML=""
+                        document.getElementById("walletwithdraw").innerHTML=""
+                        document.getElementById("walletcredit").innerHTML=""
+                        if(logdata.length>0){
+                            $("#walletFullname").val(logdata[1])
+                            $("#accbalance").val(logdata[2])
+                            $("#walletmargin").val(logdata[4])
+                            $("#walletcredit").val(logdata[3])
+                            $("#ewallet-history").empty()
+                            $("#mt4-history").empty()
+                            if(alldata.length>0){
+                                for(i=0;i<alldata.length;i++){
+                                    console.log("alldata"+alldata[i]['LOGIN'])
+                                    currency=alldata[i][4]
+                                    console.log("Currency====="+currency)
+                                    rows+="<tr><td class='ps-0'>"+alldata[i]['LOGIN']+"</td><td>"+alldata[i]['DEAL']+"</td><td>"+alldata[i]['COMMENT']+"</td><td>"+alldata[i]['TYPE']+"</td>"+
+                                           "<td>"+alldata[i]['CURRENCY']+"</td><td>"+alldata[i]['AMOUNT']+"</td><td class='text-end'>"+alldata[i]['OPENTIME']+"</td></tr>"
+                                }
+                                $("#mt4-history").append(rows)
+                            }
+                            document.getElementById("walletdeposit").innerHTML=showdata[1]
+                            document.getElementById("walletwithdraw").innerHTML=showdata[2]
+                            document.getElementById("walletcredit").innerHTML=showdata[3]
+                           
+
+                        }else{
+                            $("#userMsg").empty()
+                            $("#userMsg").append("This account not live in MT4")
+                            $("#alertpopup").modal('show')
+
+                        }
+                        
+                        
                     }
                 })
 
@@ -1376,17 +1425,46 @@
             flag=1
         }
         if(flag==0){
+            document.getElementById("showDeposit").innerHTML=""
+            document.getElementById("showWithdraw").innerHTML=""
+            document.getElementById("showCredit").innerHTML=""
+            $("#credit-body").empty() 
             $.ajax({
                     
                     type : "GET", 
                     url: "{% url 'Backoffice:LoadHistory' %}",
                     dataType: 'json',
                     data:{
-                        'account':accno,
+                        'account':creditlogin,
                         'fromdate':fromdate,
                         'todate':todate
                     },
                     success: function(data){
+                        alldata=data.datalist
+                        showdata=data.showdata
+                        document.getElementById("showDeposit").innerHTML=showdata[1]
+                        document.getElementById("showWithdraw").innerHTML=showdata[2]
+                        document.getElementById("showCredit").innerHTML=showdata[3]
+                        $("#credit-body").empty()  
+                        var rows=""
+                            if(alldata.length>0){
+                                for(i=0;i<alldata.length;i++){
+                                    console.log("alldata"+alldata[i]['LOGIN'])
+                                    currency=alldata[i][4]
+                                    console.log("Currency====="+currency)
+                                    rows+="<tr><td class='ps-0'>"+alldata[i]['LOGIN']+"</td><td>"+alldata[i]['DEAL']+"</td><td>"+alldata[i]['COMMENT']+"</td><td>"+alldata[i]['TYPE']+"</td>"+
+                                           "<td>"+alldata[i]['CURRENCY']+"</td><td>"+alldata[i]['AMOUNT']+"</td><td class='text-end'>"+alldata[i]['OPENTIME']+"</td></tr>"
+                                }
+                                $("#credit-body").append(rows)
+                            }
+                           
+
+                        else{
+                            $("#userMsg").empty()
+                            $("#userMsg").append("This account not live in MT4")
+                            $("#alertpopup").modal('show')
+
+                        }
                     }
                 })
 
@@ -1499,6 +1577,24 @@
                 var fullurl=url
                 window.open(fullurl)
     }
+    function resetfunction(){
+        $("#creditlogin").val("")
+        $("#Fullname").val("")
+        $("#Balance").val("")
+        $("#margin").val("")
+        $("#credit").val("")
+        $("#value").val("")
+        $("#expdate").val("")
+        $("#comment").val("")
+        $("#Fromdate").val("")
+        $("#Todate").val("")
+        document.getElementById("showDeposit").innerHTML=""
+            document.getElementById("showWithdraw").innerHTML=""
+            document.getElementById("showCredit").innerHTML=""
+            $("#credit-body").empty() 
+
+    }
+ 
  </script>
  <script src="{% static 'libs/flatpickr/flatpickr.min.js' %}"></script>
  <!-- Required datatable js -->
