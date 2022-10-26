@@ -774,7 +774,7 @@
                                                                                                     <path d="M29.3333 21.4993C29.3333 18.2743 26.725 15.666 23.5 15.666" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                                                                                                     </svg>
                                                                                                     
-                                                                                                <input type="tel" class="form-control  border-0" id="phone" required style="border: none !important ;">
+                                                                                                <input type="tel" class="form-control  border-0" id="phone" required style="border: none !important ;" name="phone">
                                                                                                 <span id="error-msg" class="hide position-absolute bottom-0 order-3 "></span>
                                                                                                 <span id="valid-msg" class="hide position-absolute bottom-0 order-3">✓ Valid</span>
                                                                                                
@@ -1977,7 +1977,7 @@
     var calendarEl = document.getElementById('calendar');
     var calendar
     var date = new Date();
-
+    var repname=""
     $(document).ready(function () {
         var intTel = function () {
 
@@ -2426,7 +2426,8 @@ input.addEventListener('keyup', reset(input, errorMsg, validMsg));
                             dataType: 'json',
                             data:{
                                 'account':accno,
-                                'template':template
+                                'template':template,
+                                'repname':repname
                                
                             },
                             success: function(data){
@@ -2810,7 +2811,7 @@ input.addEventListener('keyup', reset(input, errorMsg, validMsg));
                                 $("#Terminated").attr('checked',false)
                             }
                             var salesrepId=details[60]
-                            var repname=""
+                            
                             if(salesrepId==20){
                                 repname="Farah Hawilo"
                             }
@@ -3098,46 +3099,47 @@ input.addEventListener('keyup', reset(input, errorMsg, validMsg));
     
     function checkMT4(){
         $("#mt4PWD").modal('hide')
+
         var password=$("#mt4pass").val()
         var check=$("#origin").val()
         console.log("Check===="+check)
-        if(check=="client"){
-            $("#update-client").modal('show')
-            
-        }
-        if(check=="final"){
-            finalApproval()
-        }
-        if(check=="temp"){
-            tempApproval()
-        }
-        else{
-            duplicateCheckFun()
-        }
         
-        // $.ajax({
+        
+        $.ajax({
                     
-        //             type : "GET", 
-        //             url: "{% url 'Backoffice:MT4password' %}",
-        //             dataType: 'json',
-        //             data:{
-        //                 'password':password,
-        //             },
-        //             success: function(data){
-        //                 var message=data.message
-        //                 $("#mt4PWD").modal('hide')
-        //                 if(message=="success"){
-                           
-        //                     duplicateCheckFun()
-        //                 }
-        //                 else{
-        //                     ("#mt4pass").val("")
-        //                     $("#userMsg").empty()
-        //                         $("#userMsg").append("Incorrect password")
-        //                         $("#alertpopup").modal('show')
-        //                 }
-        //             }
-        // })
+                    type : "GET", 
+                    url: "{% url 'Backoffice:MT4password' %}",
+                    dataType: 'json',
+                    data:{
+                        'password':password,
+                    },
+                    success: function(data){
+                        var message=data.message
+                        $("#mt4pass").val("")
+                        if(message=="success"){
+                            if(check=="client"){
+                                $("#update-client").modal('show')
+                                
+                            }
+                            if(check=="final"){
+                                finalApproval()
+                            }
+                            if(check=="temp"){
+                                tempApproval()
+                            }
+                            else{
+                                duplicateCheckFun()
+                            }
+                        }
+                        else{
+
+                            
+                            $("#userMsg").empty()
+                                $("#userMsg").append("Incorrect password")
+                                $("#alertpopup").modal('show')
+                        }
+                    }
+        })
 
     }
     function updateDetails(){

@@ -119,8 +119,6 @@ class Selector:
             Cursor=connection.cursor()           
             Cursor.execute("set nocount on;exec SP_GetDuplicateAccounts %s",[accno]) 
             duplicate=Cursor.fetchall()
-            if duplicate:
-                duplicate=duplicate[0]
             print("Duplicate========",duplicate)
         except Exception as e:
                 print("Exception------",e)
@@ -142,25 +140,56 @@ class Selector:
         return category
 
     #temperory approve client
-    def tmpApproveClient(self,accno,userId):
+    def tmpApproveClient(self,user,server,password,accno,userId):
         try:
             Cursor=connection.cursor()           
             Cursor.execute("set nocount on;exec SP_TmpApproveClient %s,%s",[accno,userId]) 
             # category=Cursor.fetchone()
-            msg="Account approved successfully"
+            msg="Account approved successfully in database"
+            accno=int(accno)
+            info=dllservice.dll_client_info(user,server,password,accno)
+            iseditable=dllservice.dll_enable_update(user,server,password,accno)
+            if(info!=""):
+                
+                if(iseditable!=0 and iseditable==str(accno)):
+                    update=dllservice.dll_update_status(user,server,password,"TmpMaster")
+                    if(update==str(accno)):
+                        msg="Account Approved Successfully"
+
+            else:
+                msg="Account is not live in MT4"
         except Exception as e:
                 print("Exception------",e)
         finally:
                 Cursor.close()
         return msg
      #approve client
-    def approveClient(self,accno,userId):
+    def approveClient(self,user,server,password,accno,userId):
         try:
             msg="Account approved in MT4. Database update failed"
             Cursor=connection.cursor()           
             Cursor.execute("set nocount on;exec SP_ApproveClient %s,%s",[accno,userId]) 
             
-            msg="Account approved successfully"
+            msg="Account approved successfully in database"
+            accno=int(accno)
+            info=dllservice.dll_client_info(user,server,password,accno)
+            print("Info====",info)
+            iseditable=dllservice.dll_enable_update(user,server,password,accno)
+            print("edit===",iseditable)
+            if(info!=""):
+                print("Inside info")
+                accno=str(accno)
+                print("Acc no",accno)
+                if(iseditable==accno):
+                    print("Inside===iseditable")
+                    update=dllservice.dll_update_status(user,server,password,"TmpMaster")
+                    print("Update===",update)
+                    if(update==accno):
+                        print("inside update")
+                        msg="Account Approved Successfully"
+
+            else:
+                msg="Account is not live in MT4"
         except Exception as e:
                 print("Exception------",e)
         finally:
@@ -181,11 +210,17 @@ class Selector:
     
 
     #Reject documnet
-    def rejectdocument(self,accno,reasonId,description,status,user):
+    def rejectdocument(self,accno,reasonId,description,status,userid,user,server,password):
         try:
+            message="Please try again"
+            Cursor=connection.cursor()  
+            message="AccountTerminated in Database not MT4"         
+            Cursor.execute("set nocount on;exec SP_RejectDocument %s,%s,%s,%s,%s",[accno,reasonId,description,status,userid]) 
             
-            Cursor=connection.cursor()           
-            Cursor.execute("set nocount on;exec SP_RejectDocument %s,%s,%s,%s,%s",[accno,reasonId,description,status,user]) 
+            accno=int(accno)
+            message="Account Terminated in MT4"
+            upstatus=dllservice.dll_update_status(user,server,password,accno,status)
+            
             message="Account terminated successfully"
         except Exception as e:
                 print("Exception------",e)
@@ -677,6 +712,7 @@ class Selector:
                 print("Exception------",e)
         finally:
                 Cursor.close()
+        return result
      #Credit history dll call
     def history_dll_call(self,user,server,password,accno,fromdate,todate):
 
@@ -704,7 +740,7 @@ class Selector:
             row_details=[]
             show_data=[]
             showdetail=[]
-            fromdateformat=datetime.today().date()  
+            fromdateformat=datetime.today().replace(day=1)
             fromday=fromdateformat.day
             frommonth=fromdateformat.month
             fromyear=fromdateformat.year

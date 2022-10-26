@@ -80,6 +80,21 @@ $(document).ready(function () {
         
 
     });
+    
+flatpickr( '#monthSelectPlugin',{
+    plugins: [
+        new monthSelectPlugin({
+            showMonths: true,
+            shorthand: false, //defaults to false
+            dateFormat: "m.y", //defaults to "F Y"
+            altFormat: "F Y", //defaults to "F Y"
+            theme: "dark" // defaults to "light"
+        })
+    ]
+});
+
+
+    
     $("#load-btn-sr"
     ).click(function() {
         flatpickerfromdate.clear();

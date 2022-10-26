@@ -344,7 +344,7 @@ def check_mt4_password(request):
     message="fail"
     user=request.session.get('user')
     server=request.session.get('server')
-    password=request.GET.get('password')
+    password=request.session.get('password')
     connect=selector.mt4_password_checking(user,server,password)
     if connect==0:
         message="success"
@@ -425,6 +425,9 @@ def final_approval(request):
         userid=int(request.session.get('UserId'))
         accno=request.GET.get('account')
         status=selector.get_docs_verified(accno)
+        user=request.session.get('user')
+        server=request.session.get('server')
+        password=request.session.get('password')
         docverified=1
         PORstatus=""
         if status:
@@ -433,7 +436,7 @@ def final_approval(request):
         if docverified==0 or PORstatus=="Not Verified":
             message="POI and POR are mandatory before complete approval"
         else:
-           message=selector.approveClient(accno,userid)
+           message=selector.approveClient(user,server,password,accno,userid)
 
         userdetails=selector.get_email_details(accno)
         if userdetails:
@@ -453,6 +456,9 @@ def temperory_approval(request):
         message="Please try again"
         userid=int(request.session.get('UserId'))
         accno=request.GET.get('account')
+        user=request.session.get('user')
+        server=request.session.get('server')
+        password=request.session.get('password')
         status=selector.get_docs_verified_poi(accno)
         print("Status=========",status[3])
         docverified=1
@@ -463,7 +469,7 @@ def temperory_approval(request):
         if docverified==0 or POIstatus=="Not Verified":
             message="POI is mandatory for temporary approval"
         else:
-           message=selector.tmpApproveClient(accno,userid)
+           message=selector.tmpApproveClient(user,server,password,accno,userid)
         
         userdetails=selector.get_email_details(accno)
         if userdetails:
@@ -509,7 +515,10 @@ def terminate_account(request):
         accno=request.GET.get('account')
         reasonid=request.GET.get('reasonId')
         description=request.GET.get('description')
-        status=""
+        status="Terminated"
+        user=request.session.get('user')
+        server=request.session.get('server')
+        password=request.session.get('password')
         print("data====",accno,reasonid,description,status,userid)
         # status=selector.get_docs_verified(accno)
         # docverified=1
@@ -517,7 +526,7 @@ def terminate_account(request):
         # if status:
         #     docverified=status[0]
         #     PORstatus=status[3]
-        message=selector.rejectdocument(accno,reasonid,description,status,userid)
+        message=selector.rejectdocument(accno,reasonid,description,status,userid,user,server,password)
 
         userdetails=selector.get_email_details(accno)
         if userdetails:
@@ -537,7 +546,7 @@ def email_template(request):
         message="Please try again"
         accno=request.GET.get('account')
         template=request.GET.get('template')
-       
+        repname=request.GET.get('repname')
         print("Account no=====",accno,template)
         userdetails=selector.get_email_details(accno)
         if userdetails:
@@ -546,7 +555,7 @@ def email_template(request):
             name=userdetails[1]
             email=userdetails[0]
             print("Details===",title,name,email,template)
-            emailservice.sendtemplate(title,name,email,template)
+            emailservice.sendtemplate(title,name,email,template,repname)
         message="Email send successfully"
         return JsonResponse({"message":message}) 
     else:
@@ -622,9 +631,10 @@ def load_credit(request):
         server=request.session.get('server')
         password=request.session.get('password')
         accno=int(request.GET.get('account'))
+        duplicates=selector.duplicate_account(accno)
         print("Load credit======",user,server,password,accno)
         data,datalist,showData=selector.load_credit_dllcall(user,server,password,accno)
-        return JsonResponse({"datas":data,"datalist":datalist,"showdata":showData})
+        return JsonResponse({"datas":data,"datalist":datalist,"showdata":showData,"duplicates":duplicates})
     else:
         return redirect('/login')
 #deposit in wallet
@@ -735,6 +745,44 @@ def mt4_transaction_history(request):
         return JsonResponse({"showdetail":showdetail,"filter":output_dict})
     else:
         return redirect('/login')
+#Inter account transfer
+def inter_account_transfer(request):
+    if 'UserId' in request.session:
+        message="Please try again"
+        name=request.GET.get('name')
+        balance=request.GET.get('balance')
+        margin=request.GET.get('margin')
+        credit=0
+        account1=request.GET.get('account1')
+        account2=request.GET.get('account2')
+        amount=request.GET.get('amount')
+        initial=request.GET.get('initial')
+        comment1="Withdrawal From"+account1
+        comment2="Deposit To"+account2
+        user=request.session.get('user')
+        server=request.session.get('server')
+        password=request.session.get('password')
+        print("Initial====",initial)
+        
+        message=service.interaccount_transfer(account1,account2,name,balance,margin,credit,amount,comment2,user,server,password)
+        if(initial==1):
+            selector.get_live_status(account2,amount)
+        else:
+            selector.get_live_status(account2,0)
+        userdetails=selector.get_user_details(account1)
+        if userdetails:
+                userdetails=userdetails[0]
+                title=userdetails[2]
+                name=userdetails[1]
+                email=userdetails[0]
+                currency=userdetails[5]
+        dormant_check=selector.dormant_check(account1)
+        if(dormant_check==1):
+            emailservice.SendDormant(title,name,email,account2,currency)
+        return JsonResponse({"message":message})
+    else:
+        return redirect('/login')
+
 
 
 

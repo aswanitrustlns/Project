@@ -11,12 +11,12 @@ from datetime import datetime, timedelta
 from ctypes import *
 from .dllservice import DllService
 import os
-
+from .selector import Selector
 demoserver = "50.57.14.224:443"
 demopwd = "Tc2022"
 demouser = "601"
 dllservice=DllService(demoserver,demopwd,demouser)
-
+selector=Selector()
 emailservice=EmailServices()
 
 class Services:
@@ -27,12 +27,15 @@ class Services:
             phonePwd=request.POST.get('phonepassword')
             login=int(request.POST.get('login'))
             userId=int(request.session.get('UserId'))
+            user=request.session.get('user')
+            server=request.session.get('server')
+            password=request.session.get('password')
             print("Change password==========================",masterPwd,investorPwd,phonePwd,login,userId)
             
             
             Cursor=connection.cursor()    
             Cursor.execute("exec SP_ChangePasswords %s,%s,%s,%s,%s",[masterPwd,investorPwd,phonePwd,login,userId])
-            # dllservice.dll_chnage_password(masterPwd,investorPwd,phonePwd,login)
+            dllservice.dll_chnage_password(user,server,password,masterPwd,investorPwd,phonePwd,login)
             if(Cursor.nextset()):
 
                 print("Result========================================",Cursor.nextset())
@@ -64,7 +67,11 @@ class Services:
                 zipcode=0
             print("Zip code========",zipcode)
             address=request.POST.get('address')
+            if(address==None):
+                address=""
             phone=request.POST.get('phone')
+            if(phone==None):
+                phone=""
             email1=request.POST.get('email1')
             idno=request.POST.get('idno')
             leverage=int(request.POST.get('Leverage'))
@@ -171,11 +178,20 @@ class Services:
             user=request.session.get('UserId')
             mpwd=request.POST.get('mpwd')
             ipwd=request.POST.get('ipwd')
-          
+            user=request.session.get('user')
+            server=request.session.get('server')
+            password=request.session.get('password')
             Cursor=connection.cursor()
             print("data",login,ticket,name,groups,country,city,zipcode,address,phone,email1,idno,leverage,regdates,comment,taxrate,tinno,enabled,color,agent,rdonly,sendreport,changepwd,ppwd,refcode,source,mothername,nationality,created,dob,income,worth,deposit,profession,risk,riskCategory,acctype,email2,phone2,title,terminated,state,red,blue,green,score,termComment,rdonlycomment,country2,user,mpwd,ipwd)
             Cursor.execute("exec SP_UpdateClientDetailsWithLog %s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s",[login,ticket,name,groups,country,city,zipcode,address,phone,email1,idno,leverage,regdates,comment,taxrate,tinno,enabled,color,agent,rdonly,sendreport,changepwd,ppwd,refcode,source,mothername,nationality,created,dob,income,worth,deposit,profession,risk,riskCategory,acctype,email2,phone2,title,terminated,state,red,blue,green,score,termComment,rdonlycomment,country2,user,mpwd,ipwd])
             message="Updated Successfully"
+            
+            update_data="NAME="+name+"^GROUP="+groups+"^CITY="+city+"^ZIPCODE="+str(zipcode)+"^ADDRESS="+address+"^PHONE="+phone+"^EMAIL="+email1+"^COMMENT"+comment+"^USERID="+user+"^USER_AGENT="+str(agent)+"^USER_LEVERAGE="+str(leverage)+"^USER_STATE="+state+"^USER_TAXES="+str(taxrate)+"^USER_COUNTRY="+str(country)+"^LOGIN_NO="+str(login)+"^USER_ENABLE="+str(enabled)+"^USER_ENABLE_READONLY="+str(rdonly)+"^USER_ENABLE_CHANGE_PASSWORD="+str(changepwd)+"^USER_SEND_REPORTS="+str(sendreport)+"^USER_COLOR_NONE="+str(color)+"^RED="+str(red)+"^GREEN="+str(green)+"^BLUE="+str(blue)+"^GROUPCHANGE="+str(groups)
+            update_data=bytes(update_data.encode())
+            result=dllservice.dll_update_user(user,server,password,update_data)
+            print("Result===",result)
+            info=dllservice.dll_client_info(user,server,password,login)
+            print("data=====",info)
         except Exception as e:
             print("Exception----",e)
         finally:
@@ -629,6 +645,34 @@ class Services:
             print("Exception----",e)
         finally:
             Cursor.close()
+    #save inter account trasfer
+    def interaccount_transfer(self,accno1,accno2,fullname,balance,avl_margin,credit,deposit,comment,user,server,password):
+        try:
+            msg="Deposit failed in Database"
+            Cursor=connection.cursor()   
+            creditin=0
+            creditout=0
+            withdrawal=0
+            expdate=""
+            initial=0
+            repId=0
+            Cursor.execute("exec SP_SaveTransaction %s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s",[accno2,fullname,balance,avl_margin,creditin,creditout,deposit,withdrawal,credit,expdate,comment,initial,repId])
+            msg="Deposit failed in MT4"
+            dllservice.dll_enable_update(user,server,password,accno2)
+            msg="Deposit Completed Successfully"
+            userdetails=selector.get_user_details(accno1)
+            if userdetails:
+                userdetails=userdetails[0]
+                title=userdetails[2]
+                name=userdetails[1]
+                email=userdetails[0]
+                currency=userdetails[5]
+                emailservice.SendInteraccountTransferConfirmation(title,name,email,accno2,accno1,currency,deposit)
+        except Exception as e:
+            print("Exception----",e)
+        finally:
+            Cursor.close()
+            return msg
    
         
 

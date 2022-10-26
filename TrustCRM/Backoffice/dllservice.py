@@ -9,7 +9,7 @@ class DllService:
          self.demouser=demouser
 
     def dll_chnage_password(self,user,server,password,masterPwd,investorPwd,phonePwd,accountno):
-        
+        print("Password change dll call",user,server,password,masterPwd,investorPwd,phonePwd,accountno)
         hllDll = CDLL(r"C:\\pyenv\\TrustManagerAPI.dll") 
         Passwords_Change = hllDll.Passwords_Change
         hllDll.Passwords_Change.argtype = c_char_p,c_int,c_char_p,c_char_p
@@ -18,45 +18,52 @@ class DllService:
         login = c_int(username)
         account_no=c_int(accountno)
         connect=Passwords_Change(c_char_p(server.encode('utf-8')).value,login.value,c_char_p(password.encode('utf-8')).value,account_no,c_char_p(masterPwd.encode('utf-8')).value,c_char_p(investorPwd.encode('utf-8')).value,c_char_p(phonePwd.encode('utf-8')).value)
+        print("Change password connect value",connect)
         return connect
 
     #dll update client MT4
-    def dll_update_user(self,recvdata):
+    def dll_update_user(self,user,server,password,recvdata):
         
         hllDll = CDLL(r"C:\\pyenv\\TrustManagerAPI.dll") 
         Update_User = hllDll.Update_User
         hllDll.Update_User.argtype = c_char_p,c_int,c_char_p,c_char_p
         hllDll.Update_User.restype = c_char_p
-        username=int(self.demouser)
+        username=int(user)
         login = c_int(username)
         
-        user=Update_User(c_char_p(self.demoserver.encode('utf-8')).value,login.value,c_char_p(self.demopwd.encode('utf-8')).value,c_char_p(recvdata))
-        return user
+        user=Update_User(c_char_p(server.encode('utf-8')).value,login.value,c_char_p(password.encode('utf-8')).value,c_char_p(recvdata))
+        resul=string_at(user)
+        dataset=str(resul, 'utf-8')
+        return dataset
+        
 
     #dll update status
-    def dll_update_status(self,recvdata,accountno,status):
+    def dll_update_status(self,user,server,password,accountno,status):
         
         hllDll = CDLL(r"C:\\pyenv\\TrustManagerAPI.dll") 
         UpdateStatus = hllDll.UpdateStatus
         hllDll.UpdateStatus.argtype = c_char_p,c_int,c_char_p,c_char_p
         hllDll.UpdateStatus.restype = c_int
-        username=int(self.demouser)
+        username=int(user)
         login = c_int(username)
         account_no=c_int(accountno)
-        status=UpdateStatus(c_char_p(self.demoserver.encode('utf-8')).value,login.value,c_char_p(self.demopwd.encode('utf-8')).value,account_no.value,c_char_p(status))
-        return status
+        print("Data=====",type(user),type(server),type(password),type(accountno),type(status),user)
+        upstatus=UpdateStatus(c_char_p(server.encode('utf-8')).value,login.value,c_char_p(password.encode('utf-8')).value,account_no.value,c_char_p(status.encode('utf-8')))
+        print("Updated  status===",upstatus)
+       
+        return upstatus
 
     #dll get currency
-    def dll_get_currency(self,accountno):
+    def dll_get_currency(self,user,server,password,accountno):
        
         hllDll = CDLL(r"C:\\pyenv\\TrustManagerAPI.dll") 
         GetCurrency = hllDll.GetCurrency
         hllDll.GetCurrency.argtype = c_char_p,c_int,c_char_p,c_char_p
         hllDll.GetCurrency.restype = c_char_p
-        username=int(self.demouser)
+        username=int(user)
         login = c_int(username)
         account_no=c_int(accountno)
-        currency=GetCurrency(c_char_p(self.demoserver.encode('utf-8')).value,login.value,c_char_p(self.demopwd.encode('utf-8')).value,account_no)
+        currency=GetCurrency(c_char_p(server.encode('utf-8')).value,login.value,c_char_p(password.encode('utf-8')).value,account_no)
         return currency
     #DLL connection in server
     def dll_connection(self,username,server_name,password):
@@ -69,29 +76,32 @@ class DllService:
             connect=ConnectToServer_Login(c_char_p(server_name.encode('utf-8')).value,login.value,c_char_p(password.encode('utf-8')).value)
             return connect
     #dll enable update
-    def dll_enable_update(self,accountno):
+    def dll_enable_update(self,user,server,password,accountno):
         
         hllDll = CDLL(r"C:\\pyenv\\TrustManagerAPI.dll") 
         Enable_Update = hllDll.Enable_Update
         hllDll.Enable_Update.argtype = c_char_p,c_int,c_char_p,c_char_p
         hllDll.Enable_Update.restype = c_int
-        username=int(self.demouser)
+        username=int(user)
         login = c_int(username)
         account_no=c_int(accountno)
-        updates=Enable_Update(c_char_p(self.demoserver.encode('utf-8')).value,login.value,c_char_p(self.demopwd.encode('utf-8')).value,account_no.value)
+        updates=Enable_Update(c_char_p(server.encode('utf-8')).value,login.value,c_char_p(password.encode('utf-8')).value,account_no.value)
         return updates
     #dll client Info
-    def dll_client_info(self,accountno):
+    def dll_client_info(self,user,server,password,accountno):
         
         hllDll = CDLL(r"C:\\pyenv\\TrustManagerAPI.dll") 
         Get_ClientInfo = hllDll.Get_ClientInfo
         hllDll.Get_ClientInfo.argtype = c_char_p,c_int,c_char_p,c_char_p
         hllDll.Get_ClientInfo.restype = c_int
-        username=int(self.demouser)
+        username=int(user)
         login = c_int(username)
         account_no=c_int(accountno)
-        info=Get_ClientInfo(c_char_p(self.demoserver.encode('utf-8')).value,login.value,c_char_p(self.demopwd.encode('utf-8')).value,account_no.value)
-        return info
+        info=Get_ClientInfo(c_char_p(server.encode('utf-8')).value,login.value,c_char_p(password.encode('utf-8')).value,account_no.value)
+        
+        resul=string_at(info)
+        dataset=str(resul, 'utf-8')
+        return dataset
      #dll client Info time
     def dll_client_info_time(self,user,server,password,accountno,fdate,fmonth,fyear,tdate,tmonth,tyear):
         
@@ -180,41 +190,41 @@ class DllService:
                         print(data[1])
         return details
     #dll yearly deposit
-    def dll_get_yearly_deposit(self,accountno):
+    def dll_get_yearly_deposit(self,user,server,password,accountno):
         
         hllDll = CDLL(r"C:\\pyenv\\TrustManagerAPI.dll") 
         GetYearlyDeposit = hllDll.GetYearlyDeposit
         hllDll.GetYearlyDeposit.argtype= c_char_p,c_int,c_char_p,c_char_p
         hllDll.GetYearlyDeposit.restype= c_double
-        username=int(self.demouser)
+        username=int(user)
         login = c_int(username)
         account_no=c_int(accountno)
-        info=GetYearlyDeposit(c_char_p(self.demoserver.encode('utf-8')).value,login.value,c_char_p(self.demopwd.encode('utf-8')).value,account_no.value)
+        info=GetYearlyDeposit(c_char_p(server.encode('utf-8')).value,login.value,c_char_p(password.encode('utf-8')).value,account_no.value)
         return info
 
     #dll yearly deposit
-    def dll_net_deposit(self,accountno):
+    def dll_net_deposit(self,user,server,password,accountno):
         
         hllDll = CDLL(r"C:\\pyenv\\TrustManagerAPI.dll") 
         GetNetDeposit = hllDll.GetNetDeposit
         hllDll.GetNetDeposit.argtype= c_char_p,c_int,c_char_p,c_char_p
         hllDll.GetNetDeposit.restype= c_double
-        username=int(self.demouser)
+        username=int(user)
         login = c_int(username)
         account_no=c_int(accountno)
-        info=GetNetDeposit(c_char_p(self.demoserver.encode('utf-8')).value,login.value,c_char_p(self.demopwd.encode('utf-8')).value,account_no.value)
+        info=GetNetDeposit(c_char_p(server.encode('utf-8')).value,login.value,c_char_p(password.encode('utf-8')).value,account_no.value)
         return info
     #openorclosed
-    def dll_openorclosed_today(self,accountno):
+    def dll_openorclosed_today(self,user,server,password,accountno):
         
         hllDll = CDLL(r"C:\\pyenv\\TrustManagerAPI.dll") 
         OpenORClosedToday = hllDll.OpenORClosedToday
         hllDll.OpenORClosedToday.argtype= c_char_p,c_int,c_char_p,c_char_p
         hllDll.OpenORClosedToday.restype= c_int
-        username=int(self.demouser)
+        username=int(user)
         login = c_int(username)
         account_no=c_int(accountno)
-        info=OpenORClosedToday(c_char_p(self.demoserver.encode('utf-8')).value,login.value,c_char_p(self.demopwd.encode('utf-8')).value,account_no.value)
+        info=OpenORClosedToday(c_char_p(server.encode('utf-8')).value,login.value,c_char_p(password.encode('utf-8')).value,account_no.value)
         return info
     #dll withdrawel with comment
     def dll_withdraw_comment(self,accountno,comment,amount):
@@ -334,4 +344,19 @@ class DllService:
             
                 
         return row_details,showdetail
+    #Inter account transfer
+    def dll_inter_account_transfer(self,user,server,password,accountno1,accountno2,comment1,comment2,amount):
+        
+        hllDll = CDLL(r"C:\\pyenv\\TrustManagerAPI.dll") 
+        InterAccount = hllDll.InterAccount
+        hllDll.InterAccount.argtype= c_char_p,c_int,c_char_p,c_char_p
+        hllDll.InterAccount.restype = c_int
+        username=int(user)
+        login = c_int(username)
+        account_no1=c_int(accountno1)
+        account_no2=c_int(accountno2)
+        amount=c_double(amount)
+        
+        info=InterAccount(c_char_p(server.encode('utf-8')).value,login.value,c_char_p(password.encode('utf-8')).value,account_no1.value,c_char_p(comment1.encode('utf-8')),amount.value,account_no2.value,c_char_p(comment2.encode('utf-8')))
+        return info
     
