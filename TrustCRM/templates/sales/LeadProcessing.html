@@ -2263,8 +2263,9 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
         $("#country").change(function(){ 
             var countrycode=$('option:selected',this).data("value")
             console.log("Country code==================="+countrycode)
-            iti.setCountry(countrycode);
-            iti2.setCountry(countrycode);
+            iti.setCountry(countrycode)
+            iti2.setCountry(countrycode)
+            document.getElementById("phone").focus()
             // var input = document.querySelector("#phone") 
             // var iti = window.intlTelInput(input, {        
             //     initialCountry: "in",
@@ -2562,12 +2563,23 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
     $("#summary_div").empty()
     $("#chatsDiv").hide()
     $("#journal-nothing").show()
+    document.getElementById("valid-msg").innerHTML=""
+    document.getElementById("valid-msg2").innerHTML=""
+    document.getElementById("error-msg").innerHTML=""
+    document.getElementById("error-msg2").innerHTML=""
     calendar.removeAllEvents()
-   
+    let country=document.getElementById("country")
+    let code=country.selectedOptions[0].getAttribute("data-value")
+    console.log("Country code reset====="+code)
+    iti.setCountry(code);
+    iti2.setCountry(code);
+    $("#submitftypeleads").attr('disabled','disabled')
+    $("#resetftypeleads").attr('disabled','disabled')
+    $("#digital-container").hide()
     nowebinar()
     gauge1(0)
     gauge2(0)
-
+    
 	
 	
 }
@@ -2626,6 +2638,7 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
 
 
     function openStickyPopup(){
+
         $("#stickymodel").modal('show')
 
     }
@@ -2633,6 +2646,8 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
         var ticket=document.getElementById("ticketno").value
         
         if(ticket == ''){
+            $("#userMsg").empty()
+            $("#userMsg").append("Please enter the ticket number to continue")
             $("#alertpopup").modal('show')
         }
         else{
@@ -2811,7 +2826,10 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
         var ticket=document.getElementById("ticketno").value
        
         if(ticket == ''){
+            $("#userMsg").empty()
+            $("#userMsg").append("Please enter the ticket number to continue")
             $("#alertpopup").modal('show')
+            
             
         }
         else{
@@ -2860,7 +2878,10 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
     function opendemoaccount(){
         var ticket=document.getElementById("ticketno").value
         if(ticket == ''){
+            $("#userMsg").empty()
+            $("#userMsg").append("Please enter the ticket number to continue")
             $("#alertpopup").modal('show')
+            
             
         }
         else{
@@ -2974,7 +2995,10 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
         var ticket=document.getElementById("ticketno").value
        
         if(ticket == ''){
+            $("#userMsg").empty()
+            $("#userMsg").append("Please enter the ticket number to continue")
             $("#alertpopup").modal('show')
+            
             
         }
         else{
@@ -3012,7 +3036,10 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
         
         var csrftoken = $("[name=csrfmiddlewaretoken]").val();  
         if(ticket == ''){
+            $("#userMsg").empty()
+            $("#userMsg").append("Please enter the ticket number to continue")
             $("#alertpopup").modal('show')
+            
             
         }else{   
                 $.ajax({
@@ -3104,7 +3131,10 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
         const simpleBarSendMail = new SimpleBar(document.getElementById('send-block'));
         // simpleBarSendMail.recalculate();
         if(ticket == ''){
+            $("#userMsg").empty()
+            $("#userMsg").append("Please enter the ticket number to continue")
             $("#alertpopup").modal('show')
+            
             
         }else{ 
              var leadsmail=document.getElementById("email1").value
@@ -3205,7 +3235,10 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
         var email_data =editorinstance.getData();        
         var ticket=document.getElementById("ticketno").value
         if(ticket == ''){
+            $("#userMsg").empty()
+            $("#userMsg").append("Please enter the ticket number to continue")
             $("#alertpopup").modal('show')
+            
             
         }else{
         $.ajax({
@@ -3317,13 +3350,32 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
         var phone1=$("#phone").val()
         var phone2=$("#phone2").val()
         var country=$("#country").val()
-        console.log("Countrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr"+country)
         var subject=$("#subject").val()
-        console.log("Subject------------------------"+subject)
-        console.log("Email 11111"+email1)
         let is_agree = $('#emailuav')[0].checked
-        console.log("Agreee"+is_agree)
-        if(country ==0){
+        var phonevalid=document.getElementById("error-msg").innerHTML
+        var phonevalid2=document.getElementById("error-msg2").innerHTML
+        var ticket=document.getElementById("ticketno").value
+        if(ticket==""){
+            $("#userMsg").empty()
+            $("#userMsg").append("Please enter the ticket number to continue")
+            $("#alertpopup").modal('show')
+            flag=1
+
+        }
+        else if(phonevalid=="Invalid number"|| phonevalid=="Invalid country code"||phonevalid=="Too short"||phonevalid=="Too long"||phonevalid=="Invalid number"){
+            $("#userMsg").empty()
+            $("#userMsg").append("Invalid phone number")
+            $("#alertpopup").modal('show')
+            flag=1
+        }
+        else if(phonevalid2=="Invalid number"|| phonevalid2=="Invalid country code"||phonevalid2=="Too short"||phonevalid2=="Too long"||phonevalid2=="Invalid number"){
+            $("#userMsg").empty()
+            $("#userMsg").append("Invalid phone number")
+            $("#alertpopup").modal('show')
+            flag=1
+        }
+
+        else if(country ==0){
             $("#userMsg").empty()
             $("#userMsg").append("Please enter the country to proceed")
             $("#alertpopup").modal('show')
@@ -3523,7 +3575,10 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
         var ticket=document.getElementById("ticketno").value
         
         if(ticket == ''){
+            $("#userMsg").empty()
+            $("#userMsg").append("Please enter the ticket number to continue")
             $("#alertpopup").modal('show')
+            
             
         }
         else{
@@ -3646,7 +3701,10 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
 
         var ticket=document.getElementById("ticketno").value
         if(ticket == ''){
+            $("#userMsg").empty()
+            $("#userMsg").append("Please enter the ticket number to continue")
             $("#alertpopup").modal('show')
+            
             
         }
         else{
@@ -3811,7 +3869,10 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
 
         var ticket=document.getElementById("ticketno").value
         if(ticket == ''){
+            $("#userMsg").empty()
+            $("#userMsg").append("Please enter the ticket number to continue")
             $("#alertpopup").modal('show')
+            
             
         }
         else{
@@ -3859,7 +3920,10 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
 
         var ticket=document.getElementById("ticketno").value
         if(ticket == ''){
+            $("#userMsg").empty()
+            $("#userMsg").append("Please enter the ticket number to continue")
             $("#alertpopup").modal('show')
+            
             
         }
         else{
@@ -3878,7 +3942,10 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
             $("#stickyLink").hide()
         }
         if(ticket == ' '){
+            $("#userMsg").empty()
+            $("#userMsg").append("Please enter the ticket number to continue")
             $("#alertpopup").modal('show')
+            
             
         }
         else{

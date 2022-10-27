@@ -106,7 +106,7 @@ class DashboardSelector:
             active_campaigns=Cursor.fetchall()        
             
             active_campaigns_count=len(active_campaigns)
-
+            
             for journel in journels:
                 log_data=journel[0].split(":",1)  
                 log_data[0]=log_data[0].strip()            
@@ -458,6 +458,8 @@ class DashboardSelector:
             spokencall=Cursor.fetchall()
             Cursor.execute("set nocount on;exec SP_GetActiveCampaigns")
             active_campaigns=Cursor.fetchall()  
+            active_campaigns_count=len(active_campaigns)
+            print("Active campaing count=====",active_campaigns_count)
             Cursor.execute("exec SP_GetSummaryToday %s",[userId])
             reminders=Cursor.fetchall()  
             while (Cursor.nextset()):
@@ -469,6 +471,7 @@ class DashboardSelector:
             print("Reminder count====",reminder_count,type(reminder_count))
 
             if(reminder_count == 0):
+
                  reminder_count_show="00"
                  print("reminder count is zero")
             else:
@@ -576,7 +579,7 @@ class DashboardSelector:
                     })
           
             manager_data={'funded_today':live_funded_today,'nonfunded_today':live_nonfund_today,'funded_week':live_funded_week,'nonfunded_week':live_nonfund_week,'webinars':weekly_webinar,'livechat':live_chat,'calls':spokencall,'campaigns':active_campaigns,'reminders':reminders,
-                           'approved':pending_approved,'waiting':pending_waiting,'summary':monthly_summary,'ticket_summary':ticket_summary_bar,'remindercount':reminder_count,'reminder_count_show':reminder_count_show,
+                           'approved':pending_approved,'waiting':pending_waiting,'summary':monthly_summary,'ticket_summary':ticket_summary_bar,'remindercount':reminder_count,'reminder_count_show':reminder_count_show,'campaign_count':active_campaigns_count,
                            'leads_graph':status_bar,'meeting_daily_pie': meeting_daily_pie,'meeting_weekly_pie':meeting_weekly_pie,'seminar_weekly_pie': seminar_weekly_pie,'seminar_daily_pie':seminar_daily_pie,'halfyearly_bar':halfyearly_bar}    
         except Exception as e:
             print("!!!!!!!!!!!!!!!!!!!!!!Exception!!!!!!!!!!!!!!!!!!!!!!!!!!",e.__class__)   

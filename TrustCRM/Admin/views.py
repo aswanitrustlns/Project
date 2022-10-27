@@ -1173,11 +1173,11 @@ def get_sales_report_monthly(request):
     if 'UserId' in request.session:        
        
         repId=request.GET.get('repId')
-        month=request.GET.get('month')
-        year=request.GET.get('year')
-        print("From date=======================",month,year,repId)
+        dates=request.GET.get('month')
+        dates=dates.split("-")
+        month=dates[0]
+        year=dates[1]
         salesreport=selector.get_sales_call_report_monthly(month,year,repId)
-        print("Report=====",salesreport)
         return JsonResponse({"report":salesreport})
     else:
         return redirect('/login')

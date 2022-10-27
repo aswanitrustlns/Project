@@ -21,7 +21,7 @@
       <link rel="stylesheet" href="{% static 'libs/flatpickr/flatpickr.min.css' %}">
     {% include "common/link.html" %}
     {% include "common/scripts.html" %}
-
+    {% load tz %}
    
 
  
@@ -66,16 +66,16 @@
                         <div class="col-md-12 ">
     
                             <p class="color-color1 gilroyregular-type fs-17 mb-4 ">This page allows you to add/edit upcoming seminars.</p>
-                            <div>
+                            <!-- <div>
     
                                 <p class="d-flex align-items-center my-2"><svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <circle cx="6.5" cy="6.5" r="6.5" fill="#FFA023"/>
                                     </svg>
-                                    <span class="gilroyregular-type fs-17 mx-2">Last Seminar Scheduled <span class="badge   mx-2 rounded-pill rounded-circle p-2 fs-11 float-end" style="background-color:
+                                     <span class="gilroyregular-type fs-17 mx-2">Last Seminar Scheduled <span class="badge   mx-2 rounded-pill rounded-circle p-2 fs-11 float-end" style="background-color:
                                         
         
                                         rgba(255, 160, 35, 0.1) ;color: rgba(255, 160, 35, 1);">{{last.0}}</span></p>
-                            </div>
+                            </div> -->
                         </div>
                         
                     </div>
@@ -473,7 +473,7 @@
                                         </svg>
                                         </button>
                                     
-                                    <button class="btn btn-primary btn-lg mt-3" type="button" onclick="updateEnForm()">Update</button>
+                                    <button class="btn btn-primary btn-lg mt-3" type="button" id="update-btn" onclick="updateEnForm()" disabled>Update</button>
                                     <button class="btn btn-outline-light btn-lg mt-3 ms-3" type="button" onclick="deleteEnForm()">Delete</button>
                                    
                                
@@ -514,14 +514,14 @@
     
                                             <tbody>
                                             {%for seminar in seminars%}
-                                       
-                                                <tr onclick='loadSeminardetails("{{seminar.0}}")'>
-                                                    <td data-order="1558357779">{{seminar.0}}</td>
-                                                    <!-- <td><a href="">View</a></td> -->
-                                                    <td>{{seminar.1}}</td>
-                                                    <td>{{seminar.2}}</td>
-                                                
-                                                </tr>
+                                                {% now "Y-m-d" as todays_date %}
+                                                    <tr onclick='loadSeminardetails("{{seminar.0}}")'>
+                                                        <td data-order="1558357779">{{seminar.0}}</td>
+                                                        <!-- <td><a href="">View</a></td> -->
+                                                        <td>{{seminar.1}}  </td>
+                                                        
+                                                        <td  {%if seminar.1 <=  todays_date %} style="color: yellow;" {%else%} style="color: green;"{%endif%}>{{seminar.2}}</td>
+                                                    </tr>
                                             
                                                
                                             {%endfor%}
@@ -852,7 +852,14 @@
                 console.log("Times====================="+dates)
                 loadDate=dates[0]
                 loadTime=dates[1]
-                console.log("Seperate date time========"+loadDate+loadTime)
+                let date1 = new Date()
+                let date2 = new Date(loadDate)
+                if (date1 > date2) {
+                    $("#update-btn").attr("disabled", "disabled")
+                    } 
+                if (date1 < date2) {
+                    $("#update-btn").removeAttr('disabled')
+                    } 
                 // flatpickr('#ardate', {
                 //         //inline: true,
                 //         "allowInput":true,

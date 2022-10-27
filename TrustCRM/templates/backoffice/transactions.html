@@ -68,7 +68,7 @@
                                 <div class="col-12">
                                     <ul class="nav justify-content-start nav-tabs-custom  px-0 gilroymedium-type fs-25 my-3  nav-tabs-custom-after-top border-0" role="tablist">
                                         <li class="nav-item" style=" width:calc(100% / 3 );"  data-title="Credit Facility ">
-                                            <a class="nav-link active text-center" data-bs-toggle="tab" href="#actions-cf-tab" role="tab">
+                                            <a class="nav-link active text-center" data-bs-toggle="tab" href="#actions-cf-tab" role="tab" onclick="resetOnClick()">
                                             
                                                 <span class=""> Credit Facility
                                                 </span>
@@ -76,14 +76,14 @@
                                             </a>
                                         </li>
                                         <li class="nav-item" style=" width:calc(100% / 3 );" data-title="E-Wallet Deposit/Withdrawal">
-                                            <a class="nav-link  text-center " data-bs-toggle="tab" href="#actions-ew-tab" role="tab">
+                                            <a class="nav-link  text-center " data-bs-toggle="tab" href="#actions-ew-tab" role="tab" onclick="resetOnClick()">
                                             
                                                 <span class="">  E-Wallet</span>
                                             
                                             </a>
                                         </li>
                                         <li class="nav-item" style=" width:calc(100% / 3 );" data-title="Inter Account Transfer ">
-                                            <a class="nav-link  text-center " data-bs-toggle="tab" href="#actions-intacctr-tab" role="tab">
+                                            <a class="nav-link  text-center " data-bs-toggle="tab" href="#actions-intacctr-tab" role="tab" onclick="resetOnClick()">
                                             
                                                 <span class=""> Inter account transfer</span>
                                             
@@ -310,7 +310,7 @@
                                                 <div class="row">
                                                     <div class="col-12">
     
-                                                            <form class="mb-4">
+                                                            <form class="mb-4" id="wallet-login-form">
                                                                 <div class="row align-items-end  justify-content-start">
                                     
                                                                     <div class="col-sm-4 col-lg-2 col-xxl-1">
@@ -332,7 +332,7 @@
                                                                     
                                                             </div> 
                                                             </form>
-                                                            <form>
+                                                            <form id="wallet-submit-form">
                                                                 <div class="row align-items-end ">
                                                                 
                                                                     <div class="col-sm-6 col-md-4 col-xxl-3">
@@ -1890,7 +1890,9 @@
         $("#margin").val("")
         $("#credit").val("")
         $("#value").val("")
-        $("#expdate").val("")
+        let exp = $("#expdate").flatpickr();
+        exp.clear()
+        
         $("#comment").val("")
         $("#Fromdate").val("")
         $("#Todate").val("")
@@ -1898,6 +1900,27 @@
             document.getElementById("showWithdraw").innerHTML=""
             document.getElementById("showCredit").innerHTML=""
             $("#credit-body").empty() 
+
+    }
+    function resetOnClick(){
+        $("#login-form")[0].reset()
+        $("#facility-form")[0].reset()
+        $("#wallet-login-form")[0].reset()
+        $("#wallet-submit-form")[0].reset()
+        document.getElementById("toname").innerHTML=""
+        document.getElementById("tobalance").innerHTML=""
+        document.getElementById("tocredit").innerHTML=""
+        document.getElementById("tomargin").innerHTML=""
+        document.getElementById("loadtodeposit").innerHTML=""
+        document.getElementById("loadtowithdraw").innerHTML=""
+        document.getElementById("loadtocredit").innerHTML=""
+        document.getElementById("fromname").innerHTML=""
+        document.getElementById("frombalance").innerHTML=""
+        document.getElementById("fromcredit").innerHTML=""
+        document.getElementById("frommargin").innerHTML=""
+        document.getElementById("loadfromdeposit").innerHTML=""
+        document.getElementById("loadfromwithdraw").innerHTML=""
+        document.getElementById("loadfromcredit").innerHTML=""
 
     }
  

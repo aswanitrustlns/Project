@@ -60,8 +60,8 @@ $(document).ready(function () {
     });
     $("#load-btn-sc"
     ).click(function() {
-        flatpickerfromdate.clear();
-        flatpickertodate.clear();
+        // flatpickerfromdate.clear();
+        // flatpickertodate.clear();
         // flatpickr.clear();
         
      })

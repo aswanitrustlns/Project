@@ -18,6 +18,7 @@
          type="text/css" />-->
       <!-- datepicker css -->
       <link rel="stylesheet" href="{% static 'libs/flatpickr/flatpickr.min.css' %}">
+      <link rel="stylesheet" href="{% static 'libs/flatpickr/plugins/monthSelect/style.css' %}"></link>
     {% include "common/link.html" %}
     {% include "common/scripts.html" %}
 
@@ -51,6 +52,7 @@
                                 <div class="ms-auto">
                                     <a target="_top" class="btn  btn-sm  bg-soft-secondarycolor text-white me-2  mb-2"  style="background-color: var(--bs-card-bg)" onclick="printReport();"><i class="fa fa-print me-2"></i><span>Print</span></a>
                                     <!-- <a href="javascript:window.print()" class="btn  btn-sm  bg-soft-secondarycolor text-white me-2  mb-2"  style="background-color: var(--bs-card-bg)"><i class="fa fa-print me-2"></i><span>Print Report All</span></a> -->
+                                
                                     <a class="btn  btn-sm  bg-soft-secondarycolor text-white me-2  mb-2"  style="background-color: var(--bs-card-bg)" data-bs-toggle="modal" data-bs-target="#monthly-report"><i class="fa fa-save me-2"></i><span>Monthly Call Report</span></a>
                                 
                                 </div>
@@ -227,8 +229,9 @@
                                         <div class="col-12">
                                             <div class="mb-3">
                                                 <!--<label class="form-label">Event Name</label>-->
-                                                <input type="text"    class="flatpickr form-control input" data-id="monthSelectPlugin" >
-                                                
+                                                <form name="monthform" id="month-form">
+                                                <input type="text"    class="form-control input" id="monthly" >
+                                                </form>
                                                 
                                             </div>
                                             <div class="row mt-2">
@@ -249,6 +252,102 @@
                     </div> <!-- end modal-content-->
                 </div> <!-- end modal dialog-->
             </div>  
+            <div class="modal fade bs-example-modal-insta" tabindex="-1" role="dialog" aria-hidden="true" id="alertpopup">
+                <div class="modal-dialog modal-dialog-centered"   style="z-index: 10555;">
+                    <div class="modal-content">
+                        <div class="modal-header border-0">
+                            <h5 class=" fs-16">
+                                <div id="userMsg"></div>
+                            </h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                                                
+                                <!-- <div class="modal-body" >
+                    
+                    
+                                        <div data-simplebar style="max-height: 230px;">
+                        
+                                          
+                                            
+                                        </div>
+                                    </div> -->
+                       
+                    </div>
+                 </div>
+                </div>
+                <div class="modal fade  bs-example-modal-seminars" tabindex="-1" role="dialog" aria-hidden="true" id="reportpopup">
+                                          
+                    <div class="modal-dialog modal-dialog-centered  modal-lg d-block">
+                     
+
+                 
+                        <div class="modal-content mb-4">
+                         
+                            
+                   
+                            <div class="modal-body">
+
+                            
+
+                              
+                             <div class="border-dashed rounded-3 px-3 py-3">
+                                 <div class="modal-header border-0 px-0">
+                                     <h5 class="modal-title fs-21 ">Monthly Sales Calls Report </h5>
+
+                                     <a href="" data-bs-dismiss="modal" aria-label="Close">
+                                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                             <path d="M9.16992 14.83L14.8299 9.17" stroke="var(--white)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                                             <path d="M14.8299 14.83L9.16992 9.17" stroke="var(--white)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                                             <path d="M9 22H15C20 22 22 20 22 15V9C22 4 20 2 15 2H9C4 2 2 4 2 9V15C2 20 4 22 9 22Z" stroke="white" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                                             </svg>
+
+                                         </a>
+                                 </div>
+                             
+
+                                 <div class="table-responsive" data-simplebar style="max-height: 352px;">
+                                     <table class="table mb-0 ">
+                                        <thead>
+                                        
+                                            <tr class="almarenamonolight-type fs-14">
+                                                <th>Date</th>
+                                                <th>Day</th>
+                                                <th>Ticket Count</th>
+                                                <th>Trust Login</th>
+                                                
+                                            </tr>
+                                        </thead>
+
+
+                                         <tbody class="gilroyregular-type fs-15" id="reportbody">
+                                        
+
+
+                                         </tbody>
+                                     </table>
+
+                                     
+                                 </div>
+
+
+                             </div>
+                             
+
+
+                             
+                            
+                                
+                            </div>
+
+                            
+                        </div><!-- /.modal-content -->
+
+                      
+
+                       
+
+                    </div>
+                    </div>
             
     {% include "common/right-sidebar.html" %}
         
@@ -284,10 +383,10 @@
                         document.getElementById("interested-span").innerHTML=""
                         $("#report-body").empty()
                         $("#report-footer").empty()
-                        console.log("%%%%%%%%%%%%%"+report[reportlen])
+                        
                         for(var i=0;i<reportlen-1;i++){
                             
-                            console.log("*******************"+report[i][0])
+                            
                             row+="<tr><td scope='row'>"+report[i][0]+"</td><td>"+report[i][1]+"</td><td>"+report[i][2]+"</td><td>"+report[i][3]+"</td><td>"+report[i][4]+"</td><td>"+report[i][5]+"</td><td class='text-end'>"+report[i][6]+"</td></tr>";
                         }
                         $("#report-body").append(row)
@@ -299,13 +398,18 @@
                                     $("#report-footer").append(footer)
                         var spoken_total=report[footerlen][1]
                         var _total=report[footerlen][6]
-                        console.log("Totals=================="+spoken_total)
+                        
                          var spokenper=(parseInt(spoken_total)/parseInt(_total))*100
                          spokenper=spokenper.toFixed(2)
-                         console.log("Spoken percentage==="+spokenper)
+                         
                          document.getElementById("spoken-span").innerHTML=spokenper+"%"
                         }
                        document.getElementById("interested-span").innerHTML=interested
+                       if(reportlen<=0){
+                        
+                        var nothing="<tr><td></td><td></td><td></td><td>Noting to show</td><td></td><td></td><td></td></tr>"
+                        $("#report-body").append(nothing)
+                       }
                         $("#interested-ul").show()
 
                         
@@ -314,26 +418,65 @@
             
         }
         function monthlyreportLoad(){
-            var monthly=document.getElementById('month').value
-            var year=document.getElementById('year').value
-            var repId=$("#salesrepId").val()
-            
-            console.log("monthly input issssssssssssssssssss"+monthly)
-            $.ajax({
-                    
-                    type : "GET", 
-                    url: "{% url 'Admin:MonthlyReport' %}",
-                    data:{
-                        "month":monthly,
-                        "year":year,
-                        "repId":repId
-                    },
-                    
-                    
-                    success: function(data){
-                    }
-            })
+            var monthly=document.getElementById('monthly').value
 
+            var repId=$("#salesrepId").val()
+            var flag=0
+            $("#monthly-report").modal('hide')
+           
+            console.log("monthly input issssssssssssssssssss"+monthly)
+            if(repId=="0"){
+                $("#userMsg").empty()
+                $("#userMsg").append("Please select sales rep")
+                $("#alertpopup").modal('show')
+                flag=1
+            }
+            if(monthly=="")
+            {
+                $("#userMsg").empty()
+                $("#userMsg").append("Please select month and year")
+                $("#alertpopup").modal('show')
+                flag=1
+
+            }
+            if(flag==0){
+                $("#reportbody").empty()
+                    $.ajax({
+                        
+                        type : "GET", 
+                        url: "{% url 'Admin:MonthlyReport' %}",
+                        data:{
+                            "month":monthly,
+                            
+                            "repId":repId
+                        },
+                        
+                        
+                        success: function(data){
+                            var report=data.report
+                            var reportlen=report.length
+                            var row=""
+                            var login=""
+                            for(var i=0;i<reportlen;i++){
+                            
+                            console.log("*******************"+report[i][0])
+                            if(report[i][4]==null){
+                                login=""
+                            }
+                            else{
+                                login=report[i][4]
+                            }
+                            row+="<tr><td scope='row'>"+report[i][1]+"</td><td>"+report[i][2]+"</td><td>"+report[i][3]+"</td><td>"+login+"</td></tr>";
+                        }
+                            $("#reportbody").append(row)
+                            $("#reportpopup").modal('show')
+                            
+                        }
+                })
+                $("#month-form")[0].reset()
+
+            }
+            
         }
         function printReport(){
             console.log("Print report======")
@@ -360,11 +503,15 @@
     
 
     <!-- datepicker js -->
+    
     <script src="{% static 'libs/flatpickr/flatpickr.min.js' %}"></script>
+   
+    <script src="{% static 'libs/flatpickr/plugins/monthSelect/index.js' %}"></script>
+    
     <!-- Datatable init js -->
     <script src="{% static 'js/pages/management-salesreport.init.js' %}"></script> 
-    <script src="{% static 'js/pages/monthselect.js' %}"></script> 
-    <script src="{% static 'js/pages/flat.js' %}"></script> 
+    
+    
     
     <script src="{% static 'js/app.js' %}"></script>
 

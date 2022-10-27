@@ -32,13 +32,13 @@ var data_d = meeting_daily_pie.map((item) => item.value);
 var username_d = meeting_daily_pie.map((item) => item.name);
 // username_d=Object.values(username_d)
 var data_w = meeting_weekly_pie.map((item) => item.value);
-console.log(data_w)
+
 data_w=Object.values(data_w)
-console.log(data_w)
+
 var username_w = meeting_weekly_pie.map((item) => item.name);
-console.log(username_w)
+
 username_w=Object.values(username_w)
-console.log(username_w)
+
 
 function renderMeetingDonut($series,$id,$label){
     
@@ -599,8 +599,7 @@ var chart = new ApexCharts(
 chart.render();
 //switchtab
 function switchtab($this, $displaytab, $hiddentab) {
-    console.log("Dispplay tab-------"+$displaytab)
-    console.log("Hidden tab========"+$hiddentab)
+    
     $($displaytab).addClass('d-block');
     $($displaytab).removeClass('d-none');
     $($hiddentab).addClass('d-none');

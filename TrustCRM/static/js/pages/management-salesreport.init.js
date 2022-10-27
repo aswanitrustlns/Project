@@ -54,44 +54,21 @@ $(document).ready(function () {
 
     });
     let flatpickermonthly=flatpickr('#monthly', {
-
-        //const fp = flatpickr(".test-calendar", {  altFormat: "F j, Y", dateFormat: "Y-m-d", showMonths: 3, disableMobile: true, inline: true, mode: "range", 
-        //altInput: true,
         "allowInput": true,
         
-        dateFormat: "M Y",//MMMM Do YYYY
-        altFormat:"M Y",
-        mode: "single",
-        //enableTime: false,
-        altInput: true, // Human Readable
-        //minDate: new Date().fp_incr(-60), // 60 days from today
-        //maxDate: defaultEnd,
-        //locale: { firstDayOfWeek: 1},
-
-        // plugins: [
-        //     new monthSelectPlugin({
-        //       shorthand: true, //defaults to false
-        //       dateFormat: "m.y", //defaults to "F Y"
-        //       altFormat: "F Y", //defaults to "F Y"
-        //       theme: "dark" // defaults to "light"
-        //     })
-        // ]
-
+        altInput: true,
+        plugins: [
+            new monthSelectPlugin({
+              shorthand: true, //defaults to false
+              dateFormat: "m-Y", //defaults to "F Y"
+              altFormat: "F Y", //defaults to "F Y"
+              theme: "dark" // defaults to "light"
+            })
+        ]
         
 
     });
     
-flatpickr( '#monthSelectPlugin',{
-    plugins: [
-        new monthSelectPlugin({
-            showMonths: true,
-            shorthand: false, //defaults to false
-            dateFormat: "m.y", //defaults to "F Y"
-            altFormat: "F Y", //defaults to "F Y"
-            theme: "dark" // defaults to "light"
-        })
-    ]
-});
 
 
     
