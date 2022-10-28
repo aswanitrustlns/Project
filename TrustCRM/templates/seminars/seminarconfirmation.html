@@ -246,17 +246,19 @@
         
                     <div class="modal-body ">
 
-                        <div class="  px-3 border rounded-3 py-4">
+                        <div class="border-dashed rounded-3 px-3 py-3">
                         
-                            <div class="modal-header py-0 px-0 border-bottom-0">
-                                <h5 class="modal-title mb-3" id="modal-title">Select Option</h5>
-
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
-
-                            </div>
-                       
-                            
-                                
+                            <div class="modal-header border-0 px-0">
+                                <h5 class="modal-title fs-21" id="modal-title">Select Option</h5>
+                                <a href="" data-bs-dismiss="modal" aria-label="Close">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M9.16992 14.83L14.8299 9.17" stroke="var(--white)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M14.8299 14.83L9.16992 9.17" stroke="var(--white)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M9 22H15C20 22 22 20 22 15V9C22 4 20 2 15 2H9C4 2 2 4 2 9V15C2 20 4 22 9 22Z" stroke="white" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+    
+                                    </a>
+                                </div>
                                 <div class="row">
                                 
                                     <div class="col-12">
@@ -290,59 +292,80 @@
         
                     <div class="modal-body ">
 
-                        <div class="  px-3 border rounded-3 py-4">
+                        <div class="border-dashed rounded-3 px-3 py-3">
                         
-                            <div class="modal-header py-0 px-0 border-bottom-0">
-                                <!-- <h5 class="modal-title mb-3" id="modal-title">Select Option</h5> -->
+                            <!-- <div class="modal-header border-0 px-0 justify-content-end d-flex">
+                                
 
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
+                                <a href="" data-bs-dismiss="modal" aria-label="Close">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M9.16992 14.83L14.8299 9.17" stroke="var(--white)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M14.8299 14.83L9.16992 9.17" stroke="var(--white)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M9 22H15C20 22 22 20 22 15V9C22 4 20 2 15 2H9C4 2 2 4 2 9V15C2 20 4 22 9 22Z" stroke="white" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
 
-                            </div>
+                                </a>
+
+                            </div> -->
                        
                             
                                 
                                 <div class="row">
-                                
+                                    {%if upcoming%}
                                     <div class="col-12">
                                         <div class="mb-3">
-                                            <!--<label class="form-label">Event Name</label>-->
-                                            {%if upcoming%}
-                                            <label for="html">Seminar Title</label>
+                                            <label class="form-label w-100 " for="html">Seminar Title</label>
                                             <select  type="text" class="form-select" id="seminartitle" placeholder="" required name="seminartitle">
                                                 <option value="0">Select</option>
                                                 {%for coming in upcoming%}
                                                 <option value={{coming.5}}>{{coming.0}}</option>
                                                 {%endfor%}
                                             </select>
-                                            <br>
-                                            
-                                          
-                                                
-                                                <label class="form-label w-100 " for="email1">Name </label>
-                                                <input type="text" id="seminarname" class="form-control" required name="email" >
-                                                <label class="form-label w-100 " for="email1">Location </label>
-                                                <input type="text" id="seminar-location" class="form-control" required name="seminarlocation" >
-                                                <label class="form-label w-100 " for="email1">Date </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="mb-3">
+                                            <label class="form-label w-100 " for="email1">Name </label>
+                                            <input type="text" id="seminarname" class="form-control" required name="email" >
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="mb-3">
+                                            <label class="form-label w-100 " for="email1">Location </label>
+                                            <input type="text" id="seminar-location" class="form-control" required name="seminarlocation" >
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="mb-3">
+                                            <label class="form-label w-100 " for="email1">Date </label>
                                                 <input type="text" id="seminar-date" class="form-control" required name="seminardate" >
-                                                <br>
-                                            
-                                            <button class="btn btn-primary btn-lg mt-3" type="button" onclick="registerSeminar()">Register For Seminar</button>
+                                        </div>
+                                    </div>
+                                    
                                             
                                             {%else%}
                                             <h3>No Upcoming Semianrs </h3>
                                             {%endif%}
-                                            
-                                        </div>
-                                        <!-- <div class="row mt-2">
-                                            <div class="col-6">
-                                                <button type="button"  class="btn btn-success" id="btn-save-event" onclick="countPopUpSelection()">Load</button>
-                                                <button type="button" data-bs-dismiss="modal" class="btn btn-danger" id="btn-delete-event">Cancel</button>
-                                            </div>
-                                          
-                                        </div> -->
-                                    </div>
                                
                                 </div>
+                                            <!--<label class="form-label">Event Name</label>-->
+                                            <div class="col-12">
+                                                <button class="btn btn-primary me-2" type="button" onclick="registerSeminar()">Register For Seminar</button>          
+                                                <button type="button" data-bs-dismiss="modal" class="btn btn-outline-light" id="btn-delete-event">Cancel</button>
+                                            </div>
+                                          
+                                            
+                                            
+                                            
+                                        
+<!--                                         
+                                            <div class="col-6">
+                                                <button type="button"  class="btn btn-success" id="btn-save-event" onclick="countPopUpSelection()">Load</button>
+                                                <button type="button" data-bs-dismiss="modal" class="btn btn-outline-light" id="btn-delete-event">Cancel</button>
+                                            </div>
+                                           -->
+                                        
+                                 
                                 
                             
                         </div>
@@ -357,14 +380,21 @@
         
                     <div class="modal-body ">
 
-                        <div class="  px-3 border rounded-3 py-4">
+                        <div class="border-dashed rounded-3 px-3 py-3">
                         
-                            <div class="modal-header py-0 px-0 border-bottom-0">
-                                <!-- <h5 class="modal-title mb-3" id="modal-title">Select Option</h5> -->
+                            <!-- <div class="modal-header border-0 px-0 justify-content-end d-flex">
+                                
 
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
+                                <a href="" data-bs-dismiss="modal" aria-label="Close">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M9.16992 14.83L14.8299 9.17" stroke="var(--white)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M14.8299 14.83L9.16992 9.17" stroke="var(--white)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M9 22H15C20 22 22 20 22 15V9C22 4 20 2 15 2H9C4 2 2 4 2 9V15C2 20 4 22 9 22Z" stroke="white" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+    
+                                    </a>
 
-                            </div>
+                            </div> -->
                        
                             
                                 
@@ -372,8 +402,6 @@
                                 
                                     <div class="col-12">
                                         <div class="mb-3">
-                                            <!--<label class="form-label">Event Name</label>-->
-                                           
                                             <label for="html">Language</label>
                                             <select  type="text" class="form-select" id="language" placeholder="" required >
                                                 <option value="0">Select</option>
@@ -382,7 +410,10 @@
                                                 <option value="ch">chinese</option>
                                              
                                             </select>
-                                            <br>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="mb-3">
                                             <label for="html">Template</label>
                                             <select  type="text" class="form-select" id="templatesubject" placeholder="" required >
                                                 <option value="0">Select</option>
@@ -400,20 +431,17 @@
                                                 <option value="TC Limited - Missing ID">Missing POI</option>
                                                 
                                             </select>
-                                            <br>
-                                           
-                                        </div>
-                                        <div class="row mt-2">
-                                            <div class="col-6">
-                                                <button type="button"  class="btn btn-success" id="btn-save-event" onclick="sendTemplate()">Send</button>
-                                                <button type="button" data-bs-dismiss="modal" class="btn btn-danger" id="btn-delete-event">Cancel</button>
-                                            </div>
-                                          
                                         </div>
                                     </div>
-                               
+                                    <div class="col-6">
+                                        <button type="button"  class="btn btn-success me-2" id="btn-save-event" onclick="sendTemplate()">Send</button>
+                                        <button type="button" data-bs-dismiss="modal" class="btn btn-outline-light" id="btn-delete-event">Cancel</button>
+                                        <!-- <button type="button" data-bs-dismiss="modal" class="btn btn-danger" id="btn-delete-event">Cancel</button> -->
+                                    </div>
+                                    
                                 </div>
-                                
+                                            <!--<label class="form-label">Event Name</label>-->
+                                 
                             
                         </div>
                     
@@ -428,7 +456,14 @@
                         <h5 class=" fs-16" id="userMsg">
                             
                         </h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <a href="" data-bs-dismiss="modal" aria-label="Close">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M9.16992 14.83L14.8299 9.17" stroke="var(--white)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M14.8299 14.83L9.16992 9.17" stroke="var(--white)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M9 22H15C20 22 22 20 22 15V9C22 4 20 2 15 2H9C4 2 2 4 2 9V15C2 20 4 22 9 22Z" stroke="white" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+
+                            </a>
                         </div>
                                             
                             <!-- <div class="modal-body" >

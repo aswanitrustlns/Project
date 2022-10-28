@@ -62,7 +62,7 @@
                                         <h4 class="card-title almarenamonolight-type mb-4 fs-23">Backoffice Approval</h4>
                                     </div>
                                     <div class=" mb-4">
-                                        <p class="gilroymedium-type fs-15 color-color1 mb-0">TThis brief form allows you to approve/reject a transaction method.</p>
+                                        <p class="gilroymedium-type fs-15 color-color1 mb-0">This brief form allows you to approve/reject a transaction method.</p>
                                     </div>
                                     
                                 </div>
@@ -495,7 +495,14 @@
                     <h5 class=" fs-16" id="userMsg">
                         
                     </h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <a href="" data-bs-dismiss="modal" aria-label="Close">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M9.16992 14.83L14.8299 9.17" stroke="var(--white)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M14.8299 14.83L9.16992 9.17" stroke="var(--white)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M9 22H15C20 22 22 20 22 15V9C22 4 20 2 15 2H9C4 2 2 4 2 9V15C2 20 4 22 9 22Z" stroke="white" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+
+                        </a>
                     </div>
                                         
                         <!-- <div class="modal-body" >
@@ -517,12 +524,19 @@
         
                     <div class="modal-body ">
     
-                        <div class="  px-3 border rounded-3 py-4">
+                        <div class="border-dashed rounded-3 px-3 py-3">
                         
-                            <div class="modal-header py-0 px-0 border-bottom-0">
-                                <h5 class="modal-title mb-3" id="modal-title">Approve</h5>
+                            <div class="modal-header border-0 px-0">
+                                <h5 class="modal-title fs-21" id="modal-title">Approve</h5>
     
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
+                                <a href="" data-bs-dismiss="modal" aria-label="Close">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M9.16992 14.83L14.8299 9.17" stroke="var(--white)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M14.8299 14.83L9.16992 9.17" stroke="var(--white)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M9 22H15C20 22 22 20 22 15V9C22 4 20 2 15 2H9C4 2 2 4 2 9V15C2 20 4 22 9 22Z" stroke="white" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+
+                                    </a>
     
                             </div>
                        
@@ -532,23 +546,26 @@
                                 
                                     <div class="col-12">
                                         <div class="mb-3">
-                                            <!--<label class="form-label">Event Name</label>-->
-                                           <h6>Credit card is being processed. Please confirm to Approve. </h6>
+                                            <h6>Credit card is being processed. Please confirm to Approve. </h6>
                                             <input type="hidden" name="status" id="status">
                                             <input type="hidden" name="id" id="id">
                                             <input type="hidden" name="card" id="card">
                                             <input type="hidden" name="cardtype" id="cardtype">
-
-                                           
-                                        </div>
-                                        <div class="row mt-2">
-                                            <div class="col-6">
-                                                <button type="button"  class="btn btn-success" id="btn-save-event" onclick="approveCard()">Confirm</button>
-                                                <button type="button" data-bs-dismiss="modal" class="btn btn-danger" id="btn-delete-event">Close</button>
-                                            </div>
-                                          
                                         </div>
                                     </div>
+                                            <!--<label class="form-label">Event Name</label>-->
+                                           
+
+                                           
+                                        
+                                        
+                                            <div class="col-6">
+                                                <button type="button"  class="btn btn-success" id="btn-save-event" onclick="approveCard()">Confirm</button>
+                                                <!-- <button type="button" data-bs-dismiss="modal" class="btn btn-danger" id="btn-delete-event">Close</button> -->
+                                            </div>
+                                          
+                                        
+                                    
                                
                                 </div>
                                 
@@ -565,12 +582,19 @@
         
                     <div class="modal-body ">
     
-                        <div class="  px-3 border rounded-3 py-4">
+                        <div class="border-dashed rounded-3 px-3 py-3">
                         
-                            <div class="modal-header py-0 px-0 border-bottom-0">
-                                <h5 class="modal-title mb-3" id="modal-title">Reject</h5>
+                            <div class="modal-header border-0 px-0">
+                                <h5 class="modal-title fs-21" id="modal-title">Reject</h5>
     
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
+                                <a href="" data-bs-dismiss="modal" aria-label="Close">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M9.16992 14.83L14.8299 9.17" stroke="var(--white)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M14.8299 14.83L9.16992 9.17" stroke="var(--white)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M9 22H15C20 22 22 20 22 15V9C22 4 20 2 15 2H9C4 2 2 4 2 9V15C2 20 4 22 9 22Z" stroke="white" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+
+                                    </a>
     
                             </div>
                        
@@ -585,20 +609,17 @@
                                             <input type="hidden" name="status" id="rejbankstatus">
                                             <input type="hidden" name="id" id="rejbankid">
                                             <input type="hidden" name="card" id="rejbankcard">
-
-                                           
                                         </div>
-                                        <div class="row mt-2">
+                               
+                                    </div>
+                                        
                                             <div class="col-6">
                                                 <button type="button"  class="btn btn-success" id="btn-save-event" onclick="rejectBank()">Confirm</button>
-                                                <button type="button" data-bs-dismiss="modal" class="btn btn-danger" id="btn-delete-event">Close</button>
+                                                <!-- <button type="button" data-bs-dismiss="modal" class="btn btn-danger" id="btn-delete-event">Close</button> -->
                                             </div>
                                           
-                                        </div>
-                                    </div>
-                               
+                                        
                                 </div>
-                                
                             
                         </div>
                     
@@ -612,12 +633,19 @@
         
                     <div class="modal-body ">
     
-                        <div class="  px-3 border rounded-3 py-4">
+                        <div class=" border-dashed rounded-3 px-3 py-3">
                         
                             <div class="modal-header py-0 px-0 border-bottom-0">
-                                <h5 class="modal-title mb-3" id="modal-title">Reject</h5>
+                                <h5 class="modal-title fs-21" id="modal-title">Reject</h5>
     
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
+                                <a href="" data-bs-dismiss="modal" aria-label="Close">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M9.16992 14.83L14.8299 9.17" stroke="var(--white)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M14.8299 14.83L9.16992 9.17" stroke="var(--white)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M9 22H15C20 22 22 20 22 15V9C22 4 20 2 15 2H9C4 2 2 4 2 9V15C2 20 4 22 9 22Z" stroke="white" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+
+                                    </a>
     
                             </div>
                        
@@ -636,14 +664,14 @@
 
                                            
                                         </div>
-                                        <div class="row mt-2">
+                                    </div> 
                                             <div class="col-6">
                                                 <button type="button"  class="btn btn-success" id="btn-save-event" onclick="rejectCard()">Confirm</button>
-                                                <button type="button" data-bs-dismiss="modal" class="btn btn-danger" id="btn-delete-event">Close</button>
+                                                <!-- <button type="button" data-bs-dismiss="modal" class="btn btn-danger" id="btn-delete-event">Close</button> -->
                                             </div>
                                           
-                                        </div>
-                                    </div>
+                                        
+                                   
                                
                                 </div>
                                 
@@ -660,135 +688,147 @@
         
                     <div class="modal-body ">
 
-                        <div class="  px-3 border rounded-3 py-4">
+                        <div class="border-dashed rounded-3 px-3 py-3">
                         
-                            <div class="modal-header py-0 px-0 border-bottom-0">
-                                <h5 class="modal-title mb-3" id="modal-title">Add New Card</h5>
+                            <div class="modal-header border-0 px-0">
+                                <h5 class="modal-title fs-21" id="modal-title">Add New Card</h5>
 
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
+                                <a href="" data-bs-dismiss="modal" aria-label="Close">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M9.16992 14.83L14.8299 9.17" stroke="var(--white)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M14.8299 14.83L9.16992 9.17" stroke="var(--white)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M9 22H15C20 22 22 20 22 15V9C22 4 20 2 15 2H9C4 2 2 4 2 9V15C2 20 4 22 9 22Z" stroke="white" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
 
-                            </div>
-                       
-                            
-                                
-                                <div class="row">
-                                
-                                    <div class="col-12">
-                                        <div class="mb-3">
-                                            
-                                            <form id="add-card-form" enctype="multipart/form-data">  
+                                    </a>
+
+                            </div>          
+                            <form id="add-card-form" enctype="multipart/form-data">  
                                                 {% csrf_token %}  
-                                                <div>
-                                                <label class="form-label w-100 " for="email1">Name* </label>
-                                                <input type="text" id="holdername" class="form-control" required name="holdername" >
-                                                <div id="noname" style="color: red">
-                                                    
-                                                </div>
-                                             </div>
-                                                <br>
-                                                <div>
-                                                <label class="form-label w-100 " for="email1">Last four digits* </label>
-                                                <input type="tel" maxlength="4" id="digits"  class="form-control" pattern="^0[1-9]|[1-9]\d$" name="digits" onkeypress='return event.charCode >= 48 && event.charCode <= 57' required  >
-                                                <div  id="nodigit" style="color: red">
-                                                    
-                                                </div>
-                                            </div>
-                                            <br>
-                                            <div>
-                                                <label class="form-label w-100 " for="email1">Type </label>
-                                                <select  type="text" class="form-select" id="cardType" placeholder="" required name="cardtype">
-                                                    <!-- <option value="0">Select</option> -->
-                                                  
-                                                    <option value="Credit">Credit</option>
-                                                    <option value="Debit">Debit</option>
-                                                 
-                                                </select>
-                                             </div>
-
-                                                <br>
-                                            <div>
-                                                <label class="form-label w-100 " for="email1">Exp Year</label>
-                                                <select  type="text" class="form-select" id="expyear" name="expyear" placeholder="" required >
-                                                    <option value="0">Select</option>
-                                                  
-                                                    <option value="2022">2022</option>
-                                                    <option value="2023">2023</option>
-                                                    <option value="2024">2024</option>
-                                                    <option value="2025">2025</option>
-                                                    <option value="2026">2026</option>
-                                                    <option value="2024">2027</option>
-                                                    <option value="2024">2028</option>
-                                                </select>
-                                                <div  id="noyear" style="color: red">
-                                                    
-                                                </div>
-                                            </div>
-                                            <br>
-                                            <div>
-                                                <label class="form-label w-100 " for="email1">Exp Month</label>
-                                                <select  type="text" class="form-select" id="expmonth" name="expmonth" placeholder="" required >
-                                                    <option value="0">Select</option>
-                                                  
-                                                    <option value="1">January</option>
-                                                    <option value="2">February</option>
-                                                    <option value="3">March</option>
-                                                    <option value="4">April</option>
-                                                    <option value="5">May</option>
-                                                    <option value="6">June</option>
-                                                    <option value="7">July</option>
-                                                    <option value="8">August</option>
-                                                    <option value="9">September</option>
-                                                    <option value="10">October</option>
-                                                    <option value="11">November</option>
-                                                    <option value="12">December</option>
-                                                </select>
-                                                
-                                                <div  id="nomonth" style="color: red">
-                                                    
-                                                </div>
-                                            </div>
-                                                <br>
-                                                <label for="files" class="form-label w-100 ">Choose card front</label>
-                                                <input type="file" id="front" name="front"><br>
-                                                <label for="files" class="form-label w-100 ">Choose card back</label>
-                                                <input type="file" id="back" name="back">
-                                                <input type="hidden" name="accno" id="accountnumber">
-                                                <input type="hidden" name="cardId" id="cardId">
-                                             </form>   
-                                            
-                                            
-                                            
-                                        </div>
-                                        <div class="row mt-2">
-                                            <div class="col-6">
-                                                <button type="button"  class="btn btn-success" id="btn-save-event" onclick="saveCard()">Save</button>
-                                                <button type="button" data-bs-dismiss="modal" class="btn btn-danger" id="btn-delete-event">Close</button>
-                                            </div>
-                                          
-                                        </div>
-                                    </div>
-                               
-                                </div>
+                                                <div class="row">
                                 
-                            
+                                                    <div class="col-12">
+                                                        <div class="mb-3">
+                                                            <label class="form-label w-100 " for="email1">Name* </label>
+                                                                <input type="text" id="holdername" class="form-control" required name="holdername" >
+                                                                <div id="noname" style="color: red">
+                                                                </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-12">
+                                                        <div class="mb-3">
+                                                            <label class="form-label w-100 " for="email1">Last four digits* </label>
+                                                                <input type="tel" maxlength="4" id="digits"  class="form-control" pattern="^0[1-9]|[1-9]\d$" name="digits" onkeypress='return event.charCode >= 48 && event.charCode <= 57' required  >
+                                                                <div  id="nodigit" style="color: red">
+                                                                </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-12">
+                                                        <div class="mb-3">
+                                                            <label class="form-label w-100 " for="email1">Type </label>
+                                                            <select  type="text" class="form-select" id="cardType" placeholder="" required name="cardtype">
+                                                                <!-- <option value="0">Select</option> -->
+                                                              
+                                                                <option value="Credit">Credit</option>
+                                                                <option value="Debit">Debit</option>
+                                                             
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-12">
+                                                        <div class="mb-3">
+                                                            <label class="form-label w-100 " for="email1">Exp Year</label>
+                                                                <select  type="text" class="form-select" id="expyear" name="expyear" placeholder="" required >
+                                                                    <option value="0">Select</option>
+                                                                  
+                                                                    <option value="2022">2022</option>
+                                                                    <option value="2023">2023</option>
+                                                                    <option value="2024">2024</option>
+                                                                    <option value="2025">2025</option>
+                                                                    <option value="2026">2026</option>
+                                                                    <option value="2024">2027</option>
+                                                                    <option value="2024">2028</option>
+                                                                </select>
+                                                                <div  id="noyear" style="color: red">
+                                                                    
+                                                                </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-12">
+                                                        <div class="mb-3">
+                                                            <label class="form-label w-100 " for="email1">Exp Month</label>
+                                                                <select  type="text" class="form-select" id="expmonth" name="expmonth" placeholder="" required >
+                                                                    <option value="0">Select</option>
+                                                                  
+                                                                    <option value="1">January</option>
+                                                                    <option value="2">February</option>
+                                                                    <option value="3">March</option>
+                                                                    <option value="4">April</option>
+                                                                    <option value="5">May</option>
+                                                                    <option value="6">June</option>
+                                                                    <option value="7">July</option>
+                                                                    <option value="8">August</option>
+                                                                    <option value="9">September</option>
+                                                                    <option value="10">October</option>
+                                                                    <option value="11">November</option>
+                                                                    <option value="12">December</option>
+                                                                </select>
+                                                                
+                                                                <div  id="nomonth" style="color: red">
+                                                                    
+                                                                </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-12">
+                                                        <div class="mb-3">
+                                                            <label for="files" class="form-label w-100 ">Choose card front</label>
+                                                                <input type="file" id="front" name="front">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-12">
+                                                        <div class="mb-3">
+                                                            <label for="files" class="form-label w-100 ">Choose card back</label>
+                                                                <input type="file" id="back" name="back">
+                                                        </div>
+                                                    </div>
+                                                    <input type="hidden" name="accno" id="accountnumber">
+                                                    <input type="hidden" name="cardId" id="cardId">
+                                                </div>
+                                                
+                                                
+                            </form>  
+                                            
+                                        
+                                            <div class="col-12">
+                                                <button type="button"  class="btn btn-success" id="btn-save-event" onclick="saveCard()">Save</button>
+                                                
+                                            </div>
                         </div>
                     
                     </div>
                 </div> <!-- end modal-content-->
             </div> <!-- end modal dialog-->
         </div>
+    
     <div class="modal fade" id="bank-approve" tabindex="-1" >
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
         
                     <div class="modal-body ">
     
-                        <div class="  px-3 border rounded-3 py-4">
+                        <div class="border-dashed rounded-3 px-3 py-3">
                         
-                            <div class="modal-header py-0 px-0 border-bottom-0">
-                                <h5 class="modal-title mb-3" id="modal-title">Approve</h5>
+                            <div class="modal-header border-0 px-0">
+                                <h5 class="modal-title fs-21" id="modal-title">Approve</h5>
     
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
+                                <a href="" data-bs-dismiss="modal" aria-label="Close">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M9.16992 14.83L14.8299 9.17" stroke="var(--white)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M14.8299 14.83L9.16992 9.17" stroke="var(--white)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M9 22H15C20 22 22 20 22 15V9C22 4 20 2 15 2H9C4 2 2 4 2 9V15C2 20 4 22 9 22Z" stroke="white" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+
+                                    </a>
     
                             </div>
                        
@@ -806,13 +846,13 @@
 
                                            
                                         </div>
-                                        <div class="row mt-2">
+                                        
                                             <div class="col-6">
                                                 <button type="button"  class="btn btn-success" id="btn-save-event" onclick="approveBank()">Confirm</button>
-                                                <button type="button" data-bs-dismiss="modal" class="btn btn-danger" id="btn-delete-event">Close</button>
+                                                <!-- <button type="button" data-bs-dismiss="modal" class="btn btn-danger" id="btn-delete-event">Close</button> -->
                                             </div>
                                           
-                                        </div>
+                                        
                                     </div>
                                
                                 </div>
@@ -830,12 +870,19 @@
         
                     <div class="modal-body ">
     
-                        <div class="  px-3 border rounded-3 py-4">
+                        <div class="border-dashed rounded-3 px-3 py-3">
                         
-                            <div class="modal-header py-0 px-0 border-bottom-0">
-                                <h5 class="modal-title mb-3" id="modal-title">Approve</h5>
+                            <div class="modal-header border-0 px-0">
+                                <h5 class="modal-title fs-21" id="modal-title">Approve</h5>
     
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
+                                <a href="" data-bs-dismiss="modal" aria-label="Close">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M9.16992 14.83L14.8299 9.17" stroke="var(--white)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M14.8299 14.83L9.16992 9.17" stroke="var(--white)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M9 22H15C20 22 22 20 22 15V9C22 4 20 2 15 2H9C4 2 2 4 2 9V15C2 20 4 22 9 22Z" stroke="white" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+
+                                    </a>
     
                             </div>
                        
@@ -853,13 +900,13 @@
 
                                            
                                         </div>
-                                        <div class="row mt-2">
+                                        
                                             <div class="col-6">
                                                 <button type="button"  class="btn btn-success" id="btn-save-event" onclick="addCrypto()">Confirm</button>
-                                                <button type="button" data-bs-dismiss="modal" class="btn btn-danger" id="btn-delete-event">Close</button>
+                                                <!-- <button type="button" data-bs-dismiss="modal" class="btn btn-danger" id="btn-delete-event">Close</button> -->
                                             </div>
                                           
-                                        </div>
+                                        
                                     </div>
                                
                                 </div>
@@ -877,12 +924,19 @@
         
                     <div class="modal-body ">
     
-                        <div class="  px-3 border rounded-3 py-4">
+                        <div class=" border-dashed rounded-3 px-3 py-3">
                         
-                            <div class="modal-header py-0 px-0 border-bottom-0">
-                                <h5 class="modal-title mb-3" id="modal-title">Reject</h5>
+                            <div class="modal-header border-0 px-0">
+                                <h5 class="modal-title fs-21" id="modal-title">Reject</h5>
     
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
+                                <a href="" data-bs-dismiss="modal" aria-label="Close">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M9.16992 14.83L14.8299 9.17" stroke="var(--white)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M14.8299 14.83L9.16992 9.17" stroke="var(--white)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M9 22H15C20 22 22 20 22 15V9C22 4 20 2 15 2H9C4 2 2 4 2 9V15C2 20 4 22 9 22Z" stroke="white" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+
+                                    </a>
     
                             </div>
                        
@@ -900,13 +954,13 @@
 
                                            
                                         </div>
-                                        <div class="row mt-2">
+                                        
                                             <div class="col-6">
                                                 <button type="button"  class="btn btn-success" id="btn-save-event" onclick="rejectCrypto()">Confirm</button>
                                                 <button type="button" data-bs-dismiss="modal" class="btn btn-danger" id="btn-delete-event">Close</button>
                                             </div>
                                           
-                                        </div>
+                                        
                                     </div>
                                
                                 </div>
@@ -924,71 +978,79 @@
         
                     <div class="modal-body ">
 
-                        <div class="  px-3 border rounded-3 py-4">
+                        <div class="border-dashed rounded-3 px-3 py-3">
                         
-                            <div class="modal-header py-0 px-0 border-bottom-0">
-                                <h5 class="modal-title mb-3" id="modal-title">Add New Card</h5>
+                            <div class="modal-header border-0 px-0">
+                                <h5 class="modal-title mb-3" id="add-wallet">Add New Card</h5>
 
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
+                                <a href="" data-bs-dismiss="modal" aria-label="Close">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M9.16992 14.83L14.8299 9.17" stroke="var(--white)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M14.8299 14.83L9.16992 9.17" stroke="var(--white)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M9 22H15C20 22 22 20 22 15V9C22 4 20 2 15 2H9C4 2 2 4 2 9V15C2 20 4 22 9 22Z" stroke="white" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
 
-                            </div>
-                       
-                            
-                                
-                                <div class="row">
-                                
-                                    <div class="col-12">
-                                        <div class="mb-3">
-                                            
+                                    </a>
+
+                            </div>     
                                             <form id="add-cryptocard-form" enctype="multipart/form-data">  
                                                 {% csrf_token %}  
-                                                <div>
-                                                <label class="form-label w-100 " for="email1">Name* </label>
-                                                <input type="text" id="cryptoholdername" class="form-control" required name="holdername" >
-                                                <div id="noname" style="color: red">
-                                                    
-                                                </div>
-                                             </div>
-                                                <br>
-                                                <div>
-                                                <label class="form-label w-100 " for="email1">Wallet Address </label>
-                                                <input type="tel"  id="cryptoaddress"  class="form-control" name="digits" val=" " ><br>
-                                                <div  id="nodigit" style="color: red">
-                                                    
-                                                </div>
-                                            </div>
-                                            <br>
-                                            <div>
-                                                <label class="form-label w-100 " for="email1">Type </label>
-                                                <select  type="text" class="form-select" id="cardType" placeholder="" required name="cardtype">
-                                                    <!-- <option value="0">Select</option> -->
-                                                  
-                                                    <option value="Crypto">Crypto</option>
-                                                    
-                                                 
-                                                </select>
-                                             </div>
-
-                                                <br>
+                                                <div class="row">
+                                
+                                                    <div class="col-12">
+                                                        <div class="mb-3">
+                                                            <label class="form-label w-100 " for="email1">Name* </label>
+                                                                <input type="text" id="cryptoholdername" class="form-control" required name="holdername" >
+                                                                <div id="noname" style="color: red">
+                                                                    
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-12">
+                                                            <div class="mb-3">
+                                                                <label class="form-label w-100 " for="email1">Wallet Address </label>
+                                                                <input type="tel"  id="cryptoaddress"  class="form-control" name="digits" val=" " >
+                                                                <div  id="nodigit" style="color: red">
+                                                                    
+                                                                </div>
+                                                                </div>
+                                                            </div>
+                                                        <div class="col-12">
+                                                                <div class="mb-3">
+                                                                    
+                                                                <label class="form-label w-100 " for="email1">Type </label>
+                                                                <select  type="text" class="form-select" id="cardType" placeholder="" required name="cardtype">
+                                                                    <!-- <option value="0">Select</option> -->
+                                                                  
+                                                                    <option value="Crypto">Crypto</option>
+                                                                    
+                                                                 
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+                                                    </div> 
+                                                
+                                              
+                                                    <div class="col-12">
+                                                        <div class="mb-3">
+                                                            <input type="file" id="cryptofile" name="back">
+                                                        </div>
+                                                        </div>
+                                           
+                                             
                                                 <input type="hidden" name="expmonth" value="0">
                                                 <input type="hidden" name="expyear" value="0">
                                                 <input type="hidden" name="accno" id="cryptoaccount">
                                                 <input type="hidden" name="orderno" id="orderno">
-                                                <input type="file" id="cryptofile" name="back">
+                                                
                                             </form>
-                                        <div class="row mt-2">
+                                        
                                             <div class="col-6">
                                                 <button type="button"  class="btn btn-success" id="btn-save-event" onclick="saveCryptoCard()">Save</button>
-                                                <button type="button" data-bs-dismiss="modal" class="btn btn-danger" id="btn-delete-event">Close</button>
+                                                <!-- <button type="button" data-bs-dismiss="modal" class="btn btn-danger" id="btn-delete-event">Close</button> -->
                                             </div>
-                                          
-                                        </div>
-                                    </div>
-                               
-                                </div>
-                                
-                            
-                        </div>
+                                        
+                                     
                     
                     </div>
                 </div> <!-- end modal-content-->
@@ -1001,12 +1063,19 @@
     
                 <div class="modal-body ">
 
-                    <div class="  px-3 border rounded-3 py-4">
+                    <div class="border-dashed rounded-3 px-3 py-3">
                     
-                        <div class="modal-header py-0 px-0 border-bottom-0">
+                        <div class="modal-header border-0 px-0 justify-content-end d-flex">
                             <!-- <h5 class="modal-title mb-3" id="modal-title">Add New Card</h5> -->
 
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
+                            <a href="" data-bs-dismiss="modal" aria-label="Close">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M9.16992 14.83L14.8299 9.17" stroke="var(--white)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M14.8299 14.83L9.16992 9.17" stroke="var(--white)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M9 22H15C20 22 22 20 22 15V9C22 4 20 2 15 2H9C4 2 2 4 2 9V15C2 20 4 22 9 22Z" stroke="white" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+
+                                </a>
 
                         </div>
                         <iframe id="image" style="width: 100%;height: 50vh; "></iframe>
@@ -1021,7 +1090,7 @@
             </div> <!-- end modal-content-->
         </div> <!-- end modal dialog-->
     </div>
-</div>
+
 
  
 <script>
@@ -1273,6 +1342,7 @@
     var holder=name.split('%20').join(" ")
     $("#cryptoholdername").val(holder)
     $("#orderno").val(order)
+    document.getElementById("add-wallet").innerHtml="Edit Wallet"
     $("#add-crypto-card").modal('show')
     $("#cryptoaddress").val(cardValue)
    }
@@ -1281,6 +1351,7 @@
         if(status=="Approved"){
             $("#userMsg").empty()
             $("#userMsg").append("Card Approved")
+
             $("#alertpopup").modal('show')
 
         }else{
@@ -1497,6 +1568,7 @@
             $("#alertpopup").modal('show')
 
         }else{
+           console.log("Approve modal show")
             $("#bankstatus").val(status)
             $("#bankid").val(id)
             $("#bankaccount").val(acNo)

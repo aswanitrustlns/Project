@@ -84,9 +84,10 @@ let editorinstance;
 ClassicEditor
     .create( document.querySelector('#editor'),
 
-    {
+    { 
         ckfinder: {
-        uploadUrl: 'Ckfinder/upload'
+        uploadUrl: '/media'
+        
     },   
         fontFamily: {
             options: [

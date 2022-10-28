@@ -256,10 +256,17 @@
                 <div class="modal-dialog modal-dialog-centered"   style="z-index: 10555;">
                     <div class="modal-content">
                         <div class="modal-header border-0">
-                            <h5 class=" fs-16">
-                                <div id="userMsg"></div>
+                            <h5 class=" fs-16" id="userMsg">
+                                
                             </h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            <a href="" data-bs-dismiss="modal" aria-label="Close">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M9.16992 14.83L14.8299 9.17" stroke="var(--white)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M14.8299 14.83L9.16992 9.17" stroke="var(--white)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M9 22H15C20 22 22 20 22 15V9C22 4 20 2 15 2H9C4 2 2 4 2 9V15C2 20 4 22 9 22Z" stroke="white" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+        
+                                </a>
                             </div>
                                                 
                                 <!-- <div class="modal-body" >
@@ -358,10 +365,34 @@
             var repId=$("#salesrepId").val()
             var from_date=document.getElementById('fromdate-sr').value
             var to_date=document.getElementById('todate-sr').value
+            var validflag=0
+            var repId=$("#salesrepId").val()
             $("#fromprint").val(from_date)
             $("#toprint").val(to_date)
             console.log("Request to server====="+repId+from_date+to_date)
-            $.ajax({
+            if(from_date==""){
+                $("#userMsg").empty()
+                $("#userMsg").append("Please select from date")
+                $("#alertpopup").modal('show')
+                validflag=1
+
+            }
+            if(to_date==""){
+                $("#userMsg").empty()
+                $("#userMsg").append("Please select to date")
+                $("#alertpopup").modal('show')
+                validflag=1
+
+            }
+            if(repId==0){
+                $("#userMsg").empty()
+                $("#userMsg").append("Please select sales Rep")
+                $("#alertpopup").modal('show')
+                validflag=1
+
+            }
+            if(validflag==0){
+                $.ajax({
                     
                     type : "GET", 
                     url: "{% url 'Admin:Report' %}",
@@ -415,6 +446,9 @@
                         
                     }
             })
+
+            }
+            
             
         }
         function monthlyreportLoad(){

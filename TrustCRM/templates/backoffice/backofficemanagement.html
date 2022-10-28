@@ -1455,12 +1455,19 @@
                                     
                                                 <div class="modal-body ">
                                 
-                                                    <div class="  px-3 border rounded-3 py-4">
+                                                    <div class="border-dashed rounded-3 px-3 py-3">
                                                     
-                                                        <div class="modal-header py-0 px-0 border-bottom-0">
-                                                            <h5 class="modal-title mb-3" id="modal-title">Multiple Accounts</h5>
+                                                        <div class="modal-header border-0 ">
+                                                            <h5 class="modal-title fs-21 " id="modal-title">Multiple Accounts</h5>
                                 
-                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
+                                                            <a href="" data-bs-dismiss="modal" aria-label="Close">
+                                                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                    <path d="M9.16992 14.83L14.8299 9.17" stroke="var(--white)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                                    <path d="M14.8299 14.83L9.16992 9.17" stroke="var(--white)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                                    <path d="M9 22H15C20 22 22 20 22 15V9C22 4 20 2 15 2H9C4 2 2 4 2 9V15C2 20 4 22 9 22Z" stroke="white" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                                    </svg>
+            
+                                                            </a>
                                 
                                                         </div>
                                                             <div class="row">
@@ -1475,16 +1482,17 @@
                                                                         <input type="password" id="" class="form-control" required name="email" > -->
                                                                        
                                                                     </div>
+                                                            
+                                                                </div>
                                                                     <div class="row mt-2">
                                                                         <div class="col-6">
                                                                             <button type="button"  class="btn btn-success" id="btn-save-event" onclick="multipleAccount()">Proceed</button>
-                                                                            <button type="button" data-bs-dismiss="modal" class="btn btn-danger" id="btn-delete-event">Close</button>
+                                                                            <!-- <button type="button" data-bs-dismiss="modal" class="btn  btn-outline-light " id="btn-delete-event">Close</button> -->
                                                                         </div>
                                                                       
                                                                     </div>
                                                                 </div>
                                                            
-                                                            </div>
                                                             
                                                         
                                                     </div>
@@ -1504,40 +1512,65 @@
                                     <div class="modal fade  bs-example-modal-commision" tabindex="-1" role="dialog"
                                         aria-hidden="true" id="sales-commision">
                                         <div class="modal-dialog modal-dialog-centered">
-                                            <div class="modal-content">
+                                            <div class="modal-content mb-4">
+                                                
                                     
-                                                <div class="modal-body ">
+                                                
                                 
-                                                    <div class="  px-3 border rounded-3 py-4">
                                                     
-                                                        <div class="modal-header py-0 px-0 border-bottom-0">
-                                                            <h5 class="modal-title mb-3" id="modal-title">Sales commision structure</h5>
-                                
-                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
-                                
-                                                        </div>
-                                                            <div class="row">
+                                                        <div class="modal-body ">
+                                                            <div class="border-dashed rounded-3 px-3 py-3">
+                                                                <div class="modal-header border-0 px-0">
+                                                                    <h5 class="modal-title fs-21" id="modal-title">Sales commision structure</h5>
+                
+                                                                    <a href="" data-bs-dismiss="modal" aria-label="Close">
+                                                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                            <path d="M9.16992 14.83L14.8299 9.17" stroke="var(--white)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                                            <path d="M14.8299 14.83L9.16992 9.17" stroke="var(--white)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                                            <path d="M9 22H15C20 22 22 20 22 15V9C22 4 20 2 15 2H9C4 2 2 4 2 9V15C2 20 4 22 9 22Z" stroke="white" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                                            </svg>
+                        
+                                                                        </a>
+                                                                </div>
+                                                        
+                                                       
+                                                                <div class="row">
                                                             
                                                                 <div class="col-12">
                                                                     <div class="mb-3">
-                                                                        <!--<label class="form-label">Event Name</label>-->
-                                                                       
-                                                                        <label for="html">Login</label>
-                                                                        <input type="text" id="comlogin" class="form-control" required name="" readonly><br>
-                                                                        <label for="html">Spot FX</label><input type="text" id="comfx" class="form-control" readonly  >
-                                                                        <label for="html">Spot Metals</label><input type="text" id="comspot" class="form-control" name="email" readonly>
-                                                                        <label for="html">Futures</label><input type="text" id="comfuture" class="form-control" name="email" readonly>
-                                                                        <label for="html">Comments</label><input type="text" id="comComment" class="form-control" name="email" readonly>
-                                                                       
-                                                                    </div>
-                                                                    <div class="row mt-2">
-                                                                        <div class="col-6">
-                                                                            <!-- <button type="button"  class="btn btn-success" id="btn-save-event" onclick="multipleAccount()">Proceed</button> -->
-                                                                            <button type="button" data-bs-dismiss="modal" class="btn btn-danger" id="btn-delete-event">Close</button>
-                                                                        </div>
-                                                                      
-                                                                    </div>
+                                                                        <label  class="form-label " for="html">Login</label>
+                                                                        <input type="text" id="comlogin" class="form-control" required name="" readonly>
+                                                                    </div> 
                                                                 </div>
+                                                                <div class="col-12">
+                                                                    <div class="mb-3">
+                                                                        <label  class="form-label " for="html">Spot FX</label>
+                                                                        <input type="text" id="comfx" class="form-control" readonly  >
+                                                                    </div> 
+                                                                </div>
+                                                                <div class="col-12">
+                                                                    <div class="mb-3">
+                                                                        <label  class="form-label " for="html">Spot Metals</label><input type="text" id="comspot" class="form-control" name="email" readonly>
+                                                                    </div> 
+                                                                </div>
+                                                                <div class="col-12">
+                                                                    <div class="mb-3">
+                                                                        <label  class="form-label " for="html">Futures</label><br><input type="text" id="comfuture" class="form-control" name="email" readonly>
+                                                                    </div> 
+                                                                </div>
+                                                                <div class="col-12">
+                                                                    <div class="mb-3">
+                                                                        <label  class="form-label "for="html">Comments</label><br><input type="text" id="comComment" class="form-control" name="email" readonly>
+                                                                    </div> 
+                                                                </div>
+                                                                    
+                                                                        <!-- <div class="col-6"> -->
+                                                                            <!-- <button type="button"  class="btn btn-success" id="btn-save-event" onclick="multipleAccount()">Proceed</button> -->
+                                                                            <!-- <button type="button" data-bs-dismiss="modal" class="btn btn-lg btn-outline-light" id="btn-delete-event">Close</button> -->
+                                                                        <!-- </div> -->
+                                                                      
+                                                                    
+                                                                
                                                            
                                                             </div>
                                                             
@@ -1563,45 +1596,77 @@
                                      
     
     
-                                            <div class="modal-content ">
+                                            <div class="modal-content mb-4">
     
     
     
                                                 <div class="modal-body ">
                                 
-                                                    <div class="  px-3 border rounded-3 py-4">
+                                                    <div class="border-dashed rounded-3 px-3 py-3">
                                                     
-                                                        <div class="modal-header py-0 px-0 border-bottom-0">
-                                                            <h5 class="modal-title mb-3" id="modal-title">Select Bank</h5>
+                                                        <div class="modal-header  border-0 px-0">
+                                                            <h5  class="modal-title fs-21" id="modal-title">Select Bank</h5>
                                 
-                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
+                                                            <a href="" data-bs-dismiss="modal" aria-label="Close">
+                                                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                    <path d="M9.16992 14.83L14.8299 9.17" stroke="var(--white)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                                    <path d="M14.8299 14.83L9.16992 9.17" stroke="var(--white)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                                    <path d="M9 22H15C20 22 22 20 22 15V9C22 4 20 2 15 2H9C4 2 2 4 2 9V15C2 20 4 22 9 22Z" stroke="white" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                                    </svg>
+                
+                                                                </a>
                                 
                                                         </div>
+                                                        <form>
                                                             <div class="row">
                                                             
-                                                                <div class="col-12">
-                                                                    <div class="mb-3">
+                                                               
                                                                         <!--<label class="form-label">Event Name</label>-->
-                                                                       <form>
-                                                                        <label for="html">Receiving Bank</label>
-                                                                        <input type="text" id="bankname" class="form-control" required name="" ><br>
-                                                                        <label for="html">Receiving Bank Address</label><input type="text" id="bankaddr" class="form-control" required>
-                                                                        <label for="html">Receiving Bank SWIFT</label><input type="text" id="bankswift" class="form-control" name="email" required>
-                                                                        <label for="html">Beneficiary IBAN</label><input type="text" id="bankiban" class="form-control" name="email" required>
-                                                                        <label for="html">Beneficiary Bank</label><input type="text" id="beneficiary" class="form-control" name="email" required>
-                                                                        <label for="html">FFC/Reference</label><input type="text" id="ffc" placeholder="Trust Capital XXXXXXXXXX" class="form-control" name="email" required>
-                                                                       </form>
-                                                                    </div>
-                                                                    <div class="row mt-2">
+                                                                       
+                                                                        <div class="col-12">
+                                                                            <div class="mb-3">
+                                                                                <label  class="form-label" for="html">Receiving Bank</label>
+                                                                                <input type="text" id="bankname" class="form-control" required name="" >
+                                                                            </div> 
+                                                                        </div>
+                                                                        <div class="col-12">
+                                                                            <div class="mb-3">
+                                                                                <label class="form-label" for="html">Receiving Bank Address</label><input type="text" id="bankaddr" class="form-control" required>
+                                                                            </div> 
+                                                                        </div>
+                                                                        <div class="col-12">
+                                                                            <div class="mb-3">
+                                                                                <label class="form-label" for="html">Receiving Bank SWIFT</label><input type="text" id="bankswift" class="form-control" name="email" required>
+                                                                            </div> 
+                                                                        </div>
+                                                                        <div class="col-12">
+                                                                            <div class="mb-3">
+                                                                                <label class="form-label" for="html">Beneficiary IBAN</label><input type="text" id="bankiban" class="form-control" name="email" required>
+                                                                            </div> 
+                                                                        </div>
+                                                                        <div class="col-12">
+                                                                            <div class="mb-3">
+                                                                                <label class="form-label" for="html">Beneficiary Bank</label><input type="text" id="beneficiary" class="form-control" name="email" required>
+                                                                            </div> 
+                                                                        </div>
+                                                                        <div class="col-12">
+                                                                            <div class="mb-3">
+                                                                                <label class="form-label" for="html">FFC/Reference</label><input type="text" id="ffc" placeholder="Trust Capital XXXXXXXXXX" class="form-control" name="email" required>
+                                                                            </div> 
+                                                                        </div>
+                                                                       
+                                                                    
+                                                                    
                                                                         <div class="col-6">
                                                                             <button type="button"  class="btn btn-success" id="btn-save-event" onclick="sendBankDetails()">Send</button>
-                                                                            <button type="button" data-bs-dismiss="modal" class="btn btn-danger" id="btn-delete-event">Close</button>
+                                                                            <!-- <button type="button" data-bs-dismiss="modal" class="btn btn-danger" id="btn-delete-event">Close</button> -->
                                                                         </div>
                                                                       
-                                                                    </div>
+                                                                    
                                                                 </div>
+                                                            </form>
                                                            
-                                                            </div>
+                                                            
                                                             
                                                         
                                                     </div>
@@ -1632,9 +1697,9 @@
                                                 <div class="modal-body ">
     
     
-                                                    <div class="  px-3 border rounded-3">
+                                                    <div class="border-dashed rounded-3 px-3 py-3">
     
-                                                        <div class="modal-header border-0 ">
+                                                        <div class="modal-header border-0 px-0">
                                                             <h5 class="modal-title fs-21 ">Check and Reset Phone Password </h5>
         
                                                             <a href="" data-bs-dismiss="modal" aria-label="Close">
@@ -1648,22 +1713,22 @@
                                                         </div>
     
     
-                                                        <form class="needs-validation pt-3" novalidate="" id="action-call">
+                                                        <form  novalidate="" id="action-call">
                                                             <div class="row">
                                                                     <div class="col-md-12">
-                                                                       
+                                                                        <div class="mb-3">
                                                                             
                                                                             <input type="password" class="form-control" id="resetpwd" value="" required=""><span  id="pp_Check"></span> 
                                                                             <input type="hidden" name="ppwd" id="ppwd">
 
-                                                                            
+                                                                         </div>   
                                                                             
                                                                        
                                                                     </div>
                                                                     <div class="col-md-12">
-                                                                        <button class="btn btn-primary btn-lg my-3 " type="button" onclick="checkpwd()">Check</button>
-                                                                        <button class="btn btn-primary btn-lg my-3 " type="button" onclick="pwdreset()">Reset Password</button>
-                                                                        <button type="button" data-bs-dismiss="modal" class="btn btn-danger" id="btn-delete-event">Close</button>
+                                                                        <button class="btn btn-primary btn-lg me-2 " type="button" onclick="checkpwd()">Check</button>
+                                                                        <button class="btn btn-lg btn-outline-light " type="button" onclick="pwdreset()">Reset Password</button>
+                                                                        <!-- <button type="button" data-bs-dismiss="modal" class="btn btn-danger" id="btn-delete-event">Close</button> -->
                 
                                                                     </div>
             
@@ -1697,9 +1762,9 @@
                                                 <div class="modal-body ">
     
     
-                                                    <div class="  px-3 border rounded-3">
+                                                    <div class="border-dashed rounded-3 px-3 py-3">
     
-                                                        <div class="modal-header border-0 ">
+                                                        <div class="modal-header border-0 px-0">
                                                             <h5 class="modal-title fs-21 ">Update Client Portal Credential </h5>
         
                                                             <a href="" data-bs-dismiss="modal" aria-label="Close">
@@ -1716,22 +1781,27 @@
                                                         <form class="needs-validation pt-3" novalidate="" id="action-call">
                                                             <div class="row">
                                                                     <div class="col-md-12">
-                                                                       
+                                                                        <div class="mb-3">
                                                                             
                                                                             <input type="text" class="form-control" placeholder="Enter old email" id="oldemail" value="" required>
-                                                                            <br>
-                                                                            <div id="noemail"></div><br>
+                                                                            
+                                                                            <div id="noemail"></div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-12">
+                                                                        <div class="mb-3">
 
                                                                             <input type="text" class="form-control" placeholder="Enter new email" id="newemail" value="" required>
                                                                             <div id="nonew"></div><br>
-                                                                            
+                                                                       </div>
+                                                                    </div>      
                                                                             
                                                                        
-                                                                    </div>
+                                                                    
                                                                     <div class="col-md-12">
                                                                         
                                                                         <button class="btn btn-primary btn-lg my-3 " type="button" onclick="clientporatlUpdate()">OK</button>
-                                                                        <button type="button" data-bs-dismiss="modal" class="btn btn-danger" id="btn-delete-event">Close</button>
+                                                                        <!-- <button type="button" data-bs-dismiss="modal" class="btn btn-danger" id="btn-delete-event">Close</button> -->
                 
                                                                     </div>
             
@@ -1788,17 +1858,24 @@
         <!-- Right bar overlay-->
     <div class="rightbar-overlay"></div> 
     <div class="modal fade" id="terminate" tabindex="-1" >
-        <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
             <div class="modal-content">
     
                 <div class="modal-body ">
     
-                    <div class="  px-3 border rounded-3 py-4">
+                    <div class="border-dashed rounded-3 px-3 py-3">
                     
-                        <div class="modal-header py-0 px-0 border-bottom-0">
-                            <h5 class="modal-title mb-3" id="modal-title">Reason for Termination</h5>
+                        <div class="modal-header border-0 px-0">
+                            <h5 class="modal-title fs-21" id="modal-title">Reason for Termination</h5>
     
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
+                            <a href="" data-bs-dismiss="modal" aria-label="Close">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M9.16992 14.83L14.8299 9.17" stroke="var(--white)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M14.8299 14.83L9.16992 9.17" stroke="var(--white)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M9 22H15C20 22 22 20 22 15V9C22 4 20 2 15 2H9C4 2 2 4 2 9V15C2 20 4 22 9 22Z" stroke="white" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+
+                                </a>
     
                         </div>
                    
@@ -1808,7 +1885,7 @@
                             
                                 <div class="col-12">
                                     <div class="mb-3">
-                                        <select  class="form-control" id="reasonId">
+                                        <select  class="form-select" id="reasonId">
                                             <option value="0">Select</option>
                                             <option value="28">Appropriateness Test; Vulnerable;</option>
                                             <option value="29">Appropriateness Test; Vulnerable;(Remaining balance is refunded)</option>
@@ -1831,7 +1908,7 @@
                                     <div class="row mt-2">
                                         <div class="col-6">
                                             <button type="button"  class="btn btn-success" id="btn-save-event" onclick="terminProceed()">Proceed</button>
-                                            <button type="button" data-bs-dismiss="modal" class="btn btn-danger" id="btn-delete-event">Close</button>
+                                            <!-- <button type="button" data-bs-dismiss="modal" class="btn btn-danger" id="btn-delete-event">Close</button> -->
                                         </div>
                                       
                                     </div>
@@ -1853,18 +1930,17 @@
                     <h5 class=" fs-16" id="userMsg">
                         
                     </h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <a href="" data-bs-dismiss="modal" aria-label="Close">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M9.16992 14.83L14.8299 9.17" stroke="var(--white)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M14.8299 14.83L9.16992 9.17" stroke="var(--white)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M9 22H15C20 22 22 20 22 15V9C22 4 20 2 15 2H9C4 2 2 4 2 9V15C2 20 4 22 9 22Z" stroke="white" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+
+                    </a>
                     </div>
                                         
-                        <!-- <div class="modal-body" >
-            
-            
-                                <div data-simplebar style="max-height: 230px;">
-                
-                                  
-                                    
-                                </div>
-                            </div> -->
+                     
                
             </div>
          </div>
@@ -1875,14 +1951,21 @@
         
                     <div class="modal-body ">
     
-                        <div class="  px-3 border rounded-3 py-4">
+                        <div class="border-dashed rounded-3 px-3 py-3">
                         
-                            <div class="modal-header py-0 px-0 border-bottom-0">
-                                <!-- <h5 class="modal-title mb-3" id="modal-title">Select Option</h5> -->
+                            <!-- <div class="modal-header py-0 px-0 border-bottom-0">
+                                <h5 class="modal-title mb-3" id="modal-title">MT4 Password</h5>
     
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
+                                <a href="" data-bs-dismiss="modal" aria-label="Close">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M9.16992 14.83L14.8299 9.17" stroke="var(--white)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M14.8299 14.83L9.16992 9.17" stroke="var(--white)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M9 22H15C20 22 22 20 22 15V9C22 4 20 2 15 2H9C4 2 2 4 2 9V15C2 20 4 22 9 22Z" stroke="white" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+
+                                    </a>
     
-                            </div>
+                            </div> -->
                        
                             
                                 
@@ -1896,14 +1979,15 @@
                                             <input type="password" id="mt4pass" class="form-control" required name="pass" >
                                             <input type="hidden" name="origin" id="origin">
                                         </div>
-                                        <div class="row mt-2">
-                                            <div class="col-6">
-                                                <button type="button"  class="btn btn-success" id="btn-save-event" onclick="checkMT4()">Send</button>
-                                                <button type="button" data-bs-dismiss="modal" class="btn btn-danger" id="btn-delete-event">Cancel</button>
+                                    </div>
+                                        
+                                            <div class="col-12">
+                                                <button type="button"  class="btn btn-success pe-2" id="btn-save-event" onclick="checkMT4()">Send</button>
+                                                <button type="button" data-bs-dismiss="modal" class="btn btn-outline-light" id="btn-delete-event">Cancel</button>
                                             </div>
                                           
-                                        </div>
-                                    </div>
+                                        
+                                    
                                
                                 </div>
                                 
@@ -2968,8 +3052,13 @@ input.addEventListener('keyup', reset(input, errorMsg, validMsg));
     }
     function finalApproval(){
         var accno=$("#Accountno").val()
+        if(accno==""){
+            $("#userMsg").empty()
+            $("#userMsg").append("Please enter account number")
+            $("#alertpopup").modal('show')
 
-        $.ajax({
+        }else{
+            $.ajax({
                     
                     type : "GET", 
                     url: "{% url 'Backoffice:FinalApproval' %}",
@@ -2985,6 +3074,10 @@ input.addEventListener('keyup', reset(input, errorMsg, validMsg));
                         
                     }
                 })
+
+        }
+
+        
     }
     function tempApproval(){
         var accno=$("#Accountno").val()

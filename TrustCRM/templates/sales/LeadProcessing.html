@@ -1007,7 +1007,8 @@
                                                                                 <tr class="gilroyregular-type fs-12">
                                                                                     <th> Title</th>
                                                                                     <th>Date</th>
-                                                                                    <th class="text-end">Status</th>
+                                                                                    <!-- <th>Date</th>
+                                                                                    <th class="text-end">Status</th> -->
                                                                                 </tr>
                                                                             </thead>
                                                                             
@@ -1422,21 +1423,23 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
                                             <button type="button" class="btn bg-soft-secondarycolor text-white me-2" data-bs-toggle="modal"  style="background-color: var(--bs-card-bg) ;" onclick="viewAsessment()">Assessment</button>
                                                 <div class="modal fade  bs-example-modal-assessment clearmodel" tabindex="-1" role="dialog" aria-hidden="true" id="score-model"> 
                                                     <div class="modal-dialog modal-dialog-centered  modal-lg  r">
-                                                        <div class="modal-content bg-soft-secondarycolor">
-                                                            <div class="modal-header border-0 ">
-                                                                <h5 class="modal-title fs-21 ">Set Assessment Score  </h5>
-            
-                                                                <a href="" data-bs-dismiss="modal" aria-label="Close">
-                                                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                        <path d="M9.16992 14.83L14.8299 9.17" stroke="var(--white)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
-                                                                        <path d="M14.8299 14.83L9.16992 9.17" stroke="var(--white)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
-                                                                        <path d="M9 22H15C20 22 22 20 22 15V9C22 4 20 2 15 2H9C4 2 2 4 2 9V15C2 20 4 22 9 22Z" stroke="white" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
-                                                                        </svg>
-                    
-                                                                    </a>
-                                                            </div>
+                                                        <div class="modal-content bg-soft-secondarycolor" >
+                                                            
                                                 
                                                             <div class="modal-body">
+                                                                <div class="border-dashed rounded-3 px-3 py-3">
+                                                                <div class="modal-header border-0 px-0">
+                                                                    <h5 class="modal-title fs-21 ">Set Assessment Score  </h5>
+                
+                                                                    <a href="" data-bs-dismiss="modal" aria-label="Close">
+                                                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                            <path d="M9.16992 14.83L14.8299 9.17" stroke="var(--white)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                                            <path d="M14.8299 14.83L9.16992 9.17" stroke="var(--white)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                                            <path d="M9 22H15C20 22 22 20 22 15V9C22 4 20 2 15 2H9C4 2 2 4 2 9V15C2 20 4 22 9 22Z" stroke="white" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                                            </svg>
+                        
+                                                                        </a>
+                                                                </div>    
                                                             <form class="needs-validation pt-3" novalidate="" id="action-assessment">
                                                                 <div class="row">
                                                                     <!--rowX-->
@@ -1637,7 +1640,7 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
         
                                                                 <button type="button" class="btn btn-primary btn-lg mt-3"  onclick="saveMeeting()">Save</button>
                                                             </form> 
-                                                                
+                                                             </div>   
                                                             </div>
                                                         </div><!-- /.modal-content -->
                                                     </div><!-- /.modal-dialog -->
@@ -1670,6 +1673,7 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
                                                             <div class="mx-2 my-1 border rounded-3">
 
                                                                 <div class="modal-header border-0 ">
+
                                                                     <h5 class="modal-title fs-21 ">Live Chat Logs  </h5>
             
                                                                     <a href="" data-bs-dismiss="modal" aria-label="Close">
@@ -1679,7 +1683,7 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
                                                                             <path d="M9 22H15C20 22 22 20 22 15V9C22 4 20 2 15 2H9C4 2 2 4 2 9V15C2 20 4 22 9 22Z" stroke="white" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
                                                                             </svg>
                     
-                                                                        </a>
+                                                                    </a>
                                                                 </div>
                                                             
 
@@ -1864,7 +1868,14 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
                                                             <h5 class=" fs-16">
                                                                 <div id="userMsg">Please enter Ticket No to continue</div>
                                                             </h5>
-                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                            <a href="" data-bs-dismiss="modal" aria-label="Close">
+                                                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                    <path d="M9.16992 14.83L14.8299 9.17" stroke="var(--white)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                                    <path d="M14.8299 14.83L9.16992 9.17" stroke="var(--white)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                                    <path d="M9 22H15C20 22 22 20 22 15V9C22 4 20 2 15 2H9C4 2 2 4 2 9V15C2 20 4 22 9 22Z" stroke="white" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                                    </svg>
+                                        
+                                                            </a>
                                                             </div>
                                                                                 
                                                                 <!-- <div class="modal-body" >
@@ -1937,12 +1948,19 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
                                             
                                                         <div class="modal-body ">
 
-                                                            <div class="  px-3 border rounded-3 py-4">
+                                                            <div class="border-dashed rounded-3 px-3 py-3">
                                                             
-                                                                <div class="modal-header py-0 px-0 border-bottom-0">
-                                                                    <h5 class="modal-title mb-3" id="modal-title">Select Resolve Reason</h5>
+                                                                <div class="modal-header border-0 px-0">
+                                                                    <h5 class="modal-title fs-21" id="modal-title">Select Resolve Reason</h5>
                     
-                                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
+                                                                    <a href="" data-bs-dismiss="modal" aria-label="Close">
+                                                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                            <path d="M9.16992 14.83L14.8299 9.17" stroke="var(--white)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                                            <path d="M14.8299 14.83L9.16992 9.17" stroke="var(--white)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                                            <path d="M9 22H15C20 22 22 20 22 15V9C22 4 20 2 15 2H9C4 2 2 4 2 9V15C2 20 4 22 9 22Z" stroke="white" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                                            </svg>
+                                        
+                                                                        </a>
                     
                                                                 </div>
                                                            
@@ -1966,14 +1984,14 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
                                                                             </select>
                                                                                 
                                                                             </div>
-                                                                            <div class="row mt-2">
+                                                                        </div>
                                                                                 <div class="col-6">
                                                                                     <button type="button" data-bs-dismiss="modal" class="btn btn-success" id="btn-save-event" onclick="resolveReason()">Resolve</button>
-                                                                                    <button type="button" data-bs-dismiss="modal" class="btn btn-danger" id="btn-delete-event">Cancel</button>
+                                                                                    <!-- <button type="button" data-bs-dismiss="modal" class="btn btn-danger" id="btn-delete-event">Cancel</button> -->
                                                                                 </div>
                                                                               
-                                                                            </div>
-                                                                        </div>
+                                                                            
+                                                                        
                                                                    
                                                                     </div>
                                                                     
@@ -2671,7 +2689,10 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
                    
                     var time=seminars[i][2]
                     time=time.substring(11,16)
-                    rows+="<tr><th scope='row' style='color:#43B5F4;''>"+seminars[i][4]+"<br>"+seminars[i][3]+"</th><td ><span class='color-color1 d-block'>Seminar title</span>"+
+                    var sdate=seminars[i][2]
+                    console.log("Sadate===="+typeof(sdate))
+                    var semdate=sdate.substring(0, 10);
+                    rows+="<tr><th scope='row' style='color:#43B5F4;''>"+seminars[i][5]+"<br>"+semdate+"</th><td ><span class='color-color1 d-block'>Seminar title</span>"+
                           "<span class='text-uppercase text-white'>"+seminars[i][0]+"</span> </td><td><span class='color-color1 d-block'>Time</span>"+
                           "<span class='text-white'>"+time+"</span></td><td class='text-end'><span class='color-color1 d-block'>Location</span>"+seminars[i][1]+
                           "</tr><input type='hidden' name='seminartitle' id='seminartitle' value="+seminars[i][5]+">"
@@ -4259,9 +4280,11 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
             $("#nowebinar").hide()
         $("#webinarbody").empty()
         for(var i=0;i<length;i++){
+            var webdate=webinars[i][1].substring(0,10)
             rows+="<tr><td scope='row'><div class='d-flex align-items-center'><div class='flex-grow-1 overflow-hidden me-7'>"+
             "<h5 class='mb-0 gilroymedium-type fs-14 color-color1'></h5><p class='gilroymedium-type fs-16 mb-0 text-white'>"+webinars[i][0]+"</p>"+
-            "</div></div></td><td>"+webinars[i][1]+"</td><td class='text-end'>"+webinars[i][2]+"</td></tr>";
+            "</div></div></td><td>"+webdate+"</td></tr>";
+            // <td class='text-end'>"+webinars[i][2]+"</td>
             
 
         }       console.log("Rows=================="+rows)

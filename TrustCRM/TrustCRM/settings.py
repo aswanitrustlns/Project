@@ -157,10 +157,12 @@ X_FRAME_OPTIONS = 'SAMEORIGIN'
 STATIC_URL = '/static/'
 STATICFILES_DIRS = (os.path.join(BASE_DIR, "static"),)
 # STATIC_ROOT = (os.path.join(BASE_DIR, "static"))
-MEDIA_URL = 'audio/'
+
 PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 UPLOAD_ROOT=(os.path.join(BASE_DIR, "uploads"))
-MEDIA_ROOT = 'media/'  
+  
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
 
 
 # Default primary key field type
