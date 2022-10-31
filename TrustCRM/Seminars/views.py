@@ -82,6 +82,7 @@ def view_opened_account(request):
 def update_account(request):
   
     if 'UserId' in request.session:
+        print("Attendence update======")
         userid=request.session.get('UserId')
         ticket=request.GET.get('ticket')
         status=request.GET.get('status')

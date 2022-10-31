@@ -36,10 +36,10 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'django.contrib.staticfiles',    
+    'django.contrib.staticfiles',   
+    'ckeditor',
+    'ckeditor_uploader', 
     'Admin',
-    
-    
     
 ]
 
@@ -162,7 +162,9 @@ PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 UPLOAD_ROOT=(os.path.join(BASE_DIR, "uploads"))
   
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-MEDIA_URL = '/media/'
+MEDIA_URL='/media/'
+CKEDITOR_UPLOAD_PATH = "uploads/"
+CKEDITOR_IMAGE_BACKEND = "pillow"
 
 
 # Default primary key field type

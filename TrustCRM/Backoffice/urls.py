@@ -55,11 +55,8 @@ urlpatterns=[
       path('HistoryEWalletReport',history_ewallet_report,name="HistoryEWalletReport"),
       path('TransactionHistorySearch',transactions_history_search,name="TransactionHistorySearch"),
       path('MT4TransactionHistory',mt4_transaction_history,name="MT4TransactionHistory"),
-      path('InterAccountTransfer',inter_account_transfer,name="InterAccountTransfer")
-
-
-     
-    
+      path('InterAccountTransfer',inter_account_transfer,name="InterAccountTransfer"),
+      # path('ckeditor','ckeditor_uploader.urls'),
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

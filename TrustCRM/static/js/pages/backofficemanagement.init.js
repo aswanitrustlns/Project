@@ -82,35 +82,7 @@ File: Form validation Js File
 
 let editorinstance;
 ClassicEditor
-    .create( document.querySelector('#editor'),
-
-    { 
-        ckfinder: {
-        uploadUrl: '/media'
-        
-    },   
-        fontFamily: {
-            options: [
-                'default',
-                'Arial, Helvetica, sans-serif',
-                'Courier New, Courier, monospace',
-                'Georgia, serif',
-                'Lucida Sans Unicode, Lucida Grande, sans-serif',
-                'Tahoma, Geneva, sans-serif',
-                'Times New Roman, Times, serif',
-                'Trebuchet MS, Helvetica, sans-serif',
-                'Verdana, Geneva, sans-serif'
-            ],
-            supportAllValues: true
-        },
-        // https://ckeditor.com/docs/ckeditor5/latest/features/font.html#configuring-the-font-size-feature
-        fontSize: {
-            options: [ 10, 12, 14, 'default', 18, 20, 22 ],
-            supportAllValues: true
-        },
-        
-    } 
-     )
+    .create( document.querySelector('#editor') )
     .then( editor => {
         editorinstance =editor;
         console.log( editor );

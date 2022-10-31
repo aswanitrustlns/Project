@@ -12,6 +12,7 @@
     <!-- App favicon -->
     {% load  static %}
      <!-- DataTables -->
+     
      <link href="{% static 'libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css' %}" rel="stylesheet" type="text/css" />
      <link href="{% static 'libs/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css' %}" rel="stylesheet" type="text/css" />
      <!-- plugin css -->
@@ -25,6 +26,7 @@
       <link rel="stylesheet" href="{% static 'libs/flatpickr/flatpickr.min.css' %}">
       
       <link href="{% static 'css/input-tel.min.css' %}" rel="stylesheet"   type="text/css" />
+      
     {% include "common/link.html" %}
     {% include "common/scripts.html" %}
 
@@ -3423,8 +3425,10 @@ input.addEventListener('keyup', reset(input, errorMsg, validMsg));
 <script src="{% static 'js/pages/intTellinput.init.js' %}"></script>
 <script src="{% static 'js/pages/utils.init.js' %}"></script>
  <!-- ckeditor -->
- <script src="{% static 'libs/@ckeditor/ckeditor5-build-classic/build/ckeditor.js' %}"></script>
 
+
+ <script src="{% static 'libs/@ckeditor/ckeditor5-build-classic/build/ckeditor.js' %}"></script>
+ 
   
  <script src="{% static 'js/pages/backofficemanagement.init.js' %}"></script>
 

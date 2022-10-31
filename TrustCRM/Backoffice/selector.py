@@ -102,17 +102,17 @@ class Selector:
         finally:
                 Cursor.close()
         return account_category
-    #Load comment
-    def loadComment(self,ticket):
-        try:
-            Cursor=connection.cursor()           
-            Cursor.execute("set nocount on;exec SP_GetTicketLogs %s",[ticket]) 
-            comments=Cursor.fetchall()
-        except Exception as e:
-                print("Exception------",e)
-        finally:
-                Cursor.close()
-        return comments
+    # #Load comment
+    # def loadComment(self,ticket):
+    #     try:
+    #         Cursor=connection.cursor()           
+    #         Cursor.execute("set nocount on;exec SP_GetTicketLogs %s",[ticket]) 
+    #         comments=Cursor.fetchall()
+    #     except Exception as e:
+    #             print("Exception------",e)
+    #     finally:
+    #             Cursor.close()
+    #     return comments
     #Single or multiple check
     def duplicate_account(self,accno):
         try:
