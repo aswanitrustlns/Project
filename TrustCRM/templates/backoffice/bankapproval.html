@@ -281,8 +281,8 @@
                                                                 
                                                             </div>
                                                         </div>
-                                                       <input type="hidden" name="id" id="id">
-                                                       <input type="hidden" name="flag" id="flag">
+                                                       <input type="hidden" name="id" id="id" value="0">
+                                                       <input type="hidden" name="flag" id="flag" value="1">
                                                        
                                                         <div class="col-12">
                                                             <div class="mt-4">
@@ -746,8 +746,8 @@
                                                                     <option value="2024">2024</option>
                                                                     <option value="2025">2025</option>
                                                                     <option value="2026">2026</option>
-                                                                    <option value="2024">2027</option>
-                                                                    <option value="2024">2028</option>
+                                                                    <option value="2027">2027</option>
+                                                                    <option value="2028">2028</option>
                                                                 </select>
                                                                 <div  id="noyear" style="color: red">
                                                                     
@@ -1033,7 +1033,7 @@
                                               
                                                     <div class="col-12">
                                                         <div class="mb-3">
-                                                            <input type="file" id="cryptofile" name="back">
+                                                            <input type="file" id="cryptofile" name="front">
                                                         </div>
                                                         </div>
                                            
@@ -1094,6 +1094,29 @@
 
  
 <script>
+
+    $(document).ready(function () {
+        $("#Accountno").on("keydown", function(event) {
+                if(event.which == 13){
+                    event.preventDefault()
+                    LoadDetails()
+
+                }   
+        })
+        $("#bankAccountno").on("keydown", function(event) {
+                if(event.which == 13){
+                    event.preventDefault()
+                    LoadBankDetails()
+                }   
+        })
+        $("#cryptoAccountno").on("keydown", function(event) {
+                if(event.which == 13){
+                    event.preventDefault()
+                    LoadCryptodetails()
+                }   
+        })
+
+    })
 
 
 
@@ -1180,7 +1203,7 @@
                             row="<tr><td class='ps-0'>"+details[i][0]+"</td><td>"+details[i][1]+"</td><td>"+details[i][2]+"</td><td>"+details[i][3]+"</td><td><button id="+uniqueid+">"+details[i][4]+"</button></td>"+
                                  "<td>"+details[i][8]+"</td><td><div class='dropdown align-self-start'><a class='dropdown-toggle' href='#' role='button' data-bs-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>"+
                                  "<i class='bx bx-dots-vertical-rounded'></i></a><div class='dropdown-menu'><a class='dropdown-item' onclick=approveCrypto('"+details[i][0]+"','"+details[i][7]+"','"+details[i][8]+"')>Approve</a>"+
-                                "<a class='dropdown-item' onclick=rejectCryptoCard('"+details[i][0]+"','"+details[i][7]+"','"+details[i][8]+"')>Reject</a><a class='dropdown-item' onclick=editCrypto('"+details[i][7]+"','"+encodeURIComponent(details[i][1])+"','"+details[i][2]+"')>Edit</a><a class='dropdown-item' onclick=viewCard("+details[i][7]+",'0')>view</a></div></div></td></tr>"
+                                "<a class='dropdown-item' onclick=rejectCryptoCard('"+details[i][0]+"','"+details[i][7]+"','"+details[i][8]+"')>Reject</a><a class='dropdown-item' onclick=editCrypto('"+details[i][7]+"','"+encodeURIComponent(details[i][1])+"','"+details[i][2]+"')>Edit</a><a class='dropdown-item' onclick=viewCard("+details[i][7]+",'0')>View</a></div></div></td></tr>"
                                 $("#crypto-details").append(row)
                                 
                                 if(details[i][4]=="Approved"){
@@ -1756,6 +1779,7 @@
 }
     function resetBankSave(){
         $("#save-bank-form")[0].reset()
+        $("#bank-account-table").empty()
     }
     function editBankdetails(id,acname,acno,bname,baddr,other,scode,iban){
         var accno=$("#bankAccountno").val()
@@ -1773,10 +1797,11 @@
         }
         
         $("#id").val(id)
-        $("#flag").val("1")
+        $("#flag").val("2")
         console.log("Edit details====="+id+acname+acno+bname+baddr+other+scode+iban)
     }
     function saveCryptoCard(){
+
         let csrftoken = '{{ csrf_token }}'
         var accno=$("#cryptoAccountno").val()
         $("#cryptoaccount").val(accno)

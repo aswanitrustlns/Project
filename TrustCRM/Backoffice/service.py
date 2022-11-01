@@ -241,10 +241,10 @@ class Services:
             print("File path===")
             if front!=None:
                 
-
+                
                 extension1 = os.path.splitext(str(front))[1]
                 imagename=os.path.splitext(str(front))[0]
-                
+                fullname=imagename+extension1
                 # file_path=os.path.join(UPLOAD_ROOT,accno)
                 print("File existance======",file_path,os.path.isfile(file_path))
                 if os.path.isfile(file_path):
@@ -258,8 +258,9 @@ class Services:
             print("Front image")
             if back!=None: 
                 if imagename=="" :
-                    imagename=os.path.splitext(str(back))[0]
+                    imagename=back #os.path.splitext(str(back))[0]
                 extension2 = os.path.splitext(str(back))[1]
+                fullname=imagename+extension2
                 # file_path=os.path.join(UPLOAD_ROOT,accno)
                 if os.path.isfile(file_path):
                     os.mkdir(file_path)
@@ -348,7 +349,7 @@ class Services:
             print("Image data 1=====",type(imagedata1))
             print("Account data===============================",accno,name,cardno,expmonth,expyear,cardtype,userid,front,back,extension1,extension2)
             Cursor=connection.cursor()    
-            Cursor.execute("exec SP_AddNewCard %s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s",[accno,name,cardno,expmonth,expyear,0,imagedata1,imagedata2,imagename,contenttype,contenttypebk,cardtype,userid])
+            Cursor.execute("exec SP_AddNewCard %s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s",[accno,name,cardno,expmonth,expyear,0,imagedata1,imagedata2,fullname,contenttype,contenttypebk,cardtype,userid])
             
             message="   Card added Successfully"
         except Exception as e:
@@ -369,18 +370,15 @@ class Services:
             otherinfo=request.POST.get('Otherinformation')
             iban=request.POST.get('iban')
             userid=int(request.session.get('UserId'))
-            flag=request.POST.get('flag')
+            flag=int(request.POST.get('flag'))
             id=request.POST.get('id')
-            print("Flag=======,id",flag,id)
-            if(flag=="0"):
-                flag=int(flag)
-            else:
-                flag=1
+            print("Flag=======",flag,id)
+            
             if(id==""):
                 id=0
             else:
                 id=int(id)
-            print("eeeeeeeeeeeeeeeeeeeeeeee",acNo,actname,actno,bankname,bankaddress,swiftcode,otherinfo,id,userid,iban)
+            print("eeeeeeeeeeeeeeeeeeeeeeee",flag)
             Cursor=connection.cursor()    
             Cursor.execute("exec SP_SaveBankDetails %s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s",[acNo,actname,actno,bankname,bankaddress,swiftcode,otherinfo,flag,id,userid,iban])
             message="Bank details saved successfully"

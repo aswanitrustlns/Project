@@ -123,9 +123,11 @@
                                                     <div class="col-lg-6 col-xl-2">
                                                         <div class="mb-3">
                                                             <label class="form-label" for="title">Title<span class="color-orange">*</span></label>
+                                                           
                                                             <select  class="form-select" id="title"  name="titleen" value="" required >
                                                                 {%for title in titles%}
-                                                                <option value="{{title.0}}">{{title.0}}</option>
+                                                                
+                                                                <option value="{{title}}">{{title}}</option>
                                                                {%endfor%}
                                                             </select>
                                                             <div class="invalid-feedback position-absolute bottom-0">

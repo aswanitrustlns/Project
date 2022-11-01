@@ -202,11 +202,25 @@
     // })
     $(function() {
 
-        $('#server').on('click', function (e) {
+        $("#username").keydown(function(){
+        // var id = $("#username").val();
+        $('#server').prop('disabled',false);
+        // if(id=="601"){
+        //     $("#username").blur()
+		// 	$('#server').prop('disabled',false);
+		// }
+		// else{
+        //     $("#username").blur()
+		// $('#server').prop('disabled',true);
+        // $("#servername").val("50.57.14.225:443")
+		// }
+        });
 
+        $('#server').on('mousedown', function (e) {
+            $("#username").blur()
 		console.log("server changed")    
 		var id = $("#username").val();
-		
+		console.log("Id========="+id)
 		if(id=="601"){
 			$('#server').prop('disabled',false);
 		}

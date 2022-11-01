@@ -1074,7 +1074,7 @@
                                                                                                         </select>
                                                                                                     </div>
                                                                                                     <div class="col-md-3 mb-1">
-                                                                                                        <label class="form-label mb-1" for="temp">None</label>
+                                                                                                        <label class="form-label mb-1" for="temp">Next</label>
                                                                                                         <select class=" form-select py-1" style="background-color: var(--bs-card-bg)  !important;" id="chatNone">
                                                                                                             <option value="None">None</option>
                                                                                                             <option value="F">F:Follow Up</option>
@@ -2067,91 +2067,92 @@
     $(document).ready(function () {
         var intTel = function () {
 
-input = document.querySelector("#phone"),
-input2 = document.querySelector("#phone2"),
-errorMsg = document.querySelector("#error-msg"),
-validMsg = document.querySelector("#valid-msg"),
-errorMsg2 = document.querySelector("#error-msg2"),
-validMsg2 = document.querySelector("#valid-msg2");
+                            input = document.querySelector("#phone"),
+                            input2 = document.querySelector("#phone2"),
+                            errorMsg = document.querySelector("#error-msg"),
+                            validMsg = document.querySelector("#valid-msg"),
+                            errorMsg2 = document.querySelector("#error-msg2"),
+                            validMsg2 = document.querySelector("#valid-msg2");
 
-// here, the index maps to the error code returned from getValidationError - see readme
-var errorMap = ["Invalid number","Invalid country code", "Too short", "Too long", "Invalid number"];
+                            // here, the index maps to the error code returned from getValidationError - see readme
+                            var errorMap = ["Invalid number","Invalid country code", "Too short", "Too long", "Invalid number"];
 
-var reset = function ($input, $errorMsg, $validMsg) {
-    $input.classList.remove("error");
-    $input.classList.remove("error");
-    $errorMsg.innerHTML = "";
-    $errorMsg.classList.add("hide");
-    $validMsg.classList.add("hide");
+                            var reset = function ($input, $errorMsg, $validMsg) {
+                                $input.classList.remove("error");
+                                $input.classList.remove("error");
+                                $errorMsg.innerHTML = "";
+                                $errorMsg.classList.add("hide");
+                                $validMsg.classList.add("hide");
 
-};
-var blur = function ($input, $errorMsg, $validMsg, $iti) {
-
-
-    $input.addEventListener('blur', function () {
-        reset($input, $errorMsg, $validMsg);
-        if ($input.value.trim()) {
-            if ($iti.isValidNumber()) {
-                $validMsg.classList.remove("hide");
-            } else {
-                $input.classList.add("error");
-                var errorCode = iti.getValidationError();
-                $errorMsg.innerHTML = errorMap[errorCode];
-                $errorMsg.classList.remove("hide");
-
-            }
-        }
-    });
-}
-
-iti = window.intlTelInput(input, {
-    // any initialisation o,ptions go here
-    //nationalMode: true,
-    initialCountry: "auto",
-    
-    geoIpLookup: function (callback) {
-        $.get('https://ipinfo.io', function () { }, "jsonp").always(function (resp) {
-            var countryCode = (resp && resp.country) ? resp.country : "";
-            callback(countryCode);
-        });
-        
-    },
-    placeholderNumberType: 'MOBILE',
-    utilsScript: "static/js/pages/utils.init.js?1638200991544"
-});
-
-// on blur: validate
-blur(input, errorMsg, validMsg, iti);
-// on keyup / change flag: reset
-input.addEventListener('keyup', reset(input, errorMsg, validMsg));
-input.addEventListener('keyup', reset(input, errorMsg, validMsg));
+                            };
+                            var blur = function ($input, $errorMsg, $validMsg, $iti) {
 
 
-     iti2 = window.intlTelInput(input2, {
-        initialCountry: "auto",
-        geoIpLookup: function (callback) {
-            $.get('https://ipinfo.io', function () { }, "jsonp").always(function (resp) {
-                var countryCode = (resp && resp.country) ? resp.country : "us";
-                callback(countryCode);
-            });
-        },
+                                $input.addEventListener('blur', function () {
+                                    reset($input, $errorMsg, $validMsg);
+                                    if ($input.value.trim()) {
+                                        if ($iti.isValidNumber()) {
+                                            $validMsg.classList.remove("hide");
+                                        } else {
+                                            $input.classList.add("error");
+                                            var errorCode = iti.getValidationError();
+                                            $errorMsg.innerHTML = errorMap[errorCode];
+                                            $errorMsg.classList.remove("hide");
 
-        placeholderNumberType: 'MOBILE',
+                                        }
+                                    }
+                                });
+                            }
 
-        utilsScript: "/js/pages/utils.init.js?1638200991544"
-    });
+                            iti = window.intlTelInput(input, {
+                                // any initialisation o,ptions go here
+                                //nationalMode: true,
+                                initialCountry: "auto",
+                                
+                                geoIpLookup: function (callback) {
+                                    $.get('https://ipinfo.io', function () { }, "jsonp").always(function (resp) {
+                                        var countryCode = (resp && resp.country) ? resp.country : "";
+                                        callback(countryCode);
+                                    });
+                                    
+                                },
+                                placeholderNumberType: 'MOBILE',
+                                utilsScript: "static/js/pages/utils.init.js?1638200991544"
+                            });
+
+                            // on blur: validate
+                            blur(input, errorMsg, validMsg, iti);
+                            // on keyup / change flag: reset
+                            input.addEventListener('keyup', reset(input, errorMsg, validMsg));
+                            input.addEventListener('keyup', reset(input, errorMsg, validMsg));
 
 
-    // on blur: validate
-    blur(input2, errorMsg2, validMsg2, iti2);
-    // on keyup / change flag: reset
-    input.addEventListener('change', reset(input2, errorMsg2, validMsg2));
-    input.addEventListener('keyup', reset(input2, errorMsg2, validMsg2));
-    // on blur: validate
+                                iti2 = window.intlTelInput(input2, {
+                                    initialCountry: "auto",
+                                    geoIpLookup: function (callback) {
+                                        $.get('https://ipinfo.io', function () { }, "jsonp").always(function (resp) {
+                                            var countryCode = (resp && resp.country) ? resp.country : "us";
+                                            callback(countryCode);
+                                        });
+                                    },
 
-}
+                                    placeholderNumberType: 'MOBILE',
 
-    intTel();
+                                    utilsScript: "/js/pages/utils.init.js?1638200991544"
+                                });
+
+
+                                // on blur: validate
+                                blur(input2, errorMsg2, validMsg2, iti2);
+                                // on keyup / change flag: reset
+                                input.addEventListener('change', reset(input2, errorMsg2, validMsg2));
+                                input.addEventListener('keyup', reset(input2, errorMsg2, validMsg2));
+                                // on blur: validate
+
+                            }
+
+                                intTel();
+                                formback()
 
 
     })
@@ -2203,6 +2204,15 @@ input.addEventListener('keyup', reset(input, errorMsg, validMsg));
    
 
     })
+    function formback(){
+        console.log("Form back===")
+        var accno=$("#Accountno").val()
+        console.log("Account number====",accno)
+        if(accno){
+            LoadData()
+        }
+
+    }
     function addNewEvent(info) {
                 console.log("New event added ======"+info)
                 addEvent.modal('show');
@@ -2215,14 +2225,17 @@ input.addEventListener('keyup', reset(input, errorMsg, validMsg));
                 newEventData = info;
                 console.log("Event data============================="+newEventData)
             } 
-            function chatSend(chat){
+
+    function chatSend(chat){
+
         var ticket=document.getElementById("tickets").value
         var call=$("#chatCall").val()
         var interest=$("#chatInterest").val()
         var chatexp=$("#chatExp").val()
         var chatnone=$("#chatNone").val()
-        var chatText=chat+" Call: "+call+" Interest: "+interest+" Experience: "+chatexp+" None: "+chatnone
+        var chatText="Call: "+call+" Interest: "+interest+" Experience: "+chatexp+" Next: "+chatnone+" "+chat
         console.log("=========================="+call+interest+chatexp+chatnone+chatText)
+
         if(call=="S" && interest=="None"){
             $("#userMsg").empty()
             $("#userMsg").append("Please enter Interested or Not Interested to continue")
@@ -2480,6 +2493,8 @@ input.addEventListener('keyup', reset(input, errorMsg, validMsg));
     {
         $("#reset-phone").modal('hide')
         var accno=$("#Accountno").val()
+        var newpwd=$("#resetpwd").val()
+        console.log("New Password====",newpwd)
         $.ajax({
                             
                             type : "GET", 
@@ -2487,6 +2502,7 @@ input.addEventListener('keyup', reset(input, errorMsg, validMsg));
                             dataType: 'json',
                             data:{
                                 'account':accno,
+                                'newpwd':newpwd,
                             },
                             success: function(data){
                                 $("#userMsg").empty()
@@ -3398,6 +3414,8 @@ input.addEventListener('keyup', reset(input, errorMsg, validMsg));
         $("#Terminated").attr('checked',false)
         $("#ticketsummary").empty()
         $("#activityList").empty()
+        $("#currency").html("")
+        document.getElementById("chatsId").value=""
         $("#chatsDiv").hide()
         
         calendar.removeAllEvents()

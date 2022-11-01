@@ -1,0 +1,1170 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8" />
+    <title>Trust Capital CRM</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
+    <meta content="Themesbrand" name="author" />
+    <!-- App favicon -->
+    {% load  static %}
+     <!-- DataTables -->
+     <link href="{% static 'libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css' %}" rel="stylesheet" type="text/css" />
+     <link href="{% static 'libs/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css' %}" rel="stylesheet" type="text/css" />
+     <!-- plugin css -->
+     <!--<link href="assets/libs/admin-resources/jquery.vectormap/jquery-jvectormap-1.2.2.css" rel="stylesheet"
+         type="text/css" />-->
+      <!-- datepicker css -->
+      <link rel="stylesheet" href="{% static 'libs/flatpickr/flatpickr.min.css' %}">
+      <link rel="stylesheet" href="{% static 'libs/flatpickr/plugins/monthSelect/style.css' %}"></link>
+    {% include "common/link.html" %}
+    {% include "common/scripts.html" %}
+
+   
+
+ 
+</head>
+<body data-layout-mode="dark">
+
+    <!-- <body data-layout="horizontal"> -->
+    
+    <!-- Begin page -->
+    <div id="layout-wrapper">
+    
+        {% include "common/header.html" %}
+    
+
+        <!-- ========== Left Sidebar Start ========== -->
+        {% include "common/sidebar.html" %}
+        <div class="main-content">
+
+            <div class="page-content" id="sales">
+                <div class="container-fluid">
+                    <!--container-fluid px-md-5 me-md5-->
+    
+                    <!-- start page title -->
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                                <h4 class="mb-sm-0 fs-23 almarenamonolight-type">Ticket Summary</h4><!--font-size-18-->
+    
+                                <!--<div class="page-title-right">
+                                    <ol class="breadcrumb m-0">
+                                        <li class="breadcrumb-item"><a href="javascript: void(0);">Apps</a></li>
+                                        <li class="breadcrumb-item active">Ticket Summary</li>
+                                    </ol>
+                                </div>-->
+    
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end page title -->
+    
+                    <div class="row">
+                        <!--BackOffice Management-->
+                        <div class="col-lg-12">
+                            <div class="row">
+                                <div class="col-12">
+                                    <!--Navigation-->
+                                    <ul class="nav justify-content-start nav-tabs-custom  px-0 gilroymedium-type fs-25 my-3  nav-tabs-custom-after-top border-0"
+                                        role="tablist">
+                                        <li class="nav-item" style=" width:calc(100% / 3 );">
+                                            <a class="nav-link active text-center" data-bs-toggle="tab"
+                                                href="#actions-pending-tab" role="tab">
+                                                <span class="fs-20 "> Pending Tickets</span> <span
+                                                    class="badge rounded-pill rounded-circle p-2 fs-17 flex-shrink-0" style="background-color: 
+                                                                
+                                                                
+    rgba(238, 110, 110, 0.2);color: 
+    rgba(238, 110, 110, 1);">{{pendings.0}}</span>
+    
+    
+                                                </span>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item" style=" width:calc(100% / 3 );">
+                                            <a class="nav-link  text-center " data-bs-toggle="tab"
+                                                href="#actions-resolved-tab" role="tab">
+                                                <span class="fs-20"> Resolved Tickets</span>
+                                                <span class="badge rounded-pill rounded-circle p-2 fs-17 flex-shrink-0"
+                                                    style="background-color: 
+                                                            
+                                                            
+    
+                                                            rgba(252, 72, 176, 0.2);color: 
+    
+                                                            rgba(252, 72, 176, 1);">{{resolved.0}}</span>
+    
+    
+                                                </span>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item" style=" width:calc(100% / 3 );">
+                                            <a class="nav-link  text-center " data-bs-toggle="tab"
+                                                href="#actions-dormant-tab" role="tab">
+                                                <span class="fs-20"> Dormant Tickets</span>
+                                                <span class="badge rounded-pill rounded-circle p-2 fs-17 flex-shrink-0"
+                                                    style="background-color: 
+                                                            
+                                                            
+    
+                                                            rgba(178, 250, 87, 0.2);color: 
+    
+                                                            rgba(178, 250, 87, 1);">{{dormant.0}}</span>
+    
+    
+                                                </span>
+                                            </a>
+                                        </li>
+    
+    
+                                    </ul>
+                                    <!-- tab content -->
+                                    <div class="tab-content py-4">
+                                        <div class="tab-pane active" id="actions-pending-tab" role="tabpanel">
+    
+    
+                                            <div class="row px-0">
+    
+                                                <div class="col-lg-7 col-xxl-8  ">
+                                                    <div class="card  card-h-100">
+    
+                                                        <div class="card-body">
+                                                            <h5
+                                                                class="card-title  almarenamonolight-type fs-28 d-flex justify-content-center align-items-center">
+                                                                <span><svg width="55" height="55" viewBox="0 0 55 55"
+                                                                        fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                        <rect width="55" height="55" rx="27.5"
+                                                                            fill="#55CED7" fill-opacity="0.1" />
+                                                                        <path
+                                                                            d="M30.4482 36.0183L32.2849 37.855L35.9582 34.1816"
+                                                                            stroke="#55CED7" stroke-width="1.5"
+                                                                            stroke-linecap="round"
+                                                                            stroke-linejoin="round" />
+                                                                        <path
+                                                                            d="M27.6931 26.1349C27.5723 26.1228 27.4273 26.1228 27.2944 26.1349C24.4186 26.0382 22.1348 23.682 22.1348 20.782C22.1227 17.8216 24.5273 15.417 27.4877 15.417C30.4481 15.417 32.8527 17.8216 32.8527 20.782C32.8527 23.682 30.5569 26.0382 27.6931 26.1349Z"
+                                                                            stroke="#55CED7" stroke-width="1.5"
+                                                                            stroke-linecap="round"
+                                                                            stroke-linejoin="round" />
+                                                                        <path
+                                                                            d="M27.4881 39.3537C25.2889 39.3537 23.1018 38.7979 21.4343 37.6862C18.5102 35.7287 18.5102 32.5387 21.4343 30.5933C24.7573 28.3699 30.2068 28.3699 33.5298 30.5933"
+                                                                            stroke="#55CED7" stroke-width="1.5"
+                                                                            stroke-linecap="round"
+                                                                            stroke-linejoin="round" />
+                                                                    </svg>
+                                                                </span>
+                                                                <span class="mx-2">Attended</span><span
+                                                                    class="badge rounded-pill rounded-circle p-2 fs-28 flex-shrink-0"
+                                                                    style="background-color: 
+                                                                                                   
+                                                                            
+    rgba(85, 206, 215, 0.1);color: rgba(85, 206, 215, 1);">{{pendings.1}}</span>
+    
+    
+                                                                </span>
+    
+    
+                                                            </h5>
+                                                            <hr class="my-3">
+                                                            <div class="row mt-4">
+    
+                                                                <div class="col-md-6 col-xxl-6 ">
+    
+                                                                    <div class="card  card-h-100">
+    
+                                                                        <div class="card-body px-0 mx-0 pt-0">
+                                                                            <h5 class="card-title  almarenamonolight-type fs-25 text-center px-4 py-3 mb-4 d-flex align-items-center flex-wrap   justify-content-center"
+                                                                                style="background-color:
+                                                                                        #1B1D35 ;">
+                                                                                <span> <svg width="40" height="40"
+                                                                                        class="flex-shrink-0"
+                                                                                        viewBox="0 0 40 40" fill="none"
+                                                                                        xmlns="http://www.w3.org/2000/svg">
+                                                                                        <rect width="40" height="40" rx="20"
+                                                                                            fill="#00A54F"
+                                                                                            fill-opacity="0.1" />
+                                                                                        <path
+                                                                                            d="M28.2237 25.0387C28.2237 25.3537 28.1537 25.6775 28.005 25.9925C27.8562 26.3075 27.6638 26.605 27.41 26.885C26.9813 27.3575 26.5087 27.6988 25.975 27.9175C25.45 28.1363 24.8813 28.25 24.2688 28.25C23.3763 28.25 22.4225 28.04 21.4162 27.6113C20.41 27.1825 19.4037 26.605 18.4062 25.8788C17.4 25.1438 16.4462 24.33 15.5362 23.4287C14.635 22.5187 13.8212 21.565 13.095 20.5675C12.3775 19.57 11.8 18.5725 11.38 17.5838C10.96 16.5863 10.75 15.6325 10.75 14.7225C10.75 14.1275 10.855 13.5588 11.065 13.0338C11.275 12.5 11.6075 12.01 12.0712 11.5725C12.6312 11.0213 13.2438 10.75 13.8913 10.75C14.1363 10.75 14.3813 10.8025 14.6 10.9075C14.8275 11.0125 15.0288 11.17 15.1863 11.3975L17.2163 14.2588C17.3738 14.4775 17.4875 14.6788 17.5662 14.8713C17.645 15.055 17.6888 15.2388 17.6888 15.405C17.6888 15.615 17.6275 15.825 17.505 16.0262C17.3913 16.2275 17.225 16.4375 17.015 16.6475L16.35 17.3387C16.2537 17.435 16.21 17.5488 16.21 17.6888C16.21 17.7588 16.2188 17.82 16.2363 17.89C16.2625 17.96 16.2888 18.0125 16.3063 18.065C16.4638 18.3537 16.735 18.73 17.12 19.185C17.5137 19.64 17.9337 20.1038 18.3887 20.5675C18.8612 21.0313 19.3162 21.46 19.78 21.8537C20.235 22.2387 20.6112 22.5012 20.9087 22.6587C20.9525 22.6762 21.005 22.7025 21.0662 22.7287C21.1362 22.755 21.2062 22.7637 21.285 22.7637C21.4337 22.7637 21.5475 22.7113 21.6437 22.615L22.3088 21.9588C22.5275 21.74 22.7375 21.5737 22.9388 21.4688C23.14 21.3462 23.3412 21.285 23.56 21.285C23.7262 21.285 23.9013 21.32 24.0938 21.3988C24.2862 21.4775 24.4875 21.5913 24.7063 21.74L27.6025 23.7962C27.83 23.9537 27.9875 24.1375 28.0837 24.3562C28.1712 24.575 28.2237 24.7937 28.2237 25.0387Z"
+                                                                                            stroke="#00A54F"
+                                                                                            stroke-width="1.5"
+                                                                                            stroke-miterlimit="10" />
+                                                                                        <path
+                                                                                            d="M26.4998 12.5H22.2998M26.4998 12.5V16.7V12.5Z"
+                                                                                            stroke="#00A54F"
+                                                                                            stroke-width="1.5"
+                                                                                            stroke-linecap="round"
+                                                                                            stroke-linejoin="round" />
+                                                                                    </svg>
+                                                                                </span>
+                                                                                <span class="mx-2 my-2  ">Spoken</span><span
+                                                                                    class="badge rounded-pill rounded-circle p-2 fs-25 flex-shrink-0"
+                                                                                    style="background-color: 
+                                                                                                    
+                                                                                                    rgba(0, 165, 79, 0.2);color: rgba(0, 165, 79,1);">{{pendings.3}}</span>
+    
+    
+                                                                                </span>
+    
+    
+                                                                            </h5>
+    
+    
+                                                                            <div class="row px-4 flex-wrap">
+    
+    
+    
+    
+                                                                                <div class="col-xxl-6">
+    
+                                                                                    <h5
+                                                                                        class="card-title almarenamonolight-type fs-22  mb-4  d-flex align-items-center ">
+    
+                                                                                        <span
+                                                                                            class="me-2">Interested</span><span
+                                                                                            class="badge rounded-pill rounded-circle p-2 fs-17 flex-shrink-0"
+                                                                                            style="background-color: 
+                                                                                                    
+                                                                                                        rgba(255, 195, 78, 0.2);color: rgba(255, 195, 78, 1)
+                                                                                                                                                                                                        ;">{{pendings.5}}</span>
+    
+                                                                                    </h5>
+    
+    
+                                                                                    <ul
+                                                                                        class="gilory-medium-type list-unstyled color-color1 fs-17  ">
+    
+                                                                                        <li
+                                                                                            class="mb-4 d-flex flex-nowrap align-items-center ">
+                                                                                            <svg width="12" height="12"
+                                                                                                class="flex-shrink-0"
+                                                                                                viewBox="0 0 12 12"
+                                                                                                fill="none"
+                                                                                                xmlns="http://www.w3.org/2000/svg">
+                                                                                                <circle cx="6" cy="6" r="6"
+                                                                                                    fill="rgba(238, 110, 110, 1)">
+                                                                                                </circle>
+                                                                                            </svg>
+                                                                                            <span
+                                                                                                class="text-white mx-2 lh-1  te">Meeting
+                                                                                                Attended</span>
+                                                                                            <span
+                                                                                                class="badge rounded-pill rounded-circle p-2 fs-15 flex-shrink-0"
+                                                                                                style="background-color: 
+                                                                                                    
+                                                                                                    rgba(238, 110, 110, 0.2); rgba(238, 110, 110, 1)">{{pendings.8}}</span>
+                                                                                        </li>
+                                                                                        <li
+                                                                                            class="mb-4  mb-lg-0 d-flex flex-nowrap align-items-center">
+                                                                                            <svg width="12" height="12"
+                                                                                                class="flex-shrink-0"
+                                                                                                viewBox="0 0 12 12"
+                                                                                                fill="none"
+                                                                                                xmlns="http://www.w3.org/2000/svg">
+                                                                                                <circle cx="6" cy="6" r="6"
+                                                                                                    fill="
+                                                                                                            rgba(45, 140, 255, 1)">
+                                                                                                </circle>
+                                                                                            </svg>
+                                                                                            <span
+                                                                                                class="text-white mx-2 lh-1">Webinar
+                                                                                                Attended
+                                                                                            </span><span
+                                                                                                class="badge rounded-pill rounded-circle p-2 fs-15 flex-shrink-0"
+                                                                                                style="background-color: 
+                                                                                                    
+                                                                                                        
+                                                                                            rgba(45, 140, 255, 0.2); 
+                                                                                            color:rgba(45, 140, 255, 1)">{{pendings.11}}</span>
+                                                                                        </li>
+                                                                                    </ul>
+                                                                                </div>
+                                                                                <div class="col-12  d-block d-xxl-none ">
+                                                                                    <hr class="my-3">
+    
+    
+    
+                                                                                </div>
+                                                                                <div
+                                                                                    class="col-xxl-6  d-xxl-flex flex-column  align-items-end">
+    
+                                                                                    <h5
+                                                                                        class="card-title almarenamonolight-type fs-22 mb-4  d-flex align-items-center">
+    
+                                                                                        <span class="me-2">Not
+                                                                                            Interested</span><span
+                                                                                            class="badge rounded-pill rounded-circle p-2 fs-17 flex-shrink-0"
+                                                                                            style="background-color: 
+                                                                                                    
+                                                                                                    rgba(255, 50, 50, 0.2); rgba(255, 50, 50, 1)">{{pendings.6}}</span>
+    
+    
+                                                                                    </h5>
+    
+    
+    
+    
+                                                                                    <ul
+                                                                                        class="gilory-medium-type list-unstyled color-color1 fs-17  ">
+    
+                                                                                        <li
+                                                                                            class="mb-4 d-flex flex-nowrap align-items-center">
+                                                                                            <svg width="12" height="12"
+                                                                                                class="flex-shrink-0"
+                                                                                                viewBox="0 0 12 12"
+                                                                                                fill="none"
+                                                                                                xmlns="http://www.w3.org/2000/svg">
+                                                                                                <circle cx="6" cy="6" r="6"
+                                                                                                    fill="
+                                                                                                            rgba(255, 255, 255, 1)">
+                                                                                                </circle>
+                                                                                            </svg>
+                                                                                            <span
+                                                                                                class="text-white mx-2  lh-1">Meeting
+                                                                                                Attended</span>
+                                                                                            <span
+                                                                                                class="badge rounded-pill rounded-circle p-2 fs-15 flex-shrink-0"
+                                                                                                style="background-color: 
+                                                                                                    
+                                                                                                    
+    rgba(255, 255, 255, 0.2); 
+    rgba(255, 255, 255, 1)">{{pendings.9}}</span>
+                                                                                        </li>
+                                                                                        <li
+                                                                                            class="mb-4  mb-lg-0 d-flex flex-nowrap align-items-center">
+                                                                                            <svg width="12" height="12"
+                                                                                                class="flex-shrink-0"
+                                                                                                viewBox="0 0 12 12"
+                                                                                                fill="none"
+                                                                                                xmlns="http://www.w3.org/2000/svg">
+                                                                                                <circle cx="6" cy="6" r="6"
+                                                                                                    fill="
+                                                                                                            
+    rgba(188, 48, 129, 1)"></circle>
+                                                                                            </svg>
+                                                                                            <span
+                                                                                                class="text-white mx-2 lh-1 ">Webinar
+                                                                                                Attended
+                                                                                            </span><span
+                                                                                                class="badge rounded-pill rounded-circle p-2 fs-15 flex-shrink-0"
+                                                                                                style="background-color: 
+                                                                                                    
+                                                                                                        
+    
+                                                                                                    rgba(188, 48, 129, 0.2); 
+    color:
+    rgba(188, 48, 129, 1)">{{pendings.12}}</span>
+                                                                                        </li>
+                                                                                    </ul>
+    
+                                                                                </div>
+    
+    
+                                                                            </div>
+    
+    
+    
+    
+    
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-6 col-xxl-6 ">
+    
+                                                                    <div class="card  card-h-100">
+    
+                                                                        <div class="card-body px-0 mx-0 pt-0">
+                                                                            <h5 class="card-title  almarenamonolight-type fs-25 text-center px-4 py-3 mb-4 d-flex align-items-center flex-wrap   justify-content-center"
+                                                                                style="background-color:
+                                                                                        #1B1D35 ;">
+                                                                                <span> <svg width="40" height="40"
+                                                                                        viewBox="0 0 40 40" fill="none"
+                                                                                        xmlns="http://www.w3.org/2000/svg">
+                                                                                        <rect width="40" height="40" rx="20"
+                                                                                            fill="#FF7C48"
+                                                                                            fill-opacity="0.1" />
+                                                                                        <path
+                                                                                            d="M28.2237 25.0387C28.2237 25.3537 28.1537 25.6775 28.005 25.9925C27.8562 26.3075 27.6638 26.605 27.41 26.885C26.9813 27.3575 26.5087 27.6988 25.975 27.9175C25.45 28.1363 24.8813 28.25 24.2688 28.25C23.3763 28.25 22.4225 28.04 21.4162 27.6113C20.41 27.1825 19.4037 26.605 18.4062 25.8788C17.4 25.1438 16.4462 24.33 15.5362 23.4287C14.635 22.5187 13.8212 21.565 13.095 20.5675C12.3775 19.57 11.8 18.5725 11.38 17.5838C10.96 16.5863 10.75 15.6325 10.75 14.7225C10.75 14.1275 10.855 13.5588 11.065 13.0338C11.275 12.5 11.6075 12.01 12.0712 11.5725C12.6312 11.0213 13.2438 10.75 13.8913 10.75C14.1363 10.75 14.3813 10.8025 14.6 10.9075C14.8275 11.0125 15.0288 11.17 15.1863 11.3975L17.2163 14.2588C17.3738 14.4775 17.4875 14.6788 17.5662 14.8713C17.645 15.055 17.6888 15.2388 17.6888 15.405C17.6888 15.615 17.6275 15.825 17.505 16.0262C17.3913 16.2275 17.225 16.4375 17.015 16.6475L16.35 17.3387C16.2537 17.435 16.21 17.5488 16.21 17.6888C16.21 17.7588 16.2188 17.82 16.2363 17.89C16.2625 17.96 16.2888 18.0125 16.3063 18.065C16.4638 18.3537 16.735 18.73 17.12 19.185C17.5137 19.64 17.9337 20.1038 18.3887 20.5675C18.8612 21.0313 19.3162 21.46 19.78 21.8537C20.235 22.2387 20.6112 22.5012 20.9087 22.6587C20.9525 22.6762 21.005 22.7025 21.0662 22.7287C21.1362 22.755 21.2062 22.7637 21.285 22.7637C21.4337 22.7637 21.5475 22.7113 21.6437 22.615L22.3088 21.9588C22.5275 21.74 22.7375 21.5737 22.9388 21.4688C23.14 21.3462 23.3412 21.285 23.56 21.285C23.7262 21.285 23.9013 21.32 24.0938 21.3988C24.2862 21.4775 24.4875 21.5913 24.7063 21.74L27.6025 23.7962C27.83 23.9537 27.9875 24.1375 28.0837 24.3562C28.1712 24.575 28.2237 24.7937 28.2237 25.0387Z"
+                                                                                            stroke="#FF7C48"
+                                                                                            stroke-width="1.5"
+                                                                                            stroke-miterlimit="10" />
+                                                                                        <path
+                                                                                            d="M23.1748 15.825H27.3748M23.1748 15.825V11.625V15.825Z"
+                                                                                            stroke="#FF7C48"
+                                                                                            stroke-width="1.5"
+                                                                                            stroke-linecap="round"
+                                                                                            stroke-linejoin="round" />
+                                                                                    </svg>
+    
+    
+                                                                                </span>
+                                                                                <span class="mx-2 my-2  ">Not
+                                                                                    Spoken</span><span
+                                                                                    class="badge rounded-pill rounded-circle p-2 fs-25 flex-shrink-0"
+                                                                                    style="background-color: 
+                                                                                                    
+                                                                                                    
+    rgba(255, 124, 72, 0.2);color:
+    rgba(255, 124, 72, 1);">{{pendings.4}}</span>
+    
+    
+                                                                                </span>
+    
+    
+                                                                            </h5>
+    
+    
+                                                                            <div class="row px-4 flex-wrap">
+    
+    
+    
+    
+                                                                                <div class="col-xxl-6">
+    
+    
+    
+                                                                                    <ul
+                                                                                        class="gilory-medium-type list-unstyled color-color1 fs-17  ">
+    
+                                                                                        <!-- <li
+                                                                                            class="mb-4 d-flex flex-nowrap align-items-center ">
+    
+                                                                                            <span
+                                                                                                class="text-white me-2 lh-1">Reminder
+                                                                                                set</span>
+                                                                                            <span
+                                                                                                class="badge rounded-pill rounded-circle p-2 fs-15 flex-shrink-0"
+                                                                                                style="background-color: rgba(102, 212, 166, 0.2); color:rgba(102, 212, 166,1)">04</span>
+                                                                                        </li> -->
+                                                                                        <li
+                                                                                            class="mb-4  mb-lg-0 d-flex flex-nowrap align-items-center">
+    
+                                                                                            <span
+                                                                                                class="text-white me-2 lh-1">Call
+                                                                                                busy
+                                                                                            </span><span
+                                                                                                class="badge rounded-pill rounded-circle p-2 fs-15 flex-shrink-0"
+                                                                                                style="background-color: 
+                                                                                                    
+                                                                                                        
+    
+                                                                                                    rgba(255, 166, 63, 0.2); 
+    color:
+    rgba(255, 166, 63, 1)">{{pendings.14}}</span>
+                                                                                        </li>
+                                                                                    </ul>
+                                                                                </div>
+                                                                                <div
+                                                                                    class="col-xxl-6  d-xxl-flex flex-column  align-items-end">
+    
+    
+    
+    
+    
+                                                                                    <ul
+                                                                                        class="gilory-medium-type list-unstyled color-color1 fs-17  ">
+    
+                                                                                        <li
+                                                                                            class="mb-4 d-flex flex-nowrap align-items-center">
+    
+                                                                                            <span
+                                                                                                class="text-white me-2 lh-1">Call
+                                                                                                Not Answered
+                                                                                            </span>
+                                                                                            <span
+                                                                                                class="badge rounded-pill rounded-circle p-2 fs-15 flex-shrink-0"
+                                                                                                style="background-color: 
+                                                                                                    
+                                                                                                    
+                                                                                                    rgba(183, 80, 190, 0.2); 
+    color:rgba(183, 80, 190, 1)">{{pendings.15}}</span>
+                                                                                        </li>
+                                                                                        <li
+                                                                                            class="mb-4  mb-lg-0 d-flex flex-nowrap align-items-center">
+    
+                                                                                            <span
+                                                                                                class="text-white me-2 lh-1">Call None
+                                                                                            </span><span
+                                                                                                class="badge rounded-pill rounded-circle p-2 fs-15 flex-shrink-0"
+                                                                                                style="background-color: 
+                                                                                                    
+                                                                                                        
+    
+                                                                                                   
+    rgba(141, 121, 246, 0.2); 
+    color:
+    
+    rgba(141, 121, 246, 1)">{{pendings.16}}</span>
+                                                                                        </li>
+                                                                                    </ul>
+    
+                                                                                </div>
+    
+    
+                                                                            </div>
+    
+    
+    
+    
+    
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+    
+    
+    
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-5 col-xxl-4  ">
+                                                    <div class="card  card-h-100">
+    
+                                                        <div class="card-body">
+                                                            <h5
+                                                                class="card-title  almarenamonolight-type fs-28 d-flex justify-content-center align-items-center">
+                                                                <span><svg width="55" height="55" viewBox="0 0 55 55"
+                                                                        fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                        <rect width="55" height="55" rx="27.5"
+                                                                            fill="#E323FF" fill-opacity="0.1" />
+                                                                        <path d="M35.2454 33.8584L31.8379 37.2659"
+                                                                            stroke="#E323FF" stroke-width="1.5"
+                                                                            stroke-linecap="round"
+                                                                            stroke-linejoin="round" />
+                                                                        <path d="M35.2454 37.2659L31.8379 33.8584"
+                                                                            stroke="#E323FF" stroke-width="1.5"
+                                                                            stroke-linecap="round"
+                                                                            stroke-linejoin="round" />
+                                                                        <path
+                                                                            d="M27.6931 25.1349C27.5723 25.1228 27.4273 25.1228 27.2943 25.1349C24.4185 25.0382 22.1348 22.682 22.1348 19.782C22.1348 16.8216 24.5273 14.417 27.4998 14.417C30.4602 14.417 32.8648 16.8216 32.8648 19.782C32.8527 22.682 30.5689 25.0382 27.6931 25.1349Z"
+                                                                            stroke="#E323FF" stroke-width="1.5"
+                                                                            stroke-linecap="round"
+                                                                            stroke-linejoin="round" />
+                                                                        <path
+                                                                            d="M27.4998 38.3537C25.3006 38.3537 23.1136 37.7979 21.4461 36.6862C18.5219 34.7287 18.5219 31.5387 21.4461 29.5933C24.769 27.3699 30.2186 27.3699 33.5415 29.5933"
+                                                                            stroke="#E323FF" stroke-width="1.5"
+                                                                            stroke-linecap="round"
+                                                                            stroke-linejoin="round" />
+                                                                    </svg>
+    
+                                                                </span>
+                                                                <span class="mx-2">Unattended</span><span
+                                                                    class="badge rounded-pill rounded-circle p-2 fs-28 flex-shrink-0"
+                                                                    style="background-color: 
+                                                                                                   
+                                                                            
+                                                                                                   rgba(227, 35, 255, 0.1);color: rgba(227, 35, 255, 1);">{{pendings.2}}</span>
+    
+    
+                                                                </span>
+    
+    
+                                                            </h5>
+                                                            <hr class="my-3">
+                                                            <div class="row mt-4">
+    
+                                                                <div class="col-md-12 col-xxl-12 ">
+    
+    
+    
+    
+                                                                    <div class="row px-4 flex-wrap">
+    
+    
+    
+    
+                                                                        <div class="col-xxl-12">
+    
+    
+    
+    
+                                                                            <ul
+                                                                                class="gilory-medium-type list-unstyled color-color1 fs-17  d-flex flex-wrap  justify-content-between">
+    
+                                                                                <li
+                                                                                    class="mb-4 d-flex flex-nowrap align-items-center ">
+    
+                                                                                    <span
+                                                                                        class="text-white me-2 lh-1">Invalid
+                                                                                        email</span>
+                                                                                    <span
+                                                                                        class="badge rounded-pill rounded-circle p-2 fs-15 flex-shrink-0"
+                                                                                        style="background-color: 
+                                                                                                    
+                                                                                                    rgba(255, 124, 72, 0.2); color: rgba(255, 124, 72, 1)">{{pendings.17}}</span>
+                                                                                </li>
+                                                                                <li
+                                                                                    class="mb-4   d-flex flex-nowrap align-items-center">
+    
+                                                                                    <span
+                                                                                        class="text-white me-2 lh-1">Invalid
+                                                                                        phone
+                                                                                    </span><span
+                                                                                        class="badge rounded-pill rounded-circle p-2 fs-15 flex-shrink-0"
+                                                                                        style="background-color: 
+                                                                                                    
+                                                                                                        
+                                                                                                    rgba(114, 212, 171, 0.2); 
+    color:rgba(114, 212, 171, 1)">{{pendings.18}}</span>
+                                                                                </li>
+                                                                                <!-- <li
+                                                                                    class="mb-4   d-flex flex-nowrap align-items-center">
+    
+                                                                                    <span
+                                                                                        class="text-white me-2 lh-1">Unreachable
+                                                                                    </span><span
+                                                                                        class="badge rounded-pill rounded-circle p-2 fs-15 flex-shrink-0"
+                                                                                        style="background-color: 
+                                                                                                    
+                                                                                                        
+    
+    
+                                                                                                    
+    rgba(45, 140, 255, 0.2); 
+    color:
+    
+    rgba(45, 140, 255, 1)">04</span>
+                                                                                </li> -->
+                                                                            </ul>
+                                                                        </div>
+    
+    
+    
+                                                                    </div>
+    
+    
+    
+    
+    
+                                                                </div>
+                                                            </div>
+                                                        </div>
+    
+                                                    </div>
+    
+    
+    
+                                                </div>
+                                            </div>
+                                        </div>
+    
+    
+    
+    
+    
+                                        <div class="tab-pane" id="actions-resolved-tab" role="tabpanel">
+    
+                                            <div class="row px-0">
+    
+    
+                                                <div class="col-md-6 col-xxl-6  ">
+                                                    <div class="card  card-h-100">
+    
+                                                        <div class="card-body">
+                                                            <h5
+                                                                class="card-title  almarenamonolight-type fs-28 d-flex justify-content-center align-items-center">
+                                                                <span><svg width="55" height="55" viewBox="0 0 55 55"
+                                                                        fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                        <rect width="55" height="55" rx="27.5"
+                                                                            fill="#55CED7" fill-opacity="0.1" />
+                                                                        <path
+                                                                            d="M30.4482 36.0183L32.2849 37.855L35.9582 34.1816"
+                                                                            stroke="#55CED7" stroke-width="1.5"
+                                                                            stroke-linecap="round"
+                                                                            stroke-linejoin="round" />
+                                                                        <path
+                                                                            d="M27.6931 26.1349C27.5723 26.1228 27.4273 26.1228 27.2944 26.1349C24.4186 26.0382 22.1348 23.682 22.1348 20.782C22.1227 17.8216 24.5273 15.417 27.4877 15.417C30.4481 15.417 32.8527 17.8216 32.8527 20.782C32.8527 23.682 30.5569 26.0382 27.6931 26.1349Z"
+                                                                            stroke="#55CED7" stroke-width="1.5"
+                                                                            stroke-linecap="round"
+                                                                            stroke-linejoin="round" />
+                                                                        <path
+                                                                            d="M27.4881 39.3537C25.2889 39.3537 23.1018 38.7979 21.4343 37.6862C18.5102 35.7287 18.5102 32.5387 21.4343 30.5933C24.7573 28.3699 30.2068 28.3699 33.5298 30.5933"
+                                                                            stroke="#55CED7" stroke-width="1.5"
+                                                                            stroke-linecap="round"
+                                                                            stroke-linejoin="round" />
+                                                                    </svg>
+                                                                </span>
+                                                                <span class="mx-2">Attended</span><span
+                                                                    class="badge rounded-pill rounded-circle p-2 fs-28 flex-shrink-0"
+                                                                    style="background-color: 
+                                                                                       
+                                                                
+            rgba(85, 206, 215, 0.1);color: rgba(85, 206, 215, 1);">{{resolved.1}}</span>
+    
+    
+                                                                </span>
+    
+    
+                                                            </h5>
+                                                            <hr class="my-3">
+                                                            <div class="row mt-4">
+    
+                                                                <div class="col-md-12 col-xxl-12 ">
+    
+    
+    
+    
+                                                                    <div class="row px-4 flex-wrap">
+    
+    
+    
+    
+                                                                        <div class="col-xxl-12">
+    
+    
+    
+    
+                                                                            <ul
+                                                                                class="gilory-medium-type list-unstyled color-color1 fs-17  d-flex flex-wrap  justify-content-between">
+    
+                                                                                <li
+                                                                                    class="mb-4 d-flex flex-nowrap align-items-center ">
+    
+                                                                                    <span
+                                                                                        class="text-white me-2 lh-1 fs-22">Not
+                                                                                        Interested</span>
+                                                                                    <span
+                                                                                        class="badge rounded-pill rounded-circle p-2 fs-15 flex-shrink-0"
+                                                                                        style="background-color: 
+                                                                                            
+                                                                                            
+    rgba(255, 50, 50, 0.2); color: 
+    rgba(255, 50, 50, 1)">{{resolved.3}}</span>
+                                                                                </li>
+                                                                                <li
+                                                                                    class="mb-4   d-flex flex-nowrap align-items-center">
+    
+                                                                                    <span
+                                                                                        class="text-white me-2 lh-1 fs-22">Duplicate
+                                                                                    </span><span
+                                                                                        class="badge rounded-pill rounded-circle p-2 fs-15 flex-shrink-0"
+                                                                                        style="background-color: 
+                                                                                            
+                                                                                                
+                                                                                            rgba(255, 195, 78, 0.2); 
+    color:rgba(255, 195, 78,1 )">{{resolved.4}}</span>
+                                                                                </li>
+    
+                                                                            </ul>
+                                                                        </div>
+    
+    
+    
+                                                                    </div>
+    
+    
+    
+    
+    
+                                                                </div>
+                                                            </div>
+                                                        </div>
+    
+                                                    </div>
+    
+    
+    
+                                                </div>
+    
+                                                <div class="col-md-6 col-xxl-6  ">
+                                                    <div class="card  card-h-100">
+    
+                                                        <div class="card-body">
+                                                            <h5
+                                                                class="card-title  almarenamonolight-type fs-28 d-flex justify-content-center align-items-center">
+                                                                <span><svg width="55" height="55" viewBox="0 0 55 55"
+                                                                        fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                        <rect width="55" height="55" rx="27.5"
+                                                                            fill="#E323FF" fill-opacity="0.1" />
+                                                                        <path d="M35.2454 33.8584L31.8379 37.2659"
+                                                                            stroke="#E323FF" stroke-width="1.5"
+                                                                            stroke-linecap="round"
+                                                                            stroke-linejoin="round" />
+                                                                        <path d="M35.2454 37.2659L31.8379 33.8584"
+                                                                            stroke="#E323FF" stroke-width="1.5"
+                                                                            stroke-linecap="round"
+                                                                            stroke-linejoin="round" />
+                                                                        <path
+                                                                            d="M27.6931 25.1349C27.5723 25.1228 27.4273 25.1228 27.2943 25.1349C24.4185 25.0382 22.1348 22.682 22.1348 19.782C22.1348 16.8216 24.5273 14.417 27.4998 14.417C30.4602 14.417 32.8648 16.8216 32.8648 19.782C32.8527 22.682 30.5689 25.0382 27.6931 25.1349Z"
+                                                                            stroke="#E323FF" stroke-width="1.5"
+                                                                            stroke-linecap="round"
+                                                                            stroke-linejoin="round" />
+                                                                        <path
+                                                                            d="M27.4998 38.3537C25.3006 38.3537 23.1136 37.7979 21.4461 36.6862C18.5219 34.7287 18.5219 31.5387 21.4461 29.5933C24.769 27.3699 30.2186 27.3699 33.5415 29.5933"
+                                                                            stroke="#E323FF" stroke-width="1.5"
+                                                                            stroke-linecap="round"
+                                                                            stroke-linejoin="round" />
+                                                                    </svg>
+    
+                                                                </span>
+                                                                <span class="mx-2">Unattended</span><span
+                                                                    class="badge rounded-pill rounded-circle p-2 fs-28 flex-shrink-0"
+                                                                    style="background-color: 
+                                                                                            
+                                                                        
+                                                                                            rgba(227, 35, 255, 0.1);color: rgba(227, 35, 255, 1);">{{resolved.2}}</span>
+    
+    
+                                                                </span>
+    
+    
+                                                            </h5>
+                                                            <hr class="my-3">
+                                                            <div class="row mt-4">
+    
+                                                                <div class="col-md-12 col-xxl-12 ">
+    
+    
+    
+    
+                                                                    <div class="row px-4 flex-wrap">
+    
+    
+    
+    
+                                                                        <div class="col-xxl-12">
+    
+    
+    
+    
+                                                                            <ul
+                                                                                class="gilory-medium-type list-unstyled color-color1 fs-17  d-flex flex-wrap  justify-content-between">
+    
+                                                                                <li
+                                                                                    class="mb-4 d-flex flex-nowrap align-items-center ">
+    
+                                                                                    <span
+                                                                                        class="text-white me-2 lh-1 fs-22">Invalid
+                                                                                        email</span>
+                                                                                    <span
+                                                                                        class="badge rounded-pill rounded-circle p-2 fs-15 flex-shrink-0"
+                                                                                        style="background-color: 
+                                                                                                
+                                                                                                rgba(255, 124, 72, 0.2); color: rgba(255, 124, 72, 1)">{{resolved.8}}</span>
+                                                                                </li>
+                                                                                <li
+                                                                                    class="mb-4   d-flex flex-nowrap align-items-center">
+    
+                                                                                    <span
+                                                                                        class="text-white me-2 lh-1 fs-22">Invalid
+                                                                                        phone
+                                                                                    </span><span
+                                                                                        class="badge rounded-pill rounded-circle p-2 fs-15 flex-shrink-0"
+                                                                                        style="background-color: 
+                                                                                                
+                                                                                                    
+                                                                                                rgba(114, 212, 171, 0.2); 
+        color:rgba(114, 212, 171, 1)">{{resolved.7}}</span>
+                                                                                </li>
+                                                                                <li
+                                                                                    class="mb-4   d-flex flex-nowrap align-items-center">
+    
+                                                                                    <span
+                                                                                        class="text-white me-2 lh-1 fs-22">Unreachable
+                                                                                    </span><span
+                                                                                        class="badge rounded-pill rounded-circle p-2 fs-15 flex-shrink-0"
+                                                                                        style="background-color: 
+                                                                                                
+                                                                                                    
+    
+    
+                                                                                                
+        rgba(45, 140, 255, 0.2); 
+        color:
+    
+        rgba(45, 140, 255, 1)">{{resolved.6}}</span>
+                                                                                </li>
+                                                                            </ul>
+                                                                        </div>
+    
+    
+    
+                                                                    </div>
+    
+    
+    
+    
+    
+                                                                </div>
+                                                            </div>
+                                                        </div>
+    
+                                                    </div>
+    
+    
+    
+                                                </div>
+                                            </div>
+    
+                                        </div>
+    
+                                        <div class="tab-pane" id="actions-dormant-tab" role="tabpanel">
+    
+                                            <div class="row px-0">
+    
+    
+                                                <div class="col-md-6 col-xxl-6  ">
+                                                    <div class="card  card-h-100">
+    
+                                                        <div class="card-body">
+                                                            <h5
+                                                                class="card-title  almarenamonolight-type fs-28 d-flex justify-content-center align-items-center">
+                                                                <span><svg width="55" height="55" viewBox="0 0 55 55"
+                                                                        fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                        <rect width="55" height="55" rx="27.5"
+                                                                            fill="#55CED7" fill-opacity="0.1" />
+                                                                        <path
+                                                                            d="M30.4482 36.0183L32.2849 37.855L35.9582 34.1816"
+                                                                            stroke="#55CED7" stroke-width="1.5"
+                                                                            stroke-linecap="round"
+                                                                            stroke-linejoin="round" />
+                                                                        <path
+                                                                            d="M27.6931 26.1349C27.5723 26.1228 27.4273 26.1228 27.2944 26.1349C24.4186 26.0382 22.1348 23.682 22.1348 20.782C22.1227 17.8216 24.5273 15.417 27.4877 15.417C30.4481 15.417 32.8527 17.8216 32.8527 20.782C32.8527 23.682 30.5569 26.0382 27.6931 26.1349Z"
+                                                                            stroke="#55CED7" stroke-width="1.5"
+                                                                            stroke-linecap="round"
+                                                                            stroke-linejoin="round" />
+                                                                        <path
+                                                                            d="M27.4881 39.3537C25.2889 39.3537 23.1018 38.7979 21.4343 37.6862C18.5102 35.7287 18.5102 32.5387 21.4343 30.5933C24.7573 28.3699 30.2068 28.3699 33.5298 30.5933"
+                                                                            stroke="#55CED7" stroke-width="1.5"
+                                                                            stroke-linecap="round"
+                                                                            stroke-linejoin="round" />
+                                                                    </svg>
+                                                                </span>
+                                                                <span class="mx-2">Attended</span><span
+                                                                    class="badge rounded-pill rounded-circle p-2 fs-28 flex-shrink-0"
+                                                                    style="background-color: 
+                                                                                       
+                                                                
+            rgba(85, 206, 215, 0.1);color: rgba(85, 206, 215, 1);">{{dormant.1}}</span>
+    
+    
+                                                                </span>
+    
+    
+                                                            </h5>
+                                                            <hr class="my-3">
+                                                            <div class="row mt-4">
+    
+                                                                <div class="col-md-12 col-xxl-12 ">
+    
+    
+    
+    
+                                                                    <div class="row px-4 flex-wrap">
+    
+    
+    
+    
+                                                                        <div class="col-xxl-12">
+    
+    
+    
+    
+                                                                            <ul
+                                                                                class="gilory-medium-type list-unstyled color-color1 fs-17  d-flex flex-wrap  justify-content-between">
+    
+                                                                                <li
+                                                                                    class="mb-4 d-flex flex-nowrap align-items-center ">
+    
+                                                                                    <span
+                                                                                        class="text-white me-2 lh-1 fs-22">Not
+                                                                                        Interested</span>
+                                                                                    <span
+                                                                                        class="badge rounded-pill rounded-circle p-2 fs-15 flex-shrink-0"
+                                                                                        style="background-color: 
+                                                                                            
+                                                                                            
+    rgba(255, 50, 50, 0.2); color: 
+    rgba(255, 50, 50, 1)">{{dormant.3}}</span>
+                                                                                </li>
+                                                                                <li
+                                                                                    class="mb-4   d-flex flex-nowrap align-items-center">
+    
+                                                                                    <span
+                                                                                        class="text-white me-2 lh-1 fs-22">Duplicate
+                                                                                    </span><span
+                                                                                        class="badge rounded-pill rounded-circle p-2 fs-15 flex-shrink-0"
+                                                                                        style="background-color: 
+                                                                                            
+                                                                                                
+                                                                                            rgba(255, 195, 78, 0.2); 
+    color:rgba(255, 195, 78,1 )">{{dormant.4}}</span>
+                                                                                </li>
+    
+                                                                            </ul>
+                                                                        </div>
+    
+    
+    
+                                                                    </div>
+    
+    
+    
+    
+    
+                                                                </div>
+                                                            </div>
+                                                        </div>
+    
+                                                    </div>
+    
+    
+    
+                                                </div>
+    
+                                                <div class="col-md-6 col-xxl-6  ">
+                                                    <div class="card  card-h-100">
+    
+                                                        <div class="card-body">
+                                                            <h5
+                                                                class="card-title  almarenamonolight-type fs-28 d-flex justify-content-center align-items-center">
+                                                                <span><svg width="55" height="55" viewBox="0 0 55 55"
+                                                                        fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                        <rect width="55" height="55" rx="27.5"
+                                                                            fill="#E323FF" fill-opacity="0.1" />
+                                                                        <path d="M35.2454 33.8584L31.8379 37.2659"
+                                                                            stroke="#E323FF" stroke-width="1.5"
+                                                                            stroke-linecap="round"
+                                                                            stroke-linejoin="round" />
+                                                                        <path d="M35.2454 37.2659L31.8379 33.8584"
+                                                                            stroke="#E323FF" stroke-width="1.5"
+                                                                            stroke-linecap="round"
+                                                                            stroke-linejoin="round" />
+                                                                        <path
+                                                                            d="M27.6931 25.1349C27.5723 25.1228 27.4273 25.1228 27.2943 25.1349C24.4185 25.0382 22.1348 22.682 22.1348 19.782C22.1348 16.8216 24.5273 14.417 27.4998 14.417C30.4602 14.417 32.8648 16.8216 32.8648 19.782C32.8527 22.682 30.5689 25.0382 27.6931 25.1349Z"
+                                                                            stroke="#E323FF" stroke-width="1.5"
+                                                                            stroke-linecap="round"
+                                                                            stroke-linejoin="round" />
+                                                                        <path
+                                                                            d="M27.4998 38.3537C25.3006 38.3537 23.1136 37.7979 21.4461 36.6862C18.5219 34.7287 18.5219 31.5387 21.4461 29.5933C24.769 27.3699 30.2186 27.3699 33.5415 29.5933"
+                                                                            stroke="#E323FF" stroke-width="1.5"
+                                                                            stroke-linecap="round"
+                                                                            stroke-linejoin="round" />
+                                                                    </svg>
+    
+                                                                </span>
+                                                                <span class="mx-2">Unattended</span><span
+                                                                    class="badge rounded-pill rounded-circle p-2 fs-28 flex-shrink-0"
+                                                                    style="background-color: 
+                                                                                            
+                                                                        
+                                                                                            rgba(227, 35, 255, 0.1);color: rgba(227, 35, 255, 1);">{{dormant.2}}</span>
+    
+    
+                                                                </span>
+    
+    
+                                                            </h5>
+                                                            <hr class="my-3">
+                                                            <div class="row mt-4">
+    
+                                                                <div class="col-md-12 col-xxl-12 ">
+    
+    
+    
+    
+                                                                    <div class="row px-4 flex-wrap">
+    
+    
+    
+    
+                                                                        <div class="col-xxl-12">
+    
+    
+    
+    
+                                                                            <ul
+                                                                                class="gilory-medium-type list-unstyled color-color1 fs-17  d-flex flex-wrap  justify-content-between">
+    
+                                                                                <li
+                                                                                    class="mb-4 d-flex flex-nowrap align-items-center ">
+    
+                                                                                    <span
+                                                                                        class="text-white me-2 lh-1 fs-22">Call Busy</span>
+                                                                                    <span
+                                                                                        class="badge rounded-pill rounded-circle p-2 fs-15 flex-shrink-0"
+                                                                                        style="background-color: 
+                                                                                                
+                                                                                                rgba(255, 124, 72, 0.2); color: rgba(255, 124, 72, 1)">{{dormant.6}}</span>
+                                                                                </li>
+                                                                                <li
+                                                                                    class="mb-4   d-flex flex-nowrap align-items-center">
+    
+                                                                                    <span
+                                                                                        class="text-white me-2 lh-1 fs-22">Call Not Answered
+                                                                                    </span><span
+                                                                                        class="badge rounded-pill rounded-circle p-2 fs-15 flex-shrink-0"
+                                                                                        style="background-color: 
+                                                                                                
+                                                                                                    
+                                                                                                rgba(114, 212, 171, 0.2); 
+        color:rgba(114, 212, 171, 1)">{{dormant.7}}</span>
+                                                                                </li>
+                                                                                <li
+                                                                                    class="mb-4   d-flex flex-nowrap align-items-center">
+    
+                                                                                    <span
+                                                                                        class="text-white me-2 lh-1 fs-22">Call None
+                                                                                    </span><span
+                                                                                        class="badge rounded-pill rounded-circle p-2 fs-15 flex-shrink-0"
+                                                                                        style="background-color: 
+                                                                                                
+                                                                                                    
+    
+    
+                                                                                                
+        rgba(45, 140, 255, 0.2); 
+        color:
+    
+        rgba(45, 140, 255, 1)">{{dormant.8}}</span>
+                                                                                </li>
+                                                                            </ul>
+                                                                        </div>
+    
+    
+    
+                                                                    </div>
+    
+    
+    
+    
+    
+                                                                </div>
+                                                            </div>
+                                                        </div>
+    
+                                                    </div>
+    
+    
+    
+                                                </div>
+                                            </div>
+                                        </div>
+    
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+    
+                    </div>
+    
+                    <!-- end row-->
+    
+                </div>
+                <!-- container -->
+            </div>
+            <!-- End Page-content -->
+            
+        </div>
+        <!-- end main content-->
+    
+    </div>
+    {% include "common/right-sidebar.html" %}
+        
+    <!-- Right bar overlay-->
+<div class="rightbar-overlay"></div>
+<script src="{% static 'js/app.js' %}"></script>
+</body>
+
+</html>

@@ -267,8 +267,9 @@
                                                 <div class="activity-icon avatar-sm me-3">
                                                     <span class="avatar-title   rounded-circle">
                                                         <!--<i class="bx bx-bitcoin font-size-24"></i>-->
+                                                        {% load splitfilter %}
                                                         <img class="rounded-circle avatar-md"
-                                                        src="{%static 'images/users/'%}{{journels.0}}.png" 
+                                                        src="{%static 'images/users/'%}{{journels.0|imagecut}}.png" 
                                                         onerror='this.src="{% static 'images/users/user.png' %}"'>
                                                     </span>
                                                 </div>
@@ -482,7 +483,7 @@ Approval-->
                                 <div class="card-body ">
 
                                     <div class="d-flex flex-wrap align-items-center mb-4">
-                                        <h5 class="card-title me-2 almarenamonolight-type fs-21">Pending Transations</h5>
+                                        <h5 class="card-title me-2 almarenamonolight-type fs-21">Pending Transactions</h5>
                                         <div class="ms-auto">
 
                                             

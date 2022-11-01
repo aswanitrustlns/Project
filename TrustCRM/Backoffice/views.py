@@ -1,3 +1,4 @@
+from atexit import register
 from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import redirect, render
@@ -6,7 +7,6 @@ from django.views.decorators.csrf import csrf_exempt
 from .service import Services
 from .selector import Selector
 from .emailservice import EmailServices
-
 
 selector=Selector()
 service=Services()
@@ -380,9 +380,13 @@ def reset_phone_pwd(request):
         message="Please try again"
         userid=int(request.session.get('UserId'))
         accno=request.GET.get('account')
-        print("data   account=======",userid,accno)
-        phonepwd=selector.phone_password_reset(accno)
-        message="MT4 Error!! Cannot change password"
+        newpwd=request.GET.get('newpwd')
+        user=request.session.get('user')
+        server=request.session.get('server')
+        password=request.session.get('password')
+        print("data   account=======",userid,accno,newpwd)
+        message=selector.phone_password_reset(user,server,password,accno,newpwd)
+        
         userdetails=selector.get_user_details(accno)
         service.save_activity_log("Phone password reset",userid,"Phone PWD Reset")
         if userdetails:
@@ -390,7 +394,7 @@ def reset_phone_pwd(request):
             title=userdetails[2]
             name=userdetails[1]
             email=userdetails[0]
-            emailservice.sendResetPWD(title,name,email,phonepwd)
+            emailservice.sendResetPWD(title,name,email,newpwd)
         message="Password changed successfully"
         return JsonResponse({"message":message}) 
     else:
@@ -565,7 +569,7 @@ def backoffice_dashboard(request):
     if 'UserId' in request.session:
         userid=request.session.get('UserId')
         data=selector.dashboard_selector(userid)
-        print("data========",data)
+        
         return render(request,"backoffice/dashboard.html",data)
     else:
         return redirect('/login')
@@ -782,6 +786,8 @@ def inter_account_transfer(request):
         return JsonResponse({"message":message})
     else:
         return redirect('/login')
+
+
 
 
 

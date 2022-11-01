@@ -8,6 +8,7 @@ def view_seminars(request):
     if 'UserId' in request.session:
         
         titles=service.get_last_seminar()
+        
         last_seminar=service.get_seminars_last()
         all_seminar=service.get_seminar_info_list()
         return render(request,'seminars/eventregistration.html',{'titles':titles,'seminars':all_seminar,'last':last_seminar})

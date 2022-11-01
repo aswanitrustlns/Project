@@ -663,7 +663,7 @@
                                                                         <div class=" mt-3">
                                                                             <form action="" class="row needs-validation ">
                                                                                 <div class="col-md-12 mb-2">
-                                                                                    <textarea name="" id="chatsId" cols="30" rows="3" class="form-control" style="background-color: transparent !important;" ></textarea>
+                                                                                    <textarea name="chat" id="chatsId" cols="30" rows="3" class="form-control" style="background-color: transparent !important;" ></textarea>
                                                                                     <!-- <button  class="btn btn-sm btn-primary me-2   position-absolute" type="button" style="right: 15px; bottom: 10px;" onclick="">Send</button> -->
                                                                                 </div>
                                                                                 <div class="col-md-12  ">
@@ -696,7 +696,7 @@
                                                                                             </select>
                                                                                         </div>
                                                                                         <div class="col-md-3 mb-1">
-                                                                                            <label class="form-label mb-1" for="temp">None</label>
+                                                                                            <label class="form-label mb-1" for="temp">Next</label>
                                                                                             <select class=" form-select py-1" style="background-color: var(--bs-card-bg)  !important;" id="chatNone">
                                                                                                 <option value="None">None</option>
                                                                                                 <option value="F">F:Follow Up</option>
@@ -2579,8 +2579,10 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
     $("#accountno").val("")
     $("#activityList").empty()
     $("#summary_div").empty()
+    document.getElementById("chatsId").value=""
     $("#chatsDiv").hide()
     $("#journal-nothing").show()
+
     document.getElementById("valid-msg").innerHTML=""
     document.getElementById("valid-msg2").innerHTML=""
     document.getElementById("error-msg").innerHTML=""
@@ -2609,7 +2611,7 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
         var interest=$("#chatInterest").val()
         var chatexp=$("#chatExp").val()
         var chatnone=$("#chatNone").val()
-        var chatText=chat+" Call: "+call+" Interest: "+interest+" Experience: "+chatexp+" None: "+chatnone
+        var chatText="Call: "+call+" Interest: "+interest+" Experience: "+chatexp+" Next: "+chatnone+" "+chat
         console.log("=========================="+call+interest+chatexp+chatnone+chatText)
         if(call=="S" && interest=="None"){
             $("#userMsg").empty()
@@ -2627,27 +2629,30 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
                     
 
                 }
+           else{
+            $.ajax({
             
-        //     $.ajax({
-            
-        //     type : "GET", 
-        //     data : {
-        //         "ticket":ticket,
-        //         "logdata":chatText,
-        //         "logtype":"sales call"
-        //     },
-        //     url: "{% url 'Admin:TicketLogs' %}",
-        //     success: function(data){
-        //         $("#chatsId").val('')
-        //         console.log("Insertion done and updation called")
+            type : "GET", 
+            data : {
+                "ticket":ticket,
+                "logdata":chatText,
+                "logtype":"sales call"
+            },
+            url: "{% url 'Admin:TicketLogs' %}",
+            success: function(data){
+                $("#chatsId").val('')
+                console.log("Insertion done and updation called")
                 
-        //         updateActivitylog()
+                updateActivitylog()
 
                 
                 
 
-        //     }
-        // })   
+            }
+        })   
+
+           } 
+            
             
         }
         

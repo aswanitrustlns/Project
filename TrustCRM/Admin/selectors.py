@@ -610,7 +610,7 @@ class Selector:
 
 
     #Open demo account
-    def open_demo_account(self,title,name,email,phone,country):
+    def open_demo_account(self,user,server,password,title,name,email,phone,country):
         #call dll function
         try:
             Cursor=connection.cursor()
@@ -619,10 +619,10 @@ class Selector:
             if (country_name):
                 country_name=country_name[0]
         
-            password=random_ped_gen()
-            demo_account=dll_demo_account(name,email,phone,country_name,password)
+            passwordgen=random_ped_gen()
+            demo_account=dll_demo_account(user,server,password,name,email,phone,country_name,passwordgen)
             if(demo_account != 0):
-                emailservice.demo_account_email(title,name,demo_account,password,email)
+                emailservice.demo_account_email(title,name,demo_account,passwordgen,email)
         except Exception as e:
             print("Exception------",e)
         finally:
@@ -1448,6 +1448,22 @@ class Selector:
         finally:
                 Cursor.close()
         return all_reminders
+     #Load Ticket Summary
+    def load_ticket_summary(self,userid):
+        try:
+            Cursor=connection.cursor()   
+            Cursor.execute("set nocount on;exec SP_GetPendingTicketsSummary %s",[userid]) 
+            pending=Cursor.fetchone()  
+            Cursor.execute("set nocount on;exec SP_GetResolvedTicketsSummary %s",[userid]) 
+            resolved=Cursor.fetchone()       
+            Cursor.execute("set nocount on;exec SP_GetDormantTicketsSummary %s",[userid]) 
+            dormant=Cursor.fetchone()
+
+        except Exception as e:
+                print("Exception------",e)
+        finally:
+                Cursor.close()
+        return pending,resolved,dormant
 
 
 
@@ -1482,20 +1498,18 @@ def random_ped_gen():
     return password
 
 #dll demo account
-def dll_demo_account(name,email,phone,country,password):
-        demoserver = "50.57.14.224:443"
-        demopwd = "Tc2022"
-        demouser = "601"    
+def dll_demo_account(user,server,password,name,email,phone,country,userpassword):
+       
       
-        details="NAME="+name+"^EMAIL="+email+"^PHONE="+phone+"^USER_COUNTRY"+country+"^USER_PASSWORD"+password
+        details="NAME="+name+"^EMAIL="+email+"^PHONE="+phone+"^USER_COUNTRY"+country+"^USER_PASSWORD"+userpassword
         received="reciveddata"
         hllDll = CDLL(r"C:\\pyenv\\TrustManagerAPI.dll") 
         DemoAccount_Create = hllDll.DemoAccount_Create
         hllDll.DemoAccount_Create.argtype = c_char_p,c_int,c_char_p,c_char_p
         hllDll.DemoAccount_Create.restype = c_int
-        username=int(demouser)
+        username=int(user)
         login = c_int(username)
-        connect=DemoAccount_Create(c_char_p(demoserver.encode('utf-8')).value,login.value,c_char_p(demopwd.encode('utf-8')).value,c_char_p(details.encode('utf-8')).value)
+        connect=DemoAccount_Create(c_char_p(server.encode('utf-8')).value,login.value,c_char_p(password.encode('utf-8')).value,c_char_p(details.encode('utf-8')).value)
         return connect
 
 
@@ -1570,6 +1584,17 @@ def update_ticket(request):
                 print("Exception------",e)
      finally:
                 Cursor.close()
+
+# def get_ticket_count_for_summary(userId):
+#     try:
+#         Cursor=connection.cursor()
+#         Cursor.execute("set nocount on;exec SP_SalesTicketCountByRepWeekly %s,%s",['D',userId])
+#         counts=Cursor.fetchone()
+#     except Exception as e:
+#             print("Exception------",e)
+#     finally:
+#             Cursor.close()
+#     return counts
 
 
 

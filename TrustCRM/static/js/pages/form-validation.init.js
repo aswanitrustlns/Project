@@ -58,22 +58,22 @@ window.onload = function () {
 	// });
 
 	// validator to a specific field
-	var specificfieldform = document.getElementById("pristine-valid-specificfield");
-	var specificfieldpristine = new Pristine(specificfieldform);
-	var specificfieldelem = document.getElementById("specificfield")
+	// var specificfieldform = document.getElementById("pristine-valid-specificfield");
+	// var specificfieldpristine = new Pristine(specificfieldform);
+	// var specificfieldelem = document.getElementById("specificfield")
 
-	specificfieldpristine.addValidator(specificfieldelem, function (value, el) {
-		if (value.length && value[0] === value[0].toUpperCase()) {
-			return true;
-		}
-		return false;
-	}, "The first character must be capitalized", 2, false);
+	// specificfieldpristine.addValidator(specificfieldelem, function (value, el) {
+	// 	if (value.length && value[0] === value[0].toUpperCase()) {
+	// 		return true;
+	// 	}
+	// 	return false;
+	// }, "The first character must be capitalized", 2, false);
 
-	specificfieldform.addEventListener('submit', function (e) {
-		e.preventDefault();
-		var specificfieldvalid = specificfieldpristine.validate();
-		//alert('Form is valid: ' + specificfieldvalid);
+	// specificfieldform.addEventListener('submit', function (e) {
+	// 	e.preventDefault();
+	// 	var specificfieldvalid = specificfieldpristine.validate();
+	// 	//alert('Form is valid: ' + specificfieldvalid);
 
-	});
+	// });
 };
 

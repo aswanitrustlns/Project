@@ -1,3 +1,4 @@
+from typing import List
 from django.db import connection
 from datetime import datetime, timedelta
 from .emailservices import EmailServices
@@ -10,24 +11,25 @@ class Services:
             Cursor=connection.cursor()
             Cursor.execute("set nocount on;exec SP_GetSeminars")
             last_seminar=Cursor.fetchall()
-            print("Last seminar=====",last_seminar)
+            last_tuples = list((sem[0]) for sem in last_seminar)
+            reverse_seminar=list(reversed(last_tuples))
         except Exception as e:
                 print("Exception---",e)
         finally:
             Cursor.close()
-        return last_seminar
+        return reverse_seminar
     
-#Get Seminars
+# #Get Seminars
 
-    def get_seminars(self):
-        try:
-            Cursor=connection.cursor()
-            seminar_list=Cursor.execute("set nocount on;exec SP_GetSeminars")
-        except Exception as e:
-                print("Exception---",e)
-        finally:
-            Cursor.close()
-        return seminar_list
+#     def get_seminars(self):
+#         try:
+#             Cursor=connection.cursor()
+#             seminar_list=Cursor.execute("set nocount on;exec SP_GetSeminars")
+#         except Exception as e:
+#                 print("Exception---",e)
+#         finally:
+#             Cursor.close()
+#         return seminar_list
 #Get Last Seminars
 
     def get_seminars_last(self):
@@ -259,8 +261,8 @@ class Services:
                     "id":ids,
                     "name":items[0]
                 })
-            seminarList = sorted(seminarList, key=lambda k: k['id'], reverse=True)
-            print("Seminars..................",seminarList)  
+            # seminarList = sorted(seminarList, key=lambda k: k['id'], reverse=True)
+            # print("Seminars..................",seminarList)  
         except Exception as e:
                 print("Exception---",e)
         finally:

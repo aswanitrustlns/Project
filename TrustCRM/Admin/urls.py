@@ -76,6 +76,7 @@ urlpatterns=[
     path('EmailData',email_data,name="EmailData"),
     path('Calendar',show_calendar,name="Calendar"),
     path('Events',show_events,name="Events"),
+    path('TicketSummary',ticket_summary,name="TicketSummary"),
    
     path('logout',logout,name="Logout"),
     

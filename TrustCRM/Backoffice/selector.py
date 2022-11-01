@@ -507,18 +507,25 @@ class Selector:
             Cursor.close
         return connect
      #Phone password reset
-    def phone_password_reset(self,accno):
+    def phone_password_reset(self,user,server,password,accno,newPwd):
+        message=""
         try:
-            newPwd=random_pwd_gen()
-            print("New password====",newPwd)
+           
             Cursor=connection.cursor()    
+            message="Password Changed in Database"
             Cursor.execute("set nocount on; exec SP_ChangePhonePasswords %s,%s",[newPwd,accno])
-            # connect=dllservice.dll_phone_pwd(accno,newPwd)
+            message="MT4 Error!! Cannot change password"
+            print("Mt4 start")
+            accno=int(accno)
+            connect=dllservice.dll_phone_pwd(user,server,password,accno,newPwd)
+            
+            if(connect==1):
+                message="Password Changed Successfully"
         except Exception as e:
             print("Exception----",e)
         finally:
             Cursor.close
-        return newPwd
+        return message
 
     # Get Ticket Summary
     def get_ticket_summary(self,ticket):
@@ -606,7 +613,7 @@ class Selector:
             print("Live count this week======")
             Cursor.execute("set nocount on;exec SP_GetNewAccountsCount %s,%s",[date_yesterday_for_today,date_today])
             live_count_today=Cursor.fetchone()
-            print("Live count======",live_count)
+            
             if live_count_today:
                 
                 live_funded_today=live_count_today[0]

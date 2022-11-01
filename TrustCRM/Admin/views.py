@@ -64,6 +64,10 @@ def login_check(request):
             print("Admin login===================================")
             adminrole="admin" 
             request.session['role']="manager"
+        if UserId==28:
+            print("Admin login===================================")
+            adminrole="backoffice" 
+            request.session['role']="backoffice"
         else:
             adminrole="sales" 
             request.session['role']="salesrep"
@@ -112,9 +116,10 @@ def dashboard(request):
         
        
         permission_check=selector.user_role_selection(UserId)    
-
+        backoffice=permission_check[5]
         manager=permission_check[11]
         salesRep=permission_check[22]
+        print("backoffice===========",backoffice)
         print("Manager======================================",manager)
         print("Sales Rep===================================",salesRep)
         dashbord_data={}
@@ -157,9 +162,16 @@ def dashboard(request):
         if salesRep:
             
              
-             dashbord_data=sales_dash.sales_dashboard(UserId)     
-             print("sales dashboard procedure end",datetime.now().time()) 
-             return render(request,'sales/dashboard.html',dashbord_data)
+            dashbord_data=sales_dash.sales_dashboard(UserId)     
+            print("sales dashboard procedure end",datetime.now().time()) 
+            return render(request,'sales/dashboard.html',dashbord_data)
+        if backoffice:
+            dashbord_data=sales_dash.backoffice_dashboard(UserId)    
+            
+            #  return render(request,'sales/dashboard.html',dashbord_data)
+            return render(request,"backoffice/dashboard.html",dashbord_data)
+
+
     else:
          return redirect('/login') 
 
@@ -1113,13 +1125,16 @@ def list_all_seminar(request):
 #Open demo account
 def open_demoaccount(request):
     if 'UserId' in request.session:
+        user=request.session.get('user')
+        server=request.session.get('server')
+        password=request.session.get('password')
         title=request.GET.get('title')
         name=request.GET.get('name')
         email=request.GET.get('email')
         phone=request.GET.get('phone')
         country=int(request.GET.get('country'))
         print("All open demo data====",title,name,email,phone,country)
-        selector.open_demo_account(title,name,email,phone,country)
+        selector.open_demo_account(user,server,password,title,name,email,phone,country)
         return JsonResponse({"msg":"Demo account opened"})
     else:
         return JsonResponse({"msg":"Your session expired! Please login to continue"})
@@ -1221,6 +1236,16 @@ def show_events(request):
         return JsonResponse({"events":reminders})
     else:
         return redirect('/login')
+        
+def ticket_summary(request):
+    if 'UserId' in request.session:
+        userid=request.session.get('UserId')
+        pending,resolved,dormant=selector.load_ticket_summary(userid)
+
+        return render(request,'sales/ticketsummary.html',{"pendings":pending,"resolved":resolved,"dormant":dormant})  
+    else:
+        return redirect('/login')
+
 
 
 

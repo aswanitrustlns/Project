@@ -58,7 +58,7 @@
                         <span data-key="t-backOffice">Back Office</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
-                        <li> <a  href="{% url 'Backoffice:BackofficeDashboard' %}" >Dashboard</a></li>
+                        <!-- <li> <a  href="{% url 'Backoffice:BackofficeDashboard' %}" >Dashboard</a></li> -->
                         <li> <a  href="{% url 'Backoffice:ChangePassword' %}" >Change Password</a></li>
                         <li> <a  href="{% url 'Backoffice:Manage' %}" >Manage Account</a></li>                        
                         <li> <a  href="{% url 'Backoffice:Approval' %}" >Approval</a></li>
@@ -111,7 +111,7 @@
                         <li><a  href="{% url 'Admin:LeadProcessing'%}" data-key="t-LeadRegistration">Manage Tickets</a></li>
                         <li><a  data-key="t-level-1-2" aria-expanded="false" href="javascript: void(0);" class="has-arrow">Tickets</a>
                             <ul class="sub-menu mm-collapse" aria-expanded="false" >
-                                <li><a  data-key="t-LeadRegistration">Ticket Summary</a></li>
+                                <li><a   href="{% url 'Admin:TicketSummary'%}" >Ticket Summary</a></li>
                                 <li><a  href="{% url 'Admin:PendingTickets'%}" data-key="t-LeadRegistration">All Tickets</a></li>
                                 <!-- <li><a  href="{% url 'Admin:DormantTicket'%}" data-key="t-LeadRegistration">Dormant Tickets</a></li> -->
                             </ul>
