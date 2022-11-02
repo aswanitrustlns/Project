@@ -523,6 +523,7 @@ class Selector:
         return reasonStr  
     #MT4 password checking
     def mt4_password_checking(self,username,server,password):
+        connect=""
         try:
           connect=dllservice.dll_connection(username,server,password)
         except Exception as e:

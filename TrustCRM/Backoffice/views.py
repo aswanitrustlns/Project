@@ -347,6 +347,7 @@ def send_expiry_alert(request):
 def check_mt4_password(request):
    if 'UserId' in request.session:
     message="fail"
+    connect=""
     user=request.session.get('user')
     server=request.session.get('server')
     password=request.session.get('password')
