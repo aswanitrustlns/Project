@@ -234,7 +234,7 @@ class EmailServices:
             Cursor=connection.cursor()  
             subject=""
            
-                
+            
             email_from = 'cs@trusttc.com'
             print("Mail======",title,name,remail,cardno,subject,cardtype)
             bcc1="crm@trusttc.com"
@@ -267,11 +267,11 @@ class EmailServices:
                     subject = "Crypto Card Approved"
                     path="email/backoffice/CryptoCardApproved.html"
                 if(status=="Rejected"):
-                    subject = "Debit Card Rejected"
+                    subject = "Crypto Card Rejected"
                     path="email/backoffice/CryptoCardRejected.html"
 
             email_template_render=render_to_string(path,template_data)
-            msg = EmailMultiAlternatives(subject=subject,from_email=email_from,to=[remail])#bcc=[bcc1,bcc2,bcc3,bcc4]
+            msg = EmailMultiAlternatives(subject=subject,from_email=email_from,to=[remail],bcc=[bcc1,bcc2,bcc3,bcc4])
             msg.attach_alternative(email_template_render, "text/html")
             msg.send(fail_silently=False)
             print("Email send-----------------------------------------------------------")  

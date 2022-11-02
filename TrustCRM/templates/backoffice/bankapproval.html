@@ -656,7 +656,7 @@
                                     <div class="col-12">
                                         <div class="mb-3">
                                             <!--<label class="form-label">Event Name</label>-->
-                                           <h6>Are you sure you want to reject the creditcard? </h6>
+                                           <h6>Are you sure you want to reject the card? </h6>
                                             <input type="hidden" name="status" id="rejstatus">
                                             <input type="hidden" name="id" id="rejid">
                                             <input type="hidden" name="rejcard" id="rejcard">
@@ -1233,7 +1233,7 @@
                             var uniqueid=details[i][7]
                             row="<tr><td class='ps-0'>"+details[i][0]+"</td><td>"+details[i][1]+"</td><td>"+details[i][2]+"</td><td><button id="+uniqueid+" >"+details[i][4]+"</button></td>"+
                                  "<td>"+details[i][5]+"</td><td>"+details[i][6]+"</td><td>"+details[i][8]+"</td><td><div class='dropdown align-self-start'><a class='dropdown-toggle' href='#' role='button' data-bs-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>"+
-                                 "<i class='bx bx-dots-vertical-rounded'></i></a><div class='dropdown-menu'><a class='dropdown-item' onclick=approve('"+details[i][4]+"','"+details[i][7]+"','"+details[i][2]+"','"+details[i][8]+"')>Approve</a><a class='dropdown-item' onclick=reject('"+details[i][4]+"','"+details[i][7]+"','"+details[i][2]+"','"+details[i][8]+"')>Reject</a>"+
+                                 "<i class='bx bx-dots-vertical-rounded'></i></a><div class='dropdown-menu' style='cursor:pointer'><a class='dropdown-item' onclick=approve('"+details[i][4]+"','"+details[i][7]+"','"+details[i][2]+"','"+details[i][8]+"')>Approve</a><a class='dropdown-item' onclick=reject('"+details[i][4]+"','"+details[i][7]+"','"+details[i][2]+"','"+details[i][8]+"')>Reject</a>"+
                                  "<a class='dropdown-item' onclick=editCardDetails('"+ encodeURIComponent(details[i][1])+"','"+details[i][2]+"','"+details[i][5]+"','"+details[i][6]+"','"+details[i][8]+"','"+details[i][7]+"')>Edit</a><a class='dropdown-item' onclick=viewCard('"+details[i][7]+"','0')>View Card Front</a><a class='dropdown-item' onclick=viewCard('"+details[i][7]+"','1')>View Card Back</a></div></div></td></tr>"
                                  $("#credit-details").append(row)
 
@@ -1287,8 +1287,8 @@
                             var uniqueid="crypto"+details[i][7]
                             row="<tr><td class='ps-0'>"+details[i][0]+"</td><td>"+details[i][1]+"</td><td>"+details[i][2]+"</td><td>"+details[i][3]+"</td><td><button id="+uniqueid+">"+details[i][4]+"</button></td>"+
                                  "<td>"+details[i][8]+"</td><td><div class='dropdown align-self-start'><a class='dropdown-toggle' href='#' role='button' data-bs-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>"+
-                                 "<i class='bx bx-dots-vertical-rounded'></i></a><div class='dropdown-menu'><a class='dropdown-item' onclick=approveCrypto('"+details[i][0]+"','"+details[i][7]+"','"+details[i][8]+"')>Approve</a>"+
-                                "<a class='dropdown-item' onclick=rejectCryptoCard('"+details[i][0]+"','"+details[i][7]+"','"+details[i][8]+"')>Reject</a><a class='dropdown-item' onclick=editCrypto('"+details[i][7]+"','"+encodeURIComponent(details[i][1])+"','"+details[i][2]+"')>Edit</a><a class='dropdown-item' onclick=viewCard("+details[i][7]+",'0')>View</a></div></div></td></tr>"
+                                 "<i class='bx bx-dots-vertical-rounded'></i></a><div class='dropdown-menu' style='cursor:pointer'><a class='dropdown-item' onclick=approveCrypto('"+details[i][2]+"','"+details[i][7]+"','"+details[i][8]+"')>Approve</a>"+
+                                "<a class='dropdown-item' onclick=rejectCryptoCard('"+details[i][2]+"','"+details[i][7]+"','"+details[i][8]+"')>Reject</a><a class='dropdown-item' onclick=editCrypto('"+details[i][7]+"','"+encodeURIComponent(details[i][1])+"','"+details[i][2]+"')>Edit</a><a class='dropdown-item' onclick=viewCard("+details[i][7]+",'0')>View</a></div></div></td></tr>"
                                 $("#crypto-details").append(row)
                                 
                                 if(details[i][4]=="Approved"){
@@ -1341,7 +1341,7 @@
             $("#rejstatus").val(status)
             $("#rejid").val(id)
             $("#rejcard").val(card)
-            $("#rejcardtype").val(cardType)
+            $("#rejcardtype").val(CardType)
             $("#reject").modal('show')
         }
     }
@@ -1404,7 +1404,8 @@
                         
                         'id':id,
                         'accno':accno,
-                        'card':card,
+                        'card':status,
+                        'type':"Crypto",
                         'status':"Rejected"
                     },
                     success: function(data){
@@ -1518,7 +1519,7 @@
                         
                         'id':id,
                         'accno':accno,
-                        'card':card,
+                        'card':status,
                         'type':"Crypto",
                         'status':"Approved"
                     },
@@ -1640,7 +1641,7 @@
                                 row="<tr><td class='ps-0'>"+details[i][1]+"</td><td>"+details[i][2]+"</td><td>"+details[i][3]+"</td><td><button id="+uniqueid+">"+details[i][4]+"</button></td>"+
                                     "<td>"+details[i][5]+"</td><td>"+details[i][7]+"</td><td>"+details[i][6]+"</td><td>"+ibans+"</td><td><div class='dropdown align-self-start'>"+
                                     "<a class='dropdown-toggle' href='#' role='button' data-bs-toggle='dropdown' aria-haspopup='true' aria-expanded='false'><i class='bx bx-dots-vertical-rounded'></i>"+
-                                    "</a><div class='dropdown-menu'><a class='dropdown-item' onclick=bankApproval('"+details[i][2]+"','"+details[i][0]+"','"+details[i][2]+"')>Approve</a><a class='dropdown-item' onclick=bankReject('"+details[i][2]+"','"+details[i][0]+"','"+details[i][2]+"')>Reject</a>"+
+                                    "</a><div class='dropdown-menu' style='cursor:pointer'><a class='dropdown-item' onclick=bankApproval('"+details[i][2]+"','"+details[i][0]+"','"+details[i][2]+"')>Approve</a><a class='dropdown-item' onclick=bankReject('"+details[i][2]+"','"+details[i][0]+"','"+details[i][2]+"')>Reject</a>"+
                                     "<a class='dropdown-item' onclick=editBankdetails('"+details[i][0]+"','"+encodeURIComponent(details[i][1])+"','"+details[i][2]+"','"+encodeURIComponent(details[i][3])+"','"+encodeURIComponent(details[i][5])+"','"+encodeURIComponent(details[i][6])+"','"+encodeURIComponent(details[i][7])+"','"+encodeURIComponent(details[i][8])+"')>Edit</a></div></div></td></tr>"
                                     
                                     $("#bank-account-table").append(row)

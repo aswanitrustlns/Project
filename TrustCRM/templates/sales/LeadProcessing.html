@@ -2582,12 +2582,13 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
     document.getElementById("chatsId").value=""
     $("#chatsDiv").hide()
     $("#journal-nothing").show()
-
+    
+    window.calendar.destroy()
     document.getElementById("valid-msg").innerHTML=""
     document.getElementById("valid-msg2").innerHTML=""
     document.getElementById("error-msg").innerHTML=""
     document.getElementById("error-msg2").innerHTML=""
-    calendar.removeAllEvents()
+    // calendar.removeAllEvents()
     let country=document.getElementById("country")
     let code=country.selectedOptions[0].getAttribute("data-value")
     console.log("Country code reset====="+code)
