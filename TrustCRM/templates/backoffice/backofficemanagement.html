@@ -109,9 +109,15 @@
                             
                             
                                                         </div>
-                                                        <div class="col ">
+                                                        <div class="col-12 col-md-4">
                                                             <button class="btn btn-info btn-lg me-2 mb-2 py-1" type="button" onclick="LoadData()">Load</button>
                                                             <button class="btn btn-outline-light  me-2  btn-lg rounded-2 mb-2 py-1" type="button" onclick="resetForm()">Reset</button>
+                                                        </div>
+                                                        <div class="col-12  col-md-4  ms-lg-auto flex-shrink-0 d-md-flex  justify-content-end">
+                                                            <div class=" mt-4 mt-md-0">
+                                                                <button class="btn  btn-lg me-2 mb-2 py-1 color-green text-decoration-underline " type="submit">Cash back</button>
+                                                                <button class="btn btn-outline-light  me-2  btn-lg rounded-2 mb-2 py-1" type="reset">Account fully approved</button>
+                                                            </div>
                                                         </div>
                                                 </div> 
                                         </div>
@@ -445,10 +451,19 @@
                                                                                             <label class="form-label" for="Score">Score<span class="color-orange">*</span></label>
                                                                                             <input type="text" class="form-control" name="score" id="Score" placeholder="" required>
                                                                                             <div class="invalid-feedback position-absolute bottom-0">
-                                                                                                Please provide a valid Age.
+                                                                                                Please provide a valid score.
                                                                                             </div>
                                                                                         </div>
                                                                                     </div>
+                                                                                    <!-- <div class="col-sm-6 col-md-4  col-lg-6 col-xxl-3 ">
+                                                                                        <div class="mb-3">
+                                                                                            <label class="form-label" for="Score">Risk<span class="color-orange">*</span></label>
+                                                                                            <input type="text" class="form-control" name="risk" id="Risk" placeholder="" required>
+                                                                                            <div class="invalid-feedback position-absolute bottom-0">
+                                                                                                .
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div> -->
                                                                                    
                                                                                     <div class="col-sm-6 col-md-4  col-lg-6 col-xxl-3 ">
                                                                                         <div class="mb-3">
@@ -684,57 +699,60 @@
                                                                     <div class="card  border-0"  style="background-color: #1B1C2E; height: calc(100% - 50px);"><!---->
     
                                                                         <div class="card-body">
-                                                                            
-                                                                            <div id="ticketsummary" >
-                                                                                {%if ticket_summary %}  
-                                                                                <div >
-                                                                                   
-                                                                                    <div class="d-flex py-2">
-                                                                                        <div class="d-flex justify-content-between align-items-center ">
-                                                                                            <span class=" p-2 p-xxl-3  me-xxl-3 me-2 " style="background-color:rgba(35, 36, 54, 1);">
-                        
-                                                                                                <svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                                                    <path d="M12.7994 6.77875L8.49978 2.47917L4.2002 6.77875" stroke="#73759D" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
-                                                                                                    <path d="M8.5 14.5208V2.59958" stroke="#73759D" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                                                                            <div data-simplebar >
+                                                                                <div id="ticketsummary" >
+                                                                                    {%if ticket_summary %}  
+                                                                                    <div >
+                                                                                       
+                                                                                        <div class="d-flex py-2">
+                                                                                            <div class="d-flex justify-content-between align-items-center ">
+                                                                                                <span class=" p-2 p-xxl-3  me-xxl-3 me-2 " style="background-color:rgba(35, 36, 54, 1);">
+                            
+                                                                                                    <svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                                                        <path d="M12.7994 6.77875L8.49978 2.47917L4.2002 6.77875" stroke="#73759D" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                                                                                                        <path d="M8.5 14.5208V2.59958" stroke="#73759D" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                                                                                                        </svg>
+                                                                                                        
+                                                                                                </span>
+                                                                                                <p class="gilroymedium-type m-0 ">
+                                                                                                   
+                                                                                                    <span class="color-color1 fs-15"></span>
+                                                                                                    <span class="text-white d-block mt-1 fs-15 "></span>
+                                                                                                </p>
+                            
+                                                                                            </div>
+                                                                                            
+                                                                                            <span class="ms-auto my-0 py-0">
+                            
+                                                                                                <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                                                    <path d="M5.35205 3.08788L9.25104 6.98687C9.7115 7.44733 9.7115 8.20082 9.25104 8.66128L5.35205 12.5603" stroke="#73759D" stroke-width="1.53772" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
                                                                                                     </svg>
                                                                                                     
                                                                                             </span>
-                                                                                            <p class="gilroymedium-type m-0 ">
-                                                                                               
-                                                                                                <span class="color-color1 fs-15"></span>
-                                                                                                <span class="text-white d-block mt-1 fs-15 "></span>
-                                                                                            </p>
-                        
                                                                                         </div>
-                                                                                        
-                                                                                        <span class="ms-auto my-0 py-0">
-                        
-                                                                                            <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                                                <path d="M5.35205 3.08788L9.25104 6.98687C9.7115 7.44733 9.7115 8.20082 9.25104 8.66128L5.35205 12.5603" stroke="#73759D" stroke-width="1.53772" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
-                                                                                                </svg>
-                                                                                                
-                                                                                        </span>
+                                                                                        <hr>
+                                                                                    
                                                                                     </div>
-                                                                                    <hr>
-                                                                                
-                                                                                </div>
-                                                                                {%else%}
-                                                                                <div class="  text-center d-block " id="noticketsummary">
-                                                        
-                                                                                    <img src="{%static 'images/nodata/nodata.png' %}" alt="">
-                                                                                    
+                                                                                    {%else%}
+                                                                                    <div class="  text-center d-block " id="noticketsummary">
+                                                            
+                                                                                        <img src="{%static 'images/nodata/nodata.png' %}" alt="">
                                                                                         
-                                                
-                                                                                    <p class="gilory-regular-type fs-20 mt-2">Nothing To show</p>
+                                                                                            
+                                                    
+                                                                                        <p class="gilory-regular-type fs-20 mt-2">Nothing To show</p>
+                                                                                        
+                                                                                    </div> 
+                                        
+                                                                                    {%endif%}
                                                                                     
-                                                                                </div> 
-                                    
-                                                                                {%endif%}
                                                                                 
-                                                                            
-                                                                            <!--Item1-->
-                                                                              
+                                                                                
+                                                                                  
+                                                                                </div>
                                                                             </div>
+                                                                            
+                                                                            
                                                                             
     
     
@@ -873,6 +891,16 @@
                                                                                             
                                                                                         {%endfor%}
                                                                                             </select>
+                                                                                            <div class="invalid-feedback position-absolute bottom-0">
+                                                                                                Please provide a valid  Email.
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="col-sm-6 col-md-4 col-lg-6 col-xxl-3">
+                                                                                        <div class="mb-3">
+                                                                                            <label class="form-label" for="City">Address<span class="color-orange">*</span></label>
+                                                                                            
+                                                                                            <input type="text" class="form-control" id="Address" name="address" placeholder=" " required>
                                                                                             <div class="invalid-feedback position-absolute bottom-0">
                                                                                                 Please provide a valid  Email.
                                                                                             </div>
@@ -1460,7 +1488,7 @@
                                                     <div class="border-dashed rounded-3 px-3 py-3">
                                                     
                                                         <div class="modal-header border-0 ">
-                                                            <h5 class="modal-title fs-21 " id="modal-title">Multiple Accounts</h5>
+                                                            <h5 class="modal-title fs-21 " id="modal-title">Create Multiple Account</h5>
                                 
                                                             <a href="" data-bs-dismiss="modal" aria-label="Close">
                                                                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -1503,6 +1531,7 @@
                                             </div> <!-- end modal-content-->
                                         </div><!-- /.modal-dialog -->
                                     </div>
+                                  
                                     <!-- /.modal -->
     
                                    
@@ -1984,7 +2013,7 @@
                                     </div>
                                         
                                             <div class="col-12">
-                                                <button type="button"  class="btn btn-success pe-2" id="btn-save-event" onclick="checkMT4()">Send</button>
+                                                <button type="button"  class="btn btn-success pe-2" id="btn-save-event" onclick="checkMT4()">Submit</button>
                                                 <button type="button" data-bs-dismiss="modal" class="btn btn-outline-light" id="btn-delete-event">Cancel</button>
                                             </div>
                                           
@@ -2045,6 +2074,59 @@
                 </div> <!-- end modal-content-->
             </div> <!-- end modal dialog-->
         </div>
+        <div class="modal fade" tabindex="-1" role="dialog"
+        aria-hidden="true" id="multiple-account-created">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+    
+                <div class="modal-body ">
+
+                    <div class="border-dashed rounded-3 px-3 py-3">
+                    
+                        <div class="modal-header border-0 ">
+                            <h5 class="modal-title fs-21 " id="modal-title">Multiple Account</h5>
+
+                            <a href="" data-bs-dismiss="modal" aria-label="Close">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M9.16992 14.83L14.8299 9.17" stroke="var(--white)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M14.8299 14.83L9.16992 9.17" stroke="var(--white)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M9 22H15C20 22 22 20 22 15V9C22 4 20 2 15 2H9C4 2 2 4 2 9V15C2 20 4 22 9 22Z" stroke="white" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+
+                            </a>
+
+                        </div>
+                            <div class="row">
+                            
+                                <div class="col-12">
+                                    <div class="mb-3">
+                                        <!--<label class="form-label">Event Name</label>-->
+                                       <h6>Account duplicated successfully.New account details will be loaded on OK 
+                                       </h6>
+                                        <!-- <label for="html">Enter your MT4 Password</label>
+                                        <input type="password" id="" class="form-control" required name="email" > -->
+                                       
+                                    </div>
+                                    <input type="hidden" name="multi" id="multi">
+                            
+                                </div>
+                                    <div class="row mt-2">
+                                        <div class="col-6">
+                                            <button type="button"  class="btn btn-success" id="btn-save-event" onclick="loadmultipleAccount()">Ok</button>
+                                            <!-- <button type="button" data-bs-dismiss="modal" class="btn  btn-outline-light " id="btn-delete-event">Close</button> -->
+                                        </div>
+                                      
+                                    </div>
+                                </div>
+                           
+                            
+                        
+                    </div>
+                
+                </div>
+            </div> <!-- end modal-content-->
+        </div><!-- /.modal-dialog -->
+    </div>
 
 <!-- datepicker js -->
 <script>
@@ -2558,7 +2640,7 @@
     }
     function terminProceed(){
         $("#terminate").modal('hide')
-        
+        var ticket=$("#tickets").val()
         var accno=$("#Accountno").val()
         var reason=$("#reasonId").val()
         var desc=$("#description").val()
@@ -2579,6 +2661,12 @@
                                 $("#alertpopup").modal('show')
                             }
                 })
+                if(ticket!=null){
+                    updateTicketSummary(ticket)
+                    updatejournal(ticket)
+
+                }
+                
 
     }
     function resetPhone(){
@@ -2655,10 +2743,11 @@
     }
     
     function sendBankDetails(){
+        var accno=$("#Accountno").val()
         var bankname=$("#bankname").val()
         var bankaddr=$("#bankaddr").val()
         var bankswift=$("#bankswift").val()
-        var bankaddr=$("#bankaddr").val()
+        $("#Email-Bank").modal('hide')
         var bankiban=$("#bankiban").val()
         var beneficiary=$("#beneficiary").val()
         var ffc=$("#ffc").val()
@@ -2669,7 +2758,7 @@
             $("#alertpopup").modal('show')
             validflag=1
         }
-        if(banknaddr==""){
+        if(bankaddr==""){
             $("#userMsg").empty()
             $("#userMsg").append("Please enter bank address")
             $("#alertpopup").modal('show')
@@ -2709,7 +2798,7 @@
                         'ffc':ffc
                     },
                     success: function(data){
-                        ("#userMsg").empty()
+                        $("#userMsg").empty()
                         $("#userMsg").append(data.message)
                         $("#alertpopup").modal('show')
                     }
@@ -2748,6 +2837,8 @@
                         $("#source").html("")
                         $("#ticket").html("")
                         $("#rep").html("")
+                        $("#mt4IP").html("")
+                        $("#currency").html("")
                         $("#approvedby").html("")
                         $("#approval-date").html("")
                         $("#Enabled").attr('checked',false)
@@ -2757,7 +2848,22 @@
                         $("#Terminated").attr('checked',false)
                         var details=data.detail
                         
-                        console.log("Details======"+details)
+
+                        var other=data.other
+                        var ip=data.ip
+                        var ebalance=data.ebalance
+                        if(ebalance!=null){
+                            $("#e-wallet").append(ebalance)
+                        }
+                        if(other!=null){
+                            $("#balance").append(other[2])
+                            
+                            $("#avl-margin").append(other[4])
+                            
+                        }
+                        if(ip!=null){
+                            $("#mt4IP").append(ip)
+                        }
                         if(details=="" || details==null){
                             $("#userMsg").empty()
                             $("#userMsg").append("Account number not exists")
@@ -2774,7 +2880,7 @@
                             var email2=details[44]
                             $("#Email2").val(email2)
                             var address=details[7] 
-                            $("#Address1").val(address)                           
+                            $("#Address").val(address)                           
                             var city=details[5]
                             $("#City").val(city)
                             var state=details[52]
@@ -2976,10 +3082,11 @@
 
     }
     function updateTicketSummary(ticket){
+        console.log("Update Ticket summary inside")
         $.ajax({
                     
                     type : "GET", 
-                    url: "{% url 'Backoffice:TicketSummary' %}",
+                    url: "{% url 'Backoffice:SummaryByTicket' %}",
                     dataType: 'json',
                     data:{
                         'ticket':ticket,
@@ -3059,14 +3166,29 @@
                         'account':accno,
                     },
                     success: function(data){
-                        message=data.message
-                        $("#userMsg").empty()
-                        $("#userMsg").append(message)
-                        $("#alertpopup").modal('show')
+                        console.log("Data======"+data.multiple)
+                        var multiple=data.multiple
+                        console.log("Multple value====",multiple)
+                        if(multiple!=null){
+                            $("#multi").val(multiple)
+                            $("#multiple-account-created").modal('show')
+
+                        }
+                        
                     }
                 })
             }
 
+    }
+    function loadmultipleAccount(){
+        $("#multiple-account-created").modal('hide')
+        var multi=$("#multi").val()
+        console.log("Multi==="+multi)
+        resetForm()
+        $("#Accountno").val(multi)
+        LoadData()
+        
+        
     }
     function finalApproval(){
         var accno=$("#Accountno").val()
@@ -3405,6 +3527,7 @@
         $("#source").html("")
         $("#ticket").html("")
         $("#rep").html("")
+        $("#mt4IP").html("")
         $("#approvedby").html("")
         $("#approval-date").html("")
         $("#Enabled").attr('checked',false)

@@ -224,6 +224,8 @@ class Services:
             expmonth=int(request.POST.get('expmonth'))
             expyear=int(request.POST.get('expyear'))
             cardtype=request.POST.get('cardtype')
+            cardId=request.POST.get('cardId')
+            print("Card Id======",cardId)
             front=request.FILES.get('front',None)
             print("Front=====",front)
             back=request.FILES.get('back',None)
@@ -342,16 +344,19 @@ class Services:
                 
          
             accno=int(accno)   
-            encoding = 'utf-8'
+            
             # imagedata1.decode(encoding)
             # imagedata2.decode(encoding)
             
             print("Image data 1=====",type(imagedata1))
             print("Account data===============================",accno,name,cardno,expmonth,expyear,cardtype,userid,front,back,extension1,extension2)
             Cursor=connection.cursor()    
-            Cursor.execute("exec SP_AddNewCard %s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s",[accno,name,cardno,expmonth,expyear,0,imagedata1,imagedata2,fullname,contenttype,contenttypebk,cardtype,userid])
-            
-            message="   Card added Successfully"
+            if front!=None or back!=None:
+                Cursor.execute("exec SP_AddNewCard %s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s",[accno,name,cardno,expmonth,expyear,0,imagedata1,imagedata2,fullname,contenttype,contenttypebk,cardtype,userid])
+            else:
+                print("Without image=====",accno,cardId,name,cardno,1,expmonth,expyear,cardtype,userid)
+                Cursor.execute("exec SP_UpdateCreditCardDetails %s,%s,%s,%s,%s,%s,%s,%s,%s",[accno,cardId,name,cardno,1,expmonth,expyear,cardtype,userid])
+            message="Card added Successfully"
         except Exception as e:
             print("Exception----",e)
         finally:
@@ -398,8 +403,8 @@ class Services:
                 orderno=0
             else:
                 orderno=int(orderno)
-            name=request.POST.get('name')
-            cardno=request.POST.get('cardno')
+            name=request.POST.get('holdername')
+            cardno=request.POST.get('wallet')
         
             userid=int(request.session.get('UserId'))
             Cursor=connection.cursor()    
@@ -421,7 +426,7 @@ class Services:
             
             Id=request.POST.get('id')
             print("Id=====",Id)
-            if(Id==""):
+            if(Id=="" or Id==None):
                 Id=0
             else:
                 Id=int(Id)
@@ -479,14 +484,15 @@ class Services:
             
             imagename=""
             contenttype=""
-           
+            fullname=""
            
             message="Please try again"
-
+            Cursor=connection.cursor()  
             if docfile:
 
                 extension = os.path.splitext(str(docfile))[1]
                 imagename=os.path.splitext(str(docfile))[0]
+                fullname=imagename+extension
                 file_path="static\\uploads\\"
                 # file_path=os.path.join(UPLOAD_ROOT,accno)
                 print("File existance======",file_path,os.path.isfile(file_path))
@@ -500,43 +506,48 @@ class Services:
                         # destination.write(chunk)
             
                               
-            if(extension==".doc"):
-                contenttype = "application/vnd.ms-word"
-            if(extension== ".docx"):
-                contenttype = "application/vnd.ms-word"
-            if(extension==".xls"):
-                contenttype = "application/vnd.ms-excel"
-            if(extension==".xlsx"):
-                contenttype = "application/vnd.ms-excel"
-            if(extension==".jpg"):
-                contenttype = "image/jpg"
-            if(extension==".JPG"):
-                contenttype = "image/jpg"
-            if(extension==".JPEG"):
-                contenttype = "image/jpg"
-            if(extension==".jpeg"):
-                contenttype = "image/jpg"
-            if(extension==".png"):
-                contenttype = "image/png"
-            if(extension==".PNG"):
-                contenttype = "image/png"
-            if(extension==".gif"):
-                contenttype = "image/gif"
-            if(extension==".GIF"):
-                contenttype = "image/gif"
-            if(extension==".bmp"):
-                contenttype = "image/bmp"
-            if(extension==".BMP"):
-                contenttype = "image/bmp"
-            if(extension== ".pdf"):
-                contenttype = "application/pdf"
-            if(extension==".PDF"):
-                contenttype = "application/pdf"
+                if(extension==".doc"):
+                    contenttype = "application/vnd.ms-word"
+                if(extension== ".docx"):
+                    contenttype = "application/vnd.ms-word"
+                if(extension==".xls"):
+                    contenttype = "application/vnd.ms-excel"
+                if(extension==".xlsx"):
+                    contenttype = "application/vnd.ms-excel"
+                if(extension==".jpg"):
+                    contenttype = "image/jpg"
+                if(extension==".JPG"):
+                    contenttype = "image/jpg"
+                if(extension==".JPEG"):
+                    contenttype = "image/jpg"
+                if(extension==".jpeg"):
+                    contenttype = "image/jpg"
+                if(extension==".png"):
+                    contenttype = "image/png"
+                if(extension==".PNG"):
+                    contenttype = "image/png"
+                if(extension==".gif"):
+                    contenttype = "image/gif"
+                if(extension==".GIF"):
+                    contenttype = "image/gif"
+                if(extension==".bmp"):
+                    contenttype = "image/bmp"
+                if(extension==".BMP"):
+                    contenttype = "image/bmp"
+                if(extension== ".pdf"):
+                    contenttype = "application/pdf"
+                if(extension==".PDF"):
+                    contenttype = "application/pdf"
+                
+                print("Account data===============================",accno,fullname,contenttype,description,uploaded_date,expdate,userid,docId,Id)
+                
+                Cursor.execute("exec SP_SaveClientDocuments %s,%s,%s,%s,%s,%s,%s,%s,%s,%s",[accno,imagedata,fullname,contenttype,description,uploaded_date,expdate,userid,docId,Id])
+                message="Document Uploaded Successfully"
+            else:
+               print("Data======",accno,Id,expdate,userid)
+               Cursor.execute("exec SP_AddExpiryDate %s,%s,%s,%s",[accno,Id,expdate,userid]) 
+               message="Updated Successfully"
             
-            print("Account data===============================",accno,contenttype,"",uploaded_date,expdate,userid,docId,Id)
-            Cursor=connection.cursor()    
-            Cursor.execute("exec SP_SaveClientDocuments %s,%s,%s,%s,%s,%s,%s,%s,%s,%s",[accno,imagedata,imagename,contenttype,description,uploaded_date,expdate,userid,docId,Id])
-            message="Document Uploaded Successfully"
         except Exception as e:
             print("Exception----",e)
         finally:
@@ -562,15 +573,19 @@ class Services:
     def create_multiple_account(self,accno,userid):
         try:
             message=""
+            multiple=""
             Cursor=connection.cursor()   
-            Cursor.execute("exec SP_CreateMultipleAccount %s,%s",[accno,userid])
-            print("Query executed")
+            Cursor.execute("set nocount on;exec SP_CreateMultipleAccount %s,%s",[accno,userid])
+            multiple=Cursor.fetchone()
+            if multiple:
+                multiple=multiple[0]
+            print("Query executed",multiple)
             message="Multiple accounts created successfully"
         except Exception as e:
             print("Exception----",e)
         finally:
             Cursor.close()
-        return message
+        return multiple
 
     #Save transaction
     def save_transactions(self,request):

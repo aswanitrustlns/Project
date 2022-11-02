@@ -93,7 +93,7 @@ class DllService:
         hllDll = CDLL(r"C:\\pyenv\\TrustManagerAPI.dll") 
         Get_ClientInfo = hllDll.Get_ClientInfo
         hllDll.Get_ClientInfo.argtype = c_char_p,c_int,c_char_p,c_char_p
-        hllDll.Get_ClientInfo.restype = c_int
+        hllDll.Get_ClientInfo.restype =  POINTER(c_char_p)
         username=int(user)
         login = c_int(username)
         account_no=c_int(accountno)
@@ -101,7 +101,31 @@ class DllService:
         
         resul=string_at(info)
         dataset=str(resul, 'utf-8')
-        return dataset
+        details=[]
+        if(len(dataset)!=0):
+                
+                output_str=dataset.replace("~","")
+                output_str=output_str.split("^")  
+                if(output_str):              
+                    for i in output_str:
+                        data=i.split("=")
+                        details.append(data[1])
+                        print(data[1])
+        return details
+    #dll get IP
+    def dll_get_IP(self,user,server,password,accountno):
+        
+        hllDll = CDLL(r"C:\\pyenv\\TrustManagerAPI.dll") 
+        GetIp = hllDll.GetIp
+        hllDll.GetIp.argtype = c_char_p,c_int,c_char_p,c_char_p
+        hllDll.GetIp.restype = c_int
+        username=int(user)
+        login = c_int(username)
+        account_no=c_int(accountno)
+        info=GetIp(c_char_p(server.encode('utf-8')).value,login.value,c_char_p(password.encode('utf-8')).value,account_no.value)
+        resul=string_at(info)
+        mt4ip=str(resul, 'utf-8')
+        return mt4ip
      #dll client Info time
     def dll_client_info_time(self,user,server,password,accountno,fdate,fmonth,fyear,tdate,tmonth,tyear):
         

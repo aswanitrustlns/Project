@@ -1047,7 +1047,7 @@ class Selector:
         try:
             countryName=""
             Cursor=connection.cursor()
-            Cursor.execute("set nocount on;exec SP_GetLeadDetailsByTicket %s,%s",[ticket,userid])
+            Cursor.execute("set nocount on;exec SP_GetLeadDetailsByTicket_PY %s,%s",[ticket,userid])
             lead_details=Cursor.fetchone()
           
             # if (lead_details):

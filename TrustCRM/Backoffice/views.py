@@ -51,9 +51,13 @@ def manage_account(request):
 def load_account_details(request):
     if 'UserId' in request.session:
         acc_no=request.GET.get('account')
-        details=selector.loadAccountDetails(acc_no)
-        
-        return JsonResponse({"detail":details}) 
+        user=request.session.get('user')
+        server=request.session.get('server')
+        password=request.session.get('password')
+       
+        details,otherdetails,ip=selector.loadAccountDetails(user,server,password,acc_no)
+        ebalance=selector.loadEwalletBalance(acc_no)
+        return JsonResponse({"detail":details,"other":otherdetails,"ip":ip,"ebalance":ebalance}) 
     else:
         return redirect('/login')
 #Load account details
@@ -149,7 +153,7 @@ def approve_card(request):
             title=userdetails[2]
             name=userdetails[1]
             email=userdetails[0]
-            # emailservice.SendCardApprovalmail(title,name,email,card,cardtype,status)
+            emailservice.SendCardApprovalmail(title,name,email,card,cardtype,status)
         print("User details=========",userdetails)
         
         return JsonResponse({"details":details}) 
@@ -263,6 +267,7 @@ def summary_ticket(request):
     if 'UserId' in request.session:
         ticket=request.GET.get('ticket')
         summary=selector.get_ticket_summary(ticket)
+        print("Ticket summaryy",summary)
         return JsonResponse({"summary":summary})
     else:
         return redirect('/login')
@@ -358,8 +363,9 @@ def multiple_account_create(request):
         userid=request.session.get('UserId')
         accno=request.GET.get('account')
         print("data   account=======",userid,accno)
-        message=service.create_multiple_account(accno,userid)
-        return JsonResponse({"message":message}) 
+        multiple=service.create_multiple_account(accno,userid)
+        print("Multiple====",multiple)
+        return JsonResponse({"multiple":multiple}) 
     else:
         return redirect('/login')
 
@@ -416,8 +422,8 @@ def update_client_area_credential(request):
             title=userdetails[2]
             name=userdetails[1]
             email=userdetails[0]
-            # emailservice.ClientAreaCredentialUpdate(title,name,email,accno)
-            # emailservice.ClientAreaCredentialUpdateNotify(accno)
+            emailservice.ClientAreaCredentialUpdate(title,name,email,accno)
+            emailservice.ClientAreaCredentialUpdateNotify(accno)
         message="Updated successfully"
         return JsonResponse({"message":message}) 
     else:
@@ -448,7 +454,7 @@ def final_approval(request):
             name=userdetails[1]
             email=userdetails[0]
             email=userdetails[0]
-            # emailservice.SendFinalApprovalEmail(title,name,email,accno)
+            emailservice.SendFinalApprovalEmail(title,name,email,accno)
             
         
         return JsonResponse({"message":message}) 
@@ -482,7 +488,7 @@ def temperory_approval(request):
             name=userdetails[1]
             email=userdetails[0]
             acctype=userdetails[9]
-            #emailservice.SendTempAccountDetails(title,name,email,accno,acctype)
+            emailservice.SendTempAccountDetails(title,name,email,accno,acctype)
             
         
         return JsonResponse({"message":message}) 
@@ -491,6 +497,7 @@ def temperory_approval(request):
 #Email Bank Details
 def email_bank_details(request):
     if 'UserId' in request.session:
+        print("Email bank details===")
         message="Please try again"
         accno=request.GET.get('account')
         bankname=request.GET.get('name')
@@ -538,7 +545,7 @@ def terminate_account(request):
             name=userdetails[1]
             email=userdetails[0]
             
-            # emailservice.terminationofaccount(title,name,email,reasonid)
+            emailservice.terminationofaccount(title,name,email,reasonid)
             
         
         return JsonResponse({"message":message}) 

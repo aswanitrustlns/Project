@@ -81,16 +81,28 @@ class Selector:
                 Cursor.close()
         return account_type
     #Load account details
-    def loadAccountDetails(self,acno):
+    def loadAccountDetails(self,user,server,password,acno):
         try:
+            ip=""
+            account_details=""
+            otherdetails=""
+            mt4ip=""
             Cursor=connection.cursor()           
             Cursor.execute("set nocount on;exec SP_GetClientDetails %s",[acno]) 
             account_details=Cursor.fetchone()
+            accno=int(acno)
+            otherdetails=dllservice.dll_client_info(user,server,password,accno)
+            print("Other details====",otherdetails)
+            mt4ip=dllservice.dll_get_IP(user,server,password,accno)
+            if mt4ip:
+                ip=mt4ip.split('=')
+                ip=ip[1]
+            print("Mt4 ip=====",ip)
         except Exception as e:
                 print("Exception------",e)
         finally:
                 Cursor.close()
-        return account_details
+        return account_details,otherdetails,ip
     #Load account type category
     def loadAccountCategory(self,acno):
         try:
@@ -102,6 +114,18 @@ class Selector:
         finally:
                 Cursor.close()
         return account_category
+     #Load Ewallet balance
+    def loadEwalletBalance(self,acno):
+        try:
+            Cursor=connection.cursor()           
+            Cursor.execute("set nocount on;exec SP_GetWalletBalance %s",[acno]) 
+            ebalance=Cursor.fetchone()
+            print("Ebalance====",ebalance)
+        except Exception as e:
+                print("Exception------",e)
+        finally:
+                Cursor.close()
+        return ebalance
     # #Load comment
     # def loadComment(self,ticket):
     #     try:
@@ -510,7 +534,7 @@ class Selector:
     def phone_password_reset(self,user,server,password,accno,newPwd):
         message=""
         try:
-           
+            connect=0
             Cursor=connection.cursor()    
             message="Password Changed in Database"
             Cursor.execute("set nocount on; exec SP_ChangePhonePasswords %s,%s",[newPwd,accno])

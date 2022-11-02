@@ -237,11 +237,11 @@ class EmailServices:
                 
             email_from = 'cs@trusttc.com'
             print("Mail======",title,name,remail,cardno,subject,cardtype)
-            # bcc1="crm@trusttc.com"
-            # bcc2="backoffice@trusttc.com"
-            # bcc3="compliance@trusttc.com"
-            # bcc4="magt@trusttc.com"
-            remail="aswani.technology@gmail.com"
+            bcc1="crm@trusttc.com"
+            bcc2="backoffice@trusttc.com"
+            bcc3="compliance@trusttc.com"
+            bcc4="magt@trusttc.com"
+            
             template_data={
                 "title":title,
                 "name":name,
@@ -392,7 +392,8 @@ class EmailServices:
             Cursor=connection.cursor()  
             subject = "Phone Password Reset"
             email_from = 'cs@trusttc.com'
-           
+            
+            
             bcc1="crm@trusttc.com"
             template_data={
               
@@ -446,7 +447,7 @@ class EmailServices:
             bcc1="crm@trusttc.com"
             bcc2="backoffice@trusttc.com"
             bcc3="magt@trusttc.com"
-          
+            
            
             template_data={
                 "title":title,

@@ -883,7 +883,8 @@ def viewLoadFunctions(request): # 455325 to test meeting score
         UserId=request.session.get('UserId')
         activity_log=selector.get_activities_log(ticket)
         lead_details=selector.get_lead_details(ticket,UserId)
-        if lead_details:
+        print("Lead details-------",type(lead_details[0]))
+        if lead_details[0]!=0:
             cid=lead_details[10]
             code=selector.get_code_country(cid)
         country_list=selector.get_all_country()    
