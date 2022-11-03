@@ -584,7 +584,7 @@
                                                                                     <div class="col-sm-6 col-md-4  col-lg-6 col-xxl-4 ">
                                                                                         <div class="">
                                                                                             <label class="form-label" for="Comment">Comment<span class="color-orange">*</span></label>
-                                                                                            <textarea name="comment" id="Comment" cols="20" rows="5" class="form-control" required></textarea>
+                                                                                            <textarea name="comment" id="RDComment" cols="20" rows="5" class="form-control" required></textarea>
                                                                                         </div>
                                                                                         <div class="invalid-feedback position-absolute bottom-0">
                                                                                             Please provide a valid Age.
@@ -614,7 +614,7 @@
                                                                                     <div class="col-sm-6 col-md-4  col-lg-6 col-xxl-4 ">
                                                                                         <div class="x">
                                                                                             <label class="form-label" for="Comment">Comment<span class="color-orange">*</span></label>
-                                                                                            <textarea name="terComment" id="Comment" cols="20" rows="5" class="form-control" required=""></textarea>
+                                                                                            <textarea name="terComment" id="TRComment" cols="20" rows="5" class="form-control" required=""></textarea>
                                                                                         </div>
                                                                                         <div class="invalid-feedback position-absolute bottom-0">
                                                                                             Please provide a valid Age.
@@ -2662,6 +2662,7 @@
                             }
                 })
                 if(ticket!=null){
+                    LoadData()
                     updateTicketSummary(ticket)
                     updatejournal(ticket)
 
@@ -2846,6 +2847,12 @@
                         $("#AllowchangePWD").attr('checked',false)
                         $("#Readonly").attr('checked',false)
                         $("#Terminated").attr('checked',false)
+                        $("#TRComment").val("")
+                        $("#RDComment").val("")
+                        if ( $('#calendar').children().length > 0 ) {
+                               window.calendar.destroy()
+                            }
+                        
                         var details=data.detail
                         
 
@@ -2870,6 +2877,7 @@
                             $("#alertpopup").modal('show')
                         }
                         else{
+                            
                             var title=details[46]
                             console.log("Title==================================="+title)
                             $("#title").val(title)
@@ -2956,9 +2964,9 @@
                             var color=details[18]
                             $("#Color").val(color)
                             var rdonlycmts=details[48]
-                            $("#Comment").val(rdonlycmts)
+                            $("#RDComment").val(rdonlycmts)
                             var tercmts=details[49]
-                            $("#terComment").val(tercmts)
+                            $("#TRComment").val(tercmts)
                             var created=details[35]
                             if(created=="0"){
                                 created=" "
@@ -3540,7 +3548,8 @@
         $("#currency").html("")
         document.getElementById("chatsId").value=""
         $("#chatsDiv").hide()
-        
+        $("#TRComment").val("")
+        $("#RDComment").val("")
         calendar.removeAllEvents()
         window.calendar.destroy()
     }

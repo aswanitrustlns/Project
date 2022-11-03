@@ -617,19 +617,30 @@ class Services:
             # repId=int(request.POST.get('repId'))
             initial=0
             repId=0
+            creditIndll=0
+            creditOutdll=0
             user=request.session.get('user')
             server=request.session.get('server')
             password=request.session.get('password')
             Cursor=connection.cursor()    
-            Cursor.execute("exec SP_SaveTransaction %s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s",[accno,fullname,balance,avl_margin,creditin,creditout,deposit,withdrawal,credit,expdate,comment,initial,repId])
+            
             expdateformat=datetime.strptime(expdate,"%Y-%m-%d")
+            accno=int(accno)
             expday=int(expdateformat.day)
             expmonth=int(expdateformat.month)
             expyear=int(expdateformat.year)
             if status=="creditin":
-                dllservice.dll_creditin_with_comment(user,server,password,accno,comment,deposit,expday,expmonth,expyear)
+                creditIndll=dllservice.dll_creditin_with_comment(user,server,password,accno,comment,deposit,expday,expmonth,expyear)
+                if (creditIndll==1):
+                    Cursor.execute("exec SP_SaveTransaction %s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s",[accno,fullname,balance,avl_margin,creditin,creditout,deposit,withdrawal,credit,expdate,comment,initial,repId])
+                    editable=dllservice.dll_enable_update(user,server,password,accno)
+                    if(editable!=0 and editable==accno):
+                        selector.get_live_status(accno,0)
             if status=="creditout":
-                dllservice.dll_creditout_with_comment(user,server,password,accno,comment)
+                creditOutdll=dllservice.dll_creditout_with_comment(user,server,password,accno,comment)
+                if(creditOutdll==1):
+                    Cursor.execute("exec SP_SaveTransaction %s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s",[accno,fullname,balance,avl_margin,creditin,creditout,deposit,withdrawal,credit,expdate,comment,initial,repId])
+
         except Exception as e:
             print("Exception----",e)
         finally:
@@ -639,11 +650,21 @@ class Services:
     def update_ewallet_transactions(self,request):
 
         try:
+            message=""
             accno=request.POST.get('accno')
-            
+            walletstatus=request.POST.get('status')
+            fullname=request.POST.get('fullname')
+            credit=request.POST.get('credit')
+            amount=request.POST.get('amount')
+            balance=float(request.POST.get('balance'))
+            avl_margin=float(request.POST.get('avlmargin'))
             deposit=float(request.POST.get('deposit'))
             withdrawal=float(request.POST.get('withdrawal'))
+            user=request.session.get('user')
+            server=request.session.get('server')
+            password=request.session.get('password')
             repId=request.POST.get('repId')
+            initial=request.session.get('initial')
             if(repId!=None):
                 repId=int(repId)
             else:
@@ -651,13 +672,67 @@ class Services:
             transId=int(request.POST.get('transactiontype'))
             # status=int(request.POST.get('status'))
             status=0
+            dlldepo=0
+            dllwithdraw=0
+            nextyr=0
+            yearlydep=0
+            totaldep=0
             remarks=request.POST.get('comment')
+            userdetails=selector.get_user_details(accno)
+            if userdetails:
+                userdetails=userdetails[0]
+                title=userdetails[2]
+                name=userdetails[1]
+                email=userdetails[0]
             Cursor=connection.cursor()    
-            Cursor.execute("exec SP_UpdateEWalletTransaction %s,%s,%s,%s,%s,%s,%s",[accno,deposit,withdrawal,repId,transId,status,remarks])
+            if(walletstatus=="deposit"):
+                acno=int(accno)
+                dlldepo=dllservice.dll_deposit_comment(user,server,password,acno,remarks,amount)
+                if(dlldepo==1):
+                    Cursor.execute("exec SP_SaveTransaction %s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s",[accno,fullname,balance,avl_margin,0.0,0.0,deposit,withdrawal,credit,"",remarks,0,repId])
+                    emailservice.SendDepositConfirmation(title,name,email,accno)
+                    Cursor.execute("exec SP_UpdateEWalletTransaction %s,%s,%s,%s,%s,%s,%s",[accno,deposit,withdrawal,repId,transId,status,remarks])                    
+                    editable=dllservice.dll_enable_update(user,server,password,accno)
+                    if(editable!=0 and editable==accno):
+                        if(initial=="on"):
+                            selector.get_live_status(accno,amount)
+                        else:
+                            selector.get_live_status(accno,0)
+                nextyr=selector.get_nextdepart_yearly(accno)
+                yearlydep=dllservice.dll_get_yearly_deposit(user,server,password,acno)
+                totaldep=dllservice.dll_net_deposit(user,server,password,acno)
+                if(totaldep>100000):
+                    profilestatus=selector.get_profile_status(accno)
+                    if(profilestatus=="Pending"):
+                        pass
+                    dormant=selector.dormant_check(accno)
+                    if(dormant==accno):
+                        emailservice.SendDormant(title,name,email,accno)
+
+            if(walletstatus=="withdraw"):
+                acno=int(accno)
+                trades=0
+                dllwithdraw=dllservice.dll_withdraw_comment(user,server,password,acno,remarks,amount)
+                if(dllwithdraw==1):
+                    Cursor.execute("exec SP_SaveTransaction %s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s",[accno,fullname,balance,avl_margin,0.0,0.0,deposit,withdrawal,credit,"",remarks,0,repId])
+                    emailservice.SendWithdrawalConfirmation(title,name,email,accno)
+                    Cursor.execute("exec SP_UpdateEWalletTransaction %s,%s,%s,%s,%s,%s,%s",[accno,deposit,withdrawal,repId,transId,status,remarks])                    
+                    trades=selector.get_trades_count(accno)
+                    if(trades>=0):
+                        active=-1
+                        active=dllservice.dll_openorclosed_today(user,server,password,accno)
+                        if(trades+active<3):
+                            pass
+                    else:
+                        message="Withdrawal failed in MT4"
+            
+
+
         except Exception as e:
             print("Exception----",e)
         finally:
             Cursor.close()
+        return message
     #save inter account trasfer
     def interaccount_transfer(self,accno1,accno2,fullname,balance,avl_margin,credit,deposit,comment,user,server,password):
         try:

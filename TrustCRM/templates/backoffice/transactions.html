@@ -338,7 +338,7 @@
                                                                     <div class="col-sm-6 col-md-4 col-xxl-3">
                                                                         <div class="mb-2">
                                                                             <label class="form-label " for="Fullname1">Full name<span class="color-orange">*</span></label>
-                                                                            <input  type="text" class="form-control" id="walletFullname" placeholder="" required>
+                                                                            <input  type="text" class="form-control" id="walletFullname" name="fullname" placeholder="" required>
                                                                             
                                                                         </div>
                                                                     </div>
@@ -367,21 +367,21 @@
                                                                     <div class="col-sm-6 col-md-4 col-xxl-3">
                                                                         <div class="mb-2">
                                                                             <label class="form-label " for=" Ewalletbalance"> E-wallet balance<span class="color-orange">*</span></label>
-                                                                            <input  type="number" class="form-control" id="walletbalance" name="balance" placeholder="" required>
+                                                                            <input  type="number" class="form-control" id="walletbalance" name="e-balance" placeholder="" required>
                                                                             
                                                                         </div>
                                                                     </div>
                                                                     <div class="col-sm-6 col-md-4 col-xxl-3">
                                                                         <div class="mb-2">
                                                                             <label class="form-label " for=" Amount"> Amount<span class="color-orange">*</span></label>
-                                                                            <input  type="number" class="form-control" id="walletamount" name="balance" placeholder="" required>
+                                                                            <input  type="number" class="form-control" id="walletamount" name="amount" placeholder="" required>
                                                                             
                                                                         </div>
                                                                     </div>
                                                                     <div class="col-sm-6 col-md-4 col-xxl-3">
                                                                         <div class="mb-2">
                                                                             <label class="form-label " for="Comment1"> Comment<span class="color-orange">*</span></label>
-                                                                            <input  type="text" class="form-control" id="walletcomment" name="balance" placeholder="" required>
+                                                                            <input  type="text" class="form-control" id="walletcomment" name="comment" placeholder="" required>
                                                                             
                                                                         </div>
                                                                         
@@ -416,6 +416,17 @@
                                                                         
                                                                     
                                                                     </div>
+                                                                    <div class="col">
+    
+       
+                                                                        <div class=" gilroyregular-type  mb-2 ">
+                                                                            
+                                                                            <input type="checkbox" class="form-check-input"  name="initial">
+                                                                            <label class="form-check-label fs-12" for="emailUav">Initial Deposit</label>
+                                                                        
+                                                                        </div>
+                                                                    </div>
+                                                                    <input type="hidden" name="status" id="walletstatus">
                                                                 </form>
                                                                 
                                                                     <div class="col-12">
@@ -494,21 +505,6 @@
                                                                         </tr>
                                                                     </thead>
                                                                     <tbody class="text-white giloryregular-type fs-16" id="ewallet-history">
-                                                                        <!-- <tr>
-                                                                            <td  class="ps-0">2C2E45</td>
-                                                                            <td>Online</td>
-                                                                            <td>Firas</td>
-                                                                            <td>Sumitha test</td>
-                                                                            <td><button class="btn  btn-sm  color-green fs-15" style="background-color:
-                                                                                rgba(0, 165, 79, 0.15) ;">Success</button></td>
-                                                                            <td class="text-end"><button class="btn  btn-sm  text-white fs-15 bg-soft-secondarycolor" >Proceed</button></td>
-                                                                           
-                                                                           
-                                                                           
-                                                                        
-                                                                        </tr>
-                                                  -->
-                                                                        
                                                                 
                                                                     
                                                                     </tbody>
@@ -1605,8 +1601,10 @@
         var amount=$("#walletamount").val()
         var expdate=$("#expdate").val()
         var comment=$("#comment").val()
+        var transtype=$("#transactiontype").val()
+        console.log("Transaction type======"+transtype)
         var validflag=0
-        if(creditlogin==""){
+        if(walletlogin==""){
             $("#userMsg").empty()
             $("#userMsg").append("Please enter valid login")
             $("#alertpopup").modal('show')
@@ -1620,9 +1618,33 @@
         }
         if(amount<=0){
             $("#userMsg").empty()
-            $("#userMsg").append("Amount should be grateer than zero")
+            $("#userMsg").append("Amount should be greater than zero")
             $("#alertpopup").modal('show')
             validflag=1
+        }
+        if(transtype==0){
+            $("#userMsg").empty()
+            $("#userMsg").append("Please select the transaction type")
+            $("#alertpopup").modal('show')
+            validflag=1
+
+        }
+        if(amount>walletbalance){
+            $("#userMsg").empty()
+            $("#userMsg").append("Not enough amount in the wallet to proceed.Please choose an amount less than wallet balance")
+            $("#alertpopup").modal('show')
+            validflag=1
+
+        }
+        if(type=="deposit"){
+            console.log("deposit trans error====")
+            if(transtype==4 || transtype==5||transtype==6){
+            $("#userMsg").empty()
+            $("#userMsg").append("Please check the transaction type")
+            $("#alertpopup").modal('show')
+            validflag=1
+            }
+
         }
         if(validflag==0)
         {
@@ -1631,10 +1653,12 @@
         $("#depamount").val(amount)
         $("#depmargin").val(margin)   
         if(type=="deposit"){
+            $("#walletstatus").val('deposit')
             document.getElementById("wallet-modal-title").innerHTML=""
             document.getElementById("wallet-modal-title").innerHTML="Deposit Confirmation"
             $("#deposit-confirm").modal('show')
         }else{
+            $("#walletstatus").val('withdraw')
             document.getElementById("wallet-modal-title").innerHTML=""
             document.getElementById("wallet-modal-title").innerHTML="Withdrawal Confirmation"
             $("#deposit-confirm").modal('show')
@@ -1665,7 +1689,9 @@
                         logdata=data.datas
                         alldata=data.datalist
                         showdata=data.showdata
+                        wallet=data.wallet
                         var rows=""
+                        var walrows=""
                         console.log("datas----"+typeof(showdata)+showdata.length)
                            
                         document.getElementById("walletdeposit").innerHTML=""
@@ -1686,6 +1712,9 @@
                                     rows+="<tr><td class='ps-0'>"+alldata[i]['LOGIN']+"</td><td>"+alldata[i]['DEAL']+"</td><td>"+alldata[i]['COMMENT']+"</td><td>"+alldata[i]['TYPE']+"</td>"+
                                            "<td>"+alldata[i]['CURRENCY']+"</td><td>"+alldata[i]['AMOUNT']+"</td><td class='text-end'>"+alldata[i]['OPENTIME']+"</td></tr>"
                                 }
+                                walrows+="<tr><td  class='ps-0'>2C2E45</td><td>Online</td><td>Firas</td><td>Sumitha test</td><td>"+
+                                          "<button class='btn  btn-sm  color-green fs-15' style='background-color:rgba(0, 165, 79, 0.15) ;''>Success</button></td>"+
+                                           "<td class='text-end'><button class='btn  btn-sm  text-white fs-15 bg-soft-secondarycolor' >Proceed</button></td></tr>"
                                 $("#mt4-history").append(rows)
                             }
                             document.getElementById("walletdeposit").innerHTML=showdata[1]

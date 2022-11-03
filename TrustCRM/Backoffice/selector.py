@@ -675,7 +675,7 @@ class Selector:
         try:
             Cursor=connection.cursor()           
             Cursor.execute("set nocount on;exec SP_LiveStatus %s,%s",[userid,amount]) 
-            result=Cursor.fetchone()
+            # result=Cursor.fetchone()
         except Exception as e:
                 print("Exception------",e)
         finally:
@@ -712,6 +712,7 @@ class Selector:
                 print("Exception------",e)
         finally:
                 Cursor.close()
+        return result
     #Get trades count
     def get_trades_count(self,userid):
         try:
@@ -722,6 +723,7 @@ class Selector:
                 print("Exception------",e)
         finally:
                 Cursor.close()
+        return result
     #Get ewallet report by login
     def get_ewallet_report(self,accno,from_date,to_date):
         try:
@@ -734,6 +736,7 @@ class Selector:
                 print("Exception------",e)
         finally:
                 Cursor.close()
+        return result
     #dormant check
     def dormant_check(self,userid):
         try:

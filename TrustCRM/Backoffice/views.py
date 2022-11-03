@@ -645,8 +645,9 @@ def load_credit(request):
         accno=int(request.GET.get('account'))
         duplicates=selector.duplicate_account(accno)
         print("Load credit======",user,server,password,accno)
+        report,opening,closing=selector.get_ewallet_equityreport("","",4,"")
         data,datalist,showData=selector.load_credit_dllcall(user,server,password,accno)
-        return JsonResponse({"datas":data,"datalist":datalist,"showdata":showData,"duplicates":duplicates})
+        return JsonResponse({"datas":data,"datalist":datalist,"showdata":showData,"duplicates":duplicates,'wallet':report})
     else:
         return redirect('/login')
 #deposit in wallet
@@ -657,12 +658,7 @@ def deposit_in_wallet(request):
         service.update_ewallet_transactions(request)
      
         # if(result=="success"):
-        #     userdetails=selector.get_user_details(accno)
-        #     if userdetails:
-        #         userdetails=userdetails[0]
-        #         title=userdetails[2]
-        #         name=userdetails[1]
-        #         email=userdetails[0]
+        
         #         currency=userdetails[5]
         #         if status=="creditin":
         #             emailservice.SendCreditInConfirmation(title,name,email,accno,currency,amount)

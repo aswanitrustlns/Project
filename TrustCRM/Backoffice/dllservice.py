@@ -250,18 +250,31 @@ class DllService:
         account_no=c_int(accountno)
         info=OpenORClosedToday(c_char_p(server.encode('utf-8')).value,login.value,c_char_p(password.encode('utf-8')).value,account_no.value)
         return info
+      #dll deposit with comment
+    def dll_deposit_comment(self,user,server,password,accountno,comment,amount):
+        
+        hllDll = CDLL(r"C:\\pyenv\\TrustManagerAPI.dll") 
+        Deposit_WithComment = hllDll.Deposit_WithComment
+        hllDll.Deposit_WithComment.argtype= c_char_p,c_int,c_char_p,c_char_p
+        hllDll.Deposit_WithComment.restype= c_double
+        username=int(user)
+        login = c_int(username)
+        account_no=c_int(accountno)
+        amount=c_double(amount)
+        info=Deposit_WithComment(c_char_p(server.encode('utf-8')).value,login.value,c_char_p(password.encode('utf-8')).value,account_no.value,c_char_p(comment.encode('utf-8')).value,amount.value)
+        return info
     #dll withdrawel with comment
-    def dll_withdraw_comment(self,accountno,comment,amount):
+    def dll_withdraw_comment(self,user,server,password,accountno,comment,amount):
         
         hllDll = CDLL(r"C:\\pyenv\\TrustManagerAPI.dll") 
         Withdrawal_WithComment = hllDll.Withdrawal_WithComment
         hllDll.Withdrawal_WithComment.argtype= c_char_p,c_int,c_char_p,c_char_p
         hllDll.Withdrawal_WithComment.restype= c_double
-        username=int(self.demouser)
+        username=int(user)
         login = c_int(username)
         account_no=c_int(accountno)
         amount=c_double(amount)
-        info=Withdrawal_WithComment(c_char_p(self.demoserver.encode('utf-8')).value,login.value,c_char_p(self.demopwd.encode('utf-8')).value,account_no.value,c_char_p(comment.encode('utf-8')).value,amount.value)
+        info=Withdrawal_WithComment(c_char_p(server.encode('utf-8')).value,login.value,c_char_p(password.encode('utf-8')).value,account_no.value,c_char_p(comment.encode('utf-8')).value,amount.value)
         return info
   
   
@@ -293,6 +306,7 @@ class DllService:
         expmonth=c_int(expmonth)
         expyear=c_int(expyear)
         info=CreditIn_WithComment(c_char_p(server.encode('utf-8')).value,login.value,c_char_p(password.encode('utf-8')).value,account_no.value,c_char_p(comment.encode('utf-8')),amount.value,expday.value,expmonth.value,expyear.value)
+        print("Info=====",info)
         return info
       #credit out with comment
     def dll_creditout_with_comment(self,user,server,password,accountno,comment,amount):

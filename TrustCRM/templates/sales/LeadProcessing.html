@@ -4127,7 +4127,11 @@ Sent <span class="ms-1 me-2 fs-12 float-end ">{{count}}</span></a>
                         $("#meetingscore").val(meetingscore)
                         var stickydata=data.stickytext
                         $("#stickytext").append(stickydata)
-                        console.log("Meetingscore-------------------------------------------------------"+meetingscore)                 
+                        console.log("Meetingscore-------------------------------------------------------"+meetingscore) 
+                        if ( $('#calendar').children().length > 0 ) {
+                               window.calendar.destroy()
+                            }
+                                        
                         gauge1(leadscore)
                         gauge2(meetingscore)
                         updateActivities(activities)

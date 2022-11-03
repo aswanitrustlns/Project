@@ -81,7 +81,7 @@ var options = {
   },
   noData: {
         
-    text:'Nothing to display',
+    text:'No Meetings',
     align: "center",
     verticalAlign: "middle",
     
@@ -369,7 +369,7 @@ var options = {
     },
     noData: {
         
-        text:'Nothing to display',
+        text:'No Seminars',
         align: "center",
         verticalAlign: "middle",
 

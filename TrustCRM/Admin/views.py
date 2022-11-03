@@ -571,10 +571,11 @@ def new_accounts_variants(request):
             active="pending"
         print("Status----------------------",change)
         
-        accounts_data=selector.get_new_accounts_filter(change)
+        accounts_data=selector.get_new_accounts_click(change,date_yesterday,date_today)#get_new_accounts_filter
         accounts_count=selector.get_new_accounts_count(date_yesterday,date_today)   
         # accounts_count=selector.get_new_accounts_count_variants(date_yesterday,date_today,change)
         print("Accounts count-----------",accounts_count)
+        print("Data=====",len(accounts_data))
             # terminated_data=selector.get_new_accounts("Terminated")
         return render(request,'admin/newAccounts.html',{'accounts_data':accounts_data,'accounts_count':accounts_count,"active":json.dumps(active)})
                 
