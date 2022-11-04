@@ -684,14 +684,15 @@ class Selector:
     #Get wallet transactions
     def get_wallet_transactions(self,account):
         try:
+            result=""
             Cursor=connection.cursor()           
             Cursor.execute("set nocount on;exec SP_GetWalletTransactions %s",[account]) 
-            result=Cursor.fetchone()
+            result=Cursor.fetchall()
         except Exception as e:
                 print("Exception------",e)
         finally:
                 Cursor.close()
-
+        return result
     #Get next depart yearly
     def get_nextdepart_yearly(self,account):
         try:
@@ -702,6 +703,7 @@ class Selector:
                 print("Exception------",e)
         finally:
                 Cursor.close()
+        return result
      #Get profile status
     def get_profile_status(self,account):
         try:
@@ -725,18 +727,22 @@ class Selector:
                 Cursor.close()
         return result
     #Get ewallet report by login
-    def get_ewallet_report(self,accno,from_date,to_date):
+    def get_ewallet_report(self,accno):
         try:
-           
-            Cursor=connection.cursor()           
-            Cursor.execute("set nocount on;exec SP_GetEWalletEquityReportByLogin %s,%s,%s",[from_date,to_date,accno]) 
+            today=str(datetime.today().date()  )
+            todate=datetime.strptime(today,"%Y-%m-%d")
+            Cursor=connection.cursor() 
+            fromdate="2019-05-01"          
+            
+            Cursor.execute("set nocount on;exec SP_GetEWalletEquityReportByLogin %s,%s,%s",["2019-05-01 ",today,accno]) 
+            
             result=Cursor.fetchall()
             
         except Exception as e:
                 print("Exception------",e)
         finally:
                 Cursor.close()
-        return result
+        return result,fromdate,todate
     #dormant check
     def dormant_check(self,userid):
         try:

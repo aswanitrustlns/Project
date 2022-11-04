@@ -80,7 +80,7 @@ class DllService:
         
         hllDll = CDLL(r"C:\\pyenv\\TrustManagerAPI.dll") 
         Enable_Update = hllDll.Enable_Update
-        hllDll.Enable_Update.argtype = c_char_p,c_int,c_char_p,c_char_p
+        hllDll.Enable_Update.argtype = c_char_p,c_int,c_char_p,c_int
         hllDll.Enable_Update.restype = c_int
         username=int(user)
         login = c_int(username)
@@ -110,7 +110,7 @@ class DllService:
                     for i in output_str:
                         data=i.split("=")
                         details.append(data[1])
-                        print(data[1])
+                        
         return details
     #dll get IP
     def dll_get_IP(self,user,server,password,accountno):
@@ -184,11 +184,8 @@ class DllService:
                         for i in show_detail:
                             data=i.split("=")
                             showdetail.append(data[1])
-                            print(data[1])
+                            
             
-                print("DataList====",row_details,showdetail)                          
-
-        
         return row_details,showdetail
     #dll client Info
     def dll_client_info_without_history(self,user,server,password,accountno):
@@ -211,19 +208,20 @@ class DllService:
                     for i in output_str:
                         data=i.split("=")
                         details.append(data[1])
-                        print(data[1])
+                        
         return details
     #dll yearly deposit
     def dll_get_yearly_deposit(self,user,server,password,accountno):
         
         hllDll = CDLL(r"C:\\pyenv\\TrustManagerAPI.dll") 
         GetYearlyDeposit = hllDll.GetYearlyDeposit
-        hllDll.GetYearlyDeposit.argtype= c_char_p,c_int,c_char_p,c_char_p
+        hllDll.GetYearlyDeposit.argtype= c_char_p,c_int,c_char_p,c_int
         hllDll.GetYearlyDeposit.restype= c_double
         username=int(user)
         login = c_int(username)
         account_no=c_int(accountno)
         info=GetYearlyDeposit(c_char_p(server.encode('utf-8')).value,login.value,c_char_p(password.encode('utf-8')).value,account_no.value)
+        print("data=====",info)
         return info
 
     #dll yearly deposit
@@ -231,12 +229,13 @@ class DllService:
         
         hllDll = CDLL(r"C:\\pyenv\\TrustManagerAPI.dll") 
         GetNetDeposit = hllDll.GetNetDeposit
-        hllDll.GetNetDeposit.argtype= c_char_p,c_int,c_char_p,c_char_p
+        hllDll.GetNetDeposit.argtype= c_char_p,c_int,c_char_p,c_int
         hllDll.GetNetDeposit.restype= c_double
         username=int(user)
         login = c_int(username)
         account_no=c_int(accountno)
         info=GetNetDeposit(c_char_p(server.encode('utf-8')).value,login.value,c_char_p(password.encode('utf-8')).value,account_no.value)
+        print("Info=====",info)
         return info
     #openorclosed
     def dll_openorclosed_today(self,user,server,password,accountno):
@@ -252,30 +251,35 @@ class DllService:
         return info
       #dll deposit with comment
     def dll_deposit_comment(self,user,server,password,accountno,comment,amount):
-        
+        print("Deposit====")
         hllDll = CDLL(r"C:\\pyenv\\TrustManagerAPI.dll") 
         Deposit_WithComment = hllDll.Deposit_WithComment
-        hllDll.Deposit_WithComment.argtype= c_char_p,c_int,c_char_p,c_char_p
-        hllDll.Deposit_WithComment.restype= c_double
+        hllDll.Deposit_WithComment.argtype= c_char_p,c_int,c_char_p,c_int,c_char_p,c_int
+        hllDll.Deposit_WithComment.restype= POINTER(c_char_p)
         username=int(user)
         login = c_int(username)
         account_no=c_int(accountno)
-        amount=c_double(amount)
-        info=Deposit_WithComment(c_char_p(server.encode('utf-8')).value,login.value,c_char_p(password.encode('utf-8')).value,account_no.value,c_char_p(comment.encode('utf-8')).value,amount.value)
-        return info
+        amount=c_double(float(amount))
+        info=Deposit_WithComment(c_char_p(server.encode('utf-8')).value,login.value,c_char_p(password.encode('utf-8')).value,account_no.value,c_char_p(comment.encode('utf-8')).value,amount)
+        result=string_at(info)
+        
+        
+        return result
     #dll withdrawel with comment
     def dll_withdraw_comment(self,user,server,password,accountno,comment,amount):
         
         hllDll = CDLL(r"C:\\pyenv\\TrustManagerAPI.dll") 
         Withdrawal_WithComment = hllDll.Withdrawal_WithComment
-        hllDll.Withdrawal_WithComment.argtype= c_char_p,c_int,c_char_p,c_char_p
-        hllDll.Withdrawal_WithComment.restype= c_double
+        hllDll.Withdrawal_WithComment.argtype= c_char_p,c_int,c_char_p,c_int,c_char_p,c_int
+        hllDll.Withdrawal_WithComment.restype= POINTER(c_char_p)
         username=int(user)
         login = c_int(username)
         account_no=c_int(accountno)
-        amount=c_double(amount)
-        info=Withdrawal_WithComment(c_char_p(server.encode('utf-8')).value,login.value,c_char_p(password.encode('utf-8')).value,account_no.value,c_char_p(comment.encode('utf-8')).value,amount.value)
-        return info
+        amount=c_double(float(amount))
+        info=Withdrawal_WithComment(c_char_p(server.encode('utf-8')).value,login.value,c_char_p(password.encode('utf-8')).value,account_no.value,c_char_p(comment.encode('utf-8')).value,amount)
+        result=string_at(info)
+        
+        return result
   
   
      #dll phone password
@@ -294,34 +298,42 @@ class DllService:
     #credit in with comment
     def dll_creditin_with_comment(self,user,server,password,accountno,comment,amount,expday,expmonth,expyear):
         
+      
         hllDll = CDLL(r"C:\\pyenv\\TrustManagerAPI.dll") 
         CreditIn_WithComment = hllDll.CreditIn_WithComment
-        hllDll.CreditIn_WithComment.argtype= c_char_p,c_int,c_char_p,c_char_p
-        hllDll.CreditIn_WithComment.restype = c_int
+        hllDll.CreditIn_WithComment.argtype= c_char_p,c_int,c_char_p,c_int,c_char_p,c_double,c_int,c_int,c_int
+        hllDll.CreditIn_WithComment.restype = POINTER(c_char_p)
         username=int(user)
         login = c_int(username)
         account_no=c_int(accountno)
-        amount=c_double(amount)
+        amount=c_double(float(amount))
         expday=c_int(expday)
         expmonth=c_int(expmonth)
         expyear=c_int(expyear)
-        info=CreditIn_WithComment(c_char_p(server.encode('utf-8')).value,login.value,c_char_p(password.encode('utf-8')).value,account_no.value,c_char_p(comment.encode('utf-8')),amount.value,expday.value,expmonth.value,expyear.value)
-        print("Info=====",info)
-        return info
+        print("Inside dll")
+        info=CreditIn_WithComment(c_char_p(server.encode('utf-8')).value,login.value,c_char_p(password.encode('utf-8')).value,account_no.value,c_char_p(comment.encode('utf-8')),amount,expday.value,expmonth.value,expyear.value)
+        
+        result=string_at(info)
+        print("Info=====",result)
+        
+        return result
+        
       #credit out with comment
     def dll_creditout_with_comment(self,user,server,password,accountno,comment,amount):
         
         hllDll = CDLL(r"C:\\pyenv\\TrustManagerAPI.dll") 
         CreditOut_WithComment = hllDll.CreditOut_WithComment
-        hllDll.CreditOut_WithComment.argtype= c_char_p,c_int,c_char_p,c_char_p
+        hllDll.CreditOut_WithComment.argtype= c_char_p,c_int,c_char_p,c_int,c_char_p,c_double
         hllDll.CreditOut_WithComment.restype = c_int
         username=int(user)
         login = c_int(username)
         account_no=c_int(accountno)
-        amount=c_double(amount)
+        amount=c_double(float(amount))
         
-        info=CreditOut_WithComment(c_char_p(server.encode('utf-8')).value,login.value,c_char_p(password.encode('utf-8')).value,account_no.value,c_char_p(comment.encode('utf-8')),amount.value)
-        return info
+        info=CreditOut_WithComment(c_char_p(server.encode('utf-8')).value,login.value,c_char_p(password.encode('utf-8')).value,account_no.value,c_char_p(comment.encode('utf-8')),amount)
+        result=string_at(info)
+        print("Result====",result)
+        return result
       #dll get history
     def dll_get_history(self,user,server,password,fdate,fmonth,fyear,tdate,tmonth,tyear):
         dataList={}
@@ -378,7 +390,7 @@ class DllService:
                         for i in show_detail:
                             data=i.split("=")
                             showdetail.append(data[1])
-                            print(data[1])
+                            
             
                 
         return row_details,showdetail
@@ -387,14 +399,15 @@ class DllService:
         
         hllDll = CDLL(r"C:\\pyenv\\TrustManagerAPI.dll") 
         InterAccount = hllDll.InterAccount
-        hllDll.InterAccount.argtype= c_char_p,c_int,c_char_p,c_char_p
-        hllDll.InterAccount.restype = c_int
+        hllDll.InterAccount.argtype= c_char_p,c_int,c_char_p,c_int,c_char_p,c_int,c_char_p
+        hllDll.InterAccount.restype = POINTER(c_char_p)
         username=int(user)
         login = c_int(username)
         account_no1=c_int(accountno1)
         account_no2=c_int(accountno2)
-        amount=c_double(amount)
+        amount=c_double(float(amount))
         
-        info=InterAccount(c_char_p(server.encode('utf-8')).value,login.value,c_char_p(password.encode('utf-8')).value,account_no1.value,c_char_p(comment1.encode('utf-8')),amount.value,account_no2.value,c_char_p(comment2.encode('utf-8')))
-        return info
+        info=InterAccount(c_char_p(server.encode('utf-8')).value,login.value,c_char_p(password.encode('utf-8')).value,account_no1.value,c_char_p(comment1.encode('utf-8')),amount,account_no2.value,c_char_p(comment2.encode('utf-8')))
+        result=string_at(info)
+        return result
     

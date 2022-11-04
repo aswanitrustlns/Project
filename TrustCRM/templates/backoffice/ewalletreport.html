@@ -48,9 +48,9 @@
             <div class="page-content py-4" id="sales">
                 <div class="container-fluid">
                                  
-                           <a type="button" class="btn text-white btn-sm fs-13 gilroyregular-type almarenamonolight-type bg-soft-gunmetal mb-4"  onclick="history.back()">
+                           <!-- <a type="button" class="btn text-white btn-sm fs-13 gilroyregular-type almarenamonolight-type bg-soft-gunmetal mb-4"  onclick="history.back()">
                             Back
-                         </a>        
+                         </a>         -->
                            <div class=" card   card-h-100" >
                             <div class="card-body ">
                               
@@ -89,7 +89,7 @@
                                                                 Opening Balance</span>
                                                         </div>
                                                         
-                                                        <h2 class=" gilory-semibold-type fs-40 mb-0 text-center text-lg-start" data-target="12">12</h2>
+                                                        <h2 class=" gilory-semibold-type fs-40 mb-0 text-center text-lg-start" data-target="12">0.0</h2>
                                                         
                                                     </div>
                                                     
@@ -137,7 +137,7 @@
                                                             <span class=" color-color1 fs-20 almarenamonolight-type">E-Wallet Closing Balance</span>
                                                         </div>
                                                         
-                                                        <h2 class=" gilory-semibold-type fs-40 mb-0 text-center text-lg-start" data-target="12">12</h2>
+                                                        <h2 class=" gilory-semibold-type fs-40 mb-0 text-center text-lg-start" data-target="12">0.0</h2>
                                                         
                                                     </div>
                                                     
@@ -155,8 +155,8 @@
                             <div class="row">
                                 <div class="col-12">
     
-                                    <h4 class="card-title almarenamonolight-type mb-1 fs-23  d-flex align-items-center">EWallet Equity Report (300136)  <span id="datatable-buttons_wrapper" class="d-inline-block flex-shrink-0 mb-1 ms-2"></span></h4>
-                                    <p class="color-color1  fs-17 giloryregular-type ">From 01-05-2022 To 10-14-2022</p>
+                                    <h4 class="card-title almarenamonolight-type mb-1 fs-23  d-flex align-items-center">EWallet Equity Report {{accno}}  <span id="datatable-buttons_wrapper" class="d-inline-block flex-shrink-0 mb-1 ms-2"></span></h4>
+                                    <p class="color-color1  fs-17 giloryregular-type ">From {{from}} To {{to}}</p>
                                     <hr class=" my-4">
                                 </div>
     
@@ -164,7 +164,7 @@
                             <div class="row ">
                                 <div class="col-12">
                                             <h4 class="card-title almarenamonolight-type mb-4 fs-23">
-                                                Firas Monzer
+                                                {{name}}
                                                
                                             </h4>
                                             <ul class="gilorymedium-type list-unstyled color-color1 fs-17 d-flex ">
@@ -185,133 +185,37 @@
                                                 <table  class="table dt-responsive  nowrap  w-100 change" id="datatableewreport">
                                                     <thead class="color-color1">
                                                         <tr  class=" gilorymedium-type fs-17">
-                                                            <th  class="ps-0"> Rowid</th>
-                                                            <th >Date</th>
-                                                            <th  >Login</th>
-                                                            <th  >E-Wallet ID</th>
-                                                       
-                                                            <th>Currency</th>
-                                                            <th>Available Balance</th>
-                                                            <th>Amount</th>
-                                                            <th>Type</th>
-                                                            <th>Source</th>
-                                                            <th>Destination</th>
-                                                            <th class="text-end ">Remarks
-                                                            </th>
+                                                            <th  class="ps-0" > Transaction Date</th>
+                                                                            <th >Amount</th>
+                                                                            <th  >Trans Type</th>
+                                                                            <th  >Remarks</th>
+                                                                            <th>Status</th>
+                                                                            
+                                                                            <th class="text-end">Proceed</th>
                                                             
                                                         </tr>
                                                     </thead>
     
     
                                                     <tbody class="text-white giloryregular-type fs-16">
-                                                        <tr>
-                                                      
-                                                        <td class="ps-0">Online</td>
-                                                        <td>Firas</td>
-                                                        <td>Firas</td>   
-                                                        <td>Firas</td>
-                                                        <td>Firas</td>
-                                                        <td>Firas</td>
-    
-                                                        <td>Sumitha test</td>
-                                                        <td>Qatar</td>
-                                                        <td>Live account reg</td>
-                                                        <td>Live account reg</td>
-                                                        <td class="text-end ">Live account reg</td>
-                                                 
-                                                   
-                                                        
-                                                        </tr>
-                                                        <tr>
-                                                      
-                                                            <td class="ps-0">Online</td>
-                                                            <td>Firas</td>
-                                                            <td>Firas</td>   
-                                                            <td>Firas</td>
-                                                            <td>Firas</td>
-                                                            <td>Firas</td>
-        
-                                                            <td>Sumitha test</td>
-                                                            <td>Qatar</td>
-                                                            <td>Live account reg</td>
-                                                            <td>Live account reg</td>
-                                                            <td class="text-end ">Live account reg</td>
-                                                     
                                                        
-                                                            
-                                                            </tr>
-    
-                                                            <tr>
-                                                      
-                                                                <td class="ps-0">Online</td>
-                                                                <td>Firas</td>
-                                                                <td>Firas</td>   
-                                                                <td>Firas</td>
-                                                                <td>Firas</td>
-                                                                <td>Firas</td>
-            
-                                                                <td>Sumitha test</td>
-                                                                <td>Qatar</td>
-                                                                <td>Live account reg</td>
-                                                                <td>Live account reg</td>
-                                                                <td class="text-end ">Live account reg</td>
-                                                         
-                                                           
-                                                                
-                                                                </tr>
-                                                                <tr>
-                                                      
-                                                                    <td class="ps-0">Online</td>
-                                                                    <td>Firas</td>
-                                                                    <td>Firas</td>   
-                                                                    <td>Firas</td>
-                                                                    <td>Firas</td>
-                                                                    <td>Firas</td>
-                
-                                                                    <td>Sumitha test</td>
-                                                                    <td>Qatar</td>
-                                                                    <td>Live account reg</td>
-                                                                    <td>Live account reg</td>
-                                                                    <td class="text-end ">Live account reg</td>
-                                                             
-                                                               
-                                                                    
-                                                                    </tr>
-                                                                    <tr>
-                                                      
-                                                                        <td class="ps-0">Online</td>
-                                                                        <td>Firas</td>
-                                                                        <td>Firas</td>   
-                                                                        <td>Firas</td>
-                                                                        <td>Firas</td>
-                                                                        <td>Firas</td>
-                    
-                                                                        <td>Sumitha test</td>
-                                                                        <td>Qatar</td>
-                                                                        <td>Live account reg</td>
-                                                                        <td>Live account reg</td>
-                                                                        <td class="text-end ">Live account reg</td>
-                                                                        </tr>
+                                                       
+                                                        {%for report in reports%}
                                                                         <tr>
                                                       
-                                                                            <td class="ps-0">Online</td>
-                                                                            <td>Firas</td>
-                                                                            <td>Firas</td>   
-                                                                            <td>Firas</td>
-                                                                            <td>Firas</td>
-                                                                            <td>Firas</td>
-                        
-                                                                            <td>Sumitha test</td>
-                                                                            <td>Qatar</td>
-                                                                            <td>Live account reg</td>
-                                                                            <td>Live account reg</td>
-                                                                            <td class="text-end ">Live account reg</td>
+                                                                            <td class="ps-0">{{report.1}}</td>
+                                                                            <td>{{report.9}}</td>
+                                                                            <td>{{report.10}}</td>   
+                                                                            <td>{{report.13}}</td>
+                                                                            <td><button class="btn  btn-sm  text-warning fs-15" style="background-color:
+                                                                                rgba(221, 174, 6, 0.15) ;">Pending</button></td>
+                                                                            <td class='text-end'><button class='btn  btn-sm  text-danger fs-15' style='background-color:rgba(255, 3, 3, 0.15) ;'>Proceed</button></td>
                                                                      
                                                                        
                                                                             
                                                                             </tr>
                                                       
-                                                    
+                                                        {%endfor%}
                                                 
                                                     
                                                     </tbody>

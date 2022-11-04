@@ -768,6 +768,65 @@ class EmailServices:
             print("EXCEPTION-----------------------")  
         finally:
             Cursor.close() 
+            
+    #Send Complaince
+    def SendComplaince(self,title,name,remail,accno,currency,amount,income,flag):
+        try:
+            Cursor=connection.cursor()  
+            
+            email_from = 'cs@trusttc.com'
+            bcc1="crm@trusttc.com"
+            bcc2="backoffice@trusttc.com"
+            bcc3="compliance@trusttc.com"
+            bcc4="magt@trusttc.com"
+            template_data={
+                "title":title,
+                "name":name,
+                "amount":amount,
+                "account":accno
+                
+            }  
+            if flag==4:
+
+                if(currency=="EUR"):     
+                    Subject = "A dormant account has deposited money"           
+                    email_template_render=render_to_string("email/backoffice/transaction/DormantDeposit_EUR.html",template_data)
+                else:
+                    email_template_render=render_to_string("email/backoffice/transaction/DormantDeposit.html",template_data)
+            if flag==5:
+                if(currency=="EUR"):     
+                    Subject = "Fund withdrawal before 3 trades"           
+                    email_template_render=render_to_string("email/backoffice/transaction/Fundwithdrawalbefore3trades_EUR.html",template_data)
+                else:     
+                    Subject = "Fund withdrawal before 3 trades"           
+                    email_template_render=render_to_string("email/backoffice/transaction/Fundwithdrawalbefore3trades_EUR.html",template_data)
+            if flag==6:
+                if(currency=="EUR"):     
+                    Subject = "A dormant account has credited in"           
+                    email_template_render=render_to_string("email/backoffice/transaction/DormantCreditIn_EUR.html",template_data)
+                else:     
+                    Subject = "A dormant account has credited in"           
+                    email_template_render=render_to_string("email/backoffice/transaction/DormantCreditIn.html",template_data)
+            if flag==7:
+                if(currency=="EUR"):     
+                    Subject = "Deposit exceeds 100K"           
+                    email_template_render=render_to_string("email/backoffice/transaction/Depositexceeds100K_EUR.html",template_data)
+                else:     
+                    Subject = "Deposit exceeds 100K"           
+                    email_template_render=render_to_string("email/backoffice/transaction/Depositexceeds100K.html",template_data)
+
+            
+            msg = EmailMultiAlternatives(subject=Subject,from_email=email_from,to=[remail],bcc=[bcc1,bcc2,bcc3,bcc4])
+            msg.attach_alternative(email_template_render, "text/html")
+            msg.send(fail_silently=False)
+            print("Email send-----------------------------------------------------------")  
+                    
+
+        except Exception as e:
+            print("EXCEPTION-----------------------")  
+        finally:
+            Cursor.close() 
+
 
 
 

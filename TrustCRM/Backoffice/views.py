@@ -593,27 +593,7 @@ def backoffice_transactions(request):
 def save_creditIn_information(request):
     if 'UserId' in request.session:
         message="Please try again"
-        userid=request.session.get('UserId')
-        accno=request.POST.get('accno')
-        status=request.POST.get('status')
-        amount=request.POST.get('deposit')
-        
-        print("Credit UIn========",accno,status)
-        result=service.save_transactions(request)
-        if(result=="success"):
-            userdetails=selector.get_user_details(accno)
-            if userdetails:
-                userdetails=userdetails[0]
-                title=userdetails[2]
-                name=userdetails[1]
-                email=userdetails[0]
-                currency=userdetails[5]
-                if status=="creditin":
-                    emailservice.SendCreditInConfirmation(title,name,email,accno,currency,amount)
-                    message="Credit In completed successfully"
-                if status=="creditout":
-                    emailservice.SendCreditOutConfirmation(title,name,email,accno,currency,amount)
-                    message="Credit Out completed successfully"
+        message=service.save_transactions(request)
         return JsonResponse({"message":message})
     else:
         return redirect('/login')
@@ -645,9 +625,12 @@ def load_credit(request):
         accno=int(request.GET.get('account'))
         duplicates=selector.duplicate_account(accno)
         print("Load credit======",user,server,password,accno)
-        report,opening,closing=selector.get_ewallet_equityreport("","",4,"")
+        report=selector.get_wallet_transactions(accno)
         data,datalist,showData=selector.load_credit_dllcall(user,server,password,accno)
-        return JsonResponse({"datas":data,"datalist":datalist,"showdata":showData,"duplicates":duplicates,'wallet':report})
+        ebalance=selector.loadEwalletBalance(accno)
+        print("Send data========",report)
+
+        return JsonResponse({"datas":data,"datalist":datalist,"showdata":showData,"duplicates":duplicates,'wallet':report,'ebalance':ebalance})
     else:
         return redirect('/login')
 #deposit in wallet
@@ -655,7 +638,7 @@ def deposit_in_wallet(request):
     if 'UserId' in request.session:
         message="Please try again"
         userid=request.session.get('UserId')
-        service.update_ewallet_transactions(request)
+        message=service.update_ewallet_transactions(request)
      
         # if(result=="success"):
         
@@ -679,16 +662,7 @@ def load_all_transaction_details(request):
         return JsonResponse({"datas":data})
     else:
         return redirect('/login')
-#Load all Transaction details
-def load_transaction_details(request):
-    if 'UserId' in request.session:
-        data={}
-       
-        accno=request.GET.get('accno')
-        
-        return JsonResponse({"datas":data})
-    else:
-        return redirect('/login')
+
 # Transactions history
 def transactions_history(request):
     if 'UserId' in request.session:
@@ -717,7 +691,10 @@ def transactions_history_search(request):
 
 def ewallet_report(request):
     if 'UserId' in request.session:
-        return render(request,"backoffice/ewalletreport.html")
+        accno=request.GET.get('login')
+        report,fromdate,todate=selector.get_ewallet_report(accno)
+        print("Report====",report)
+        return render(request,"backoffice/ewalletreport.html",{"reports":report,"accno":accno,'from':fromdate,'to':todate})
     else:
         return redirect('/login')
 def history_ewallet_report(request):
@@ -757,60 +734,7 @@ def mt4_transaction_history(request):
 def inter_account_transfer(request):
     if 'UserId' in request.session:
         message="Please try again"
-        name=request.GET.get('name')
-        balance=request.GET.get('balance')
-        margin=request.GET.get('margin')
-        credit=0
-        account1=request.GET.get('account1')
-        account2=request.GET.get('account2')
-        amount=request.GET.get('amount')
-        initial=request.GET.get('initial')
-        comment1="Withdrawal From"+account1
-        comment2="Deposit To"+account2
-        user=request.session.get('user')
-        server=request.session.get('server')
-        password=request.session.get('password')
-        print("Initial====",initial)
-        
-        message=service.interaccount_transfer(account1,account2,name,balance,margin,credit,amount,comment2,user,server,password)
-        if(initial==1):
-            selector.get_live_status(account2,amount)
-        else:
-            selector.get_live_status(account2,0)
-        userdetails=selector.get_user_details(account1)
-        if userdetails:
-                userdetails=userdetails[0]
-                title=userdetails[2]
-                name=userdetails[1]
-                email=userdetails[0]
-                currency=userdetails[5]
-        dormant_check=selector.dormant_check(account1)
-        if(dormant_check==1):
-            emailservice.SendDormant(title,name,email,account2,currency)
+        message=service.interaccount_transfer(request)
         return JsonResponse({"message":message})
     else:
         return redirect('/login')
-
-
-
-
-
-
-
-
-
-
-        
-
-            
-
-
-
-
-
-
-
-
-
-
-
