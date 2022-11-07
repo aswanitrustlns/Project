@@ -154,7 +154,8 @@
                         
                     </ul>
                 </li>
-                <!-- <li>
+                {%if request.session.crf == "crfuser" %}
+                <li>
                     <a  href="javascript: void(0);" class="has-arrow">
                         
                         <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -166,13 +167,15 @@
                             
                             
                             
-                        <span data-key="t-management">Management</span>
+                        <span data-key="t-management">Happiness Center</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
-                        
+                        <li><a    href="{% url 'CRF:CaseRegister' %}" data-key="t-inbox">CRF Entry</a></li>
+                        <li><a    href="{% url 'CRF:CaseReport' %}" data-key="t-inbox">CRF List</a></li>
                         
                     </ul>
-                </li>        -->
+                </li>  
+                {%endif%}     
                 <!-- <li>
                     <a  href="javascript: void(0);" class="has-arrow">
                        

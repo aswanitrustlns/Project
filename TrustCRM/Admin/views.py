@@ -13,7 +13,7 @@ from django.contrib.sessions.models import Session
 from django.template import Context
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.sessions.models import Session
-
+from django.apps import apps
 from gtts import gTTS
 import os
 import json
@@ -49,6 +49,7 @@ def login_check(request):
     global voice
     global adminrole
     print("login-start",datetime.now().time())
+    model=apps.get_model('CRF','TblUser')
     msg="Username and Password do not match"
     if request.method == 'POST':
         username=request.POST.get('username')
@@ -56,7 +57,14 @@ def login_check(request):
         server_name=request.POST.get('servername')
         print("login=====",username,server_name,password)
     try:  
-           
+        userInfo=model.objects.using('crf').filter(username=username).first()
+        # crfUserId=userInfo.userid
+        if(userInfo!=None):
+            request.session['crf']="crfuser"
+        else:
+            request.session['crf']="notuser"
+      
+        
         UserId=selector.get_loged_user_info(username)  
         print("User Id==================",UserId,type(UserId))
         request.session['UserId'] = UserId

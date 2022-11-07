@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'ckeditor',
     'ckeditor_uploader', 
     'Admin',
-    'Backoffice'
+    'Backoffice',
+    'CRF'
     
 ]
 
@@ -102,6 +103,17 @@ DATABASES = {
     'default': {
         'ENGINE': 'mssql',
         'NAME': 'SVGTcCRM20220926',
+        'USER': 'tinstcrm',
+        'PASSWORD': 'Trust_2021',
+        'HOST': '213.175.205.19',
+        'PORT': '1433',
+         'OPTIONS': {
+            'driver': 'ODBC Driver 17 for SQL Server',
+        },
+    },
+       'crf': {
+        'ENGINE': 'mssql',
+        'NAME': 'CRF',
         'USER': 'tinstcrm',
         'PASSWORD': 'Trust_2021',
         'HOST': '213.175.205.19',
