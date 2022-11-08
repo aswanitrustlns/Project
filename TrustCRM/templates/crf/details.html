@@ -46,7 +46,9 @@
                 <div class="container-fluid">
                               <!-- start page title -->
                               <div class="row">
+                                
                                   <div class="col-12">
+                                    <a class="btn bg-soft-secondarycolor btn-sm text-white me-2 mb-2" style="cursor:pointer" onclick="history.back()"><i class="fa fa-chevron-left me-2"></i>Back</a>
                                       <div class="page-title-box d-sm-flex align-items-center justify-content-between">
                                           <h4 class="mb-sm-0 fs-23 almarenamonolight-type">CRF case details </h4><!--font-size-18-->
     
@@ -115,19 +117,22 @@
                                                                 <table  class="table dt-responsive  nowrap  w-100 change" id="datatable">
                                                                     <thead class="color-color1">
                                                                         <tr  class=" gilorymedium-type fs-17">
-                                                                            <th  class="ps-0"> View</th>
-                                                                            <th >Caseld</th>
-                                                                            <th  >Case Code</th>
+                                                                            
+                                                                            <th >Case DetailId</th>
+                                                                            <!-- <th  >Case Code</th> -->
                                                                             <th  >Topic</th>
                                                                         
+                                                                            
+                                                                            <th>Case Types</th>
+                                                                            <!-- <th>Name</th> -->
                                                                             <th>Priority</th>
                                                                             <th>Modified</th>
-                                                                            <th>Case Types</th>
-                                                                            <th>Name</th>
+                                                                            <th>Completion Date</th>
+                                                                            <th>Exp CompletionDate</th>
                                                                             <th>Status</th>
-                                                                            <th>Resolve</th>
+                                                                            <!-- <th>Resolve</th>
                                                                             
-                                                                            <th class="text-end ">Re Open</th>
+                                                                            <th class="text-end ">Re Open</th> -->
                                                                         
                                                                             
                                                                         </tr>
@@ -135,71 +140,28 @@
                     
                     
                                                                     <tbody class="text-white giloryregular-type fs-16">
+                                                                        {%for detail in details%}
                                                                         <tr>
-                                                                    
-                                                                            <td class="ps-0"> <span class="color-green text-decoration-underline" data-bs-toggle="modal" data-bs-target=".bs-example-modal-show" >View</span> </td>
-                                                                            <td> View Clients </td> 
-                                                                            <td>Noura Mikati</td>   
-                                                                            <td>09-02-2022</td>
-                                                                            <td>09-02-2022</td>
-                                                                            <td>410000</td>
-                                                                            <td>Noura Mikati</td>
-                                                                            <td>nouramikati@trusttech.in</td>
+                                                                            <td>{{detail.casedetailid}}</td> 
+                                                                            <td>{{detail.topic}}</td>   
+                                                                            <td>{{detail.casetype}}</td>
+                                                                            <td>{{detail.priority}}</td>
+                                                                            <td>{{detail.modified|date:"Y-m-d"}}</td>
+                                                                            <td>{{detail.completiondate|date:"Y-m-d"}}</td>
+                                                                            <td>{{detail.expcompletion|date:"Y-m-d"}}</td>
+                                                                            <td>{{detail.status}}</td>
+                                                                            <!-- <td>Noura Mikati</td> -->
+                                                                            <!-- <td>nouramikati@trusttech.in</td>
                                                                             <td><button class="btn  btn-sm  color-green fs-15" style="background-color:
                                                                                 rgba(0, 165, 79, 0.15) ;">Approved</button></td>
                                                                             <td><button class="btn  btn-sm   fs-15" style="background-color: rgba(25, 118, 210, 0.11) ;color:rgba(25, 118, 210, 1) ;">Resolve </button></td>
                                                                             
                                                                             <td class="text-end "><button class="btn  btn-sm   fs-15" style="background-color: rgba(255, 124, 72, 0.15) ;color:rgba(255, 124, 72, 1) ;">Re Open</button></td>
-                                                                
+                                                                 -->
                                                                     
                                                                         
                                                                         </tr>
-                                                                        <tr>
-                                                                    
-                                                                            <td class="ps-0"> <a class="color-green text-decoration-underline">View</a> </td>
-                                                                            <td> View Clients </td>
-                                                                            <td>Noura Mikati</td>   
-                                                                            <td>09-02-2022</td>
-                                                                            <td>09-02-2022</td>
-                                                                            <td>410000</td>
-                                                                            <td>Noura Mikati</td>
-                                                                            <td>nouramikati@trusttech.in</td>
-                                                                            <td><button class="btn  btn-sm  text-danger fs-15" style="background-color:
-                                                                                rgba(255, 3, 3, 0.15) ;">Cancelled</button></td>
-                                                                            <td><button class="btn  btn-sm   fs-15" style="background-color: rgba(25, 118, 210, 0.11) ;color:rgba(25, 118, 210, 1) ;">Resolve </button></td>
-                                                                            
-                                                                            <td class="text-end "><button class="btn  btn-sm   fs-15" style="background-color: rgba(255, 124, 72, 0.15) ;color:rgba(255, 124, 72, 1) ;">Re Open</button></td>
-                                                                
-                                                                    
-                                                                        
-                                                                        </tr>
-                                                                        <tr>
-                                                                    
-                                                                            <td class="ps-0"> <a class="color-green text-decoration-underline">View</a> </td>
-                                                                            <td> View Clients </td>
-                                                                            <td>Noura Mikati</td>   
-                                                                            <td>09-02-2022</td>
-                                                                            <td>09-02-2022</td>
-                                                                            <td>410000</td>
-                                                                            <td>Noura Mikati</td>
-                                                                            <td>nouramikati@trusttech.in</td>
-                                                                            <td><button class="btn  btn-sm  text-warning fs-15" style="background-color:
-                                                                                rgba(221, 174, 6, 0.15) ;">Pending </button></td>
-                                                                            <td><button class="btn  btn-sm   fs-15" style="background-color: rgba(25, 118, 210, 0.11) ;color:rgba(25, 118, 210, 1) ;">Resolve </button></td>
-                                                                            
-                                                                            <td class="text-end "><button class="btn  btn-sm   fs-15" style="background-color: rgba(255, 124, 72, 0.15) ;color:rgba(255, 124, 72, 1) ;">Re Open</button></td>
-                                                                
-                                                                    
-                                                                        
-                                                                        </tr>
-                                                                    
-                                                                    
-                    
-                                                                    
-                                                                    
-                                                                    
-                                                                
-                                                                    
+                                                                        {%endfor%}
                                                                     </tbody>
                                                                 
                                                                 </table>
@@ -217,19 +179,19 @@
                                                             <table  class="table dt-responsive  nowrap  w-100 change" id="datatable">
                                                                 <thead class="color-color1">
                                                                     <tr  class=" gilorymedium-type fs-17">
-                                                                        <th  class="ps-0"> View</th>
-                                                                        <th >Caseld</th>
-                                                                        <th  >Case Code</th>
-                                                                        <th  >Topic</th>
+                                                                        <!-- <th  class="ps-0"> View</th> -->
+                                                                        <th >Document Name</th>
+                                                                        <th  >Document Type</th>
+                                                                        <th  >Uploaded Date</th>
                                                                     
-                                                                        <th>Priority</th>
+                                                                        <!-- <th>Priority</th>
                                                                         <th>Modified</th>
                                                                         <th>Case Types</th>
                                                                         <th>Name</th>
                                                                         <th>Status</th>
                                                                         <th>Resolve</th>
                                                                         
-                                                                        <th class="text-end ">Re Open</th>
+                                                                        <th class="text-end ">Re Open</th> -->
                                                                     
                                                                         
                                                                     </tr>
@@ -237,33 +199,18 @@
                 
                 
                                                                 <tbody class="text-white giloryregular-type fs-16">
-                                                                    <tr>
-                                                                
-                                                                        <td class="ps-0"> <span class="color-green text-decoration-underline" data-bs-toggle="modal" data-bs-target=".bs-example-modal-show" >View</span> </td>
-                                                                        <td> View Clients </td> 
-                                                                        <td>Noura Mikati</td>   
-                                                                        <td>09-02-2022</td>
-                                                                        <td>09-02-2022</td>
-                                                                        <td>410000</td>
-                                                                        <td>Noura Mikati</td>
-                                                                        <td>nouramikati@trusttech.in</td>
-                                                                        <td><button class="btn  btn-sm  color-green fs-15" style="background-color:
-                                                                            rgba(0, 165, 79, 0.15) ;">Approved</button></td>
-                                                                        <td><button class="btn  btn-sm   fs-15" style="background-color: rgba(25, 118, 210, 0.11) ;color:rgba(25, 118, 210, 1) ;">Resolve </button></td>
-                                                                        
-                                                                        <td class="text-end "><button class="btn  btn-sm   fs-15" style="background-color: rgba(255, 124, 72, 0.15) ;color:rgba(255, 124, 72, 1) ;">Re Open</button></td>
-                                                            
-                                                                
                                                                     
-                                                                    </tr>
+                                                                    {%for doc in docs%}
                                                                     <tr>
                                                                 
-                                                                        <td class="ps-0"> <a class="color-green text-decoration-underline">View</a> </td>
-                                                                        <td> View Clients </td>
-                                                                        <td>Noura Mikati</td>   
-                                                                        <td>09-02-2022</td>
-                                                                        <td>09-02-2022</td>
-                                                                        <td>410000</td>
+                                                                        <!-- <td class="ps-0"> <a class="color-green text-decoration-underline">View</a> </td> -->
+                                                                        <td>{{doc.documentname}}</td>
+                                                                        <td>{{doc.doctype}}</td>   
+                                                                        <td>{{doc.uploadeddate|date:"Y-m-d"}}</td>
+                                                                        <td><a class="color-green text-decoration-underline" style="cursor: pointer;" onclick="viewDocs({{doc.id}})">View</a></td>
+                                                                    </tr>
+                                                                    {%endfor%}
+                                                                        <!-- <td>410000</td>
                                                                         <td>Noura Mikati</td>
                                                                         <td>nouramikati@trusttech.in</td>
                                                                         <td><button class="btn  btn-sm  text-danger fs-15" style="background-color:
@@ -272,34 +219,9 @@
                                                                         
                                                                         <td class="text-end "><button class="btn  btn-sm   fs-15" style="background-color: rgba(255, 124, 72, 0.15) ;color:rgba(255, 124, 72, 1) ;">Re Open</button></td>
                                                             
-                                                                
+                                                                 -->
                                                                     
-                                                                    </tr>
-                                                                    <tr>
-                                                                
-                                                                        <td class="ps-0"> <a class="color-green text-decoration-underline">View</a> </td>
-                                                                        <td> View Clients </td>
-                                                                        <td>Noura Mikati</td>   
-                                                                        <td>09-02-2022</td>
-                                                                        <td>09-02-2022</td>
-                                                                        <td>410000</td>
-                                                                        <td>Noura Mikati</td>
-                                                                        <td>nouramikati@trusttech.in</td>
-                                                                        <td><button class="btn  btn-sm  text-warning fs-15" style="background-color:
-                                                                            rgba(221, 174, 6, 0.15) ;">Pending </button></td>
-                                                                        <td><button class="btn  btn-sm   fs-15" style="background-color: rgba(25, 118, 210, 0.11) ;color:rgba(25, 118, 210, 1) ;">Resolve </button></td>
-                                                                        
-                                                                        <td class="text-end "><button class="btn  btn-sm   fs-15" style="background-color: rgba(255, 124, 72, 0.15) ;color:rgba(255, 124, 72, 1) ;">Re Open</button></td>
-                                                            
-                                                                
-                                                                    
-                                                                    </tr>
-                                                                
-                                                                
-                
-                                                                
-                                                                
-                                                                
+                                                                   
                                                             
                                                                 
                                                                 </tbody>
@@ -334,197 +256,50 @@
                                                             
                                                             
                         
-                                                                <!--activity x-->
+                                                               {%for activity in activities%}
+                                                                {%for results in activity%}
+                                                                <li class="activity-list activity-border">
+                                                                    <div class="activity-icon avatar-sm ms-2">
+                                                                        <span class="avatar-title bg-soft-boxgray1 text-warning rounded-circle">
+                                                                        <!--<i class="bx bx-bitcoin font-size-24"></i>-->
+                                                                        </span>
+                                                                    </div>
+                                                                    <div class="timeline-list-item">
+                                                                        <div class="d-flex">
+                                                                            <div class="flex-grow-1 overflow-hidden me-4 gilroyregular-type">
+                                                                                <p class="font-size-14 mb-1 color-color1">{{results.modified|date:"Y-m-d"}}</p>
+                                                                                <div class="mt-2 bg-soft-boxgray1 px-3 py-3 fs-13 rounded-3 d-flex flex-wrap">
+                                                                                    <!-- <img class="rounded-circle avatar-md mb-2 me-2" alt="200x200" src="{% static 'images/users/user.png' %}" data-holder-rendered="true">  -->
+                                                                                    <div class="">
+                                                                                        <!-- <p class=" color-color1  mb-0 ">Admin</p> -->
+                                                                                        <p class=" text-white  mb-0 fs-15"><span class="me-2 d-inline-block">{{results.description}}</span> <svg width="10" height="8" viewBox="0 0 10 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                                            <path d="M0.75 4.00004L3.58 6.83004L9.25 1.17004" stroke="#00A54F" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                                                                            </svg>
+                                                                                            </p>
+<!--                                                                                         
+                                                                                        <p class=" color-color1  mb-0">12:34 Pm by admin</p>
+                                                                                        <p class=" color-color1  mb-0" style="max-width: 250px"> Lorem ipsum dolor sit amet consectetur adipisicing elit. Non, harum dignissimos ut minima consequatur ipsa praesentium dolorem distinctio eaque, recusandae architecto aperiam similique amet necessitatibus deserunt numquam iure velit voluptates.</p> -->
+                                                                                    </div>
+                                                                                    
+                                                                                </div>
+                                                                                
+                                                                            </div>
+                                                                            
+                                                                        </div>
+                                                                    </div> 
+                                                                </li>
+                                                                {%endfor%}
                 
-                                                                <li class="activity-list activity-border">
-                                                                    <div class="activity-icon avatar-sm ms-2">
-                                                                        <span class="avatar-title bg-soft-boxgray1 text-warning rounded-circle">
-                                                                        <!--<i class="bx bx-bitcoin font-size-24"></i>-->
-                                                                        </span>
-                                                                    </div>
-                                                                    <div class="timeline-list-item">
-                                                                        <div class="d-flex">
-                                                                            <div class="flex-grow-1 overflow-hidden me-4 gilroyregular-type">
-                                                                                <p class="font-size-14 mb-1 color-color1">May 19, 2022</p>
-                                                                                <div class="mt-2 bg-soft-boxgray1 px-3 py-3 fs-13 rounded-3 d-flex flex-wrap">
-                                                                                    <img class="rounded-circle avatar-md mb-2 me-2" alt="200x200" src="assets/images/users/avatar-4.jpg" data-holder-rendered="true">
-                                                                                    <div class="">
-                                                                                        <p class=" color-color1  mb-0 ">Admin</p>
-                                                                                        <p class=" text-white  mb-0 fs-15"><span class="me-2 d-inline-block">Register ticket</span> <svg width="10" height="8" viewBox="0 0 10 8" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                                            <path d="M0.75 4.00004L3.58 6.83004L9.25 1.17004" stroke="#00A54F" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                                                                            </svg>
-                                                                                            </p>
-                                                                                        
-                                                                                        <p class=" color-color1  mb-0">12:34 Pm by admin</p>
-                                                                                        <p class=" color-color1  mb-0" style="max-width: 250px"> Lorem ipsum dolor sit amet consectetur adipisicing elit. Non, harum dignissimos ut minima consequatur ipsa praesentium dolorem distinctio eaque, recusandae architecto aperiam similique amet necessitatibus deserunt numquam iure velit voluptates.</p>
-                                                                                    </div>
-                                                                                    
-                                                                                </div>
-                                                                                
-                                                                            </div>
-                                                                            
-                                                                        </div>
-                                                                    </div> 
-                                                                </li>
-                                                                <!--activity x-->
-                
-                                                                <li class="activity-list activity-border">
-                                                                    <div class="activity-icon avatar-sm ms-2">
-                                                                        <span class="avatar-title bg-soft-boxgray1 text-warning rounded-circle">
-                                                                        <!--<i class="bx bx-bitcoin font-size-24"></i>-->
-                                                                        </span>
-                                                                    </div>
-                                                                    <div class="timeline-list-item">
-                                                                        <div class="d-flex">
-                                                                            <div class="flex-grow-1 overflow-hidden me-4 gilroyregular-type">
-                                                                                <p class="font-size-14 mb-1 color-color1">May 19, 2022</p>
-                                                                                <div class="mt-2 bg-soft-boxgray1 px-3 py-3 fs-13 rounded-3 d-flex flex-wrap">
-                                                                                    <img class="rounded-circle avatar-md mb-2 me-2" alt="200x200" src="assets/images/users/avatar-4.jpg" data-holder-rendered="true">
-                                                                                    <div class="">
-                                                                                        <p class=" color-color1  mb-0 ">Admin</p>
-                                                                                        <p class=" text-white  mb-0 fs-15"><span class="me-2 d-inline-block">Register ticket</span> <svg width="10" height="8" viewBox="0 0 10 8" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                                            <path d="M0.75 4.00004L3.58 6.83004L9.25 1.17004" stroke="#00A54F" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                                                                            </svg>
-                                                                                            </p>
-                                                                                        
-                                                                                        <p class=" color-color1  mb-0">12:34 Pm by admin</p>
-                                                                                        <p class=" color-color1  mb-0" style="max-width: 250px"> Lorem ipsum dolor sit amet consectetur adipisicing elit. Non, harum dignissimos ut minima consequatur ipsa praesentium dolorem distinctio eaque, recusandae architecto aperiam similique amet necessitatibus deserunt numquam iure velit voluptates.</p>
-                                                                                    </div>
-                                                                                    
-                                                                                </div>
-                                                                                
-                                                                            </div>
-                                                                            
-                                                                        </div>
-                                                                    </div> 
-                                                                </li>
-                                                                <li class="activity-list activity-border">
-                                                                    <div class="activity-icon avatar-sm ms-2">
-                                                                        <span class="avatar-title bg-soft-boxgray1 text-warning rounded-circle">
-                                                                        <!--<i class="bx bx-bitcoin font-size-24"></i>-->
-                                                                        </span>
-                                                                    </div>
-                                                                    <div class="timeline-list-item">
-                                                                        <div class="d-flex">
-                                                                            <div class="flex-grow-1 overflow-hidden me-4 gilroyregular-type">
-                                                                                <p class="font-size-14 mb-1 color-color1">May 19, 2022</p>
-                                                                                <div class="mt-2 bg-soft-boxgray1 px-3 py-3 fs-13 rounded-3 d-flex flex-wrap">
-                                                                                    <img class="rounded-circle avatar-md mb-2 me-2" alt="200x200" src="assets/images/users/avatar-4.jpg" data-holder-rendered="true">
-                                                                                    <div class="">
-                                                                                        <p class=" color-color1  mb-0 ">Admin</p>
-                                                                                        <p class=" text-white  mb-0 fs-15"><span class="me-2 d-inline-block">Register ticket</span> <svg width="10" height="8" viewBox="0 0 10 8" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                                            <path d="M0.75 4.00004L3.58 6.83004L9.25 1.17004" stroke="#00A54F" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                                                                            </svg>
-                                                                                            </p>
-                                                                                        
-                                                                                        <p class=" color-color1  mb-0">12:34 Pm by admin</p>
-                                                                                        <p class=" color-color1  mb-0" style="max-width: 250px"> Lorem ipsum dolor sit amet consectetur adipisicing elit. Non, harum dignissimos ut minima consequatur ipsa praesentium dolorem distinctio eaque, recusandae architecto aperiam similique amet necessitatibus deserunt numquam iure velit voluptates.</p>
-                                                                                    </div>
-                                                                                    
-                                                                                </div>
-                                                                                
-                                                                            </div>
-                                                                            
-                                                                        </div>
-                                                                    </div> 
-                                                                </li>
-    
-                                                                <li class="activity-list activity-border">
-                                                                    <div class="activity-icon avatar-sm ms-2">
-                                                                        <span class="avatar-title bg-soft-boxgray1 text-warning rounded-circle">
-                                                                        <!--<i class="bx bx-bitcoin font-size-24"></i>-->
-                                                                        </span>
-                                                                    </div>
-                                                                    <div class="timeline-list-item">
-                                                                        <div class="d-flex">
-                                                                            <div class="flex-grow-1 overflow-hidden me-4 gilroyregular-type">
-                                                                                <p class="font-size-14 mb-1 color-color1">May 19, 2022</p>
-                                                                                <div class="mt-2 bg-soft-boxgray1 px-3 py-3 fs-13 rounded-3 d-flex flex-wrap">
-                                                                                    <img class="rounded-circle avatar-md mb-2 me-2" alt="200x200" src="assets/images/users/avatar-4.jpg" data-holder-rendered="true">
-                                                                                    <div class="">
-                                                                                        <p class=" color-color1  mb-0 ">Admin</p>
-                                                                                        <p class=" text-white  mb-0 fs-15"><span class="me-2 d-inline-block">Register ticket</span> <svg width="10" height="8" viewBox="0 0 10 8" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                                            <path d="M0.75 4.00004L3.58 6.83004L9.25 1.17004" stroke="#00A54F" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                                                                            </svg>
-                                                                                            </p>
-                                                                                        
-                                                                                        <p class=" color-color1  mb-0">12:34 Pm by admin</p>
-                                                                                        <p class=" color-color1  mb-0" style="max-width: 250px"> Lorem ipsum dolor sit amet consectetur adipisicing elit. Non, harum dignissimos ut minima consequatur ipsa praesentium dolorem distinctio eaque, recusandae architecto aperiam similique amet necessitatibus deserunt numquam iure velit voluptates.</p>
-                                                                                    </div>
-                                                                                    
-                                                                                </div>
-                                                                                
-                                                                            </div>
-                                                                            
-                                                                        </div>
-                                                                    </div> 
-                                                                </li>
-                                                                <li class="activity-list activity-border">
-                                                                    <div class="activity-icon avatar-sm ms-2">
-                                                                        <span class="avatar-title bg-soft-boxgray1 text-warning rounded-circle">
-                                                                        <!--<i class="bx bx-bitcoin font-size-24"></i>-->
-                                                                        </span>
-                                                                    </div>
-                                                                    <div class="timeline-list-item">
-                                                                        <div class="d-flex">
-                                                                            <div class="flex-grow-1 overflow-hidden me-4 gilroyregular-type">
-                                                                                <p class="font-size-14 mb-1 color-color1">May 19, 2022</p>
-                                                                                <div class="mt-2 bg-soft-boxgray1 px-3 py-3 fs-13 rounded-3 d-flex flex-wrap">
-                                                                                    <img class="rounded-circle avatar-md mb-2 me-2" alt="200x200" src="assets/images/users/avatar-4.jpg" data-holder-rendered="true">
-                                                                                    <div class="">
-                                                                                        <p class=" color-color1  mb-0 ">Admin</p>
-                                                                                        <p class=" text-white  mb-0 fs-15"><span class="me-2 d-inline-block">Register ticket</span> <svg width="10" height="8" viewBox="0 0 10 8" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                                            <path d="M0.75 4.00004L3.58 6.83004L9.25 1.17004" stroke="#00A54F" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                                                                            </svg>
-                                                                                            </p>
-                                                                                        
-                                                                                        <p class=" color-color1  mb-0">12:34 Pm by admin</p>
-                                                                                        <p class=" color-color1  mb-0" style="max-width: 250px"> Lorem ipsum dolor sit amet consectetur adipisicing elit. Non, harum dignissimos ut minima consequatur ipsa praesentium dolorem distinctio eaque, recusandae architecto aperiam similique amet necessitatibus deserunt numquam iure velit voluptates.</p>
-                                                                                    </div>
-                                                                                    
-                                                                                </div>
-                                                                                
-                                                                            </div>
-                                                                            
-                                                                        </div>
-                                                                    </div> 
-                                                                </li>
-                                                                <li class="activity-list activity-border">
-                                                                    <div class="activity-icon avatar-sm ms-2">
-                                                                        <span class="avatar-title bg-soft-boxgray1 text-warning rounded-circle">
-                                                                        <!--<i class="bx bx-bitcoin font-size-24"></i>-->
-                                                                        </span>
-                                                                    </div>
-                                                                    <div class="timeline-list-item">
-                                                                        <div class="d-flex">
-                                                                            <div class="flex-grow-1 overflow-hidden me-4 gilroyregular-type">
-                                                                                <p class="font-size-14 mb-1 color-color1">May 19, 2022</p>
-                                                                                <div class="mt-2 bg-soft-boxgray1 px-3 py-3 fs-13 rounded-3 d-flex flex-wrap">
-                                                                                    <img class="rounded-circle avatar-md mb-2 me-2" alt="200x200" src="assets/images/users/avatar-4.jpg" data-holder-rendered="true">
-                                                                                    <div class="">
-                                                                                        <p class=" color-color1  mb-0 ">Admin</p>
-                                                                                        <p class=" text-white  mb-0 fs-15"><span class="me-2 d-inline-block">Register ticket</span> <svg width="10" height="8" viewBox="0 0 10 8" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                                            <path d="M0.75 4.00004L3.58 6.83004L9.25 1.17004" stroke="#00A54F" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                                                                            </svg>
-                                                                                            </p>
-                                                                                        
-                                                                                        <p class=" color-color1  mb-0">12:34 Pm by admin</p>
-                                                                                        <p class=" color-color1  mb-0" style="max-width: 250px"> Lorem ipsum dolor sit amet consectetur adipisicing elit. Non, harum dignissimos ut minima consequatur ipsa praesentium dolorem distinctio eaque, recusandae architecto aperiam similique amet necessitatibus deserunt numquam iure velit voluptates.</p>
-                                                                                    </div>
-                                                                                    
-                                                                                </div>
-                                                                                
-                                                                            </div>
-                                                                            
-                                                                        </div>
-                                                                    </div> 
-                                                                </li>
                                                                 
+                                                             {%endfor%}  
+    
+                                                                
+                                                               
                                                                 
                                                             
                                                             </ul>
                                                         </div>
-                                                        <div class="px-3"  >
+                                                        <!-- <div class="px-3"  >
                                                             
                                                         
                                                             <div class=" mt-3">
@@ -595,7 +370,7 @@
                                                             
     
                                                         </div>
-    
+     -->
                                                         
                                                         
     
@@ -614,7 +389,7 @@
                                 
                                 <!--Model-->
                                        <!---Modal Upload document-->
-                                       <div class="modal fade  bs-example-modal-show" tabindex="-1" role="dialog" aria-hidden="true">
+                                       <div class="modal fade  bs-example-modal-show" tabindex="-1" role="dialog" aria-hidden="true" id="image-modal">
                                                             
                                         <div class="modal-dialog modal-dialog-centered">
                                             <div class="modal-content ">
@@ -627,7 +402,7 @@
                                                     <div class="  px-0  ">
     
                                                         <div class="modal-header border-0 px-0">
-                                                            <h5 class="modal-title fs-21 ">Cancel Case </h5>
+                                                            <h5 class="modal-title fs-21 ">Document</h5>
     
                                                             <a href="" data-bs-dismiss="modal" aria-label="Close">
                                                                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -640,9 +415,9 @@
                                                         </div>
                                                         <form class="needs-validation pt-3" novalidate="" id="action-call">
                                                             <div class="row">
+                                                                <iframe id="image" style="width: 100%;height: 50vh; "></iframe>
     
-    
-                                                                <div class="col-md-12">
+                                                                <!-- <div class="col-md-12">
                                                                     <div class="mb-3 d-flex">
                                                                         <label class="form-label me-2" for="Choosefile">Caseld : </label>
                                                                         
@@ -659,7 +434,7 @@
                                                                 <div class="col-md-12">
                                                                     <button class="btn btn-primary btn-lg my-3 " type="submit">Save</button>
                                                                 </div>
-    
+     -->
     
     
     
@@ -692,6 +467,36 @@
     
         <!-- Right bar overlay-->
     <div class="rightbar-overlay"></div> 
+    <script>
+         function viewDocs(docId)
+    {
+        console.log("Document Id==="+docId)
+        
+        $.ajax({
+                        
+                        type : "GET", 
+                        
+                        url: "{% url 'CRF:DocView' %}",
+                       
+                        data:{
+                            "id":docId,
+                            
+                            
+                        },
+                        success: function(data){
+                        imagepath=data.imagepath
+                        console.log("Image path====="+imagepath)
+                        let image = document.getElementById("image");
+ 
+                         image.src =imagepath
+                        $("#image-modal").modal('show')
+                        // $("#userMsg").empty()
+                        // $("#userMsg").append(data.message)
+                        // $("#alertpopup").modal('show')
+                        }
+                    })
+    }
+    </script>
     <script src="{% static 'libs/datatables.net-buttons/js/dataTables.buttons.min.js' %}"></script>
     <script src="{% static 'libs/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js' %}"></script>
     <script src="{% static 'libs/jszip/jszip.min.js' %}"></script>

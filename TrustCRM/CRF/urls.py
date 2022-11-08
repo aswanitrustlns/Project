@@ -10,7 +10,11 @@ urlpatterns=[
     path('CaseRegister',case_register,name="CaseRegister"),
     path('CaseFilter',case_datefilter,name="CaseFilter"),
     path("CaseSave",save_case,name="CaseSave"),
-    path('DetailedPage',detailed_page,name="DetailedPage")
+    path('CRFDetails',detailed_page,name="CRFDetails"),
+    path('DocView',view_document,name="DocView"),
+    path('StatusUpdate',change_status,name="StatusUpdate"),
+    path('ReOpenCase', reopen_case,name="ReoOpenCase"),
+    path('CaseFile',case_file_upload,name="CaseFile")
     # path('UserInfo',login_user_info,name="UserInfo")
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

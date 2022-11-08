@@ -105,27 +105,7 @@ class DjangoSession(models.Model):
     class Meta:
         managed = False
         db_table = 'django_session'
-
-class TblCasedetails(models.Model):
-    casedetailid = models.AutoField(db_column='CaseDetailId', primary_key=True)  # Field name made lowercase.
-    caseid = models.IntegerField(db_column='CaseId')  # Field name made lowercase.
-    topic = models.TextField(db_column='Topic', db_collation='SQL_Latin1_General_CP1_CI_AS')  # Field name made lowercase.
-    description = models.TextField(db_column='Description', db_collation='SQL_Latin1_General_CP1_CI_AS')  # Field name made lowercase.
-    regdate = models.DateTimeField(db_column='RegDate')  # Field name made lowercase.
-    modified = models.DateTimeField(db_column='Modified')  # Field name made lowercase.
-    iscompleted = models.IntegerField(db_column='IsCompleted')  # Field name made lowercase.
-    completiondate = models.DateTimeField(db_column='CompletionDate', blank=True, null=True)  # Field name made lowercase.
-    expcompletion = models.DateTimeField(db_column='ExpCompletion', blank=True, null=True)  # Field name made lowercase.
-    status = models.TextField(db_column='Status', db_collation='SQL_Latin1_General_CP1_CI_AS')  # Field name made lowercase.
-    userid = models.IntegerField(db_column='UserId')  # Field name made lowercase.
-    priority = models.IntegerField(db_column='Priority')  # Field name made lowercase.
-    casetype = models.IntegerField(db_column='CaseType')  # Field name made lowercase.
-
-    class Meta:
-        managed = False
-        db_table = 'tbl_CaseDetails'
-
-
+        
 class TblCasesummary(models.Model):
     csummaryid = models.AutoField(db_column='CSummaryId', primary_key=True)  # Field name made lowercase.
     casedetailid = models.IntegerField(db_column='CaseDetailId')  # Field name made lowercase.
@@ -252,3 +232,22 @@ class TblCases(models.Model):
     class Meta:
         managed = False
         db_table = 'tbl_Cases'
+
+class TblCasedetails(models.Model):
+    casedetailid = models.AutoField(db_column='CaseDetailId', primary_key=True)  # Field name made lowercase.
+    caseid = models.IntegerField(db_column='CaseId')  # Field name made lowercase.
+    topic = models.TextField(db_column='Topic', db_collation='SQL_Latin1_General_CP1_CI_AS')  # Field name made lowercase.
+    description = models.TextField(db_column='Description', db_collation='SQL_Latin1_General_CP1_CI_AS')  # Field name made lowercase.
+    regdate = models.DateTimeField(db_column='RegDate')  # Field name made lowercase.
+    modified = models.DateTimeField(db_column='Modified')  # Field name made lowercase.
+    iscompleted = models.IntegerField(db_column='IsCompleted')  # Field name made lowercase.
+    completiondate = models.DateTimeField(db_column='CompletionDate', blank=True, null=True)  # Field name made lowercase.
+    expcompletion = models.DateTimeField(db_column='ExpCompletion', blank=True, null=True)  # Field name made lowercase.
+    status = models.TextField(db_column='Status', db_collation='SQL_Latin1_General_CP1_CI_AS')  # Field name made lowercase.
+    userid = models.ForeignKey(TblUser,on_delete=models.CASCADE,db_column='UserId')  # Field name made lowercase.
+    priority = models.ForeignKey(TblPriority,on_delete=models.CASCADE,db_column='Priority')  # Field name made lowercase.
+    casetype = models.ForeignKey(TblCasetypes,on_delete=models.CASCADE,db_column='CaseType')  # Field name made lowercase.
+
+    class Meta:
+        managed = False
+        db_table = 'tbl_CaseDetails'
