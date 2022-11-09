@@ -94,7 +94,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'TrustCRM.wsgi.application'
-DATE_INPUT_FORMATS = ['%Y-%m-%d']
+
 
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases

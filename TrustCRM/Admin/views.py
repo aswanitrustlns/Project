@@ -9,7 +9,7 @@ from django.shortcuts import redirect, render
 from django.db import connection
 from django.views.decorators.csrf import csrf_exempt
 from datetime import datetime, timedelta
-from django.contrib.sessions.models import Session
+
 from django.template import Context
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.sessions.models import Session
@@ -1255,6 +1255,17 @@ def ticket_summary(request):
         return render(request,'sales/ticketsummary.html',{"pendings":pending,"resolved":resolved,"dormant":dormant})  
     else:
         return redirect('/login')
+def compliance_dashboard(request):
+    if 'UserId' in request.session:
+        return render(request,'compliance/dashboard.html')
+    else:
+        return redirect('/login')
+def complaint_details(request):
+    if 'UserId' in request.session:
+        return render(request,'compliance/details.html')
+    else:
+        return redirect('/login')
+
 
 
 

@@ -154,6 +154,25 @@
                         
                     </ul>
                 </li>
+                <li>
+                    <a  href="javascript: void(0);" class="has-arrow">
+                       
+                        <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M14.6666 1.83337H7.33331C3.66665 1.83337 1.83331 3.66671 1.83331 7.33337V19.25C1.83331 19.7542 2.24581 20.1667 2.74998 20.1667H14.6666C18.3333 20.1667 20.1666 18.3334 20.1666 14.6667V7.33337C20.1666 3.66671 18.3333 1.83337 14.6666 1.83337Z" stroke="#989898" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M6.41669 8.70837H15.5834" stroke="#989898" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M6.41669 13.2917H12.8334" stroke="#989898" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            
+                            
+                            
+                            
+                        <span data-key="t-compliance">Compliance</span>
+                    </a>
+                    <ul class="sub-menu" aria-expanded="false">
+                        <li><a  href="{% url 'Admin:ComplianceDashboard' %}" data-key="t-inbox">dashboard</a></li>
+                        <li><a  href="{% url 'Admin:ComplianceDetails' %}" data-key="t-inbox">Details</a></li>
+                    </ul>
+                </li>
                 {%if request.session.crf == "crfuser" %}
                 <li>
                     <a  href="javascript: void(0);" class="has-arrow">
@@ -176,25 +195,7 @@
                     </ul>
                 </li>  
                 {%endif%}     
-                <!-- <li>
-                    <a  href="javascript: void(0);" class="has-arrow">
-                       
-                        <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M14.6666 1.83337H7.33331C3.66665 1.83337 1.83331 3.66671 1.83331 7.33337V19.25C1.83331 19.7542 2.24581 20.1667 2.74998 20.1667H14.6666C18.3333 20.1667 20.1666 18.3334 20.1666 14.6667V7.33337C20.1666 3.66671 18.3333 1.83337 14.6666 1.83337Z" stroke="#989898" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                            <path d="M6.41669 8.70837H15.5834" stroke="#989898" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
-                            <path d="M6.41669 13.2917H12.8334" stroke="#989898" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>
-                            
-                            
-                            
-                            
-                        <span data-key="t-compliance">Compliance</span>
-                    </a>
-                    <ul class="sub-menu" aria-expanded="false">
-                        
-                        
-                    </ul>
-                </li> -->
+                
 
                 <!-- <li>
                     <a  href="{% url 'Backoffice:ChangePassword' %}" >

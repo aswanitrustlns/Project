@@ -51,6 +51,8 @@ def detailed_page(request):
         return render(request,'crf/details.html',{"details":casedetails,"docs":docdetails,"activities":activities})
     else:
         return redirect('/login')
+
+
 def save_case(request):
     if 'UserId' in request.session:
         UserId=request.session.get('UserId')
@@ -80,8 +82,8 @@ def save_case(request):
         nums=random.randrange(1, 10**3)
         casecode="TRSVG"+str(UserId)+"_"+str(nums)
         print("Case code=====",casecode)
-        now = timezone.now()
-        regdate = date.today()
+        
+        regdate = datetime.now()
         
         print("Priority====",priority,type(priority))
         registercase=TblCases(casecode=casecode,topic=topic,description=description,priority=priority,userid=UserId,regdate=regdate,modified=regdate,assigneddpt=assigneddpt,casetype=casetype,assignedto=assigned,companyid=companyid,status=status,comments=comments)
@@ -212,7 +214,7 @@ def case_file_upload(request):
                 contenttype = "application/pdf"
             
             print("Type odf imagedata===",type(imagedata))
-            regdate = datetime.today()
+            regdate =datetime.now()
             docs=TblDocuments(caseid=caseid,casedetailid=detailid,casesummaryid=0,documentdata=imagedata,documentname=imagename,doctype=contenttype,uploadeddate=regdate)
             docs.save(using='crf')
 
