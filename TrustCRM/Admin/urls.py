@@ -80,6 +80,7 @@ urlpatterns=[
     #Compliance============================================================
     # path('ComplianceDashboard',compliance_dashboard,name="ComplianceDashboard"),
     path('ComplianceDetails',complaint_details,name="ComplianceDetails"),
+    path('AllComplaints',detailed_complaints,name="AllComplaints"),
     path('ComplianceUpdate',complaint_update,name="ComplianceUpdate"),
   
     path('logout',logout,name="Logout"),

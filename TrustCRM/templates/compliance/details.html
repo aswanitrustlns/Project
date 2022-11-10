@@ -69,7 +69,7 @@
                                    <!--Search-->
                                    <div class="row align-items-end">
     
-                                    <div class="col-xxl-6 col-md-6 mb-2 ">
+                                    <!-- <div class="col-xxl-6 col-md-6 mb-2 ">
         
                                         <div class="row">
         
@@ -107,7 +107,7 @@
                                         </div>
         
                                             
-                                    </div>
+                                    </div> -->
                                     <div class="col-xxl-6 col-md-6  mb-2 ">
     
                                         <div class="row ">
@@ -147,45 +147,36 @@
                                                   
                                                             <table  class="table dt-responsive  nowrap  w-100 change" id="datatable">
                                                                 <thead class="color-color1">
-                                                                    <tr  class=" gilorymedium-type fs-17">
-                                                                        <th  class="ps-0">Complaint Date</th>
-                                                                        <th >Client Name</th>
-                                                                        <th  >Email</th>
-                                                                        <th  >Description</th>
-                                                                   
-                                                                        <th>Priority</th>
-                                                                        <th>Modified</th>
-                                                                        <th>Remarks</th>
-                                                                        <th>Status</th>
-                                                                        <!-- <th>Status</th>
-                                                                        <th>Resolve</th>
-                                                                        <th>Re Open</th>
-                                                                        <th class="text-end ">Upload Docs</th> -->
-                                                                      
+                                                                    <tr  class=" gilory-medium-type fs-17 ">
+                                                                        <th  class="ps-0"> Name</th>
+                                                                        <th >Email</th>
+                                                                        <th  >Phone</th>
+                                                                        <th  >Status</th>
+                                                                        <th>Description</th>
+                                                                        <th>Date</th>
+                                                                        
+                                                                        <th class="text-end "></th>
                                                                         
                                                                     </tr>
                                                                 </thead>
                 
                 
                                                                 <tbody class="text-white giloryregular-type fs-16" >
-                                                                    {%for case in cases%} 
-                                                                    <tr >
-                                                                       
-                                                                        <td class="ps-0" style="cursor: pointer;" onclick="loadMoreDeatails({{case.caseid}})"> <span class="color-green text-decoration-underline"  >View</span> </td>
-                                                                                                                                                                                                        <!-- data-bs-toggle="modal" data-bs-target=".bs-example-modal-show" -->
-                                                                        <td>{{case.caseid}}</td> 
-                                                                        <td>{{case.casecode}}</td>   
-                                                                        <td>{{case.topic}}</td>
-                                                                        <td>{{case.priority}}</td>
-                                                                        <td>{{case.modified|date:"Y-m-d"}}</td>
-                                                                        <td>{{case.casetype}}</td>
-                                                                        <td>{{case.assignedto}}</td>
-                                                                        <td>{{case.status}}</td>
-                                                                         <td><button class="btn  btn-sm   fs-15" style="background-color: rgba(25, 118, 210, 0.11) ;color:rgba(25, 118, 210, 1) ;" onclick="resolve('{{case.caseid}}','{{case.casecode}}')">Resolve </button></td>
-                                                                        
-                                                                         <td class="text-end "><button class="btn  btn-sm   fs-15" style="background-color: rgba(255, 124, 72, 0.15) ;color:rgba(255, 124, 72, 1) ;" onclick="reopen('{{case.caseid}}','{{case.casecode}}')">Re Open</button></td>
-                                                                         <td class="text-end "><button class="btn  btn-sm  color-green fs-15" style="background-color: rgba(0, 165, 79, 0.15) ;color:rgba(255, 124, 72, 1) ;" onclick="docupload('{{case.caseid}}','{{case.casecode}}')">Upload</button></td>
-                                                                        
+                                                                    {%for complaint in complaints%}
+                                                                    <tr>
+                                                                       <td class="ps-0">{{complaint.1}}</td>
+                                                                       <td>{{complaint.2}}</td>
+                                                                       <td>{{complaint.3}}</td>
+                                                                       <td>{{complaint.4}}</td>
+                                                                       <td>{{complaint.5}}</td>
+                                                                       <td>{{complaint.6}}</td>
+                                                                       <td>
+                                                                        <div class='dropdown align-self-start'><a class='dropdown-toggle' href='#' role='button' data-bs-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
+                                                                            <i class='bx bx-dots-vertical-rounded'></i></a>
+                                                                            <div class='dropdown-menu' style='cursor:pointer'>
+                                                                                <a class='dropdown-item' onclick="viewDetails({{complaint.0}})">View Details</a><a class='dropdown-item' onclick="editcomplaint({{complaint.0}})">
+                                                                                Edit</a></div></div>
+                                                                            </td>
                                                                     
                                                                     </tr>
                                                                     {%endfor%}
@@ -278,6 +269,105 @@
     
     <!-- Right bar overlay-->
 <div class="rightbar-overlay"></div> 
+<div class="modal fade" id="view-details" tabindex="-1" >
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+
+            <div class="modal-body ">
+
+                <div class="border-dashed rounded-3 px-3 py-3">
+                
+                    <div class="modal-header border-0 px-0">
+                        <h5 class="modal-title fs-21" id="modal-title">More Details</h5>
+
+                        <a href="" data-bs-dismiss="modal" aria-label="Close">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M9.16992 14.83L14.8299 9.17" stroke="var(--white)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M14.8299 14.83L9.16992 9.17" stroke="var(--white)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M9 22H15C20 22 22 20 22 15V9C22 4 20 2 15 2H9C4 2 2 4 2 9V15C2 20 4 22 9 22Z" stroke="white" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+
+                            </a>
+
+                    </div>          
+                    <form id="add-card-form" enctype="multipart/form-data">  
+                                          
+                                        <div class="row">
+                        
+                                            <div class="col-12">
+                                                <div class="mb-3">
+                                                    <label class="form-label w-100 " for="email1">Name </label>
+                                                        <input type="text" id="name" class="form-control" required  readonly>
+                                                        <div id="noname" style="color: red">
+                                                        </div>
+                                                </div>
+                                            </div>
+                                            <!-- <div class="col-12">
+                                                <div class="mb-3">
+                                                    <label class="form-label w-100 " for="email1">Email</label>
+                                                        <input type="tel" maxlength="4" id="email"  class="form-control" readonly>
+                                                        <div  id="nodigit" style="color: red">
+                                                        </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-12">
+                                                <div class="mb-3">
+                                                    <label class="form-label w-100 " for="email1">Phone</label>
+                                                    <input type="tel" maxlength="4" id="phone"  class="form-control" readonly>
+                                                </div>
+                                            </div> -->
+                                            <div class="col-12">
+                                                <div class="mb-3">
+                                                    <label class="form-label w-100 " for="email1">Status</label>
+                                                    <input type="tel" maxlength="4" id="cmtstatus"  class="form-control" readonly>
+                                                </div>
+                                            </div>
+                                            <div class="col-12">
+                                                <div class="mb-3">
+                                                    <label class="form-label w-100 " for="email1">Description</label>
+                                                    <input type="tel" maxlength="4" id="description"  class="form-control" readonly>    
+                                                        
+                                                       
+                                                </div>
+                                            </div>
+                                            <div class="col-12">
+                                                <div class="mb-3">
+                                                    <label for="files" class="form-label w-100 ">Date</label>
+                                                    <input type="tel" maxlength="4" id="date"  class="form-control" readonly>
+                                                </div>
+                                            </div>
+                                            <div class="col-12">
+                                                <div class="mb-3">
+                                                    <label for="files" class="form-label w-100 ">Priority</label>
+                                                    <input type="tel" maxlength="4" id="priority"  class="form-control" readonly>
+                                                </div>
+                                            </div>
+                                            <div class="col-12">
+                                                <div class="mb-3">
+                                                    <label for="files" class="form-label w-100 ">Modified Date</label>
+                                                    <input type="tel" maxlength="4" id="modified"  class="form-control" readonly>
+                                                </div>
+                                            </div>
+                                            <div class="col-12">
+                                                <div class="mb-3">
+                                                    <label for="files" class="form-label w-100 ">Remarks</label>
+                                                    <input type="tel" maxlength="4" id="remarks"  class="form-control" readonly>
+                                                </div>
+                                            </div>
+                                           
+                                        </div>
+                                        
+                                        
+                    </form>  
+                                    
+                                
+                                    
+                </div>
+            
+            </div>
+        </div> <!-- end modal-content-->
+    </div> <!-- end modal dialog-->
+</div>
 <div class="modal fade bs-example-modal-insta" tabindex="-1" role="dialog" aria-hidden="true" id="alertpopup">
     <div class="modal-dialog modal-dialog-centered"   style="z-index: 10555;">
         <div class="modal-content">
@@ -308,325 +398,135 @@
         </div>
      </div>
     </div>
-    <div class="modal fade  bs-example-modal-show" tabindex="-1" role="dialog" aria-hidden="true" id="reopen-model">
-                                                            
-        <div class="modal-dialog modal-dialog-centered modal-lg">
-            <div class="modal-content ">
+<div class="modal fade" id="edit-details" tabindex="-1" >
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
 
+            <div class="modal-body ">
 
+                <div class="border-dashed rounded-3 px-3 py-3">
+                
+                    <div class="modal-header border-0 px-0">
+                        <h5 class="modal-title fs-21" id="modal-title">Edit Details</h5>
 
-                <div class="modal-body ">
+                        <a href="" data-bs-dismiss="modal" aria-label="Close">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M9.16992 14.83L14.8299 9.17" stroke="var(--white)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M14.8299 14.83L9.16992 9.17" stroke="var(--white)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M9 22H15C20 22 22 20 22 15V9C22 4 20 2 15 2H9C4 2 2 4 2 9V15C2 20 4 22 9 22Z" stroke="white" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
 
+                            </a>
 
-                    <div class="  px-0  ">
-
-                        <div class="modal-header border-0 px-0">
-                            <h5 class="modal-title fs-21 ">Reopen Case </h5>
-
-                            <a href="" data-bs-dismiss="modal" aria-label="Close">
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M9.16992 14.83L14.8299 9.17" stroke="var(--white)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path>
-                                    <path d="M14.8299 14.83L9.16992 9.17" stroke="var(--white)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path>
-                                    <path d="M9 22H15C20 22 22 20 22 15V9C22 4 20 2 15 2H9C4 2 2 4 2 9V15C2 20 4 22 9 22Z" stroke="white" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path>
-                                    </svg>
-
-                                </a>
-                        </div>
-                        <form class="needs-validation pt-3" novalidate="" id="action-call">
-                            <div class="row">
-
-
-                                <div class="col-md-12">
-                                    <div class="mb-3 d-flex">
-                                        <label class="form-label me-2" for="Choosefile">Caseld : </label>
-                                        
-                                        <span id="reopenCaseId"></span>
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="mb-3 d-flex">
-                                        <label class="form-label me-2" for="Choosefile">CaseCode : </label>
-                                        
-                                        <span id="reopenCasecode"></span>
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="mb-3 d-flex">
-                                        <label class="form-label me-1" for="Choosefile">Description : </label>
-                                        
-                                        <textarea name="description" id="reopendescription" class="form-control"></textarea>
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="mb-3 d-flex">
-                                        <label class="form-label me-2" for="Choosefile">Assign To : </label>
-                                        <select  class="form-select" id="reopenassign"  value="" required name="assignedto">
+                    </div>          
+                    <form>  
+                                       
+                                            <div class="col-12">
+                                                <div class="mb-3">
+                                                    <label class="form-label w-100 " for="email1">Status</label>
+                                                    <select  class="form-select" id="status-update"  value="" required name="assignedto">
                                             
-                                            <option value="10">IT</option>
-                                            <option value="12">Digital Marketing</option>
-                                        </select>
-                                        
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <button class="btn btn-primary btn-lg my-3 " type="button" onclick="reopened()">ReOpen</button>
-                                </div>
-
-                            </div>
-
-
-                        </form>
-
-                    </div>
-                </div><!-- /.modal-content -->
-
-
-
-            </div>
-
-
-        </div><!-- /.modal-dialog -->
-    </div>
-    <div class="modal fade  bs-example-modal-document" tabindex="-1" role="dialog" aria-hidden="true" id="upload-model">
+                                                        <option value="Resolved">Resolved</option>
                                                         
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content ">
-
-
-
-                <div class="modal-body ">
-
-
-                    <div class="  px-3 border rounded-3">
-
-                        <div class="modal-header border-0 px-0">
-                            <h5 class="modal-title fs-21 ">Upload document </h5>
-
-                            <a href="" data-bs-dismiss="modal" aria-label="Close">
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M9.16992 14.83L14.8299 9.17" stroke="var(--white)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path>
-                                    <path d="M14.8299 14.83L9.16992 9.17" stroke="var(--white)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path>
-                                    <path d="M9 22H15C20 22 22 20 22 15V9C22 4 20 2 15 2H9C4 2 2 4 2 9V15C2 20 4 22 9 22Z" stroke="white" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path>
-                                    </svg>
-
-                                </a>
-                        </div>
-                        <form class="needs-validation pt-3" novalidate="" id="image-upload-save" enctype="multipart/form-data">
-                            <div class="row">
-
-
-                                <div class="col-md-12">
-                                    <div class="mb-3">
-                                        <input type="hidden" name="caseid" id="caseid-upload">
-                                        <label class="form-label " for="Choosefile">Choosefile<span class="color-orange">*</span></label>
-                                        
-                                        <div class="form-control  d-flex justify-content-between position-relative align-items-center"  id="choosefilefield" style="height: 41px;">
-                                            <input  type="file" class="form-control position-absolute" id="choosefile" placeholder="" required  style="top:0;left:0; right:0; opacity: 0; z-index: 1258;" name="docfile">
-                                            <span id="choosetext" class="fs-10"></span>
-                                            <svg  width="14" height="19" viewBox="0 0 14 19" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M6.97494 9V11.9167C6.97494 13.525 8.28327 14.8333 9.8916 14.8333C11.4999 14.8333 12.8083 13.525 12.8083 11.9167V7.33333C12.8083 4.10833 10.1999 1.5 6.97494 1.5C3.74994 1.5 1.1416 4.10833 1.1416 7.33333V12.3333C1.1416 15.0917 3.38327 17.3333 6.1416 17.3333" stroke="#73759D" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                            </svg>
-                                                
+                                                        <option value="Followup">Followup</option>
+                                                        <option value="ReOpen">ReOpen</option>
+                                                        <option value="Pending">Pending</option>
+                                                        
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-12">
+                                                <div class="mb-3">
+                                                    <label class="form-label" >Remarks</label>
+                                                    
+                                                    <textarea name="description" id="status-description" class="form-control"></textarea>
+                                                </div>
+                                            </div>
+                                            <input type="hidden" name="caseid" id="ComplaintId">
+                                            <div class="col-md-12">
+                                                <button class="btn btn-primary btn-lg my-3 " type="button" onclick="complaintUpdate()">Update</button>
+                                            </div>
                                         </div>
-                                    </div>
-                                </div>
-                            
+                                        
+                                        
+                    </form>  
                                     
-                                    <div class="col-md-12">
-                                        <button class="btn btn-primary btn-lg my-3 " type="button" onclick="uploadSave()">Save</button>
-
-                                    </div>
-
-
-
-
-
-
-                            </div>
-
-
-                        </form>
-
-                    </div>
-                </div><!-- /.modal-content -->
-
-
-
+                                
+                                    
+                </div>
+            
             </div>
-
-
-        </div><!-- /.modal-dialog -->
+        </div> <!-- end modal-content-->
     </div>
-<script>
-    function loadAll(){
-        var fromdate=$("#Fromdate1").val()
-        var todate=$("#Todate1").val()
-        var url="{% url 'CRF:CaseFilter'%}"
-        window.location.href=url+"?&from="+fromdate+"&to="+todate
-    //     $('#datatable').dataTable().fnClearTable();
-    //         $('#datatable').dataTable().fnDestroy();
-    //  $("#datatable").DataTable({
-                
-    //             "language": {
-    //                         'loadingRecords': "<span class='fa-stack fa-lg'>\n\
-    //                         <i class='fa fa-spinner fa-spin fa-stack-2x fa-fw'></i>\n\
-    //                         </span>&emsp;Loading Details ...",
-    //                             },
-                
-    //             "paging":true,   
-                           
-    //             "ajax":{
-    //                url: "{% url 'CRF:CaseFilter' %}",
-    //                data:{
-    //                 'from':fromdate,
-    //                 'to':todate
-    //                },
-    //               dataSrc:function(json_data){
+    <script>
+        function viewDetails(complaintId){
+            $.ajax({
                     
-               
-    //                 var items = [];
-    //                 for ( var i=0, ien=json_data.length ; i<ien ; i++ ) {
-    //                     items[i]=["<span class='color-green text-decoration-underline'>View</span>",json_data[i]["caseid"],json_data[i]["casecode"],json_data[i]["topic"],json_data[i]["priority_id"],json_data[i]["modified"],json_data[i]["casetype_id"],json_data[i]["assigenedto_id"],json_data[i]["status"],"<button class='btn  btn-sm   fs-15' style='background-color: rgba(25, 118, 210, 0.11) ;color:rgba(25, 118, 210, 1) ;>Resolve </button>","<button class='btn  btn-sm   fs-15' style='background-color: rgba(255, 124, 72, 0.15) ;color:rgba(255, 124, 72, 1) ;'>Re Open</button>"]
-
-                        
-                            
-    //                     }
-                        
-    //                     return items;
-    //                }
-     
-    //             },
-    //             responsive: true,
-    //  })
-    }
-    function loadMoreDeatails(caseId){
-        console.log("Case Id====="+caseId)
-        var url="{% url 'CRF:CRFDetails'%}"
-        window.location.href=url+"?&Case="+caseId
-    }
-    function resolve(caseid,casecode){
-        console.log("Resolve====="+caseid+casecode)
-        document.getElementById("resolveCaseId").innerHTML=caseid
-        document.getElementById("resolveCasecode").innerHTML=casecode
-        $("#resolve-model").modal('show')
-
-    }
-    function reopen(caseid,casecode){
-        document.getElementById("reopenCaseId").innerHTML=caseid
-        document.getElementById("reopenCasecode").innerHTML=casecode
-        $("#reopen-model").modal('show')
-
-    }
-    function docupload(caseid,casecode){
-        $("#caseid-upload").val(caseid)
-        $("#upload-model").modal('show')
-    }
-    function uploadSave(){
-        $("#upload-model").modal('hide')
-        var form = $('#image-upload-save')[0]
-        var formData = new FormData(form)
-        let csrftoken = '{{ csrf_token }}'
-        $.ajax({
-                        
-                        type : "POST", 
-                        headers:{'X-CSRFToken':csrftoken},
-                        url: "{% url 'CRF:CaseFile' %}",
-                        async: false,
-                        cache: false,
-                        contentType: false,
-                        enctype: 'multipart/form-data',
-                        processData: false,
-                        data:formData,
-                        success: function(data){
-                           
-                            $("#userMsg").empty()
-                            $("#userMsg").append("Document Uploaded Successfully")
-                            $("#alertpopup").modal('show')
-                            $("#choosetext").val("")
+                    type : "GET", 
+                    url: "{% url 'Admin:ComplianceDetails' %}",
+                    dataType: 'json',
+                    data:{
+                        'id':complaintId,
+                       
+                    },
+                    success: function(data){
+                        var more=data.details
+                        var newreg
+                        var newmodify
+                        console.log("Details====",data.details)
+                        $("#name").val(more[1])
+                        $("#email").val(more[2])
+                        $("#phone").val(more[3])
+                        $("#cmtstatus").val(more[4])
+                        $("#description").val(more[5])
+                        var regdate=more[6]
+                        if(regdate!=""){
+                            newreg=new Date(regdate)
+                            newreg=newreg.toISOString().substring(0, 10)
                         }
+                        $("#date").val(newreg)
+                        $("#priority").val(more[8])
+                        var modify=more[9]
+                        if(modify!=""){
+                            newmodify=new Date(modify)
+                            newmodify=newmodify.toISOString().substring(0, 10)
+                        }
+                        $("#modified").val(newmodify)
+                        $("#remarks").val(more[10])
+                        $("#view-details").modal('show')
+                    }
             })
-        
-
-    }
-    function reopened(){
-        $("#reopen-model").modal('hide')
-        caseid=document.getElementById("reopenCaseId").innerHTML
-        casecode= document.getElementById("reopenCasecode").innerHTML
-        description=$("#reopendescription").val()
-        assign=$("#reopenassign").val()
-        console.log("Case Id==="+caseid)
-        console.log("Case code==="+casecode)
-        $.ajax({
+            
+        }
+        function editcomplaint(complaintId){
+            $("#ComplaintId").val(complaintId)
+            $("#edit-details").modal('show')
+        }
+        function complaintUpdate(){
+            $("#edit-details").modal('hide')
+            var cmpId=$("#ComplaintId").val()
+            var status=$("#status-update").val()
+            var desc=$("#status-description").val()
+            $.ajax({
                     
-                                    type : "GET", 
-                                    url: "{% url 'CRF:ReoOpenCase' %}",
-                                    dataType: 'json',
-                                    data:{
-                                        'id':caseid,
-                                        'code':casecode,
-                                        'assign':assign,
-                                        'description':description,
-                                        'status':"ReOpen"
-                                    },
-                                    success: function(data){
-                                        $('#tasks-div').load(document.URL +  ' #tasks-div')
-                                        $("#userMsg").empty()
-                                        $("#userMsg").append("ReOpened Successfully")
-                                        $("#alertpopup").modal('show')
-                                    }
+                    type : "GET", 
+                    url: "{% url 'Admin:ComplianceUpdate' %}",
+                    dataType: 'json',
+                    data:{
+                        'id':cmpId,
+                        'status':status,
+                       'desc':desc
+                    },
+                    success: function(data){
+                        $('#tasks-div').load(document.URL +  ' #tasks-div')
+                        $("#userMsg").empty()
+                        $("#userMsg").append(data.message)
+                        $("#alertpopup").modal('show')
+                        $("#status-description").val("")
+                    }
                 })
-
-    }
-    function resolved(){
-        $("#resolve-model").modal('hide')
-        caseid=document.getElementById("resolveCaseId").innerHTML
-        casecode=document.getElementById("resolveCasecode").innerHTML
-        console.log("Case Id==="+caseid)
-        console.log("Case code==="+casecode)
-        $.ajax({
-                    
-                                    type : "GET", 
-                                    url: "{% url 'CRF:StatusUpdate' %}",
-                                    dataType: 'json',
-                                    data:{
-                                        'id':caseid,
-                                        'code':casecode,
-                                        'status':"Completed"
-                                    },
-                                    success: function(data){
-                                        $('#tasks-div').load(document.URL +  ' #tasks-div')
-                                        $("#userMsg").empty()
-                                        $("#userMsg").append("Resolved Successfully")
-                                        $("#alertpopup").modal('show')
-                                    }
-                })
-
-    }
-
-    // 
-    //     console.log("Load all data====")
-    //     var fromdate=$("#Fromdate1").val()
-    //     var todate=$("#Todate1").val()
-        
-    //     $.ajax({
-                    
-    //                 type : "GET", 
-    //                 url: "{% url 'CRF:CaseFilter' %}",
-    //                 dataType: 'json',
-    //                 data:{
-    //                     'from':fromdate,
-    //                     'to':todate
-    //                 },
-    //                 success: function(data){
-    //                     console.log("Cases===="+data.cases)
-    //                     var cases=data.cases
-    //                     for(var i=0;i<cases.length;i++){
-
-    //                     }
-    //                 }
-    //             })
-    // }
-</script>
+        }
+    </script>
 <script src="{% static 'libs/flatpickr/flatpickr.min.js' %}"></script>
 <!-- Required datatable js -->
 <script src="{% static 'libs/datatables.net/js/jquery.dataTables.min.js' %}"></script>

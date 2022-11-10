@@ -154,7 +154,7 @@
                         
                     </ul>
                 </li>
-                <!-- {%if request.session.role == "complaints" %}
+                {%if request.session.compliance == "True" %}
                 <li>
                     <a  href="javascript: void(0);" class="has-arrow">
                        
@@ -171,10 +171,10 @@
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
                         
-                        <li><a  href="{% url 'Admin:ComplianceDetails' %}" data-key="t-inbox">Details</a></li>
+                        <li><a  href="{% url 'Admin:AllComplaints' %}" data-key="t-inbox">Details</a></li>
                     </ul>
                 </li>
-                {%endif%}   -->
+                {%endif%}  
                 {%if request.session.crf == "crfuser" %}
                 <li>
                     <a  href="javascript: void(0);" class="has-arrow">

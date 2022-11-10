@@ -1464,6 +1464,18 @@ class Selector:
         finally:
                 Cursor.close()
         return pending,resolved,dormant
+    #Get All Complaints
+    def get_all_complaints(self):
+        try:
+            Cursor=connection.cursor()  
+            Cursor.execute("set nocount on;exec SP_GetComplaintsList %s",[21])
+            complaints=Cursor.fetchall()
+        except Exception as e:
+                print("Exception------",e)
+        finally:
+                Cursor.close()
+        return complaints
+
     #Get complaint Id
     def get_complaint_details(self,complaintid):
         try:

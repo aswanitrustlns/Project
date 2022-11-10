@@ -131,6 +131,8 @@ def dashboard(request):
         manager=permission_check[11]
         salesRep=permission_check[22]
         complaints=permission_check[14]
+        if complaints:
+            request.session['compliance']="True"
         print("backoffice===========",backoffice)
         print("Manager======================================",manager)
         print("Sales Rep===================================",salesRep)
@@ -1269,6 +1271,13 @@ def complaint_details(request):
         complaint_id=request.GET.get('id')
         details=selector.get_complaint_details(complaint_id)
         return JsonResponse({"details":details})
+    else:
+        return redirect('/login')
+def detailed_complaints(request):
+    if 'UserId' in request.session:
+        
+        details=selector. get_all_complaints()
+        return render(request,'compliance/details.html',{'complaints':details})
     else:
         return redirect('/login')
 def complaint_update(request):
