@@ -738,3 +738,9 @@ def inter_account_transfer(request):
         return JsonResponse({"message":message})
     else:
         return redirect('/login')
+#World Check
+def world_check(request):
+    if 'UserId' in request.session:
+        return render(request,'backoffice/worldchek.html')
+    else:
+        return redirect('/login')
