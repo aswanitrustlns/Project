@@ -78,8 +78,10 @@ urlpatterns=[
     path('Events',show_events,name="Events"),
     path('TicketSummary',ticket_summary,name="TicketSummary"),
     #Compliance============================================================
-    path('ComplianceDashboard',compliance_dashboard,name="ComplianceDashboard"),
+    # path('ComplianceDashboard',compliance_dashboard,name="ComplianceDashboard"),
     path('ComplianceDetails',complaint_details,name="ComplianceDetails"),
+    path('ComplianceUpdate',complaint_update,name="ComplianceUpdate"),
+  
     path('logout',logout,name="Logout"),
     
    

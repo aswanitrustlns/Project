@@ -76,6 +76,9 @@ def login_check(request):
             print("Admin login===================================")
             adminrole="backoffice" 
             request.session['role']="backoffice"
+        if UserId==56:
+            adminrole="complaints"
+            request.session['role']="complaints"
         else:
             adminrole="sales" 
             request.session['role']="salesrep"
@@ -127,9 +130,11 @@ def dashboard(request):
         backoffice=permission_check[5]
         manager=permission_check[11]
         salesRep=permission_check[22]
+        complaints=permission_check[14]
         print("backoffice===========",backoffice)
         print("Manager======================================",manager)
         print("Sales Rep===================================",salesRep)
+        print("Complaints=====",complaints)
         dashbord_data={}
         UserName,Email=selector.get_user_name(UserId)
         notification_count,notification=selector.get_notification_data(UserId)       
@@ -179,6 +184,9 @@ def dashboard(request):
             #  return render(request,'sales/dashboard.html',dashbord_data)
             return render(request,"backoffice/dashboard.html",dashbord_data)
 
+        if complaints:
+            dashbord_data=sales_dash.complaint_dashboard(UserId)
+            return render(request,"compliance/dashboard.html",dashbord_data)
 
     else:
          return redirect('/login') 
@@ -1255,16 +1263,26 @@ def ticket_summary(request):
         return render(request,'sales/ticketsummary.html',{"pendings":pending,"resolved":resolved,"dormant":dormant})  
     else:
         return redirect('/login')
-def compliance_dashboard(request):
-    if 'UserId' in request.session:
-        return render(request,'compliance/dashboard.html')
-    else:
-        return redirect('/login')
+
 def complaint_details(request):
     if 'UserId' in request.session:
-        return render(request,'compliance/details.html')
+        complaint_id=request.GET.get('id')
+        details=selector.get_complaint_details(complaint_id)
+        return JsonResponse({"details":details})
     else:
         return redirect('/login')
+def complaint_update(request):
+    if 'UserId' in request.session:
+        userid=request.session.get('UserId')
+        complaint_id=request.GET.get('id')
+        status=request.GET.get('status')
+        desc=request.GET.get('desc')
+        print("details===",complaint_id,status,desc,userid)
+        message=selector.edit_complaint_details(complaint_id,status,desc,userid)
+        return JsonResponse({"message":message})
+    else:
+        return redirect('/login')
+
 
 
 

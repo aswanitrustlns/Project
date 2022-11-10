@@ -1464,6 +1464,32 @@ class Selector:
         finally:
                 Cursor.close()
         return pending,resolved,dormant
+    #Get complaint Id
+    def get_complaint_details(self,complaintid):
+        try:
+            Cursor=connection.cursor()   
+            Cursor.execute("set nocount on;exec SP_GetComplaintDetails %s",[complaintid]) 
+            details=Cursor.fetchone()
+        except Exception as e:
+                print("Exception------",e)
+        finally:
+                Cursor.close()
+        return details
+        #Get complaint Id
+    def edit_complaint_details(self,complaintid,status,description,userid):
+        msg=""
+        try:
+            msg="Please try again"
+            Cursor=connection.cursor()   
+            Cursor.execute("set nocount on;exec SP_UpdateComplaint %s,%s,%s,%s",[complaintid,status,description,userid]) 
+            msg="Updated Successfully"
+        except Exception as e:
+                print("Exception------",e)
+        finally:
+                Cursor.close()
+        return msg
+        
+
 
 
 

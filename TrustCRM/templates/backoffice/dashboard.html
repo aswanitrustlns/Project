@@ -269,8 +269,9 @@
                                                         <!--<i class="bx bx-bitcoin font-size-24"></i>-->
                                                         {% load splitfilter %}
                                                         <img class="rounded-circle avatar-md"
-                                                        src="{%static 'images/users/'%}{{journels.0|imagecut}}.png" 
+                                                        src="{%static 'images/users/'%}{{journels.0}}.png" 
                                                         onerror='this.src="{% static 'images/users/user.png' %}"'>
+                                                        <!-- imagecut call cauese error -->
                                                     </span>
                                                 </div>
                                                 <div class="timeline-list-item flex-grow-1">

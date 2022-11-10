@@ -644,6 +644,51 @@ class DashboardSelector:
         finally:
                 Cursor.close()
         return dash_data
+#Complaint dashboard======
+    def complaint_dashboard(self,userId):
+        dash_data={}
+        try:
+            Cursor=connection.cursor()           
+            date_today=datetime.today().date()
+            week_day=datetime.today().weekday() # Monday is 0 and Sunday is 6
+            date_today=date_today.strftime("%Y-%m-%d")
+            if(week_day==0):
+                date_yesterday_for_week = datetime.today()-timedelta(3)
+                date_yesterday_for_today=datetime.today()-timedelta(3)
+            else:
+                date_yesterday_for_week = datetime.today()-timedelta(week_day)
+                date_yesterday_for_today=datetime.today()-timedelta(1)
+
+            date_yesterday_for_today=date_yesterday_for_today.strftime("%Y-%m-%d")
+            date_yesterday_for_week=date_yesterday_for_week.strftime("%Y-%m-%d")
+            Cursor=connection.cursor()
+            Cursor.execute("set nocount on;exec SP_GetNewAccountsCount %s,%s",[date_yesterday_for_week,date_today])
+            live_count=Cursor.fetchone()
+            print("Live count this week======")
+            Cursor.execute("set nocount on;exec SP_GetNewAccountsCount %s,%s",[date_yesterday_for_today,date_today])
+            live_count_today=Cursor.fetchone()
+            
+            if live_count_today:
+                
+                live_funded_today=live_count_today[0]
+                live_nonfund_today=live_count_today[1]
+                pending_approved=live_count_today[2]
+                pending_waiting=live_count_today[3]
+            if live_count:
+                live_funded_week=live_count[0]
+                live_nonfund_week=live_count[1]
+            Cursor.execute("set nocount on;exec SP_GetComplaintsList %s",[21])
+            complaints=Cursor.fetchall()
+            complaints_count=len(complaints)
+            print("Complaints====",complaints)
+            dash_data={'funded_today':live_funded_today,'nonfunded_today':live_nonfund_today,'funded_week':live_funded_week,'nonfunded_week':live_nonfund_week,
+            'approved':pending_approved,'waiting':pending_waiting,'complaints':complaints,'count':complaints_count}
+        except Exception as e:
+                print("Exception------",e)
+        finally:
+                Cursor.close()
+        return dash_data
+
 
 
 
