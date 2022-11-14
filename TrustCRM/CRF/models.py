@@ -221,7 +221,7 @@ class TblCases(models.Model):
     priority = models.ForeignKey(TblPriority,on_delete=models.CASCADE,db_column='Priority')  # Field name made lowercase.
     userid = models.IntegerField(db_column='UserID')  # Field name made lowercase.
     regdate = models.DateTimeField(db_column='RegDate')  # Field name made lowercase.
-    modified = models.CharField(db_column='Modified',max_length=100)  # Field name made lowercase.
+    modified = models.DateTimeField(db_column='Modified')  # Field name made lowercase.
     assigneddpt = models.IntegerField(db_column='AssignedDpt')  # Field name made lowercase.
     casetype = models.ForeignKey(TblCasetypes,on_delete=models.CASCADE,db_column='CaseType')  # Field name made lowercase.
     assignedto = models.ForeignKey(TblUser,on_delete=models.CASCADE,db_column='AssignedTo', blank=True, null=True)  # Field name made lowercase.

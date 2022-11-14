@@ -503,11 +503,16 @@ class DashboardSelector:
             Cursor.execute("set nocount on;exec SP_TicketsInterestedSummary")
             ticket_summary=Cursor.fetchall()
 
+            print("Type of ticket summary===",type(ticket_summary))
             if ticket_summary:
-                for tickets in ticket_summary:
+                last_item=ticket_summary[-1:][0]
+                last_data=last_item[-1]
+                print("Last Item =====",last_data)
+                for tickets in ticket_summary[:-1]:
                     print("Tickets===1",tickets[1])
                     print("Tickets===2",tickets[2])
-                    percent=(tickets[1]/tickets[2])*100
+                    percent=(tickets[1]/last_data)*100
+                    percent=round(percent,2)
                     ticket_summary_bar.append({
                         'name': tickets[0],
                         'percent':percent

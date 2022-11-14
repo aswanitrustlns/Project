@@ -56,7 +56,7 @@ def detailed_page(request):
 def save_case(request):
     if 'UserId' in request.session:
         UserId=request.session.get('UserId')
-        assigneddpt=request.POST.get('assignedto')
+        assignedto=request.POST.get('assignedto')
         casetype=TblCasetypes()
         
         casetype_id=request.POST.get('casetype')
@@ -68,13 +68,13 @@ def save_case(request):
         description=request.POST.get('textdescription')
         assign=request.POST.get('assign')
         docfile=request.FILES.get("docfile",None)
-        print("Doc file=====",docfile)
+        print("Assign====",assign)
+        status="Pending"
         if(assign=="manager"):
             assignedto=11
             status="Management Aprroval Pending"
-        else:
-            assignedto=10
-            status="Pending"
+       
+            
         assigned=TblUser()
         assigned.userid=assignedto
         companyid=5
@@ -85,8 +85,8 @@ def save_case(request):
         
         regdate = datetime.now()
         
-        print("Priority====",priority,type(priority))
-        registercase=TblCases(casecode=casecode,topic=topic,description=description,priority=priority,userid=UserId,regdate=regdate,modified=regdate,assigneddpt=assigneddpt,casetype=casetype,assignedto=assigned,companyid=companyid,status=status,comments=comments)
+        print("Assigned To====",assignedto)
+        registercase=TblCases(casecode=casecode,topic=topic,description=description,priority=priority,userid=UserId,regdate=regdate,modified=regdate,assigneddpt=1,casetype=casetype,assignedto=assigned,companyid=companyid,status=status,comments=comments)
         registercase.save(using='crf')
 
         registerid=TblCases.objects.using('crf').latest('caseid')
