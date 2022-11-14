@@ -796,8 +796,8 @@ class Services:
             account2=request.GET.get('account2')
             amount=request.GET.get('amount')
             initial=request.GET.get('initial')
-            comment1="Withdrawal to"+account1
-            comment2="Deposit from"+account2
+            comment1="Withdrawal to"+account2
+            comment2="Deposit from"+account1
             user=int(request.session.get('user'))
             server=request.session.get('server')
             password=request.session.get('password')

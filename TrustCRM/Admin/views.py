@@ -24,7 +24,7 @@ import Admin
 from .dashboard_selectors import DashboardSelector
 from .services import Services
 from .selectors import Selector
-
+from .emailservices import EmailServices
 insta_username = "Tc_limited"
 insta_password = "T@Cmited21!!"
 all_data={}
@@ -34,6 +34,7 @@ Cursor=connection.cursor()
 selector=Selector()
 service=Services()
 sales_dash=DashboardSelector()
+emailservice=EmailServices()
 global voice
 global adminrole
 adminrole="unset"
@@ -1288,6 +1289,18 @@ def complaint_update(request):
         desc=request.GET.get('desc')
         print("details===",complaint_id,status,desc,userid)
         message=selector.edit_complaint_details(complaint_id,status,desc,userid)
+        return JsonResponse({"message":message})
+    else:
+        return redirect('/login')
+def mailto_complaint_client(request):
+    if 'UserId' in request.session:
+        message="Please try again"
+        complaint_id=request.GET.get('id')
+        name=request.GET.get('name')
+        client_email=request.GET.get('email')
+        description=request.GET.get('description')
+        print("Details=====",client_email,description)
+        message=emailservice.complaint_client(complaint_id,name,client_email,description)
         return JsonResponse({"message":message})
     else:
         return redirect('/login')

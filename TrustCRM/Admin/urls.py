@@ -82,6 +82,7 @@ urlpatterns=[
     path('ComplianceDetails',complaint_details,name="ComplianceDetails"),
     path('AllComplaints',detailed_complaints,name="AllComplaints"),
     path('ComplianceUpdate',complaint_update,name="ComplianceUpdate"),
+    path("ComplaintMail",mailto_complaint_client,name="ComplaintMail"),
   
     path('logout',logout,name="Logout"),
     

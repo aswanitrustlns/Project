@@ -293,6 +293,30 @@ class EmailServices:
                 print("EXCEPTION-----------------------")    
         finally:
             Cursor.close()    
+#Send mail to  client from complaints
+    def complaint_client(self,complaint_id,name,remail,description):
+        try:
+            message="Please try again"
+            subject = "Complaint #"+complaint_id
+            from_addr="compliance@trusttc.com"
+            bcc="crm@trusttc.com"
+            template_data={
+                "name":name,
+                "complaint_id":complaint_id,
+                "description":description
+            }
+            email_template_render=render_to_string("email/ComplaintMail.html",template_data)
+            msg = EmailMultiAlternatives(subject=subject,from_email=from_addr,to=[remail],bcc=[bcc])
+            msg.attach_alternative(email_template_render, "text/html")
+            msg.send(fail_silently=False)
+            print("Email send-----------------------------------------------------------")
+            message="Email Send"
+        except Exception as e:
+            print("EXCEPTION-----------------------") 
+        return message  
+         
+    
+
 
 
 

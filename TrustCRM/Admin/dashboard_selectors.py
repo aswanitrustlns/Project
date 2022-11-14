@@ -505,6 +505,8 @@ class DashboardSelector:
 
             if ticket_summary:
                 for tickets in ticket_summary:
+                    print("Tickets===1",tickets[1])
+                    print("Tickets===2",tickets[2])
                     percent=(tickets[1]/tickets[2])*100
                     ticket_summary_bar.append({
                         'name': tickets[0],
@@ -567,7 +569,6 @@ class DashboardSelector:
                             }
                         
                     )
-
 
             for status in status_graph:
                 status_bar.append({
