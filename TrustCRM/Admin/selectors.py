@@ -1449,11 +1449,20 @@ class Selector:
                 Cursor.close()
         return all_reminders
      #Load Ticket Summary
-    def load_ticket_summary(self,userid):
+    def load_ticket_summary_pending(self,userid):
         try:
             Cursor=connection.cursor()   
             Cursor.execute("set nocount on;exec SP_GetPendingTicketsSummary %s",[userid]) 
             pending=Cursor.fetchone()  
+        except Exception as e:
+                print("Exception------",e)
+        finally:
+                Cursor.close()
+        return pending
+      #Load Ticket Summary All
+    def load_ticket_summary(self,userid):
+        try:
+            Cursor=connection.cursor()   
             Cursor.execute("set nocount on;exec SP_GetResolvedTicketsSummary %s",[userid]) 
             resolved=Cursor.fetchone()       
             Cursor.execute("set nocount on;exec SP_GetDormantTicketsSummary %s",[userid]) 
@@ -1463,7 +1472,7 @@ class Selector:
                 print("Exception------",e)
         finally:
                 Cursor.close()
-        return pending,resolved,dormant
+        return resolved,dormant
     #Get All Complaints
     def get_all_complaints(self):
         try:

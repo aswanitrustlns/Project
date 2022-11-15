@@ -77,6 +77,7 @@ urlpatterns=[
     path('Calendar',show_calendar,name="Calendar"),
     path('Events',show_events,name="Events"),
     path('TicketSummary',ticket_summary,name="TicketSummary"),
+    path('TicketSummaryOnLoad',ticket_summary_onload,name="TicketSummaryOnLoad"),
     #Compliance============================================================
     # path('ComplianceDashboard',compliance_dashboard,name="ComplianceDashboard"),
     path('ComplianceDetails',complaint_details,name="ComplianceDetails"),

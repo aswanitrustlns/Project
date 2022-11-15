@@ -1261,9 +1261,18 @@ def show_events(request):
 def ticket_summary(request):
     if 'UserId' in request.session:
         userid=request.session.get('UserId')
-        pending,resolved,dormant=selector.load_ticket_summary(userid)
+        pending=selector.load_ticket_summary_pending(userid)
 
-        return render(request,'sales/ticketsummary.html',{"pendings":pending,"resolved":resolved,"dormant":dormant})  
+        return render(request,'sales/ticketsummary.html',{"pendings":pending})  
+    else:
+        return redirect('/login')
+
+def ticket_summary_onload(request):
+    if 'UserId' in request.session:
+        userid=request.session.get('UserId')
+        resolved,dormant=selector.load_ticket_summary(userid)
+
+        return JsonResponse({"resolved":resolved,"dormant":dormant})  
     else:
         return redirect('/login')
 
