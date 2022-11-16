@@ -72,7 +72,7 @@ def save_case(request):
         status="Pending"
         if(assign=="manager"):
             assignedto=11
-            status="Management Aprroval Pending"
+            status="Management Approval Pending"
        
             
         assigned=TblUser()

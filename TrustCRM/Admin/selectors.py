@@ -278,7 +278,33 @@ class Selector:
             Cursor.close()
         
         return _tickets  
-    #Get all tickets
+    
+    #Get Tickets for summary
+    def get_tickets_summary(self,userId,summary,status):
+        try:
+            tickets=""
+            print("Summary=====")
+            Cursor=connection.cursor()  
+            date_today=datetime.today().date()    
+            date_today=date_today.strftime("%Y-%m-%d")
+            if status=="Pending":
+                Cursor.execute("set nocount on;exec SP_GetSalesLeadsListPaginateByCount %s,%s,%s,%s",[userId,"1900-09-19",date_today,summary])
+                tickets=Cursor.fetchall()
+            if status=="Resolved":
+                print("Status====",status)
+                Cursor.execute("set nocount on;exec SP_GetResolvedTicketsPaginateByCount %s,%s,%s,%s",[userId,"1900-09-19",date_today,summary])
+                tickets=Cursor.fetchall()
+            if status=="Dormant":
+                
+                Cursor.execute("set nocount on;exec SP_GetDormantTicketsPaginateByCount %s,%s,%s,%s",[userId,"1900-09-19",date_today,summary])
+                tickets=Cursor.fetchall()
+
+        except Exception as e:
+            print("Exception---",e)
+        finally:
+            Cursor.close()
+        return tickets
+        
 
     def get_all_tickets(self,userId,status,from_date,to_date):
         try:

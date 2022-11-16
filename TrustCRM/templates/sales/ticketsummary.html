@@ -72,7 +72,7 @@
                                         role="tablist">
                                         <li class="nav-item" style=" width:calc(100% / 3 );">
                                             <a class="nav-link active text-center" data-bs-toggle="tab"
-                                                href="#actions-pending-tab" role="tab">
+                                                href="#actions-pending-tab" role="tab" onclick="summarydetails('PEND','Pending')">
                                                 <span class="fs-20 "> Pending Tickets</span> <span
                                                     class="badge rounded-pill rounded-circle p-2 fs-17 flex-shrink-0" style="background-color: 
                                                                 
@@ -86,7 +86,7 @@
                                         </li>
                                         <li class="nav-item" style=" width:calc(100% / 3 );">
                                             <a class="nav-link  text-center " data-bs-toggle="tab"
-                                                href="#actions-resolved-tab" role="tab">
+                                                href="#actions-resolved-tab" role="tab" onclick="summarydetails('RESV','Resolved')">
                                                 <span class="fs-20"> Resolved Tickets</span>
                                                 <span class="badge rounded-pill rounded-circle p-2 fs-17 flex-shrink-0"
                                                     style="background-color: 
@@ -103,7 +103,7 @@
                                         </li>
                                         <li class="nav-item" style=" width:calc(100% / 3 );">
                                             <a class="nav-link  text-center " data-bs-toggle="tab"
-                                                href="#actions-dormant-tab" role="tab">
+                                                href="#actions-dormant-tab" role="tab" onclick="summarydetails('DORM','Dormant')">
                                                 <span class="fs-20"> Dormant Tickets</span>
                                                 <span class="badge rounded-pill rounded-circle p-2 fs-17 flex-shrink-0"
                                                     style="background-color: 
@@ -133,7 +133,7 @@
     
                                                         <div class="card-body">
                                                             <h5
-                                                                class="card-title  almarenamonolight-type fs-28 d-flex justify-content-center align-items-center">
+                                                                class="card-title  almarenamonolight-type fs-28 d-flex justify-content-center align-items-center" onclick="summarydetails('ATT','Pending')" style="cursor:pointer">
                                                                 <span><svg width="55" height="55" viewBox="0 0 55 55"
                                                                         fill="none" xmlns="http://www.w3.org/2000/svg">
                                                                         <rect width="55" height="55" rx="27.5"
@@ -155,6 +155,7 @@
                                                                             stroke-linejoin="round" />
                                                                     </svg>
                                                                 </span>
+                                                                
                                                                 <span class="mx-2">Attended</span><span
                                                                     class="badge rounded-pill rounded-circle p-2 fs-28 flex-shrink-0"
                                                                     style="background-color: 
@@ -164,7 +165,7 @@
     
     
                                                                 </span>
-    
+                                                                
     
                                                             </h5>
                                                             <hr class="my-3">
@@ -177,7 +178,7 @@
                                                                         <div class="card-body px-0 mx-0 pt-0">
                                                                             <h5 class="card-title  almarenamonolight-type fs-25 text-center px-4 py-3 mb-4 d-flex align-items-center flex-wrap   justify-content-center"
                                                                                 style="background-color:
-                                                                                        #1B1D35 ;">
+                                                                                        #1B1D35 ;Cursor:pointer" onclick="summarydetails('SPK','Pending')" >
                                                                                 <span> <svg width="40" height="40"
                                                                                         class="flex-shrink-0"
                                                                                         viewBox="0 0 40 40" fill="none"
@@ -198,6 +199,7 @@
                                                                                             stroke-linejoin="round" />
                                                                                     </svg>
                                                                                 </span>
+                                                                                
                                                                                 <span class="mx-2 my-2  ">Spoken</span><span
                                                                                     class="badge rounded-pill rounded-circle p-2 fs-25 flex-shrink-0"
                                                                                     style="background-color: 
@@ -206,7 +208,7 @@
     
     
                                                                                 </span>
-    
+                                                                                
     
                                                                             </h5>
     
@@ -219,15 +221,16 @@
                                                                                 <div class="col-xxl-6">
     
                                                                                     <h5
-                                                                                        class="card-title almarenamonolight-type fs-22  mb-4  d-flex align-items-center ">
-    
+                                                                                        class="card-title almarenamonolight-type fs-22  mb-4  d-flex align-items-center " onclick="summarydetails('INTR','Pending')" style="Cursor:pointer">
+                                                                                        
                                                                                         <span
                                                                                             class="me-2">Interested</span><span
                                                                                             class="badge rounded-pill rounded-circle p-2 fs-17 flex-shrink-0"
                                                                                             style="background-color: 
                                                                                                     
                                                                                                         rgba(255, 195, 78, 0.2);color: rgba(255, 195, 78, 1)
-                                                                                                                                                                                                        ;">{{pendings.5}}</span>
+                                                                                            ;">{{pendings.5}}</span>
+                                                                                            
     
                                                                                     </h5>
     
@@ -236,7 +239,7 @@
                                                                                         class="gilory-medium-type list-unstyled color-color1 fs-17  ">
     
                                                                                         <li
-                                                                                            class="mb-4 d-flex flex-nowrap align-items-center ">
+                                                                                            class="mb-4 d-flex flex-nowrap align-items-center " onclick="summarydetails('INTM','Pending')" style="Cursor:pointer">
                                                                                             <svg width="12" height="12"
                                                                                                 class="flex-shrink-0"
                                                                                                 viewBox="0 0 12 12"
@@ -246,6 +249,7 @@
                                                                                                     fill="rgba(238, 110, 110, 1)">
                                                                                                 </circle>
                                                                                             </svg>
+                                                                                            
                                                                                             <span
                                                                                                 class="text-white mx-2 lh-1  te">Meeting
                                                                                                 Attended</span>
@@ -254,9 +258,10 @@
                                                                                                 style="background-color: 
                                                                                                     
                                                                                                     rgba(238, 110, 110, 0.2); rgba(238, 110, 110, 1)">{{pendings.8}}</span>
+                                                                                            
                                                                                         </li>
                                                                                         <li
-                                                                                            class="mb-4  mb-lg-0 d-flex flex-nowrap align-items-center">
+                                                                                            class="mb-4  mb-lg-0 d-flex flex-nowrap align-items-center" onclick="summarydetails('INTW','Pending')" style="Cursor:pointer">
                                                                                             <svg width="12" height="12"
                                                                                                 class="flex-shrink-0"
                                                                                                 viewBox="0 0 12 12"
@@ -267,16 +272,15 @@
                                                                                                             rgba(45, 140, 255, 1)">
                                                                                                 </circle>
                                                                                             </svg>
+                                                                                            
                                                                                             <span
                                                                                                 class="text-white mx-2 lh-1">Webinar
                                                                                                 Attended
                                                                                             </span><span
                                                                                                 class="badge rounded-pill rounded-circle p-2 fs-15 flex-shrink-0"
                                                                                                 style="background-color: 
-                                                                                                    
-                                                                                                        
-                                                                                            rgba(45, 140, 255, 0.2); 
-                                                                                            color:rgba(45, 140, 255, 1)">{{pendings.11}}</span>
+                                                                                            rgba(45, 140, 255, 0.2); color:rgba(45, 140, 255, 1)">{{pendings.11}}</span>
+                                                                                            
                                                                                         </li>
                                                                                     </ul>
                                                                                 </div>
@@ -290,15 +294,13 @@
                                                                                     class="col-xxl-6  d-xxl-flex flex-column  align-items-end">
     
                                                                                     <h5
-                                                                                        class="card-title almarenamonolight-type fs-22 mb-4  d-flex align-items-center">
-    
+                                                                                        class="card-title almarenamonolight-type fs-22 mb-4  d-flex align-items-center" onclick="summarydetails('NINTR','Pending')" style="Cursor:pointer">
+                                                                                        
                                                                                         <span class="me-2">Not
                                                                                             Interested</span><span
                                                                                             class="badge rounded-pill rounded-circle p-2 fs-17 flex-shrink-0"
-                                                                                            style="background-color: 
-                                                                                                    
-                                                                                                    rgba(255, 50, 50, 0.2); rgba(255, 50, 50, 1)">{{pendings.6}}</span>
-    
+                                                                                            style="background-color: rgba(255, 50, 50, 0.2); rgba(255, 50, 50, 1)">{{pendings.6}}</span>
+                                                                                        
     
                                                                                     </h5>
     
@@ -309,7 +311,7 @@
                                                                                         class="gilory-medium-type list-unstyled color-color1 fs-17  ">
     
                                                                                         <li
-                                                                                            class="mb-4 d-flex flex-nowrap align-items-center">
+                                                                                            class="mb-4 d-flex flex-nowrap align-items-center" onclick="summarydetails('NINTM','Pending')" style="Cursor:pointer">
                                                                                             <svg width="12" height="12"
                                                                                                 class="flex-shrink-0"
                                                                                                 viewBox="0 0 12 12"
@@ -325,14 +327,10 @@
                                                                                                 Attended</span>
                                                                                             <span
                                                                                                 class="badge rounded-pill rounded-circle p-2 fs-15 flex-shrink-0"
-                                                                                                style="background-color: 
-                                                                                                    
-                                                                                                    
-    rgba(255, 255, 255, 0.2); 
-    rgba(255, 255, 255, 1)">{{pendings.9}}</span>
+                                                                                                style="background-color: rgba(255, 255, 255, 0.2); rgba(255, 255, 255, 1)">{{pendings.9}}</span>
                                                                                         </li>
                                                                                         <li
-                                                                                            class="mb-4  mb-lg-0 d-flex flex-nowrap align-items-center">
+                                                                                            class="mb-4  mb-lg-0 d-flex flex-nowrap align-items-center" onclick="summarydetails('NINTW','Pending')" style="Cursor:pointer">
                                                                                             <svg width="12" height="12"
                                                                                                 class="flex-shrink-0"
                                                                                                 viewBox="0 0 12 12"
@@ -377,7 +375,7 @@
                                                                         <div class="card-body px-0 mx-0 pt-0">
                                                                             <h5 class="card-title  almarenamonolight-type fs-25 text-center px-4 py-3 mb-4 d-flex align-items-center flex-wrap   justify-content-center"
                                                                                 style="background-color:
-                                                                                        #1B1D35 ;">
+                                                                                        #1B1D35 ;" onclick="summarydetails('UNSPK','Pending')" style="Cursor:pointer">
                                                                                 <span> <svg width="40" height="40"
                                                                                         viewBox="0 0 40 40" fill="none"
                                                                                         xmlns="http://www.w3.org/2000/svg">
@@ -428,7 +426,7 @@
                                                                                         class="gilory-medium-type list-unstyled color-color1 fs-17  ">
     
                                                                                         <li
-                                                                                            class="mb-4 d-flex flex-nowrap align-items-center ">
+                                                                                            class="mb-4 d-flex flex-nowrap align-items-center " onclick="summarydetails('CALLB','Pending')" style="Cursor:pointer">
     
                                                                                             <span
                                                                                                 class="text-white me-2 lh-1">Call Busy
@@ -438,7 +436,7 @@
                                                                                                 style="background-color: rgba(102, 212, 166, 0.2); color:rgba(102, 212, 166,1)">{{pendings.14}}</span>
                                                                                         </li>
                                                                                         <li
-                                                                                            class="mb-4  mb-lg-0 d-flex flex-nowrap align-items-center">
+                                                                                            class="mb-4  mb-lg-0 d-flex flex-nowrap align-items-center" onclick="summarydetails('CALLN','Pending')" style="Cursor:pointer">
     
                                                                                             <span
                                                                                                 class="text-white me-2 lh-1">Not Called
@@ -467,7 +465,7 @@
                                                                                         class="gilory-medium-type list-unstyled color-color1 fs-17  ">
     
                                                                                         <li
-                                                                                            class="mb-4 d-flex flex-nowrap align-items-center">
+                                                                                            class="mb-4 d-flex flex-nowrap align-items-center" onclick="summarydetails('CALNA','Pending')" style="Cursor:pointer">
     
                                                                                             <span
                                                                                                 class="text-white me-2 lh-1">Call
@@ -508,7 +506,7 @@
     
                                                         <div class="card-body">
                                                             <h5
-                                                                class="card-title  almarenamonolight-type fs-28 d-flex justify-content-center align-items-center">
+                                                                class="card-title  almarenamonolight-type fs-28 d-flex justify-content-center align-items-center" onclick="summarydetails('UNATT','Pending')" style="Cursor:pointer">
                                                                 <span><svg width="55" height="55" viewBox="0 0 55 55"
                                                                         fill="none" xmlns="http://www.w3.org/2000/svg">
                                                                         <rect width="55" height="55" rx="27.5"
@@ -568,7 +566,7 @@
                                                                                 class="gilory-medium-type list-unstyled color-color1 fs-17  d-flex flex-wrap  justify-content-between">
     
                                                                                 <li
-                                                                                    class="mb-4 d-flex flex-nowrap align-items-center ">
+                                                                                    class="mb-4 d-flex flex-nowrap align-items-center " onclick="summarydetails('INVEM','Pending')" style="Cursor:pointer">
     
                                                                                     <span
                                                                                         class="text-white me-2 lh-1">Invalid
@@ -580,7 +578,7 @@
                                                                                                     rgba(255, 124, 72, 0.2); color: rgba(255, 124, 72, 1)">{{pendings.17}}</span>
                                                                                 </li>
                                                                                 <li
-                                                                                    class="mb-4   d-flex flex-nowrap align-items-center">
+                                                                                    class="mb-4   d-flex flex-nowrap align-items-center" onclick="summarydetails('INVPH','Pending')" style="Cursor:pointer">
     
                                                                                     <span
                                                                                         class="text-white me-2 lh-1">Invalid
@@ -648,7 +646,7 @@
     
                                                         <div class="card-body">
                                                             <h5
-                                                                class="card-title  almarenamonolight-type fs-28 d-flex justify-content-center align-items-center">
+                                                                class="card-title  almarenamonolight-type fs-28 d-flex justify-content-center align-items-center" onclick="summarydetails('ATT','Resolved')" style="Cursor:pointer">
                                                                 <span><svg width="55" height="55" viewBox="0 0 55 55"
                                                                         fill="none" xmlns="http://www.w3.org/2000/svg">
                                                                         <rect width="55" height="55" rx="27.5"
@@ -704,7 +702,7 @@
                                                                                 class="gilory-medium-type list-unstyled color-color1 fs-17  d-flex flex-wrap  justify-content-between">
     
                                                                                 <li
-                                                                                    class="mb-4 d-flex flex-nowrap align-items-center ">
+                                                                                    class="mb-4 d-flex flex-nowrap align-items-center " onclick="summarydetails('NINT','Resolved')" style="Cursor:pointer">
     
                                                                                     <span
                                                                                         class="text-white me-2 lh-1 fs-22">Not
@@ -718,7 +716,7 @@
     rgba(255, 50, 50, 1)" id="resolved-notIn"></span>
                                                                                 </li>
                                                                                 <li
-                                                                                    class="mb-4   d-flex flex-nowrap align-items-center">
+                                                                                    class="mb-4   d-flex flex-nowrap align-items-center" onclick="summarydetails('DUPEM','Resolved')" style="Cursor:pointer">
     
                                                                                     <span
                                                                                         class="text-white me-2 lh-1 fs-22">Duplicate
@@ -757,7 +755,7 @@
     
                                                         <div class="card-body">
                                                             <h5
-                                                                class="card-title  almarenamonolight-type fs-28 d-flex justify-content-center align-items-center">
+                                                                class="card-title  almarenamonolight-type fs-28 d-flex justify-content-center align-items-center" onclick="summarydetails('UNATT','Resolved')" style="Cursor:pointer">
                                                                 <span><svg width="55" height="55" viewBox="0 0 55 55"
                                                                         fill="none" xmlns="http://www.w3.org/2000/svg">
                                                                         <rect width="55" height="55" rx="27.5"
@@ -817,7 +815,7 @@
                                                                                 class="gilory-medium-type list-unstyled color-color1 fs-17  d-flex flex-wrap  justify-content-between">
     
                                                                                 <li
-                                                                                    class="mb-4 d-flex flex-nowrap align-items-center ">
+                                                                                    class="mb-4 d-flex flex-nowrap align-items-center " onclick="summarydetails('INVEM','Resolved')" style="Cursor:pointer">
     
                                                                                     <span
                                                                                         class="text-white me-2 lh-1 fs-22">Invalid
@@ -829,7 +827,7 @@
                                                                                                 rgba(255, 124, 72, 0.2); color: rgba(255, 124, 72, 1)" id="resolved-email"></span>
                                                                                 </li>
                                                                                 <li
-                                                                                    class="mb-4   d-flex flex-nowrap align-items-center">
+                                                                                    class="mb-4   d-flex flex-nowrap align-items-center" onclick="summarydetails('INVPH','Resolved')" style="Cursor:pointer">
     
                                                                                     <span
                                                                                         class="text-white me-2 lh-1 fs-22">Invalid
@@ -843,7 +841,7 @@
         color:rgba(114, 212, 171, 1)" id="resolved-phone"></span>
                                                                                 </li>
                                                                                 <li
-                                                                                    class="mb-4   d-flex flex-nowrap align-items-center">
+                                                                                    class="mb-4   d-flex flex-nowrap align-items-center" onclick="summarydetails('UNR','Resolved')" style="Cursor:pointer">
     
                                                                                     <span
                                                                                         class="text-white me-2 lh-1 fs-22" >Unreachable
@@ -894,7 +892,7 @@
     
                                                         <div class="card-body">
                                                             <h5
-                                                                class="card-title  almarenamonolight-type fs-28 d-flex justify-content-center align-items-center">
+                                                                class="card-title  almarenamonolight-type fs-28 d-flex justify-content-center align-items-center" onclick="summarydetails('ATT','Dormant')" style="Cursor:pointer" >
                                                                 <span><svg width="55" height="55" viewBox="0 0 55 55"
                                                                         fill="none" xmlns="http://www.w3.org/2000/svg">
                                                                         <rect width="55" height="55" rx="27.5"
@@ -950,7 +948,7 @@
                                                                                 class="gilory-medium-type list-unstyled color-color1 fs-17  d-flex flex-wrap  justify-content-between">
     
                                                                                 <li
-                                                                                    class="mb-4 d-flex flex-nowrap align-items-center ">
+                                                                                    class="mb-4 d-flex flex-nowrap align-items-center " onclick="summarydetails('NINT','Dormant')" style="Cursor:pointer">
     
                                                                                     <span
                                                                                         class="text-white me-2 lh-1 fs-22">Not
@@ -964,18 +962,31 @@
     rgba(255, 50, 50, 1)" id="dormant-notIn">{{dormant.3}}</span>
                                                                                 </li>
                                                                                 <li
-                                                                                    class="mb-4   d-flex flex-nowrap align-items-center">
+                                                                                    class="mb-4   d-flex flex-nowrap align-items-center" onclick="summarydetails('DUPEM','Dormant')" style="Cursor:pointer">
     
                                                                                     <span
-                                                                                        class="text-white me-2 lh-1 fs-22">Duplicate
+                                                                                        class="text-white me-2 lh-1 fs-22">Duplicate Email
                                                                                     </span><span
                                                                                         class="badge rounded-pill rounded-circle p-2 fs-15 flex-shrink-0"
                                                                                         style="background-color: 
                                                                                             
                                                                                                 
                                                                                             rgba(255, 195, 78, 0.2); 
-    color:rgba(255, 195, 78,1 )" id="dormant-duplicate"></span>
+    color:rgba(255, 195, 78,1 )" id="dormant-duplicateemail"></span>
                                                                                 </li>
+                                                                                <li
+                                                                                class="mb-4   d-flex flex-nowrap align-items-center" onclick="summarydetails('DUPPH','Dormant')" style="Cursor:pointer">
+
+                                                                                <span
+                                                                                    class="text-white me-2 lh-1 fs-22">Duplicate Phone
+                                                                                </span><span
+                                                                                    class="badge rounded-pill rounded-circle p-2 fs-15 flex-shrink-0"
+                                                                                    style="background-color: 
+                                                                                        
+                                                                                            
+                                                                                        rgba(255, 195, 78, 0.2); 
+color:rgba(255, 195, 78,1 )" id="dormant-duplicatephone"></span>
+                                                                            </li>
     
                                                                             </ul>
                                                                         </div>
@@ -1003,7 +1014,7 @@
     
                                                         <div class="card-body">
                                                             <h5
-                                                                class="card-title  almarenamonolight-type fs-28 d-flex justify-content-center align-items-center">
+                                                                class="card-title  almarenamonolight-type fs-28 d-flex justify-content-center align-items-center" onclick="summarydetails('UNATT','Dormant')" style="Cursor:pointer">
                                                                 <span><svg width="55" height="55" viewBox="0 0 55 55"
                                                                         fill="none" xmlns="http://www.w3.org/2000/svg">
                                                                         <rect width="55" height="55" rx="27.5"
@@ -1063,7 +1074,7 @@
                                                                                 class="gilory-medium-type list-unstyled color-color1 fs-17  d-flex flex-wrap  justify-content-between">
     
                                                                                 <li
-                                                                                    class="mb-4 d-flex flex-nowrap align-items-center ">
+                                                                                    class="mb-4 d-flex flex-nowrap align-items-center " onclick="summarydetails('CALLB','Dormant')" style="Cursor:pointer">
     
                                                                                     <span
                                                                                         class="text-white me-2 lh-1 fs-22">Call Busy</span>
@@ -1074,7 +1085,7 @@
                                                                                                 rgba(255, 124, 72, 0.2); color: rgba(255, 124, 72, 1)" id="dormant-callbusy"></span>
                                                                                 </li>
                                                                                 <li
-                                                                                    class="mb-4   d-flex flex-nowrap align-items-center">
+                                                                                    class="mb-4   d-flex flex-nowrap align-items-center" onclick="summarydetails('CALNA','Dormant')" style="Cursor:pointer">
     
                                                                                     <span
                                                                                         class="text-white me-2 lh-1 fs-22">Call Not Answered
@@ -1087,7 +1098,7 @@
         color:rgba(114, 212, 171, 1)" id="dormant-callnot"></span>
                                                                                 </li>
                                                                                 <li
-                                                                                    class="mb-4   d-flex flex-nowrap align-items-center">
+                                                                                    class="mb-4   d-flex flex-nowrap align-items-center" onclick="summarydetails('CALLN','Dormant')" style="Cursor:pointer">
     
                                                                                     <span
                                                                                         class="text-white me-2 lh-1 fs-22">Not Called
@@ -1172,8 +1183,10 @@
                         document.getElementById("dormant-attend").innerHTML=dormant[1]
                         document.getElementById("dormant-notIn").innerHTML=""
                         document.getElementById("dormant-notIn").innerHTML=dormant[3]
-                        document.getElementById("dormant-duplicate").innerHTML=""
-                        document.getElementById("dormant-duplicate").innerHTML=dormant[4]
+                        document.getElementById("dormant-duplicateemail").innerHTML=""
+                        document.getElementById("dormant-duplicateemail").innerHTML=dormant[4]
+                        document.getElementById("dormant-duplicatephone").innerHTML=""
+                        document.getElementById("dormant-duplicatephone").innerHTML=dormant[5]
                         document.getElementById("dormant-unattend").innerHTML=""
                         document.getElementById("dormant-unattend").innerHTML=dormant[2]
                         document.getElementById("dormant-callbusy").innerHTML=""
@@ -1187,6 +1200,10 @@
                     }
                 })
     })
+    function summarydetails(summary,status){
+        var url="{% url 'Admin:PendingSummary'%}"
+        window.location.href=url+"?&summary="+summary+"&status="+status
+    }
 </script>
 <script src="{% static 'js/app.js' %}"></script>
 </body>

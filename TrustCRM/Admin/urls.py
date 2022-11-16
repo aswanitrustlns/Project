@@ -26,6 +26,7 @@ urlpatterns=[
     path('LeadSubmit',lead_registration_check,name="LeadSubmit"),
     path('LeadProcessing',lead_processing,name="LeadProcessing"),
     path('Pendingtickets',pending_tickets,name='PendingTickets'),
+    path('PendingSummary',pending_tickets_from_summary,name="PendingSummary"),
     path('load_all_pending',pending_tckts_load_all,name="PendingTktsAll"),
     path('Resolvedtickets',resolved_tickets,name='ResolvedTickets'),
     path('load_all_resolved',resolved_tckts_load_all,name="ResolvedTktsAll"),

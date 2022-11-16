@@ -477,6 +477,18 @@ def pending_tickets(request):
         return render(request,'sales/pendingtickets.html',{'pending_tickets':pendingTickets})
     else:
          return redirect('/login') 
+def pending_tickets_from_summary(request):
+    if 'UserId' in request.session:
+        UserId=request.session.get('UserId')
+        summary=request.GET.get('summary')
+        status=request.GET.get('status')
+        print("User idddddddddddddd",UserId,summary,status)
+        
+        pending_tickets=selector.get_tickets_summary(UserId,summary,status)
+        
+        return render(request,'sales/pendingtickets.html',{'pending_tickets':pending_tickets})
+    else:
+         return redirect('/login')
 
 def pending_tckts_load_all(request):
     if 'UserId' in request.session:
