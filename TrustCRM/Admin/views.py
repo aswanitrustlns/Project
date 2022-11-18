@@ -474,7 +474,7 @@ def pending_tickets(request):
         # pendingTickets=[tuple(reversed(t)) for t in pending_tickets]
         # pendingTickets=pending_tickets[::-1]
        
-        return render(request,'sales/pendingtickets.html',{'pending_tickets':pendingTickets})
+        return render(request,'sales/pendingtickets.html',{'pending_tickets':pendingTickets,'status':json.dumps("Pending")})
     else:
          return redirect('/login') 
 def pending_tickets_from_summary(request):
@@ -486,7 +486,7 @@ def pending_tickets_from_summary(request):
         
         pending_tickets=selector.get_tickets_summary(UserId,summary,status)
         
-        return render(request,'sales/pendingtickets.html',{'pending_tickets':pending_tickets})
+        return render(request,'sales/pendingtickets.html',{'pending_tickets':pending_tickets,'status':json.dumps(status)})
     else:
          return redirect('/login')
 

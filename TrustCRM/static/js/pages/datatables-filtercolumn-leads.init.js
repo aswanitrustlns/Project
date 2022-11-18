@@ -8,11 +8,7 @@ File: Datatables Js File
 //.DataTable.datetime('D MMM YYYY');
 
 $(document).ready(function () {
-
-
     //var minDate,maxDate;
-
-
    // Setup - add a text input to each footer cell
    $('#datatableleads thead tr')
    .clone(true)
@@ -310,14 +306,10 @@ var table = $('#datatableleads').DataTable({
         
      })
 
-
-
-
-
 });
 var addColor=function ($this,$class,$textcolor){
     
-    console.log($this);
+    console.log("This is======"+$this);
     selId=$($this).attr('id')
     if(selId=="pending-switch"){
         $("#pending").show()

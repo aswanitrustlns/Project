@@ -60,7 +60,7 @@
                             <div class="card-body ">
                                 <div class=" d-flex justify-content-between align-items-start">
                                     <div>
-                                        <button type="button" class="btn btn-lg btn-primary   mb-3  mx-1 gilory-semibold-type bg-soft-purple text-white" id="pending-switch" style="background-color: var(--bs-card-bg) ;" onclick="addColor(this,'bg-soft-purple text-white', 'color-color1');loadAll('P');">Pending</button>
+                                        <button type="button" class="btn btn-lg btn-primary   color-color1 mb-3  mx-1 gilory-semibold-type " id="pending-switch" style="background-color: var(--bs-card-bg) ;" onclick="addColor(this,'bg-soft-purple text-white', 'color-color1');loadAll('P');">Pending</button>
                                         <button type="button" class="btn btn-lg btn-primary  color-color1 mb-3 mx-1 gilory-semibold-type"  id="resolved-switch" style="background-color: var(--bs-card-bg); "  onclick="addColor(this,'bg-soft-purple text-white', 'color-color1');loadAll('R');">Resolved</button>
                                         <button type="button" class="btn btn-lg btn-primary  color-color1 mb-3 mx-1 gilory-semibold-type"  id="dormant-switch" style="background-color: var(--bs-card-bg) ;" onclick="addColor(this,'bg-soft-purple text-white','color-color1');loadAll('D');">Dormant</button>
                                         
@@ -271,6 +271,35 @@
     <!-- dashboard init -->
     <script>
 
+
+var tabactive={{status|safe}}
+$(document).ready(function () {
+    console.log("Active tab======"+tabactive)
+    var tabswitch=""
+    if(tabactive=="Pending"){
+        console.log("Pending switch====")
+        tabswitch="pending-switch"
+    }
+    if(tabactive=="Resolved"){
+        console.log("Resolved switch====")
+        tabswitch="resolved-switch"
+    }
+    if(tabactive=="Dormant"){
+        console.log("Dormant switch=======")
+        tabswitch="dormant-switch"
+    }
+    console.log("Tab switch======="+tabswitch)
+    if($("#"+tabswitch).hasClass("text-white")){
+        $("#"+tabswitch).removeClass("text-white")
+        $("#"+tabswitch).removeClass("bg-soft-purple")
+        $("#"+tabswitch).removeClass("color-color1")
+    }
+    else{
+        $("#"+tabswitch).addClass("text-white");
+        $("#"+tabswitch).addClass("bg-soft-purple");
+        $("#"+tabswitch).addClass("color-color1")
+    }
+})
 $(function(){
     
     $('#datatableleads tbody').on('click', 'tr', function (e) {

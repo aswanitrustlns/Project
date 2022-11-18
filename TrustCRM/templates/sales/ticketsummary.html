@@ -72,7 +72,8 @@
                                         role="tablist">
                                         <li class="nav-item" style=" width:calc(100% / 3 );">
                                             <a class="nav-link active text-center" data-bs-toggle="tab"
-                                                href="#actions-pending-tab" role="tab" onclick="summarydetails('PEND','Pending')">
+                                                href="#actions-pending-tab" role="tab" >
+                                                <div onclick="summarydetails('PEND','Pending')">
                                                 <span class="fs-20 "> Pending Tickets</span> <span
                                                     class="badge rounded-pill rounded-circle p-2 fs-17 flex-shrink-0" style="background-color: 
                                                                 
@@ -82,11 +83,13 @@
     
     
                                                 </span>
+                                            </div>
                                             </a>
                                         </li>
                                         <li class="nav-item" style=" width:calc(100% / 3 );">
                                             <a class="nav-link  text-center " data-bs-toggle="tab"
-                                                href="#actions-resolved-tab" role="tab" onclick="summarydetails('RESV','Resolved')">
+                                                href="#actions-resolved-tab" role="tab" >
+                                                <div onclick="summarydetails('RESV','Resolved')">
                                                 <span class="fs-20"> Resolved Tickets</span>
                                                 <span class="badge rounded-pill rounded-circle p-2 fs-17 flex-shrink-0"
                                                     style="background-color: 
@@ -99,11 +102,13 @@
     
     
                                                 </span>
+                                            </div>
                                             </a>
                                         </li>
                                         <li class="nav-item" style=" width:calc(100% / 3 );">
                                             <a class="nav-link  text-center " data-bs-toggle="tab"
-                                                href="#actions-dormant-tab" role="tab" onclick="summarydetails('DORM','Dormant')">
+                                                href="#actions-dormant-tab" role="tab" >
+                                                <div onclick="summarydetails('DORM','Dormant')">
                                                 <span class="fs-20"> Dormant Tickets</span>
                                                 <span class="badge rounded-pill rounded-circle p-2 fs-17 flex-shrink-0"
                                                     style="background-color: 
@@ -116,6 +121,7 @@
     
     
                                                 </span>
+                                                </div>
                                             </a>
                                         </li>
     
@@ -347,12 +353,8 @@
                                                                                             </span><span
                                                                                                 class="badge rounded-pill rounded-circle p-2 fs-15 flex-shrink-0"
                                                                                                 style="background-color: 
-                                                                                                    
-                                                                                                        
-    
                                                                                                     rgba(188, 48, 129, 0.2); 
-    color:
-    rgba(188, 48, 129, 1)">{{pendings.12}}</span>
+    color:rgba(188, 48, 129, 1)">{{pendings.12}}</span>
                                                                                         </li>
                                                                                     </ul>
     
