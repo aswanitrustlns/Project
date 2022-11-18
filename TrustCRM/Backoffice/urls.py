@@ -36,6 +36,7 @@ urlpatterns=[
       path('UpdateClientCredential',update_client_area_credential,name="UpdateClientCredential"),
       path('FinalApproval',final_approval,name="FinalApproval"),
       path('TemporaryApproval',temperory_approval,name="TemporaryApproval"),
+      path('LiveApproval',approval,name="LiveApproval"),
       path('SummaryByTicket',summary_ticket,name="SummaryByTicket"),
       path('JournalUpdate',journal_update,name="JournalUpdate"),
       path('ReminderLoading',load_reminders,name="ReminderLoading"),

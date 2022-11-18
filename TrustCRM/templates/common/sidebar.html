@@ -64,7 +64,7 @@
                         <li> <a  href="{% url 'Backoffice:Approval' %}" >Approval</a></li>
                         <li> <a  href="{% url 'Backoffice:Transactions' %}" >Transactions</a></li>
                         <li> <a  href="{% url 'Backoffice:TransactionHistory' %}" >Transactions History</a></li>
-                        <li> <a  href="{% url 'Backoffice:WorldCheck' %}" >World Check</a></li>
+                        <!-- <li> <a  href="{% url 'Backoffice:WorldCheck' %}" >World Check</a></li> -->
                     </ul>
                 </li>
 
@@ -154,7 +154,7 @@
                         
                     </ul>
                 </li>
-                {%if request.session.compliance == "True" %}
+                <!-- {%if request.session.compliance == "True" %}
                 <li>
                     <a  href="javascript: void(0);" class="has-arrow">
                        
@@ -174,7 +174,7 @@
                         <li><a  href="{% url 'Admin:AllComplaints' %}" data-key="t-inbox">Complaints List</a></li>
                     </ul>
                 </li>
-                {%endif%}  
+                {%endif%}   -->
                 {%if request.session.crf == "crfuser" %}
                 <li>
                     <a  href="javascript: void(0);" class="has-arrow">

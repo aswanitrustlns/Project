@@ -179,6 +179,8 @@ class Selector:
                     update=dllservice.dll_update_status(user,server,password,"TmpMaster")
                     if(update==str(accno)):
                         msg="Account Approved Successfully"
+                else:
+                    update=dllservice.dll_update_status(user,server,password,"TmpMultiAcc")
 
             else:
                 msg="Account is not live in MT4"
@@ -206,11 +208,45 @@ class Selector:
                 print("Acc no",accno)
                 if(iseditable==accno):
                     print("Inside===iseditable")
-                    update=dllservice.dll_update_status(user,server,password,"TmpMaster")
+                    update=dllservice.dll_update_status(user,server,password,"Live")
                     print("Update===",update)
                     if(update==accno):
                         print("inside update")
                         msg="Account Approved Successfully"
+
+            else:
+                msg="Account is not live in MT4"
+        except Exception as e:
+                print("Exception------",e)
+        finally:
+                Cursor.close()
+        return msg
+     #approve client
+    def approve_live_Client(self,user,server,password,accno,userId,client_area):
+        try:
+            msg="Account approved in MT4. Database update failed"
+            Cursor=connection.cursor()           
+            Cursor.execute("set nocount on;exec SP_UpdateAccountStatusReadOnly %s,%s,%s,%s",["Live",accno,client_area,userId]) 
+            
+            msg="Account approved successfully in database"
+            accno=int(accno)
+            info=dllservice.dll_client_info(user,server,password,accno)
+            print("Info====",info)
+            iseditable=dllservice.dll_enable_update(user,server,password,accno)
+            print("edit===",iseditable)
+            if(info!=""):
+                print("Inside info")
+                accno=str(accno)
+                print("Acc no",accno)
+                if(iseditable==accno):
+                    print("Inside===iseditable")
+                    update=dllservice.dll_update_status(user,server,password,"LiveMultiAcc")
+                    print("Update===",update)
+                
+                    if(update==accno):
+                        print("inside update")
+                        msg="Account Approved Successfully"
+                    
 
             else:
                 msg="Account is not live in MT4"

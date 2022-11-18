@@ -227,6 +227,34 @@ class EmailServices:
             print("EXCEPTION-----------------------")  
         finally:
             Cursor.close() 
+      #Send Temperory Account Details
+    def SendLiveAccountDetails(self,title,name,remail,accno,acctype):
+        try:
+            Cursor=connection.cursor()  
+            subject = "Your Live Trust Capital Account Details"
+            email_from = 'cs@trusttc.com'
+            bcc1="crm@trusttc.com"
+            bcc2="backoffice@trusttc.com"
+            bcc3="compliance@trusttc.com"
+            bcc4="magt@trusttc.com"
+            template_data={
+                "title":title,
+                "name":name,
+                "acctype":acctype,
+                "account":accno
+                
+            }  
+            email_template_render=render_to_string("email/backoffice/LiveAccountDetails.html",template_data)
+            msg = EmailMultiAlternatives(subject=subject,from_email=email_from,to=[remail],bcc=[bcc1,bcc2,bcc3,bcc4])
+            msg.attach_alternative(email_template_render, "text/html")
+            msg.send(fail_silently=False)
+            print("Email send-----------------------------------------------------------")  
+                    
+
+        except Exception as e:
+            print("EXCEPTION-----------------------")  
+        finally:
+            Cursor.close() 
 
      #Card approval
     def SendCardApprovalmail(self,title,name,remail,cardno,cardtype,status):

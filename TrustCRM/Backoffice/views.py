@@ -495,6 +495,41 @@ def temperory_approval(request):
         return JsonResponse({"message":message}) 
     else:
         return redirect('/login')
+#Approval
+def approval(request):
+    if 'UserId' in request.session:
+        message="Please try again"
+        userid=int(request.session.get('UserId'))
+        accno=request.GET.get('account')
+        user=request.session.get('user')
+        server=request.session.get('server')
+        password=request.session.get('password')
+        client_area=request.GET.get('clientarea')
+        status=selector.get_docs_verified_poi(accno)
+        print("Status=========",status[3])
+        docverified=1
+        POIstatus=""
+        if status:
+            docverified=status[0]
+            POIstatus=status[3]
+        if docverified==0 or POIstatus=="Not Verified":
+            message="POI is mandatory for temporary approval"
+        else:
+           message=selector.approve_live_Client(user,server,password,accno,userid,client_area)
+        
+        userdetails=selector.get_email_details(accno)
+        if userdetails:
+           
+            title=userdetails[3]
+            name=userdetails[1]
+            email=userdetails[0]
+            acctype=userdetails[9]
+            emailservice.SendLiveAccountDetails(title,name,email,accno,acctype)
+            
+        
+        return JsonResponse({"message":message}) 
+    else:
+        return redirect('/login')
 #Email Bank Details
 def email_bank_details(request):
     if 'UserId' in request.session:

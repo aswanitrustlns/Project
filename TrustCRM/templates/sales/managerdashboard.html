@@ -540,10 +540,22 @@
                                 <div id="meetings_report_tabweekly" class="d-block">
                                     <div class="" style="height: 220px">
                                         <!--id="meetings_report_w"-->
+                                        {%if meeting_weekly_pie %} 
                                         <div id="meetings_report_w"
                                         data-colors='["#E7CE79","#645993","#D18C42","#71CCFF","#FF4929","#00A54F"]'
                                         class="apex-charts" dir="ltr">
                                     </div>
+                                    {%else%}
+                                        <div class="  text-center  d-block">
+                                            <img src="{% static 'images/nodata/nodata.png' %}" alt="" style="max-height: 120px;">                                                   
+                                               
+        
+                                            <p class="gilory-regular-type fs-20 mt-2">No Meetings</p>
+                                        
+                                        
+                                         </div>
+        
+                                        {%endif%}
                                     </div>
                                 </div>
                                 
@@ -551,10 +563,22 @@
                                 <div id="meetings_report_tabdaily" class="d-none">
                                     
                                     <div class="" style="height: 220px">
+                                        {%if meeting_daily_pie %}
                                             <div id="meetings_report_d"
                                             data-colors='["#E7CE79","#645993","#D18C42","#71CCFF","#FF4929","#00A54F"]'
                                             class="apex-charts" dir="ltr">
                                             </div>
+                                            {%else%}
+                                            <div class="  text-center  d-block">
+                                                <img src="{% static 'images/nodata/nodata.png' %}" alt="" style="max-height: 120px;">                                                   
+                                                   
+            
+                                                <p class="gilory-regular-type fs-20 mt-2">No Meetings</p>
+                                            
+                                            
+                                             </div>
+            
+                                            {%endif%}
                                     </div>
                                     
                                 </div>
@@ -831,7 +855,7 @@
                                                     class="btn  bg-soft-gunmetal btn-sm  text-white fs-13 gilroyregular-type"
                                                     onclick="switchtab(this,'#tab04','#tab03')">
                                                     Weekly
-                                                </button>
+                                                    </button>
                                                     <button type="button"
                                                         class="btn   text-white btn-sm fs-13 gilroyregular-type almarenamonolight-type"
                                                         onclick="switchtab(this,'#tab03','#tab04')">
@@ -844,17 +868,46 @@
                                             </div>
                                         </div>
                                     </div>
+                                    
                                     <div style='height: 220px' id="tab04" class="d-block">
+                                        {%if seminar_weekly_pie %} 
                                         <div id="weekly-seminar_w" data-colors='["#FF4929","#19BDB4","#5D62AB","#2C2E57","#ED589D","#E9BBD5"]'
                                         class="apex-charts"></div>
+                                        {%else%}
+                                        <div class="  text-center  d-block">
+                                            <img src="{% static 'images/nodata/nodata.png' %}" alt="" style="max-height: 120px;">                                                   
+                                               
+        
+                                            <p class="gilory-regular-type fs-20 mt-2">No Weekly Seminars</p>
+                                        
+                                        
+                                         </div>
+        
+                                        {%endif%}
 
                                     </div>
                                     
+                                   
+                                    
                                     <div style='height: 220px' id="tab03" class="d-none">
+                                        {%if seminar_daily_pie %} 
                                         <div id="weekly-seminar_d" data-colors='["#FF4929","#19BDB4","#5D62AB","#2C2E57","#ED589D","#E9BBD5"]'
                                         class="apex-charts"></div>
+                                        {%else%}
+                                        <div class="  text-center  d-block">
+                                            <img src="{% static 'images/nodata/nodata.png' %}" alt="" style="max-height: 120px;">                                                   
+                                               
+        
+                                            <p class="gilory-regular-type fs-20 mt-2">No daily Seminars</p>
+                                        
+                                        
+                                         </div>
+        
+                                        {%endif%}
 
                                     </div>
+                                    
+                                   
 
                                     
 

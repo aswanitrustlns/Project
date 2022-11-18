@@ -116,7 +116,7 @@
                                                         <div class="col-12  col-md-4  ms-lg-auto flex-shrink-0 d-md-flex  justify-content-end">
                                                             <div class=" mt-4 mt-md-0">
                                                                 <button class="btn  btn-lg me-2 mb-2 py-1 color-green text-decoration-underline " type="submit">Cash back</button>
-                                                                <button class="btn btn-outline-light  me-2  btn-lg rounded-2 mb-2 py-1" type="reset">Account fully approved</button>
+                                                                <!-- <button class="btn btn-outline-light  me-2  btn-lg rounded-2 mb-2 py-1" type="reset">Account fully approved</button> -->
                                                             </div>
                                                         </div>
                                                 </div> 
@@ -611,7 +611,7 @@
                                                                                         </div>
                                                                                         
                                                                                     </div>
-                                                                                    <div class="col-sm-6 col-md-4  col-lg-6 col-xxl-4 ">
+                                                                                    <!-- <div class="col-sm-6 col-md-4  col-lg-6 col-xxl-4 ">
                                                                                         <div class="x">
                                                                                             <label class="form-label" for="Comment">Comment<span class="color-orange">*</span></label>
                                                                                             <textarea name="terComment" id="TRComment" cols="20" rows="5" class="form-control" required=""></textarea>
@@ -640,7 +640,7 @@
                                                                                              
                                                                                         </div>
                                                                                         
-                                                                                    </div>
+                                                                                    </div> -->
                                                                                     <div class="col-sm-6 col-md-4  col-lg-12 col-xxl-4 ">
                                                                                         <div class="card-h-100 d-flex align-items-xxl-end">
                                                                                             <div>
@@ -1858,7 +1858,7 @@
                                         
                                         <button type="button" class="btn bg-soft-secondarycolor text-white me-2" onclick="viewDocs()">View documents</button>
                                         <!-- <button type="button" class="btn bg-soft-secondarycolor text-white me-2" data-bs-toggle="modal" data-bs-target=".bs-example-modal-seminars" style="background-color: var(--bs-card-bg) ;">Close account</button> -->
-                                        <button type="button" class="btn bg-soft-secondarycolor text-white me-2" onclick="terminate()">Terminate</button>
+                                        <button type="button" class="btn bg-soft-secondarycolor text-white me-2" onclick="terminate()">Close Account</button>
                                         </div>
     
                             </div>
@@ -1868,8 +1868,9 @@
     
                             <button id="submitftype" class="btn btn-lg btn-primary me-2  " type="button"  onclick="mt4pwdCheck('update')">Update</button>
                             <!-- <button id="resetftype" class="btn   btn-lg btn-outline-light me-2 " type="button" >Reset</button> -->
-                            <button  class="btn   btn-lg btn-outline-light  color-color1 me-2 " onclick="mt4pwdCheck('temp')">Temporary approve</button>
-                            <button  class="btn   btn-lg btn-outline-light  color-color1 me-2 "  onclick="mt4pwdCheck('final')">Final approve</button>
+                            <button  class="btn   btn-lg btn-outline-light  color-color1 me-2 " onclick="mt4pwdCheck('temp')" id="tempApprove">Temporary approve</button>
+                            <button  class="btn   btn-lg btn-outline-light  color-color1 me-2 "  onclick="mt4pwdCheck('final')" id="FinalApprove">Final approve</button>
+                            <button  class="btn   btn-lg btn-outline-light  color-color1 me-2 "  onclick="mt4pwdCheck('approve')" id="Approve">Approve</button>
                         </div>
     
                         <!-- end row-->
@@ -2147,6 +2148,7 @@
     var date = new Date();
     var repname=""
     $(document).ready(function () {
+        $("#Approve").hide()
         var intTel = function () {
 
                             input = document.querySelector("#phone"),
@@ -2846,7 +2848,7 @@
                         $("#Sendreports").attr('checked',false)
                         $("#AllowchangePWD").attr('checked',false)
                         $("#Readonly").attr('checked',false)
-                        $("#Terminated").attr('checked',false)
+                        // $("#Terminated").attr('checked',false)
                         $("#TRComment").val("")
                         $("#RDComment").val("")
                         if ( $('#calendar').children().length > 0 ) {
@@ -2932,6 +2934,7 @@
                             $("#Leverage").val(leverage)
                             var clientarea=details[57]
                             $("#Clientarealogin").val(clientarea)
+                           
                             var score=details[51]
                             $("#Score").val(score)
                             var risk=details[41]
@@ -3019,13 +3022,13 @@
                                 
                             }
 
-                            var termin=details[56]
-                            if(termin==1){
-                                $("#Terminated").attr('checked',true)
-                            }
-                            else{
-                                $("#Terminated").attr('checked',false)
-                            }
+                            // var termin=details[56]
+                            // if(termin==1){
+                            //     $("#Terminated").attr('checked',true)
+                            // }
+                            // else{
+                            //     $("#Terminated").attr('checked',false)
+                            // }
                             var salesrepId=details[60]
                             
                             if(salesrepId==20){
@@ -3195,6 +3198,9 @@
         resetForm()
         $("#Accountno").val(multi)
         LoadData()
+        $("#tempApprove").hide()
+        $("#FinalApprove").hide()
+        $("#Approve").show()
         
         
     }
@@ -3237,6 +3243,28 @@
                     dataType: 'json',
                     data:{
                         'account':accno,
+                    },
+                    success: function(data){
+                        message=data.message
+                        $("#userMsg").empty()
+                        $("#userMsg").append(message)
+                        $("#alertpopup").modal('show')
+                        
+                    }
+                })
+
+    }
+    function Approval(){
+        var accno=$("#Accountno").val()
+        var clientarea=$("#Clientarealogin").val()
+        $.ajax({
+                    
+                    type : "GET", 
+                    url: "{% url 'Backoffice:LiveApproval' %}",
+                    dataType: 'json',
+                    data:{
+                        'account':accno,
+                        'clientarea':clientarea,
                     },
                     success: function(data){
                         message=data.message
@@ -3368,6 +3396,10 @@
                             if(check=="temp"){
                                 tempApproval()
                             }
+                            if(check=="approve"){
+                                Approval()
+                            }
+
                             else{
                                 duplicateCheckFun()
                             }
@@ -3389,21 +3421,21 @@
             var tercomment=$("#terComment").val()
             var flag=0
             var rdcheck=$('#Readonly').is(':checked')
-            var trcheck=$('#Terminated').is(':checked')
+            // var trcheck=$('#Terminated').is(':checked')
             console.log("rd check===="+rdcheck)
-            console.log("termin check===="+trcheck)
+            
             if(rdcheck){
                 $("#userMsg").empty()
                 $("#userMsg").append("Please Enter Read only comments")
                 $("#alertpopup").modal('show')
                 flag=1
             }
-            if(trcheck){
-                $("#userMsg").empty()
-                $("#userMsg").append("Please Enter Terminated Comments")
-                $("#alertpopup").modal('show')
-                flag=1
-            }
+            // if(trcheck){
+            //     $("#userMsg").empty()
+            //     $("#userMsg").append("Please Enter Terminated Comments")
+            //     $("#alertpopup").modal('show')
+            //     flag=1
+            // }
             if(flag==0){
                 var accno=$("#Accountno").val()
                 $("#form-accno").val(accno)
@@ -3542,7 +3574,7 @@
         $("#Sendreports").attr('checked',false)
         $("#AllowchangePWD").attr('checked',false)
         $("#Readonly").attr('checked',false)
-        $("#Terminated").attr('checked',false)
+        // $("#Terminated").attr('checked',false)
         $("#ticketsummary").empty()
         $("#activityList").empty()
         $("#currency").html("")

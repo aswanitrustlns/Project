@@ -139,8 +139,14 @@ var chart = new ApexCharts(
 );
 chart.render()
 }
-renderMeetingDonut(data_d,"#meetings_report_d",username_d)
-renderMeetingDonut(data_w,"#meetings_report_w",username_w)
+if(data_d.length>0){
+    renderMeetingDonut(data_d,"#meetings_report_d",username_d)
+}
+if(data_w.length>0){
+    renderMeetingDonut(data_w,"#meetings_report_w",username_w)
+}
+
+
 // column chart2 liveaccount_statics
 var columnColors = getChartColorsArray("#column_chart_leadsbysource");
 var src_count = leads_graph.map((item) => item.src_count);
@@ -278,6 +284,7 @@ chart.render();
 
 
 var seminar_data_d = seminar_daily_pie.map((item) => item.value);
+console.log("Seminar data====================daily"+seminar_data_d+typeof(seminar_data_d)+seminar_data_d.length)
 var seminar_username_d = seminar_daily_pie.map((item) => item.name);
 seminar_username_d=Object.values(seminar_username_d)
 
@@ -460,8 +467,13 @@ var options = {
 var chart = new ApexCharts(document.querySelector($id), options);
 chart.render();
 }
-renderSeminarPie(seminar_data_d,'#weekly-seminar_d',seminar_username_d);
-renderSeminarPie(seminar_data_w,'#weekly-seminar_w',seminar_username_w);
+if(seminar_data_d.length>0){
+    renderSeminarPie(seminar_data_d,'#weekly-seminar_d',seminar_username_d);
+}
+if(seminar_data_w.length>0){
+    renderSeminarPie(seminar_data_w,'#weekly-seminar_w',seminar_username_w);
+}
+
 // function switchtab($this,$displaytab,$hiddentab) {
 //     $($displaytab).addClass('d-block');
  

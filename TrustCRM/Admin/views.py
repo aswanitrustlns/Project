@@ -1282,9 +1282,9 @@ def ticket_summary(request):
 def ticket_summary_onload(request):
     if 'UserId' in request.session:
         userid=request.session.get('UserId')
-        resolved,dormant=selector.load_ticket_summary(userid)
+        pending,resolved,dormant=selector.load_ticket_summary(userid)
 
-        return JsonResponse({"resolved":resolved,"dormant":dormant})  
+        return JsonResponse({"pending":pending,"resolved":resolved,"dormant":dormant})  
     else:
         return redirect('/login')
 
