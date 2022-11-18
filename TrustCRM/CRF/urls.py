@@ -13,7 +13,7 @@ urlpatterns=[
     path('CRFDetails',detailed_page,name="CRFDetails"),
     path('DocView',view_document,name="DocView"),
     path('StatusUpdate',change_status,name="StatusUpdate"),
-    path('ReOpenCase', reopen_case,name="ReoOpenCase"),
+    path('ReOpenCase', reopen_case,name="ReOpenCase"),
     path('CaseFile',case_file_upload,name="CaseFile"),
     
     # path('UserInfo',login_user_info,name="UserInfo")

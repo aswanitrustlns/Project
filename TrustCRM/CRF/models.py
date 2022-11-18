@@ -141,6 +141,9 @@ class TblCompany(models.Model):
         managed = False
         db_table = 'tbl_Company'
 
+    def __str__(self):
+        return self.code
+
 
 class TblDepartment(models.Model):
     id = models.AutoField(db_column='Id', primary_key=True)  # Field name made lowercase.
@@ -219,13 +222,13 @@ class TblCases(models.Model):
     topic = models.TextField(db_column='Topic', db_collation='SQL_Latin1_General_CP1_CI_AS')  # Field name made lowercase.
     description = models.TextField(db_column='Description', db_collation='SQL_Latin1_General_CP1_CI_AS')  # Field name made lowercase.
     priority = models.ForeignKey(TblPriority,on_delete=models.CASCADE,db_column='Priority')  # Field name made lowercase.
-    userid = models.IntegerField(db_column='UserID')  # Field name made lowercase.
+    userid = models.ForeignKey(TblUser,on_delete=models.CASCADE,db_column='UserID',related_name='assigned_by')  # Field name made lowercase.
     regdate = models.DateTimeField(db_column='RegDate')  # Field name made lowercase.
     modified = models.DateTimeField(db_column='Modified')  # Field name made lowercase.
     assigneddpt = models.IntegerField(db_column='AssignedDpt')  # Field name made lowercase.
     casetype = models.ForeignKey(TblCasetypes,on_delete=models.CASCADE,db_column='CaseType')  # Field name made lowercase.
-    assignedto = models.ForeignKey(TblUser,on_delete=models.CASCADE,db_column='AssignedTo', blank=True, null=True)  # Field name made lowercase.
-    companyid = models.IntegerField(db_column='CompanyId', blank=True, null=True)  # Field name made lowercase.
+    assignedto = models.ForeignKey(TblUser,on_delete=models.CASCADE,db_column='AssignedTo', blank=True, null=True,related_name='assigned_to')  # Field name made lowercase.
+    companyid = models.ForeignKey(TblCompany,on_delete=models.CASCADE,db_column='CompanyId', blank=True, null=True)  # Field name made lowercase.
     status = models.TextField(db_column='Status', db_collation='SQL_Latin1_General_CP1_CI_AS', blank=True, null=True)  # Field name made lowercase.
     comments = models.TextField(db_collation='SQL_Latin1_General_CP1_CI_AS', blank=True, null=True)
 
