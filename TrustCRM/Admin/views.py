@@ -77,9 +77,9 @@ def login_check(request):
             print("Admin login===================================")
             adminrole="backoffice" 
             request.session['role']="backoffice"
-        if UserId==56:
-            adminrole="complaints"
-            request.session['role']="complaints"
+        # if UserId==56:
+        #     adminrole="complaints"
+        #     request.session['role']="complaints"
         else:
             adminrole="sales" 
             request.session['role']="salesrep"
@@ -118,6 +118,7 @@ def login_check(request):
 def dashboard(request):
     
     if 'UserId' in request.session:
+        unassign=""
         UserId=request.session.get('UserId')
         selrep=request.GET.get('repId')
         if(selrep!=None):
@@ -132,8 +133,12 @@ def dashboard(request):
         manager=permission_check[11]
         salesRep=permission_check[22]
         complaints=permission_check[14]
+        viewunassigned=permission_check[25]
         if complaints:
             request.session['compliance']="True"
+        if viewunassigned:
+            unassign="True"
+            request.session['unassign']="True"
         print("backoffice===========",backoffice)
         print("Manager======================================",manager)
         print("Sales Rep===================================",salesRep)

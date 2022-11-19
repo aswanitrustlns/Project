@@ -43,7 +43,7 @@
                
                     </ul> -->
                 </li>
-
+                {%if request.session.role != "salesrep" %}
                 <li>
                     <a href="javascript: void(0);" class="has-arrow">
                      
@@ -67,7 +67,7 @@
                         <!-- <li> <a  href="{% url 'Backoffice:WorldCheck' %}" >World Check</a></li> -->
                     </ul>
                 </li>
-
+                {%endif%}
                 <!-- <li>
                     <a href="javascript: void(0);" class="has-arrow">
                         

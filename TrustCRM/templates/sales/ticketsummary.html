@@ -435,7 +435,7 @@
                                                                                                 </span>
                                                                                             <span
                                                                                                 class="badge rounded-pill rounded-circle p-2 fs-15 flex-shrink-0"
-                                                                                                style="background-color: rgba(102, 212, 166, 0.2); color:rgba(102, 212, 166,1)">{{pendings.14}}</span>
+                                                                                                style="background-color: rgba(102, 212, 166, 0.2); color:rgba(102, 212, 166,1)" id="callbusy">...</span>
                                                                                         </li>
                                                                                         <li
                                                                                             class="mb-4  mb-lg-0 d-flex flex-nowrap align-items-center" onclick="summarydetails('CALLN','Pending')" style="Cursor:pointer">
@@ -1176,16 +1176,18 @@ color:rgba(255, 195, 78,1 )" id="dormant-duplicatephone"></span>
                         document.getElementById("pend-in-meet").innerHTML=pending[8]
                         document.getElementById("pend-in-web").innerHTML=""
                         document.getElementById("pend-in-web").innerHTML=pending[11]
-                        document.getElementById("pend-not-in").innerHTML=""
-                        document.getElementById("pend-not-in").innerHTML=pending[6]
+                        document.getElementById("pend-notin").innerHTML=""
+                        document.getElementById("pend-notin").innerHTML=pending[6]
                         document.getElementById("pend-not-web").innerHTML=""
                         document.getElementById("pend-not-web").innerHTML=pending[12]
                         document.getElementById("pend-not-meet").innerHTML=""
                         document.getElementById("pend-not-meet").innerHTML=pending[9]
                         document.getElementById("pend-not-called").innerHTML=""
-                        document.getElementById("pend-not-called").innerHTML=pending[14]
+                        document.getElementById("pend-not-called").innerHTML=pending[16]
                         document.getElementById("pend-not-ans").innerHTML=""
                         document.getElementById("pend-not-ans").innerHTML=pending[15]
+                        document.getElementById("callbusy").innerHTML=""
+                        document.getElementById("callbusy").innerHTML=pending[14]
                         document.getElementById("pend-inv-email").innerHTML=""
                         document.getElementById("pend-inv-email").innerHTML=pending[17]
                         document.getElementById("pend-inv-phone").innerHTML=""
