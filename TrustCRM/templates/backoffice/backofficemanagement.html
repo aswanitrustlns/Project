@@ -2148,6 +2148,8 @@
     var date = new Date();
     var repname=""
     $(document).ready(function () {
+        var searchParams = new URLSearchParams(window.location.search)
+        var ticket = searchParams.get('ticket')
         $("#Approve").hide()
         var intTel = function () {
 
@@ -2237,7 +2239,11 @@
 
                                 intTel();
                                 formback()
-
+                            if(ticket){
+                                $("#Accountno").val("ticket")
+                LoadData()
+            }
+            
 
     })
     

@@ -319,6 +319,7 @@
 
     <script>
         var tabactive={{active|safe}}
+        var role={{role|safe}}
         console.log("Active============="+tabactive)
 
         $(function(){
@@ -329,8 +330,15 @@
         var data = table.row( this ).data();       
         console.log("Ticket----------"+data[7])  
         var ticket=data[7]
-        var url="{% url 'Admin:LeadProcessing'%}"
-        window.location.href=url+"?&ticket="+ticket
+        if(role=="backoffice"){
+            var url="{% url 'Backoffice:Manage'%}"
+            window.location.href=url+"?&ticket="+ticket
+
+        }else{
+            var url="{% url 'Admin:LeadProcessing'%}"
+            window.location.href=url+"?&ticket="+ticket
+        }
+        
     })
     $('#datatableleadsR tbody').on('click', 'tr', function (e) {
         var table = $("#datatableleadsR").DataTable();
@@ -338,8 +346,14 @@
         var data = table.row( this ).data();       
         console.log("Ticket----------"+data[8])  
         var ticket=data[8]
+        if(role=="backoffice"){
+            var url="{% url 'Backoffice:Manage'%}"
+            window.location.href=url+"?&ticket="+ticket
+
+        }else{
         var url="{% url 'Admin:LeadProcessing'%}"
         window.location.href=url+"?&ticket="+ticket
+        }
     })
     $('#datatableleadsT tbody').on('click', 'tr', function (e) {
         var table = $("#datatableleadsT").DataTable();
@@ -347,8 +361,14 @@
         var data = table.row( this ).data();       
         console.log("Ticket----------"+data[8])  
         var ticket=data[8]
+        if(role=="backoffice"){
+            var url="{% url 'Backoffice:Manage'%}"
+            window.location.href=url+"?&ticket="+ticket
+
+        }else{
         var url="{% url 'Admin:LeadProcessing'%}"
         window.location.href=url+"?&ticket="+ticket
+        }
     })
     $('#datatableleadsC tbody').on('click', 'tr', function (e) {
         var table = $("#datatableleadsC").DataTable();
@@ -356,8 +376,14 @@
         var data = table.row( this ).data();       
         console.log("Ticket----------"+data[6])  
         var ticket=data[9]
+        if(role=="backoffice"){
+            var url="{% url 'Backoffice:Manage'%}"
+            window.location.href=url+"?&ticket="+ticket
+
+        }else{
         var url="{% url 'Admin:LeadProcessing'%}"
         window.location.href=url+"?&ticket="+ticket
+        }
     })
 })
 

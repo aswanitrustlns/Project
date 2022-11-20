@@ -1,0 +1,43 @@
+0	2022.07.22 15:18:36.072		MetaTrader 4 Manager API build 902 initialized
+0	2022.07.22 15:18:36.325	50.57.14.224:443	Connect
+0	2022.07.22 15:18:36.670	50.57.14.224:443	'601': login (server build 1353)
+0	2022.07.22 15:18:37.033	50.57.14.224:443	'601': disconnect
+0	2022.07.22 15:18:37.033		Remove: manager D184B8
+0	2022.07.22 15:18:42.254		MetaTrader 4 Manager API build 902 initialized
+0	2022.07.22 15:18:42.482	50.57.14.224:443	Connect
+65	2022.07.22 15:19:10.788	50.57.14.224:443	'601': login failed (Invalid account)
+0	2022.07.22 15:19:10.790		Remove: manager A4DF28
+0	2022.07.22 15:31:49.668		MetaTrader 4 Manager API build 902 initialized
+6	2022.07.22 15:31:54.674	601	Connect (No connection)
+0	2022.07.22 15:31:54.674		Remove: manager 11FFFB0
+0	2022.07.22 15:32:38.262		MetaTrader 4 Manager API build 902 initialized
+6	2022.07.22 15:32:43.268	601	Connect (No connection)
+0	2022.07.22 15:32:43.268		Remove: manager EEFAB8
+0	2022.07.22 15:32:53.334		MetaTrader 4 Manager API build 902 initialized
+6	2022.07.22 15:32:58.341	601	Connect (No connection)
+0	2022.07.22 15:32:58.341		Remove: manager 145FCF8
+0	2022.07.22 15:34:37.081		MetaTrader 4 Manager API build 902 initialized
+0	2022.07.22 15:34:37.300	50.57.14.224:443	Connect
+0	2022.07.22 15:34:37.638	50.57.14.224:443	'601': login (server build 1353)
+0	2022.07.22 15:34:38.040	50.57.14.224:443	'601': disconnect
+0	2022.07.22 15:34:38.040		Remove: manager 70CDF8
+0	2022.07.22 15:35:16.424		MetaTrader 4 Manager API build 902 initialized
+0	2022.07.22 15:35:16.666	50.57.14.224:443	Connect
+0	2022.07.22 15:35:16.985	50.57.14.224:443	'601': login (server build 1353)
+0	2022.07.22 15:35:17.317	50.57.14.224:443	'601': disconnect
+0	2022.07.22 15:35:17.317		Remove: manager 12DEC40
+0	2022.07.22 15:48:40.284		MetaTrader 4 Manager API build 902 initialized
+0	2022.07.22 15:48:40.515	50.57.14.224:443	Connect
+0	2022.07.22 15:48:40.832	50.57.14.224:443	'601': login (server build 1353)
+0	2022.07.22 15:48:41.165	50.57.14.224:443	'601': disconnect
+0	2022.07.22 15:48:41.165		Remove: manager F00F60
+0	2022.07.22 15:57:38.380		MetaTrader 4 Manager API build 902 initialized
+0	2022.07.22 15:57:38.612	50.57.14.224:443	Connect
+0	2022.07.22 15:57:38.935	50.57.14.224:443	'601': login (server build 1353)
+0	2022.07.22 15:57:39.268	50.57.14.224:443	'601': disconnect
+0	2022.07.22 15:57:39.268		Remove: manager 1341828
+0	2022.07.22 16:21:51.295		MetaTrader 4 Manager API build 902 initialized
+0	2022.07.22 16:21:51.513	50.57.14.224:443	Connect
+0	2022.07.22 16:21:51.826	50.57.14.224:443	'601': login (server build 1353)
+0	2022.07.22 16:21:52.144	50.57.14.224:443	'601': disconnect
+0	2022.07.22 16:21:52.144		Remove: manager 1060650

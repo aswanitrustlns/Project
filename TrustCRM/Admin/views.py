@@ -139,6 +139,8 @@ def dashboard(request):
         if viewunassigned:
             unassign="True"
             request.session['unassign']="True"
+        else:
+           request.session['unassign']="False" 
         print("backoffice===========",backoffice)
         print("Manager======================================",manager)
         print("Sales Rep===================================",salesRep)
@@ -173,7 +175,7 @@ def dashboard(request):
         print("Admin value============================",adminrole)
         if manager:
                           
-            
+             request.session['role']="manager"
              print("Role============================manager")
             #  dashbord_data=sales_dash.admin_dashboard(UserId)  
              dashbord_data=sales_dash.manager_dashboard(UserId)    
@@ -182,11 +184,12 @@ def dashboard(request):
              return render(request,'sales/managerdashboard.html',dashbord_data)
         if salesRep:
             
-             
+            request.session['role']="salesrep" 
             dashbord_data=sales_dash.sales_dashboard(UserId)     
             print("sales dashboard procedure end",datetime.now().time()) 
             return render(request,'sales/dashboard.html',dashbord_data)
         if backoffice:
+            request.session['role']="backoffice"
             dashbord_data=sales_dash.backoffice_dashboard(UserId)    
             
             #  return render(request,'sales/dashboard.html',dashbord_data)
@@ -549,6 +552,8 @@ def resolved_tckts_load_all(request):
 def new_accounts(request):
     active="Live"
     if 'UserId' in request.session:
+        role=request.session.get("role")
+        print("Role=======",role)
         change=request.GET.get("change")
         from_date=request.GET.get("from")
         to_date=request.GET.get("to")
@@ -583,7 +588,7 @@ def new_accounts(request):
             accounts_count=selector.get_new_accounts_count(date_yesterday,date_today)
             
             # terminated_data=selector.get_new_accounts("Terminated")
-            return render(request,'admin/newAccounts.html',{'accounts_data':accounts_data,'accounts_count':accounts_count,"active":json.dumps(active)})
+            return render(request,'admin/newAccounts.html',{'accounts_data':accounts_data,'accounts_count':accounts_count,"active":json.dumps(active),'role':json.dumps(role)})
             # return render(request,'sales/allclients.html',{'accounts_data':accounts_data,'accounts_count':accounts_count,"active":json.dumps(active)})
                 
     else:
