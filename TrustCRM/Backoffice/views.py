@@ -24,7 +24,6 @@ def change_password(request):
 def generate_passwords(request):
     if 'UserId' in request.session:
        master_pwd,investor_pwd,phone_pwd=selector.generatepassword()
-       print("Passwords================================",master_pwd,investor_pwd,phone_pwd) 
        return JsonResponse({"master":master_pwd,"investor":investor_pwd,"phone":phone_pwd})
     else:
         return redirect('/login')
@@ -42,7 +41,6 @@ def manage_account(request):
         leverage=selector.loadLeverage()
         accountType=selector.loadAccountType()
         risk=selector.loadRiskCategory()
-     
         return render(request,'backoffice/backofficemanagement.html',{"nations":nationality,'country_list':country,'leverage':leverage,'account':accountType,'risks':risk}) 
     else:
         return redirect('/login')
@@ -54,7 +52,6 @@ def load_account_details(request):
         user=request.session.get('user')
         server=request.session.get('server')
         password=request.session.get('password')
-       
         details,otherdetails,ip=selector.loadAccountDetails(user,server,password,acc_no)
         ebalance=selector.loadEwalletBalance(acc_no)
         return JsonResponse({"detail":details,"other":otherdetails,"ip":ip,"ebalance":ebalance}) 
@@ -64,9 +61,7 @@ def load_account_details(request):
 def load_bankaccount_details(request):
     if 'UserId' in request.session:
         acc_no=request.GET.get('account')
-        print("Account number=======",acc_no)
         details=selector.get_bank_details(acc_no)
-        print("Details========",details)
         return JsonResponse({"details":details}) 
     else:
         return redirect('/login')
@@ -82,13 +77,9 @@ def check_duplicate(request):
 def backoffice_update(request):
     if 'UserId' in request.session:
         msg=""
-        print("Back office update====")
         acc_no=request.POST.get('formacc')
-
         leverage=int(request.POST.get("Leverage"))
-        
         category=selector.duplicate_account(acc_no)
-        print("category=======",category)
         if(category=="RC" and leverage>30):
             msg="Retail clients cannot have leverage greater than 30"
         else:
@@ -110,7 +101,6 @@ def load_card_data(request):
         details=""
         name=""
         accno=request.GET.get('account')
-        print("Account number=====",accno)
         details=selector.load_credit_card_details(accno)
         userdetails=selector.get_user_details(accno)
         if userdetails:
@@ -126,7 +116,6 @@ def load_crypto_data(request):
         accno=request.GET.get('account')
         details=""
         name=""
-        print("Account number=====",accno)
         details=selector.load_crypto_card_details(accno)
         userdetails=selector.get_user_details(accno)
         if userdetails:
@@ -145,7 +134,6 @@ def approve_card(request):
         accno=request.GET.get('accno')
         card=request.GET.get('card')
         cardtype=request.GET.get('type')
-        print("Account number=====",accno,id,card,status,cardtype)
         details=selector.verify_redit_card_details(id,accno,status,userid)
         userdetails=selector.get_user_details(accno)
         if userdetails:
@@ -154,25 +142,19 @@ def approve_card(request):
             name=userdetails[1]
             email=userdetails[0]
             emailservice.SendCardApprovalmail(title,name,email,card,cardtype,status)
-        print("User details=========",userdetails)
-        
         return JsonResponse({"details":details}) 
     else:
         return redirect('/login')
 #Approve Bank
 def approve_bank(request):
     if 'UserId' in request.session:
-        print("Approve bank is here")
         details=""
         status=request.GET.get('status')
         id=request.GET.get('id')
         userid=request.session.get('UserId')
         accno=request.GET.get('accno')
         card=request.GET.get('card')
-        
-        print("Account number=====",accno,card,status,id)
         details=selector.verify_bank_details(id,accno,status,userid)
-        print("Detils-========",details)
         return JsonResponse({"details":details}) 
     else:
         return redirect('/login')
@@ -184,7 +166,6 @@ def save_card(request):
         count=selector.get_credit_card_count(accno)
         if count:
             count=count[0]
-            print("Count==========",count)
             if(count>5):
                 message="Cannot upload more than five Credit Cards"
             else:
@@ -197,8 +178,6 @@ def save_card(request):
 def save_bank_account(request):
     if 'UserId' in request.session:
         message=""
-        
-        print("Save bank account=======")
         message=service.save_bank_account(request)
         return JsonResponse({"message":message}) 
     else:
@@ -207,8 +186,6 @@ def save_bank_account(request):
 def save_crypto_account(request):
     if 'UserId' in request.session:
         message=""
-        
-        print("Save crypto account=======")
         message=service.save_crypto_card(request)
         return JsonResponse({"message":message}) 
     else:
@@ -220,7 +197,6 @@ def load_card_front(request):
         id=request.GET.get('orderno')
         accno=request.GET.get('accno')
         side=request.GET.get('side')
-        print("view card front",id,accno,side)
         image_path=selector.get_card_front(id,accno,side)
         return JsonResponse({"imagepath":image_path}) 
     else:

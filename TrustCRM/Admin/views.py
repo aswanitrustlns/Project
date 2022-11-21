@@ -49,14 +49,14 @@ def login(request):
 def login_check(request):
     global voice
     global adminrole
-    print("login-start",datetime.now().time())
+    
     model=apps.get_model('CRF','TblUser')
     msg="Username and Password do not match"
     if request.method == 'POST':
         username=request.POST.get('username')
         password=request.POST.get('password')
         server_name=request.POST.get('servername')
-        print("login=====",username,server_name,password)
+        
     try:  
         userInfo=model.objects.using('crf').filter(username=username).first()
         # crfUserId=userInfo.userid
@@ -67,14 +67,14 @@ def login_check(request):
       
         
         UserId=selector.get_loged_user_info(username)  
-        print("User Id==================",UserId,type(UserId))
+        
         request.session['UserId'] = UserId
         if UserId==21:
-            print("Admin login===================================")
+            
             adminrole="admin" 
             request.session['role']="manager"
         if UserId==28:
-            print("Admin login===================================")
+            
             adminrole="backoffice" 
             request.session['role']="backoffice"
         # if UserId==56:
@@ -92,7 +92,7 @@ def login_check(request):
         msg="User not Found"
         request.session["message"]=msg        
    
-    print(connect)
+    
     if(connect==0): 
             request.session['user']=username
             request.session['server']=server_name
@@ -141,10 +141,7 @@ def dashboard(request):
             request.session['unassign']="True"
         else:
            request.session['unassign']="False" 
-        print("backoffice===========",backoffice)
-        print("Manager======================================",manager)
-        print("Sales Rep===================================",salesRep)
-        print("Complaints=====",complaints)
+        
         dashbord_data={}
         UserName,Email=selector.get_user_name(UserId)
         notification_count,notification=selector.get_notification_data(UserId)       
@@ -157,7 +154,7 @@ def dashboard(request):
         global voice       
         if voice=="True":
             mytext = 'Hi '+UserName+' Welcome to Trust Capital CRM'         
-            print("My speech text=====",mytext)
+            
             language = 'en'
             myobj = gTTS(text=mytext, lang=language, slow=False)
             myobj.save("static\\audio\\welcome.mp3")
@@ -172,21 +169,21 @@ def dashboard(request):
             # dashbord_data=sales_dash.sales_dashboard(UserId)     
             # print("sales dashboard procedure end",datetime.now().time()) 
             # return render(request,'sales/dashboard.html',dashbord_data)
-        print("Admin value============================",adminrole)
+        
         if manager:
                           
              request.session['role']="manager"
-             print("Role============================manager")
+             
             #  dashbord_data=sales_dash.admin_dashboard(UserId)  
              dashbord_data=sales_dash.manager_dashboard(UserId)    
-             print("dashboard procedure ",datetime.now().time()) 
+             
             #  return render(request,'sales/dashboard.html',dashbord_data)
              return render(request,'sales/managerdashboard.html',dashbord_data)
         if salesRep:
             
             request.session['role']="salesrep" 
             dashbord_data=sales_dash.sales_dashboard(UserId)     
-            print("sales dashboard procedure end",datetime.now().time()) 
+            
             return render(request,'sales/dashboard.html',dashbord_data)
         if backoffice:
             request.session['role']="backoffice"
@@ -207,12 +204,9 @@ def dashboard(request):
 def lead(request):
     if 'UserId' in request.session:
         UserId=request.session.get('UserId')
-        print(UserId)
+        
         from_date=request.GET.get('from')
         to_date=request.GET.get('to')
-        print("From date-----------------",from_date)
-        print("To date------------------",to_date)
-             
         lead="lead"
         leads_data,leads_count=selector.get_leads(lead,from_date,to_date)
         # print("Leads data---------------------",leads_data)
@@ -225,12 +219,7 @@ def lead_load_all(request):
     lead="all"
     from_date=request.GET.get('from')
     to_date=request.GET.get('to')
-    print("From date-----------------",from_date)
-    print("To date------------------",to_date)
     load_data,leads_count=selector.get_leads(lead,from_date,to_date)   
-    # paginator = Paginator(load_data, 10)
-    print("Load all data-------")
-    print("load data-------------------------",len(load_data))
     return JsonResponse(load_data, safe=False)
 
 def lead_load_click(request): 
@@ -239,12 +228,7 @@ def lead_load_click(request):
     count=request.GET.get('count')
     if count:
         count=int(count)
-    print("status===========================",status)
-    print("Count++++++++++++++",count)  
-    leads_data=selector.get_leads_clicks(status,count)   
-    # paginator = Paginator(load_data, 10)
-    print("Load all data-------")
-    print("load data-------------------------",len(leads_data))
+    leads_data=selector.get_leads_clicks(status,count)  
     return JsonResponse(leads_data, safe=False)
    
 
@@ -257,36 +241,30 @@ def lead_load_click(request):
 #          return redirect('/login')
 
 def lead_duplicate_check(request):
-    print("Duplicate check-----------------------")
+    
     phone=request.GET.get('phone')
     email=request.GET.get('email')
-    print("Duplicate check-----------------------",phone,email)
     duplicate=selector.check_duplicate(phone,email)
-    print("duplicate dataaaaaaaaaaaaa",duplicate)
     if duplicate:
         return JsonResponse({"success":True,"duplicate":duplicate})
     else:
         return JsonResponse({"success":False})
 
 def view_merge(request):
-    print("Request---------------------------")
+    
     demoid=request.GET.get('demoid')
     ticket=request.GET.get('ticket')
     email1=request.GET.get('email1')
     email2=request.GET.get('email2')
     mobile=request.GET.get('mobile')
     telephone=request.GET.get('telephone') 
-    print("Request---------------------------",demoid,ticket,email1,email2,mobile,telephone)
     selector.merge_ticket(ticket,email1,email2,mobile,telephone) 
     selector.close_lead(demoid,ticket)
     return JsonResponse({'success':True})
 
 def create_ticket(request):
-    print("create ticket")
     demoid=request.GET.get('id')
-    print("demo iddd-----",demoid)
     email,phone=service.create_ticket_service(request)
-    print("Ticket data---------------------------------")
     return JsonResponse({"success":True,"email":email,"phone":phone})    
 
 def lead_registration(request):
@@ -318,33 +296,22 @@ def lead_registration_check(request):
             ticket=ticket[0]
             hash_check=ticket.find("#")
             ticket=ticket.replace('#','')
-            print(hash_check)
             if hash_check>=0:    
                 selector.merge_ticket(ticket,email1,email2,mobile,telephone)                
                 
             login=0   
             user_permission=selector.user_permission_check(UserId,ticket,login)
-            print("User Permissio-------",user_permission)
             user_permission=user_permission[0]                  
-                    
-                
-            print("User Permissio-------",user_permission)
             if user_permission:
-                print("No permission")
                 return JsonResponse({'success':True,'ticket':ticket})
             else:
-                print("permission")
                 return JsonResponse({'success':False,'ticket':ticket})
         except:
             print("Error")
-    
-                
-            
     else:
-            
              return render(request,'admin/LeadProcessing.html')
             
-        # print(merge_ticket)
+       
         
 def lead_processing(request):
 
@@ -383,7 +350,7 @@ def lead_processing(request):
             if phone=="":
                 phone=None                                                                                                            
             if email1 or email2 or mobile or phone:
-                print("email1",email1,"email2",email2,"mobile",mobile,"phone",phone)
+                
                 Cursor.execute("set nocount on;exec SP_SearchPhoneEmail_PY %s,%s,%s,%s,%s",[mobile,phone,email1,email2,UserId]) # To test exec SP_SearchPhone '4588',21
                 search_email_phone=Cursor.fetchone() 
                 if search_email_phone:
@@ -393,7 +360,7 @@ def lead_processing(request):
                     if search_email_phone1:
                         search_email_phone =search_email_phone1  
                                         
-                    print("next data set1datas----------------",search_email_phone)
+                    
                 # Cursor.nextset()
                 # search_email_phone2 = Cursor.fetchone() 
                 # print("next data set2----------------",search_email_phone1)
@@ -414,11 +381,9 @@ def lead_processing(request):
                 #     print("next data set3----------------",search_email_phone3)
                 # if search_email_phone3:
                 #     search_email_phone=search_email_phone3
-                print("dataaaaaaaaaaaaaa",search_email_phone)
+                
                 if(search_email_phone != None):
-                    print("Check it is none")
                     get_ticket=search_email_phone[0]
-                    print("Get ticket--------------------",get_ticket)
                     ticket=get_ticket
             
             # lead_details,country=selector.get_lead_details(ticket,UserId)
@@ -444,9 +409,7 @@ def lead_processing(request):
             accountno=selector.get_account_no(ticket)
             seminar_list=selector.get_upcoming_seminar()
             webinars=selector.get_seminar_list(ticket)
-            print("Webinar===============================",webinars)
             webinarList=selector.get_webinar_attended(ticket)
-            print("Webinar List=========================",webinarList)
         except Exception as e:
             print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!Exception!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!",e.__class__)
     
@@ -473,7 +436,6 @@ def pending_tickets(request):
     if 'UserId' in request.session:
         UserId=request.session.get('UserId')
         dashboard=request.GET.get('spoken')
-        print("User idddddddddddddd",dashboard)
         if (dashboard=="spoken"):
              pending_tickets=selector.get_tickets(UserId,"spoken")
         else:
@@ -490,10 +452,7 @@ def pending_tickets_from_summary(request):
         UserId=request.session.get('UserId')
         summary=request.GET.get('summary')
         status=request.GET.get('status')
-        print("User idddddddddddddd",UserId,summary,status)
-        
         pending_tickets=selector.get_tickets_summary(UserId,summary,status)
-        
         return render(request,'sales/pendingtickets.html',{'pending_tickets':pending_tickets,'status':json.dumps(status)})
     else:
          return redirect('/login')
@@ -504,12 +463,7 @@ def pending_tckts_load_all(request):
         from_date=request.GET.get('from')
         to_date=request.GET.get('to')
         status=request.GET.get('status')
-        print("From date-----------------",from_date)
-        print("To date------------------",to_date)
-        print("Status=============================",status)
         pending_tickets=selector.get_all_tickets(UserId,status,from_date,to_date)
-        # paginator = Paginator(load_data, 10)
-        print("load data-------------------------",len(pending_tickets))
         return JsonResponse(list(pending_tickets), safe=False)
     else:
          return redirect('/login') 
@@ -517,10 +471,7 @@ def pending_tckts_load_all(request):
 def resolved_tickets(request):
     if 'UserId' in request.session:
         UserId=request.session.get('UserId')
-        print(UserId)
-        
         resolved_tickets=selector.get_tickets(UserId,"resolved")
-        
         return render(request,'sales/resolvedtickets.html',{'resolved_tickets':resolved_tickets})
     else:
          return redirect('/login') 
@@ -528,9 +479,8 @@ def resolved_tickets(request):
 def dormant_ticket(request):
     if 'UserId' in request.session:
         UserId=request.session.get('UserId')
-        print("USer iddddddddddddddddddddd",UserId)
-        salesrepId=30
-        dormant_tickets=selector.get_tickets(salesrepId,"dormant")        
+        # salesrepId=30
+        dormant_tickets=selector.get_tickets(UserId,"dormant")        
         return render(request,'sales/dormanttickets.html',{'dormant_tickets':dormant_tickets})
     else:
          return redirect('/login') 
@@ -543,8 +493,6 @@ def resolved_tckts_load_all(request):
         from_date=request.GET.get('from')
         to_date=request.GET.get('to')
         resolved_tickets=selector.get_all_tickets(UserId,"resolved",from_date,to_date)
-        # paginator = Paginator(load_data, 10)
-        print("load data-------------------------",len(resolved_tickets))
         return JsonResponse(list(resolved_tickets), safe=False)
     else:
         return redirect('/login')
@@ -553,13 +501,11 @@ def new_accounts(request):
     active="Live"
     if 'UserId' in request.session:
         role=request.session.get("role")
-        print("Role=======",role)
+        
         change=request.GET.get("change")
         from_date=request.GET.get("from")
         to_date=request.GET.get("to")
         status=request.GET.get("status")
-        print("From date====",from_date)
-        print("To_date====",to_date)
         date_today=datetime.today().date()    
         date_today=date_today.strftime("%Y-%m-%d")
         week_day=datetime.today().weekday() # Monday is 0 and Sunday is 6
@@ -574,7 +520,7 @@ def new_accounts(request):
         if to_date=="":
             to_date=date_today
         
-        print("Status----------------------",status)
+        
         if(change):
             accounts_data=selector.get_new_accounts(change,status,from_date,to_date)
             accounts_count=selector.get_new_accounts_count(from_date,to_date)
@@ -610,14 +556,9 @@ def new_accounts_variants(request):
         
         if (change =="TempApproved" or change=="WaitingApproval"):
             active="pending"
-        print("Status----------------------",change)
         
         accounts_data=selector.get_new_accounts_click(change,date_yesterday,date_today)#get_new_accounts_filter
         accounts_count=selector.get_new_accounts_count(date_yesterday,date_today)   
-        # accounts_count=selector.get_new_accounts_count_variants(date_yesterday,date_today,change)
-        print("Accounts count-----------",accounts_count)
-        print("Data=====",len(accounts_data))
-            # terminated_data=selector.get_new_accounts("Terminated")
         return render(request,'admin/newAccounts.html',{'accounts_data':accounts_data,'accounts_count':accounts_count,"active":json.dumps(active)})
                 
     else:
@@ -637,16 +578,10 @@ def new_accounts_variants_weekly(request):
                 date_yesterday = datetime.today()-timedelta(week_day)
 
         date_yesterday=date_yesterday.strftime("%Y-%m-%d")
-        print("Date yesterday==========",date_yesterday)
         if (change =="TempApproved" or change=="WaitingApproval"):
             active="pending"
-        print("Status----------------------",change)
-        
         accounts_data=selector.get_new_accounts_weekly_filter(change,date_yesterday,date_today)
         accounts_count=selector.get_new_accounts_count(date_yesterday,date_today)   
-        
-        print("Accounts count-----------",accounts_count)
-            
         return render(request,'admin/newAccounts.html',{'accounts_data':accounts_data,'accounts_count':accounts_count,"active":json.dumps(active)})
                 
     else:
@@ -661,7 +596,6 @@ def new_accounts_click(request):
             active="pending"
         fromdate=request.GET.get('fromdate')
         todate=request.GET.get("todate")
-        print("Cliked inputs=========================",fromdate,todate,status)
         date_today=datetime.today().date()    
         date_today=date_today.strftime("%Y-%m-%d")
         week_day=datetime.today().weekday() # Monday is 0 and Sunday is 6
@@ -703,7 +637,6 @@ def sendRemiderMail(request):
 
 def sendCancelMail(request):
     if 'UserId' in request.session:
-        print("Cancel meetingg-----")
         UserId=request.session.get('UserId') 
         ticket=request.GET.get('ticket')
         selector.cancel_meeting_mail(UserId,ticket)
@@ -713,12 +646,9 @@ def sendCancelMail(request):
 
 def meetingScore(request):
     if 'UserId' in request.session:
-        print("Meeting Score")
-        
         ticket=request.GET.get('ticket')   
         ticket=ticket.strip()     
         meeting_score=selector.get_meeting_score(ticket)
-        print("Meeting score-----",meeting_score)
         return JsonResponse({'score':meeting_score})
 
     else:
@@ -729,14 +659,10 @@ def manage_meeting(request):
     if 'UserId' in request.session:
         ticket=request.GET.get('ticket')
         ticket=ticket.strip()
-        print("Ticket--------------------------",ticket)
-       
-        # all_meetings=selector.get_all_meeting(ticket)
         all_meetings=selector.get_last_meeting(ticket)
         
         if all_meetings:
             all_meeting=all_meetings[0]
-            print("All Meeting",all_meeting)
             assess_data=[
                 all_meeting[7],
                 all_meeting[8],
@@ -745,8 +671,6 @@ def manage_meeting(request):
                 all_meeting[11],
                 all_meeting[12],
             ]
-            print("Assess Data",assess_data)
-        print("All meeting----------------",len(all_meetings))
         return render(request,'sales/meeting.html',{'meetings':all_meetings,'assess':assess_data})
     else:
         return redirect('/login')
@@ -776,26 +700,23 @@ def send_meeting_request(request):
         message=service.send_meeting_request(request)
         if message:
             message=message[0]   
-        print("Flag--------------------",type(flag))     
+         
         if(flag == 0 or flag == 1):
             subject="Trust Capital – Meeting Confirmation"
             
         if(flag == 2):
-            print("Meeting cancelled")
+            
             subject = "Trust Capital – Meeting Cancelled"
             template="MeetingCancelled.html"
             
             selector.mailSend(ticket,subject,bcc,cc,template,sendername)
-        print("Subject--------------------------------------",subject)
+        
         if(message == 'PROCEED'):
-            print("Proceed---")          
-            
-            #bcc="aswani.trustlns@gmail.com"
             
             template="MeetingConfirmation.html"
             
             selector.mailSend(ticket,subject,bcc,cc,template,sendername)
-            print("Proceed------",message)
+            
         return JsonResponse({"message":message})
     else:
         return redirect('/login')
@@ -826,14 +747,14 @@ def update_feedback(request):
         
         ticket=request.GET.get('ticket')
         message=service.meeting_feedback_update(request)
-        print("Message-------------------",message)
         return JsonResponse({"message":message})
     else:
         return redirect('/login')
 
+
 def update_meetingassessment(request):
     if 'UserId' in request.session:
-        print("Meeting assessment update view")
+        
         service.update_meeting_assessment(request)
         message="Meeting assessment updated successfully"
         return JsonResponse({"message":message})
@@ -850,20 +771,16 @@ def saveMeeting(request):
         if(meeting_score != None):
             meeting_score=sum(meeting_score)
             meeting_score=(meeting_score/320)*100
-        print("Meeting score======",meeting_score)
+        
         return JsonResponse({"score":score,"meetingscore":meeting_score})
     else:
         return redirect('/login')
 
 def liveChatLogs(request):
     if 'UserId' in request.session:
-        
-        
         ticket=request.GET.get('ticket')
         ticket=ticket.strip()
-        print("Ticket--------------------",ticket)        
         chat_logs=selector.get_livechat_logs(ticket)
-        print("Chat logs count-------------------",len(chat_logs))
         return JsonResponse({'logs':chat_logs})
     else:
         return redirect('/login')
@@ -871,7 +788,6 @@ def liveChatLogs(request):
 def emailInbox(request):
     if 'UserId' in request.session:     
         inbox=[]   
-        
         page=request.GET.get('page')
         count=request.GET.get('start')
         count_end=request.GET.get('end')
@@ -880,7 +796,6 @@ def emailInbox(request):
         if(count_end):
             count_end=int(count_end)
         inbox_count,inbox_data=selector.get_mail_inbox()
-        print("Inbox count==============================",inbox_count)
         if(page is None):                    
             
             inbox=inbox_data[0:20]
@@ -925,10 +840,10 @@ def viewLoadFunctions(request): # 455325 to test meeting score
         UserId=request.session.get('UserId')
         activity_log=selector.get_activities_log(ticket)
         lead_details=selector.get_lead_details(ticket,UserId)
-        print("Lead details-------",type(lead_details[0]))
-        if lead_details[0]!=0:
-            cid=lead_details[10]
-            code=selector.get_code_country(cid)
+        if lead_details:
+            if lead_details[0]!=0:
+                cid=lead_details[10]
+                code=selector.get_code_country(cid)
         country_list=selector.get_all_country()    
         leadscore=selector.get_lead_score(ticket)
         last_comment=selector.get_last_comment(ticket,UserId)
@@ -938,20 +853,14 @@ def viewLoadFunctions(request): # 455325 to test meeting score
         # webinarList=selector.get_seminar_list(ticket)
         webinarList=selector.get_webinar_attended(ticket)
         reminders=selector.load_ticket_reminders(UserId,ticket)
-        print("Rminders=====================================",reminders)
         # email=request.session.get("Email")
         # send_items=selector.template_send_items_list(email)
-        print("Last comment--------",last_comment)
+        
         meetingscore=selector.get_meeting_score(ticket)
-      
-        print("Meetin score=============================",meetingscore)
         if(meetingscore != None):
             meetingscore=sum(meetingscore)
             meetingscore=(meetingscore/320)*100
-            
-        print("Meeting score----",meetingscore)
-        print("Sticky text========",sticky_text)
-        print("End---------------------")
+       
         return JsonResponse({'leads':lead_details,'activities':activity_log,'country_list':country_list,'ticket_summary':ticket_summary,'leadscore':leadscore,'meetingscore':meetingscore,'lastcomment':last_comment,'stickytext':sticky_text,'accountno':accountno,'webinarList':webinarList,'code':code,'reminders':reminders})
     else:
         return JsonResponse({"message":"Your session expired! Please login to continue"})
@@ -1010,7 +919,6 @@ def account_status(request):
         
         accountNo=request.POST.get('formaccountno')
         ticket=request.POST.get('formticket')
-        print("Account number=============================",accountNo)
         msg=selector.account_status_check_update(accountNo,ticket,request)
         return JsonResponse({"msg":msg})
     else:
@@ -1020,7 +928,6 @@ def account_status(request):
 def ticket_status(request):
     if 'UserId' in request.session:
         ticket=request.POST.get('formticket')
-        print("Ticket-------",ticket)
         msg="Ticket updated Successfully"
         selector.ticket_validity_check_update(ticket,request)
         return JsonResponse({"msg":msg})
@@ -1039,7 +946,6 @@ def send_email_templates(request):
         lang=request.GET.get('lan')
         sub=request.GET.get('sub')
         ticket=request.GET.get('ticket')
-        print("Template selectio=====")
         selector.email_template_selection(lang,sub,fromaddr,to,title,name,userid,ticket)
         return JsonResponse({"success":"Email Send"})
     else:
@@ -1062,7 +968,7 @@ def email_send(request):
 
 def save_reminder_details(request):
     if 'UserId' in request.session:
-        print("Save reminder view=========")
+        
         userid=request.session.get('UserId')
         mail=request.session.get('Email')
         date=request.POST.get('date')
@@ -1072,11 +978,6 @@ def save_reminder_details(request):
         login=request.POST.get('login')
         color=request.POST.get('color')
         flag=int(request.POST.get('flag'))
-        # if(subject==None):
-        #     subject=" "
-        print("Flag=====================================",type(flag))
-        print("User id=====================================",type(userid))
-        print("EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE",type(date),type(time),type(color),type(login))
         selector.save_reminder(userid,ticket,subject,date,time,login,color,mail,flag)
         reminders=selector.load_ticket_reminders(userid,ticket)
         return JsonResponse({"success":True,"reminders":reminders})
@@ -1089,7 +990,6 @@ def ticket_logs_insertion(request):
         ticket=request.GET.get('ticket')
         logdata=request.GET.get('logdata')
         logtype=request.GET.get('logtype')
-        print("Chat test============",userid,ticket,logdata,logtype)
         selector.insert_ticket_logs(userid,logdata,logtype,ticket)
         return JsonResponse({"success":True})
     else:
@@ -1097,7 +997,6 @@ def ticket_logs_insertion(request):
 
 def update_sticky_notes(request):
     if 'UserId' in request.session:
-        print("Sticky update======================")
         userid=request.session.get('UserId')
         notes=request.GET.get('note')
         update=selector.save_Sticky_text(notes,userid)
@@ -1110,7 +1009,6 @@ def resolve_tickets(request):
         userid=request.session.get('UserId')
         ticket=request.GET.get('ticket')
         reason=request.GET.get('reason')
-        print("Reason======================",reason)
         msg=selector.resolve_ticket(ticket,userid,reason)
         
         return JsonResponse({"message":msg})
@@ -1120,11 +1018,8 @@ def resolve_tickets(request):
 def upcomingSeminars(request):  
     if 'UserId' in request.session:        
         ticket=request.GET.get('ticket') 
-        print("Upcoming seminar ticket======",ticket)
         seminar_list=selector.get_upcoming_seminar()
         webinars=selector.get_seminar_list(ticket)
-        print("Seminar List======================",seminar_list)
-        print("Seminar List======================",webinars)
         return JsonResponse({"seminars":seminar_list,"webinars":webinars})
     else:
         return redirect('/login')  
@@ -1151,7 +1046,6 @@ def updateseminar(request):
         status=request.GET.get('status')
         seminar=request.GET.get('seminar')       
         ticket=request.GET.get('ticket')
-        print("Status---------------------",ticket,status,seminar,userid)
         selector.update_seminar_status(ticket,status,seminar,userid)
         return JsonResponse({"msg":"Updated successfully"})
     else:
@@ -1176,7 +1070,6 @@ def open_demoaccount(request):
         email=request.GET.get('email')
         phone=request.GET.get('phone')
         country=int(request.GET.get('country'))
-        print("All open demo data====",title,name,email,phone,country)
         selector.open_demo_account(user,server,password,title,name,email,phone,country)
         return JsonResponse({"msg":"Demo account opened"})
     else:
@@ -1185,7 +1078,6 @@ def open_demoaccount(request):
 def send_items_list(request):
     if 'UserId' in request.session: 
         email=request.GET.get("mail")
-        print("Leads mail Id===============",email)
         count,itemsList=selector.template_send_items_list(email)
       
         return JsonResponse({"count":count,"send":itemsList})
@@ -1198,7 +1090,6 @@ def email_data(request):
 def read_send_items(request):
 
     if 'UserId' in request.session: 
-        print("Read send items=============")
         email=request.GET.get("mail")
         msg_id=request.GET.get('message')
         message_data,subject,sender,multipart=selector.read_mail_senditems(email,msg_id)
@@ -1220,9 +1111,7 @@ def get_sales_report_date(request):
         repId=request.GET.get('repId')
         from_date=request.GET.get('from_date')
         to_date=request.GET.get('to_date')
-        print("From date=======================",from_date,to_date,repId)
         salesreport,interested=selector.get_sales_call_report(from_date,to_date,repId)
-        print("Report=====",salesreport)
         return JsonResponse({"report":salesreport,"interested":interested})
     else:
         return redirect('/login')
@@ -1245,14 +1134,13 @@ def print_sales_call_report(request):
         repId=request.GET.get('SalesRep')
         from_date=request.GET.get('from')
         to_date=request.GET.get('to')
-        print("From date=======================",from_date,to_date,repId)
         salesreport,interested=selector.get_sales_call_report(from_date,to_date,repId)
         if salesreport:
             total_row=salesreport[-1]
             spoken=total_row[1]
             total=total_row[6]
             spokenper=round((spoken/total)*100,2)
-        print("Last from th tuple====",total_row,spoken,total,spokenper)
+        
         return render(request,'sales/SalesreportPrint.html',{"reports":salesreport,"interested":interested,"repname":repId,"from":from_date,"to":to_date,"spoken":spokenper})
     else:
         return redirect('/login')
@@ -1283,9 +1171,9 @@ def show_events(request):
 def ticket_summary(request):
     if 'UserId' in request.session:
         userid=request.session.get('UserId')
-        pending=selector.load_ticket_summary_pending(userid)
+        # pending=selector.load_ticket_summary_pending(userid)
 
-        return render(request,'sales/ticketsummary.html',{"pendings":pending})  
+        return render(request,'sales/ticketsummary.html')  
     else:
         return redirect('/login')
 
@@ -1318,7 +1206,6 @@ def complaint_update(request):
         complaint_id=request.GET.get('id')
         status=request.GET.get('status')
         desc=request.GET.get('desc')
-        print("details===",complaint_id,status,desc,userid)
         message=selector.edit_complaint_details(complaint_id,status,desc,userid)
         return JsonResponse({"message":message})
     else:
@@ -1330,7 +1217,6 @@ def mailto_complaint_client(request):
         name=request.GET.get('name')
         client_email=request.GET.get('email')
         description=request.GET.get('description')
-        print("Details=====",client_email,description)
         message=emailservice.complaint_client(complaint_id,name,client_email,description)
         return JsonResponse({"message":message})
     else:

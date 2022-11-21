@@ -1,5 +1,5 @@
 from django.shortcuts import redirect, render
-from .models import TblCasetypes,TblUser,TblPriority,TblCases,TblCasedetails,TblDocuments,TblCasesummary
+from .models import TblCasetypes,TblUser,TblPriority,TblCases,TblCasedetails,TblDocuments,TblCasesummary,TblCompany
 from django.http import HttpResponse, JsonResponse
 from datetime import datetime,timedelta,date
 from django.utils import timezone
@@ -25,7 +25,6 @@ def case_datefilter(request):
     if 'UserId' in request.session:
         fromdate=request.GET.get('from')
         todate=request.GET.get('to')
-        print("From date To date=====",fromdate,todate)
         if(fromdate=="" and todate==""):
             cases=TblCases.objects.all().using('crf')
         else:
@@ -38,16 +37,12 @@ def case_datefilter(request):
 def detailed_page(request):
     if 'UserId' in request.session:
         case=request.GET.get('Case')
-        print("Case details===="+case)
         casedetails=TblCasedetails.objects.using('crf').filter(caseid=case)
         docdetails=TblDocuments.objects.using('crf').filter(caseid=case)
         activities=[]
         for details in casedetails:
-            print("Case detail Id====",details.casedetailid)
             activity=TblCasesummary.objects.using('crf').filter(casedetailid=details.casedetailid)
-            print("Activity======",activity)
             activities.append(activity)
-        print("Activities====",activities)
         return render(request,'crf/details.html',{"details":casedetails,"docs":docdetails,"activities":activities})
     else:
         return redirect('/login')
@@ -68,29 +63,24 @@ def save_case(request):
         description=request.POST.get('textdescription')
         assign=request.POST.get('assign')
         docfile=request.FILES.get("docfile",None)
-        print("Assign====",assign)
         status="Pending"
         if(assign=="manager"):
             assignedto=11
             status="Management Approval Pending"
-       
+        created=TblUser()
+        created.userid=UserId
             
         assigned=TblUser()
         assigned.userid=assignedto
-        companyid=5
+        company=TblCompany()
+        company.id=5
         comments=""
         nums=random.randrange(1, 10**3)
         casecode="TRSVG"+str(UserId)+"_"+str(nums)
-        print("Case code=====",casecode)
-        
         regdate = datetime.now()
-        
-        print("Assigned To====",assignedto)
-        registercase=TblCases(casecode=casecode,topic=topic,description=description,priority=priority,userid=UserId,regdate=regdate,modified=regdate,assigneddpt=1,casetype=casetype,assignedto=assigned,companyid=companyid,status=status,comments=comments)
+        registercase=TblCases(casecode=casecode,topic=topic,description=description,priority=priority,userid=created,regdate=regdate,modified=regdate,assigneddpt=1,casetype=casetype,assignedto=assigned,companyid=company,status=status,comments=comments)
         registercase.save(using='crf')
-
         registerid=TblCases.objects.using('crf').latest('caseid')
-        print("registerid====",registerid.caseid)
         caseid=registerid.caseid
         completed=0
         registerdetail=TblCasedetails(caseid=caseid,topic=topic,description=description,regdate=regdate,modified=regdate,iscompleted=completed,completiondate=None,expcompletion=None,status=status,userid=assigned,priority=priority,casetype=casetype)
@@ -148,8 +138,6 @@ def save_case(request):
                 contenttype = "application/pdf"
             if(extension1==".PDF"):
                 contenttype = "application/pdf"
-            
-            print("Type odf imagedata===",type(imagedata))
             docs=TblDocuments(caseid=caseid,casedetailid=detailid,casesummaryid=0,documentdata=imagedata,documentname=imagename,doctype=contenttype,uploadeddate=regdate)
             docs.save(using='crf')
         return JsonResponse({"message":"success"})
@@ -159,9 +147,7 @@ def case_file_upload(request):
     if 'UserId' in request.session:
         caseid=request.POST.get('caseid')
         detail=TblCasedetails.objects.using('crf').get(caseid=caseid)
-        print("Detail======")
         detailid=detail.casedetailid
-        print("Detailid===",detailid)
         docfile=request.FILES.get("docfile",None)
         if docfile:
             imagedata=None
@@ -169,14 +155,10 @@ def case_file_upload(request):
             imagename=os.path.splitext(str(docfile))[0]
             fullname=imagename+extension1
             file_path="static\\uploads\\"
-                # file_path=os.path.join(UPLOAD_ROOT,accno)
-            print("File existance======",file_path,os.path.isfile(file_path))
             if os.path.isfile(file_path):
                 os.mkdir(file_path)
             fullpath=str(caseid)+extension1
-            print("Full path====",fullpath)
             fullfilepath=os.path.join(file_path,fullpath)
-            print("File",fullfilepath)
             with open(fullfilepath, 'wb+') as destination:
                 for chunk in docfile.chunks():
                     imagedata=chunk
@@ -212,8 +194,6 @@ def case_file_upload(request):
                 contenttype = "application/pdf"
             if(extension1==".PDF"):
                 contenttype = "application/pdf"
-            
-            print("Type odf imagedata===",type(imagedata))
             regdate =datetime.now()
             docs=TblDocuments(caseid=caseid,casedetailid=detailid,casesummaryid=0,documentdata=imagedata,documentname=imagename,doctype=contenttype,uploadeddate=regdate)
             docs.save(using='crf')
@@ -226,7 +206,7 @@ def change_status(request):
     if 'UserId' in request.session:
         caseid=request.GET.get('id')
         status=request.GET.get('status')
-        print("Deatails====",caseid,status)
+        
         case=TblCases.objects.using('crf').get(caseid=caseid)
         case.status=status
         case.save(using='crf')
@@ -240,14 +220,12 @@ def reopen_case(request):
         status=request.GET.get('status')
         description=request.GET.get('description')
         assign=request.GET.get('assign')
-        print("Deatails====",caseid,status,description,assign)
         case=TblCases.objects.using('crf').get(caseid=caseid)
         case.status=status
         if(description!=""):
             case.description=description
         case.assigneddpt=assign
         case.save(using='crf')
-        print("Case====",case)
         return JsonResponse({"message":"success"})
     else:
         return redirect('/login')
@@ -301,12 +279,10 @@ def view_document(request):
             contenttype = ".pdf"
         if(imagetype=="application/pdf"):
             contenttype = ".PDF"
-        print("Content type====",contenttype)
         
         imagename=imagename+contenttype
         
         file_path="static\\uploads"+"\\"+imagename
-        print("Image name=====",imagename)
         # with open('binary_file') as file: 
         #     data = file.read() 
         res = ''.join(format(x, '02x') for x in imagedata)

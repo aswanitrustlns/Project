@@ -442,9 +442,9 @@ Approval-->
                                             <tbody class="gilory-regular-type fs-14 text-white"  >
                                                 {% for credit in pending_credit %} 
                                                 <tr>
-                                                    <td scope="row"  class="ps-0">April 2022</td>
+                                                    <td scope="row"  class="ps-0">{{credit.0}}</td>
                                                     
-                                                    <td class="text-end">77</td>
+                                                    <td class="text-end">{{credit.1}}</td>
                                                 </tr>
                                                 {%endfor%}
                                                

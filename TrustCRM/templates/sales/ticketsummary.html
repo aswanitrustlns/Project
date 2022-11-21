@@ -128,6 +128,11 @@
     
                                     </ul>
                                     <!-- tab content -->
+                                    <div id="progress" style="height:100%;left: 50%;
+                                    width:100%;position:absolute;
+     z-index:10;">
+                                        <img  style="height:100px;width: 100px;" src="{% static 'images/spinner2.gif' %}"/>
+                                    </div>
                                     <div class="tab-content py-4">
                                         <div class="tab-pane active" id="actions-pending-tab" role="tabpanel">
     
@@ -370,14 +375,16 @@
                                                                         </div>
                                                                     </div>
                                                                 </div>
+                                                               
                                                                 <div class="col-md-6 col-xxl-6 ">
     
                                                                     <div class="card  card-h-100">
     
                                                                         <div class="card-body px-0 mx-0 pt-0">
+                                                                            
                                                                             <h5 class="card-title  almarenamonolight-type fs-25 text-center px-4 py-3 mb-4 d-flex align-items-center flex-wrap   justify-content-center"
                                                                                 style="background-color:
-                                                                                        #1B1D35 ;" onclick="summarydetails('UNSPK','Pending')" style="Cursor:pointer">
+                                                                                        #1B1D35 ;Cursor:pointer" onclick="summarydetails('UNSPK','Pending')" >
                                                                                 <span> <svg width="40" height="40"
                                                                                         viewBox="0 0 40 40" fill="none"
                                                                                         xmlns="http://www.w3.org/2000/svg">
@@ -1155,12 +1162,14 @@ color:rgba(255, 195, 78,1 )" id="dormant-duplicatephone"></span>
 <div class="rightbar-overlay"></div>
 <script>
     $(document).ready(function () {
+        $("#progress").show()
         $.ajax({
                     
                     type : "GET", 
                     url: "{% url 'Admin:TicketSummaryOnLoad' %}",
                     dataType: 'json',
                     success: function(data){
+                        $("#progress").hide()
                         var pending=data.pending
                         var resolved=data.resolved
                         var dormant=data.dormant

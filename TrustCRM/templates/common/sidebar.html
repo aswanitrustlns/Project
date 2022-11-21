@@ -128,11 +128,13 @@
                         
                         
                         </li>
-                        {%endif%}
+                       
                         
                         
                     </ul>
                 </li>
+                {%endif%}
+                {%if request.session.role != "backoffice" %} 
                 <li>
                     <a  href="javascript: void(0);" class="has-arrow">
                         
@@ -158,6 +160,7 @@
                         
                     </ul>
                 </li>
+                {%endif%}
                 <!-- {%if request.session.compliance == "True" %}
                 <li>
                     <a  href="javascript: void(0);" class="has-arrow">

@@ -327,12 +327,14 @@
     $('#datatableleads tbody').on('click', 'tr', function (e) {
         var table = $("#datatableleads").DataTable();
         console.log("row clicked----")
-        var data = table.row( this ).data();       
+        var data = table.row( this ).data();  
+        var login=data[2]  
+        console.log("Login====="+login)   
         console.log("Ticket----------"+data[7])  
         var ticket=data[7]
         if(role=="backoffice" || role=="manager"){
             var url="{% url 'Backoffice:Manage'%}"
-            window.location.href=url+"?&ticket="+ticket
+            window.location.href=url+"?&login="+login
 
         }else{
             var url="{% url 'Admin:LeadProcessing'%}"
@@ -348,7 +350,7 @@
         var ticket=data[8]
         if(role=="backoffice" || role=="manager"){
             var url="{% url 'Backoffice:Manage'%}"
-            window.location.href=url+"?&ticket="+ticket
+            window.location.href=url+"?&login="+ticket
 
         }else{
         var url="{% url 'Admin:LeadProcessing'%}"
@@ -363,7 +365,7 @@
         var ticket=data[8]
         if(role=="backoffice" || role=="manager"){
             var url="{% url 'Backoffice:Manage'%}"
-            window.location.href=url+"?&ticket="+ticket
+            window.location.href=url+"?&login="+ticket
 
         }else{
         var url="{% url 'Admin:LeadProcessing'%}"
@@ -378,7 +380,7 @@
         var ticket=data[9]
         if(role=="backoffice" || role=="manager"){
             var url="{% url 'Backoffice:Manage'%}"
-            window.location.href=url+"?&ticket="+ticket
+            window.location.href=url+"?&login="+ticket
 
         }else{
         var url="{% url 'Admin:LeadProcessing'%}"

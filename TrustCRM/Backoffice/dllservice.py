@@ -114,7 +114,7 @@ class DllService:
         return details
     #dll get IP
     def dll_get_IP(self,user,server,password,accountno):
-        
+        mt4ip=""
         hllDll = CDLL(r"C:\\pyenv\\TrustManagerAPI.dll") 
         GetIp = hllDll.GetIp
         hllDll.GetIp.argtype = c_char_p,c_int,c_char_p,c_char_p
@@ -123,8 +123,9 @@ class DllService:
         login = c_int(username)
         account_no=c_int(accountno)
         info=GetIp(c_char_p(server.encode('utf-8')).value,login.value,c_char_p(password.encode('utf-8')).value,account_no.value)
-        resul=string_at(info)
-        mt4ip=str(resul, 'utf-8')
+        if info:
+            resul=string_at(info)
+            mt4ip=str(resul, 'utf-8')
         return mt4ip
      #dll client Info time
     def dll_client_info_time(self,user,server,password,accountno,fdate,fmonth,fyear,tdate,tmonth,tyear):
