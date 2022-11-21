@@ -324,13 +324,34 @@ $(document).ready(function () {
 
     });
 
-    // $("#load-btn"
-    // ).click(function() {
-    //     flatpickerfromdate.clear();
-    //     flatpickertodate.clear();
+    $("#Lives"
+    ).click(function() {
+        flatpickerfromdate.clear();
+        flatpickertodate.clear();
         
         
-    //  })
+     })
+     $("#Pendings"
+    ).click(function() {
+        flatpickerfromdate.clear();
+        flatpickertodate.clear();
+        
+        
+     })
+     $("#Rejected"
+     ).click(function() {
+         flatpickerfromdate.clear();
+         flatpickertodate.clear();
+         
+         
+      })
+      $("#Closed"
+      ).click(function() {
+          flatpickerfromdate.clear();
+          flatpickertodate.clear();
+          
+          
+       })
 
 
 
@@ -352,7 +373,7 @@ function switchtab($this, $displaytab, $hiddentab1,$hiddentab2,$hiddentab3) {
     $($hiddentab2).removeClass('d-block');
     $($hiddentab3).addClass('d-none');
     $($hiddentab3).removeClass('d-block');    
-
+    
 
 }
 

@@ -151,7 +151,7 @@
                                         </thead>
 
 
-                                        <tbody id="newaccounts_data">
+                                        <tbody id="newaccounts_data" style="cursor:pointer">
                                             {%for data in accounts_data %}   
                                         <tr>
                                             <td>{{data.1}}</td>
@@ -286,7 +286,7 @@
                                         </thead>
 
 
-                                        <tbody id="newaccounts_data">
+                                        <tbody id="newaccounts_data" style="cursor:pointer">
                                       
                                         
                                         </tbody>
@@ -330,7 +330,7 @@
         var data = table.row( this ).data();       
         console.log("Ticket----------"+data[7])  
         var ticket=data[7]
-        if(role=="backoffice"){
+        if(role=="backoffice" || role=="manager"){
             var url="{% url 'Backoffice:Manage'%}"
             window.location.href=url+"?&ticket="+ticket
 
@@ -346,7 +346,7 @@
         var data = table.row( this ).data();       
         console.log("Ticket----------"+data[8])  
         var ticket=data[8]
-        if(role=="backoffice"){
+        if(role=="backoffice" || role=="manager"){
             var url="{% url 'Backoffice:Manage'%}"
             window.location.href=url+"?&ticket="+ticket
 
@@ -361,7 +361,7 @@
         var data = table.row( this ).data();       
         console.log("Ticket----------"+data[8])  
         var ticket=data[8]
-        if(role=="backoffice"){
+        if(role=="backoffice" || role=="manager"){
             var url="{% url 'Backoffice:Manage'%}"
             window.location.href=url+"?&ticket="+ticket
 
@@ -376,7 +376,7 @@
         var data = table.row( this ).data();       
         console.log("Ticket----------"+data[6])  
         var ticket=data[9]
-        if(role=="backoffice"){
+        if(role=="backoffice" || role=="manager"){
             var url="{% url 'Backoffice:Manage'%}"
             window.location.href=url+"?&ticket="+ticket
 

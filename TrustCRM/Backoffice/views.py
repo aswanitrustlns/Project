@@ -505,7 +505,9 @@ def approval(request):
         server=request.session.get('server')
         password=request.session.get('password')
         client_area=request.GET.get('clientarea')
+        print("Approval from=======",userid,accno,user,server,password,client_area)
         status=selector.get_docs_verified_poi(accno)
+        print("Status=======",status)
         print("Status=========",status[3])
         docverified=1
         POIstatus=""
@@ -515,16 +517,16 @@ def approval(request):
         if docverified==0 or POIstatus=="Not Verified":
             message="POI is mandatory for temporary approval"
         else:
-           message=selector.approve_live_Client(user,server,password,accno,userid,client_area)
-        
-        userdetails=selector.get_email_details(accno)
-        if userdetails:
-           
-            title=userdetails[3]
-            name=userdetails[1]
-            email=userdetails[0]
-            acctype=userdetails[9]
-            emailservice.SendLiveAccountDetails(title,name,email,accno,acctype)
+            message=selector.approve_live_Client(user,server,password,accno,userid,client_area)
+            print("Messageeeeeeeeeeeeeeeee",message)
+            userdetails=selector.get_email_details(accno)
+            if userdetails:
+            
+                title=userdetails[3]
+                name=userdetails[1]
+                email=userdetails[0]
+                acctype=userdetails[9]
+                emailservice.SendLiveAccountDetails(title,name,email,accno,acctype)
             
         
         return JsonResponse({"message":message}) 

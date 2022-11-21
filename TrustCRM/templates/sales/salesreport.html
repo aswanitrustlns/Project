@@ -77,9 +77,13 @@
                                                 <label class="form-label " for="salesrep">Sales Rep</label>
                                                 <select   class="py-1 form-select" id="salesrepId"> 
                                                     <option value="0">Select</option>
+                                                    {%if request.session.role == "salesrep" %}
+                                                    <option value="{{request.session.UserName}}">{{request.session.UserName}}</option>
+                                                    {%else%}
                                                     {%for rep in salesrep%}
                                                     <option value="{{rep.1}}">{{rep.1}}</option>
                                                     {%endfor%}
+                                                    {%endif%}
                                                 </select>
     
                                                 
