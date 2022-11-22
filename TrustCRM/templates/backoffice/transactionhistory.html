@@ -66,7 +66,7 @@
                                     <li class="nav-item" >
                                         <a class="nav-link text-center rounded-pill px-4 color-color1" data-bs-toggle="tab" href="#actions-ew-tab" role="tab" aria-selected="false" >
                                         
-                                            <span class="">  E-wallet transactions</span>
+                                            <span class="">  Trust-wallet transactions</span>
                                         
                                         </a>
                                     </li>
@@ -207,14 +207,14 @@
                                                                 <div class="col-sm-4 col-xxl-3">
                                                                     <div class="mb-2">
                                                                         <label class="form-label " for="Fromdate">From date<span class="color-orange">*</span></label>
-                                                                        <input  type="text" class="form-control" id="Fromdate" placeholder="" required>
+                                                                        <input  type="text" class="form-control" id="Fromdate" placeholder="" required value="from">
                                                                         
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-sm-4 col-xxl-3">
                                                                     <div class="mb-2">
                                                                         <label class="form-label " for="Todate">To date<span class="color-orange">*</span></label>
-                                                                        <input  type="text" class="form-control" id="Todate" placeholder="" required>
+                                                                        <input  type="text" class="form-control" id="Todate" placeholder="" required value="to">
                                                                             
                                                                         
                                                                     </div>
@@ -352,7 +352,7 @@
                                                                            
                                                                             <div class="text-wrap mb-1 text-center text-xxl-start" >
                                                                               
-                                                                                <span class=" color-color1 fs-20 almarenamonolight-type">E-Wallet Opening Balance</span>
+                                                                                <span class=" color-color1 fs-20 almarenamonolight-type">Trust-Wallet Opening Balance</span>
                                                                             </div>
                                                                             <h2 class=" gilory-semibold-type fs-30 mb-0 text-center text-xxl-start  d-xxl-flex flex-wrap  " data-target="12">
                                                                                 
@@ -401,7 +401,7 @@
                                                                            
                                                                             <div class="text-wrap mb-1 text-center text-xxl-start" >
                                                                               
-                                                                                <span class=" color-color1 fs-20 almarenamonolight-type">E-Wallet Closing Balance</span>
+                                                                                <span class=" color-color1 fs-20 almarenamonolight-type">Trust-Wallet Closing Balance</span>
                                                                             </div>
                                                                             <h2 class=" gilory-semibold-type fs-30 mb-0 text-center text-xxl-start  d-xxl-flex flex-wrap  " data-target="12">
                                                                                 
@@ -489,7 +489,7 @@
                                                             <div class="d-flex mb-4 justify-content-between" >
                                                                 <input type="text" class="form-control  " placeholder="Search" id="myinputsearch-ewtransactions" style="width:369px">
                                                                 <div >
-                                                                    <a  class="btn bg-soft-gunmetal text-white" onclick="walletReport()">E-Wallet Report</a>
+                                                                    <a  class="btn bg-soft-gunmetal text-white" onclick="walletReport()">Trust-Wallet Report</a>
                                                                 </div>
                                                             </div>
                                                             <table  class="table dt-responsive  nowrap  w-100 change" id="datatableewtransactions">
@@ -640,6 +640,8 @@
                         $("#mt4history").empty()
                         showdata=data.showdetail
                         datas=data.filter
+                        from=data.from
+                        to=data.to
                         for(i=0;i<datas.length;i++){
                             rows+="<tr><td class='ps-0'>"+datas[i]["LOGIN"]+"</td><td>"+datas[i]["DEAL"]+"</td>"+
                             "<td>"+datas[i]["COMMENT"]+"</td><td>"+datas[i]["TYPE"]+"</td><td>"+datas[i]["CURRENCY"]+"</td>"+

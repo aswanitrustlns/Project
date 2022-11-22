@@ -57,7 +57,8 @@ urlpatterns=[
       path('TransactionHistorySearch',transactions_history_search,name="TransactionHistorySearch"),
       path('MT4TransactionHistory',mt4_transaction_history,name="MT4TransactionHistory"),
       path('InterAccountTransfer',inter_account_transfer,name="InterAccountTransfer"),
-      path('WorldCheck',world_check,name="WorldCheck")
+      path('WorldCheck',world_check,name="WorldCheck"),
+      path('Affiliates',affiliates,name="Affiliates"),
       # path('ckeditor','ckeditor_uploader.urls'),
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

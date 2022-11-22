@@ -1,0 +1,295 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8" />
+    <title>Trust Capital CRM</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
+    <meta content="Themesbrand" name="author" />
+    <!-- App favicon -->
+    {% load  static %}
+     <!-- DataTables -->
+     <link href="{% static 'libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css' %}" rel="stylesheet" type="text/css" />
+     <link href="{% static 'libs/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css' %}" rel="stylesheet" type="text/css" />
+     <!-- plugin css -->
+     <!--<link href="assets/libs/admin-resources/jquery.vectormap/jquery-jvectormap-1.2.2.css" rel="stylesheet"
+         type="text/css" />-->
+      <!-- datepicker css -->
+      <link rel="stylesheet" href="{% static 'libs/flatpickr/flatpickr.min.css' %}">
+      <link rel="stylesheet" href="{% static 'libs/flatpickr/plugins/monthSelect/style.css' %}"></link>
+    {% include "common/link.html" %}
+    {% include "common/scripts.html" %}
+
+   
+
+ 
+</head>
+<body data-layout-mode="dark">
+
+    <!-- <body data-layout="horizontal"> -->
+    
+    <!-- Begin page -->
+    <div id="layout-wrapper">
+    
+        {% include "common/header.html" %}
+    
+
+        <!-- ========== Left Sidebar Start ========== -->
+        {% include "common/sidebar.html" %}
+        <!-- Left Sidebar End -->
+        <div class="main-content">
+
+            <div class="page-content" id="sales">
+                <div class="container-fluid"> <!--container-fluid px-md-5 me-md5-->
+                    <div class="row">
+    
+                        <div class="col-12">
+                            <div class="d-flex align-items-center">
+                                <h4 class="card-title almarenamonolight-type mb-4 fs-23">Live Chat Report</h4>
+                                <div class="ms-auto">
+                                    <a target="_top" class="btn  btn-sm  bg-soft-secondarycolor text-white me-2  mb-2"  style="background-color: var(--bs-card-bg)" onclick="printReport();"><i class="fa fa-print me-2"></i><span>Print</span></a>
+                                    <!-- <a href="javascript:window.print()" class="btn  btn-sm  bg-soft-secondarycolor text-white me-2  mb-2"  style="background-color: var(--bs-card-bg)"><i class="fa fa-print me-2"></i><span>Print Report All</span></a> -->
+                                
+                                    <a class="btn  btn-sm  bg-soft-secondarycolor text-white me-2  mb-2"  style="background-color: var(--bs-card-bg)" data-bs-toggle="modal" data-bs-target="#monthly-report"><i class="fa fa-save me-2"></i><span>Monthly Call Report</span></a>
+                                
+                                </div>
+                                
+                            </div>
+                           
+                       
+                            
+                            <div class=" mb-4">
+                                <p class="gilroymedium-type fs-15 color-color1 mb-0">This page allows you to view the live chat report per salesrep.</p>
+                            </div>
+    
+                     
+                            
+                        </div>
+                        <div class="col-xl-8">
+                                <div class="row align-items-end mb-4">
+                                    <div class="col-sm-2">
+                                        <div class="mb-2">
+                                            <label class="form-label " for="fromdate-sr">From Date</label>
+                                            <input type="text" id="fromdate-sr" class="py-1">
+                                            <input type="hidden" name="from" id="fromprint">
+                                            
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-2">
+
+                                        <div class="mb-2">
+                                            <label class="form-label " for="todate-sr">To Date</label>
+
+                                            <input type="text" id="todate-sr" class="py-1">
+                                            <input type="hidden" name="from" id="toprint">
+                                        </div>
+
+
+
+
+                                    </div>
+                                 
+    
+                                        <div class="col-sm-2">
+                                            <div class="mb-2">
+                                                <label class="form-label " for="salesrep">Sales Rep</label>
+                                                <select   class="py-1 form-select" id="salesrepId"> 
+                                                    <option value="0">Select</option>
+                                                    {%if request.session.role == "salesrep" %}
+                                                    <option value="{{request.session.UserName}}">{{request.session.UserName}}</option>
+                                                    {%else%}
+                                                    {%for rep in salesrep%}
+                                                    <option value="{{rep.1}}">{{rep.1}}</option>
+                                                    {%endfor%}
+                                                    {%endif%}
+                                                </select>
+    
+                                                
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <div class="mb-2">
+                                                <label class="form-label " for="salesrep">Attended By</label>
+                                                <select   class="py-1 form-select" id="salesrepId"> 
+                                                    <option value="0">Select</option>
+                                                    {%if request.session.role == "salesrep" %}
+                                                    <option value="{{request.session.UserName}}">{{request.session.UserName}}</option>
+                                                    {%else%}
+                                                    {%for rep in salesrep%}
+                                                    <option value="{{rep.1}}">{{rep.1}}</option>
+                                                    {%endfor%}
+                                                    {%endif%}
+                                                </select>
+    
+                                                
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="col-sm-2 ">
+                                            <button class="btn btn-info btn-md mb-2 py-1 noPrint" type="button" id="load-btn-sr" onclick="loadAllReport()">Load</button>
+                                        </div>
+                                        
+    
+    
+    
+    
+    
+                                </div> 
+                        </div>
+                        <div class="col-xl-4    col-md-6 col-sm-6 ">
+                            <!-- card -->
+                            <div class="card card-h-100 ">
+                                <!-- card body -->
+                                <div class="card-body py-2">
+                                    <div class="">
+                                        <a onclick="leadsClick('TotLeadsToday','0')"  style="cursor:pointer;">
+                                        <div class="d-flex align-items-center  flex-xl-column flex-xxl-row">
+                                            <span class=" mb-3 lh-1 d-block flex-shrink-0 " >
+                                                <i class="  rounded-circle d-inline-block p-3  " style="background-color: var(--bs-card-bg);">
+    
+                                                    <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                        <path d="M10.3198 27.2247V24.1197" stroke="#DD9406" stroke-width="2" stroke-linecap="round"/>
+                                                        <path d="M18 27.2247V21.0147" stroke="#DD9406" stroke-width="2" stroke-linecap="round"/>
+                                                        <path d="M25.6797 27.2247V17.8947" stroke="#DD9406" stroke-width="2" stroke-linecap="round"/>
+                                                        <path d="M25.6798 8.77469L24.9898 9.58469C21.1648 14.0547 16.0348 17.2197 10.3198 18.6447" stroke="#DD9406" stroke-width="2" stroke-linecap="round"/>
+                                                        <path d="M21.2847 8.77469H25.6797V13.1547" stroke="#DD9406" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                        <path d="M13.5 32.9995H22.5C30 32.9995 33 29.9995 33 22.4995V13.4995C33 5.99951 30 2.99951 22.5 2.99951H13.5C6 2.99951 3 5.99951 3 13.4995V22.4995C3 29.9995 6 32.9995 13.5 32.9995Z" stroke="#DD9406" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                        </svg>
+                                                        
+                                                        
+                                                        
+    
+    
+    
+                                                </i>
+                                            </span>
+                                            
+                                            
+                                            
+                                            <div class="ms-3 ms-xl-0 me-1 ms-xxl-2 flex-shrink-0">
+                                               
+                                                <div class="text-wrap mb-1 text-xl-center text-xxl-start" >
+                                                    <!--<span class="badge bg-soft-success text-success">+$20.9k</span>-->
+                                                    <span class=" color-color1 fs-20 almarenamonolight-type">Today’s <br>
+                                                       total leads</span>
+                                                </div>
+                                                
+                                                <h2 class=" gilory-semibold-type fs-40 mb-0 text-xl-center text-xxl-start" data-target="12",id="total">{{leads_count.0}}</h2>
+                                                
+                                            </div>
+                                               
+                                                
+                                                
+                                        </div>
+                                    </a>
+    
+    
+                                    </div>
+                                    
+                                </div><!-- end card body -->
+                            </div>
+                            <!-- end card -->
+                        </div><!-- end col -->
+                    </div>
+                  
+    
+    
+                    
+                    <!--Analytics overview-->
+                    <div class="row">
+    
+                        <div class="col-12">
+                            <div class="card">
+                               
+                                <div class="card-body ">
+                                    
+                                        
+                                           
+                                    </div>
+                                        
+                                    
+                                    <div class=" px-1 table-responsive" >
+                                        <table id="datatableleads" class="table dt-responsive  nowrap w-100 ">
+                                            <thead>
+                                                <tr  class=" ">
+                                                    <th  data-id="datepicker-range" class="filterhead">Date</th>
+                                                    <!-- <th >Id</th> -->
+                                                    <th  data-text="text" class="filterhead">Name</th>
+                                                    <th data-timer="option" class="filterhead" >Email</th>
+                                                    <!-- <th  data-text="text" class="filterhead">ID</th> -->
+                                                    <th  data-text="text" class="filterhead">Phone</th>
+                                                    <th  data-text="select" class="filterhead">Source</th>
+                                                    <th  data-text="text" class="filterhead">Ticket</th>
+                                                    <th  data-text="text" class="filterhead">Account</th>
+                                                    <th  data-text="text" class="filterhead">Country</th>
+                                                </tr>
+                                            </thead>
+        
+        
+                                            <tbody>
+                                          
+                                            {%for data in leads_data %}
+                                            <tr onclick='checkticket("{{data.1}}","{{data.2}}","{{data.4}}")' style="cursor: pointer;">
+                                                <td >{{data.0}}</td>
+                                                <td>{{data.3}}</td>
+                                                <td>{{data.2}}</td>
+                                                
+                                                <!-- <td>{{data.1}}</td> -->
+                                                <td>{{data.4}}</td>
+                                                <td>{{data.5}}</td>
+                                                <td>{{data.10}}</td>
+                                                <td>{{data.11}}</td>
+                                                <td>{{data.7}}</td>
+                                            </tr>
+                                            
+                                            {%endfor%}
+                                           
+                                            </tbody>
+                                            <tfoot>
+                                                
+                                            </tfoot>
+                                        </table>
+                                    </div>
+                                    
+    
+                                </div>
+                            </div>
+                        </div> <!-- end col -->
+    
+    
+    
+                    </div>
+                    <!-- end row-->
+    
+                    </div>
+                    <!-- container -->
+                </div>
+                <!-- End Page-content -->
+    
+                
+            </div>
+            <!-- end main content-->
+    
+        </div>
+        <!-- END layout-wrapper -->
+    
+        
+        {% include "common/right-sidebar.html" %}
+    
+        <!-- Right bar overlay-->
+        <div class="rightbar-overlay"></div>
+        <script src="{%static 'libs/flatpickr/flatpickr.min.js' %}"></script>
+        <script src="{% static 'libs/datatables.net/js/jquery.dataTables.min.js' %}"></script>
+        <script src="{% static 'libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js' %}"></script>
+    
+      
+    
+        <!-- Datatable init js -->
+        <script src="{% static 'js/pages/datatables-filtercolumn-leads.init.js' %}"></script> 
+        <script src="{% static 'js/app.js' %}"></script>
+    
+        </body>
+    
+        </html>

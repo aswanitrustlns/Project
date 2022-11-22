@@ -684,8 +684,8 @@ def transactions_history(request):
         password=request.session.get('password')
         report,opening,closing=selector.get_ewallet_equityreport("","",4,"")
 
-        row_details,showdetail=selector.get_mt4_transhistory(user,server,password,"","")
-        return render(request,"backoffice/transactionhistory.html",{'reports':report,'opening':opening,'closing':closing,'rowdetails':row_details,'showdetail':showdetail})
+        row_details,showdetail,fromdate,todate=selector.get_mt4_transhistory(user,server,password,"","")
+        return render(request,"backoffice/transactionhistory.html",{'reports':report,'opening':opening,'closing':closing,'rowdetails':row_details,'showdetail':showdetail,'from':fromdate,'to':todate})
     else:
         return redirect('/login')
 # Transactions history json load
@@ -738,7 +738,7 @@ def mt4_transaction_history(request):
         server=request.session.get('server')
         password=request.session.get('password')
         print("Fromdate====",from_date,to_date)
-        row_details,showdetail=selector.get_mt4_transhistory(user,server,password,from_date,to_date)
+        row_details,showdetail,fromdate,todate=selector.get_mt4_transhistory(user,server,password,from_date,to_date)
         output_dict = [x for x in row_details if transtype in x['COMMENT'] ]
         return JsonResponse({"showdetail":showdetail,"filter":output_dict})
     else:
@@ -755,5 +755,11 @@ def inter_account_transfer(request):
 def world_check(request):
     if 'UserId' in request.session:
         return render(request,'backoffice/worldchek.html')
+    else:
+        return redirect('/login')
+#IB Page
+def affiliates(request):
+    if 'UserId' in request.session:
+        return render(request,'backoffice/ib.html')
     else:
         return redirect('/login')

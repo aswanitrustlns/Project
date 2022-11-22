@@ -71,8 +71,9 @@
                                     <div>
                                         <button type="button" class="btn btn-lg btn-primary   mb-3  mx-1 gilory-semibold-type bg-soft-purple text-white" id="Lives" style="background-color: var(--bs-card-bg) ;" onclick="addColor(this,'bg-soft-purple text-white', 'color-color1');changeAccount('Live');switchtab(this,'#accounts_table','#rejected_table','#terminated_table','#closed_table')">Live</button>
                                         <button type="button" class="btn btn-lg btn-primary  color-color1 mb-3 mx-1 gilory-semibold-type"  id="Pendings" style="background-color: var(--bs-card-bg); "  onclick="addColor(this,'bg-soft-purple text-white', 'color-color1');changeAccount('Pending');switchtab(this,'#accounts_table','#rejected_table','#terminated_table','#closed_table')">Pending</button>
+                                        <button type="button" class="btn btn-lg btn-primary  color-color1 mb-3 mx-1 gilory-semibold-type"  id="Terminated" style="background-color: var(--bs-card-bg) ;"  onclick="addColor(this,'bg-soft-purple text-white','color-color1');changeAccount('Terminated');switchtab(this,'#terminated_table','#rejected_table','#accounts_table','#closed_table')">Existing</button>
                                         <button type="button" class="btn btn-lg btn-primary  color-color1 mb-3 mx-1 gilory-semibold-type"  id="Rejected" style="background-color: var(--bs-card-bg) ;" onclick="addColor(this,'bg-soft-purple text-white','color-color1');changeAccount('Rejected');switchtab(this,'#rejected_table','#accounts_table','#terminated_table','#closed_table')">Rejected</button>
-                                        <!-- <button type="button" class="btn btn-lg btn-primary  color-color1 mb-3 mx-1 gilory-semibold-type"  id="Terminated" style="background-color: var(--bs-card-bg) ;"  onclick="addColor(this,'bg-soft-purple text-white','color-color1');changeAccount('Terminated');switchtab(this,'#terminated_table','#rejected_table','#accounts_table','#closed_table')">Terminated</button> -->
+                                        
                                         <button type="button" class="btn btn-lg btn-primary  color-color1 mb-3 mx-1 gilory-semibold-type"  id="Closed" style="background-color: var(--bs-card-bg) ;"  onclick="addColor(this,'bg-soft-purple text-white','color-color1');changeAccount('Closed');switchtab(this,'#closed_table','#accounts_table','#terminated_table','#rejected_table')">Closed</button>
                                         <input type="hidden" name="selected_tab" id="selected_tab" value="Live">
                                     </div>
@@ -85,7 +86,7 @@
                                                     <div class="col-sm-3">
                                                         <div class="mb-2">
                                                             <label class="form-label " for="fromdate">From Date</label>
-                                                            <input type="text" id="fromdate" class="py-1" name="fromdate">
+                                                            <input type="text" id="fromdate" class="py-1" name="fromdate" value="{{from}}">
     
                                                            
                                                         </div>
@@ -95,7 +96,7 @@
                                                         <div class="mb-2">
                                                             <label class="form-label " for="todate">To Date</label>
     
-                                                            <input type="text" id="todate" class="py-1" name="todate">
+                                                            <input type="text" id="todate" class="py-1" name="todate" value="{{to}}">
                                                             
                                                         </div>
 
@@ -320,6 +321,7 @@
     <script>
         var tabactive={{active|safe}}
         var role={{role|safe}}
+        console.log("Role===="+role)
         console.log("Active============="+tabactive)
 
         $(function(){
@@ -332,7 +334,7 @@
         console.log("Login====="+login)   
         console.log("Ticket----------"+data[7])  
         var ticket=data[7]
-        if(role=="backoffice" || role=="manager"){
+        if(role=="backoffice" || role=="manager" ){
             var url="{% url 'Backoffice:Manage'%}"
             window.location.href=url+"?&login="+login
 
@@ -432,6 +434,8 @@
             fromdate=document.getElementById("fromdate").value
             todate=document.getElementById("todate").value
             var json_data;
+            var from
+            var to
                 $("#datatableleads").DataTable({
                 'paging':true, 
                 'destroy': true,               
@@ -447,6 +451,8 @@
                    "dataSrc":function(data){
                     json_data=data.data
                     count=data.count
+                    from=data.from
+                    to=data.to
                     console.log("Count========="+count[0])
                     var fundspan=document.getElementById("fundspan")
                     var nonfundspan=document.getElementById("nonfundspan")
@@ -612,6 +618,26 @@
                          .setSelectionRange(cursorPosition, cursorPosition);
                  });
          });
+         flatpickr('#fromdate').clear()
+         flatpickr('#fromdate', {
+                        //inline: true,
+                        "allowInput":true,
+                        dateFormat: "Y-m-d",//MMMM Do YYYY
+                        altFormat: "Y-m-d",
+                        altInput: true,
+                        mode: "single",
+                        defaultDate: from
+                    });
+                    flatpickr('#todate').clear()
+        flatpickr('#todate', {
+                        //inline: true,
+                        "allowInput":true,
+                        dateFormat: "Y-m-d",//MMMM Do YYYY
+                        altFormat: "Y-m-d",
+                        altInput: true,
+                        mode: "single",
+                        defaultDate: to
+                    });
          flatpikrCall("datatableleads")
  },
                 

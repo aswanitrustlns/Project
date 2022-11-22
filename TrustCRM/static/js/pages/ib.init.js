@@ -23,9 +23,9 @@ $(document).ready(function () {
     //table1 btns
     table1.buttons().container()
     .appendTo('#datatable-buttons_wrapper1 ');
-    $('#datatable-buttons_wrapper1 .dt-buttons').find('.btn').eq(0).prepend('<img src="assets/images/printer.png" class="me-1">');
-    $('#datatable-buttons_wrapper1 .dt-buttons').find('.btn').eq(1).prepend('<img src="assets/images/copy.png" class="me-1">');
-    $('#datatable-buttons_wrapper1 .dt-buttons').find('.btn').eq(2).prepend('<img src="assets/images/document-text.png" class="me-1">');
+    $('#datatable-buttons_wrapper1 .dt-buttons').find('.btn').eq(0).prepend('<img src="static/images/printer.png" class="me-1">');
+    $('#datatable-buttons_wrapper1 .dt-buttons').find('.btn').eq(1).prepend('<img src="static/images/copy.png" class="me-1">');
+    $('#datatable-buttons_wrapper1 .dt-buttons').find('.btn').eq(2).prepend('<img src="static/images/document-text.png" class="me-1">');
     $('#datatable-buttons_wrapper1').find('.btn').addClass('me-2 d-inline-block flex-shrink-0  my-1 bg-soft-gunmetal border-0');
     $('#datatable-buttons_wrapper1').find('.btn-group').addClass('flex-xl-nowrap');
     $('#datatable-buttons_wrapper1').find('.btn-group').removeClass('flex-wrap');
@@ -46,9 +46,9 @@ $(document).ready(function () {
    //table2 btns
    table2.buttons().container()
    .appendTo('#datatable-buttons_wrapper2 ');
-   $('#datatable-buttons_wrapper2 .dt-buttons').find('.btn').eq(0).prepend('<img src="assets/images/printer.png" class="me-1">');
-   $('#datatable-buttons_wrapper2 .dt-buttons').find('.btn').eq(1).prepend('<img src="assets/images/copy.png" class="me-1">');
-   $('#datatable-buttons_wrapper2 .dt-buttons').find('.btn').eq(2).prepend('<img src="assets/images/document-text.png" class="me-1">');
+   $('#datatable-buttons_wrapper2 .dt-buttons').find('.btn').eq(0).prepend('<img src="static/images/printer.png" class="me-1">');
+   $('#datatable-buttons_wrapper2 .dt-buttons').find('.btn').eq(1).prepend('<img src="static/images/copy.png" class="me-1">');
+   $('#datatable-buttons_wrapper2 .dt-buttons').find('.btn').eq(2).prepend('<img src="static/images/document-text.png" class="me-1">');
    $('#datatable-buttons_wrapper2').find('.btn').addClass('me-2 d-inline-block flex-shrink-0  my-1 bg-soft-gunmetal border-0');
    $('#datatable-buttons_wrapper2').find('.btn-group').addClass('flex-xl-nowrap');
    $('#datatable-buttons_wrapper2').find('.btn-group').removeClass('flex-wrap');
@@ -71,9 +71,9 @@ $(document).ready(function () {
     //table3 btns
     table3.buttons().container()
     .appendTo('#datatable-buttons_wrapper3');
-    $('#datatable-buttons_wrapper3 .dt-buttons').find('.btn').eq(0).prepend('<img src="assets/images/printer.png" class="me-1">');
-    $('#datatable-buttons_wrapper3 .dt-buttons').find('.btn').eq(1).prepend('<img src="assets/images/copy.png" class="me-1">');
-    $('#datatable-buttons_wrapper3 .dt-buttons').find('.btn').eq(2).prepend('<img src="assets/images/document-text.png" class="me-1">');
+    $('#datatable-buttons_wrapper3 .dt-buttons').find('.btn').eq(0).prepend('<img src="static/images/printer.png" class="me-1">');
+    $('#datatable-buttons_wrapper3 .dt-buttons').find('.btn').eq(1).prepend('<img src="static/images/copy.png" class="me-1">');
+    $('#datatable-buttons_wrapper3 .dt-buttons').find('.btn').eq(2).prepend('<img src="static/images/document-text.png" class="me-1">');
     $('#datatable-buttons_wrapper3').find('.btn').addClass('me-2 d-inline-block flex-shrink-0  my-1 bg-soft-gunmetal border-0');
     $('#datatable-buttons_wrapper3').find('.btn-group').addClass('flex-xl-nowrap');
     $('#datatable-buttons_wrapper3').find('.btn-group').removeClass('flex-wrap');

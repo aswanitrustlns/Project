@@ -1,0 +1,539 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8" />
+    <title>Trust Capital CRM</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
+    <meta content="Themesbrand" name="author" />
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" lang="ar">
+    <!-- App favicon -->
+    {% load  static %}
+     <!-- DataTables -->
+     
+     <link href="{% static 'libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css' %}" rel="stylesheet" type="text/css" />
+     <link href="{% static 'libs/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css' %}" rel="stylesheet" type="text/css" />
+     <!-- plugin css -->
+     <!--<link href="assets/libs/admin-resources/jquery.vectormap/jquery-jvectormap-1.2.2.css" rel="stylesheet"
+         type="text/css" />-->
+      <!-- datepicker css -->
+      <link href="{% static 'libs/@fullcalendar/core/main.min.css' %}" rel="stylesheet" type="text/css" />
+     <link href="{% static 'libs/@fullcalendar/daygrid/main.min.css'%}" rel="stylesheet" type="text/css" />
+     <link href="{% static 'libs/@fullcalendar/bootstrap/main.min.css' %}" rel="stylesheet" type="text/css" />
+     <link href="{% static 'libs/@fullcalendar/timegrid/main.min.css'%}" rel="stylesheet" type="text/css" />
+      <link rel="stylesheet" href="{% static 'libs/flatpickr/flatpickr.min.css' %}">
+      
+      <link href="{% static 'css/input-tel.min.css' %}" rel="stylesheet"   type="text/css" />
+      
+    {% include "common/link.html" %}
+    {% include "common/scripts.html" %}
+
+   
+
+ 
+</head>
+<body data-layout-mode="dark">
+
+    <!-- <body data-layout="horizontal"> -->
+    
+    <!-- Begin page -->
+    <div id="layout-wrapper">
+    
+        {% include "common/header.html" %}
+    
+
+        <!-- ========== Left Sidebar Start ========== -->
+        {% include "common/sidebar.html" %}
+        <div class="main-content ">
+
+            <div class="page-content " id="sales">
+                <div class="container-fluid">
+                              <!-- start page title -->
+                              <div class="row">
+                                  <div class="col-12">
+                                      <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                                          <h4 class="mb-sm-0 fs-23 almarenamonolight-type">Affiliate Live Accounts </h4><!--font-size-18-->
+    
+                                          <!--<div class="page-title-right">
+                                              <ol class="breadcrumb m-0">
+                                                  <li class="breadcrumb-item"><a href="javascript: void(0);">Dashboard</a></li>
+                                                  <li class="breadcrumb-item active">Affiliate Live Accounts </li>
+                                              </ol>
+                                          </div>-->
+    
+                                      </div>
+                                  </div>
+                              </div>
+                              <!-- end page title -->       
+                              <div class=" mb-4">
+                                <p class="gilroymedium-type fs-15 color-color1 mb-0">This page allows you to see the list of all live affiliate accounts.</p>
+                                </div>
+                                <!--Navs style="background-color: var(--bs-card-bg) rounded-pill -->
+                                <ul class="nav justify-content-start   gilorymedium-type f-22   mb-4 px-0 d-inline-flex" role="tablist"   >
+                                    <li class="nav-item" >
+                                        <a class="nav-link text-center active rounded-2 bg-soft-purple px-4  me-2  text-white" data-bs-toggle="tab" href="#actions-live-tab" role="tab" aria-selected="true" >
+                                        
+                                            <span class=""> Live</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item" >
+                                        <a class="nav-link text-center rounded-2 px-4  me-2  bg-soft-secondarycolor color-color1" data-bs-toggle="tab" href="#actions-pending-tab" role="tab" aria-selected="false" >
+                                        
+                                            <span class=""> Pending</span>
+                                        
+                                        </a>
+                                    </li>
+                                    <li class="nav-item" >
+                                        <a class="nav-link text-center rounded-2 px-4 me-2  bg-soft-secondarycolor color-color1" data-bs-toggle="tab" href="#actions-rejected-tab" role="tab" aria-selected="false" >
+                                        
+                                            <span class="">  Rejected</span>
+                                        
+                                        </a>
+                                    </li>
+                                   
+                                   
+                                </ul>
+                                <!--Tab Content-->
+                                <div class="tab-content">
+                                    <!--Tab1-->
+                                    <div class="tab-pane active" id="actions-live-tab">
+                                        <!--Search-->
+                                        <div class="row align-items-end">
+    
+                                            <div class="col-xxl-6 col-md-6 mb-2 ">
+                
+                                                <div class="row">
+                
+                                                
+                                                    <div class="col-12">
+                
+                                                        <form class="">
+                                                            <div class="row align-items-end ">
+                                                              
+                                                                <div class="col-sm-4 col-xxl-4">
+                                                                    <div class="mb-2">
+                                                                        <label class="form-label " for="Fromdate1">From date<span class="color-orange">*</span></label>
+                                                                        <input  type="text" class="form-control" id="Fromdate1" placeholder="" required>
+                                                                        
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-sm-4 col-xxl-4">
+                                                                    <div class="mb-2">
+                                                                        <label class="form-label " for="Todate1">To date<span class="color-orange">*</span></label>
+                                                                        <input  type="text" class="form-control" id="Todate1" placeholder="" required>
+                                                                            
+                                                                        
+                                                                    </div>
+                                                                </div>
+                                                               
+                                                                <div class="col-sm-4 col-xxl-2 " >
+                                                                        <button class="btn  btn-info  btn-lg mb-2  me-2
+                                                                        " type="submit" id="">History</button>
+                                                                </div>
+                                                               
+                                                        </div> 
+                                                        </form>
+                                                    </div>
+                                                
+                                                </div>
+                
+                                                    
+                                            </div>
+                                            <div class="col-xxl-6 col-md-6  mb-2 ">
+    
+                                                <div class="row ">
+    
+                                                    <div class="col-md-6 col-xxl-7"> 
+    
+                                                        <div class="mb-2">
+    
+                                                            <input type="text" class="form-control  " placeholder="Search" id="myinputsearch1" >
+                                                        </div>
+                                                       
+    
+                                                    </div>
+                                                    <div class="col-md-6 col-xxl-5 d-flex justify-content-end flex-shrink-0">
+                                                        <div class="mb-2">
+                                                            <div id="datatable-buttons_wrapper1">
+                
+                                                            </div>
+                                                        </div>
+                                                        
+                                                    </div>
+                                                </div>
+                                                
+                                            </div>
+                                            
+                                        </div>
+                                       <!--Data Table-->
+                                        <div class="row">
+                                            <div class="col-12">
+                                                     
+                                                      <div class="card">
+    
+                                                            <div class="card-body">
+    
+                                                                <div class="table-responsive "   data-simplebar="init" >
+                
+                                                          
+                                                                    <table  class="table dt-responsive  nowrap  w-100 change" id="datatableiblive">
+                                                                        <thead class="color-color1">
+                                                                            <tr  class=" gilorymedium-type fs-17">
+                                                                                <th  class="ps-0"> View</th>
+                                                                                <th >View Client</th>
+                                                                                <th  >Sales Rep</th>
+                                                                                <th  >Reg Date</th>
+                                                                           
+                                                                                <th>Approval Date</th>
+                                                                                <th>Amount</th>
+                                                                                <th>Log In</th>
+                                                                                <th>Name</th>
+                                                                                <th>Email</th>
+                                                                                <th>Source</th>
+                                                                                <th>Ticket</th>
+                                                                                <th>Country</th>
+                                                                                <th class="text-end ">IP</th>
+                                                                              
+                                                                                
+                                                                            </tr>
+                                                                        </thead>
+                        
+                        
+                                                                        <tbody class="text-white giloryregular-type fs-16">
+                                                                            <tr>
+                                                                          
+                                                                            <td class="ps-0"> <a class="color-green text-decoration-underline">View</a> </td>
+                                                                            <td> <a class="text-info text-decoration-underline">View Clients</a> </td>
+                                                                            <td>Noura Mikati</td>   
+                                                                            <td>09-02-2022</td>
+                                                                            <td>09-02-2022</td>
+                                                                            <td>410000</td>
+                                                                            <td>Noura Mikati</td>
+                                                                            <td>nouramikati@trusttech.in</td>
+                                                                            <td>TC Limited affiliate</td>
+                                                                            <td>384348</td>
+                                                                            <td>China</td>
+                                                                            <td>China</td>   
+                                                                            <td class="text-end ">86.98.85.251</td>
+                                                                     
+                                                                       
+                                                                            
+                                                                            </tr>
+                                                                        
+                        
+                                                                        
+                                                                          
+                                                                        
+                                                                    
+                                                                        
+                                                                        </tbody>
+                                                                    
+                                                                    </table>
+                                                                </div>
+                                                            </div>
+                                                      </div>
+                                                        
+                                                      
+                
+                                             
+                                            </div>
+                                        </div>  
+    
+                                    </div>  
+                                     <!--Tab2-->
+                                    <div class="tab-pane" id="actions-pending-tab">
+                                               <!--Search-->
+                                        <div class="row align-items-end">
+    
+                                            <div class="col-xxl-6 col-md-6 mb-2 ">
+                
+                                                <div class="row">
+                
+                                                
+                                                    <div class="col-12">
+                
+                                                        <form class="">
+                                                            <div class="row align-items-end ">
+                                                              
+                                                                <div class="col-sm-4 col-xxl-4">
+                                                                    <div class="mb-2">
+                                                                        <label class="form-label " for="Fromdate2">From date<span class="color-orange">*</span></label>
+                                                                        <input  type="text" class="form-control" id="Fromdate2" placeholder="" required>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-sm-4 col-xxl-4">
+                                                                    <div class="mb-2">
+                                                                        <label class="form-label " for="Todate2">To date<span class="color-orange">*</span></label>
+                                                                        <input  type="text" class="form-control" id="Todate2" placeholder="" required>
+                                                                            
+                                                                        
+                                                                    </div>
+                                                                </div>
+                                                               
+                                                                <div class="col-sm-4 col-xxl-2 " >
+                                                                        <button class="btn  btn-info  btn-lg mb-2  me-2
+                                                                        " type="submit" id="">History</button>
+                                                                </div>
+                                                               
+                                                        </div> 
+                                                        </form>
+                                                    </div>
+                                                
+                                                </div>
+                
+                                                    
+                                            </div>
+                                            <div class="col-xxl-6 col-md-6  mb-2 ">
+    
+                                                <div class="row ">
+    
+                                                    <div class="col-md-6 col-xxl-7"> 
+    
+                                                        <div class="mb-2">
+    
+                                                            <input type="text" class="form-control  " placeholder="Search" id="myinputsearch2" >
+                                                        </div>
+                                                       
+    
+                                                    </div>
+                                                    <div class="col-md-6 col-xxl-5 d-flex justify-content-end flex-shrink-0">
+                                                        <div class="mb-2">
+                                                            <div id="datatable-buttons_wrapper2">
+                
+                                                            </div>
+                                                        </div>
+                                                        
+                                                    </div>
+                                                </div>
+                                                
+                                            </div>
+                                          
+                                        </div>
+                                       <!--Data Table-->
+                                        <div class="row">
+                                            <div class="col-12">
+                                                     
+                                                      <div class="card">
+    
+                                                            <div class="card-body">
+    
+                                                                <div class="table-responsive "   data-simplebar="init" >
+                
+                                                          
+                                                                    <table  class="table dt-responsive  nowrap  w-100 change" id="datatableibpending">
+                                                                        <thead class="color-color1">
+                                                                            <tr  class=" gilorymedium-type fs-17">
+                                                                                <th  class="ps-0"> View</th>
+                                                                                <th >View Client</th>
+                                                                                <th  >Sales Rep</th>
+                                                                                <th  >Reg Date</th>
+                                                                           
+                                                                                <th>Approval Date</th>
+                                                                                <th>Amount</th>
+                                                                                <th>Log In</th>
+                                                                                <th>Name</th>
+                                                                                <th>Email</th>
+                                                                                <th>Source</th>
+                                                                                <th>Ticket</th>
+                                                                                <th>Country</th>
+                                                                                <th class="text-end ">IP</th>
+                                                                            </tr>
+                                                                        </thead>
+                        
+                        
+                                                                        <tbody class="text-white giloryregular-type fs-16">
+                                                                            <tr>
+                                                                          
+                                                                            <td class="ps-0"> <a class="color-green text-decoration-underline">View</a> </td>
+                                                                            <td> <a class="text-info text-decoration-underline">View Clients</a> </td>
+                                                                            <td>Noura Mikati</td>   
+                                                                            <td>09-02-2022</td>
+                                                                            <td>09-02-2022</td>
+                                                                            <td>410000</td>
+                                                                            <td>Noura Mikati</td>
+                                                                            <td>nouramikati@trusttech.in</td>
+                                                                            <td>TC Limited affiliate</td>
+                                                                            <td>384348</td>
+                                                                            <td>China</td>
+                                                                            <td>China</td>   
+                                                                            <td class="text-end ">86.98.85.251</td>
+                                                                     
+                                                                       
+                                                                            
+                                                                            </tr>
+                                                                    
+                                                                    </table>
+                                                                </div>
+                                                            </div>
+                                                      </div>
+                                                        
+                                                      
+                
+                                             
+                                            </div>
+                                        </div>  
+                                    </div>
+                                    <div class="tab-pane" id="actions-rejected-tab">
+                                             <!--Search-->
+                                             <div class="row align-items-end">
+    
+                                                <div class="col-xxl-6 col-md-6 mb-2 ">
+                    
+                                                    <div class="row">
+                    
+                                                    
+                                                        <div class="col-12">
+                    
+                                                            <form class="">
+                                                                <div class="row align-items-end ">
+                                                                  
+                                                                    <div class="col-sm-4 col-xxl-4">
+                                                                        <div class="mb-2">
+                                                                            <label class="form-label " for="Fromdate3">From date<span class="color-orange">*</span></label>
+                                                                            <input  type="text" class="form-control" id="Fromdate3" placeholder="" required>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-sm-4 col-xxl-4">
+                                                                        <div class="mb-2">
+                                                                            <label class="form-label " for="Todate3">To date<span class="color-orange">*</span></label>
+                                                                            <input  type="text" class="form-control" id="Todate3" placeholder="" required>
+                                                                                
+                                                                            
+                                                                        </div>
+                                                                    </div>
+                                                                   
+                                                                    <div class="col-sm-4 col-xxl-2 " >
+                                                                            <button class="btn  btn-info  btn-lg mb-2  me-2
+                                                                            " type="submit" id="">History</button>
+                                                                    </div>
+                                                                   
+                                                            </div> 
+                                                            </form>
+                                                        </div>
+                                                    
+                                                    </div>
+                    
+                                                        
+                                                </div>
+                                                <div class="col-xxl-6 col-md-6  mb-2 ">
+        
+                                                    <div class="row ">
+        
+                                                        <div class="col-md-6 col-xxl-7"> 
+        
+                                                            <div class="mb-2">
+        
+                                                                <input type="text" class="form-control  " placeholder="Search" id="myinputsearch3" >
+                                                            </div>
+                                                           
+        
+                                                        </div>
+                                                        <div class="col-md-6 col-xxl-5 d-flex justify-content-end flex-shrink-0">
+                                                            <div class="mb-2">
+                                                                <div id="datatable-buttons_wrapper3">
+                    
+                                                                </div>
+                                                            </div>
+                                                            
+                                                        </div>
+                                                    </div>
+                                                    
+                                                </div>
+                                            
+                                            </div>
+                                           <!--Data Table-->
+                                            <div class="row">
+                                                <div class="col-12">
+                                                         
+                                                          <div class="card">
+        
+                                                                <div class="card-body">
+        
+                                                                    <div class="table-responsive "   data-simplebar="init" >
+                    
+                                                              
+                                                                        <table  class="table dt-responsive  nowrap  w-100 change" id="datatableibrejected">
+                                                                            <thead class="color-color1">
+                                                                                <tr  class=" gilorymedium-type fs-17">
+                                                                                    <th  class="ps-0"> View</th>
+                                                                                    <th >View Client</th>
+                                                                                    <th  >Sales Rep</th>
+                                                                                    <th  >Reg Date</th>
+                                                                               
+                                                                                    <th>Approval Date</th>
+                                                                                    <th>Amount</th>
+                                                                                    <th>Log In</th>
+                                                                                    <th>Name</th>
+                                                                                    <th>Email</th>
+                                                                                    <th>Source</th>
+                                                                                    <th>Ticket</th>
+                                                                                    <th>Country</th>
+                                                                                    <th class="text-end ">IP</th>
+                                                                                </tr>
+                                                                            </thead>
+                            
+                            
+                                                                            <tbody class="text-white giloryregular-type fs-16">
+                                                                                <tr>
+                                                                              
+                                                                                <td class="ps-0"> <a class="color-green text-decoration-underline">View</a> </td>
+                                                                                <td> <a class="text-info text-decoration-underline">View Clients</a> </td>
+                                                                                <td>Noura Mikati</td>   
+                                                                                <td>09-02-2022</td>
+                                                                                <td>09-02-2022</td>
+                                                                                <td>410000</td>
+                                                                                <td>Noura Mikati</td>
+                                                                                <td>nouramikati@trusttech.in</td>
+                                                                                <td>TC Limited affiliate</td>
+                                                                                <td>384348</td>
+                                                                                <td>China</td>
+                                                                                <td>China</td>   
+                                                                                <td class="text-end ">86.98.85.251</td>
+                                                                         
+                                                                           
+                                                                                
+                                                                                </tr>
+                                                                        
+                                                                        </table>
+                                                                    </div>
+                                                                </div>
+                                                          </div>
+                                                            
+                                                          
+                    
+                                                 
+                                                </div>
+                                            </div>  
+                                        </div>
+                                    </div>
+                                </div>
+                           
+                      
+                </div>
+                <!-- End Page-content -->
+                
+            </div>
+            {% include "common/right-sidebar.html" %}
+    
+            <!-- Right bar overlay-->
+        <div class="rightbar-overlay"></div> 
+        <script src="{% static 'libs/flatpickr/flatpickr.min.js' %}"></script>
+        <!-- Required datatable js -->
+       <script src="{% static 'libs/datatables.net/js/jquery.dataTables.min.js' %}"></script>
+       <script src="{% static 'libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js' %}"></script>
+        <!-- Buttons examples -->
+        <script src="{% static 'libs/datatables.net-buttons/js/dataTables.buttons.min.js' %}"></script>
+        <script src="{% static 'libs/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js' %}"></script>
+        <script src="{% static 'libs/jszip/jszip.min.js' %}"></script>
+        <script src="{% static 'libs/pdfmake/build/pdfmake.min.js' %}"></script>
+        <script src="{% static 'libs/pdfmake/build/vfs_fonts.js' %}"></script>
+        <script src="{% static 'libs/datatables.net-buttons/js/buttons.html5.min.js' %}"></script>
+        <script src="{% static 'libs/datatables.net-buttons/js/buttons.print.min.js' %}"></script>
+        <script src="{% static 'libs/datatables.net-buttons/js/buttons.colVis.min.js' %}"></script>
+        <!-- Datatable init js -->
+        <script src="{% static 'js/pages/ib.init.js' %}"></script> 
+        
+        <script src="{% static 'js/app.js' %}"></script>
+    

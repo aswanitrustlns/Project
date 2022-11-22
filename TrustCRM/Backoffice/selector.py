@@ -885,7 +885,7 @@ class Selector:
             row_details,showdetail=dllservice.dll_get_history(user,server,password,fromday,frommonth,fromyear,today,tomonth,toyear)
         except Exception as e:
                 print("Exception------",e)
-        return row_details,showdetail
+        return row_details,showdetail,fromdateformat,todateformat
      #Get ewallet transaction history
     def get_ewallet_transactionhistory(self,fromdate,todate,transtype):
         try:

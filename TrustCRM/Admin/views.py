@@ -9,7 +9,6 @@ from django.shortcuts import redirect, render
 from django.db import connection
 from django.views.decorators.csrf import csrf_exempt
 from datetime import datetime, timedelta
-
 from django.template import Context
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.sessions.models import Session
@@ -134,6 +133,12 @@ def dashboard(request):
         salesRep=permission_check[22]
         complaints=permission_check[14]
         viewunassigned=permission_check[25]
+        seminarconf=permission_check[23]
+        if seminarconf:
+            request.session['seminarconf']="True"
+        else:
+            request.session['seminarconf']="False"
+
         if complaints:
             request.session['compliance']="True"
         if viewunassigned:
@@ -437,14 +442,14 @@ def pending_tickets(request):
         UserId=request.session.get('UserId')
         dashboard=request.GET.get('spoken')
         if (dashboard=="spoken"):
-             pending_tickets=selector.get_tickets(UserId,"spoken")
+             pending_tickets,fromdate,todate=selector.get_tickets(UserId,"spoken")
         else:
-             pending_tickets=selector.get_tickets(UserId,"pending")
+             pending_tickets,fromdate,todate=selector.get_tickets(UserId,"pending")
         pendingTickets=sorted( pending_tickets,key=lambda tup: tup[1])
         # pendingTickets=[tuple(reversed(t)) for t in pending_tickets]
         # pendingTickets=pending_tickets[::-1]
        
-        return render(request,'sales/pendingtickets.html',{'pending_tickets':pendingTickets,'status':json.dumps("Pending")})
+        return render(request,'sales/pendingtickets.html',{'pending_tickets':pendingTickets,'status':json.dumps("Pending"),'from':fromdate,'to':todate})
     else:
          return redirect('/login') 
 def pending_tickets_from_summary(request):
@@ -452,8 +457,8 @@ def pending_tickets_from_summary(request):
         UserId=request.session.get('UserId')
         summary=request.GET.get('summary')
         status=request.GET.get('status')
-        pending_tickets=selector.get_tickets_summary(UserId,summary,status)
-        return render(request,'sales/pendingtickets.html',{'pending_tickets':pending_tickets,'status':json.dumps(status)})
+        pending_tickets,fromdate,todate=selector.get_tickets_summary(UserId,summary,status)
+        return render(request,'sales/pendingtickets.html',{'pending_tickets':pending_tickets,'status':json.dumps(status),'from':json.dumps(fromdate),'to':json.dumps(todate)})
     else:
          return redirect('/login')
 
@@ -463,16 +468,18 @@ def pending_tckts_load_all(request):
         from_date=request.GET.get('from')
         to_date=request.GET.get('to')
         status=request.GET.get('status')
-        pending_tickets=selector.get_all_tickets(UserId,status,from_date,to_date)
-        return JsonResponse(list(pending_tickets), safe=False)
+        pending_tickets,fromdate,todate=selector.get_all_tickets(UserId,status,from_date,to_date)
+
+        # return JsonResponse(list(pending_tickets), safe=False)
+        return HttpResponse(json.dumps({"data":pending_tickets,"from":fromdate,"to":todate}), content_type="application/json")
     else:
          return redirect('/login') 
 
 def resolved_tickets(request):
     if 'UserId' in request.session:
         UserId=request.session.get('UserId')
-        resolved_tickets=selector.get_tickets(UserId,"resolved")
-        return render(request,'sales/resolvedtickets.html',{'resolved_tickets':resolved_tickets})
+        resolved_tickets,fromdate,todate=selector.get_tickets(UserId,"resolved")
+        return render(request,'sales/resolvedtickets.html',{'resolved_tickets':resolved_tickets,'from':fromdate,'to':todate})
     else:
          return redirect('/login') 
 
@@ -480,7 +487,7 @@ def dormant_ticket(request):
     if 'UserId' in request.session:
         UserId=request.session.get('UserId')
         # salesrepId=30
-        dormant_tickets=selector.get_tickets(UserId,"dormant")        
+        dormant_tickets,fromdate,todate=selector.get_tickets(UserId,"dormant")        
         return render(request,'sales/dormanttickets.html',{'dormant_tickets':dormant_tickets})
     else:
          return redirect('/login') 
@@ -492,8 +499,9 @@ def resolved_tckts_load_all(request):
         UserId=request.session.get('UserId')
         from_date=request.GET.get('from')
         to_date=request.GET.get('to')
-        resolved_tickets=selector.get_all_tickets(UserId,"resolved",from_date,to_date)
-        return JsonResponse(list(resolved_tickets), safe=False)
+        resolved_tickets,fromdate,todate=selector.get_all_tickets(UserId,"resolved",from_date,to_date)
+        return HttpResponse(json.dumps({"data":resolved_tickets,"from":fromdate,"to":todate}), content_type="application/json")
+        # return JsonResponse(list(resolved_tickets), safe=False)
     else:
         return redirect('/login')
 
@@ -526,7 +534,7 @@ def new_accounts(request):
             accounts_count=selector.get_new_accounts_count(from_date,to_date)
             print("change is---------------",change)
             
-            return HttpResponse(json.dumps({"data":accounts_data,"count":accounts_count}), content_type="application/json")
+            return HttpResponse(json.dumps({"data":accounts_data,"count":accounts_count,'from':from_date,'to':to_date}), content_type="application/json")
         else:
            
             
@@ -534,7 +542,7 @@ def new_accounts(request):
             accounts_count=selector.get_new_accounts_count(date_yesterday,date_today)
             
             # terminated_data=selector.get_new_accounts("Terminated")
-            return render(request,'admin/newAccounts.html',{'accounts_data':accounts_data,'accounts_count':accounts_count,"active":json.dumps(active),'role':json.dumps(role)})
+            return render(request,'admin/newAccounts.html',{'accounts_data':accounts_data,'from':date_yesterday,'to':date_today,'accounts_count':accounts_count,"active":json.dumps(active),'role':json.dumps(role)})
             # return render(request,'sales/allclients.html',{'accounts_data':accounts_data,'accounts_count':accounts_count,"active":json.dumps(active)})
                 
     else:
@@ -543,6 +551,7 @@ def new_accounts(request):
 def new_accounts_variants(request):
     active="Live"
     if 'UserId' in request.session:
+        role=request.session.get("role")
         change=request.GET.get("change")
         date_today=datetime.today().date()    
         date_today=date_today.strftime("%Y-%m-%d")
@@ -559,7 +568,7 @@ def new_accounts_variants(request):
         
         accounts_data=selector.get_new_accounts_click(change,date_yesterday,date_today)#get_new_accounts_filter
         accounts_count=selector.get_new_accounts_count(date_yesterday,date_today)   
-        return render(request,'admin/newAccounts.html',{'accounts_data':accounts_data,'accounts_count':accounts_count,"active":json.dumps(active)})
+        return render(request,'admin/newAccounts.html',{'accounts_data':accounts_data,'from':date_yesterday,'to':date_today,'accounts_count':accounts_count,"active":json.dumps(active),'role':json.dumps(role)})
                 
     else:
         return redirect('/login')
@@ -568,6 +577,7 @@ def new_accounts_variants(request):
 def new_accounts_variants_weekly(request):
     active="Live"
     if 'UserId' in request.session:
+        role=request.session.get("role")
         change=request.GET.get("change")
         date_today=datetime.today().date()    
         date_today=date_today.strftime("%Y-%m-%d")
@@ -582,7 +592,7 @@ def new_accounts_variants_weekly(request):
             active="pending"
         accounts_data=selector.get_new_accounts_weekly_filter(change,date_yesterday,date_today)
         accounts_count=selector.get_new_accounts_count(date_yesterday,date_today)   
-        return render(request,'admin/newAccounts.html',{'accounts_data':accounts_data,'accounts_count':accounts_count,"active":json.dumps(active)})
+        return render(request,'admin/newAccounts.html',{'accounts_data':accounts_data,'from':date_yesterday,'to':date_today,'accounts_count':accounts_count,"active":json.dumps(active),'role':json.dumps(role)})
                 
     else:
         return redirect('/login')
@@ -1221,6 +1231,17 @@ def mailto_complaint_client(request):
         return JsonResponse({"message":message})
     else:
         return redirect('/login')
+def inactivetickets(request):
+    if 'UserId' in request.session:
+        return render(request,'management/inactivetickets.html')
+    else:
+        return redirect('/login')
+def livechatreport(request):
+    if 'UserId' in request.session:
+        return render(request,'management/livechatreport.html')
+    else:
+        return redirect('/login')
+
 
 
 

@@ -79,6 +79,8 @@ urlpatterns=[
     path('Events',show_events,name="Events"),
     path('TicketSummary',ticket_summary,name="TicketSummary"),
     path('TicketSummaryOnLoad',ticket_summary_onload,name="TicketSummaryOnLoad"),
+    path("InactiveTickets",inactivetickets,name="InactiveTickets"),
+    path('LivechatReport',livechatreport,name="LivechatReport"),
     #Compliance============================================================
     # path('ComplianceDashboard',compliance_dashboard,name="ComplianceDashboard"),
     path('ComplianceDetails',complaint_details,name="ComplianceDetails"),

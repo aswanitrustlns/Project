@@ -255,7 +255,8 @@ class Selector:
                 Cursor.execute("exec SP_GetSalesLeadsListPaginate_PY %s,%s,%s,%s,%s",[userId,date_yesterday,date_today,'R',0])
                 _tickets=Cursor.fetchall()
             if(ticket=="dormant"):
-                
+                date_yesterday=""
+                date_today=""
                 print("dormant tickets")
                 Cursor.execute("exec SP_GetDormantSalesLeadsPaginate_PY %s,%s,%s",[userId,"P",userId])
                 _tickets=Cursor.fetchall()
@@ -264,7 +265,7 @@ class Selector:
         finally:
             Cursor.close()
         
-        return _tickets  
+        return _tickets,date_yesterday,date_today
     
     #Get Tickets for summary
     def get_tickets_summary(self,userId,summary,status):
@@ -274,6 +275,7 @@ class Selector:
             Cursor=connection.cursor()  
             date_today=datetime.today().date()    
             date_today=date_today.strftime("%Y-%m-%d")
+            fromdate="1900-09-19"
             if status=="Pending":
                 Cursor.execute("set nocount on;exec SP_GetSalesLeadsListPaginateByCount %s,%s,%s,%s",[userId,"1900-09-19",date_today,summary])
                 tickets=Cursor.fetchall()
@@ -290,12 +292,13 @@ class Selector:
             print("Exception---",e)
         finally:
             Cursor.close()
-        return tickets
+        return tickets,fromdate,date_today
         
 
     def get_all_tickets(self,userId,status,from_date,to_date):
         try:
             _tickets=[]
+            
             Cursor=connection.cursor()
             
             date_today=datetime.today().date()    
@@ -327,7 +330,7 @@ class Selector:
             print("Exception---",e)
         finally:
             Cursor.close() 
-        return _tickets
+        return _tickets,from_date,to_date
 
     #Get new accounts count
     def get_new_accounts_count(self,from_date,to_date):

@@ -546,7 +546,7 @@
                                                                     style="background-color: 
                                                                                                    
                                                                             
-                                                                                                   rgba(227, 35, 255, 0.1);color: rgba(227, 35, 255, 1);" id="pend-unattend"></span>
+                                                                                                   rgba(227, 35, 255, 0.1);color: rgba(227, 35, 255, 1);" id="pend-unattend">...</span>
     
     
                                                                 </span>
@@ -584,7 +584,7 @@
                                                                                         class="badge rounded-pill rounded-circle p-2 fs-15 flex-shrink-0"
                                                                                         style="background-color: 
                                                                                                     
-                                                                                                    rgba(255, 124, 72, 0.2); color: rgba(255, 124, 72, 1)" id="pend-inv-email"></span>
+                                                                                                    rgba(255, 124, 72, 0.2); color: rgba(255, 124, 72, 1)" id="pend-inv-email">...</span>
                                                                                 </li>
                                                                                 <li
                                                                                     class="mb-4   d-flex flex-nowrap align-items-center" onclick="summarydetails('INVPH','Pending')" style="Cursor:pointer">
@@ -1179,6 +1179,8 @@ color:rgba(255, 195, 78,1 )" id="dormant-duplicatephone"></span>
                         document.getElementById("pend-spoken").innerHTML=pending[3]
                         document.getElementById("pend-attend").innerHTML=""
                         document.getElementById("pend-attend").innerHTML=pending[1]
+                        document.getElementById("pend-unattend").innerHTML=""
+                        document.getElementById("pend-unattend").innerHTML=pending[2]
                         document.getElementById("pend-interest").innerHTML=""
                         document.getElementById("pend-interest").innerHTML=pending[5]
                         document.getElementById("pend-in-meet").innerHTML=""

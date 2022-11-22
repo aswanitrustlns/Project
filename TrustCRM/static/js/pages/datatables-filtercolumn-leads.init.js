@@ -270,7 +270,7 @@ var table = $('#datatableleads').DataTable({
         dateFormat: "Y-m-d",//MMMM Do YYYY
         altFormat: "Y-m-d",
         mode: "single",
-        //enableTime: false,
+        enableTime: false,
         altInput: true, // Human Readable
         //minDate: new Date().fp_incr(-60), // 60 days from today
         //maxDate: defaultEnd,
@@ -289,7 +289,7 @@ var table = $('#datatableleads').DataTable({
         dateFormat: "Y-m-d",//MMMM Do YYYY
         altFormat: "Y-m-d",
         mode: "single",
-        //enableTime: false,
+        enableTime: false,
         altInput: true, // Human Readable
         //minDate: new Date().fp_incr(-60), // 60 days from today
         //maxDate: defaultEnd,
@@ -298,13 +298,7 @@ var table = $('#datatableleads').DataTable({
         
 
     });
-    $("#load-all"
-    ).click(function() {
-        flatpickerfromdate.clear();
-        flatpickertodate.clear();
-        // flatpickr.clear();
-        
-     })
+   
 
 });
 var addColor=function ($this,$class,$textcolor){

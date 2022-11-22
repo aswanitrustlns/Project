@@ -36,7 +36,7 @@
                             <path d="M8.33247 16.2983C7.03997 17.16 7.03997 18.5717 8.33247 19.4333C9.79914 20.4142 12.2008 20.4142 13.6675 19.4333C14.96 18.5717 14.96 17.16 13.6675 16.2983C12.21 15.3267 9.79914 15.3267 8.33247 16.2983Z" stroke="#989898" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                         </svg>
                           
-                        <span data-key="t-clients">All Clients</span>
+                        <span data-key="t-clients">Clients</span>
 
                     </a>
                     <!-- <ul class="sub-menu" aria-expanded="false">
@@ -70,8 +70,8 @@
                     </ul>
                 </li>
                 {%endif%}
-                <!-- <li>
-                    <a href="javascript: void(0);" class="has-arrow">
+                <li>
+                    <a href="{% url 'Backoffice:Affiliates' %}" >
                         
                         <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M14.2847 17.6459H5.88193C2.52082 17.6459 1.68054 16.8056 1.68054 13.4445V6.72226C1.68054 3.36115 2.52082 2.52087 5.88193 2.52087H14.2847C17.6458 2.52087 18.4861 3.36115 18.4861 6.72226V13.4445C18.4861 16.8056 17.6458 17.6459 14.2847 17.6459Z" stroke="#989898" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -82,16 +82,16 @@
                             <path d="M10.0834 13.7217C9.96572 12.5033 8.9994 11.5454 7.781 11.4362C7.36086 11.3942 6.93232 11.3942 6.50378 11.4362C5.28537 11.5538 4.31905 12.5033 4.20142 13.7217" stroke="#989898" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                             </svg>
                             
-                        <span data-key="t-affiliates">Affiliates</span>
+                        <span data-key="t-affiliates" >Affiliates</span>
                     </a>
-                    <ul class="sub-menu" aria-expanded="false">
+                    <!-- <ul class="sub-menu" aria-expanded="false">
                         <li><a href="#" data-key="t-liveaffiliates">Live Affiliates</a></li>
                         <li><a href="#" data-key="t-pendingaffiliates">Pending Affiliates</a></li>
                         <li><a href="#" data-key="t-rejectedaffiliates">Rejected Affiliates</a></li>
                         
                         
-                    </ul>
-                </li> -->
+                    </ul> -->
+                </li>
                 {%if request.session.role != "backoffice" %}  
                 <li>
                     <a  href="javascript: void(0);" class="has-arrow">
@@ -154,13 +154,35 @@
                     <ul class="sub-menu" aria-expanded="false">
                         <li><a    href="{% url 'Seminars:Seminars' %}" data-key="t-inbox">New Event Registration</a></li>
                         <li><a    href="{% url 'Seminars:SeminarReport' %}" data-key="t-inbox">Report Generation</a></li>
+                        {%if request.session.seminarconf == "True" %} 
                         <li><a    href="{% url 'Seminars:Confirmation' %}" data-key="t-inbox">Seminar Confirmation</a></li>
-
+                        {%endif%}
 
                         
                     </ul>
                 </li>
                 {%endif%}
+                <li>
+                    <a  href="javascript: void(0);" class="has-arrow">
+                        <!--<i data-feather="layout"></i>-->
+                        <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M14.6666 1.83337H7.33331C3.66665 1.83337 1.83331 3.66671 1.83331 7.33337V19.25C1.83331 19.7542 2.24581 20.1667 2.74998 20.1667H14.6666C18.3333 20.1667 20.1666 18.3334 20.1666 14.6667V7.33337C20.1666 3.66671 18.3333 1.83337 14.6666 1.83337Z" stroke="#989898" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M6.41669 8.70837H15.5834" stroke="#989898" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M6.41669 13.2917H12.8334" stroke="#989898" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            
+                            
+                            
+                            
+                        <span data-key="t-management">Management</span>
+                    </a>
+                    <ul class="sub-menu" aria-expanded="false">
+                        <li><a  href="{% url 'Admin:InactiveTickets' %}" data-key="t-leads">Inactive Tickets</a></li>
+                        <li><a  href="{% url 'Admin:LivechatReport' %}" data-key="t-LeadRegistration">Live Chat Report</a></li>
+                        <li><a  href="LeadRegistration.html" data-key="t-LeadRegistration">Sales Camaigns</a></li>
+                        
+                    </ul>
+                </li>     
                 <!-- {%if request.session.compliance == "True" %}
                 <li>
                     <a  href="javascript: void(0);" class="has-arrow">
