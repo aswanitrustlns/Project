@@ -61,7 +61,8 @@ urlpatterns=[
     path('PrintReport', print_sales_call_report,name="PrintReport"),
     path('MonthlyReport',get_sales_report_monthly,name="MonthlyReport"),
     path('Livechat',live_chat,name="Livechat"),
-    
+    path('InactiveLoad',inactiveticketLoad,name="InactiveLoad"),
+    path('Campaigns',salescampaigns,name="Campaigns"),
     #seminar=============================================================
     path('Upcoming',upcomingSeminars,name="Upcoming"),
     path('RegisterSeminar',registerSeminars,name="RegisterSeminar"),

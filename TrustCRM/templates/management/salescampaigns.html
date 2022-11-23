@@ -48,7 +48,7 @@
     
                         <div class="col-12">
                             <div class="d-flex align-items-center">
-                                <h4 class="card-title almarenamonolight-type mb-4 fs-23">Inactive Tickets</h4>
+                                <h4 class="card-title almarenamonolight-type mb-4 fs-23">Sales Campaigns</h4>
                                 
                                 
                             </div>
@@ -56,22 +56,26 @@
                        
                             
                             <div class=" mb-4">
-                                <p class="gilroymedium-type fs-15 color-color1 mb-0">This page allows you to see the list of all Tickets which are incative since two days or more.</p>
+                                <p class="gilroymedium-type fs-15 color-color1 mb-0">This page allows you to see the list of all sales campaigns conducted and their details.</p>
                             </div>
     
                      
                             
                         </div>
-                        <div class="col-xxl-9">
+                        <div class="col-12">
                                 <div class="row align-items-end mb-4">
                                     <div class="col-sm-2">
                                         <div class="mb-2">
-                                            <label class="form-label " for="salesrep">Source</label>
-                                            <select   class="py-1 form-select" id="source"> 
+                                            <label class="form-label " for="salesrep">Campaign Title</label>
+                                            <select   class="py-1 form-select" id="campaign"> 
                                                 <option value="0">Select</option>
                                                 
-                                                {%for source in sources%}
-                                                <option value="{{source.0}}">{{source.0}}</option>
+                                                {%for campaign in campaigns%}
+                                                {% if not forloop.last %}
+                                                <option value="{{campaign.0}}">{{campaign.1}}</option>
+                                                {% else %}
+                                                <option value="{{campaign.0}}" selected>{{campaign.1}}</option>
+                                                {% endif %}
                                                 {%endfor%}
                                                
                                             </select>
@@ -82,47 +86,97 @@
     
                                         <div class="col-sm-2">
                                             <div class="mb-2">
-                                                <label class="form-label " for="salesrep">Sales Rep</label>
+                                                <label class="form-label " for="salesrep">Country</label>
                                                 <select   class="py-1 form-select" id="salesrepId"> 
                                                     <option value="0">Select</option>
-                                                    {%if request.session.role == "salesrep" %}
-                                                    <option value="{{request.session.UserName}}">{{request.session.UserName}}</option>
-                                                    {%else%}
-                                                    {%for rep in salesrep%}
-                                                    <option value="{{rep.0}}">{{rep.1}}</option>
+                                                    
+                                                    {%for country in countryList %}
+                                                    <option value="{{country.0}}">{{country.1}}</option>
                                                     {%endfor%}
-                                                    {%endif%}
+                                                   
                                                 </select>
     
                                                 
                                             </div>
                                         </div>
-                                        <div class="col-sm-2">
-                                            <div class="mb-2">
-                                                <label class="form-label " for="Fromdate">From Date</label>
-                                                <input type="text" id="Fromdate" class="py-1">
-                                                <input type="hidden" name="from" id="fromprint">
-                                                
-                                            </div>
+                                        <div class="col-sm-8 ">
+                                            <button class="btn btn-info btn-md mb-2 py-1 noPrint me-2" type="button" id="load-btn-sr" onclick="loadInactive()">Load</button>
+                                            <button class="btn btn-info btn-md mb-2 py-1 noPrint me-2" type="button" id="load-btn-sr" onclick="loadAllInactive()">Leads Bulk Upload</button>
+                                            <button class="btn btn-info btn-md mb-2 py-1 noPrint me-2" type="button" id="load-btn-sr" onclick="loadAllInactive()">Add New Campaign</button>
                                         </div>
-                                        <div class="col-sm-2">
-    
-                                            <div class="mb-2">
-                                                <label class="form-label " for="Todate">To Date</label>
-    
-                                                <input type="text" id="Todate" class="py-1">
-                                                <input type="hidden" name="from" id="toprint">
-                                            </div>
+                                      
     
     
     
     
                                         </div>
-                                        <div class="col-sm-2 ">
-                                            <button class="btn btn-info btn-md mb-2 py-1 noPrint" type="button" id="load-btn-sr" onclick="loadInactive()">Load</button>
-                                            <button class="btn btn-info btn-md mb-2 py-1 noPrint" type="button" id="load-btn-sr" onclick="loadAllInactive()">Load All</button>
-                                        </div>
+                                        
                                 </div> 
+                                <div class="row justify-content-between">
+    
+                                    <div class="col">
+
+
+                                        <div class=" gilroyregular-type  mb-2 ">
+                                            <p class=" mb-0  color-color1 fs-16"> Total Tickets</p>
+                                            <span class="  text-white  fs-18" id="total-tickets">{{total}}</span>
+                                            
+                                        
+                                        </div>
+                                    </div>
+                                    <div class="col">
+
+
+                                        <div class=" gilroyregular-type  mb-2 ">
+                                            <p class=" mb-0  color-color1 fs-16"> Unattended Leads</p>
+                                            <span class="  text-white  fs-18" id="unattend">{{unattended}}</span>
+                                            
+                                        
+                                        </div>
+                                    </div>
+                                    <div class="col">
+
+
+                                        <div class=" gilroyregular-type  mb-2 ">
+                                            <p class=" mb-0  color-color1 fs-16"> Interested Tickets</p>
+                                            <span class="  text-white  fs-18" id="intrtickets">{{interested}}</span>
+                                            
+                                        
+                                        </div>
+                                    </div>
+                                    <div class="col">
+
+
+                                        <div class=" gilroyregular-type  mb-2 ">
+                                            <p class=" mb-0  color-color1 fs-16">Spoken Tickets</p>
+                                            <span class="  text-white  fs-18" id="spoken-tickets">{{spoken}}</span>
+                                            
+                                        
+                                        </div>
+                                    </div>
+                                    <div class="col">
+
+
+                                        <div class=" gilroyregular-type  mb-2 ">
+                                            <p class=" mb-0  color-color1 fs-16">Registered Live</p>
+                                            <span class="  text-white  fs-18" id="registered">{{live}}</span>
+                                            
+                                        
+                                        </div>
+                                    </div>
+                                    <div class="col">
+
+
+                                        <div class=" gilroyregular-type  mb-2 ">
+                                            <p class=" mb-0  color-color1 fs-16">Started Training </p>
+                                            <span class="  text-white  fs-18" id="started">{{training}}</span>
+                                            
+                                        
+                                        </div>
+                                    </div>
+                                    
+
+                                </div>
                                 <div class="col-xxl-6 col-md-6  mb-2 ">
     
                                     <div class="row ">
@@ -167,26 +221,34 @@
                                             <thead class="gilory-medium-type fs-16">
                                                 <tr>
                                                     <td class=" ps-0"></td>
-                                                    <td >RegDate</td>
                                                     <td >Ticket</td>
-                                                    <td >Email</td>
-                                                    <td >Source</td>
+                                                    <td >Name</td>
+                                                    <td >RegDate</td>
+                                                    <td >Registered Live</td>
+                                                    <td >Interested/Not</td>
+                                                    <td >Country</td>
+                                                    <td >Spoken</td>
                                                     <td >Sales Rep</td>
-                                                    <td class="text-end pe-0" >Reassigned Rep</td>
+                                                    <td >Started Training</td>
+                                                    <td >Last Comment</td>
                                                 </tr>
                                             </thead>
                                            
                                             <tbody class="gilory-regular-type fs-15 text-white" id="report-body">
-                                                {%for inactive in inactives%} 
+                                                {%for report in reports%} 
                                                 <tr>
-                                                    <td class="ps-0" style="cursor: pointer;" onclick="loadTicket({{inactive.1}})"> <span class="color-green text-decoration-underline"  >View</span> </td>
+                                                    <td class="ps-0" style="cursor: pointer;" onclick="loadTicket({{report.0}})"> <span class="color-green text-decoration-underline"  >View</span> </td>
                                                     <!-- data-bs-toggle="modal" data-bs-target=".bs-example-modal-show" -->
-                                                    <td>{{inactive.0}}</td> 
-                                                    <td>{{inactive.1}}</td>   
-                                                    <td>{{inactive.2}}</td>
-                                                    <td>{{inactive.3}}</td>
-                                                    <td>{{inactive.4}}</td>
-                                                    <td>{{inactive.5}}</td>
+                                                    <td>{{report.0}}</td> 
+                                                    <td>{{report.1}}</td>   
+                                                    <td>{{report.2}}</td>
+                                                    <td>{{report.3}}</td>
+                                                    <td>{{report.4}}</td>
+                                                    <td>{{report.5}}</td>
+                                                    <td>{{report.6}}</td>
+                                                    <td>{{report.7}}</td>
+                                                    <td>{{report.8}}</td>
+                                                    <td>{{report.9}}</td>
                                                     
                                                 </tr>
                                               {%endfor%}
@@ -446,7 +508,7 @@
 <script src="{% static 'libs/datatables.net-buttons/js/buttons.print.min.js' %}"></script>
 <script src="{% static 'libs/datatables.net-buttons/js/buttons.colVis.min.js' %}"></script>
     <!-- Datatable init js -->
-    <script src="{% static 'js/pages/inactive-ticket.init.js' %}"></script> 
+<script src="{% static 'js/pages/inactive-ticket.init.js' %}"></script> 
     
     
     

@@ -72,7 +72,7 @@
                                     <div class="col-sm-2">
                                         <div class="mb-2">
                                             <label class="form-label " for="fromdate-sr">From Date</label>
-                                            <input type="text" id="fromdate-sr" class="py-1">
+                                            <input type="text" id="Fromdate" class="py-1">
                                             <input type="hidden" name="from" id="fromprint">
                                             
                                         </div>
@@ -82,7 +82,7 @@
                                         <div class="mb-2">
                                             <label class="form-label " for="todate-sr">To Date</label>
 
-                                            <input type="text" id="todate-sr" class="py-1">
+                                            <input type="text" id="Todate" class="py-1">
                                             <input type="hidden" name="from" id="toprint">
                                         </div>
 
@@ -144,7 +144,7 @@
                                 <!-- card body -->
                                 <div class="card-body py-2">
                                     <div class="">
-                                        <a onclick="leadsClick('TotLeadsToday','0')"  style="cursor:pointer;">
+                                        <a   style="cursor:pointer;">
                                         <div class="d-flex align-items-center  flex-xl-column flex-xxl-row">
                                             <span class=" mb-3 lh-1 d-block flex-shrink-0 " >
                                                 <i class="  rounded-circle d-inline-block p-3  " style="background-color: var(--bs-card-bg);">
@@ -211,19 +211,17 @@
                                         
                                     
                                     <div class=" px-1 table-responsive" >
-                                        <table id="datatableleads" class="table dt-responsive  nowrap w-100 ">
+                                        <table class="table dt-responsive  nowrap  w-100 change" id="datatable" >
                                             <thead>
                                                 <tr  class=" ">
-                                                    <th  data-id="datepicker-range" class="filterhead">Date</th>
-                                                    <!-- <th >Id</th> -->
-                                                    <th  data-text="text" class="filterhead">Name</th>
-                                                    <th data-timer="option" class="filterhead" >Email</th>
-                                                    <!-- <th  data-text="text" class="filterhead">ID</th> -->
-                                                    <th  data-text="text" class="filterhead">Phone</th>
-                                                    <th  data-text="select" class="filterhead">Source</th>
-                                                    <th  data-text="text" class="filterhead">Ticket</th>
-                                                    <th  data-text="text" class="filterhead">Account</th>
-                                                    <th  data-text="text" class="filterhead">Country</th>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td >Ticket</td>
+                                                    <td >LogTime</td>
+                                                    <td >ThreadId</td>
+                                                    <td >Name</td>
+                                                    <td >Sales Rep</td>
+                                                    <td class="text-end pe-0" >Attended By</td>
                                                 </tr>
                                             </thead>
         
@@ -287,7 +285,7 @@
       
     
         <!-- Datatable init js -->
-        <script src="{% static 'js/pages/datatables-filtercolumn-leads.init.js' %}"></script> 
+        <script src="{% static 'js/pages/livechat.init.js' %}"></script> 
         <script src="{% static 'js/app.js' %}"></script>
     
         </body>

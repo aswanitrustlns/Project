@@ -147,6 +147,8 @@ class Selector:
             Cursor.close()
         return country_list
 
+
+
     #Merge ticket procedure call
     def merge_ticket(self,ticket,email1,email2,mobile,telephone):
         try:
@@ -1470,6 +1472,78 @@ class Selector:
         finally:
                 Cursor.close()
         return msg
+    #Get source for inactive tickets page
+    def get_sources(self):
+        try:
+            Cursor=connection.cursor()   
+            Cursor.execute("set nocount on;exec SP_GetSourceListTicket") 
+            sourcelist=Cursor.fetchall()
+        except Exception as e:
+                print("Exception------",e)
+        finally:
+                Cursor.close()
+        return sourcelist
+    #Get inactive Tickets
+    def inactive_tickets_default(self,fromdate,todate,repId,source):
+        try:
+            Cursor=connection.cursor()   
+            Cursor.execute("set nocount on;exec SP_GetInactiveTickets %s,%s,%s,%s",[fromdate,todate,source,repId]) 
+            inactive=Cursor.fetchall()
+        except Exception as e:
+                print("Exception------",e)
+        finally:
+                Cursor.close()
+        return inactive
+    #Get Campaign titles
+    def get_campaigns(self):
+        try:
+            Cursor=connection.cursor()   
+            Cursor.execute("set nocount on;exec SP_GetCampaignTitles") 
+            campaigns=Cursor.fetchall()
+        except Exception as e:
+                print("Exception------",e)
+        finally:
+                Cursor.close()
+        return campaigns
+    #Get Live chat salesrep
+    def get_livechat_reps(self):
+        try:
+            Cursor=connection.cursor()
+            Cursor.execute("set nocount on;exec SP_getLiveChatSalesRep") 
+            livechat_rep=Cursor.fetchall()
+        except Exception as e:
+            print("Exception---",e)
+        finally:
+            Cursor.close()
+        return livechat_rep
+    #Get Live chat Users
+    def get_livechat_users(self):
+        try:
+            Cursor=connection.cursor()
+            Cursor.execute("set nocount on;exec SP_getLiveChatUsers") 
+            livechat_users=Cursor.fetchall()
+        except Exception as e:
+            print("Exception---",e)
+        finally:
+            Cursor.close()
+        return livechat_users
+
+    #Get Campaign Report
+    
+    def get_campaigns_report(self,campaignid,countryid):
+        try:
+            Cursor=connection.cursor()
+            Cursor.execute("set nocount on;exec SP_GetCampaignsReport %s,%s",[campaignid,countryid]) 
+            campaign_report=Cursor.fetchall()
+        except Exception as e:
+            print("Exception---",e)
+        finally:
+            Cursor.close()
+        return campaign_report
+
+
+        
+
         
 
 

@@ -1233,12 +1233,75 @@ def mailto_complaint_client(request):
         return redirect('/login')
 def inactivetickets(request):
     if 'UserId' in request.session:
-        return render(request,'management/inactivetickets.html')
+        userid=request.session.get('UserId')
+        sourcelist=selector.get_sources()
+        salesrep=selector.get_salesrep_permission(userid)
+        date_today=datetime.today().date()    
+        date_today=date_today.strftime("%Y-%m-%d")
+        inactive=selector.inactive_tickets_default("1900-09-19",date_today,0,"")
+        return render(request,'management/inactivetickets.html',{'sources':sourcelist,'salesrep':salesrep,'inactives':inactive})
     else:
         return redirect('/login')
+def inactiveticketLoad(request):
+    if 'UserId' in request.session:
+        from_date=request.GET.get('from')
+        to_date=request.GET.get('to')
+        source=request.GET.get('source')
+        rep=request.GET.get('repId')
+        if rep:
+            rep=int(rep)
+        else:
+            rep=0
+        print("Inputs=====",from_date,to_date,rep,source)
+        inactive=selector.inactive_tickets_default(from_date,to_date,rep,source)
+        return JsonResponse({"tickets":inactive})
+    else:
+        return redirect('/login')
+
 def livechatreport(request):
     if 'UserId' in request.session:
-        return render(request,'management/livechatreport.html')
+        reps=selector.get_livechat_reps()
+        users=selector.get_livechat_users()
+        return render(request,'management/livechatreport.html',{'reps':reps,'users':users})
+    else:
+        return redirect('/login')
+
+def salescampaigns(request):
+    if 'UserId' in request.session:
+        last_campaign_id=0
+        country_id=0
+        total_ticket=0
+        registerd_live=0
+        interested_not=0
+        spoken_count=0
+        registerd_live=0
+        started_training=0
+        unattended=0
+        campaigns=selector.get_campaigns()
+        if campaigns:
+            last_campaign=campaigns[-1]
+            last_campaign_id=int(last_campaign[0])
+            print("Last campaign====",last_campaign_id)
+        country_list=selector.get_all_country()
+        report=selector.get_campaigns_report(last_campaign_id,country_id)
+        if report:
+            for alldata in report:
+                print("All data of 1",alldata[0])
+                if(alldata[0]!="Not Created"):
+                    total_ticket=total_ticket+1
+                if(alldata[0]=="Not Created"):
+                    unattended=unattended+1
+                if(alldata[3]!=""):
+                    registerd_live=registerd_live+1
+                if(alldata[4]!="Not Interested"): 
+                    interested_not=interested_not+1
+                if(alldata[6]!="No"):
+                    spoken_count=spoken_count+1
+                if(alldata[8]!="No"):
+                    started_training=started_training+1
+                
+            print("Total Ticket====",total_ticket)    
+        return render(request,'management/salescampaigns.html',{'campaigns':campaigns,'countryList':country_list,'reports':report,'total':total_ticket,'unattended':unattended,'live':registerd_live,'interested':interested_not,'spoken':spoken_count,'training':started_training})
     else:
         return redirect('/login')
 
