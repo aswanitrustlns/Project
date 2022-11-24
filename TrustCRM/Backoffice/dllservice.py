@@ -411,4 +411,20 @@ class DllService:
         info=InterAccount(c_char_p(server.encode('utf-8')).value,login.value,c_char_p(password.encode('utf-8')).value,account_no1.value,c_char_p(comment1.encode('utf-8')),amount,account_no2.value,c_char_p(comment2.encode('utf-8')))
         result=string_at(info)
         return result
+    #Get IBCommision report
+    def dll_ib_commision_report(self,fdate,fmonth,fyear,tdate,tmonth,tyear,logins):
+        hllDll = CDLL(r"C:\\pyenv\\TrustManagerAPI.dll") 
+        GetIBCommissionReport = hllDll.GetIBCommissionReport
+        hllDll.InterAccount.argtype= c_int,c_int,c_int,c_int,c_int,c_int,c_char_p
+        hllDll.InterAccount.restype = c_char_p
+        
+        fdate=c_int(fdate)
+        fmonth=c_int(fmonth)
+        fyear=c_int(fyear)
+        tdate=c_int(tdate)
+        tmonth=c_int(tmonth)
+        tyear=c_int(tyear)
+        info=GetIBCommissionReport(fdate.value,fmonth.value,fyear.value,tdate.value,tmonth.value,tyear.value,c_char_p(logins.encode('utf-8')))
+        result=string_at(info)
+        return result
     

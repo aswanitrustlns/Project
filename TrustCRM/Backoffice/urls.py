@@ -49,6 +49,7 @@ urlpatterns=[
       path('LoadHistory',load_credit_history,name="LoadHistory"),
       path('DepositinWallet',deposit_in_wallet,name="DepositinWallet"),
       path('LoadAllTransaction',load_all_transaction_details,name="LoadAllTransaction"),
+      path("GenerateIbReport",generatereport,name="GenerateIbReport"),
       # path('LoadTransactions',load_transaction_details,name="LoadTransactions"),
       path('LoadCredit',load_credit,name="LoadCredit"),
       path('TransactionHistory',transactions_history,name="TransactionHistory"),
@@ -59,6 +60,8 @@ urlpatterns=[
       path('InterAccountTransfer',inter_account_transfer,name="InterAccountTransfer"),
       path('WorldCheck',world_check,name="WorldCheck"),
       path('Affiliates',affiliates,name="Affiliates"),
+      path('AffiliateDetails',affiliate_details,name="AffiliateDetails"),
+      path('ClientDetails',affiliate_client_details,name="ClientDetails")
       # path('ckeditor','ckeditor_uploader.urls'),
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

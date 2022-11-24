@@ -63,6 +63,7 @@ urlpatterns=[
     path('Livechat',live_chat,name="Livechat"),
     path('InactiveLoad',inactiveticketLoad,name="InactiveLoad"),
     path('Campaigns',salescampaigns,name="Campaigns"),
+    path('SelectCampaign',load_sales_campaign,name="SelectCampaign"),
     #seminar=============================================================
     path('Upcoming',upcomingSeminars,name="Upcoming"),
     path('RegisterSeminar',registerSeminars,name="RegisterSeminar"),

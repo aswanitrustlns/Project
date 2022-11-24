@@ -24,7 +24,7 @@
      <link href="{% static 'libs/@fullcalendar/bootstrap/main.min.css' %}" rel="stylesheet" type="text/css" />
      <link href="{% static 'libs/@fullcalendar/timegrid/main.min.css'%}" rel="stylesheet" type="text/css" />
       <link rel="stylesheet" href="{% static 'libs/flatpickr/flatpickr.min.css' %}">
-      
+      <link rel="stylesheet" href="{% static 'libs/flatpickr/plugins/monthSelect/style.css' %}"></link>
       <link href="{% static 'css/input-tel.min.css' %}" rel="stylesheet"   type="text/css" />
       
     {% include "common/link.html" %}
@@ -115,14 +115,14 @@
                                                                 <div class="col-sm-4 col-xxl-4">
                                                                     <div class="mb-2">
                                                                         <label class="form-label " for="Fromdate1">From date<span class="color-orange">*</span></label>
-                                                                        <input  type="text" class="form-control" id="Fromdate1" placeholder="" required>
+                                                                        <input  type="text" class="form-control" id="Fromdate1" placeholder="" required value="{{from}}">
                                                                         
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-sm-4 col-xxl-4">
                                                                     <div class="mb-2">
                                                                         <label class="form-label " for="Todate1">To date<span class="color-orange">*</span></label>
-                                                                        <input  type="text" class="form-control" id="Todate1" placeholder="" required>
+                                                                        <input  type="text" class="form-control" id="Todate1" placeholder="" required value="{{to}}">
                                                                             
                                                                         
                                                                     </div>
@@ -130,8 +130,133 @@
                                                                
                                                                 <div class="col-sm-4 col-xxl-2 " >
                                                                         <button class="btn  btn-info  btn-lg mb-2  me-2
-                                                                        " type="submit" id="">History</button>
+                                                                        " type="button" id="">Load</button>
                                                                 </div>
+                                                                <div class="col-sm-4 col-xxl-2 " >
+                                                                    <button class="btn  btn-info  btn-lg mb-2  me-2
+                                                                    " type="button" id="" data-bs-toggle="modal" data-bs-target="#monthly-report">Generate Report</button>
+                                                                    <div class="modal fade" id="monthly-report" tabindex="-1" >
+                                                                        <div class="modal-dialog modal-dialog-centered">
+                                                                            <div class="modal-content">
+                                                                    
+                                                                                <div class="modal-body ">
+                                                            
+                                                                                    <div class="  px-3 border rounded-3 py-4">
+                                                                                    
+                                                                                        <div class="modal-header py-0 px-0 border-bottom-0">
+                                                                                            <h5 class="modal-title mb-3" id="modal-title">Monthly Report</h5>
+                                                            
+                                                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
+                                                            
+                                                                                        </div>
+                                                                                   
+                                                                                        
+                                                                                            
+                                                                                            <div class="row">
+                                                                                            
+                                                                                                <div class="col-12">
+                                                                                                    <div class="mb-3">
+                                                                                                        <!--<label class="form-label">Event Name</label>-->
+                                                                                                        <form name="monthform" id="month-form">
+                                                                                                        <input type="text"    class="form-control input" id="monthly" >
+                                                                                                        </form>
+                                                                                                        
+                                                                                                    </div>
+                                                                                                    <div class="row mt-2">
+                                                                                                        <div class="col-6">
+                                                                                                            <button type="button"  class="btn btn-success" id="btn-save-event" onclick="monthlyreportLoad()">Generate</button>
+                                                                                                            <button type="button" data-bs-dismiss="modal" class="btn btn-danger" id="btn-delete-event">Cancel</button>
+                                                                                                        </div>
+                                                                                                      
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                           
+                                                                                            </div>
+                                                                                            
+                                                                                        
+                                                                                    </div>
+                                                                                
+                                                                                </div>
+                                                                            </div> <!-- end modal-content-->
+                                                                        </div> <!-- end modal dialog-->
+                                                                    </div> 
+                                                            </div>
+                                                            <div class="col-sm-4 col-xxl-2 " >
+                                                                <button class="btn  btn-info  btn-lg mb-2  me-2
+                                                                " type="button" data-bs-toggle="modal" data-bs-target=".bs-example-modal-commision" id="" >Commision</button>
+                                                                <div class="modal fade  bs-example-modal-commision" tabindex="-1" role="dialog"
+                                                                aria-hidden="true" id="multiple-account">
+                                                                <div class="modal-dialog modal-dialog-centered">
+                                                                    <div class="modal-content">
+                                                            
+                                                                        <div class="modal-body ">
+                                                        
+                                                                            <div class="border-dashed rounded-3 px-3 py-3">
+                                                                            
+                                                                                <div class="modal-header border-0 ">
+                                                                                    <h5 class="modal-title fs-21 " id="modal-title">IB Rebate Structure</h5>
+                                                        
+                                                                                    <a href="" data-bs-dismiss="modal" aria-label="Close">
+                                                                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                                            <path d="M9.16992 14.83L14.8299 9.17" stroke="var(--white)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                                                            <path d="M14.8299 14.83L9.16992 9.17" stroke="var(--white)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                                                            <path d="M9 22H15C20 22 22 20 22 15V9C22 4 20 2 15 2H9C4 2 2 4 2 9V15C2 20 4 22 9 22Z" stroke="white" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                                                            </svg>
+                                    
+                                                                                    </a>
+                                                        
+                                                                                </div>
+                                                                                    <div class="row">
+                                                                                    
+                                                                                        <div class="col-12">
+                                                                                            <div class="mb-3">
+                                                                                                <table class="table dt-responsive  nowrap  w-100 change">
+            
+                                                                                                    <thead class="gilory-medium-type fs-16">
+                                                                                                        <tr>
+                                                                                                            <td class=" ps-0">Condition</td>
+                                                                                                            <td >Commision</td>
+                                                                                                            
+                                                                                                        </tr>
+                                                                                                        </thead>
+                                                                                                        <tbody>
+                                                                                                            <tr><td style='color:#fff'>Default Rebate</td></tr>
+                                                                                                            <tr><td>Total Volume >= 1 and Total Volume <= 400</td><td>$ 2</td></tr>
+                                                                                                            <tr><td>Total Volume >= 401 and Total Volume <= 1000</td><td>$ 4</td></tr>
+                                                                                                            <tr><td>Total Volume >= 1001 and Total Volume <= 3000</td><td>$ 5</td></tr>
+                                                                                                            <tr><td>Total Volume > 3000</td><td>$ 6</td></tr>
+                                                                                                            <tr><td style='color:#fff'>Exceptions</td></tr>
+                                                                                                            <tr><td style='color:#fff'>Login : 404000</span></td></tr>
+                                                                                                            <tr><td>Total Volume > 0</td><td>$ 5</td></tr>
+                                                                                                            <tr><td style='color:#fff'>Login : 300800</td></tr>
+                                                                                                            <tr><td>Total Volume > 0</td><td>	$ 4</td></tr>
+        
+                                                                                                        </tbody>
+                                                                                                </table>
+                                                                                            </div>
+                                                                                    
+                                                                                        </div>
+                                                                                            <div class="row mt-2">
+                                                                                                <div class="col-6">
+                                                                                                    <button type="button"  class="btn btn-success" id="btn-save-event" onclick="multipleAccount()">Proceed</button>
+                                                                                                    <!-- <button type="button" data-bs-dismiss="modal" class="btn  btn-outline-light " id="btn-delete-event">Close</button> -->
+                                                                                                </div>
+                                                                                              
+                                                                                            </div>
+                                                                                        </div>
+                                                                                   
+                                                                                    
+                                                                                
+                                                                            </div>
+                                                                        
+                                                                        </div>
+                                                                    </div> <!-- end modal-content-->
+                                                                </div><!-- /.modal-dialog -->
+                                                            </div>
+                                                        </div>
+                                                       
+                                                  
+
                                                                
                                                         </div> 
                                                         </form>
@@ -183,45 +308,46 @@
                                                                             <tr  class=" gilorymedium-type fs-17">
                                                                                 <th  class="ps-0"> View</th>
                                                                                 <th >View Client</th>
-                                                                                <th  >Sales Rep</th>
+                                                                                <th  >Subscribe</th>
                                                                                 <th  >Reg Date</th>
                                                                            
                                                                                 <th>Approval Date</th>
-                                                                                <th>Amount</th>
+                                                                                
                                                                                 <th>Log In</th>
                                                                                 <th>Name</th>
                                                                                 <th>Email</th>
                                                                                 <th>Source</th>
                                                                                 <th>Ticket</th>
                                                                                 <th>Country</th>
-                                                                                <th class="text-end ">IP</th>
-                                                                              
+                                                                                <th >IP</th>
+                                                                                <th >Live Status</th>
                                                                                 
                                                                             </tr>
                                                                         </thead>
                         
                         
                                                                         <tbody class="text-white giloryregular-type fs-16">
+                                                                            {%for affiliate in affiliates %}
                                                                             <tr>
                                                                           
-                                                                            <td class="ps-0"> <a class="color-green text-decoration-underline">View</a> </td>
-                                                                            <td> <a class="text-info text-decoration-underline">View Clients</a> </td>
-                                                                            <td>Noura Mikati</td>   
-                                                                            <td>09-02-2022</td>
-                                                                            <td>09-02-2022</td>
-                                                                            <td>410000</td>
-                                                                            <td>Noura Mikati</td>
-                                                                            <td>nouramikati@trusttech.in</td>
-                                                                            <td>TC Limited affiliate</td>
-                                                                            <td>384348</td>
-                                                                            <td>China</td>
-                                                                            <td>China</td>   
-                                                                            <td class="text-end ">86.98.85.251</td>
+                                                                            <td class="ps-0" style="cursor:pointer"> <a class="color-green text-decoration-underline" onclick="viewDetails({{affiliate.3}})">View</a> </td>
+                                                                            <td style="cursor:pointer"> <a class="text-info text-decoration-underline" onclick="viewClients({{affiliate.3}})">View Clients</a> </td>
+                                                                            <td  style="cursor:pointer" class="text-info text-decoration-underline">{{affiliate.0}}</td>   
+                                                                            <td>{{affiliate.1}}</td>
+                                                                            <td>{{affiliate.2}}</td>
+                                                                            <td>{{affiliate.3}}</td>
+                                                                            <td>{{affiliate.4}}</td>
+                                                                            <td>{{affiliate.5}}</td>
+                                                                            <td>{{affiliate.6}}</td>
+                                                                            <td>{{affiliate.7}}</td>
+                                                                            <td>{{affiliate.8}}</td>
+                                                                            <td>{{affiliate.9}}</td>   
+                                                                            <td>{{affiliate.10}}</td>  
                                                                      
                                                                        
                                                                             
                                                                             </tr>
-                                                                        
+                                                                            {%endfor%}
                         
                                                                         
                                                                           
@@ -260,13 +386,13 @@
                                                                 <div class="col-sm-4 col-xxl-4">
                                                                     <div class="mb-2">
                                                                         <label class="form-label " for="Fromdate2">From date<span class="color-orange">*</span></label>
-                                                                        <input  type="text" class="form-control" id="Fromdate2" placeholder="" required>
+                                                                        <input  type="text" class="form-control" id="Fromdate2" placeholder="" required value={{from}}>
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-sm-4 col-xxl-4">
                                                                     <div class="mb-2">
                                                                         <label class="form-label " for="Todate2">To date<span class="color-orange">*</span></label>
-                                                                        <input  type="text" class="form-control" id="Todate2" placeholder="" required>
+                                                                        <input  type="text" class="form-control" id="Todate2" placeholder="" required value="{{to}}">
                                                                             
                                                                         
                                                                     </div>
@@ -274,7 +400,7 @@
                                                                
                                                                 <div class="col-sm-4 col-xxl-2 " >
                                                                         <button class="btn  btn-info  btn-lg mb-2  me-2
-                                                                        " type="submit" id="">History</button>
+                                                                        " type="button" id="">Load</button>
                                                                 </div>
                                                                
                                                         </div> 
@@ -325,44 +451,41 @@
                                                                     <table  class="table dt-responsive  nowrap  w-100 change" id="datatableibpending">
                                                                         <thead class="color-color1">
                                                                             <tr  class=" gilorymedium-type fs-17">
-                                                                                <th  class="ps-0"> View</th>
-                                                                                <th >View Client</th>
-                                                                                <th  >Sales Rep</th>
-                                                                                <th  >Reg Date</th>
-                                                                           
+                                                                                <th  class="ps-0"> Subscribe</th>
+                                                                                <th >RegDate</th>
                                                                                 <th>Approval Date</th>
-                                                                                <th>Amount</th>
                                                                                 <th>Log In</th>
                                                                                 <th>Name</th>
                                                                                 <th>Email</th>
                                                                                 <th>Source</th>
                                                                                 <th>Ticket</th>
                                                                                 <th>Country</th>
-                                                                                <th class="text-end ">IP</th>
+                                                                                <th>IP</th>
+                                                                                <th>Live Status</th>
                                                                             </tr>
                                                                         </thead>
                         
                         
                                                                         <tbody class="text-white giloryregular-type fs-16">
+                                                                            {%for pend in pendings %}
                                                                             <tr>
                                                                           
-                                                                            <td class="ps-0"> <a class="color-green text-decoration-underline">View</a> </td>
-                                                                            <td> <a class="text-info text-decoration-underline">View Clients</a> </td>
-                                                                            <td>Noura Mikati</td>   
-                                                                            <td>09-02-2022</td>
-                                                                            <td>09-02-2022</td>
-                                                                            <td>410000</td>
-                                                                            <td>Noura Mikati</td>
-                                                                            <td>nouramikati@trusttech.in</td>
-                                                                            <td>TC Limited affiliate</td>
-                                                                            <td>384348</td>
-                                                                            <td>China</td>
-                                                                            <td>China</td>   
-                                                                            <td class="text-end ">86.98.85.251</td>
-                                                                     
-                                                                       
+                                                                            <td class="ps-0"> <a class="color-green text-decoration-underline">{{pend.0}}</a> </td>
+                                                                            
+                                                                            <td>{{pend.1}}</td>   
+                                                                            <td>{{pend.2}}</td>
+                                                                            <td>{{pend.3}}</td>
+                                                                            <td>{{pend.4}}</td>
+                                                                            <td>{{pend.5}}</td>
+                                                                            <td>{{pend.6}}</td>
+                                                                            <td>{{pend.7}}</td>
+                                                                            <td>{{pend.8}}</td>
+                                                                            <td>{{pend.9}}</td>
+                                                                            <td>{{pend.10}}</td>   
+                                                                            <td>{{pend.11}}</td>   
                                                                             
                                                                             </tr>
+                                                                            {%endfor%}
                                                                     
                                                                     </table>
                                                                 </div>
@@ -392,13 +515,13 @@
                                                                     <div class="col-sm-4 col-xxl-4">
                                                                         <div class="mb-2">
                                                                             <label class="form-label " for="Fromdate3">From date<span class="color-orange">*</span></label>
-                                                                            <input  type="text" class="form-control" id="Fromdate3" placeholder="" required>
+                                                                            <input  type="text" class="form-control" id="Fromdate3" placeholder="" required value="{{from}}">
                                                                         </div>
                                                                     </div>
                                                                     <div class="col-sm-4 col-xxl-4">
                                                                         <div class="mb-2">
                                                                             <label class="form-label " for="Todate3">To date<span class="color-orange">*</span></label>
-                                                                            <input  type="text" class="form-control" id="Todate3" placeholder="" required>
+                                                                            <input  type="text" class="form-control" id="Todate3" placeholder="" required value="{{to}}">
                                                                                 
                                                                             
                                                                         </div>
@@ -406,7 +529,7 @@
                                                                    
                                                                     <div class="col-sm-4 col-xxl-2 " >
                                                                             <button class="btn  btn-info  btn-lg mb-2  me-2
-                                                                            " type="submit" id="">History</button>
+                                                                            " type="submit" id="">Load</button>
                                                                     </div>
                                                                    
                                                             </div> 
@@ -456,43 +579,46 @@
                                                               
                                                                         <table  class="table dt-responsive  nowrap  w-100 change" id="datatableibrejected">
                                                                             <thead class="color-color1">
+                                                                                
                                                                                 <tr  class=" gilorymedium-type fs-17">
-                                                                                    <th  class="ps-0"> View</th>
-                                                                                    <th >View Client</th>
-                                                                                    <th  >Sales Rep</th>
+                                                                                   
+                                                                                    <th  >Subscribe</th>
                                                                                     <th  >Reg Date</th>
                                                                                
                                                                                     <th>Approval Date</th>
-                                                                                    <th>Amount</th>
+                                                                                 
                                                                                     <th>Log In</th>
                                                                                     <th>Name</th>
                                                                                     <th>Email</th>
                                                                                     <th>Source</th>
                                                                                     <th>Ticket</th>
                                                                                     <th>Country</th>
-                                                                                    <th class="text-end ">IP</th>
+                                                                                    <th>IP</th>
+                                                                                    <th>Live status</th>
                                                                                 </tr>
+                                                                                
                                                                             </thead>
                             
                             
                                                                             <tbody class="text-white giloryregular-type fs-16">
+                                                                                {%for reject in rejected %}
                                                                                 <tr>
                                                                               
-                                                                                <td class="ps-0"> <a class="color-green text-decoration-underline">View</a> </td>
-                                                                                <td> <a class="text-info text-decoration-underline">View Clients</a> </td>
-                                                                                <td>Noura Mikati</td>   
-                                                                                <td>09-02-2022</td>
-                                                                                <td>09-02-2022</td>
-                                                                                <td>410000</td>
-                                                                                <td>Noura Mikati</td>
-                                                                                <td>nouramikati@trusttech.in</td>
-                                                                                <td>TC Limited affiliate</td>
-                                                                                <td>384348</td>
-                                                                                <td>China</td>
-                                                                                <td>China</td>   
-                                                                                <td class="text-end ">86.98.85.251</td>
+                                                                                
+                                                                                <td> <a class="text-info text-decoration-underline">{{reject.0}}</a> </td>
+                                                                                <td>{{reject.1}}</td>   
+                                                                                <td>{{reject.2}}</td>
+                                                                                <td>{{reject.3}}</td>
+                                                                                <td>{{reject.4}}</td>
+                                                                                <td>{{reject.5}}</td>
+                                                                                <td>{{reject.6}}</td>
+                                                                                <td>{{reject.7}}</td>
+                                                                                <td>{{reject.8}}</td>
+                                                                                <td>{{reject.9}}</td>
+                                                                                <td>{{reject.10}}</td>   
+                                                                                <td>{{reject.11}}</td>
                                                                          
-                                                                           
+                                                                                {%endfor%}
                                                                                 
                                                                                 </tr>
                                                                         
@@ -519,7 +645,35 @@
     
             <!-- Right bar overlay-->
         <div class="rightbar-overlay"></div> 
+        <script>
+            function viewDetails(loginno){
+
+                var url="{% url 'Backoffice:AffiliateDetails'%}"
+                window.location.href=url+"?&login="+loginno
+            }
+            function viewClients(loginno){
+                var url="{% url 'Backoffice:ClientDetails' %}"
+                window.location.href=url+"?&login="+loginno
+            }
+            function monthlyreportLoad(){
+                $("#monthly-report").modal('hide')
+                var monthly=document.getElementById('monthly').value
+                $.ajax({
+                        
+                        type : "GET", 
+                        url: "{% url 'Backoffice:GenerateIbReport' %}",
+                        data:{
+                            "month":monthly,
+                        },
+                        
+                        
+                        success: function(data){
+                        }
+                    })
+            }
+        </script>
         <script src="{% static 'libs/flatpickr/flatpickr.min.js' %}"></script>
+        <script src="{% static 'libs/flatpickr/plugins/monthSelect/index.js' %}"></script>
         <!-- Required datatable js -->
        <script src="{% static 'libs/datatables.net/js/jquery.dataTables.min.js' %}"></script>
        <script src="{% static 'libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js' %}"></script>

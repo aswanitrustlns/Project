@@ -1,14 +1,15 @@
 from email import message
 from sqlite3 import Cursor
 from django.db import connection
+from django.db import connections
 import string
 import random
 from django.template.loader import render_to_string
 import binascii
 from datetime import datetime,timedelta
 import re
-
-
+import calendar
+import json
 from .dllservice import DllService
 demoserver = "50.57.14.224:443"
 demopwd = "Tc2022"
@@ -897,6 +898,65 @@ class Selector:
         finally:
                 Cursor.close()
         return trans_history
+    #Get Affiliates
+    def get_affiliates(self,fromdate,todate,source):
+        try:
+            Cursor=connection.cursor()           
+            Cursor.execute("set nocount on;exec SP_GetAffiliatesList %s,%s,%s",[fromdate,todate,source]) 
+            affiliates=Cursor.fetchall()
+        except Exception as e:
+                print("Exception------",e)
+        finally:
+                Cursor.close()
+        return affiliates
+    #Get Affiliates
+    def get_clients_list(self,ib):
+        try:
+            Cursor=connection.cursor()           
+            Cursor.execute("set nocount on;exec SP_GetIBClientsList %s",[ib])
+            affiliates=Cursor.fetchall()
+            print("Affiliates====",affiliates)
+            new_connection = connections.create_connection('ib')
+            Cursor=new_connection.cursor()
+            
+            Cursor.execute("set nocount on;exec SP_GetIBClientsList %s",[ib])
+            secondaffiliates=Cursor.fetchall()
+            print("Second affiliates=====",secondaffiliates)
+        except Exception as e:
+                print("Exception------",e)
+        finally:
+                Cursor.close()
+             
+        return affiliates,secondaffiliates
+    #Generate monthlyreport
+    def generate_report_monthly(self,month,year):
+        try:
+            Cursor=connection.cursor()           
+            Cursor.execute("set nocount on;exec SP_GetIBList")
+            iblist=Cursor.fetchall()
+            tdate=calendar.monthrange(year,month)[1]
+            print("Tdate=====",tdate)
+            print("Ib list====",iblist[0])
+            generatedList=[]
+            loglist=""
+            if iblist:
+                
+                for items in iblist:
+                    ibitems=items[0]
+                    print("Inside for",ibitems)
+                    Cursor.execute("set nocount on;exec SP_IBClientLogins %s",[ibitems])
+                    loglist=Cursor.fetchall()
+                    logdetails=loglist[0]
+                    details=logdetails[0]
+                    print("Log list=====",details)
+                    if details != None:
+                        jsondata=dllservice.dll_ib_commision_report(1,month,year,tdate,month,year,details)
+                        
+                        json.loads(jsondata)
+        except Exception as e:
+                print("Exception------",e)
+        finally:
+                Cursor.close()
 
   
      

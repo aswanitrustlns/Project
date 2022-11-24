@@ -1254,7 +1254,7 @@ def inactiveticketLoad(request):
             rep=0
         print("Inputs=====",from_date,to_date,rep,source)
         inactive=selector.inactive_tickets_default(from_date,to_date,rep,source)
-        return JsonResponse({"tickets":inactive})
+        return JsonResponse(inactive,safe=False)
     else:
         return redirect('/login')
 
@@ -1301,9 +1301,43 @@ def salescampaigns(request):
                     started_training=started_training+1
                 
             print("Total Ticket====",total_ticket)    
-        return render(request,'management/salescampaigns.html',{'campaigns':campaigns,'countryList':country_list,'reports':report,'total':total_ticket,'unattended':unattended,'live':registerd_live,'interested':interested_not,'spoken':spoken_count,'training':started_training})
+        return render(request,'management/salescampaigns.html',{'campaigns':campaigns,'countryList':country_list,'reports':report,'total':total_ticket,'unattended':unattended,'registerlive':registerd_live,'interested':interested_not,'spoken_count':spoken_count,'training':started_training})
     else:
         return redirect('/login')
+def load_sales_campaign(request):
+    if 'UserId' in request.session:
+        source=request.GET.get("campaign")
+        country=request.GET.get("country")
+        print("Input source and country======",source,country)
+        total_ticket=0
+        registerd_live=0
+        interested_not=0
+        spoken_count=0
+        registerd_live=0
+        started_training=0
+        unattended=0
+        report=selector.get_campaigns_report(source,country)
+        if report:
+            for alldata in report:
+                print("All data of 1",alldata[0])
+                if(alldata[0]!="Not Created"):
+                    total_ticket=total_ticket+1
+                if(alldata[0]=="Not Created"):
+                    unattended=unattended+1
+                if(alldata[3]!=""):
+                    registerd_live=registerd_live+1
+                if(alldata[4]!="Not Interested"): 
+                    interested_not=interested_not+1
+                if(alldata[6]!="No"):
+                    spoken_count=spoken_count+1
+                if(alldata[8]!="No"):
+                    started_training=started_training+1
+       
+        return  HttpResponse(json.dumps({"reports":report,"total":total_ticket,"unattended":unattended,"registerlive":registerd_live,"interested":interested_not,"spoken_count":spoken_count,"training":started_training},default=str),content_type="application/json")
+    else:
+        return redirect('/login')
+
+
 
 
 

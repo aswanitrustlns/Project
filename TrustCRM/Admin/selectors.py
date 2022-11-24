@@ -1533,6 +1533,7 @@ class Selector:
     def get_campaigns_report(self,campaignid,countryid):
         try:
             Cursor=connection.cursor()
+            print("All data=====",campaignid,countryid)
             Cursor.execute("set nocount on;exec SP_GetCampaignsReport %s,%s",[campaignid,countryid]) 
             campaign_report=Cursor.fetchall()
         except Exception as e:

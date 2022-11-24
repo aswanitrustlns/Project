@@ -7,7 +7,7 @@ from django.views.decorators.csrf import csrf_exempt
 from .service import Services
 from .selector import Selector
 from .emailservice import EmailServices
-
+from datetime import datetime, timedelta
 selector=Selector()
 service=Services()
 emailservice=EmailServices()
@@ -760,6 +760,40 @@ def world_check(request):
 #IB Page
 def affiliates(request):
     if 'UserId' in request.session:
-        return render(request,'backoffice/ib.html')
+        date_today=datetime.today().date()    
+        date_today=date_today.strftime("%Y-%m-%d")
+        affiliates=selector.get_affiliates("1900-01-01",date_today,"Live")
+        pending=selector.get_affiliates("1900-01-01",date_today,"Pending")
+        rejected=selector.get_affiliates("1900-01-01",date_today,"Rejected")
+        return render(request,'backoffice/ib.html',{'affiliates':affiliates,'from':"1900-01-01",'to':date_today,'pending':pending,'rejected':rejected})
     else:
         return redirect('/login')
+def affiliate_details(request):
+    if 'UserId' in request.session:
+          return render(request,'backoffice/affiliatedetails.html')
+    else:
+        return redirect('/login')
+def affiliate_client_details(request):
+    if 'UserId' in request.session:
+        login=request.GET.get('login')
+        print("Login=====",login)
+        clients_data,second_data=selector.get_clients_list(login)
+        return render(request,'backoffice/ibclients.html',{'firsts':clients_data,'seconds':second_data})
+    else:
+        return redirect('/login')
+def generatereport(request):
+    if 'UserId' in request.session:
+        month_data=request.GET.get('month')
+        month=0
+        year=0
+        if month_data:
+            dates=month_data.split("-")
+            month=int(dates[0])
+            year=int(dates[1])
+        print("Month and year=====",month,year)
+        all_details=selector.generate_report_monthly(month,year)
+        
+        return JsonResponse({"message":"success"})
+    else:
+        return redirect('/login')
+

@@ -47,57 +47,27 @@
                     <div class="row">
     
                         <div class="col-12">
-                            <div class="d-flex align-items-center">
-                                <h4 class="card-title almarenamonolight-type mb-4 fs-23">Inactive Tickets</h4>
+                            <div class="d-flex align-items-center col-4" >
+                                <h4 class="card-title almarenamonolight-type mb-4 fs-23">IB Clients  List</h4>
                                 
                                 
                             </div>
                            
-                       
-                            
-                            <div class=" mb-4">
-                                <p class="gilroymedium-type fs-15 color-color1 mb-0">This page allows you to see the list of all Tickets which are incative since two days or more.</p>
+                            <div class="col-6 ">
+                                <button class="btn btn-info btn-md mb-2 py-1 noPrint" type="button" id="load-btn-sr" onclick="loadInactive()">Generate</button>
+                                <button class="btn btn-info btn-md mb-2 py-1 noPrint" type="button" id="load-btn-sr" onclick="history.back()">Back</button>
                             </div>
-    
+                            
+                           
                      
                             
                         </div>
                         <div class="col-xxl-9">
                                 <div class="row align-items-end mb-4">
-                                    <div class="col-sm-2">
-                                        <div class="mb-2">
-                                            <label class="form-label " for="salesrep">Source</label>
-                                            <select   class="py-1 form-select" id="source"> 
-                                                <option value="0">Select</option>
-                                                
-                                                {%for source in sources%}
-                                                <option value="{{source.0}}">{{source.0}}</option>
-                                                {%endfor%}
-                                               
-                                            </select>
-
-                                            
-                                        </div>
-                                    </div>
+                                  
     
-                                        <div class="col-sm-2">
-                                            <div class="mb-2">
-                                                <label class="form-label " for="salesrep">Sales Rep</label>
-                                                <select   class="py-1 form-select" id="salesrepId"> 
-                                                    <option value="0">Select</option>
-                                                    {%if request.session.role == "salesrep" %}
-                                                    <option value="{{request.session.UserName}}">{{request.session.UserName}}</option>
-                                                    {%else%}
-                                                    {%for rep in salesrep%}
-                                                    <option value="{{rep.0}}">{{rep.1}}</option>
-                                                    {%endfor%}
-                                                    {%endif%}
-                                                </select>
-    
-                                                
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-2">
+                                
+                                        <!-- <div class="col-sm-2">
                                             <div class="mb-2">
                                                 <label class="form-label " for="Fromdate">From Date</label>
                                                 <input type="text" id="Fromdate" class="py-1">
@@ -114,14 +84,8 @@
                                                 <input type="hidden" name="from" id="toprint">
                                             </div>
     
-    
-    
-    
-                                        </div>
-                                        <div class="col-sm-2 ">
-                                            <button class="btn btn-info btn-md mb-2 py-1 noPrint" type="button" id="load-btn-sr" onclick="loadInactive()">Load</button>
-                                            <button class="btn btn-info btn-md mb-2 py-1 noPrint" type="button" id="load-btn-sr" onclick="loadAllInactive()">Load All</button>
-                                        </div>
+                                        </div> -->
+                                        
                                 </div> 
                                 <div class="col-xxl-6 col-md-6  mb-2 ">
     
@@ -168,25 +132,32 @@
                                                 <tr>
                                                     <td class=" ps-0"></td>
                                                     <td >RegDate</td>
-                                                    <td >Ticket</td>
+                                                    <td >Approval Date</td>
+                                                    <td >Login</td>
+                                                    <td >Name</td>
                                                     <td >Email</td>
                                                     <td >Source</td>
-                                                    <td >Sales Rep</td>
-                                                    <td class="text-end pe-0" >Reassigned Rep</td>
+                                                    <td >Ticket</td>
+                                                    <td >Country</td>
+
+                                                    <td  >IP</td>
                                                 </tr>
                                             </thead>
                                            
                                             <tbody class="gilory-regular-type fs-15 text-white" id="report-body">
-                                                {%for inactive in inactives%} 
+                                                {%for first in firsts%} 
                                                 <tr>
-                                                    <td class="ps-0" style="cursor: pointer;" onclick="loadTicket({{inactive.1}})"> <span class="color-green text-decoration-underline"  >View</span> </td>
+                                                    <td class="ps-0" style="cursor: pointer;"> <span class="color-green text-decoration-underline" onclick="viewCllient({{first.2}})" >View</span> </td>
                                                     <!-- data-bs-toggle="modal" data-bs-target=".bs-example-modal-show" -->
-                                                    <td>{{inactive.0}}</td> 
-                                                    <td>{{inactive.1}}</td>   
-                                                    <td>{{inactive.2}}</td>
-                                                    <td>{{inactive.3}}</td>
-                                                    <td>{{inactive.4}}</td>
-                                                    <td>{{inactive.5}}</td>
+                                                    <td>{{first.0}}</td> 
+                                                    <td>{{first.1}}</td>   
+                                                    <td>{{first.2}}</td>
+                                                    <td>{{first.3}}</td>
+                                                    <td>{{first.4}}</td>
+                                                    <td>{{first.5}}</td>
+                                                    <td>{{first.6}}</td>
+                                                    <td>{{first.7}}</td>
+                                                    <td>{{first.8}}</td>
                                                     
                                                 </tr>
                                               {%endfor%}
@@ -197,25 +168,82 @@
                                         </table>
                                     </div>
                                     
+                                    
     
                                 </div>
                             </div>
                          
                         </div> <!-- end col -->
     
-                        <div class="col-12">
-    
-                            <!-- modal-temp -->
-                            <!--<button type="button" class="btn btn-primary waves-effect waves-light" data-bs-toggle="modal" data-bs-target=".bs-example-modal-temp" style="background-color: var(--bs-card-bg) ;">Templates</button>-->
-                            
-                            <!-- modal-Chat Logs -->
-                            <!--<button type="button" class="btn btn-primary waves-effect waves-light" style="background-color: var(--bs-card-bg) ;">Seminars</button>-->
-    
-                            <!-- /.modal-dialog -->
-                            </div>
+                       
                             
                             <!-- /.modal -->
-                        </div>
+                    </div>
+                    <div class="row">
+    
+                        <div class="col-12">
+                            <div class="card">
+                               
+                                <div class="card-body ">
+                                    
+                                    
+                                   
+                                    
+                                    <div class="table-responsive "   data-simplebar="init">
+                                        
+                                        <table class="table dt-responsive  nowrap  w-100 change" id="datatable1" >
+    
+                                            <thead class="gilory-medium-type fs-16">
+                                                <tr>
+                                                    <td class=" ps-0"></td>
+                                                    <td >RegDate</td>
+                                                    <td >Approval Date</td>
+                                                    <td >Login</td>
+                                                    <td >Name</td>
+                                                    <td >Email</td>
+                                                    <td >Source</td>
+                                                    <td >Ticket</td>
+                                                    <td >Country</td>
+
+                                                    <td  >IP</td>
+                                                </tr>
+                                            </thead>
+                                           
+                                            <tbody class="gilory-regular-type fs-15 text-white" id="report-body">
+                                                {%for second in seconds%} 
+                                                <tr>
+                                                    <td class="ps-0" style="cursor: pointer;"> <span class="color-green text-decoration-underline" onclick="viewCllient({{second.2}})">View</span> </td>
+                                                    <!-- data-bs-toggle="modal" data-bs-target=".bs-example-modal-show" -->
+                                                    <td>{{second.0}}</td> 
+                                                    <td>{{second.1}}</td>   
+                                                    <td>{{second.2}}</td>
+                                                    <td>{{second.3}}</td>
+                                                    <td>{{second.4}}</td>
+                                                    <td>{{second.5}}</td>
+                                                    <td>{{second.6}}</td>
+                                                    <td>{{second.7}}</td>
+                                                    <td>{{second.8}}</td>
+                                                    
+                                                </tr>
+                                              {%endfor%}
+                                            
+    
+                                            </tbody>
+                                            
+                                        </table>
+                                    </div>
+                                    
+                                    
+    
+                                </div>
+                            </div>
+                         
+                        </div> <!-- end col -->
+    
+                       
+                            
+                            <!-- /.modal -->
+                    </div>
     
     
     
@@ -380,76 +408,18 @@
         
             <!-- Right bar overlay-->
     <div class="rightbar-overlay"></div>
-    <script>
-     function loadTicket(ticket){
-        var url="{% url 'Admin:LeadProcessing'%}"
-            window.location.href=url+"?&ticket="+ticket
-     }
-     function loadAllInactive(){
-        location.reload()
-     }
-     function loadInactive(){
-        var source=$("#source").val()
-        var salesrep=$("#salesrepId").val()
-        var fromdate=$("#Fromdate").val()
-        var todate=$("#Todate").val()
-        var row=""
-        $('#datatable').dataTable().fnClearTable();
-        $('#datatable').dataTable().fnDestroy();
-        $("#datatable").DataTable({
-                
-                "language": {
-                            'loadingRecords': "<span class='fa-stack fa-lg'>\n\
-                            <i class='fa fa-spinner fa-spin fa-stack-2x fa-fw'></i>\n\
-                            </span>&emsp;Loading Details ...",
-                                },
-                
-                "paging":true,   
-                           
-                "ajax":{
-                   url: "{% url  'Admin:InactiveLoad' %}",
-                   data:{
-                        "from":fromdate,
-                        "to":todate,
-                        "repId":salesrep,
-                        "source":source
-                    },
-                  dataSrc:function(data){
-                    var items = [];
-                    for ( var i=0, ien=data.length ; i<ien ; i++ ) {
+<script>
+    function viewCllient(login){
+        var url="{% url 'Backoffice:Manage'%}"
+        window.location.href=url+"?&login="+login
 
-                        items[i] =["<span class='color-green text-decoration-underline' style='cursor:pointer' onclick='loadTicket("+data[i][1]+")'>View</span>",data[i][0],data[i][1],data[i][2],data[i][3],data[i][4],data[i][5]]; 
-
-                        
-                        }
-
-                        return items;
-                  }
-                },
-                responsive: true,
-                    paging: true,
-                    lengthChange: false ,
-                    ordering: true,
-                    info:true,
-                    fixedHeader: true,
-                    
-                })
-
-       
-     }
-
-
-    </script>
-
-    
-
-    <!-- datepicker js -->
-    
-    <script src="{% static 'libs/flatpickr/flatpickr.min.js' %}"></script>
+    }
+</script>
+<script src="{% static 'libs/flatpickr/flatpickr.min.js' %}"></script>
    
-    <script src="{% static 'libs/flatpickr/plugins/monthSelect/index.js' %}"></script>
+<script src="{% static 'libs/flatpickr/plugins/monthSelect/index.js' %}"></script>
     
-    <script src="{% static 'libs/flatpickr/flatpickr.min.js' %}"></script>
+<script src="{% static 'libs/flatpickr/flatpickr.min.js' %}"></script>
 <!-- Required datatable js -->
 <script src="{% static 'libs/datatables.net/js/jquery.dataTables.min.js' %}"></script>
 <script src="{% static 'libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js' %} "></script>
@@ -464,7 +434,7 @@
 <script src="{% static 'libs/datatables.net-buttons/js/buttons.print.min.js' %}"></script>
 <script src="{% static 'libs/datatables.net-buttons/js/buttons.colVis.min.js' %}"></script>
     <!-- Datatable init js -->
-    <script src="{% static 'js/pages/inactive-ticket.init.js' %}"></script> 
+    <script src="{% static 'js/pages/ibclients.init.js' %}"></script> 
     
     
     

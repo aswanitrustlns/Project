@@ -109,6 +109,17 @@ DATABASES = {
             'driver': 'ODBC Driver 17 for SQL Server',
         },
     },
+    'ib': {
+        'ENGINE': 'mssql',
+        'NAME': 'CyTcCRM',
+        'USER': 'cycrm',
+        'PASSWORD': 'B7TcxNTdQVZaVG22puzr',
+        'HOST': '213.7.196.98',
+        'PORT': '1433',
+         'OPTIONS': {
+            'driver': 'ODBC Driver 17 for SQL Server',
+        },
+    },
        'crf': {
         'ENGINE': 'mssql',
         'NAME': 'CRF',
