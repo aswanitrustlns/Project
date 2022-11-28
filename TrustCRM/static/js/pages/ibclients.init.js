@@ -68,6 +68,21 @@ $(document).ready(function () {
         mode: "single",
         altInput: true, // Human Readable
     });
+    let flatpickermonthly=flatpickr('#monthly', {
+        "allowInput": true,
+        
+        altInput: true,
+        plugins: [
+            new monthSelectPlugin({
+              shorthand: true, //defaults to false
+              dateFormat: "m-Y", //defaults to "F Y"
+              altFormat: "F Y", //defaults to "F Y"
+              theme: "dark" // defaults to "light"
+            })
+        ]
+        
+
+    });
    
 });
 

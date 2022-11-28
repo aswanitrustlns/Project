@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',   
     'Admin',
     'Backoffice',
-    'CRF'
+    'CRF',
+    'Automation'
     
 ]
 
@@ -123,6 +124,17 @@ DATABASES = {
        'crf': {
         'ENGINE': 'mssql',
         'NAME': 'CRF',
+        'USER': 'tinstcrm',
+        'PASSWORD': 'Trust_2021',
+        'HOST': '213.175.205.19',
+        'PORT': '1433',
+         'OPTIONS': {
+            'driver': 'ODBC Driver 17 for SQL Server',
+        },
+    },
+     'svg': {
+        'ENGINE': 'mssql',
+        'NAME': 'SVGClientarea',
         'USER': 'tinstcrm',
         'PASSWORD': 'Trust_2021',
         'HOST': '213.175.205.19',

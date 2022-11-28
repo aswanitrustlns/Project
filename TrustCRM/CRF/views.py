@@ -28,6 +28,7 @@ def case_datefilter(request):
         if(fromdate=="" and todate==""):
             cases=TblCases.objects.all().using('crf')
         else:
+            
             cases=TblCases.objects.using('crf').filter(modified__gte=fromdate,modified__lt=todate)
         return render(request,'crf/case-details.html',{'cases':cases})
         # print("Cases====",list(cases))

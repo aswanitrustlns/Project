@@ -102,7 +102,79 @@
                                         <div class="col-sm-8 ">
                                             <button class="btn btn-info btn-md mb-2 py-1 noPrint me-2" type="button" id="load-btn-sr" onclick="LoadReport()">Load</button>
                                             <button class="btn btn-info btn-md mb-2 py-1 noPrint me-2" type="button" id="load-btn-sr" onclick="loadAllInactive()">Leads Bulk Upload</button>
-                                            <button class="btn btn-info btn-md mb-2 py-1 noPrint me-2" type="button" id="load-btn-sr" onclick="loadAllInactive()">Add New Campaign</button>
+                                            <button class="btn btn-info btn-md mb-2 py-1 noPrint me-2" type="button" id="load-btn-sr" data-bs-toggle="modal" data-bs-target="#newcampaign">Add New Campaign</button>
+                                            <div class="modal fade" id="newcampaign" tabindex="-1" >
+                                                <div class="modal-dialog modal-dialog-centered">
+                                                    <div class="modal-content">
+                                            
+                                                        <div class="modal-body ">
+
+                                                            <div class="border-dashed rounded-3 px-3 py-3">
+                                                            
+                                                                <div class="modal-header border-0 px-0">
+                                                                    <h5 class="modal-title fs-21" id="modal-title">Add New Campaign</h5>
+                    
+                                                                    <a href="" data-bs-dismiss="modal" aria-label="Close">
+                                                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                            <path d="M9.16992 14.83L14.8299 9.17" stroke="var(--white)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                                            <path d="M14.8299 14.83L9.16992 9.17" stroke="var(--white)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                                            <path d="M9 22H15C20 22 22 20 22 15V9C22 4 20 2 15 2H9C4 2 2 4 2 9V15C2 20 4 22 9 22Z" stroke="white" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                                            </svg>
+                                        
+                                                                        </a>
+                    
+                                                                </div>
+                                                           
+                                                                
+                                                                    
+                                                                    <div class="row">
+                                                                    
+                                                                        <div class="col-12">
+                                                                            <div class="mb-3">
+                                                                                <label class="form-label">Source</label>
+                                                                                <input type="text" name="source" class="form-control">
+
+                                                                            </div>
+                                                                            <div class="mb-3">
+                                                                                <label class="form-label">From Date</label>
+                                                                                <input type="text" name="from" id="Fromdate">
+
+                                                                            </div>
+                                                                            <div class="mb-3">
+                                                                                <label class="form-label">To Date</label>
+                                                                                <input type="text" name="to" id="Todate">
+
+                                                                            </div>
+                                                                            <div class="mb-3">
+                                                                                <label class="form-label">Attach Seminar/Webinar(if any)</label>
+                                                                                <select class="form-select border-0 py-1" id="webinar" 
+                                                                                required name="title" >
+                                                                                <option value="0">Select</option>
+                                                                                {%for webinar in lastestwebinar %}
+                                                                                <option value="{{webinar.0}}">{{webinar.0}}</option>
+                                                                                {%endfor%}
+                                                                            </select>
+                                                                            </div>
+                                                                            
+                                                                        </div>
+                                                                                <div class="col-6">
+                                                                                    <button type="button" data-bs-dismiss="modal" class="btn btn-success" id="btn-save-event" onclick="savecampaign()">Save</button>
+                                                                                    <!-- <button type="button" data-bs-dismiss="modal" class="btn btn-danger" id="btn-delete-event">Cancel</button> -->
+                                                                                </div>
+                                                                              
+                                                                            
+                                                                        
+                                                                   
+                                                                    </div>
+                                                                    
+                                                                
+                                                            </div>
+                                                        
+                                                        </div>
+                                                    </div> <!-- end modal-content-->
+                                                </div> <!-- end modal dialog-->
+                                            </div>
+
                                         </div>
                                       
     
@@ -490,6 +562,20 @@
                       
 
                     
+                })
+
+      }
+      function savecampaign(){
+        $.ajax({
+                    
+                    type : "GET", 
+                    url: "{% url 'Admin:ActivityLog' %}",
+                    data:{
+                        "ticket":ticket,
+                        
+                    },
+                    success: function(data){
+                    }
                 })
 
       }

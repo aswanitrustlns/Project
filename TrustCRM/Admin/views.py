@@ -1159,6 +1159,7 @@ def print_sales_call_report(request):
 
 def live_chat(request):
     if 'UserId' in request.session:
+      
         return render(request,'sales/livechat.html')
     else:
         return redirect('/login')
@@ -1262,7 +1263,8 @@ def livechatreport(request):
     if 'UserId' in request.session:
         reps=selector.get_livechat_reps()
         users=selector.get_livechat_users()
-        return render(request,'management/livechatreport.html',{'reps':reps,'users':users})
+        livechat=selector.get_live_chat_logs("","",0,0)
+        return render(request,'management/livechatreport.html',{'reps':reps,'users':users,'chats':livechat})
     else:
         return redirect('/login')
 
@@ -1278,6 +1280,7 @@ def salescampaigns(request):
         started_training=0
         unattended=0
         campaigns=selector.get_campaigns()
+        latestwebinar=selector.get_latest_seminar()
         if campaigns:
             last_campaign=campaigns[-1]
             last_campaign_id=int(last_campaign[0])
@@ -1301,7 +1304,7 @@ def salescampaigns(request):
                     started_training=started_training+1
                 
             print("Total Ticket====",total_ticket)    
-        return render(request,'management/salescampaigns.html',{'campaigns':campaigns,'countryList':country_list,'reports':report,'total':total_ticket,'unattended':unattended,'registerlive':registerd_live,'interested':interested_not,'spoken_count':spoken_count,'training':started_training})
+        return render(request,'management/salescampaigns.html',{'campaigns':campaigns,'countryList':country_list,'reports':report,'total':total_ticket,'unattended':unattended,'registerlive':registerd_live,'interested':interested_not,'spoken_count':spoken_count,'training':started_training,'latestwebinar':latestwebinar})
     else:
         return redirect('/login')
 def load_sales_campaign(request):

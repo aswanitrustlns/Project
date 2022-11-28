@@ -951,8 +951,33 @@ class Selector:
                     print("Log list=====",details)
                     if details != None:
                         jsondata=dllservice.dll_ib_commision_report(1,month,year,tdate,month,year,details)
-                        
+
                         json.loads(jsondata)
+        except Exception as e:
+                print("Exception------",e)
+        finally:
+                Cursor.close()
+     #Generate user report
+    def generate_report_monthly_agent(self,month,year,login):
+        try:
+            Cursor=connection.cursor()           
+           
+            tdate=calendar.monthrange(year,month)[1]
+            print("Tdate=====",tdate)
+            
+            generatedList=[]
+            loglist=""
+            
+                   
+            Cursor.execute("set nocount on;exec SP_IBClientLogins %s",[login])
+            loglist=Cursor.fetchall()
+            logdetails=loglist[0]
+            details=logdetails[0]
+            print("Log list=====",details)
+            if details != None:
+                jsondata=dllservice.dll_ib_commision_report(1,month,year,tdate,month,year,details)
+                        
+                json.loads(jsondata)
         except Exception as e:
                 print("Exception------",e)
         finally:

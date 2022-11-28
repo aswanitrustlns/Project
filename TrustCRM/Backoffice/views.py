@@ -768,6 +768,17 @@ def affiliates(request):
         return render(request,'backoffice/ib.html',{'affiliates':affiliates,'from':"1900-01-01",'to':date_today,'pending':pending,'rejected':rejected})
     else:
         return redirect('/login')
+#IB load
+def affiliates_load(request):
+    if 'UserId' in request.session:
+        status=request.GET.get('status')
+        from_date=request.GET.get('from')
+        to_date=request.GET.get('to')
+        data=selector.get_affiliates(from_date,to_date,status)
+        return JsonResponse(data,safe=False)
+    else:
+        return redirect('/login')
+
 def affiliate_details(request):
     if 'UserId' in request.session:
           return render(request,'backoffice/affiliatedetails.html')
@@ -792,6 +803,23 @@ def generatereport(request):
             year=int(dates[1])
         print("Month and year=====",month,year)
         all_details=selector.generate_report_monthly(month,year)
+        
+        return JsonResponse({"message":"success"})
+    else:
+        return redirect('/login')
+def generate_login_report(request):
+    if 'UserId' in request.session:
+        month_data=request.GET.get('month')
+        login=request.GET.get('login')
+        print("Month====Login",month_data,login)
+        month=0
+        year=0
+        if month_data:
+            dates=month_data.split("-")
+            month=int(dates[0])
+            year=int(dates[1])
+        print("Month and year=====",month,year)
+        all_details=selector.generate_report_monthly_agent(month,year,login)
         
         return JsonResponse({"message":"success"})
     else:

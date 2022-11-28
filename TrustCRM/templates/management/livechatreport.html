@@ -97,13 +97,11 @@
                                                 <label class="form-label " for="salesrep">Sales Rep</label>
                                                 <select   class="py-1 form-select" id="salesrepId"> 
                                                     <option value="0">Select</option>
-                                                    {%if request.session.role == "salesrep" %}
-                                                    <option value="{{request.session.UserName}}">{{request.session.UserName}}</option>
-                                                    {%else%}
-                                                    {%for rep in salesrep%}
-                                                    <option value="{{rep.1}}">{{rep.1}}</option>
+                                                    
+                                                    {%for rep in reps%}
+                                                    <option value="{{rep.0}}">{{rep.1}}</option>
                                                     {%endfor%}
-                                                    {%endif%}
+                                                    
                                                 </select>
     
                                                 
@@ -114,13 +112,11 @@
                                                 <label class="form-label " for="salesrep">Attended By</label>
                                                 <select   class="py-1 form-select" id="salesrepId"> 
                                                     <option value="0">Select</option>
-                                                    {%if request.session.role == "salesrep" %}
-                                                    <option value="{{request.session.UserName}}">{{request.session.UserName}}</option>
-                                                    {%else%}
-                                                    {%for rep in salesrep%}
-                                                    <option value="{{rep.1}}">{{rep.1}}</option>
+                                                    
+                                                    {%for user in users%}
+                                                    <option value="{{user.0}}">{{user.1}}</option>
                                                     {%endfor%}
-                                                    {%endif%}
+                                                   
                                                 </select>
     
                                                 
@@ -221,25 +217,26 @@
                                                     <td >ThreadId</td>
                                                     <td >Name</td>
                                                     <td >Sales Rep</td>
-                                                    <td class="text-end pe-0" >Attended By</td>
+                                                    <td >Attended By</td>
                                                 </tr>
                                             </thead>
         
         
                                             <tbody>
                                           
-                                            {%for data in leads_data %}
+                                            {%for chat in chats %}
                                             <tr onclick='checkticket("{{data.1}}","{{data.2}}","{{data.4}}")' style="cursor: pointer;">
-                                                <td >{{data.0}}</td>
-                                                <td>{{data.3}}</td>
-                                                <td>{{data.2}}</td>
+                                                <td class="ps-0" style="cursor: pointer;"> <span class="color-green text-decoration-underline" onclick="viewTicket({{chat.0}})" >View Ticket</span> </td></td>
+                                                <td class="ps-0" style="cursor: pointer;"><span class="color-green text-decoration-underline" onclick="viewChat({{chat.0}})" >View Chat</span></td>
+                                                <td >{{chat.0}}</td>
+                                                <td>{{chat.1}}</td>
+                                                <td>{{chat.2}}</td>
                                                 
                                                 <!-- <td>{{data.1}}</td> -->
-                                                <td>{{data.4}}</td>
-                                                <td>{{data.5}}</td>
-                                                <td>{{data.10}}</td>
-                                                <td>{{data.11}}</td>
-                                                <td>{{data.7}}</td>
+                                                <td>{{chat.3}}</td>
+                                                <td>{{chat.4}}</td>
+                                                <td>{{chat.5}}</td>
+                                                
                                             </tr>
                                             
                                             {%endfor%}
@@ -278,6 +275,16 @@
     
         <!-- Right bar overlay-->
         <div class="rightbar-overlay"></div>
+        <script>
+            function viewChat(ticket){
+
+            }
+            function viewTicket(ticket){
+                var url="{% url 'Admin:LeadProcessing'%}"
+                window.location.href=url+"?&ticket="+ticket
+            }
+            function 
+        </script>
         <script src="{%static 'libs/flatpickr/flatpickr.min.js' %}"></script>
         <script src="{% static 'libs/datatables.net/js/jquery.dataTables.min.js' %}"></script>
         <script src="{% static 'libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js' %}"></script>

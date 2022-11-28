@@ -50,6 +50,7 @@ urlpatterns=[
       path('DepositinWallet',deposit_in_wallet,name="DepositinWallet"),
       path('LoadAllTransaction',load_all_transaction_details,name="LoadAllTransaction"),
       path("GenerateIbReport",generatereport,name="GenerateIbReport"),
+      path('AgentIbReport',generate_login_report,name="AgentIbReport"),
       # path('LoadTransactions',load_transaction_details,name="LoadTransactions"),
       path('LoadCredit',load_credit,name="LoadCredit"),
       path('TransactionHistory',transactions_history,name="TransactionHistory"),
@@ -60,6 +61,7 @@ urlpatterns=[
       path('InterAccountTransfer',inter_account_transfer,name="InterAccountTransfer"),
       path('WorldCheck',world_check,name="WorldCheck"),
       path('Affiliates',affiliates,name="Affiliates"),
+      path("AffiliatesLoad",affiliates_load,name="AffiliatesLoad"),
       path('AffiliateDetails',affiliate_details,name="AffiliateDetails"),
       path('ClientDetails',affiliate_client_details,name="ClientDetails")
       # path('ckeditor','ckeditor_uploader.urls'),

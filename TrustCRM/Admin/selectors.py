@@ -1447,6 +1447,18 @@ class Selector:
         finally:
                 Cursor.close()
         return complaints
+    #Get Livechat logs
+    def get_live_chat_logs(self,fromdate,todate,salesrepid,attendedby):
+        try:
+            chats=""
+            Cursor=connection.cursor()  
+            Cursor.execute("set nocount on;exec SP_LiveChatLogs %s,%s,%s,%s",fromdate,todate,salesrepid,attendedby)
+            chats=Cursor.fetchall()
+        except Exception as e:
+                print("Exception------",e)
+        finally:
+                Cursor.close()
+        return chats
 
     #Get complaint Id
     def get_complaint_details(self,complaintid):
@@ -1505,6 +1517,18 @@ class Selector:
         finally:
                 Cursor.close()
         return campaigns
+    #Get latest webinar
+    def get_latest_seminar(request):
+        try:
+            Cursor=connection.cursor()   
+            Cursor.execute("set nocount on;exec SP_GetSeminarDetailsTitleWithDate") 
+            webinars=Cursor.fetchall()
+        except Exception as e:
+                print("Exception------",e)
+        finally:
+                Cursor.close()
+        return webinars
+
     #Get Live chat salesrep
     def get_livechat_reps(self):
         try:
