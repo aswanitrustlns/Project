@@ -1,0 +1,391 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8" />
+    <title>Trust Capital CRM</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
+    <meta content="Themesbrand" name="author" />
+    <!-- App favicon -->
+    {% load  static %}
+     <!-- DataTables -->
+     <link href="{% static 'libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css' %}" rel="stylesheet" type="text/css" />
+     <link href="{% static 'libs/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css' %}" rel="stylesheet" type="text/css" />
+     <!-- plugin css -->
+     <!--<link href="assets/libs/admin-resources/jquery.vectormap/jquery-jvectormap-1.2.2.css" rel="stylesheet"
+         type="text/css" />-->
+      <!-- datepicker css -->
+      <link rel="stylesheet" href="{% static 'libs/flatpickr/flatpickr.min.css' %}">
+      <link rel="stylesheet" href="{% static 'libs/flatpickr/plugins/monthSelect/style.css' %}"></link>
+    {% include "common/link.html" %}
+    {% include "common/scripts.html" %}
+
+   
+
+ 
+</head>
+<body data-layout-mode="dark">
+
+    <!-- <body data-layout="horizontal"> -->
+    
+    <!-- Begin page -->
+    <div id="layout-wrapper">
+    
+        {% include "common/header.html" %}
+    
+
+        <!-- ========== Left Sidebar Start ========== -->
+        {% include "common/sidebar.html" %}
+        <!-- Left Sidebar End -->
+        <div class="main-content">
+
+            <div class="page-content" id="sales">
+                <div class="container-fluid">               
+                    
+                    <div class="row">
+    
+                        <div class="col-12">
+                            <div class="d-flex align-items-center">
+                                <h4 class="card-title almarenamonolight-type mb-4 fs-23">Missed Chats</h4>
+                                
+                                
+                            </div>
+                           
+                       
+                            
+                            <div class=" mb-4">
+                                <p class="gilroymedium-type fs-15 color-color1 mb-0">This page allows you to view the missed chats from website.</p>
+                            </div>
+    
+                     
+                            
+                        </div>
+                       
+                    </div>
+                    
+                    <div class="row">
+    
+                        <div class="col-12">
+                            <div class="card">
+                               
+                                <div class="card-body ">
+                                    
+                                    
+                                   
+                                    
+                                    <div class="table-responsive "   data-simplebar="init">
+                                        
+                                        <table class="table dt-responsive  nowrap  w-100 change" id="datatable" >
+    
+                                            <thead class="gilory-medium-type fs-16">
+                                                <tr>
+                                                    <td class=" ps-0"></td>
+                                                    <td >Id</td>
+                                                    <td >Ticket</td>
+                                                    <td >Name</td>
+                                                    <td >ChatId</td>
+                                                    <td >ThreadId</td>
+                                                    <td >LogTime</td>
+                                                    <td  >LogData</td>
+                                                </tr>
+                                            </thead>
+                                           
+                                            <tbody class="gilory-regular-type fs-15 text-white" id="report-body">
+                                                {%for miss in missed%} 
+                                                <tr>
+                                                    <td class="ps-0" style="cursor: pointer;" onclick="loadTicket({{miss.1}})"> <span class="color-green text-decoration-underline"  >View</span> </td>
+                                                    <!-- data-bs-toggle="modal" data-bs-target=".bs-example-modal-show" -->
+                                                    <td>{{miss.0}}</td> 
+                                                    <td>{{miss.1}}</td>   
+                                                    <td>{{miss.2}}</td>
+                                                    <td>{{miss.3}}</td>
+                                                    <td>{{miss.4}}</td>
+                                                    <td>{{miss.5}}</td>
+                                                    <td>{{miss.6}}</td>
+                                                </tr>
+                                              {%endfor%}
+                                            
+    
+                                            </tbody>
+                                            
+                                        </table>
+                                    </div>
+                                    
+    
+                                </div>
+                            </div>
+                         
+                        </div> <!-- end col -->
+    
+                        <div class="col-12">
+    
+                            <!-- modal-temp -->
+                            <!--<button type="button" class="btn btn-primary waves-effect waves-light" data-bs-toggle="modal" data-bs-target=".bs-example-modal-temp" style="background-color: var(--bs-card-bg) ;">Templates</button>-->
+                            
+                            <!-- modal-Chat Logs -->
+                            <!--<button type="button" class="btn btn-primary waves-effect waves-light" style="background-color: var(--bs-card-bg) ;">Seminars</button>-->
+    
+                            <!-- /.modal-dialog -->
+                            </div>
+                            
+                            <!-- /.modal -->
+                        </div>
+    
+    
+    
+                    </div>
+                    <!-- end row-->
+                    </div>
+                    
+                </div>
+     </div>
+            <!-- END layout-wrapper -->
+            
+            <div class="modal fade" id="monthly-report" tabindex="-1" >
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+            
+                        <div class="modal-body ">
+    
+                            <div class="  px-3 border rounded-3 py-4">
+                            
+                                <div class="modal-header py-0 px-0 border-bottom-0">
+                                    <h5 class="modal-title mb-3" id="modal-title">Monthly Report</h5>
+    
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
+    
+                                </div>
+                           
+                                
+                                    
+                                    <div class="row">
+                                    
+                                        <div class="col-12">
+                                            <div class="mb-3">
+                                                <!--<label class="form-label">Event Name</label>-->
+                                                <form name="monthform" id="month-form">
+                                                <input type="text"    class="form-control input" id="monthly" >
+                                                </form>
+                                                
+                                            </div>
+                                            <div class="row mt-2">
+                                                <div class="col-6">
+                                                    <button type="button"  class="btn btn-success" id="btn-save-event" onclick="monthlyreportLoad()">Load</button>
+                                                    <button type="button" data-bs-dismiss="modal" class="btn btn-danger" id="btn-delete-event">Cancel</button>
+                                                </div>
+                                              
+                                            </div>
+                                        </div>
+                                   
+                                    </div>
+                                    
+                                
+                            </div>
+                        
+                        </div>
+                    </div> <!-- end modal-content-->
+                </div> <!-- end modal dialog-->
+            </div>  
+            <div class="modal fade bs-example-modal-insta" tabindex="-1" role="dialog" aria-hidden="true" id="alertpopup">
+                <div class="modal-dialog modal-dialog-centered"   style="z-index: 10555;">
+                    <div class="modal-content">
+                        <div class="modal-header border-0">
+                            <h5 class=" fs-16" id="userMsg">
+                                
+                            </h5>
+                            <a href="" data-bs-dismiss="modal" aria-label="Close">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M9.16992 14.83L14.8299 9.17" stroke="var(--white)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M14.8299 14.83L9.16992 9.17" stroke="var(--white)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M9 22H15C20 22 22 20 22 15V9C22 4 20 2 15 2H9C4 2 2 4 2 9V15C2 20 4 22 9 22Z" stroke="white" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+        
+                                </a>
+                            </div>
+                                                
+                                <!-- <div class="modal-body" >
+                    
+                    
+                                        <div data-simplebar style="max-height: 230px;">
+                        
+                                          
+                                            
+                                        </div>
+                                    </div> -->
+                       
+                    </div>
+                 </div>
+                </div>
+                <div class="modal fade  bs-example-modal-seminars" tabindex="-1" role="dialog" aria-hidden="true" id="reportpopup">
+                                          
+                    <div class="modal-dialog modal-dialog-centered  modal-lg d-block">
+                     
+
+                 
+                        <div class="modal-content mb-4">
+                         
+                            
+                   
+                            <div class="modal-body">
+
+                            
+
+                              
+                             <div class="border-dashed rounded-3 px-3 py-3">
+                                 <div class="modal-header border-0 px-0">
+                                     <h5 class="modal-title fs-21 ">Monthly Sales Calls Report </h5>
+
+                                     <a href="" data-bs-dismiss="modal" aria-label="Close">
+                                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                             <path d="M9.16992 14.83L14.8299 9.17" stroke="var(--white)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                                             <path d="M14.8299 14.83L9.16992 9.17" stroke="var(--white)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                                             <path d="M9 22H15C20 22 22 20 22 15V9C22 4 20 2 15 2H9C4 2 2 4 2 9V15C2 20 4 22 9 22Z" stroke="white" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                                             </svg>
+
+                                         </a>
+                                 </div>
+                             
+
+                                 <div class="table-responsive" data-simplebar style="max-height: 352px;">
+                                     <table class="table mb-0 ">
+                                        <thead>
+                                        
+                                            <tr class="almarenamonolight-type fs-14">
+                                                <th>Date</th>
+                                                <th>Day</th>
+                                                <th>Ticket Count</th>
+                                                <th>Trust Login</th>
+                                                
+                                            </tr>
+                                        </thead>
+
+
+                                         <tbody class="gilroyregular-type fs-15" id="reportbody">
+                                        
+
+
+                                         </tbody>
+                                     </table>
+
+                                     
+                                 </div>
+
+
+                             </div>
+                             
+
+
+                             
+                            
+                                
+                            </div>
+
+                            
+                        </div><!-- /.modal-content -->
+
+                      
+
+                       
+
+                    </div>
+                    </div>
+            
+    {% include "common/right-sidebar.html" %}
+        
+            <!-- Right bar overlay-->
+    <div class="rightbar-overlay"></div>
+    <script>
+     function loadTicket(ticket){
+        var url="{% url 'Admin:LeadProcessing'%}"
+            window.location.href=url+"?&ticket="+ticket+"&chat=1"
+     }
+     function loadAllInactive(){
+        location.reload()
+     }
+     function loadInactive(){
+        var source=$("#source").val()
+        var salesrep=$("#salesrepId").val()
+        var fromdate=$("#Fromdate").val()
+        var todate=$("#Todate").val()
+        var row=""
+        $('#datatable').dataTable().fnClearTable();
+        $('#datatable').dataTable().fnDestroy();
+        $("#datatable").DataTable({
+                
+                "language": {
+                            'loadingRecords': "<span class='fa-stack fa-lg'>\n\
+                            <i class='fa fa-spinner fa-spin fa-stack-2x fa-fw'></i>\n\
+                            </span>&emsp;Loading Details ...",
+                                },
+                
+                "paging":true,   
+                           
+                "ajax":{
+                   url: "{% url  'Admin:InactiveLoad' %}",
+                   data:{
+                        "from":fromdate,
+                        "to":todate,
+                        "repId":salesrep,
+                        "source":source
+                    },
+                  dataSrc:function(data){
+                    var items = [];
+                    for ( var i=0, ien=data.length ; i<ien ; i++ ) {
+
+                        items[i] =["<span class='color-green text-decoration-underline' style='cursor:pointer' onclick='loadTicket("+data[i][1]+")'>View</span>",data[i][0],data[i][1],data[i][2],data[i][3],data[i][4],data[i][5]]; 
+
+                        
+                        }
+
+                        return items;
+                  }
+                },
+                responsive: true,
+                    paging: true,
+                    lengthChange: false ,
+                    ordering: true,
+                    info:true,
+                    fixedHeader: true,
+                    
+                })
+
+       
+     }
+
+
+    </script>
+
+    
+
+    <!-- datepicker js -->
+    
+    <script src="{% static 'libs/flatpickr/flatpickr.min.js' %}"></script>
+   
+    <script src="{% static 'libs/flatpickr/plugins/monthSelect/index.js' %}"></script>
+    
+    <script src="{% static 'libs/flatpickr/flatpickr.min.js' %}"></script>
+<!-- Required datatable js -->
+<script src="{% static 'libs/datatables.net/js/jquery.dataTables.min.js' %}"></script>
+<script src="{% static 'libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js' %} "></script>
+<!-- Datatable init js -->
+<script src="{% static 'js/pages/botrans.init.js' %}"></script> 
+<script src="{% static 'libs/datatables.net-buttons/js/dataTables.buttons.min.js' %}"></script>
+<script src="{% static 'libs/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js' %}"></script>
+<script src="{% static 'libs/jszip/jszip.min.js' %}"></script>
+<script src="{% static 'libs/pdfmake/build/pdfmake.min.js' %}"></script>
+<script src="{% static 'libs/pdfmake/build/vfs_fonts.js' %}"></script>
+<script src="{% static 'libs/datatables.net-buttons/js/buttons.html5.min.js' %}"></script>
+<script src="{% static 'libs/datatables.net-buttons/js/buttons.print.min.js' %}"></script>
+<script src="{% static 'libs/datatables.net-buttons/js/buttons.colVis.min.js' %}"></script>
+    <!-- Datatable init js -->
+    <script src="{% static 'js/pages/inactive-ticket.init.js' %}"></script> 
+    
+    
+    
+    <script src="{% static 'js/app.js' %}"></script>
+
+</body>
+
+</html>

@@ -112,6 +112,7 @@
                         <li><a  href="{% url 'Admin:Leads' %}" data-key="t-leads">Leads</a></li>
                         {%endif%}
                         <li><a  href="{% url 'Admin:LeadRegistration'%}" data-key="t-LeadRegistration">Ticket Registration</a></li>
+
                         <li><a  href="{% url 'Admin:LeadProcessing'%}" data-key="t-LeadRegistration">Manage Tickets</a></li>
                         <li><a  data-key="t-level-1-2" aria-expanded="false" href="javascript: void(0);" class="has-arrow">Tickets</a>
                             <ul class="sub-menu mm-collapse" aria-expanded="false" >
@@ -119,6 +120,7 @@
                                 <li><a  href="{% url 'Admin:PendingTickets'%}" data-key="t-LeadRegistration">All Tickets</a></li>
                                 <!-- <li><a  href="{% url 'Admin:DormantTicket'%}" data-key="t-LeadRegistration">Dormant Tickets</a></li> -->
                             </ul>
+                        <li><a  href="{% url 'Admin:MissedChat' %}" data-key="t-LeadRegistration">Missed Chats</a></li>
                         <li><a  href="{% url 'Admin:SalesReport' %}" data-key="t-inbox">Calls Report</a></li>
                         <li><a  href="{% url 'Admin:Inbox' %}" data-key="t-inbox">Inbox</a></li>
                         <li><a  href="{% url 'Admin:Calendar' %}" data-key="t-inbox">Calendar</a></li>
@@ -178,7 +180,7 @@
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
                         <li><a  href="{% url 'Admin:InactiveTickets' %}" data-key="t-leads">Inactive Tickets</a></li>
-                        <li><a  href="{% url 'Admin:LivechatReport' %}" data-key="t-LeadRegistration">Live Chat Report</a></li>
+                        <!-- <li><a  href="{% url 'Admin:LivechatReport' %}" data-key="t-LeadRegistration">Live Chat Report</a></li> -->
                         <li><a  href="{% url 'Admin:Campaigns' %}" data-key="t-LeadRegistration">Sales Camaigns</a></li>
                         
                     </ul>

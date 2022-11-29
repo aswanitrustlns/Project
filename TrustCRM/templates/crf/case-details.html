@@ -179,7 +179,13 @@
                                                                         <td>{{case.priority}}</td>
                                                                         <td>{{case.modified|date:"Y-m-d"}}</td>
                                                                         <td>{{case.casetype}}</td>
-                                                                        <td>{{case.assignedto}}</td>
+                                                                        <td>
+                                                                        {%if case.assignedto.name == "Farah Hawilo" %}
+                                                                            Admin
+                                                                        {%else%}
+                                                                            {{case.assignedto.name}}
+                                                                        {%endif%}
+                                                                        </td>
                                                                         <td>{{case.status}}</td>
                                                                          <td><button class="btn  btn-sm   fs-15" style="background-color: rgba(25, 118, 210, 0.11) ;color:rgba(25, 118, 210, 1) ;" onclick="resolve('{{case.caseid}}','{{case.casecode}}')">Resolve </button></td>
                                                                         

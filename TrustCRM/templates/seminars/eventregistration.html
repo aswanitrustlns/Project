@@ -310,7 +310,7 @@
                                                             <label class="form-label" for="title">Title<span class="color-orange">*</span></label>
                                                             <select  class="form-select" id="titlear"  name="title" value="" required >
                                                                 {%for title in titles%}
-                                                                <option value="{{title.0}}">{{title.0}}</option>
+                                                                <option value="{{title}}">{{title}}</option>
                                                                {%endfor%}
                                                             </select>
                                                             <div class="invalid-feedback position-absolute bottom-0">
@@ -517,7 +517,7 @@
                                             <tbody>
                                             {%for seminar in seminars%}
                                                 {% now "Y-m-d" as todays_date %}
-                                                    <tr onclick='loadSeminardetails("{{seminar.0}}")'>
+                                                    <tr onclick='loadSeminardetails("{{seminar.0}}")' style="cursor: pointer;">
                                                         <td data-order="1558357779">{{seminar.0}}</td>
                                                         <!-- <td><a href="">View</a></td> -->
                                                         <td>{{seminar.1}}  </td>
@@ -856,10 +856,7 @@
            $("#webp").attr('checked',false)
             $("#webp").attr('checked',false)
         }
-        function resetArform(){
-           
-           
-       }
+     
         function loadSeminardetails(seminarId){
             console.log("Seminar Id==============="+seminarId)
             $.ajax({
@@ -1034,9 +1031,11 @@
         function validateForm(){
             var flag=0
             var seminarname=$("#seminarname").val()
+            var arabicname=$("#arname").val()
             console.log("Seminar name====="+seminarname)
             var location=$("#location").val()
-            var dates=$("#date").val()
+            var arlocation=$("#arlocation").val()
+            var dates=$("#Date").val()
             if(dates==""){
                 $("#userMsg").empty()
                 $("#userMsg").append("Please select Date")
@@ -1044,13 +1043,13 @@
                 flag=1
 
             }
-            if(location==""){
+            if(location=="" && arlocation==""){
                 $("#userMsg").empty()
                 $("#userMsg").append("Please Enter Location")
                 $("#alertpopup").modal('show')
                 flag=1
             }
-            if(seminarname==""){
+            if(seminarname=="" && arabicname==""){
                 $("#userMsg").empty()
                 $("#userMsg").append("Please Enter Seminar Name")
                 $("#alertpopup").modal('show')

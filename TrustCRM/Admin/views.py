@@ -1069,6 +1069,15 @@ def list_all_seminar(request):
         return JsonResponse({"msg":"List all seminars"})
     else:
         return redirect('/login') 
+#Missed Live chat 
+def missed_live_chat(request):
+    if 'UserId' in request.session:  
+        missedchat=selector.get_missedchat()
+        print("Missed chat",missedchat)
+        return render(request,'sales/missedchats.html',{"missed":missedchat})
+    else:
+        return redirect('/login') 
+
 #Open demo account
 def open_demoaccount(request):
     if 'UserId' in request.session:
@@ -1084,6 +1093,7 @@ def open_demoaccount(request):
         return JsonResponse({"msg":"Demo account opened"})
     else:
         return JsonResponse({"msg":"Your session expired! Please login to continue"})
+        
 #Email template send items
 def send_items_list(request):
     if 'UserId' in request.session: 

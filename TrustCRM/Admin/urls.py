@@ -64,6 +64,7 @@ urlpatterns=[
     path('InactiveLoad',inactiveticketLoad,name="InactiveLoad"),
     path('Campaigns',salescampaigns,name="Campaigns"),
     path('SelectCampaign',load_sales_campaign,name="SelectCampaign"),
+    path('MissedChat',missed_live_chat,name="MissedChat"),
     #seminar=============================================================
     path('Upcoming',upcomingSeminars,name="Upcoming"),
     path('RegisterSeminar',registerSeminars,name="RegisterSeminar"),

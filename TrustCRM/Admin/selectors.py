@@ -657,19 +657,7 @@ class Selector:
         inbox_list=[]
         i=1
         try:
-            # outlook = win32com.client.Dispatch("Outlook.Application")
-            # mapi=outlook.GetNamespace("MAPI")
-            # inbox = mapi.GetDefaultFolder(6) # 5 for send items----
-
-            # messages = inbox.Items
-            # messages.Sort("[ReceivedTime]", True)
-            # inbox_count=len(messages)
-            # for message in messages:
-            #     subject = message.Subject
-            #     sender = message.SenderEmailAddress
-            #     received_tym=message.ReceivedTime
-            #     inbox_data=(subject,sender,received_tym)
-            #     inbox_list.append(inbox_data)
+           
             mail = imaplib.IMAP4_SSL(host=settings.EMAIL_HOST)
 
             mail.login(settings.EMAIL_HOST_USER,settings.EMAIL_HOST_PASSWORD)
@@ -700,8 +688,9 @@ class Selector:
         finally:
             pass
         inbox_list.reverse()
-     
         return inbox_count,inbox_list
+    
+
 #Email template send items----
     def template_send_items_list(self,emailname):
         count=0
@@ -743,16 +732,56 @@ class Selector:
             pass
         inbox_list.reverse()
         return count,inbox_list
+
+    #Email template send items from backoffice----
+    def template_send_items_backoffice_list(self,emailname):
+        count=0
+        try:
+            inbox_list=[]
+            username="backoffice@trusttc.com"
+            app_password="iyP4a9?9"
+
+            mail_server = 'mail.trusttc.com'
+
+            mailbox = imaplib.IMAP4_SSL(mail_server)
+
+            mailbox.login(username, app_password)
+            mailbox.select("INBOX")
+            search_cr='(TO "'+emailname+'")'
+            
+            type, selected_mails = mailbox.search(None,search_cr) #mail.search based criteria mail.search(None,'(FROM "email" SUBJECT "the subject" UNSEEN)')
+            count=len(selected_mails[0].split())
+            # for i in range(1, int(messages[0])):
+            for i in selected_mails[0].split():
+                res, msg = mailbox.fetch(i, '(RFC822)')   
+                for response in msg:
+                    if isinstance(response, tuple):
+                        msg = email.message_from_bytes(response[1])
+                        
+                        subject=msg["subject"]
+                        receive_tym=msg["date"]
+               
+                        # print("message=========================",msg["Message-ID"])
+
+                        if receive_tym:
+                                receive_tym=receive_tym[0:11]
+                        inbox_data=(subject,receive_tym,msg["Message-ID"])
+                        
+                        inbox_list.append(inbox_data)
+        except Exception as e:
+            print("Exception------",e)
+        finally:
+            pass
+        inbox_list.reverse()
+        return count,inbox_list
+
 # Send Items for manage tickets
     def read_mail_senditems(self,emailname,message):
        
         multipart="false"
         username="crm@trusttc.com"
         app_password="Vydw&663"
-
         mail_server = 'mail.trusttc.com'
-
-       
         mail = imaplib.IMAP4_SSL(mail_server)
         message_data=""
         subject=""
@@ -760,7 +789,6 @@ class Selector:
         mail.login(username, app_password)
         status, messages=mail.select("INBOX")
         search_cr='(TO "'+emailname+'")'
-        
         elem, selected_mails = mail.search(None,search_cr)
         if os.path.isfile("templates\\test\\index.html"):
             os.remove("templates\\test\\index.html")
@@ -1545,6 +1573,17 @@ class Selector:
         try:
             Cursor=connection.cursor()
             Cursor.execute("set nocount on;exec SP_getLiveChatUsers") 
+            livechat_users=Cursor.fetchall()
+        except Exception as e:
+            print("Exception---",e)
+        finally:
+            Cursor.close()
+        return livechat_users
+    #Get missed chat
+    def get_missedchat(self):
+        try:
+            Cursor=connection.cursor()
+            Cursor.execute("set nocount on;exec SP_GetMissedLiveChat") 
             livechat_users=Cursor.fetchall()
         except Exception as e:
             print("Exception---",e)
