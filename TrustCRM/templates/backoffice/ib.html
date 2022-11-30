@@ -130,7 +130,7 @@
                                                                
                                                                 <div class="col-sm-4 col-xxl-2 " >
                                                                         <button class="btn  btn-info  btn-lg mb-2  me-2
-                                                                        " type="button" id="" onclick="loadIB('Live')">Load</button>
+                                                                        " type="button" id="">Load</button>
                                                                 </div>
                                                                 <div class="col-sm-4 col-xxl-2 " >
                                                                     <button class="btn  btn-info  btn-lg mb-2  me-2
@@ -308,7 +308,7 @@
                                                                             <tr  class=" gilorymedium-type fs-17">
                                                                                 <th  class="ps-0"> View</th>
                                                                                 <th >View Client</th>
-                                                                                <!-- <th  >Subscribe</th> -->
+                                                                                <th  >Subscribe</th>
                                                                                 <th  >Reg Date</th>
                                                                            
                                                                                 <th>Approval Date</th>
@@ -332,7 +332,7 @@
                                                                           
                                                                             <td class="ps-0" style="cursor:pointer"> <a class="color-green text-decoration-underline" onclick="viewDetails({{affiliate.3}})">View</a> </td>
                                                                             <td style="cursor:pointer"> <a class="text-info text-decoration-underline" onclick="viewClients({{affiliate.3}})">View Clients</a> </td>
-                                                                            <!-- <td  style="cursor:pointer" class="text-info text-decoration-underline">{{affiliate.0}}</td>    -->
+                                                                            <td  style="cursor:pointer" class="text-info text-decoration-underline">{{affiliate.0}}</td>   
                                                                             <td>{{affiliate.1}}</td>
                                                                             <td>{{affiliate.2}}</td>
                                                                             <td>{{affiliate.3}}</td>
@@ -400,7 +400,7 @@
                                                                
                                                                 <div class="col-sm-4 col-xxl-2 " >
                                                                         <button class="btn  btn-info  btn-lg mb-2  me-2
-                                                                        " type="button" id="" onclick="loadIB('Pending')">Load</button>
+                                                                        " type="button" id="">Load</button>
                                                                 </div>
                                                                
                                                         </div> 
@@ -529,7 +529,7 @@
                                                                    
                                                                     <div class="col-sm-4 col-xxl-2 " >
                                                                             <button class="btn  btn-info  btn-lg mb-2  me-2
-                                                                            " type="button" id="" onclick="loadIB('Rejected')">Load</button>
+                                                                            " type="submit" id="">Load</button>
                                                                     </div>
                                                                    
                                                             </div> 
@@ -645,28 +645,6 @@
     
             <!-- Right bar overlay-->
         <div class="rightbar-overlay"></div> 
-        <div class="modal fade bs-example-modal-insta" tabindex="-1" role="dialog" aria-hidden="true" id="alertpopup">
-            <div class="modal-dialog modal-dialog-centered"   style="z-index: 10555;">
-                <div class="modal-content">
-                    <div class="modal-header border-0">
-                        <h5 class=" fs-16" id="userMsg">
-                            
-                        </h5>
-                        <a href="" data-bs-dismiss="modal" aria-label="Close">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M9.16992 14.83L14.8299 9.17" stroke="var(--white)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
-                                <path d="M14.8299 14.83L9.16992 9.17" stroke="var(--white)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
-                                <path d="M9 22H15C20 22 22 20 22 15V9C22 4 20 2 15 2H9C4 2 2 4 2 9V15C2 20 4 22 9 22Z" stroke="white" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
-                                </svg>
-    
-                        </a>
-                        </div>
-                                            
-                         
-                   
-                </div>
-             </div>
-            </div>
         <script>
             function viewDetails(loginno){
 
@@ -680,181 +658,10 @@
             function monthlyreportLoad(){
                 $("#monthly-report").modal('hide')
                 var monthly=document.getElementById('monthly').value
-                $.ajax({
-                        
-                        type : "GET", 
-                        url: "{% url 'Backoffice:GenerateIbReport' %}",
-                        data:{
-                            "month":monthly,
-                        },
-                        
-                        
-                        success: function(data){
-                        }
-                    })
-            }
-            function loadIB(status)
-            {
-                var fromdate=""
-                var todate=""
-                var validflag=0
-                if(status=="Live"){
-                    fromdate=$("Fromdate1").val()
-                    todate=$("Todate1").val()
-                }
-                if(status=="Pending"){
-                    fromdate=$("Fromdate2").val()
-                    todate=$("Todate2").val()
-                }
-                if(status=="Rejected"){
-                    fromdate=$("Fromdate3").val()
-                    todate=$("Todate3").val()
-                }
-                if(fromdate==""){
-                    $("#userMsg").empty()
-                    $("#userMsg").append("Please choose from date")
-                    $("#alertpopup").modal('show')
-                    validflag=1
-                }
-                if(todate==""){
-                    $("#userMsg").empty()
-                    $("#userMsg").append("Please choose to date")
-                    $("#alertpopup").modal('show')
-                    validflag=1
-
-                }
-                if(validflag==0){
-                    if(status=="Live"){
-                        $('#datatableiblive').dataTable().fnClearTable();
-                    $('#datatableiblive').dataTable().fnDestroy();
-                    $("#datatableiblive").DataTable({
-                
-                    "language": {
-                                'loadingRecords': "<span class='fa-stack fa-lg'>\n\
-                                <i class='fa fa-spinner fa-spin fa-stack-2x fa-fw'></i>\n\
-                                </span>&emsp;Loading Details ...",
-                                    },
-                    
-                    "paging":true,   
-                            
-                    "ajax":{
-                    url: "{% url  'Backoffice:AffiliatesLoad' %}",
-                    data:{
-                        "status":status,
-                        "from":fromdate,
-                        "to":todate
-                        },
-                    dataSrc:function(data){
-                        var items = [];
-                        for ( var i=0, ien=data.length ; i<ien ; i++ ) {
-
-                            items[i] =["<a style='cursor:pointer' class='color-green text-decoration-underline' onclick='viewDetails("+data[i][3]+")'>View</a>","<a style='cursor:pointer' class='text-info text-decoration-underline' onclick='viewClients("+data[i][3]+")'>View Clients</a>",data[i][1],data[i][2],data[i][3],data[i][4],data[i][5],data[i][6],data[i][7],data[i][8],data[i][9],data[i][10]]; 
-
-                            
-                            }
-
-                        return items;
-                  }
-                },
-                responsive: true,
-                    paging: true,
-                    lengthChange: false ,
-                    ordering: true,
-                    info:true,
-                    fixedHeader: true,
-                    
-                })
-            }
-            if(status=="Pending"){
-                        $('#datatableibpending').dataTable().fnClearTable();
-                    $('#datatableibpending').dataTable().fnDestroy();
-                    $("#datatableibpending").DataTable({
-                
-                    "language": {
-                                'loadingRecords': "<span class='fa-stack fa-lg'>\n\
-                                <i class='fa fa-spinner fa-spin fa-stack-2x fa-fw'></i>\n\
-                                </span>&emsp;Loading Details ...",
-                                    },
-                    
-                    "paging":true,   
-                            
-                    "ajax":{
-                    url: "{% url  'Backoffice:AffiliatesLoad' %}",
-                    data:{
-                        "status":status,
-                        "from":fromdate,
-                        "to":todate
-                        },
-                    dataSrc:function(data){
-                        var items = [];
-                        for ( var i=0, ien=data.length ; i<ien ; i++ ) {
-
-                            items[i] =["<a style='cursor:pointer' class='color-green text-decoration-underline' onclick='viewDetails("+data[i][3]+")'>View</a>","<a style='cursor:pointer' class='text-info text-decoration-underline' onclick='viewClients("+data[i][3]+")'>View Clients</a>",data[i][1],data[i][2],data[i][3],data[i][4],data[i][5],data[i][6],data[i][7],data[i][8],data[i][9],data[i][10]]; 
-
-                            
-                            }
-
-                        return items;
-                  }
-                },
-                responsive: true,
-                    paging: true,
-                    lengthChange: false ,
-                    ordering: true,
-                    info:true,
-                    fixedHeader: true,
-                    
-                })
-            }
-            if(status=="Pending"){
-                        $('#datatableibrejected').dataTable().fnClearTable();
-                    $('#datatableibrejected').dataTable().fnDestroy();
-                    $("#datatableibrejected").DataTable({
-                
-                    "language": {
-                                'loadingRecords': "<span class='fa-stack fa-lg'>\n\
-                                <i class='fa fa-spinner fa-spin fa-stack-2x fa-fw'></i>\n\
-                                </span>&emsp;Loading Details ...",
-                                    },
-                    
-                    "paging":true,   
-                            
-                    "ajax":{
-                    url: "{% url  'Backoffice:AffiliatesLoad' %}",
-                    data:{
-                        "status":status,
-                        "from":fromdate,
-                        "to":todate
-                        },
-                    dataSrc:function(data){
-                        var items = [];
-                        for ( var i=0, ien=data.length ; i<ien ; i++ ) {
-
-                            items[i] =["<a style='cursor:pointer' class='color-green text-decoration-underline' onclick='viewDetails("+data[i][3]+")'>View</a>","<a style='cursor:pointer' class='text-info text-decoration-underline' onclick='viewClients("+data[i][3]+")'>View Clients</a>",data[i][1],data[i][2],data[i][3],data[i][4],data[i][5],data[i][6],data[i][7],data[i][8],data[i][9],data[i][10]]; 
-
-                            
-                            }
-
-                        return items;
-                  }
-                },
-                responsive: true,
-                    paging: true,
-                    lengthChange: false ,
-                    ordering: true,
-                    info:true,
-                    fixedHeader: true,
-                    
-                })
-            }
-
-
-
-
-            }
-                    
-       
-                  
+                var url="{% url 'Backoffice:GenerateIbReport' %}"
+                // location.href=url+"?&month="+monthly
+                window.open(url+"?&month="+monthly,'_blank')
+               
             }
         </script>
         <script src="{% static 'libs/flatpickr/flatpickr.min.js' %}"></script>

@@ -7,7 +7,9 @@ from django.views.decorators.csrf import csrf_exempt
 from .service import Services
 from .selector import Selector
 from .emailservice import EmailServices
+from .models import TblActionreasons
 from datetime import datetime, timedelta
+
 selector=Selector()
 service=Services()
 emailservice=EmailServices()
@@ -411,6 +413,7 @@ def final_approval(request):
         message="Please try again"
         userid=int(request.session.get('UserId'))
         accno=request.GET.get('account')
+        ticket=request.GET.get('ticket')
         status=selector.get_docs_verified(accno)
         user=request.session.get('user')
         server=request.session.get('server')
@@ -424,7 +427,10 @@ def final_approval(request):
             message="POI and POR are mandatory before complete approval"
         else:
            message=selector.approveClient(user,server,password,accno,userid)
-
+           today=datetime.today()
+           one_week=datetime.today()+timedelta(days=7)
+           saveReason=TblActionreasons(ticket=ticket,login=accno,action="",duedate=one_week,reason="",userid=userid,status="",updated=today)
+           saveReason.save()
         userdetails=selector.get_email_details(accno)
         if userdetails:
             title=userdetails[3]
@@ -477,6 +483,7 @@ def approval(request):
         message="Please try again"
         userid=int(request.session.get('UserId'))
         accno=request.GET.get('account')
+        ticket=request.GET.get('ticket')
         user=request.session.get('user')
         server=request.session.get('server')
         password=request.session.get('password')
@@ -494,6 +501,10 @@ def approval(request):
             message="POI is mandatory for temporary approval"
         else:
             message=selector.approve_live_Client(user,server,password,accno,userid,client_area)
+            today=datetime.today()
+            one_week=datetime.today()+timedelta(days=7)
+            saveReason=TblActionreasons(ticket=ticket,login=accno,action="",duedate=one_week,reason="",userid=userid,status="",updated=today)
+            saveReason.save()
             print("Messageeeeeeeeeeeeeeeee",message)
             userdetails=selector.get_email_details(accno)
             if userdetails:
@@ -802,9 +813,9 @@ def generatereport(request):
             month=int(dates[0])
             year=int(dates[1])
         print("Month and year=====",month,year)
-        all_details=selector.generate_report_monthly(month,year)
-        
-        return JsonResponse({"message":"success"})
+        monthlydata=selector.generate_report_monthly(month,year)
+        # print("Type of ===",monthlydata)
+        return render(request,'backoffice/reports.html',{'datas':monthlydata})
     else:
         return redirect('/login')
 def generate_login_report(request):
@@ -821,7 +832,7 @@ def generate_login_report(request):
         print("Month and year=====",month,year)
         all_details=selector.generate_report_monthly_agent(month,year,login)
         
-        return JsonResponse({"message":"success"})
+        return render(request,'backoffice/reports.html',{'datas':all_details})
     else:
         return redirect('/login')
 

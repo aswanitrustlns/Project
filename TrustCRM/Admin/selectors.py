@@ -739,7 +739,89 @@ class Selector:
         try:
             inbox_list=[]
             username="backoffice@trusttc.com"
-            app_password="iyP4a9?9"
+            app_password="WmY&SF9sX8kv"
+            
+            mail_server = 'mail.trusttc.com'
+
+            mailbox = imaplib.IMAP4_SSL(mail_server)
+
+            mailbox.login(username, app_password)
+            mailbox.select("INBOX")
+            search_cr='(TO "'+emailname+'")'
+            
+            type, selected_mails = mailbox.search(None,search_cr) #mail.search based criteria mail.search(None,'(FROM "email" SUBJECT "the subject" UNSEEN)')
+            count=len(selected_mails[0].split())
+            # for i in range(1, int(messages[0])):
+            for i in selected_mails[0].split():
+                res, msg = mailbox.fetch(i, '(RFC822)')   
+                for response in msg:
+                    if isinstance(response, tuple):
+                        msg = email.message_from_bytes(response[1])
+                        
+                        subject=msg["subject"]
+                        receive_tym=msg["date"]
+               
+                        # print("message=========================",msg["Message-ID"])
+
+                        if receive_tym:
+                                receive_tym=receive_tym[0:11]
+                        inbox_data=(subject,receive_tym,msg["Message-ID"])
+                        
+                        inbox_list.append(inbox_data)
+        except Exception as e:
+            print("Exception------",e)
+        finally:
+            pass
+        inbox_list.reverse()
+        return count,inbox_list
+    #Email template send items from sales----
+    def template_send_items_sales_list(self,emailname):
+        count=0
+        try:
+            inbox_list=[]
+            username="sales@trusttc.com"
+            app_password="otBa62~1"
+
+            mail_server = 'mail.trusttc.com'
+
+            mailbox = imaplib.IMAP4_SSL(mail_server)
+
+            mailbox.login(username, app_password)
+            mailbox.select("INBOX")
+            search_cr='(TO "'+emailname+'")'
+            
+            type, selected_mails = mailbox.search(None,search_cr) #mail.search based criteria mail.search(None,'(FROM "email" SUBJECT "the subject" UNSEEN)')
+            count=len(selected_mails[0].split())
+            # for i in range(1, int(messages[0])):
+            for i in selected_mails[0].split():
+                res, msg = mailbox.fetch(i, '(RFC822)')   
+                for response in msg:
+                    if isinstance(response, tuple):
+                        msg = email.message_from_bytes(response[1])
+                        
+                        subject=msg["subject"]
+                        receive_tym=msg["date"]
+               
+                        # print("message=========================",msg["Message-ID"])
+
+                        if receive_tym:
+                                receive_tym=receive_tym[0:11]
+                        inbox_data=(subject,receive_tym,msg["Message-ID"])
+                        
+                        inbox_list.append(inbox_data)
+        except Exception as e:
+            print("Exception------",e)
+        finally:
+            pass
+        inbox_list.reverse()
+        return count,inbox_list
+    #Email template send items from support----
+    def template_send_items_support_list(self,emailname):
+        count=0
+        try:
+            inbox_list=[]
+            username="support@trusttc.com"
+            app_password="yA8g3m9&"
 
             mail_server = 'mail.trusttc.com'
 
@@ -776,11 +858,224 @@ class Selector:
         return count,inbox_list
 
 # Send Items for manage tickets
-    def read_mail_senditems(self,emailname,message):
+    def read_mail_senditems(self,emailname,message,username,app_password):
        
         multipart="false"
-        username="crm@trusttc.com"
-        app_password="Vydw&663"
+        
+        mail_server = 'mail.trusttc.com'
+        mail = imaplib.IMAP4_SSL(mail_server)
+        message_data=""
+        subject=""
+        sender=""
+        mail.login(username, app_password)
+        status, messages=mail.select("INBOX")
+        search_cr='(TO "'+emailname+'")'
+        elem, selected_mails = mail.search(None,search_cr)
+        if os.path.isfile("templates\\test\\index.html"):
+            os.remove("templates\\test\\index.html")
+       
+        for i in selected_mails[0].split():
+            res, msg = mail.fetch(i, '(RFC822)')
+            for response in msg:
+                if isinstance(response, tuple):
+                    msg = email.message_from_bytes(response[1])
+                    
+                    if(message == msg["Message-ID"]):
+                        print("Message")
+                        subject=msg["subject"]
+                        sender=msg["from"]
+                        content_type=msg["content-type"]
+                        
+                        if(content_type=="text/html"):
+                            message_data=message.decode('utf-8')
+                            message_data=get_template(message_data)
+                        if msg.is_multipart():
+                            
+                            for part in msg.walk():
+                                content_type = part.get_content_type()
+                                
+                                content_disposition = str(part.get("Content-Disposition"))
+            
+                                try:
+                                    body = part.get_payload(decode=True).decode('utf-8')
+                                except:
+                                    pass
+            
+                                if content_type == "text/plain" and "attachment" not in content_disposition:
+                                    message_data=body
+                                    print(body)
+                                if content_type == "text/html":
+                                    multipart="true"
+                                    open_html(body)
+                                elif "attachment" in content_disposition:
+                                    # download_attachment(part)
+                                    print("Attachment is there")
+                        else:
+                            for part in msg.walk():
+                            
+                                if part.get_content_type()=="text/plain":                                    
+                                    
+                                    message = part.get_payload(decode=True)                                    
+                                    message_data=message.decode()                                      
+                                    break
+                                
+                                if part.get_content_type()=="text/html":                                    
+                                    multipart="true"
+                                    body = part.get_payload(decode=True).decode()
+                                    open_html(body)
+                                
+                            
+        
+        return message_data,subject,sender,multipart
+
+# Send Items for manage tickets
+    def read_mail_senditems_backoffice(self,emailname,message):
+       
+        multipart="false"
+        username="backoffice@trusttc.com"
+        app_password="WmY&SF9sX8kv"
+        mail_server = 'mail.trusttc.com'
+        mail = imaplib.IMAP4_SSL(mail_server)
+        message_data=""
+        subject=""
+        sender=""
+        mail.login(username, app_password)
+        status, messages=mail.select("INBOX")
+        search_cr='(TO "'+emailname+'")'
+        elem, selected_mails = mail.search(None,search_cr)
+        if os.path.isfile("templates\\test\\index.html"):
+            os.remove("templates\\test\\index.html")
+       
+        for i in selected_mails[0].split():
+            res, msg = mail.fetch(i, '(RFC822)')
+            for response in msg:
+                if isinstance(response, tuple):
+                    msg = email.message_from_bytes(response[1])
+                    
+                    if(message == msg["Message-ID"]):
+                        print("Message")
+                        subject=msg["subject"]
+                        sender=msg["from"]
+                        content_type=msg["content-type"]
+                        
+                        if(content_type=="text/html"):
+                            message_data=message.decode('utf-8')
+                            message_data=get_template(message_data)
+                        if msg.is_multipart():
+                            
+                            for part in msg.walk():
+                                content_type = part.get_content_type()
+                                
+                                content_disposition = str(part.get("Content-Disposition"))
+            
+                                try:
+                                    body = part.get_payload(decode=True).decode('utf-8')
+                                except:
+                                    pass
+            
+                                if content_type == "text/plain" and "attachment" not in content_disposition:
+                                    message_data=body
+                                    print(body)
+                                if content_type == "text/html":
+                                    multipart="true"
+                                    open_html(body)
+                                elif "attachment" in content_disposition:
+                                    # download_attachment(part)
+                                    print("Attachment is there")
+                        else:
+                            for part in msg.walk():
+                            
+                                if part.get_content_type()=="text/plain":                                    
+                                    
+                                    message = part.get_payload(decode=True)                                    
+                                    message_data=message.decode()                                      
+                                    break
+                                
+                                if part.get_content_type()=="text/html":                                    
+                                    multipart="true"
+                                    body = part.get_payload(decode=True).decode()
+                                    open_html(body)
+                                
+                            
+        
+        return message_data,subject,sender,multipart
+    # Send Items for manage tickets
+    def read_mail_senditems_sales(self,emailname,message):
+       
+        multipart="false"
+        username="sales@trusttc.com"
+        app_password="otBa62~1"
+        mail_server = 'mail.trusttc.com'
+        mail = imaplib.IMAP4_SSL(mail_server)
+        message_data=""
+        subject=""
+        sender=""
+        mail.login(username, app_password)
+        status, messages=mail.select("INBOX")
+        search_cr='(TO "'+emailname+'")'
+        elem, selected_mails = mail.search(None,search_cr)
+        if os.path.isfile("templates\\test\\index.html"):
+            os.remove("templates\\test\\index.html")
+       
+        for i in selected_mails[0].split():
+            res, msg = mail.fetch(i, '(RFC822)')
+            for response in msg:
+                if isinstance(response, tuple):
+                    msg = email.message_from_bytes(response[1])
+                    
+                    if(message == msg["Message-ID"]):
+                        print("Message")
+                        subject=msg["subject"]
+                        sender=msg["from"]
+                        content_type=msg["content-type"]
+                        
+                        if(content_type=="text/html"):
+                            message_data=message.decode('utf-8')
+                            message_data=get_template(message_data)
+                        if msg.is_multipart():
+                            
+                            for part in msg.walk():
+                                content_type = part.get_content_type()
+                                
+                                content_disposition = str(part.get("Content-Disposition"))
+            
+                                try:
+                                    body = part.get_payload(decode=True).decode('utf-8')
+                                except:
+                                    pass
+            
+                                if content_type == "text/plain" and "attachment" not in content_disposition:
+                                    message_data=body
+                                    print(body)
+                                if content_type == "text/html":
+                                    multipart="true"
+                                    open_html(body)
+                                elif "attachment" in content_disposition:
+                                    # download_attachment(part)
+                                    print("Attachment is there")
+                        else:
+                            for part in msg.walk():
+                            
+                                if part.get_content_type()=="text/plain":                                    
+                                    
+                                    message = part.get_payload(decode=True)                                    
+                                    message_data=message.decode()                                      
+                                    break
+                                
+                                if part.get_content_type()=="text/html":                                    
+                                    multipart="true"
+                                    body = part.get_payload(decode=True).decode()
+                                    open_html(body)
+                                
+                            
+        
+        return message_data,subject,sender,multipart
+    # Send Items for manage tickets
+    def read_mail_senditems_support(self,emailname,message):
+       
+        multipart="false"
+        username="support@trusttc.com"
+        app_password="yA8g3m9&"
         mail_server = 'mail.trusttc.com'
         mail = imaplib.IMAP4_SSL(mail_server)
         message_data=""

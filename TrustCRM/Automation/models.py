@@ -207,6 +207,8 @@ class TblEwalletTransaction(models.Model):
 
     class Meta:
         managed = False
-        db_table = 'tbl_eWallet_Transaction'   
+        db_table = 'tbl_eWallet_Transaction'  
+
+
 
 

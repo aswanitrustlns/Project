@@ -59,13 +59,13 @@
                 <!--row0-->
                 <div class="row">
 
-                    <div class="col-xxl-5  col-md-5">
+                    <div class="col-xxl-6  col-md-6">
                         <!-- card -->
                         <div class="card card-h-100">
                             <!-- card body -->
                             <div class="card-body">
                                 <div class="d-flex flex-wrap align-items-center mb-4">
-                                    <h5 class="card-title me-2 almarenamonolight-type fs-21">Live Accounts</h5>
+                                    <h5 class="card-title me-2 almarenamonolight-type fs-21">New Clients</h5>
 
                                 </div>
                                 <div class="row align-items-center">
@@ -83,7 +83,74 @@
                                         <div class="d-flex w-100 justify-content-between">
                                             <a href="{% url 'Admin:AccountsFilter' %}?&change=Funded"><p class=" gilory-semibold-type color-color1 fs-16 m-0 text-red me-2 text-xl-center mb-lg-2">Today <span class="badge  rounded-pill  p-2 fs-11 ms-2" style="background-color:rgba(238, 110, 110, 0.2) ;">{%if funded_today < 9 %} 0{{funded_today}}{%else%}{{funded_today}}{%endif%}</span></p></a>
                                             <a href="{% url 'Admin:WeeklyFilter' %}?&change=Funded"><p class=" gilory-semibold-type color-color1 fs-16 m-0 text-green text-xl-center">This week  <span class="badge  rounded-pill  p-2 fs-11 ms-2" style="background-color:rgba(38, 171, 95, 0.2) ;">{%if funded_week < 9 %} 0{{funded_week}}{%else%}{{funded_week}}{%endif%}</span></p></a>
-                                            <a href="{% url 'Admin:WeeklyFilter' %}?&change=Funded"><p class=" gilory-semibold-type color-color1 fs-16 m-0 text-green text-xl-center">Existing  <span class="badge  rounded-pill  p-2 fs-11 ms-2" style="background-color:rgba(38, 171, 95, 0.2) ;">{%if funded_week < 9 %} 0{{funded_week}}{%else%}{{funded_week}}{%endif%}</span></p></a>
+                                            
+
+                                        </div>
+                                        
+                                            
+                                        
+
+
+
+                                    </div>
+                                    <div class="col-xxl-6 col-xl-6  col-md-12 ps-xxl-5">
+
+                                        <div class="d-flex mb-2">
+                                            <svg width="21" height="21"  class="me-2" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M10.5002 0.0830078C4.75016 0.0830078 0.0834961 4.74967 0.0834961 10.4997C0.0834961 16.2497 4.75016 20.9163 10.5002 20.9163C16.2502 20.9163 20.9168 16.2497 20.9168 10.4997C20.9168 4.74967 16.2502 0.0830078 10.5002 0.0830078ZM16.2606 5.84343L8.21891 13.8851H11.3647C11.7918 13.8851 12.146 14.2393 12.146 14.6663C12.146 15.0934 11.7918 15.4476 11.3647 15.4476H6.3335C5.90641 15.4476 5.55225 15.0934 5.55225 14.6663V9.63509C5.55225 9.20801 5.90641 8.85384 6.3335 8.85384C6.76058 8.85384 7.11475 9.20801 7.11475 9.63509V12.7809L15.1564 4.73926C15.3127 4.58301 15.5106 4.51009 15.7085 4.51009C15.9064 4.51009 16.1043 4.58301 16.2606 4.73926C16.5627 5.04134 16.5627 5.54134 16.2606 5.84343Z" fill="#FF0001"/>
+                                                </svg>
+                                                
+                                                <h5 class=" gilory-medium-type fs-18">Non Funded</h5>
+
+                                        </div>
+
+                                        <div class="d-flex w-100 justify-content-between">
+                                            <!-- <a href="{% url 'Admin:AccountsFilter' %}?&change=NonFunded"> <p class=" gilory-semibold-type color-color1 fs-16 m-0 text-red me-2 text-xl-center ">Today <span class="badge  rounded-pill  p-2 fs-11 ms-2" style="background-color:rgba(238, 110, 110, 0.2) ;">{%if nonfunded_today < 9 %} 0{{nonfunded_today}}{%else%}{{nonfunded_today}}{%endif%}</span></p></a> -->
+                                            <a href="{% url 'Admin:WeeklyFilter' %}?&change=NonFunded"><p class=" gilory-semibold-type color-color1 fs-16 m-0 text-green text-xl-center">This week  <span class="badge  rounded-pill  p-2 fs-11 ms-2" style="background-color:rgba(38, 171, 95, 0.2) ;">{%if nonfunded_week < 9 %} 0{{nonfunded_week}}{%else%}{{nonfunded_week}}{%endif%}</span></p></a>
+                                            
+
+                                        </div>
+                                    
+
+
+                                    </div>
+                                
+                                
+
+
+
+                                </div><!-- end card body -->
+                            </div><!-- end card -->
+                        </div><!-- end col -->
+
+
+
+                    </div>
+                    <div class="col-xxl-6  col-md-6">
+                        <!-- card -->
+                        <div class="card card-h-100">
+                            <!-- card body -->
+                            <div class="card-body">
+                                <div class="d-flex flex-wrap align-items-center mb-4">
+                                    <h5 class="card-title me-2 almarenamonolight-type fs-21">Existing Clients</h5>
+
+                                </div>
+                                <div class="row align-items-center">
+
+                                    <div class="col-xxl-6 col-xl-6  col-md-12 mb-4 mb-xl-0 pe-xxl-5">
+
+                                        <div class="d-flex mb-2">
+                                            <svg width="21" height="21" class="me-2"  viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M10.5002 0.0830078C4.75016 0.0830078 0.0834961 4.74967 0.0834961 10.4997C0.0834961 16.2497 4.75016 20.9163 10.5002 20.9163C16.2502 20.9163 20.9168 16.2497 20.9168 10.4997C20.9168 4.74967 16.2502 0.0830078 10.5002 0.0830078ZM15.9689 10.8434C15.9689 11.2705 15.6147 11.6247 15.1877 11.6247C14.7606 11.6247 14.4064 11.2705 14.4064 10.8434V7.69759L6.36475 15.7393C6.2085 15.8955 6.01058 15.9684 5.81266 15.9684C5.61475 15.9684 5.41683 15.8955 5.26058 15.7393C4.9585 15.4372 4.9585 14.9372 5.26058 14.6351L13.3022 6.59342H10.1564C9.72933 6.59342 9.37516 6.23926 9.37516 5.81217C9.37516 5.38509 9.72933 5.03092 10.1564 5.03092H15.1877C15.6147 5.03092 15.9689 5.38509 15.9689 5.81217V10.8434Z" fill="#00A651"/>
+                                            </svg>
+                                             <h5 class=" gilory-medium-type fs-18">Funded</h5>
+
+                                        </div>
+
+                                        <div class="d-flex w-100 justify-content-between">
+                                            <a href="{% url 'Admin:AccountsFilter' %}?&change=Funded"><p class=" gilory-semibold-type color-color1 fs-16 m-0 text-red me-2 text-xl-center mb-lg-2">Today <span class="badge  rounded-pill  p-2 fs-11 ms-2" style="background-color:rgba(238, 110, 110, 0.2) ;">{%if funded_today < 9 %} 0{{funded_today}}{%else%}{{funded_today}}{%endif%}</span></p></a>
+                                            <a href="{% url 'Admin:WeeklyFilter' %}?&change=Funded"><p class=" gilory-semibold-type color-color1 fs-16 m-0 text-green text-xl-center">This week  <span class="badge  rounded-pill  p-2 fs-11 ms-2" style="background-color:rgba(38, 171, 95, 0.2) ;">{%if funded_week < 9 %} 0{{funded_week}}{%else%}{{funded_week}}{%endif%}</span></p></a>
+                                            
 
                                         </div>
                                         
@@ -107,7 +174,7 @@
                                         <div class="d-flex w-100 justify-content-between">
                                             <a href="{% url 'Admin:AccountsFilter' %}?&change=NonFunded"> <p class=" gilory-semibold-type color-color1 fs-16 m-0 text-red me-2 text-xl-center ">Today <span class="badge  rounded-pill  p-2 fs-11 ms-2" style="background-color:rgba(238, 110, 110, 0.2) ;">{%if nonfunded_today < 9 %} 0{{nonfunded_today}}{%else%}{{nonfunded_today}}{%endif%}</span></p></a>
                                             <a href="{% url 'Admin:WeeklyFilter' %}?&change=NonFunded"><p class=" gilory-semibold-type color-color1 fs-16 m-0 text-green text-xl-center">This week  <span class="badge  rounded-pill  p-2 fs-11 ms-2" style="background-color:rgba(38, 171, 95, 0.2) ;">{%if nonfunded_week < 9 %} 0{{nonfunded_week}}{%else%}{{nonfunded_week}}{%endif%}</span></p></a>
-                                            <a href="{% url 'Admin:WeeklyFilter' %}?&change=NonFunded"><p class=" gilory-semibold-type color-color1 fs-16 m-0 text-green text-xl-center">Existing  <span class="badge  rounded-pill  p-2 fs-11 ms-2" style="background-color:rgba(38, 171, 95, 0.2) ;">{%if nonfunded_week < 9 %} 0{{nonfunded_week}}{%else%}{{nonfunded_week}}{%endif%}</span></p></a>
+                                            
 
                                         </div>
                                     
@@ -126,7 +193,13 @@
 
 
                     </div>
-                    <div class="col-xxl-4 col-md-4">
+                    
+
+                    <!-- end row-->
+                
+                </div>
+                <div class="row">
+                    <div class="col-xxl-6 col-md-6">
                         <!-- card -->
                         <div class="card card-h-100">
                             <!-- card body -->
@@ -180,7 +253,7 @@
 
 
                     </div>
-                    <div class="col-xxl-3 col-md-3">
+                    <div class="col-xxl-6 col-md-6">
 
                         <div class="row ">
 
@@ -389,8 +462,6 @@
                         </div>
                     </div>
 
-                    <!-- end row-->
-                
                 </div>
 
                 <!--row1-->

@@ -208,7 +208,7 @@ $(function(){
          function checkticket(ticket){
             console.log("Double clicked")
             var url="{% url 'Admin:LeadProcessing'%}"
-            window.location.href=url+"?&ticket="+ticket+"&email1=''&email2=''&mobile=&telephone="
+            window.location.href=url+"?&ticket="+ticket
         }
         function loadAll(){
             fromdate=document.getElementById("fromdate").value

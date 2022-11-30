@@ -24,6 +24,7 @@ from .dashboard_selectors import DashboardSelector
 from .services import Services
 from .selectors import Selector
 from .emailservices import EmailServices
+from .models import TblActionreasons
 insta_username = "Tc_limited"
 insta_password = "T@Cmited21!!"
 all_data={}
@@ -1001,6 +1002,11 @@ def ticket_logs_insertion(request):
         logdata=request.GET.get('logdata')
         logtype=request.GET.get('logtype')
         selector.insert_ticket_logs(userid,logdata,logtype,ticket)
+        today=datetime.today()
+        reasondata=TblActionreasons.objects.get(ticket=ticket)
+        reasondata.reason=logdata
+        reasondata.updated=today
+        reasondata.save()
         return JsonResponse({"success":True})
     else:
         return redirect('/login')
@@ -1093,7 +1099,7 @@ def open_demoaccount(request):
         return JsonResponse({"msg":"Demo account opened"})
     else:
         return JsonResponse({"msg":"Your session expired! Please login to continue"})
-        
+
 #Email template send items
 def send_items_list(request):
     if 'UserId' in request.session: 
@@ -1101,19 +1107,75 @@ def send_items_list(request):
         count,itemsList=selector.template_send_items_list(email)
       
         return JsonResponse({"count":count,"send":itemsList})
+# def email_data(request):
+#     if 'UserId' in request.session:
+#         return render(request,'test/index.html')
+#Email template send items backoffice
+def send_items_list_backoffice(request):
+    if 'UserId' in request.session: 
+        email=request.GET.get("mail")
+        count,itemsList=selector.template_send_items_backoffice_list(email)
+        return JsonResponse({"count":count,"send":itemsList})
+#Email template send items sales
+def send_items_list_sales(request):
+    if 'UserId' in request.session: 
+        email=request.GET.get("mail")
+        count,itemsList=selector.template_send_items_sales_list(email)
+        return JsonResponse({"count":count,"send":itemsList})
+#Email template send items sales
+def send_items_list_support(request):
+    if 'UserId' in request.session: 
+        email=request.GET.get("mail")
+        count,itemsList=selector.template_send_items_support_list(email)
+        return JsonResponse({"count":count,"send":itemsList})
 def email_data(request):
     if 'UserId' in request.session:
         return render(request,'test/index.html')
 
 #Read send itms mail
-
 def read_send_items(request):
 
     if 'UserId' in request.session: 
+        username="crm@trusttc.com"
+        app_password="Vydw&663"
         email=request.GET.get("mail")
         msg_id=request.GET.get('message')
-        message_data,subject,sender,multipart=selector.read_mail_senditems(email,msg_id)
+        message_data,subject,sender,multipart=selector.read_mail_senditems(email,msg_id,username,app_password)
         return JsonResponse({"message":message_data,"subject":subject,"multipart":multipart})
+
+#Read send itms backoffice mail
+def read_backoffice_send_items(request):
+
+    if 'UserId' in request.session: 
+        username="backoffice@trusttc.com"
+        app_password="iyP4a9?9"
+        email=request.GET.get("mail")
+        msg_id=request.GET.get('message')
+        message_data,subject,sender,multipart=selector.read_mail_senditems(email,msg_id,username,app_password)
+        return JsonResponse({"message":message_data,"subject":subject,"multipart":multipart})
+
+#Read send itms sales mail
+def read_sales_send_items(request):
+
+    if 'UserId' in request.session: 
+        username="sales@trusttc.com"
+        app_password="otBa62~1"
+        email=request.GET.get("mail")
+        msg_id=request.GET.get('message')
+        message_data,subject,sender,multipart=selector.read_mail_senditems(email,msg_id,username,app_password)
+        return JsonResponse({"message":message_data,"subject":subject,"multipart":multipart})
+
+#Read send itms sales mail
+def read_support_send_items(request):
+
+    if 'UserId' in request.session: 
+        username="support@trusttc.com"
+        app_password="yA8g3m9&"
+        email=request.GET.get("mail")
+        msg_id=request.GET.get('message')
+        message_data,subject,sender,multipart=selector.read_mail_senditems(email,msg_id,username,app_password)
+        return JsonResponse({"message":message_data,"subject":subject,"multipart":multipart})
+
 #Sales Report
 def get_sales_report(request):
     if 'UserId' in request.session:        

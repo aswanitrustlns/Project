@@ -1158,16 +1158,27 @@
                                         <path d="M7.13245 3.17248L13.5525 6.38248C16.4325 7.82248 16.4325 10.1775 13.5525 11.6175L7.13245 14.8275C2.81245 16.9875 1.04995 15.2175 3.20995 10.905L3.86245 9.60748C4.02745 9.27748 4.02745 8.72998 3.86245 8.39998L3.20995 7.09498C1.04995 2.78248 2.81995 1.01248 7.13245 3.17248Z" stroke="#9295D0" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
                                         <path d="M4.08008 9H8.13008" stroke="#9295D0" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
                                         </svg>
-                                   Sent<span class="ms-1 me-2 fs-12 float-end " id="mail-count"></span></a>
-                                   <!--
-                                    <a href="#" class=" rounded-2 gilroymedium-type fs-15 color-color1 mb-2 mx-2 mx-xxl-0 flex-grow-1" style="background-color:
-                                    rgba(32, 33, 52, 1) ;"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M16.5 7.875V11.625C16.5 14.25 15 15.375 12.75 15.375H5.25C3 15.375 1.5 14.25 1.5 11.625V6.375C1.5 3.75 3 2.625 5.25 2.625H10.5" stroke="#9295D0" stroke-width="1.2" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
-                                    <path d="M5.25 6.75L7.5975 8.625C8.37 9.24 9.6375 9.24 10.41 8.625L11.295 7.92" stroke="#9295D0" stroke-width="1.2" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
-                                    <path d="M14.625 6C15.6605 6 16.5 5.16053 16.5 4.125C16.5 3.08947 15.6605 2.25 14.625 2.25C13.5895 2.25 12.75 3.08947 12.75 4.125C12.75 5.16053 13.5895 6 14.625 6Z" stroke="#9295D0" stroke-width="1.2" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
-                                    </svg>
-    
-                                    Inbox <span class="ms-1 me-2 fs-12 float-end ">392</span></a>-->
+                                   CRM<span class="ms-1 me-2 fs-12 float-end " id="mail-count"></span></a>
+                                   <a   data-id="sent-email" onclick="tabswitchemail(this);loadBackofficeSendItems()" class=" rounded-2 gilroymedium-type fs-15  mb-2 text-white mx-2 mx-xxl-0 flex-grow-1"  style="background-color:
+                                rgba(32, 33, 52, 1) ;"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg" >
+                                <path d="M7.13245 3.17248L13.5525 6.38248C16.4325 7.82248 16.4325 10.1775 13.5525 11.6175L7.13245 14.8275C2.81245 16.9875 1.04995 15.2175 3.20995 10.905L3.86245 9.60748C4.02745 9.27748 4.02745 8.72998 3.86245 8.39998L3.20995 7.09498C1.04995 2.78248 2.81995 1.01248 7.13245 3.17248Z" stroke="#9295D0" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M4.08008 9H8.13008" stroke="#9295D0" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                                Backoffice <span class="ms-1 me-2 fs-12 float-end " id="bkofcount"></span></a>
+
+                                <a   data-id="sent-email" onclick="tabswitchemail(this);loadSalesSendItems()" class=" rounded-2 gilroymedium-type fs-15  mb-2 text-white mx-2 mx-xxl-0 flex-grow-1"  style="background-color:
+                                rgba(32, 33, 52, 1) ;"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg" >
+                                <path d="M7.13245 3.17248L13.5525 6.38248C16.4325 7.82248 16.4325 10.1775 13.5525 11.6175L7.13245 14.8275C2.81245 16.9875 1.04995 15.2175 3.20995 10.905L3.86245 9.60748C4.02745 9.27748 4.02745 8.72998 3.86245 8.39998L3.20995 7.09498C1.04995 2.78248 2.81995 1.01248 7.13245 3.17248Z" stroke="#9295D0" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M4.08008 9H8.13008" stroke="#9295D0" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                                Sales <span class="ms-1 me-2 fs-12 float-end " id="salescount"></span></a>
+
+                                <a   data-id="sent-email" onclick="tabswitchemail(this);loadSupportSendItems()" class=" rounded-2 gilroymedium-type fs-15  mb-2 text-white mx-2 mx-xxl-0 flex-grow-1"  style="background-color:
+                                rgba(32, 33, 52, 1) ;"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg" >
+                                <path d="M7.13245 3.17248L13.5525 6.38248C16.4325 7.82248 16.4325 10.1775 13.5525 11.6175L7.13245 14.8275C2.81245 16.9875 1.04995 15.2175 3.20995 10.905L3.86245 9.60748C4.02745 9.27748 4.02745 8.72998 3.86245 8.39998L3.20995 7.09498C1.04995 2.78248 2.81995 1.01248 7.13245 3.17248Z" stroke="#9295D0" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M4.08008 9H8.13008" stroke="#9295D0" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                                Support <span class="ms-1 me-2 fs-12 float-end " id="supportcount"> </span></a>
                                                                         
                                                                         </div>
                                             
@@ -2558,18 +2569,13 @@
                         var items=data.send
                         document.getElementById("mail-count").innerHTML=count
                         for(var i=0;i<count;i++){ 
-                
-                    
                             var ms_id=items[i][2]
-
                             inboxlist +=  "<li class='fs-16' data-msid='"+ms_id+"' href='#read-email' data-id='read-email' onclick='tabswitchemail(this);'>"+
                             "<div class='col-mail col-mail-1'><div class='checkbox-wrapper-mail'><input type='checkbox' id='chk1'>"+
                             "<label for='chk1' class='toggle'></label></div><a class='title text-white gilroysemibold-type'>"+items[i][0]+"</a>"+
                             "<span class='star-toggle far fa-star' style='color:var(--color1) ;''></span></div><div class='col-mail col-mail-2'>"+
                             "<a class='subject color-color1 gilroyregular'><span class='teaser'></span></a><div class='date text-white gilroymedium-type'>"+items[i][1]+"</div>"+
-                            "</div></li><hr class='mx-3 my-0'>"                         
-                
-            
+                            "</div></li><hr class='mx-3 my-0'>"   
                         }
                         $("#sendmailList").append(inboxlist)
             
@@ -2577,7 +2583,129 @@
                 })
             }
     }
-
+    function loadBackofficeSendItems(){
+       
+        const simpleBarSendMail = new SimpleBar(document.getElementById('send-block'));
+        $("#mailreadcheck").val('backoffice')
+        var accno=$("#Accountno").val()
+        if(accno == ''){
+            $("#userMsg").empty()
+            $("#userMsg").append("Please enter account number")
+            $("#alertpopup").modal('show')
+            
+        }else{ 
+             var leadsmail=document.getElementById("Email1").value
+            if (leadsmail==""){
+                leadsmail=document.getElementById("Email2").value
+            }
+            inboxlist=""
+            $("#sendmailList").empty()
+            $.ajax({
+                    type : "GET", 
+                    url: "{% url 'Admin:BacksendItems' %}",
+                    data:{
+                        "mail":leadsmail
+                    },
+                    success: function(data){
+                        var count=data.count
+                        var items=data.send
+                        document.getElementById("bkofcount").innerHTML=count
+                        for(var i=0;i<count;i++){ 
+                            var ms_id=items[i][2]
+                            inboxlist +=  "<li class='fs-16' data-msid='"+ms_id+"' href='#read-email' data-id='read-email' onclick='tabswitchemail(this);'>"+
+                            "<div class='col-mail col-mail-1'><div class='checkbox-wrapper-mail'><input type='checkbox' id='chk1'>"+
+                            "<label for='chk1' class='toggle'></label></div><a class='title text-white gilroysemibold-type'>"+items[i][0]+"</a>"+
+                            "<span class='star-toggle far fa-star' style='color:var(--color1) ;''></span></div><div class='col-mail col-mail-2'>"+
+                            "<a class='subject color-color1 gilroyregular'><span class='teaser'></span></a><div class='date text-white gilroymedium-type'>"+items[i][1]+"</div>"+
+                            "</div></li><hr class='mx-3 my-0'>"                         
+                        }
+                        $("#sendmailList").append(inboxlist)
+                    }
+                })
+            }
+    }
+    function loadSalesSendItems(){
+        
+        const simpleBarSendMail = new SimpleBar(document.getElementById('send-block'));
+        $("#mailreadcheck").val('sales')
+        var accno=$("#Accountno").val()
+        if(accno == ''){
+            $("#userMsg").empty()
+            $("#userMsg").append("Please enter account number")
+            $("#alertpopup").modal('show')
+            
+        }else{ 
+             var leadsmail=document.getElementById("Email1").value
+            if (leadsmail==""){
+                leadsmail=document.getElementById("Email2").value
+            }
+            inboxlist=""
+            $("#sendmailList").empty()
+            $.ajax({
+                    type : "GET", 
+                    url: "{% url 'Admin:SalessendItems' %}",
+                    data:{
+                        "mail":leadsmail
+                    },
+                    success: function(data){
+                        var count=data.count
+                        var items=data.send
+                        document.getElementById("salescount").innerHTML=count
+                        for(var i=0;i<count;i++){ 
+                            var ms_id=items[i][2]
+                            inboxlist +=  "<li class='fs-16' data-msid='"+ms_id+"' href='#read-email' data-id='read-email' onclick='tabswitchemail(this);'>"+
+                            "<div class='col-mail col-mail-1'><div class='checkbox-wrapper-mail'><input type='checkbox' id='chk1'>"+
+                            "<label for='chk1' class='toggle'></label></div><a class='title text-white gilroysemibold-type'>"+items[i][0]+"</a>"+
+                            "<span class='star-toggle far fa-star' style='color:var(--color1) ;''></span></div><div class='col-mail col-mail-2'>"+
+                            "<a class='subject color-color1 gilroyregular'><span class='teaser'></span></a><div class='date text-white gilroymedium-type'>"+items[i][1]+"</div>"+
+                            "</div></li><hr class='mx-3 my-0'>"                         
+                        }
+                        $("#sendmailList").append(inboxlist)
+                    }
+                })
+            }
+    }
+    function loadSupportSendItems(){
+        
+        const simpleBarSendMail = new SimpleBar(document.getElementById('send-block'));
+        $("#mailreadcheck").val('support')
+        var accno=$("#Accountno").val()
+        if(accno == ''){
+            $("#userMsg").empty()
+            $("#userMsg").append("Please enter account number")
+            $("#alertpopup").modal('show')
+            
+        }else{ 
+             var leadsmail=document.getElementById("Email1").value
+            if (leadsmail==""){
+                leadsmail=document.getElementById("Email2").value
+            }
+            inboxlist=""
+            $("#sendmailList").empty()
+            $.ajax({
+                    type : "GET", 
+                    url: "{% url 'Admin:SalessendItems' %}",
+                    data:{
+                        "mail":leadsmail
+                    },
+                    success: function(data){
+                        var count=data.count
+                        var items=data.send
+                        document.getElementById("supportcount").innerHTML=count
+                        for(var i=0;i<count;i++){ 
+                            var ms_id=items[i][2]
+                            inboxlist +=  "<li class='fs-16' data-msid='"+ms_id+"' href='#read-email' data-id='read-email' onclick='tabswitchemail(this);'>"+
+                            "<div class='col-mail col-mail-1'><div class='checkbox-wrapper-mail'><input type='checkbox' id='chk1'>"+
+                            "<label for='chk1' class='toggle'></label></div><a class='title text-white gilroysemibold-type'>"+items[i][0]+"</a>"+
+                            "<span class='star-toggle far fa-star' style='color:var(--color1) ;''></span></div><div class='col-mail col-mail-2'>"+
+                            "<a class='subject color-color1 gilroyregular'><span class='teaser'></span></a><div class='date text-white gilroymedium-type'>"+items[i][1]+"</div>"+
+                            "</div></li><hr class='mx-3 my-0'>"                         
+                        }
+                        $("#sendmailList").append(inboxlist)
+                    }
+                })
+            }
+    }
 
     function pwdreset()
     {
@@ -3212,6 +3340,7 @@
     }
     function finalApproval(){
         var accno=$("#Accountno").val()
+        var ticket=$("#tickets").val()
         if(accno==""){
             $("#userMsg").empty()
             $("#userMsg").append("Please enter account number")
@@ -3225,6 +3354,7 @@
                     dataType: 'json',
                     data:{
                         'account':accno,
+                        'ticket':ticket
                     },
                     success: function(data){
                         message=data.message
@@ -3263,6 +3393,7 @@
     function Approval(){
         var accno=$("#Accountno").val()
         var clientarea=$("#Clientarealogin").val()
+        var ticket=$("#tickets").val()
         $.ajax({
                     
                     type : "GET", 
@@ -3271,6 +3402,7 @@
                     data:{
                         'account':accno,
                         'clientarea':clientarea,
+                        'ticket':ticket
                     },
                     success: function(data){
                         message=data.message
@@ -3390,6 +3522,7 @@
                     },
                     success: function(data){
                         var message=data.message
+                        
                         $("#mt4pass").val("")
                         if(message=="success"){
                             if(check=="client"){

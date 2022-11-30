@@ -942,29 +942,56 @@ class Selector:
             if iblist:
                 
                 for items in iblist:
+                    total=0
+                    totalcommssion=0
                     ibitems=items[0]
-                    print("Inside for",ibitems)
+                    
                     Cursor.execute("set nocount on;exec SP_IBClientLogins %s",[ibitems])
                     loglist=Cursor.fetchall()
                     logdetails=loglist[0]
                     details=logdetails[0]
-                    print("Log list=====",details)
+                    report="Detailed Commission report for IB Login : "+str(ibitems)
+                    print("Details====",details)
                     if details != None:
                         jsondata=dllservice.dll_ib_commision_report(1,month,year,tdate,month,year,details)
-
-                        json.loads(jsondata)
+                        jsondata=json.loads(jsondata)
+                        for data in jsondata:
+                            
+                            total=total+float(data['CV'])
+                            if(ibitems=="404000"):
+                                totalcommssion=5*total
+                            else:
+                                print("Else commision")
+                                if (total >= 1 and total <= 400):
+                                    totalcommssion = 2 * total
+                                elif (total >= 401 and total <= 1000):
+                                    totalcommssion = 4 * total
+                                elif (total >= 1001 and total <= 3000):
+                                    totalcommssion = 5 * total
+                                elif(total > 3000):
+                                    totalcommssion = 6 * total
+                            print("total==",total)
+                            print("Commission",totalcommssion)
+                        generatedList.append({
+                            'report':report,
+                            'data':jsondata,
+                            'total':total,
+                            'commission':totalcommssion
+                         })
         except Exception as e:
                 print("Exception------",e)
         finally:
                 Cursor.close()
-     #Generate user report
+        return generatedList
+      #Generate user report
     def generate_report_monthly_agent(self,month,year,login):
         try:
             Cursor=connection.cursor()           
            
             tdate=calendar.monthrange(year,month)[1]
             print("Tdate=====",tdate)
-            
+            total=0
+            totalcommssion=0
             generatedList=[]
             loglist=""
             
@@ -973,16 +1000,42 @@ class Selector:
             loglist=Cursor.fetchall()
             logdetails=loglist[0]
             details=logdetails[0]
+
             print("Log list=====",details)
             if details != None:
+                
                 jsondata=dllservice.dll_ib_commision_report(1,month,year,tdate,month,year,details)
+                jsondata=json.loads(jsondata)
+                for data in jsondata:
+                            
+                    total=total+float(data['CV'])
+                    if(login=="404000"):
+                        totalcommssion=5*total
+                    else:
+                        print("Else commision")
+                        if (total >= 1 and total <= 400):
+                            totalcommssion = 2 * total
+                        elif (total >= 401 and total <= 1000):
+                            totalcommssion = 4 * total
+                        elif (total >= 1001 and total <= 3000):
+                            totalcommssion = 5 * total
+                        elif(total > 3000):
+                            totalcommssion = 6 * total
+                        print("total==",total)
+                        print("Commission",totalcommssion)
+                        generatedList.append({
+                            
+                            'data':jsondata,
+                            'total':total,
+                            'commission':totalcommssion
+                         })
                         
                 json.loads(jsondata)
         except Exception as e:
                 print("Exception------",e)
         finally:
                 Cursor.close()
-
+        return generatedList
   
      
 

@@ -180,6 +180,18 @@ $(document).ready(function () {
 
        
     });
+    flatpickr('#duedate', {
+
+       
+        "allowInput":true,
+        dateFormat: "Y-m-d",
+        altFormat:"Y-m-d",
+        maxDate: "today",
+        altInput: true, // Human Readable
+        
+
+       
+    });
 
   //Load the table status btn
    $("table  select.status").each(function(){

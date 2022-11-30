@@ -54,7 +54,7 @@
                             </div>
                            
                             <div class="col-6 ">
-                                <button class="btn btn-info btn-md mb-2 py-1 noPrint" type="button" id="load-btn-sr" data-bs-toggle="modal" data-bs-target="#monthly-report" >Generate</button>
+                                <button class="btn btn-info btn-md mb-2 py-1 noPrint" type="button" id="load-btn-sr" data-bs-toggle="modal" data-bs-target="#monthly-report">Generate</button>
                                 <div class="modal fade" id="monthly-report" tabindex="-1" >
                                     <div class="modal-dialog modal-dialog-centered">
                                         <div class="modal-content">
@@ -464,21 +464,8 @@
         var login = searchParams.get('login')
         $("#monthly-report").modal('hide')
         var monthly=document.getElementById('monthly').value
-        
-        $.ajax({
-                        
-                        type : "GET", 
-                        url: "{% url 'Backoffice:AgentIbReport' %}",
-                        data:{
-                            "month":monthly,
-                            "login":login
-                        },
-                        
-                        
-                        success: function(data){
-                        }
-                    })
-
+        var url="{% url 'Backoffice:AgentIbReport' %}"
+        window.open(url+"?&month="+monthly+"&login="+login,'_blank')
     }
 </script>
 <script src="{% static 'libs/flatpickr/flatpickr.min.js' %}"></script>
