@@ -978,8 +978,8 @@ def email_send(request):
         return redirect('/login')
 
 def save_reminder_details(request):
+
     if 'UserId' in request.session:
-        
         userid=request.session.get('UserId')
         mail=request.session.get('Email')
         date=request.POST.get('date')
@@ -997,6 +997,7 @@ def save_reminder_details(request):
 #save insert ticket logs
 def ticket_logs_insertion(request):
     if 'UserId' in request.session:
+        message="Please try again"
         userid=request.session.get('UserId')
         ticket=request.GET.get('ticket')
         logdata=request.GET.get('logdata')
@@ -1004,10 +1005,17 @@ def ticket_logs_insertion(request):
         selector.insert_ticket_logs(userid,logdata,logtype,ticket)
         today=datetime.today()
         reasondata=TblActionreasons.objects.get(ticket=ticket)
-        reasondata.reason=logdata
-        reasondata.updated=today
-        reasondata.save()
-        return JsonResponse({"success":True})
+        duedate=reasondata.duedate
+        print("Due date=====",duedate)
+        if(duedate.timestamp()>today.timestamp()):
+            message="Please try after "+str(duedate)
+            print("Please try after due date====")
+        else:
+            reasondata.reason=logdata
+            reasondata.updated=today
+            reasondata.save()
+            message="Your request approved"
+        return JsonResponse({"message":message})
     else:
         return redirect('/login')
 

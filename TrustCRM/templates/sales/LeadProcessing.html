@@ -1746,15 +1746,11 @@
                                    
                                     style="background-color: var(--bs-card-bg) ;" onclick="meetingPage()">Meeting</button>
                                     <button type="button" class="btn bg-soft-secondarycolor text-white me-2" style="background-color: var(--bs-card-bg) ;" onclick="resolveTicket()">Resolve Ticket</button>
-                                    <button type="button" class="btn bg-soft-secondarycolor text-white me-2" style="background-color: var(--bs-card-bg) ;" data-bs-toggle="modal" data-bs-target=".bs-example-modal-nonfunded-reason">NonFunded Reason</button>
-                                    <div class="modal fade  bs-example-modal-nonfunded-reason" tabindex="-1" role="dialog"
+                            <button type="button" class="btn bg-soft-secondarycolor text-white me-2" style="background-color: var(--bs-card-bg) ;" data-bs-toggle="modal" data-bs-target=".bs-example-modal-nonfunded-reason">NonFunded Reason</button>
+                                <div class="modal fade  bs-example-modal-nonfunded-reason" tabindex="-1" role="dialog"
                                     aria-hidden="true" id="nonfunded-reason">
                                     <div class="modal-dialog modal-dialog-centered">
                                         <div class="modal-content mb-4">
-                                            
-                                
-                                            
-                            
                                                 
                                                     <div class="modal-body ">
                                                         <div class="border-dashed rounded-3 px-3 py-3">
@@ -1774,53 +1770,44 @@
                                                    
                                                             <div class="row">
                                                         
-                                                            <div class="col-12">
-                                                                <div class="mb-3">
-                                                                    <label  class="form-label " for="html">Reason</label>
-                                                                    <textarea  id="nonfundreason" class="form-control" required name="" ></textarea>
-                                                                </div> 
-                                                            </div>
-                                                            <div class="col-12">
-                                                                <div class="mb-3">
-                                                                    <label  class="form-label " for="html">Due Date</label>
-                                                                    <input type="text" name="duedate" id="duedate">
-                                                                </div> 
-                                                            </div>
-                                                         
-                                                                
-                                                                    <div class="col-6"> 
-                                                                        <button type="button"  class="btn btn-success me-2" id="btn-save-event" onclick="proceed()">Proceed</button>
-                                                                        <button type="button" data-bs-dismiss="modal" class="btn  btn-outline-light" id="btn-delete-event">Close</button>
+                                                                    <div class="col-12">
+                                                                        <div class="mb-3">
+                                                                            <label  class="form-label " for="html">Reason</label>
+                                                                            <textarea  id="nonfundreason" class="form-control" required name="" ></textarea>
+                                                                        </div> 
                                                                     </div>
-                                                                  
+                                                                    <div class="col-12">
+                                                                        <div class="mb-3">
+                                                                            <label  class="form-label " for="html">Due Date</label>
+                                                                            <input type="text" name="duedate" id="duedate">
+                                                                        </div> 
+                                                                    </div>
                                                                 
-                                                            
+                                                                        
+                                                                            <div class="col-6"> 
+                                                                                <button type="button"  class="btn btn-success me-2" id="btn-save-event" onclick="proceed()">Proceed</button>
+                                                                                <button type="button" data-bs-dismiss="modal" class="btn  btn-outline-light" id="btn-delete-event">Close</button>
+                                                                            </div>
                                                        
-                                                        </div>
+                                                            </div>
                                                         
                                                     
-                                                </div>
+                                                        </div>
                                             
-                                            </div>
+                                                    </div>
                                         </div> <!-- end modal-content-->
                                     </div><!-- /.modal-dialog -->
                                 </div>
                                     
                                     
-                                    <div class="modal fade  bs-example-modal-seminars" tabindex="-1" role="dialog" aria-hidden="true" id="seminarpopup">
+                            <div class="modal fade  bs-example-modal-seminars" tabindex="-1" role="dialog" aria-hidden="true" id="seminarpopup">
                                           
                                         <div class="modal-dialog modal-dialog-centered  modal-lg d-block">
-                                         
-
                                      
                                             <div class="modal-content mb-4">
-                                             
                                                 
                                        
                                                 <div class="modal-body">
-
-                                                
-
                                                   
                                                  <div class="border-dashed rounded-3 px-3 py-3">
                                                      <div class="modal-header border-0 px-0">
@@ -1863,11 +1850,11 @@
                                                 
                                             </div><!-- /.modal-content -->
 
-                                            <div class="modal-content mb-4" >
+                                        <div class="modal-content mb-4" >
                                              
                                                 
                                        
-                                             <div class="modal-body">
+                                            <div class="modal-body">
 
                                              
 
@@ -1887,32 +1874,26 @@
                                               
 
                                                   <div class="table-responsive" data-simplebar style="max-height: 352px;">
-                                                      <table class="table mb-0 ">
+                                                            <table class="table mb-0 ">
 
-                                                          <thead>
-                                                            
-                                                              <tr class="almarenamonolight-type fs-14">
-                                                                  <th>Seminars</th>
-                                                                  <th>Level</th>
-                                                                  <th>Invited</th>
-                                                                  <th>Attended</th>
-                                                                  <th>Not Attended</th>
-                                                                  
-                                                                  <th class="text-end">Edit</th>
-                                                              </tr>
-                                                          </thead>
-                                                          <tbody class="gilroyregular-type fs-15" id="webdetails">
-                                             
-                                                              
-                                                  </tbody>
-                                                  </table>
-                                                  </div> 
-                                              
-                                              
-
-
-                                              
-                                             
+                                                                <thead>
+                                                                    
+                                                                    <tr class="almarenamonolight-type fs-14">
+                                                                        <th>Seminars</th>
+                                                                        <th>Level</th>
+                                                                        <th>Invited</th>
+                                                                        <th>Attended</th>
+                                                                        <th>Not Attended</th>
+                                                                        
+                                                                        <th class="text-end">Edit</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody class="gilroyregular-type fs-15" id="webdetails">
+                                                    
+                                                                    
+                                                                </tbody>
+                                                            </table>
+                                                </div> 
                                                  
                                              </div>
 
@@ -1921,9 +1902,9 @@
 
                                            
 
-                                        </div>
-                                        </div>
-                                        </div>
+                                    </div>
+                            </div>
+                        <!-- </div> -->
                                             <div class="modal fade bs-example-modal-insta" tabindex="-1" role="dialog" aria-hidden="true" id="alertpopup">
                                                 <div class="modal-dialog modal-dialog-centered"   style="z-index: 10555;">
                                                     <div class="modal-content">
@@ -2098,8 +2079,8 @@
                 </div>
                 <!-- End Page-content -->
 
-                
             </div>
+           
     </div>
     <div class="modal fade  bs-example-modal-leads" tabindex="-1" role="dialog" aria-hidden="true" id="searchedList"> 
               
@@ -2758,8 +2739,11 @@
             },
             url: "{% url 'Admin:TicketLogs' %}",
             success: function(data){
-                $("#chatsId").val('')
-                updateActivitylog()
+                var message=data.message
+                $("#userMsg").empty()
+                $("#userMsg").append(message)
+                $("#alertpopup").modal('show')
+                
 
             }
         })   
