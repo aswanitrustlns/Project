@@ -269,9 +269,9 @@ def view_merge(request):
     return JsonResponse({'success':True})
 
 def create_ticket(request):
-    demoid=request.GET.get('id')
-    email,phone=service.create_ticket_service(request)
-    return JsonResponse({"success":True,"email":email,"phone":phone})    
+    
+    email,phone,ticket=service.create_ticket_service(request)
+    return JsonResponse({"success":True,"email":email,"phone":phone,"ticket":ticket})    
 
 def lead_registration(request):
     if 'UserId' in request.session:
@@ -343,74 +343,34 @@ def lead_processing(request):
             email2=request.GET.get('email2')
             mobile=request.GET.get('mobile')
             phone=request.GET.get('telephone')
-            
-            print("email1",email1,"email2",email2,"mobile",mobile,"phone",phone)
+            id=request.GET.get('id')
+            print("email1",email1,"email2",email2,"mobile",mobile,"phone",phone,ticket,id)
             if ticket is None:
-                ticket=" "    
-            if email1=="":
-                email1=None  
-            if email2=="":
-                email2=None 
-            if mobile=="":
-                mobile=None  
-            if phone=="":
-                phone=None                                                                                                            
-            if email1 or email2 or mobile or phone:
+                email,phone,ticket=service.create_ticket_service(request)
+                print("created ticket===",ticket)
+            # if email1=="":
+            #     email1=None  
+            # if email2=="":
+            #     email2=None 
+            # if mobile=="":
+            #     mobile=None  
+            # if phone=="":
+            #     phone=None                                                                                                            
+            # if email1 or email2 or mobile or phone:
                 
-                Cursor.execute("set nocount on;exec SP_SearchPhoneEmail_PY %s,%s,%s,%s,%s",[mobile,phone,email1,email2,UserId]) # To test exec SP_SearchPhone '4588',21
-                search_email_phone=Cursor.fetchone() 
-                if search_email_phone:
-                    print("--------------------------",search_email_phone,type(search_email_phone))
-                if(Cursor.nextset()):
-                    search_email_phone1 = Cursor.fetchone() 
-                    if search_email_phone1:
-                        search_email_phone =search_email_phone1  
-                                        
-                    
-                # Cursor.nextset()
-                # search_email_phone2 = Cursor.fetchone() 
-                # print("next data set2----------------",search_email_phone1)
-                # if search_email_phone2:
-                #     search_email_phone =search_email_phone2
-                # Cursor.nextset()
-                # search_email_phone3 = Cursor.fetchone() 
-                # print("next data set2----------------",search_email_phone1)
-                # if search_email_phone3:
-                #     search_email_phone =search_email_phone3
-                # while (Cursor.nextset()):
-                #     search_email_phone = Cursor.fetchone()
-                #     print("next data set2----------------",search_email_phone2)
-                # if search_email_phone2:
-                #     search_email_phone=search_email_phone2
-                # while (Cursor.nextset()):
-                #     search_email_phone3 = Cursor.fetchone()
-                #     print("next data set3----------------",search_email_phone3)
-                # if search_email_phone3:
-                #     search_email_phone=search_email_phone3
-                
-                if(search_email_phone != None):
-                    get_ticket=search_email_phone[0]
-                    ticket=get_ticket
+            #     Cursor.execute("set nocount on;exec SP_SearchPhoneEmail_PY %s,%s,%s,%s,%s",[mobile,phone,email1,email2,UserId]) # To test exec SP_SearchPhone '4588',21
+            #     search_email_phone=Cursor.fetchone() 
+            #     if search_email_phone:
+            #         print("--------------------------",search_email_phone,type(search_email_phone))
+            #     if(Cursor.nextset()):
+            #         search_email_phone1 = Cursor.fetchone() 
+            #         if search_email_phone1:
+            #             search_email_phone =search_email_phone1  
+            #     if(search_email_phone != None):
+            #         get_ticket=search_email_phone[0]
+            #         ticket=get_ticket
             
-            # lead_details,country=selector.get_lead_details(ticket,UserId)
-            # activity_log=selector.get_activity_log(ticket)
-            # ticket_summary=selector.get_ticket_summary(ticket)
-            # lead_score=selector.get_lead_score(ticket)
-            # meeting_score=selector.get_meeting_score(ticket)
-            # last_comment=selector.get_last_comment(ticket,UserId)
-            # sticky_text=selector.get_sticky_text(ticket)
-            # print("Last comment--------",last_comment)
             
-            # print("Sticky text============================",sticky_text)
-            # print("Lead details-------------")
-            # if(meetingscore != None):
-            #     print("Meeting if")
-            #     meetingscore=sum(meetingscore)
-            #     meetingscore=(meetingscore/320)*100
-                
-            # print("Meeting score-----------------------",meeting_score)
-            
-            # page_data={'ticket':ticket,'country':country,'email_phone':json.dumps(search_email_phone),'lead_details':lead_details,'ticket_summary':ticket_summary,'activity_log':activity_log,'leadscore':lead_score,'meetingscore':meeting_score,'lastcomment':last_comment,'stickytext':sticky_text}
             country_list=selector.get_all_country()
             accountno=selector.get_account_no(ticket)
             seminar_list=selector.get_upcoming_seminar()

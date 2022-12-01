@@ -2212,7 +2212,7 @@
             console.log("Live chat=====",livechat)
             $("#chatsDiv").hide()
             
-            $("#ticketno").val(ticket)
+            
             $("#submitftypeleads").attr("disabled",true)
             $("#resetftypeleads").attr("disabled",true)
             //intTel
@@ -2304,10 +2304,18 @@
 
                 intTel();
             if(ticket){
+                $("#ticketno").val(ticket)
                 loadTicketFuns()
 
             }
-           
+           var ticket_exist=$("#ticketno").val()
+           console.log("existence===="+ticket_exist)
+           if(ticket_exist!="None"){
+            console.log("Entered")
+            loadTicketFuns()
+           }else{
+            $("#ticketno").val(" ")
+           }
             
             
 

@@ -89,6 +89,7 @@ class Services:
 
     def create_ticket_service(self,request):
         try:
+            ticket_no=""
             Cursor=connection.cursor()
             demoid=request.GET.get('id')
             UserId=request.session.get('UserId')
@@ -101,13 +102,16 @@ class Services:
             phone=ticket_data[4]
             print("Inserted data----",ticket_data[1],ticket_data[4],ticket_data[2],ticket_data[3],ticket_data[5],ticket_data[6],ticket_data[7],ticket_data[13],ticket_data[10],ticket_data[15],ticket_data[16],ticket_data[18],ticket_data[11],ticket_data[22],UserId,ticket_data[1])
             Cursor.execute("set nocount on;EXEC SP_CreateTicket %s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s",[ticket_data[1],ticket_data[4],ticket_data[2],ticket_data[3],ticket_data[5],ticket_data[6],ticket_data[7],ticket_data[13],ticket_data[10],ticket_data[15],ticket_data[16],ticket_data[18],ticket_data[11],ticket_data[22],UserId,ticket_data[0]])
-           
+            ticket=Cursor.fetchone()
+            if ticket:
+                ticket_no=ticket[0]
+            
             print("Ticket created successfully-----")
         except Exception as e:
             print("Exception---",e)
         finally:
             Cursor.close()
-        return email,phone
+        return email,phone,ticket_no
 
 
     #Save meeting score

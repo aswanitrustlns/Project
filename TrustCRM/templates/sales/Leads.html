@@ -654,12 +654,12 @@ $(function(){
                     
                    
                     $("#duplicate_body").append(duplicates)
-                    $("#duplicate_body").append(hidden_name)   
+                    // $("#duplicate_body").append(hidden_name)   
                    $("#duplicate_model").modal('show');
                     }
                 else{
                     var url="{% url 'Admin:LeadProcessing'%}"
-                    window.location.href=url
+                    window.location.href=url+"?&id="+demo_id
                 }
                }
             })
@@ -718,8 +718,9 @@ $(function(){
                     console.log("Data=====",data)
                     email=data.email
                     phone=data.phone
+                    ticket=data.ticket
                     var url="{% url 'Admin:LeadProcessing'%}"
-                    window.location.href=url+"?&email1="+email+"&email2=''&mobile="+phone
+                    window.location.href=url+"?&ticket="+ticket
 
                 }
                }
