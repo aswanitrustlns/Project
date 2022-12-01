@@ -193,7 +193,9 @@ class Selector:
                 Cursor.execute("SET NOCOUNT ON;exec SP_GetNewSalesLeadsPaginate_PY %s,%s,%s,%s,%s,%s,%s",[from_date,to_date,'',0,0,'',1])
                 leads_data=Cursor.fetchall() 
             else:
-                Cursor.execute("SET NOCOUNT ON;exec SP_GetNewSalesLeadsPaginate_PY %s,%s,%s,%s,%s,%s,%s",[date_yesterday,date_today,'',0,0,'',1])
+                from_date=date_yesterday
+                to_date=date_today
+                Cursor.execute("SET NOCOUNT ON;exec SP_GetNewSalesLeadsPaginate_PY %s,%s,%s,%s,%s,%s,%s",[from_date,to_date,'',0,0,'',1])
                 leads_data=Cursor.fetchall()
                 
                
@@ -211,7 +213,7 @@ class Selector:
             print("Exception---",e)
         finally:
             Cursor.close()
-        return leads_data,leads_count
+        return leads_data,leads_count,from_date,to_date,
     #Get Lead Page click
     def get_leads_clicks(self,status,count):
         try:
@@ -441,7 +443,7 @@ class Selector:
         try:
            Cursor=connection.cursor()
            Cursor.execute("set nocount on;exec TC_GetDuplicatePhoneList %s,%s",[phone,email])
-           duplicate=Cursor.fetchone()
+           duplicate=Cursor.fetchall()
         except Exception as e:
             print("Exception---",e)
         finally:
@@ -464,6 +466,7 @@ class Selector:
            Cursor=connection.cursor()
            Cursor.execute("set nocount on;exec SP_GetLeadDetailsByID %s",[demoid])
            ticket_data=Cursor.fetchone()
+           print("New created ticket===",ticket_data)
         except Exception as e:
             print("Exception---",e)
         finally:

@@ -280,7 +280,7 @@
                                                     <div class="col-sm-3">
                                                         <div class="mb-2">
                                                             <label class="form-label " for="fromdate">From Date</label>
-                                                            <input type="text" id="fromdate" class="py-1">
+                                                            <input type="text" id="fromdate" class="py-1" value={{from}}>
     
                                                            
                                                         </div>
@@ -290,7 +290,7 @@
                                                         <div class="mb-2">
                                                             <label class="form-label " for="todate">To Date</label>
     
-                                                            <input type="text" id="todate" class="py-1">
+                                                            <input type="text" id="todate" class="py-1" value={{to}}>
                                                             
                                                         </div>
 
@@ -472,6 +472,7 @@
                      
 
                         <div class="table-responsive mx-3 my-2" data-simplebar style="max-height: 352px;">
+                            <input type="hidden" name="demo" id="demo">
                             <table class="table mb-0 ">
 
                                 <thead>
@@ -490,7 +491,7 @@
                                         <th class="text-end">&nbsp;</th>
                                     </tr>
                                 </thead>
-                                <tbody class="gilroyregular-type fs-15 text-white" style="vertical-align:middle ;" id="duplicate_body">
+                                <tbody class="gilroyregular-type fs-15 text-white" style="vertical-align:middle ; cursor: pointer;" id="duplicate_body">
                                  
 
 
@@ -590,7 +591,8 @@ $(function(){
         var table = $("#datatableleads").DataTable();
         console.log("row clicked----")
         var data = table.row( this ).data();       
-        demo=document.getElementById("id_demo"+data[0]).value        
+        demo=document.getElementById("id_demo"+data[0]).value    
+            
         checkticket(demo,data[2],data[3])
     })
     $("#selValue").on('keyup',function(e){
@@ -600,7 +602,8 @@ $(function(){
 
 
         function checkticket(demo_id,lead_email,lead_phone){
-          console.log("check list clicked---------------------")
+            $("#demo").val(demo_id)
+            var duplicates;
             $.ajax({
                type : "GET", 
                url: "{% url 'Admin:Duplicate' %}",
@@ -617,32 +620,38 @@ $(function(){
                     var element=data.duplicate;
                     
                     var duplicate_data=new Array();
-                    var phone1=element[2]
-                    var phone2=element[3]
-                    if(phone1 != null){
-                         phone1=phone1.replace(/[^a-zA-Z0-9]/g, '');
-                    }
-                    if(phone2 != null){
-                         phone2=phone2.replace(/[^a-zA-Z0-9]/g, '');
-                    }
-                    if(phone1== null){
-                        phone1="";
-                    }
-                    if(phone2== null){
-                        phone2="";
-                    }
-
-                    var duplicates="<tr><th scope='row'><div class='d-flex my-1 ms-2 align-items-center'><div class='activity-icon avatar-sm me-3'><span class='avatar-title   rounded-circle'>"+
-                        "<img class='rounded-circle avatar-md' src='../static/images/users/"+element[4]+".png' onerror=this.src='../static/images/users/user.png' >"+
-                        "</span></div>"+element[4]+"</th><td>"+element[1]+"</td><td>"+phone1+"</td><td>"+phone2+"</td><td>"+element[5]+"</td>"+
-                        "<td  class='text-success'><a  style='color:rgba(114, 212, 171, 1); cursor: pointer;' onclick=viewticket('"+element[1]+"','"+phone1+"','"+phone2+"','"+element[5]+"')>View ticket</a></td><td class='text-end'>"+
-                            "<a style='color:rgba(85, 206, 215, 1) ; cursor: pointer;' onclick=merge('"+demo_id+"','"+element[1]+"','"+phone1+"','"+phone2+"','"+element[5]+"')>View n merge</a></td></tr>";
+                    
+                    for(var i=0;i<element.length;i++){
+                        var phone1=element[i][2]
+                        var phone2=element[i][3]
+                        console.log("Phone 1================",phone1)
+                        if(phone1 != null){
+                            phone1=phone1.replace(/[^a-zA-Z0-9]/g, '');
+                        }
+                        if(phone2 != null){
+                            phone2=phone2.replace(/[^a-zA-Z0-9]/g, '');
+                        }
+                        if(phone1== null){
+                            phone1="";
+                        }
+                        if(phone2== null){
+                            phone2="";
+                        }
+                        duplicates+="<tr style='cursor:pointer'><th scope='row'><div class='d-flex my-1 ms-2 align-items-center'><div class='activity-icon avatar-sm me-3'><span class='avatar-title   rounded-circle'>"+
+                        "<img class='rounded-circle avatar-md' src='../static/images/users/"+element[i][4]+".png' onerror=this.src='../static/images/users/user.png' >"+
+                        "</span></div>"+element[i][4]+"</th><td>"+element[i][1]+"</td><td>"+phone1+"</td><td>"+phone2+"</td><td>"+element[i][5]+"</td>"+
+                        "<td  class='text-success'><a  style='color:rgba(114, 212, 171, 1); cursor: pointer;' onclick=viewticket('"+element[i][1]+"','"+phone1+"','"+phone2+"','"+element[i][5]+"')>View ticket</a></td><td class='text-end'>"+
+                            "<a style='color:rgba(85, 206, 215, 1) ; cursor: pointer;' onclick=merge('"+demo_id+"','"+element[i][1]+"','"+phone1+"','"+phone2+"','"+element[i][5]+"')>View n merge</a></td></tr>";
                    
+                            // var hidden_name="<input type='hidden' name='name' id='ticket_name' value='"+element[i][0]+"'><input type='hidden' name='demoid' value='"+demo_id+"' id='demo_id'>";
+                        
+                    }
+                    
                     console.log("duplicate rows created")
                     
                     // var duplicate="<tr><th scope='row'><td><button class='btn btn-primary btn-md mt-3' onclick=viewticket('"+element[1]+"','"+element[2]+"','"+element[3]+"','"+element[5]+"')>View Ticket</button></th><td><button class='btn btn-primary btn-md mt-3' onClick=merge('"+demo_id+"','"+element[1]+"','"+element[2]+"','"+element[3]+"','"+element[5]+"')>View and Merge</button></td><td>"+
                     //             element[0]+"</td><td>"+element[1]+"</td><td>"+element[2]+"</td><td>"+element[3]+"</td><td>"+element[4]+"</td><td class='text-end'>"+element[5]+"</td></tr>";                            
-                    var hidden_name="<input type='hidden' name='name' id='ticket_name' value='"+element[0]+"'><input type='hidden' name='demoid' value='"+demo_id+"' id='demo_id'>";
+                    
                    
                     $("#duplicate_body").append(duplicates)
                     $("#duplicate_body").append(hidden_name)   
@@ -685,14 +694,14 @@ $(function(){
                success: function(data){
                     
                     var url="{% url 'Admin:LeadProcessing'%}"
-                    window.location.href=url+"?&ticket="+ticket+"&email1="+email+"&email2="+email2+"&mobile="+phone1+"&telephone="+phone2
+                    window.location.href=url+"?&ticket="+ticket
                }
             });
            
         }
 
         function create_new_ticket(){
-            var demo_id=document.getElementById("demo_id").value
+            var demo_id=document.getElementById("demo").value
             
 
             $.ajax({
@@ -706,6 +715,7 @@ $(function(){
                success: function(data){
                 
                 if(data.success){
+                    console.log("Data=====",data)
                     email=data.email
                     phone=data.phone
                     var url="{% url 'Admin:LeadProcessing'%}"

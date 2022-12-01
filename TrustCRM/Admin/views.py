@@ -12,19 +12,16 @@ from datetime import datetime, timedelta
 from django.template import Context
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.sessions.models import Session
+from .models import TblClients,TblEwalletTransaction,TblSaleslead,TblActionreasons
 from django.apps import apps
 from gtts import gTTS
 import os
 import json
-import instaloader
-
-import Admin
-
 from .dashboard_selectors import DashboardSelector
 from .services import Services
 from .selectors import Selector
 from .emailservices import EmailServices
-from .models import TblActionreasons
+
 insta_username = "Tc_limited"
 insta_password = "T@Cmited21!!"
 all_data={}
@@ -214,9 +211,10 @@ def lead(request):
         from_date=request.GET.get('from')
         to_date=request.GET.get('to')
         lead="lead"
-        leads_data,leads_count=selector.get_leads(lead,from_date,to_date)
+        leads_data,leads_count,fromdate,todate=selector.get_leads(lead,from_date,to_date)
+        
         # print("Leads data---------------------",leads_data)
-        return render(request,'sales/Leads.html',{'leads_data':leads_data,'leads_count':leads_count})
+        return render(request,'sales/Leads.html',{'leads_data':leads_data,'leads_count':leads_count,'from':fromdate,'to':todate})
     else:
          return redirect('/login') 
 
@@ -225,7 +223,7 @@ def lead_load_all(request):
     lead="all"
     from_date=request.GET.get('from')
     to_date=request.GET.get('to')
-    load_data,leads_count=selector.get_leads(lead,from_date,to_date)   
+    load_data,leads_count,fromdate,todate=selector.get_leads(lead,from_date,to_date)   
     return JsonResponse(load_data, safe=False)
 
 def lead_load_click(request): 
@@ -250,7 +248,9 @@ def lead_duplicate_check(request):
     
     phone=request.GET.get('phone')
     email=request.GET.get('email')
+    print("Phone,email====",phone,email)
     duplicate=selector.check_duplicate(phone,email)
+    print("Duplicate=====",duplicate)
     if duplicate:
         return JsonResponse({"success":True,"duplicate":duplicate})
     else:
@@ -1002,12 +1002,12 @@ def ticket_logs_insertion(request):
         ticket=request.GET.get('ticket')
         logdata=request.GET.get('logdata')
         logtype=request.GET.get('logtype')
-        selector.insert_ticket_logs(userid,logdata,logtype,ticket)
+        
         today=datetime.today()
         reasondata=TblActionreasons.objects.get(ticket=ticket)
         duedate=reasondata.duedate
         print("Due date=====",duedate)
-        if(duedate.timestamp()>today.timestamp()):
+        if(duedate.timestamp() > today.timestamp()):
             message="Please try after "+str(duedate)
             print("Please try after due date====")
         else:
@@ -1015,6 +1015,7 @@ def ticket_logs_insertion(request):
             reasondata.updated=today
             reasondata.save()
             message="Your request approved"
+            selector.insert_ticket_logs(userid,logdata,logtype,ticket)
         return JsonResponse({"message":message})
     else:
         return redirect('/login')
@@ -1419,6 +1420,37 @@ def load_sales_campaign(request):
         return  HttpResponse(json.dumps({"reports":report,"total":total_ticket,"unattended":unattended,"registerlive":registerd_live,"interested":interested_not,"spoken_count":spoken_count,"training":started_training},default=str),content_type="application/json")
     else:
         return redirect('/login')
+    #Funded accounts
+def funded_accounts(request):
+    if 'UserId' in request.session:
+        userid=request.session.get('UserId')
+        userrole=request.session.get('role')
+        ticketlist=[]
+        details=""
+        funded=list(TblEwalletTransaction.objects.using('svg').filter(trans_status=1,trans_type=1).values_list('accnt_no').distinct())
+        print("Funded =====",funded)
+        for data in funded:
+            accountno=data[0]
+            print("Account number=====",accountno)
+            get_tickets=TblClients.objects.filter(login=accountno)
+            for tickets in get_tickets.iterator():
+                ticket=tickets.ticket
+                ticketlist.append(ticket)
+            
+        print("Tickets=====",ticketlist)
+        
+        if(userrole=='salesrep'):
+            details=list(TblSaleslead.objects.filter(ticket_no__in=ticketlist,salesrepid=userid))
+        else:
+            details=list(TblSaleslead.objects.filter(ticket_no__in=ticketlist))
+            
+        print("Ticket details====",details)
+        return render(request,'sales/funded.html',{'details':details})
+    
+    else:
+        return redirect('/login')
+
+
 
 
 
