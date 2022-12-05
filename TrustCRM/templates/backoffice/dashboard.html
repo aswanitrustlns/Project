@@ -332,7 +332,7 @@
                             <!-- end card -->
                         </div>
                         <!--Missing Documents-->
-                        <div class="col-xxl-3 col-md-6 order-2 order-xxl-1">
+                        <div class="col-xxl-6 col-md-6 order-2 order-xxl-1">
 
                             <div class="card card-h-100">
 
@@ -364,17 +364,27 @@
                                             <thead class="gilory-medium-type fs-14">
                                                 <tr >
                                                     <th class="ps-0">Login</th>
-                                                   
-                                                    <th class="text-end">Name</th>
+                                                    <th >Document Type</th>
+                                                    <th >Expire Days</th>
+                                                    <th >Max Date</th>
+                                                    
                                                 </tr>
                                             </thead>
                                             <tbody class="gilory-regular-type fs-14 text-white"  >
                                                       
                                                 {% for docs in missing_docs %}  
-                                                <tr>
+                                                <tr style="cursor: pointer;">
                                                     <td scope="row"  class="ps-0">{{docs.0}}</td>
                                                     
-                                                    <td class="text-end">{{docs.1}}</td>
+                                                    <td >
+                                                        {% if docs.1 == 2 %}
+                                                            POI
+                                                        {%else%}
+                                                            POA
+                                                        {%endif%}
+                                                    </td>
+                                                    <td >{{docs.2}}</td>
+                                                    <td >{{docs.4|date:"d-m-Y"}}</td>
                                                 </tr>
                                                 {%endfor%}
                                                 
@@ -403,7 +413,14 @@
                         </div>
                          <!--Pending Credit Card
 Approval-->
-                         <div class="col-xxl-3 col-md-6 order-2 order-xxl-1">
+                        
+                      
+                    
+                    </div>
+                    <!--row2-->
+                    <div class="row">
+                        <!--Active Campaigns-->
+                        <div class="col-xxl-3 col-md-6 ">
 
                             <div class="card card-h-100">
 
@@ -471,13 +488,7 @@ Approval-->
 
 
                         </div>
-                      
-                    
-                    </div>
-                    <!--row2-->
-                    <div class="row">
-                        <!--Active Campaigns-->
-                        <div class="col-xxl-12 col-md-12 ">
+                        <div class="col-xxl-9 col-md-6 ">
                             <div class="card card-h-100">
 
 
@@ -581,6 +592,20 @@ Approval-->
     
     <!-- Right bar overlay-->
 <div class="rightbar-overlay"></div>  
+<script>
+     $(function(){
+    
+    $('#dtmissingdocuments tbody').on('click', 'tr', function (e) {
+        var table = $("#dtmissingdocuments").DataTable();
+        console.log("row clicked----")
+        var data = table.row( this ).data();  
+        var login=data[0]  
+        console.log("Login====="+login)   
+        var url="{% url 'Backoffice:Manage'%}"
+        window.location.href=url+"?&login="+login
+    })
+})
+</script>
     <!-- apexcharts -->
     <script src="{% static 'libs/apexcharts/apexcharts.min.js' %}"></script>
 

@@ -10,6 +10,15 @@
     <meta content="Themesbrand" name="author" />
     {% load  static %}
     {% include "common/link.html" %}
+    <style>
+        table td .dropdown-menu.show{
+                right: 0px;
+        left: auto;
+        transform: none;
+        display: flex;
+        }
+    </style>
+   
     {% include "common/scripts.html" %}
     
 </head>
@@ -199,7 +208,7 @@
                 
                 </div>
                 <div class="row">
-                    <div class="col-xxl-6 col-md-6">
+                    <div class="col-xxl-4 col-md-4">
                         <!-- card -->
                         <div class="card card-h-100">
                             <!-- card body -->
@@ -231,7 +240,7 @@
                                                 <h1 class="m-0 gilory-medium-type fs-25 mb-2 m-0">{{waiting}}</h1>
                                                 <p class="m-0 color-color1 fs-15">Waiting for approval</p>
                                         </div>
-                                    </a>
+                                         </a>
                                 
                                         
                                             
@@ -253,9 +262,10 @@
 
 
                     </div>
-                    <div class="col-xxl-6 col-md-6">
-
-                        <div class="row ">
+                    <div class="col-xxl-4 col-md-4">
+                        <div class="card card-h-100">
+                            <!-- card body -->
+                            <div class="card-body">
 
                             <div class="col-xxl-12 ">
                                 <!--Live chats this week-->
@@ -275,146 +285,7 @@
 
                                                         <span class="badge bg-info rounded-pill rounded-circle p-2 fs-11">{{webinars}}</span>
                                                     </a>
-                                                    <!-- <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end p-0" aria-labelledby="live-chats-dropdown">
-                                                        <div class="p-3">
-                                                            <div class="row align-items-center">
-                                                                <div class="col">
-                                                                    <h6 class="m-0"> Notifications </h6>
-                                                                </div>
-                                                                <div class="col-auto">
-                                                                    <a href="#!" class="small text-reset text-decoration-underline">
-                                                                        Unread (3)</a>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div data-simplebar="init" style="max-height: 230px;">
-                                                            <div class="simplebar-wrapper" style="margin: 0px;">
-                                                                <div class="simplebar-height-auto-observer-wrapper">
-                                                                    <div class="simplebar-height-auto-observer">
-                                                                    </div>
-                                                                </div>
-                                                                <div class="simplebar-mask">
-                                                                    <div class="simplebar-offset" style="right: 0px; bottom: 0px;">
-                                                                        <div class="simplebar-content-wrapper" style="height: auto; overflow: hidden;">
-                                                                            <div class="simplebar-content" style="padding: 0px;">
-                                                                                <a href="#!" class="text-reset notification-item">
-                                                                                    <div class="d-flex">
-                                                                                        <div class="flex-shrink-0 me-3">
-                                                                                            <img src="assets/images/users/avatar-3.jpg" class="rounded-circle avatar-sm" alt="user-pic">
-                                                                                        </div>
-                                                                                        <div class="flex-grow-1">
-                                                                                            <h6 class="mb-1">James
-                                                                                                Lemire
-                                                                                            </h6>
-                                                                                            <div class="font-size-13 text-muted">
-                                                                                                <p class="mb-1">It
-                                                                                                    will seem
-                                                                                                    like simplified
-                                                                                                    English.</p>
-                                                                                                <p class="mb-0"><i class="mdi mdi-clock-outline"></i>
-                                                                                                    <span>1
-                                                                                                        hour
-                                                                                                        ago</span>
-                                                                                                </p>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </a>
-                                                                                <a href="#!" class="text-reset notification-item">
-                                                                                    <div class="d-flex">
-                                                                                        <div class="flex-shrink-0 avatar-sm me-3">
-                                                                                            <span class="avatar-title bg-primary rounded-circle font-size-16">
-                                                                                                <i class="bx bx-cart"></i>
-                                                                                            </span>
-                                                                                        </div>
-                                                                                        <div class="flex-grow-1">
-                                                                                            <h6 class="mb-1">Your
-                                                                                                order is
-                                                                                                placed</h6>
-                                                                                            <div class="font-size-13 text-muted">
-                                                                                                <p class="mb-1">If
-                                                                                                    several
-                                                                                                    languages
-                                                                                                    coalesce the
-                                                                                                    grammar</p>
-                                                                                                <p class="mb-0"><i class="mdi mdi-clock-outline"></i>
-                                                                                                    <span>3
-                                                                                                        min
-                                                                                                        ago</span>
-                                                                                                </p>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </a>
-                                                                                <a href="#!" class="text-reset notification-item">
-                                                                                    <div class="d-flex">
-                                                                                        <div class="flex-shrink-0 avatar-sm me-3">
-                                                                                            <span class="avatar-title bg-success rounded-circle font-size-16">
-                                                                                                <i class="bx bx-badge-check"></i>
-                                                                                            </span>
-                                                                                        </div>
-                                                                                        <div class="flex-grow-1">
-                                                                                            <h6 class="mb-1">Your
-                                                                                                item is
-                                                                                                shipped</h6>
-                                                                                            <div class="font-size-13 text-muted">
-                                                                                                <p class="mb-1">If
-                                                                                                    several
-                                                                                                    languages
-                                                                                                    coalesce the
-                                                                                                    grammar</p>
-                                                                                                <p class="mb-0"><i class="mdi mdi-clock-outline"></i>
-                                                                                                    <span>3
-                                                                                                        min
-                                                                                                        ago</span>
-                                                                                                </p>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </a>
-
-                                                                                <a href="#!" class="text-reset notification-item">
-                                                                                    <div class="d-flex">
-                                                                                        <div class="flex-shrink-0 me-3">
-                                                                                            <img src="assets/images/users/avatar-6.jpg" class="rounded-circle avatar-sm" alt="user-pic">
-                                                                                        </div>
-                                                                                        <div class="flex-grow-1">
-                                                                                            <h6 class="mb-1">Salena
-                                                                                                Layfield
-                                                                                            </h6>
-                                                                                            <div class="font-size-13 text-muted">
-                                                                                                <p class="mb-1">As a
-                                                                                                    skeptical
-                                                                                                    Cambridge
-                                                                                                    friend of
-                                                                                                    mine occidental.
-                                                                                                </p>
-                                                                                                <p class="mb-0"><i class="mdi mdi-clock-outline"></i>
-                                                                                                    <span>1
-                                                                                                        hour
-                                                                                                        ago</span>
-                                                                                                </p>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </a>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="simplebar-placeholder" style="width: 0px; height: 0px;"></div>
-                                                            </div>
-                                                            <div class="simplebar-track simplebar-horizontal" style="visibility: hidden;">
-                                                                <div class="simplebar-scrollbar" style="transform: translate3d(0px, 0px, 0px); display: none;">
-                                                                </div>
-                                                            </div>
-                                                            <div class="simplebar-track simplebar-vertical" style="visibility: hidden;">
-                                                                <div class="simplebar-scrollbar" style="transform: translate3d(0px, 0px, 0px); display: none;">
-                                                                </div>
-                                                            </div>
-                                                        </div>
-
-                                                    </div> -->
+                                                    
                                                 </div>
                                             </div>
                                         </div>
@@ -459,8 +330,126 @@
                                 </div>
 
                             </div>
-                        </div>
+                            </div>
+                            </div>
                     </div>
+                     <!--Today’s Meetings-->
+                     <div class="col-xxl-4  col-md-4">
+                        <!-- card -->
+                        <div class="card card-h-100">
+                            <!-- card body -->
+                            <div class="card-body">
+                                <div class="d-flex flex-wrap align-items-center mb-4">
+                                    <h5 class="card-title me-2 almarenamonolight-type fs-21">Non Funded Tickets</h5>
+                                    
+                                    <div class="ms-auto">
+                                        <div class="dropdown align-self-start">
+                                            <a class='dropdown-toggle' id="live-chats-dropdown"
+                                                data-bs-toggle="dropdown" aria-haspopup="true"
+                                                aria-expanded="false">
+
+                                                
+                                            </a>
+                                      
+                                        </div>
+                                    </div>
+                                </div>
+                                <div data-simplebar="" style="max-height: 350px;">
+
+
+                                    <!--Meetings-->
+                                    
+                                    {%for due in dues%}
+                                    <div class=" mb-3 px-3 py-3 card-inside ">
+
+
+                                        <div>
+                                            <div class="d-flex justify-content-between mb-1 gilory-medium-type">
+
+                                                <span
+                                                    class="fs-14 d-block">Ticket
+                                                    : {{due.ticket}}</span>
+                                            <!--PopUp Actions-->
+                                            <div class="dropdown align-self-start">
+                                                <a class="dropdown-toggle" href="#" id={{due.id}} data-bs-toggle="dropdown"
+                                                aria-haspopup="true" aria-expanded="false" class="position-relative">
+                                                    <svg width="22" height="23" viewBox="0 0 22 23" fill="none"
+                                                        xmlns="http://www.w3.org/2000/svg">
+                                                        <path
+                                                            d="M12.8333 4.99215C12.8333 3.98381 12.0083 3.15881 10.9999 3.15881C9.99159 3.15881 9.16659 3.98381 9.16659 4.99215C9.16659 6.00048 9.99159 6.82548 10.9999 6.82548C12.0083 6.82548 12.8333 6.00048 12.8333 4.99215Z"
+                                                            stroke="#73759D" stroke-width="1.5" />
+                                                        <path
+                                                            d="M12.8333 17.8255C12.8333 16.8172 12.0083 15.9922 10.9999 15.9922C9.99159 15.9922 9.16659 16.8172 9.16659 17.8255C9.16659 18.8339 9.99159 19.6589 10.9999 19.6589C12.0083 19.6589 12.8333 18.8339 12.8333 17.8255Z"
+                                                            stroke="#73759D" stroke-width="1.5" />
+                                                        <path
+                                                            d="M12.8333 11.409C12.8333 10.4007 12.0083 9.57568 10.9999 9.57568C9.99159 9.57568 9.16659 10.4007 9.16659 11.409C9.16659 12.4173 9.99159 13.2423 10.9999 13.2424C12.0083 13.2424 12.8333 12.4174 12.8333 11.409Z"
+                                                            stroke="#73759D" stroke-width="1.5" />
+                                                    </svg>
+
+
+                                                </a>
+                                                <div class="dropdown-menu" 
+                                                
+                                                style="background-color: var(--bs-card-bg);">
+                                                <div class="dropdown-item" >
+                                                    <button type="button"
+                                                        class="btn btn-md btn-bg-soft-color1 fs-14 gilory-semibold-type bg-soft-purple text-white " onclick=managernotify({{due.ticket}})>Assign To Manager</button>
+                                                    <button type="button"
+                                                        class="btn btn-md btn-bg-soft-color1   fs-14 gilory-semibold-type bg-soft-purple text-white" onclick="repnotify({{due.ticket}})">Send Reminder</button>
+                                                </div>
+
+
+
+                                            </div>
+                                            </div>
+                                            </div>
+
+                                            <h5 class="mb-0 fs-15  mb-2 gilory-semibold-type">Due Date : <b style="color: red;">{{due.duedate|date:"d-m-Y"}}</b></h5>
+                                            <h5 class="mb-0 fs-15  mb-2 gilory-semibold-type">Reason : <b style="color: yellow;">{{due.reason}}</b></h5>
+                                            <div
+                                                class="d-flex justify-content-between align-items-center  gilroymedium-type flex-wrap flex-xxl-nowrap">
+<!-- 
+                                                <p class="mb-0  flex-grow-1 color-color1"><svg width="20"
+                                                        height="21" viewBox="0 0 20 21" fill="none"
+                                                        xmlns="http://www.w3.org/2000/svg">
+                                                        <path
+                                                            d="M9.9999 11.7532C11.4358 11.7532 12.5999 10.5495 12.5999 9.0646C12.5999 7.57975 11.4358 6.37604 9.9999 6.37604C8.56396 6.37604 7.3999 7.57975 7.3999 9.0646C7.3999 10.5495 8.56396 11.7532 9.9999 11.7532Z"
+                                                            stroke="#73759D" stroke-width="1.5" />
+                                                        <path
+                                                            d="M3.01675 7.49631C4.65842 0.0338179 15.3501 0.0424353 16.9834 7.50493C17.9418 11.8825 15.3084 15.5879 13.0001 17.88C11.3251 19.5518 8.67508 19.5518 6.99175 17.88C4.69175 15.5879 2.05842 11.8738 3.01675 7.49631Z"
+                                                            stroke="#73759D" stroke-width="1.5" />
+                                                    </svg>
+                                                    <span class="   fs-14 ">{{meeting.4}}</span>
+                                                </p> -->
+                                                
+
+                                            </div>
+
+                                        </div>
+
+
+
+                                    </div>
+                                    {%endfor%}
+                                
+
+                                </div>
+
+
+                            </div>
+
+
+
+
+
+
+
+
+
+
+
+                        </div><!-- end card body -->
+                    </div><!-- end card -->
 
                 </div>
 
@@ -1029,10 +1018,31 @@
 
         
     </div>
+
     {% include "common/right-sidebar.html" %}
 
 
 <div class="rightbar-overlay"></div>
+<div class="modal fade bs-example-modal-insta" tabindex="-1" role="dialog" aria-hidden="true" id="alertpopup">
+    <div class="modal-dialog modal-dialog-centered"   style="z-index: 10555;">
+        <div class="modal-content">
+            <div class="modal-header border-0">
+                <h5 class=" fs-16">
+                    <div id="userMsg"></div>
+                </h5>
+                <a href="" data-bs-dismiss="modal" aria-label="Close">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M9.16992 14.83L14.8299 9.17" stroke="var(--white)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M14.8299 14.83L9.16992 9.17" stroke="var(--white)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M9 22H15C20 22 22 20 22 15V9C22 4 20 2 15 2H9C4 2 2 4 2 9V15C2 20 4 22 9 22Z" stroke="white" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+
+                </a>
+            </div>
+      
+        </div>
+     </div>
+    </div>
 <script>
     var leads_graph={{leads_graph|safe}}
     var meeting_daily_pie={{ meeting_daily_pie|safe}}
@@ -1051,6 +1061,42 @@
 
 
     })
+    function managernotify(ticket){
+        $.ajax({
+            
+            type : "GET", 
+            data : {
+                "ticket":ticket,
+                
+            },
+            url: "{% url 'Admin:AutomateManager' %}",
+            success: function(data){
+                var message=data.message
+                $("#userMsg").empty()
+                $("#userMsg").append("Assigned To Manager Successfully")
+                $("#alertpopup").modal('show')
+                
+
+            }
+        })   
+    }
+    function repnotify(ticket){
+        $.ajax({
+            
+            type : "GET", 
+            data : {
+                "ticket":ticket,
+                
+            },
+            url: "{% url 'Admin:AutomateRep' %}",
+            success: function(data){
+                var message=data.message
+                $("#userMsg").empty()
+                $("#userMsg").append("Reminder Send")
+                $("#alertpopup").modal('show')
+            }
+        })   
+    }
 </script>
 <script src="{%static 'libs/apexcharts/apexcharts.min.js' %}"></script>
 <script src="{%static 'js/pages/dashboard-management.init.js' %}"></script>

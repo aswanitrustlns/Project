@@ -72,7 +72,7 @@
                                             <div class="row align-items-end justify-content-end">
 
 
-                                                    <div class="col-sm-3">
+                                                    <div class="col-sm-2">
                                                         <div class="mb-2">
                                                             <label class="form-label " for="fromdate">From Date</label>
                                                             <input type="text" id="fromdate" class="py-1" name="fromdate" value="{{from}}">
@@ -80,7 +80,7 @@
                                                            
                                                         </div>
                                                     </div>
-                                                    <div class="col-sm-3">
+                                                    <div class="col-sm-2">
 
                                                         <div class="mb-2">
                                                             <label class="form-label " for="todate">To Date</label>
@@ -93,7 +93,48 @@
 
 
                                                     </div>
-                                                    <div class="col-sm-3 ">
+                                                    <div class="col-sm-3">
+
+                                                        <div class="mb-2">
+                                                            <label class="form-label " for="todate">Source</label>
+    
+                                                            <select class="form-select" id="source">
+                                                                <option value="0">Select</option>
+                                                                {%for source in sources%}
+                                                                <option value="{{source.0}}">{{source.0}}</option>
+                                                                {%endfor%}
+                                                            </select>
+                                                            
+                                                        </div>
+
+
+
+
+                                                    </div>
+                                                    <div class="col-sm-3">
+
+                                                        <div class="mb-2">
+                                                            <label class="form-label " for="todate">Sales Rep</label>
+    
+                                                            <select class="form-select" id="repId">
+                                                                <option value="0">Select</option>
+                                                    {%if request.session.role == "salesrep" %}
+                                                    <option value="{{request.session.UserName}}">{{request.session.UserName}}</option>
+                                                    {%else%}
+                                                    {%for rep in salesrep%}
+                                                    <option value="{{rep.0}}">{{rep.1}}</option>
+                                                    {%endfor%}
+                                                    {%endif%}
+                                                            </select>
+                                                            
+                                                        </div>
+
+
+
+
+                                                    </div>
+
+                                                    <div class="col-sm-2">
                                                         <button class="btn btn-info btn-md mb-2 py-1" type="button" onclick="loadAll('all')" id="load-all" >Load</button>
                                                     </div>
                                             </div>

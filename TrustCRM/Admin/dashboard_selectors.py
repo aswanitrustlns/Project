@@ -1,5 +1,6 @@
 from django.db import connection
 from datetime import datetime, timedelta
+from .models import TblActionreasons
 import json
 
 
@@ -502,7 +503,12 @@ class DashboardSelector:
             monthly_summary=Cursor.fetchall()
             Cursor.execute("set nocount on;exec SP_TicketsInterestedSummary")
             ticket_summary=Cursor.fetchall()
-
+            one_week=datetime.today()+timedelta(days=7)
+            print("One week date===",one_week)
+            two_week=datetime.today()-timedelta(days=14)
+            print("Two week=====",two_week)
+            due_tickets=TblActionreasons.objects.filter(duedate__lt=one_week,duedate__gt=two_week).values()
+            print("due tickets**************************************************",due_tickets)
             print("Type of ticket summary===",type(ticket_summary))
             if ticket_summary:
                 last_item=ticket_summary[-1:][0]
@@ -586,7 +592,7 @@ class DashboardSelector:
           
             manager_data={'funded_today':live_funded_today,'nonfunded_today':live_nonfund_today,'funded_week':live_funded_week,'nonfunded_week':live_nonfund_week,'webinars':weekly_webinar,'livechat':live_chat,'calls':spokencall,'campaigns':active_campaigns,'reminders':reminders,
                            'approved':pending_approved,'waiting':pending_waiting,'summary':monthly_summary,'ticket_summary':ticket_summary_bar,'remindercount':reminder_count,'reminder_count_show':reminder_count_show,'campaign_count':active_campaigns_count,
-                           'leads_graph':status_bar,'meeting_daily_pie': meeting_daily_pie,'meeting_weekly_pie':meeting_weekly_pie,'seminar_weekly_pie': seminar_weekly_pie,'seminar_daily_pie':seminar_daily_pie,'halfyearly_bar':halfyearly_bar}    
+                           'leads_graph':status_bar,'meeting_daily_pie': meeting_daily_pie,'meeting_weekly_pie':meeting_weekly_pie,'seminar_weekly_pie': seminar_weekly_pie,'seminar_daily_pie':seminar_daily_pie,'halfyearly_bar':halfyearly_bar,'dues':due_tickets}    
         except Exception as e:
             print("!!!!!!!!!!!!!!!!!!!!!!Exception!!!!!!!!!!!!!!!!!!!!!!!!!!",e.__class__)   
              
@@ -597,6 +603,7 @@ class DashboardSelector:
     # ======================Back office dashboard========
     #Dashboard data
     def backoffice_dashboard(self,userId):
+        print("Backoffice user id=====",userId)
         dash_data={}
         try:
             Cursor=connection.cursor()           
@@ -636,7 +643,7 @@ class DashboardSelector:
             Cursor.execute("set nocount on;exec SP_GetPendingCreditCardApproval_PY")
             pending_credit=Cursor.fetchall() 
             pending_credit_count=len(pending_credit)
-            Cursor.execute("set nocount on;exec SP_GetMissingDocuments_PY")
+            Cursor.execute("set nocount on;exec SP_GetExpiryDocs")
             missing_docs=Cursor.fetchall() 
             missing_docs_count=len(missing_docs)
             Cursor.execute("set nocount on;exec SP_GetEWalletTransHistory %s,%s,%s",[date_yesterday_for_today,date_today,4])

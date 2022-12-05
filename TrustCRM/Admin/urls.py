@@ -97,6 +97,9 @@ urlpatterns=[
     path('AllComplaints',detailed_complaints,name="AllComplaints"),
     path('ComplianceUpdate',complaint_update,name="ComplianceUpdate"),
     path("ComplaintMail",mailto_complaint_client,name="ComplaintMail"),
+    #Automation===============================================================
+    path('AutomateManager',assign_to_manager,name="AutomateManager"),
+    path('AutomateRep',remind_rep_nonfunded,name="AutomateRep"),
   
     path('logout',logout,name="Logout"),
     

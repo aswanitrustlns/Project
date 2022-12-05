@@ -350,39 +350,41 @@ class Selector:
         
         return accounts_count
      #Get new accounts count for variants
-    def get_new_accounts_count_variants(self,from_date,to_date,change):
-        try:
+    # def get_new_accounts_count_variants(self,from_date,to_date,change):
+    #     try:
             
-           Cursor=connection.cursor()
-           Cursor.execute("set nocount on;exec SP_GetNewAccountsListing  %s,%s,%s",[from_date,to_date,change])
-           accounts_count=Cursor.fetchone()
-        except Exception as e:
-            print("Exception---",e)
-        finally:
-            Cursor.close()
+    #        Cursor=connection.cursor()
+    #        Cursor.execute("set nocount on;exec SP_GetNewAccountsListing  %s,%s,%s",[from_date,to_date,change])
+    #        accounts_count=Cursor.fetchone()
+    #     except Exception as e:
+    #         print("Exception---",e)
+    #     finally:
+    #         Cursor.close()
         
-        return accounts_count
+    #     return accounts_count
     
     # Get New Accounts page data
     def get_new_accounts(self,change,status,from_date,to_date):
         try:
+           live_accounts=""
            Cursor=connection.cursor()
            date_today=datetime.today().date()    
            date_today=date_today.strftime("%Y-%m-%d")
            week_day=datetime.today().weekday() # Monday is 0 and Sunday is 6
+           
            if(week_day==0):
                 date_yesterday = datetime.today()-timedelta(3)
            else:
                 date_yesterday = datetime.today()-timedelta(1)
            date_yesterday=date_yesterday.strftime("%Y-%m-%d")
-           
+           print("Change and status====",change,status,date_yesterday,date_today)
            if(change == "All"):
                 
-                Cursor.execute("set nocount on;exec SP_GetNewAccountsList %s,%s,%s",[from_date,to_date,status])  
+                Cursor.execute("set nocount on;exec SP_GetNewActsFromDashboard %s,%s,%s",[from_date,to_date,status])  
                 live_accounts=Cursor.fetchall()
            else: 
                 
-                Cursor.execute("set nocount on;exec SP_GetNewAccountsList %s,%s,%s",[date_yesterday,date_today,change])  
+                Cursor.execute("set nocount on;exec SP_GetNewActsFromDashboard %s,%s,%s",[date_yesterday,date_today,change])   #exec SP_GetNewAccountsListing
                 live_accounts=Cursor.fetchall()
            
         except Exception as e:
@@ -396,7 +398,7 @@ class Selector:
         try:
            Cursor=connection.cursor()
 
-           Cursor.execute("set nocount on;exec SP_GetNewAccountsListing %s,%s,%s",[from_date,to_date,status])  
+           Cursor.execute("set nocount on;exec SP_GetNewActsFromDashboard %s,%s,%s",[from_date,to_date,status])  
            live_accounts=Cursor.fetchall()
           
         except Exception as e:
@@ -405,27 +407,27 @@ class Selector:
             Cursor.close()
         return live_accounts    
    # Get New Accounts page data
-    def get_new_accounts_filter(self,change):
-        try:
-           Cursor=connection.cursor()
-           date_today=datetime.today().date()    
-           date_today=date_today.strftime("%Y-%m-%d")
-           week_day=datetime.today().weekday() # Monday is 0 and Sunday is 6
-           if(week_day==0):
-                date_yesterday = datetime.today()-timedelta(3)
-           else:
-                date_yesterday = datetime.today()-timedelta(1)
+    # def get_new_accounts_filter(self,change):
+    #     try:
+    #        Cursor=connection.cursor()
+    #        date_today=datetime.today().date()    
+    #        date_today=date_today.strftime("%Y-%m-%d")
+    #        week_day=datetime.today().weekday() # Monday is 0 and Sunday is 6
+    #        if(week_day==0):
+    #             date_yesterday = datetime.today()-timedelta(3)
+    #        else:
+    #             date_yesterday = datetime.today()-timedelta(1)
 
-           date_yesterday=date_yesterday.strftime("%Y-%m-%d")
-           Cursor.execute("set nocount on;exec SP_GetNewActsFromDashboard %s,%s,%s",[date_yesterday,date_today,change])  
-           live_accounts=Cursor.fetchall()
+    #        date_yesterday=date_yesterday.strftime("%Y-%m-%d")
+    #        Cursor.execute("set nocount on;exec SP_GetNewActsFromDashboard %s,%s,%s",[date_yesterday,date_today,change])  
+    #        live_accounts=Cursor.fetchall()
          
-        except Exception as e:
-            print("Exception---",e)
-        finally:
-            Cursor.close()
+    #     except Exception as e:
+    #         print("Exception---",e)
+    #     finally:
+    #         Cursor.close()
      
-        return live_accounts
+    #     return live_accounts
 #Get new Accounts weekly filter
     def get_new_accounts_weekly_filter(self,change,date_from,date_to):
         try:

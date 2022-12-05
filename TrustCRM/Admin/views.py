@@ -12,7 +12,7 @@ from datetime import datetime, timedelta
 from django.template import Context
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.sessions.models import Session
-from .models import TblClients,TblEwalletTransaction,TblSaleslead,TblActionreasons
+from .models import TblClients,TblEwalletTransaction,TblSaleslead,TblActionreasons,TblUser
 from django.apps import apps
 from gtts import gTTS
 import os
@@ -406,11 +406,13 @@ def pending_tickets(request):
              pending_tickets,fromdate,todate=selector.get_tickets(UserId,"spoken")
         else:
              pending_tickets,fromdate,todate=selector.get_tickets(UserId,"pending")
+        sourcelist=selector.get_sources()
+        salesrep=selector.get_salesrep_permission(UserId)
         pendingTickets=sorted( pending_tickets,key=lambda tup: tup[1])
         # pendingTickets=[tuple(reversed(t)) for t in pending_tickets]
         # pendingTickets=pending_tickets[::-1]
        
-        return render(request,'sales/pendingtickets.html',{'pending_tickets':pendingTickets,'status':json.dumps("Pending"),'from':fromdate,'to':todate})
+        return render(request,'sales/pendingtickets.html',{'pending_tickets':pendingTickets,'status':json.dumps("Pending"),'from':fromdate,'to':todate,'sources':sourcelist,'salesrep':salesrep})
     else:
          return redirect('/login') 
 def pending_tickets_from_summary(request):
@@ -499,7 +501,7 @@ def new_accounts(request):
         else:
            
             
-            accounts_data=selector.get_new_accounts("Live","",date_yesterday,date_today)
+            accounts_data=selector.get_new_accounts("Funded","",date_yesterday,date_today)
             accounts_count=selector.get_new_accounts_count(date_yesterday,date_today)
             
             # terminated_data=selector.get_new_accounts("Terminated")
@@ -526,8 +528,9 @@ def new_accounts_variants(request):
         
         if (change =="TempApproved" or change=="WaitingApproval"):
             active="pending"
-        
+        print("Statues==========",active)
         accounts_data=selector.get_new_accounts_click(change,date_yesterday,date_today)#get_new_accounts_filter
+        print("Accounts data====",accounts_data)
         accounts_count=selector.get_new_accounts_count(date_yesterday,date_today)   
         return render(request,'admin/newAccounts.html',{'accounts_data':accounts_data,'from':date_yesterday,'to':date_today,'accounts_count':accounts_count,"active":json.dumps(active),'role':json.dumps(role)})
                 
@@ -1409,6 +1412,29 @@ def funded_accounts(request):
     
     else:
         return redirect('/login')
+#Assign to manager
+def assign_to_manager(request):
+    if 'UserId' in request.session:
+        ticket=request.GET.get('ticket')
+        print("Ticket=======",ticket)
+        managerid=TblUser.objects.filter(username="online").only('userid').first()
+        reassignticket=TblSaleslead.objects.get(ticket_no=ticket)
+        reassignticket.salesrepid=managerid
+        reassignticket.save()
+        emailservice.reassign_to_manager(ticket) 
+        return JsonResponse({"message":"success"})
+    else:
+        return redirect('/login')
+#Reminder for nonfunded tickets
+def remind_rep_nonfunded(request):
+    if 'UserId' in request.session:
+        ticket=request.GET.get('ticket')
+        print("Ticket=======",ticket)
+        emailservice.mail_after_one_week(ticket)
+        return JsonResponse({"message":"success"})
+    else:
+        return redirect('/login')
+
 
 
 

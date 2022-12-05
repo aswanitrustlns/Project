@@ -68,6 +68,25 @@
                                 </div>
                                 
                             </div>
+                            <div class="row align-items-end  justify-content-start">
+                                <div class="col-md-2 col-xxl-1">
+                                    <div class="mb-2">
+                                        <label class="form-label " for="Accountno">Account no</label>
+                                        <input  type="text" class="form-control" id="Accountno" placeholder=""  required>
+                                    </div>
+                                </div>
+
+                            
+                            
+                                <div class="col-md-2 col-xxl-1">
+                                 
+                                
+                                    <button class="btn btn-info btn-lg mb-2   w-100
+                                    " type="button" id="load" onclick="LoadDetails()">Load</button>
+                            
+                                
+                                </div>
+                            </div>
                            
                             <div class="row justify-content-between">
                                 <ul class="nav justify-content-start nav-tabs-custom  px-0 gilroymedium-type fs-25 my-3  nav-tabs-custom-after-top border-0" role="tablist">
@@ -104,23 +123,7 @@
                                                 <form>
                                                     <div class="row align-items-end  justify-content-start">
                         
-                                                        <div class="col-md-2 col-xxl-1">
-                                                            <div class="mb-2">
-                                                                <label class="form-label " for="Accountno">Account no</label>
-                                                                <input  type="text" class="form-control" id="Accountno" placeholder=""  required>
-                                                            </div>
-                                                        </div>
-                        
-                                                    
-                                                    
-                                                        <div class="col-md-2 col-xxl-1">
-                                                         
                                                         
-                                                            <button class="btn btn-info btn-lg mb-2   w-100
-                                                            " type="button" id="load" onclick="LoadDetails()">Load</button>
-                                                    
-                                                        
-                                                        </div>
                                                         <div class="col-md-4 col-xxl-3">
                                                             <div class="mb-2">
                                                                 <label class="form-label " for="Fullname">Full name</label>
@@ -178,12 +181,6 @@
                     
                     
                                                                     <tbody class="text-white gilory-regular-type fs-16" id="credit-details">
-                                                            
-                                                                        
-                                                                       
-                                                                       
-                                                                    
-                                                                
                                                                     
                                                                     </tbody>
                                                                 
@@ -339,10 +336,7 @@
                                             <div class="tab-pane" id="actions-crypto-tab" role="tabpanel">
                                                 <div class="row">
     
-                                                    <div class="col-xxl-8 col-lg-7
-    
-    
-                                                    ">
+                                                    <div class="col-xxl-8 col-lg-7">
                                                         <form>
                                                             <div class="row align-items-end  justify-content-start">
                                 
@@ -374,8 +368,7 @@
                                                                     <!--<button class="btn btn-outline-light  btn-lg mb-2    me-2
                                                                     " type="reset" id="load-btn-sr">Reset</button>-->
                                                                 
-                                                                    <button class="btn btn-outline-light btn-lg mb-2 w-100 color-color1
-                                                                    " type="button" id="load-btn-sc" onclick="addCryptoCard()"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                    <button class="btn btn-outline-light btn-lg mb-2 w-100 color-color1" type="button" id="load-btn-sc" onclick="addCryptoCard()"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                                         <g clip-path="url(#clip0_2753_12999)">
                                                                         <path d="M9 0C4.0371 0 0 4.0371 0 9C0 13.9629 4.0371 18 9 18C13.9629 18 18 13.9622 18 9C18 4.0378 13.9629 0 9 0ZM9 16.6057C4.80674 16.6057 1.39426 13.194 1.39426 9C1.39426 4.80603 4.80674 1.39426 9 1.39426C13.1933 1.39426 16.6057 4.80603 16.6057 9C16.6057 13.194 13.194 16.6057 9 16.6057Z" fill="#73759D"/>
                                                                         <path d="M12.4849 8.23958H9.69637V5.45105C9.69637 5.06623 9.38475 4.75391 8.99923 4.75391C8.6137 4.75391 8.30208 5.06623 8.30208 5.45105V8.23958H5.51355C5.12803 8.23958 4.81641 8.55191 4.81641 8.93673C4.81641 9.32155 5.12803 9.63387 5.51355 9.63387H8.30208V12.4224C8.30208 12.8072 8.6137 13.1195 8.99923 13.1195C9.38475 13.1195 9.69637 12.8072 9.69637 12.4224V9.63387H12.4849C12.8704 9.63387 13.182 9.32155 13.182 8.93673C13.182 8.55191 12.8704 8.23958 12.4849 8.23958Z" fill="#73759D"/>
@@ -1536,6 +1529,7 @@
     }
 
     function saveCard(){
+        
         var name=$("#holdername").val()
         var cardno=$("#digits").val()
         var expyear=$("#expyear").val()
