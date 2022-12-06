@@ -1352,12 +1352,11 @@ def salescampaigns(request):
         if campaigns:
             last_campaign=campaigns[-1]
             last_campaign_id=int(last_campaign[0])
-            print("Last campaign====",last_campaign_id)
+        sourcelist=selector.get_sources()    
         country_list=selector.get_all_country()
         report=selector.get_campaigns_report(last_campaign_id,country_id)
         if report:
             for alldata in report:
-                print("All data of 1",alldata[0])
                 if(alldata[0]!="Not Created"):
                     total_ticket=total_ticket+1
                 if(alldata[0]=="Not Created"):
@@ -1371,15 +1370,16 @@ def salescampaigns(request):
                 if(alldata[8]!="No"):
                     started_training=started_training+1
                 
-            print("Total Ticket====",total_ticket)    
-        return render(request,'management/salescampaigns.html',{'campaigns':campaigns,'countryList':country_list,'reports':report,'total':total_ticket,'unattended':unattended,'registerlive':registerd_live,'interested':interested_not,'spoken_count':spoken_count,'training':started_training,'latestwebinar':latestwebinar})
+              
+        return render(request,'management/salescampaigns.html',{'campaigns':campaigns,'countryList':country_list,'reports':report,'total':total_ticket,'unattended':unattended,'registerlive':registerd_live,'interested':interested_not,'spoken_count':spoken_count,'training':started_training,'latestwebinar':latestwebinar,'sources':sourcelist})
     else:
         return redirect('/login')
+
 def load_sales_campaign(request):
     if 'UserId' in request.session:
         source=request.GET.get("campaign")
         country=request.GET.get("country")
-        print("Input source and country======",source,country)
+        
         total_ticket=0
         registerd_live=0
         interested_not=0
@@ -1390,7 +1390,7 @@ def load_sales_campaign(request):
         report=selector.get_campaigns_report(source,country)
         if report:
             for alldata in report:
-                print("All data of 1",alldata[0])
+                
                 if(alldata[0]!="Not Created"):
                     total_ticket=total_ticket+1
                 if(alldata[0]=="Not Created"):
@@ -1415,23 +1415,23 @@ def funded_accounts(request):
         ticketlist=[]
         details=""
         funded=list(TblEwalletTransaction.objects.using('svg').filter(trans_status=1,trans_type=1).values_list('accnt_no').distinct())
-        print("Funded =====",funded)
+        
         for data in funded:
             accountno=data[0]
-            print("Account number=====",accountno)
+            
             get_tickets=TblClients.objects.filter(login=accountno)
             for tickets in get_tickets.iterator():
                 ticket=tickets.ticket
                 ticketlist.append(ticket)
             
-        print("Tickets=====",ticketlist)
+        
         
         if(userrole=='salesrep'):
             details=list(TblSaleslead.objects.filter(ticket_no__in=ticketlist,salesrepid=userid))
         else:
             details=list(TblSaleslead.objects.filter(ticket_no__in=ticketlist))
             
-        print("Ticket details====",details)
+        
         return render(request,'sales/funded.html',{'details':details})
     
     else:
@@ -1440,7 +1440,7 @@ def funded_accounts(request):
 def assign_to_manager(request):
     if 'UserId' in request.session:
         ticket=request.GET.get('ticket')
-        print("Ticket=======",ticket)
+        
         managerid=TblUser.objects.filter(username="online").only('userid').first()
         reassignticket=TblSaleslead.objects.get(ticket_no=ticket)
         reassignticket.salesrepid=managerid
@@ -1462,6 +1462,27 @@ def remind_rep_nonfunded(request):
 def compliance_manage_accounts(request):
     if 'UserId' in request.session:
         return render(request,'compliance/manageaccount.html')
+    else:
+        return redirect('/login')
+#File CSV upload
+def upload_csv_file(request):
+    if 'UserId' in request.session:
+        message=""
+        csv_file = request.FILES["csv_file"]
+        if not csv_file.name.endswith('.csv'):
+            message="Please Upload CSV"
+        if csv_file.multiple_chunks():
+            message="File is too big"
+        file_data = csv_file.read().decode("utf-8")		
+        lines = file_data.split("\n")
+        for line in lines:						
+            fields = line.split(",")
+            data_dict = {}
+            data_dict["name"] = fields[0]
+            data_dict["start_date_time"] = fields[1]
+            data_dict["end_date_time"] = fields[2]
+            data_dict["notes"] = fields[3]
+        return JsonResponse({"message":message})	
     else:
         return redirect('/login')
 
