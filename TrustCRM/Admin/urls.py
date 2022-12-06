@@ -19,8 +19,8 @@ urlpatterns=[
     path('viewMerge',view_merge,name="ViewMerge"),
     path('createticket',create_ticket,name="CreateTicket"),
     path('LeadRegistration',lead_registration,name="LeadRegistration"),
-    path('NewAccounts',new_accounts,name="NewAccounts"),
-    path('NewAccountsClick',new_accounts_click,name="NewAccountsClick"),
+    path('NewAccounts',new_accounts,name="NewAccounts"),# Navigate to new accounts page
+    path('NewAccountsClick',new_accounts_click,name="NewAccountsClick"),# Get New Accounts Page
     path('AccountsFilter',new_accounts_variants,name="AccountsFilter"),
     path('WeeklyFilter',new_accounts_variants_weekly,name="WeeklyFilter"),
     path('LeadSubmit',lead_registration_check,name="LeadSubmit"),
@@ -91,12 +91,14 @@ urlpatterns=[
     path('TicketSummaryOnLoad',ticket_summary_onload,name="TicketSummaryOnLoad"),
     path("InactiveTickets",inactivetickets,name="InactiveTickets"),
     path('LivechatReport',livechatreport,name="LivechatReport"),
+    path('AllLivechatReport',livechatreport_load_all,name="AllLiveChatReport"),
     #Compliance============================================================
     # path('ComplianceDashboard',compliance_dashboard,name="ComplianceDashboard"),
     path('ComplianceDetails',complaint_details,name="ComplianceDetails"),
     path('AllComplaints',detailed_complaints,name="AllComplaints"),
     path('ComplianceUpdate',complaint_update,name="ComplianceUpdate"),
     path("ComplaintMail",mailto_complaint_client,name="ComplaintMail"),
+    path('ManageAccounts',compliance_manage_accounts,name="ManageAccounts"),
     #Automation===============================================================
     path('AutomateManager',assign_to_manager,name="AutomateManager"),
     path('AutomateRep',remind_rep_nonfunded,name="AutomateRep"),

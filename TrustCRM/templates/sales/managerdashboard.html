@@ -696,7 +696,7 @@
                                             {%for campaign in campaigns%}
                                             <tr>
                                                 <td scope="row">{{campaign.0}}</td>
-                                                <td>{{campaign.1|date:"M d,Y"}}-{{campaign.2|date:"M d,Y"}}</td>
+                                                <td>{{campaign.1|date:"d-m-Y"}} to {{campaign.2|date:"d-m-Y"}}</td>
                                                 <td class="text-end"> {{campaign.3}}</td>
 
                                             </tr>

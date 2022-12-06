@@ -954,7 +954,7 @@ function rejectedAccount(change,status){
                 'paging':true, 
                 'destroy': true,               
                 'ajax':{
-                   "url": "{% url 'Admin:WeeklyFilter' %}",
+                   "url": "{% url 'Admin:NewAccountsClick' %}",
                    "type": "GET",
                    "data":{
                     'status':variant,

@@ -2293,19 +2293,20 @@
         }
 
                 intTel();
-            if(ticket){
+            if(ticket || ticket!=None){
                 $("#ticketno").val(ticket)
                 loadTicketFuns()
 
             }
-           var ticket_exist=$("#ticketno").val()
-           console.log("existence===="+ticket_exist)
-           if(ticket_exist!="None"){
-            console.log("Entered")
-            loadTicketFuns()
-           }else{
+            else{
             $("#ticketno").val(" ")
            }
+        //    var ticket_exist=$("#ticketno").val()
+        //    console.log("existence===="+ticket_exist)
+        //    if(ticket_exist!="None"){
+        //     console.log("Entered")
+        //     loadTicketFuns()
+        //    }
             
             
 

@@ -12,6 +12,7 @@ $(document).ready(function () {
     //const  simpleUploadDocumentsDetails  = new SimpleBar(document.getElementById('uploaddocumentsdetails'));
      //table1
     var table1 = $('#datatablemT4transactions').DataTable({
+        
         responsive: true,
          paging: true,
          lengthChange: false ,

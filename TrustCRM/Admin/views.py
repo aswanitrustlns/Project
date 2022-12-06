@@ -431,7 +431,10 @@ def pending_tckts_load_all(request):
         from_date=request.GET.get('from')
         to_date=request.GET.get('to')
         status=request.GET.get('status')
-        pending_tickets,fromdate,todate=selector.get_all_tickets(UserId,status,from_date,to_date)
+        repId=request.GET.get('repId')
+        source=request.GET.get('source')
+        
+        pending_tickets,fromdate,todate=selector.get_all_tickets(UserId,status,from_date,to_date,repId,source)
 
         # return JsonResponse(list(pending_tickets), safe=False)
         return HttpResponse(json.dumps({"data":pending_tickets,"from":fromdate,"to":todate}), content_type="application/json")
@@ -464,7 +467,7 @@ def resolved_tckts_load_all(request):
         to_date=request.GET.get('to')
         resolved_tickets,fromdate,todate=selector.get_all_tickets(UserId,"resolved",from_date,to_date)
         return HttpResponse(json.dumps({"data":resolved_tickets,"from":fromdate,"to":todate}), content_type="application/json")
-        # return JsonResponse(list(resolved_tickets), safe=False)
+        
     else:
         return redirect('/login')
 
@@ -493,6 +496,10 @@ def new_accounts(request):
         
         
         if(change):
+            if status=="Live":
+                status="Funded"
+            if status=="Pending":
+                status="TempApproved"
             accounts_data=selector.get_new_accounts(change,status,from_date,to_date)
             accounts_count=selector.get_new_accounts_count(from_date,to_date)
             print("change is---------------",change)
@@ -587,7 +594,7 @@ def new_accounts_click(request):
         accounts_data=selector.get_new_accounts_click(status,fromdate,todate)
         
         accounts_count=selector.get_new_accounts_count(fromdate,todate)
-        
+        print("Accounts data===",accounts_data)
         return HttpResponse(json.dumps({"data":accounts_data,"count":accounts_count}), content_type="application/json")
         # return render(request,'admin/newAccounts.html',{'accounts_data':accounts_data,'accounts_count':accounts_count,"active":json.dumps(active)})
                 
@@ -1307,10 +1314,27 @@ def livechatreport(request):
     if 'UserId' in request.session:
         reps=selector.get_livechat_reps()
         users=selector.get_livechat_users()
-        livechat=selector.get_live_chat_logs("","",0,0)
+        date_today=datetime.today().date()    
+        date_today=date_today.strftime("%Y-%m-%d")
+        print("Form data=======",date_today)
+        livechat=selector.get_live_chat_logs("2022-05-03",date_today,0,0)
+        print("Live chat=====",livechat)
         return render(request,'management/livechatreport.html',{'reps':reps,'users':users,'chats':livechat})
     else:
         return redirect('/login')
+#Live chat report load all
+def livechatreport_load_all(request):
+    if 'UserId' in request.session:
+        from_date=request.GET.get('from')
+        to_date=request.GET.get('to')
+        attend=request.GET.get('attend')
+        rep=request.GET.get('repId')
+        livechat=selector.get_live_chat_logs(from_date,to_date,rep,attend)
+        print("Live chat=====",livechat)
+        return JsonResponse(livechat,safe=False)
+    else:
+        return redirect('/login')
+
 
 def salescampaigns(request):
     if 'UserId' in request.session:
@@ -1432,6 +1456,12 @@ def remind_rep_nonfunded(request):
         print("Ticket=======",ticket)
         emailservice.mail_after_one_week(ticket)
         return JsonResponse({"message":"success"})
+    else:
+        return redirect('/login')
+#Compliance manage Acccount
+def compliance_manage_accounts(request):
+    if 'UserId' in request.session:
+        return render(request,'compliance/manageaccount.html')
     else:
         return redirect('/login')
 

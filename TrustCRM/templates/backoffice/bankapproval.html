@@ -82,30 +82,33 @@
                                  
                                 
                                     <button class="btn btn-info btn-lg mb-2   w-100
-                                    " type="button" id="load" onclick="LoadDetails()">Load</button>
-                            
+                                    " type="button" id="load" onclick="allLoad()">Load</button>
                                 
                                 </div>
+                                <div class="col-md-2 col-xxl-1">
+                                <button class="btn btn-outline-light  btn-lg mb-2 w-100    me-2
+                                                            " type="bank" id="load-btn-sr" onclick="resetOnClick()">Reset</button>
+                                                        </div>
                             </div>
                            
                             <div class="row justify-content-between">
                                 <ul class="nav justify-content-start nav-tabs-custom  px-0 gilroymedium-type fs-25 my-3  nav-tabs-custom-after-top border-0" role="tablist">
                                     <li class="nav-item" style=" width:calc(100% / 3 );">
-                                        <a class="nav-link active text-center" data-bs-toggle="tab" href="#actions-cc-tab" role="tab" onclick="resetOnClick()">
+                                        <a class="nav-link active text-center" data-bs-toggle="tab" href="#actions-cc-tab" role="tab" >
                                         
                                             <span class=""> Credit card</span>
                                         
                                         </a>
                                     </li>
                                     <li class="nav-item" style=" width:calc(100% / 3 );">
-                                        <a class="nav-link  text-center " data-bs-toggle="tab" href="#actions-bank-tab" role="tab" onclick="resetOnClick()">
+                                        <a class="nav-link  text-center " data-bs-toggle="tab" href="#actions-bank-tab" role="tab" >
                                         
                                             <span class="">  Bank</span>
                                         
                                         </a>
                                     </li>
                                     <li class="nav-item" style=" width:calc(100% / 3 );">
-                                        <a class="nav-link  text-center " data-bs-toggle="tab" href="#actions-crypto-tab" role="tab" onclick="resetOnClick()">
+                                        <a class="nav-link  text-center " data-bs-toggle="tab" href="#actions-crypto-tab" role="tab" >
                                         
                                             <span class=""> Crypto</span>
                                         
@@ -194,7 +197,7 @@
     
                                                 <form class="mb-5" id="save-bank-form">
                                                     {%csrf_token%}
-                                                    <div class="row align-items-end  justify-content-start">
+                                                    <!-- <div class="row align-items-end  justify-content-start">
                         
                                                         <div class="col-md-3 col-xxl-2">
                                                             <div class="mb-2">
@@ -206,8 +209,7 @@
                                                     
                                                     
                                                         <div class="col-md-2 col-xxl-1">
-                                                            <!--<button class="btn btn-outline-light  btn-lg mb-2    me-2
-                                                            " type="reset" id="load-btn-sr">Reset</button>-->
+                                 
                                                         
                                                             <button class="btn btn-info btn-lg mb-2   w-100
                                                             " type="button" id="bankLoad" onclick="LoadBankDetails()">Load</button>
@@ -217,7 +219,7 @@
                                                        
                                                     
                                                         
-                                                </div> 
+                                                </div>  -->
                                                 
     
                                                 
@@ -340,7 +342,7 @@
                                                         <form>
                                                             <div class="row align-items-end  justify-content-start">
                                 
-                                                                <div class="col-md-3 col-xxl-3">
+                                                                <!-- <div class="col-md-3 col-xxl-3">
                                                                     <div class="mb-2">
                                                                         <label class="form-label " for="Accountno">Account no</label>
                                                                         <input  type="text" class="form-control" id="cryptoAccountno" placeholder=""  required>
@@ -356,7 +358,7 @@
                                                                     " type="button" id="cryptoLoad" onclick="LoadCryptodetails()">Load</button>
                                                             
                                                                 
-                                                                </div>
+                                                                </div> -->
                                                                 <div class="col-md-3 col-xxl-4">
                                                                     <div class="mb-2">
                                                                         <label class="form-label " for="Fullname">Full name</label>
@@ -1177,25 +1179,30 @@
         $("#Accountno").on("keydown", function(event) {
                 if(event.which == 13){
                     event.preventDefault()
-                    LoadDetails()
+                    allLoad()
 
                 }   
         })
-        $("#bankAccountno").on("keydown", function(event) {
-                if(event.which == 13){
-                    event.preventDefault()
-                    LoadBankDetails()
-                }   
-        })
-        $("#cryptoAccountno").on("keydown", function(event) {
-                if(event.which == 13){
-                    event.preventDefault()
-                    LoadCryptodetails()
-                }   
-        })
+        // $("#bankAccountno").on("keydown", function(event) {
+        //         if(event.which == 13){
+        //             event.preventDefault()
+        //             LoadBankDetails()
+        //         }   
+        // })
+        // $("#cryptoAccountno").on("keydown", function(event) {
+        //         if(event.which == 13){
+        //             event.preventDefault()
+        //             LoadCryptodetails()
+        //         }   
+        // })
 
     })
 
+    function allLoad(){
+        LoadDetails()
+        LoadBankDetails()
+        LoadCryptodetails()
+    }
 
 
     function LoadDetails(){
@@ -1252,7 +1259,7 @@
             }
     }
     function LoadCryptodetails(){
-        var accno=$("#cryptoAccountno").val()
+        var accno=$("#Accountno").val()
         $("#accountnumber").val(accno)
         if(accno==""){
             $("#userMsg").empty()
@@ -1387,7 +1394,7 @@
         status=$("#cryptorejstatus").val()
         id=$("#cryptorejid").val()
         card=$("#cryptorejcard").val()
-        accno=$("#cryptoAccountno").val()
+        accno=$("#Accountno").val()
         $.ajax({
                     
                     type : "GET", 
@@ -1427,7 +1434,7 @@
 
    }
    function addCryptoCard(){
-    var accno=$("#cryptoAccountno").val()
+    var accno=$("#Accountno").val()
     var name= $("#cryptofullname").val()
     $("#cryptoholdername").val(name)
         if(accno==""){
@@ -1501,7 +1508,7 @@
         status=$("#cryptostatus").val()
         id=$("#cryptoid").val()
         card=$("#cryptocard").val()
-        accno=$("#cryptoAccountno").val()
+        accno=$("#Accountno").val()
         console.log("Crypto approve======"+id+card+accno)
         $.ajax({
                     
@@ -1529,7 +1536,7 @@
     }
 
     function saveCard(){
-        
+
         var name=$("#holdername").val()
         var cardno=$("#digits").val()
         var expyear=$("#expyear").val()
@@ -1592,7 +1599,7 @@
 
     }
     function LoadBankDetails(){
-        var accno=$("#bankAccountno").val()
+        var accno=$("#Accountno").val()
         console.log("Account number======"+accno)
         
         if(accno==""){
@@ -1612,13 +1619,13 @@
                     success: function(data){
                         var details=data.details
                         console.log("Details=====",details)
-                        if(details==""){
-                            $("#userMsg").empty()
-                            $("#userMsg").append("Account not found")
-                            $("#alertpopup").modal('show')
+                        // if(details==""){
+                        //     $("#userMsg").empty()
+                        //     $("#userMsg").append("Account not found")
+                        //     $("#alertpopup").modal('show')
 
-                        }
-                        else{
+                        // }
+                        // else{
 
                         
                             var datalen=details.length
@@ -1656,7 +1663,7 @@
                             }
                             
                             
-                        }
+                        // }
                     }
                 })
             }
@@ -1701,7 +1708,7 @@
         status=$("#bankstatus").val()
         id=$("#bankid").val()
         card=$("#bankaccountno").val()
-        accno=$("#bankAccountno").val()
+        accno=$("#Accountno").val()
         $.ajax({
                     
                     type : "GET", 
@@ -1730,7 +1737,7 @@
         status=$("#bankstatus").val()
         id=$("#rejbankid").val()
         card=$("#rejbankcard").val()
-        accno=$("#bankAccountno").val()
+        accno=$("#Accountno").val()
         $.ajax({
                     
                     type : "GET", 
@@ -1769,7 +1776,7 @@
     {
         var accno=$("#Accountno").val()
         if(accno==""){
-            accno=$("#cryptoAccountno").val()
+            accno=$("#Accountno").val()
         }
         $.ajax({
                         
@@ -1796,7 +1803,7 @@
                     })
     }
     function saveBankAccount(){
-        var accno=$("#bankAccountno").val()
+        var accno=$("#Accountno").val()
         console.log("Account number======"+accno)
         
        
@@ -1862,7 +1869,7 @@
         $("#bank-account-table").empty()
     }
     function editBankdetails(id,acname,acno,bname,baddr,other,scode,iban){
-        var accno=$("#bankAccountno").val()
+        var accno=$("#Accountno").val()
         console.log("Account number======"+accno)
         
      
@@ -1883,7 +1890,7 @@
     function saveCryptoCard(){
 
         let csrftoken = '{{ csrf_token }}'
-        var accno=$("#cryptoAccountno").val()
+        var accno=$("#Accountno").val()
         $("#cryptoaccount").val(accno)
         var name= $("#cryptoholdername").val()
         var cardno=$("#cryptoaddress").val()
@@ -1915,7 +1922,7 @@
     function editCryptoCard(){
 
             let csrftoken = '{{ csrf_token }}'
-            var accno=$("#cryptoAccountno").val()
+            var accno=$("#Accountno").val()
             $("#editcryptoaccount").val(accno)
             var name= $("#cryptoholdername").val()
             var cardno=$("#cryptoaddress").val()
@@ -1947,8 +1954,8 @@
         $("#save-bank-form")[0].reset()
         $('#add-cryptocard-form')[0].reset()
         $("#Accountno").val("")
-        $("#bankAccountno").val("")
-        $("#cryptoAccountno").val("")
+        // $("#bankAccountno").val("")
+        // $("#cryptoAccountno").val("")
         $("#cryptoaccount").val("")
         $("#Fullname").val("")
         $("#cryptofullname").val("")

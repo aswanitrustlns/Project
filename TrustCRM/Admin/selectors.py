@@ -299,7 +299,7 @@ class Selector:
         return tickets,fromdate,date_today
         
 
-    def get_all_tickets(self,userId,status,from_date,to_date):
+    def get_all_tickets(self,userId,status,from_date,to_date,repId,source):
         try:
             _tickets=[]
             
@@ -321,8 +321,8 @@ class Selector:
                 Cursor.execute("exec SP_GetDormantSalesLeadsPaginate_PY %s,%s,%s",[userId,"P",userId])
                 _tickets=Cursor.fetchall()
             else:
-                     print("Inputs========",userId,from_date,to_date,status)
-                     Cursor.execute("exec SP_GetSalesLeadsListPaginate_PY %s,%s,%s,%s,%s",[userId,from_date,to_date,status,0])
+                     print("Inputs========",userId,from_date,to_date,status,repId,source)
+                     Cursor.execute("exec SP_GetSalesLeadsListPaginate_PY %s,%s,%s,%s,%s,%s,%s,%s,%s,%s",[userId,from_date,to_date,status,repId,0,"",source,0,1])
                      _tickets=Cursor.fetchall()
             # if(ticket=="resolved"):
                
@@ -398,7 +398,7 @@ class Selector:
         try:
            Cursor=connection.cursor()
 
-           Cursor.execute("set nocount on;exec SP_GetNewActsFromDashboard %s,%s,%s",[from_date,to_date,status])  
+           Cursor.execute("set nocount on;exec SP_GetNewAccountsListing %s,%s,%s",[from_date,to_date,status])  
            live_accounts=Cursor.fetchall()
           
         except Exception as e:
@@ -431,7 +431,9 @@ class Selector:
 #Get new Accounts weekly filter
     def get_new_accounts_weekly_filter(self,change,date_from,date_to):
         try:
+           live_accounts=""
            Cursor=connection.cursor()
+           print("Data====================================",date_from,date_to,change)
            Cursor.execute("set nocount on;exec SP_GetNewActsFromDashboard %s,%s,%s",[date_from,date_to,change])  
            live_accounts=Cursor.fetchall()
         except Exception as e:
@@ -1778,9 +1780,10 @@ class Selector:
     #Get Livechat logs
     def get_live_chat_logs(self,fromdate,todate,salesrepid,attendedby):
         try:
+            print("Inputs=====",fromdate,todate,salesrepid,attendedby)
             chats=""
             Cursor=connection.cursor()  
-            Cursor.execute("set nocount on;exec SP_LiveChatLogs %s,%s,%s,%s",fromdate,todate,salesrepid,attendedby)
+            Cursor.execute("set nocount on;exec SP_LiveChatLogs %s,%s,%s,%s",[fromdate,todate,salesrepid,attendedby])
             chats=Cursor.fetchall()
         except Exception as e:
                 print("Exception------",e)

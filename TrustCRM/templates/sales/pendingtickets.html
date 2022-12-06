@@ -60,15 +60,15 @@
                             <div class="card-body ">
                                 <div class=" d-flex justify-content-between align-items-start">
                                     <div>
-                                        <button type="button" class="btn btn-lg btn-primary   color-color1 mb-3  mx-1 gilory-semibold-type " id="pending-switch" style="background-color: var(--bs-card-bg) ;" onclick="addColor(this,'bg-soft-purple text-white', 'color-color1');loadAll('P');">Unconverted</button>
-                                        <button type="button" class="btn btn-lg btn-primary  color-color1 mb-3 mx-1 gilory-semibold-type"  id="resolved-switch" style="background-color: var(--bs-card-bg); "  onclick="addColor(this,'bg-soft-purple text-white', 'color-color1');loadAll('R');">Resolved</button>
-                                        <button type="button" class="btn btn-lg btn-primary  color-color1 mb-3 mx-1 gilory-semibold-type"  id="dormant-switch" style="background-color: var(--bs-card-bg) ;" onclick="addColor(this,'bg-soft-purple text-white','color-color1');loadAll('D');">Dormant</button>
+                                        <button type="button" class="btn btn-lg btn-primary   color-color1 mb-3  mx-1 gilory-semibold-type " id="pending-switch" style="background-color: var(--bs-card-bg) ;" onclick="addColor(this,'bg-soft-purple text-white', 'color-color1');loadAll('P');resetdata();">Unconverted</button>
+                                        <button type="button" class="btn btn-lg btn-primary  color-color1 mb-3 mx-1 gilory-semibold-type"  id="resolved-switch" style="background-color: var(--bs-card-bg); "  onclick="addColor(this,'bg-soft-purple text-white', 'color-color1');loadAll('R');resetdata();">Resolved</button>
+                                        <button type="button" class="btn btn-lg btn-primary  color-color1 mb-3 mx-1 gilory-semibold-type"  id="dormant-switch" style="background-color: var(--bs-card-bg) ;" onclick="addColor(this,'bg-soft-purple text-white','color-color1');loadAll('D');resetdata();">Dormant</button>
                                         
                                         <input type="hidden" name="selected_tab" id="selected_tab" >
                                     </div>
                                     
                                     <div class=" mt-2  mt-md-0">
-                                       
+                                       <form id="filter-form">
                                             <div class="row align-items-end justify-content-end">
 
 
@@ -138,7 +138,7 @@
                                                         <button class="btn btn-info btn-md mb-2 py-1" type="button" onclick="loadAll('all')" id="load-all" >Load</button>
                                                     </div>
                                             </div>
-                                        
+                                        </form>
                                     </div>
                                    
                                     
@@ -418,10 +418,16 @@ onClose: function (selectedDates, dateStr, instance) {
             var url="{% url 'Admin:LeadProcessing'%}"
             window.location.href=url+"?&ticket="+ticket
         }
+        function resetdata(){
+      $("#filter-form")[0].reset()
+
+        }
 
         function loadAll(change){
             var from_date
             var to_date
+            var repId=$("#repId").val()
+            var source=$("#source").val()
             // let flatpickerfromdate=flatpickr('#fromdate')
             // let flatpickertodate=flatpickr('#todate')
             // flatpickerfromdate.clear();
@@ -463,7 +469,9 @@ onClose: function (selectedDates, dateStr, instance) {
                     data:{
                     'from':fromdate,
                     'to':todate,
-                    'status':change
+                    'status':change,
+                    'repId':repId,
+                    'source':source
                    },
                     dataSrc:function(data){
                         json_data=data.data

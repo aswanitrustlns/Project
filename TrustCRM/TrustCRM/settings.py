@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     'Backoffice',
     'CRF',
     'Automation',
-    'mathfilters'
+    
     
 ]
 

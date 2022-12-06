@@ -110,7 +110,7 @@
                                         <div class="col-sm-2">
                                             <div class="mb-2">
                                                 <label class="form-label " for="salesrep">Attended By</label>
-                                                <select   class="py-1 form-select" id="salesrepId"> 
+                                                <select   class="py-1 form-select" id="attended"> 
                                                     <option value="0">Select</option>
                                                     
                                                     {%for user in users%}
@@ -128,66 +128,13 @@
                                         </div>
                                         
     
-    
+                                    <p >Now viewing live chat logs from May 03 2022 till today.</p>
     
     
     
                                 </div> 
                         </div>
-                        <div class="col-xl-4    col-md-6 col-sm-6 ">
-                            <!-- card -->
-                            <div class="card card-h-100 ">
-                                <!-- card body -->
-                                <div class="card-body py-2">
-                                    <div class="">
-                                        <a   style="cursor:pointer;">
-                                        <div class="d-flex align-items-center  flex-xl-column flex-xxl-row">
-                                            <span class=" mb-3 lh-1 d-block flex-shrink-0 " >
-                                                <i class="  rounded-circle d-inline-block p-3  " style="background-color: var(--bs-card-bg);">
-    
-                                                    <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                        <path d="M10.3198 27.2247V24.1197" stroke="#DD9406" stroke-width="2" stroke-linecap="round"/>
-                                                        <path d="M18 27.2247V21.0147" stroke="#DD9406" stroke-width="2" stroke-linecap="round"/>
-                                                        <path d="M25.6797 27.2247V17.8947" stroke="#DD9406" stroke-width="2" stroke-linecap="round"/>
-                                                        <path d="M25.6798 8.77469L24.9898 9.58469C21.1648 14.0547 16.0348 17.2197 10.3198 18.6447" stroke="#DD9406" stroke-width="2" stroke-linecap="round"/>
-                                                        <path d="M21.2847 8.77469H25.6797V13.1547" stroke="#DD9406" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                                        <path d="M13.5 32.9995H22.5C30 32.9995 33 29.9995 33 22.4995V13.4995C33 5.99951 30 2.99951 22.5 2.99951H13.5C6 2.99951 3 5.99951 3 13.4995V22.4995C3 29.9995 6 32.9995 13.5 32.9995Z" stroke="#DD9406" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                                        </svg>
-                                                        
-                                                        
-                                                        
-    
-    
-    
-                                                </i>
-                                            </span>
-                                            
-                                            
-                                            
-                                            <div class="ms-3 ms-xl-0 me-1 ms-xxl-2 flex-shrink-0">
-                                               
-                                                <div class="text-wrap mb-1 text-xl-center text-xxl-start" >
-                                                    <!--<span class="badge bg-soft-success text-success">+$20.9k</span>-->
-                                                    <span class=" color-color1 fs-20 almarenamonolight-type">Today’s <br>
-                                                       total leads</span>
-                                                </div>
-                                                
-                                                <h2 class=" gilory-semibold-type fs-40 mb-0 text-xl-center text-xxl-start" data-target="12",id="total">{{leads_count.0}}</h2>
-                                                
-                                            </div>
-                                               
-                                                
-                                                
-                                        </div>
-                                    </a>
-    
-    
-                                    </div>
-                                    
-                                </div><!-- end card body -->
-                            </div>
-                            <!-- end card -->
-                        </div><!-- end col -->
+                       <!-- end col -->
                     </div>
                   
     
@@ -275,15 +222,131 @@
     
         <!-- Right bar overlay-->
         <div class="rightbar-overlay"></div>
+        <div class="modal fade  bs-example-modal-chatlogs" tabindex="-1" role="dialog" aria-hidden="true" id="chatlog">
+            <div class="modal-dialog modal-dialog-centered  ">
+                <div class="modal-content ">
+                    <div class="modal-body ">
+                        <div class="mx-2 my-1 border rounded-3">
+                            <div class="modal-header border-0 ">
+                                <h5 class="modal-title fs-21 ">Live Chat Logs  </h5>
+                                <a href="" data-bs-dismiss="modal" aria-label="Close">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M9.16992 14.83L14.8299 9.17" stroke="var(--white)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M14.8299 14.83L9.16992 9.17" stroke="var(--white)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M9 22H15C20 22 22 20 22 15V9C22 4 20 2 15 2H9C4 2 2 4 2 9V15C2 20 4 22 9 22Z" stroke="white" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+
+                                </a>
+                            </div>
+                            <div id="chat-block" style="max-height: 372px;">
+                                <div class="chat-logs mx-3"   id="chatdiv">   
+                            </div> 
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         <script>
             function viewChat(ticket){
+                const simpleBarChatlog = new SimpleBar(document.getElementById('chat-block'));
+        // simpleBarChatlog.recalculate();
 
-            }
+       
+            var chats=""
+            $("#chatdiv").empty();
+            $.ajax({
+                    type : "GET", 
+                    url: "{% url 'Admin:LiveLogs' %}",
+                    dataType: 'json',
+                    data: {                   
+                        'ticket':ticket,                   
+                    },
+                    
+                    success: function(data){
+                        var logs=data.logs
+                        
+                        for(i=0;i<logs.length;i++){
+                            
+                            chats +="<div class='border rounded-3 px-3 py-3 mb-3'><div class='d-flex justify-content-between mb-2 align-items-center'>"+
+                                        "<div class='d-flex my-0  align-items-center flex-shrink-0'><div class='activity-icon avatar-sm ms-2 me-3'>"+
+                                        "<span class='avatar-title   rounded-circle'><img class='rounded-circle avatar-md' src='../static/images/users/"+logs[i][3]+".png' "+
+                                        "onerror=this.src='../static/images/users/user.png'></span></div><p class='fs-16 gilorysemibold-type color-color m-0'>"+logs[i][3]+"</p>"+
+                                        "</div><span class='fs-14 color-color1'>"+logs[i][0]+" - "+logs[i][1]+"</span></div><div ><p class='mb-0  fs-13  color-color1 me-2'>"+logs[i][2] +"</p></div></div>";
+
+                        }
+                        if(logs.length==0){
+                            $("#chatdiv").append("No Logs")    
+                        }
+                        else{
+                            $("#chatdiv").append(chats)
+                        }
+                        
+                        $("#chatlog").modal('show')
+                        console.log("Logsssssssssssssssss"+data.logs)
+
+                    }
+                })
+
+              
+
+        
+
+    }
             function viewTicket(ticket){
                 var url="{% url 'Admin:LeadProcessing'%}"
                 window.location.href=url+"?&ticket="+ticket
             }
-            function 
+            function loadAllReport(){
+                
+        var attend=$("#attended").val()
+        var salesrep=$("#salesrepId").val()
+        var fromdate=$("#Fromdate").val()
+        var todate=$("#Todate").val()
+        var row=""
+        $('#datatable').dataTable().fnClearTable();
+        $('#datatable').dataTable().fnDestroy();
+        $("#datatable").DataTable({
+                
+                "language": {
+                            'loadingRecords': "<span class='fa-stack fa-lg'>\n\
+                            <i class='fa fa-spinner fa-spin fa-stack-2x fa-fw'></i>\n\
+                            </span>&emsp;Loading Details ...",
+                                },
+                
+                "paging":true,   
+                           
+                "ajax":{
+                   url: "{% url  'Admin:AllLiveChatReport' %}",
+                   data:{
+                        "from":fromdate,
+                        "to":todate,
+                        "repId":salesrep,
+                        "attend":attend
+                    },
+                  dataSrc:function(data){
+                    var items = [];
+                    for ( var i=0, ien=data.length ; i<ien ; i++ ) {
+
+                        items[i] =["<span style='cursor:pointer' class='color-green text-decoration-underline' onclick='viewTicket("+data[i][0]+")'>View Ticket</span>","<span style='cursor:pointer' class='color-green text-decoration-underline' onclick='viewChat("+data[i][0]+")' >View Chat</span>",data[i][0],data[i][1],data[i][2],data[i][3],data[i][4],data[i][5]]; 
+
+                        
+                        }
+
+                        return items;
+                  }
+                },
+                responsive: true,
+                    paging: true,
+                    lengthChange: false ,
+                    ordering: true,
+                    info:true,
+                    fixedHeader: true,
+                    
+                })
+
+            }
+          
         </script>
         <script src="{%static 'libs/flatpickr/flatpickr.min.js' %}"></script>
         <script src="{% static 'libs/datatables.net/js/jquery.dataTables.min.js' %}"></script>
@@ -292,6 +355,7 @@
       
     
         <!-- Datatable init js -->
+        <script src="{%static 'libs/apexcharts/apexcharts.min.js' %}"></script>
         <script src="{% static 'js/pages/livechat.init.js' %}"></script> 
         <script src="{% static 'js/app.js' %}"></script>
     
