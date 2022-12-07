@@ -278,6 +278,60 @@
                                 </div>
                                 <!-- end card -->
                             </div>
+                            <div class="col-xl-6 col-lg-6">
+                                <!-- card -->
+                                <div class="card card-h-100">
+                                    <!-- card body -->
+                                    <div class="card-body">
+                                        <div class="d-flex flex-wrap align-items-center mb-4">
+                                            <h5 class="card-title me-2 almarenamonolight-type fs-21">Ticket Due</h5>
+        
+                                        </div>
+                                        <div class="row align-items-center">
+        
+                                            <div class="col-xl-6  mb-2  mb-xl-0 flex-shrink-0 ">
+                                                <a href="{% url 'Admin:AccountsFilter' %}?&change=TempApproved">
+                                                <div class="border-0 rounded-3  p-2 font-size-20  text-center " style="background-color:rgba(28, 29, 52, 1) ;">
+                                                    
+                                                        <h1 class="m-0 gilory-medium-type fs-25 mb-2 m-0">{{approved}}</h1>
+                                                        <p class="m-0 color-color1 fs-15">This week</p>
+                                                </div>
+                                            </a>                           
+                                                
+                                                    
+                                                
+        
+        
+        
+                                            </div>
+                                            <div class="col-xl-6  flex-shrink-0 ">
+                                                <a href="{% url 'Admin:AccountsFilter' %}?&change=WaitingApproval">
+                                                <div class="border-0 rounded-3  p-2 font-size-20  text-center " style="background-color:rgba(28, 29, 52, 1) ;">
+                                                        <h1 class="m-0 gilory-medium-type fs-25 mb-2 m-0">{{waiting}}</h1>
+                                                        <p class="m-0 color-color1 fs-15">This Month</p>
+                                                </div>
+                                                 </a>
+                                        
+                                                
+                                                    
+                                                
+        
+        
+        
+                                            </div>
+                                        
+                                        
+                                        
+        
+        
+        
+                                        </div><!-- end card body -->
+                                    </div><!-- end card -->
+                                </div><!-- end col -->
+        
+        
+        
+                            </div>
                         </div>
                     </div>
 

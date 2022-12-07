@@ -1478,13 +1478,17 @@ def upload_csv_file(request):
         for line in lines:						
             fields = line.split(",")
             data_dict = {}
-            data_dict["name"] = fields[0]
-            data_dict["start_date_time"] = fields[1]
-            data_dict["end_date_time"] = fields[2]
-            data_dict["notes"] = fields[3]
+            data_dict["name"]=fields[0]
+            data_dict["email"]=fields[1]
+            data_dict["phone"]=fields[2]
+            data_dict["country"]=fields[3]
+            data_dict["source"]=fields[4]
+            data_dict["status"]=fields[5]
+            
+
         return JsonResponse({"message":message})	
     else:
-        return redirect('/login')
+        return redirect('/login')   
 
 
 

@@ -181,7 +181,7 @@
                                         </div>
 
                                         <div class="d-flex w-100 justify-content-between">
-                                            <a href="{% url 'Admin:AccountsFilter' %}?&change=NonFunded"> <p class=" gilory-semibold-type color-color1 fs-16 m-0 text-red me-2 text-xl-center ">Today <span class="badge  rounded-pill  p-2 fs-11 ms-2" style="background-color:rgba(238, 110, 110, 0.2) ;">{%if nonfunded_today < 9 %} 0{{nonfunded_today}}{%else%}{{nonfunded_today}}{%endif%}</span></p></a>
+                                            <!-- <a href="{% url 'Admin:AccountsFilter' %}?&change=NonFunded"> <p class=" gilory-semibold-type color-color1 fs-16 m-0 text-red me-2 text-xl-center ">Today <span class="badge  rounded-pill  p-2 fs-11 ms-2" style="background-color:rgba(238, 110, 110, 0.2) ;">{%if nonfunded_today < 9 %} 0{{nonfunded_today}}{%else%}{{nonfunded_today}}{%endif%}</span></p></a> -->
                                             <a href="{% url 'Admin:WeeklyFilter' %}?&change=NonFunded"><p class=" gilory-semibold-type color-color1 fs-16 m-0 text-green text-xl-center">This week  <span class="badge  rounded-pill  p-2 fs-11 ms-2" style="background-color:rgba(38, 171, 95, 0.2) ;">{%if nonfunded_week < 9 %} 0{{nonfunded_week}}{%else%}{{nonfunded_week}}{%endif%}</span></p></a>
                                             
 

@@ -681,7 +681,26 @@
 
       }
       function uploadCSV(){
-        
+        $.ajax({
+                    
+                    type : "GET", 
+                    url: "{% url 'Admin:csvUpload' %}",
+                    async: false,
+                    cache: false,
+                    contentType: false,
+                    enctype: 'multipart/form-data',
+                    processData: false,
+                    
+                    success: function(data){
+                        var message=data.message
+                        console.log("Message====",message)
+                        $("#userMsg").empty()
+                        $("#userMsg").append(message)
+                        $("#alertpopup").modal('show')
+
+                    }
+                })
+
       }
    
 

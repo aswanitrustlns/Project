@@ -45,6 +45,7 @@ urlpatterns=[
     path('MailSearch',mail_search,name="MailSearch"),
     path('PhoneSearch',phone_search,name="PhoneSearch"),
     path('AssessmentUpdate',update_meetingassessment,name="AssessmentUpdate"),
+    path('csvUpload',upload_csv_file,name="csvUpload"),
     # path('TicketStatus',ticket_status,name="TicketStatus"),
     # path('AccountStatus',account_status,name="AccountStatus"),
     path('TemplateEmail',send_email_templates,name="TemplateEmail"),
