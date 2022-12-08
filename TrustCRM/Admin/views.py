@@ -1489,6 +1489,7 @@ def upload_csv_file(request):
         return JsonResponse({"message":message})	
     else:
         return redirect('/login')   
+#Existing user details======
 
 
 

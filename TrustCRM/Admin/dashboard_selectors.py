@@ -2,6 +2,7 @@ from django.db import connection
 from datetime import datetime, timedelta
 from .models import TblActionreasons,TblClients,TblEwalletTransaction
 from django.db.models import Q
+import calendar
 import json
 
 
@@ -24,10 +25,27 @@ class DashboardSelector:
             print("procedure-start2",datetime.now().time())
             Cursor.execute("set nocount on;exec SP_SalesTicketCountByRepWeekly %s,%s",['D',userId])
             ticket_count_daily=Cursor.fetchone()
+            date_today=datetime.today().date()
+            week_day=datetime.today().weekday() # Monday is 0 and Sunday is 6
+            date_today=date_today.strftime("%Y-%m-%d")
+            if(week_day==0):
+                date_yesterday = datetime.today()-timedelta(3)
+                
+            else:
+                date_yesterday = datetime.today()-timedelta(week_day)
+            date_yesterday=date_yesterday.strftime("%Y-%m-%d")
+            print("Yesterday and today======",date_yesterday,date_today)    
             currentMonth = datetime.now().month
             currentYear = datetime.now().year
-            # due_week=TblActionreasons.objects.filter(duedate__)
-            
+            start_date=calendar.monthrange(currentYear,currentMonth)
+            lastdate=calendar.monthrange(currentYear,currentMonth)[1]
+            print("Start date=====",lastdate)
+            month_start_date=str(currentYear)+"-"+str(currentMonth)+"-01"
+            month_last_date=str(currentYear)+"-"+str(currentMonth)+"-"+str(lastdate)
+            print("Month last date===="+month_last_date+"=====first"+month_start_date)
+            due_week=TblActionreasons.objects.filter(duedate__date__range=(datetime.strptime(date_yesterday,'%Y-%m-%d'),datetime.strptime(date_today,'%Y-%m-%d')),userid=userId).count()
+            due_month=TblActionreasons.objects.filter(duedate__date__gt=datetime.strptime(month_start_date,'%Y-%m-%d'),duedate__date__lt=datetime.strptime(month_last_date,'%Y-%m-%d'),userid=userId).count()
+            print("Due week count=====",due_week,due_month)
             # if all([(x[1]==0 and x[2]==0 and x[3]==0)for x in ticket_count_daily]):
             #     ticket_count_daily=[]
             print("procedure-start3",datetime.now().time())
@@ -142,7 +160,8 @@ class DashboardSelector:
             print("procedure-end",datetime.now().time())
             sales_data={'weekly_summary':weekly_summary_bar,'ticket_count_daily':json.dumps(ticket_count_daily),'ticket_count_weekly':json.dumps(ticket_count_weekly),
             'journel':journel_data,'weekly_lead_bar':weekly_lead_bar,'meeting_today':meeting_today,'active_campaigns':active_campaigns,'campaign_count':active_campaigns_count,
-            'live_chat':live_chat,'weekly_webinar':weekly_webinar,'reminders':reminders,'reminder_count':reminder_count,'reminder_count_show':reminder_count_show,'meeting_count':meeting_count}
+            'live_chat':live_chat,'weekly_webinar':weekly_webinar,'reminders':reminders,'reminder_count':reminder_count,'reminder_count_show':reminder_count_show,
+            'meeting_count':meeting_count,'due_week':due_week,'due_month':due_month}
             print("redirect start",datetime.now().time())
         except Exception as e:
             print("Exception----",e)
@@ -421,8 +440,9 @@ class DashboardSelector:
 
             date_yesterday_for_today=date_yesterday_for_today.strftime("%Y-%m-%d")
             date_yesterday_for_week=date_yesterday_for_week.strftime("%Y-%m-%d")
-            tday_date=datetime.strptime("2022-09-02",'%Y-%m-%d')
-            print("Tday==============================",tday_date)
+            one_week=datetime.today()-timedelta(days=7)
+            one_week=one_week.strftime("%Y-%m-%d")
+            
             print("week datya",date_today,date_yesterday_for_week)
             new_clients_today=list(TblClients.objects.filter(Q(livestatus="Live")|Q(livestatus="ReadOnly"),converteddate__date__range=((datetime.strptime(date_yesterday_for_today,'%Y-%m-%d'),datetime.strptime(date_today,'%Y-%m-%d')))).values_list('login',flat=True))
             funded_today=TblEwalletTransaction.objects.using('svg').filter(trans_type=1,trans_status=1,accnt_no__in=new_clients_today).count()
@@ -431,13 +451,16 @@ class DashboardSelector:
             new_clients_week=list(TblClients.objects.filter(Q(livestatus="Live")|Q(livestatus="ReadOnly"),converteddate__date__range=((datetime.strptime(date_yesterday_for_week,'%Y-%m-%d'),datetime.strptime(date_today,'%Y-%m-%d')))).values_list('login',flat=True))
             funded_week=TblEwalletTransaction.objects.using('svg').filter(trans_type=1,trans_status=1,accnt_no__in=new_clients_week).count()
             nonfunded_week=TblEwalletTransaction.objects.using('svg').filter(trans_type=0,accnt_no__in=new_clients_week).exclude(trans_status=0).count()
-            print("New Funded Non Funded Week",funded_week,nonfunded_week)
-            existing_clients_today=list(TblClients.objects.filter(Q(livestatus="Live")|Q(livestatus="ReadOnly"),converteddate__date__range=((datetime.strptime(date_yesterday_for_today,'%Y-%m-%d'),datetime.strptime(date_today,'%Y-%m-%d')))).values_list('login',flat=True))
-            existing_funded_today=TblEwalletTransaction.objects.using('svg').filter(trans_type=1,trans_status=1,accnt_no__in=new_clients_today).count()
+            print("New Funded Non Funded Week",funded_today,nonfunded_today,funded_week,nonfunded_week)
+            existing_clients_today=list(TblClients.objects.filter(Q(livestatus="Live")|Q(livestatus="ReadOnly"),converteddate__date__lt=datetime.strptime(one_week,'%Y-%m-%d')).values_list('login',flat=True))
+            existing_funded_today=TblEwalletTransaction.objects.using('svg').filter(trans_type=1,trans_status=1,trans_date__date__range=(datetime.strptime(date_yesterday_for_today,'%Y-%m-%d'),datetime.strptime(date_today,'%Y-%m-%d')),accnt_no__in=new_clients_today).count()
             existing_nonfunded_today=TblEwalletTransaction.objects.using('svg').filter(trans_type=0,accnt_no__in=new_clients_today).exclude(trans_status=0).count()
-            existing_clients_week=list(TblClients.objects.filter(Q(livestatus="Live")|Q(livestatus="ReadOnly"),converteddate__date__range=((datetime.strptime(date_yesterday_for_today,'%Y-%m-%d'),datetime.strptime(date_today,'%Y-%m-%d')))).values_list('login',flat=True))
-            existing_funded_week=TblEwalletTransaction.objects.using('svg').filter(trans_type=1,trans_status=1,accnt_no__in=new_clients_today).count()
+            print("Existing Funded Non Funded Today",funded_today,nonfunded_today,funded_week,nonfunded_week,existing_funded_today,existing_nonfunded_today)
+            existing_clients_week=list(TblClients.objects.filter(Q(livestatus="Live")|Q(livestatus="ReadOnly"),converteddate__date__lt=datetime.strptime(one_week,'%Y-%m-%d')).values_list('login',flat=True))
+            existing_funded_week=TblEwalletTransaction.objects.using('svg').filter(trans_type=1,trans_status=1,trans_date__date__range=(datetime.strptime(date_yesterday_for_week,'%Y-%m-%d'),datetime.strptime(date_today,'%Y-%m-%d')),accnt_no__in=new_clients_today).count()
+            print("Existing Funded Non Funded Week",funded_today,nonfunded_today,funded_week,nonfunded_week,existing_funded_today,existing_nonfunded_today,existing_funded_week)
             # existing_nonfunded_today=TblEwalletTransaction.objects.using('svg').filter(trans_type=0,accnt_no__in=new_clients_today).exclude(trans_status=0).count()
+
             Cursor=connection.cursor()
             Cursor.execute("set nocount on;exec SP_GetNewAccountsCount %s,%s",[date_yesterday_for_week,date_today])
             live_count=Cursor.fetchone()
@@ -613,6 +636,7 @@ class DashboardSelector:
                            'approved':pending_approved,'waiting':pending_waiting,'summary':monthly_summary,'ticket_summary':ticket_summary_bar,'remindercount':reminder_count,'reminder_count_show':reminder_count_show,'campaign_count':active_campaigns_count,
                            'leads_graph':status_bar,'meeting_daily_pie': meeting_daily_pie,'meeting_weekly_pie':meeting_weekly_pie,'seminar_weekly_pie': seminar_weekly_pie,'seminar_daily_pie':seminar_daily_pie,'halfyearly_bar':halfyearly_bar,'dues':due_tickets,
                            'new_fund_today':funded_today,'new_nonfund_today':nonfunded_today,'new_fund_week':funded_week,'new_nonfund_week':nonfunded_week,'ext_fund_today':existing_funded_today,'ext_nonfund_today':existing_nonfunded_today,'ext_fund_week':existing_funded_week
+                           
                            }    
         except Exception as e:
             print("!!!!!!!!!!!!!!!!!!!!!!Exception!!!!!!!!!!!!!!!!!!!!!!!!!!",e.__class__)   
