@@ -18,6 +18,7 @@ class TblActionreasons(models.Model):
         db_table = 'tbl_ActionReasons'
 
 class TblEwalletTransaction(models.Model):
+    id=models.IntegerField(primary_key=True)
     accnt_no = models.IntegerField()
     amount = models.FloatField()
     trans_type = models.IntegerField()
@@ -32,12 +33,102 @@ class TblEwalletTransaction(models.Model):
     class Meta:
         managed = False
         db_table = 'tbl_eWallet_Transaction'  
+
+class TblCountry(models.Model):
+    id = models.AutoField(db_column='ID', primary_key=True)  # Field name made lowercase.
+    country = models.CharField(db_column='Country', max_length=250, db_collation='SQL_Latin1_General_CP1_CI_AS')  # Field name made lowercase.
+    code = models.CharField(db_column='Code', max_length=100, db_collation='SQL_Latin1_General_CP1_CI_AS', blank=True, null=True)  # Field name made lowercase.
+    ccode = models.CharField(db_column='CCode', max_length=100, db_collation='SQL_Latin1_General_CP1_CI_AS', blank=True, null=True)  # Field name made lowercase.
+
+    class Meta:
+        managed = False
+        db_table = 'tbl_Country'
+
+class TblUser(models.Model):
+    userid = models.AutoField(db_column='UserID', primary_key=True)  # Field name made lowercase.
+    userlogin = models.CharField(db_column='UserLogin', max_length=100, db_collation='SQL_Latin1_General_CP1_CI_AS', blank=True, null=True)  # Field name made lowercase.
+    password = models.CharField(db_column='Password', max_length=100, db_collation='SQL_Latin1_General_CP1_CI_AS', blank=True, null=True)  # Field name made lowercase.
+    email = models.CharField(db_column='Email', max_length=100, db_collation='SQL_Latin1_General_CP1_CI_AS', blank=True, null=True)  # Field name made lowercase.
+    status = models.BooleanField(db_column='Status', blank=True, null=True)  # Field name made lowercase.
+    username = models.CharField(db_column='UserName', max_length=100, db_collation='SQL_Latin1_General_CP1_CI_AS', blank=True, null=True)  # Field name made lowercase.
+    designationid = models.IntegerField(db_column='DesignationId', blank=True, null=True)  # Field name made lowercase.
+    isonline = models.IntegerField(db_column='IsOnline')  # Field name made lowercase.
+
+    class Meta:
+        managed = False
+        db_table = 'tbl_User'
+
+class TblSaleslead(models.Model):
+    ticket_no = models.CharField(db_column='Ticket_No', primary_key=True, max_length=50, db_collation='SQL_Latin1_General_CP1_CI_AS')  # Field name made lowercase.
+    name = models.TextField(db_column='Name', db_collation='SQL_Latin1_General_CP1_CI_AS')  # Field name made lowercase.
+    phone1 = models.TextField(db_column='Phone1', db_collation='SQL_Latin1_General_CP1_CI_AS', blank=True, null=True)  # Field name made lowercase.
+    phone2 = models.TextField(db_column='Phone2', db_collation='SQL_Latin1_General_CP1_CI_AS', blank=True, null=True)  # Field name made lowercase.
+    email1 = models.TextField(db_column='Email1', db_collation='SQL_Latin1_General_CP1_CI_AS', blank=True, null=True)  # Field name made lowercase.
+    email2 = models.TextField(db_column='Email2', db_collation='SQL_Latin1_General_CP1_CI_AS', blank=True, null=True)  # Field name made lowercase.
+    address = models.TextField(db_column='Address', db_collation='SQL_Latin1_General_CP1_CI_AS', blank=True, null=True)  # Field name made lowercase.
+    city = models.TextField(db_column='City', db_collation='SQL_Latin1_General_CP1_CI_AS', blank=True, null=True)  # Field name made lowercase.
+    zipcode = models.DecimalField(max_digits=18, decimal_places=0, blank=True, null=True)
+    source = models.TextField(db_column='Source', db_collation='SQL_Latin1_General_CP1_CI_AS', blank=True, null=True)  # Field name made lowercase.
+    ext = models.CharField(db_column='Ext', max_length=250, db_collation='SQL_Latin1_General_CP1_CI_AS', blank=True, null=True)  # Field name made lowercase.
+    fax = models.TextField(db_column='Fax', db_collation='SQL_Latin1_General_CP1_CI_AS', blank=True, null=True)  # Field name made lowercase.
+    salesrepid = models.ForeignKey(TblUser,max_length=50,on_delete=models.CASCADE,db_column='SalesRepID', blank=True, null=True)  # Field name made lowercase.
+    status = models.CharField(db_column='Status', max_length=50, db_collation='SQL_Latin1_General_CP1_CI_AS', blank=True, null=True)  # Field name made lowercase.
+    regdate = models.DateTimeField(db_column='RegDate', blank=True, null=True)  # Field name made lowercase.
+    updateddate = models.DateTimeField(db_column='UpdatedDate', blank=True, null=True)  # Field name made lowercase.
+    potential = models.IntegerField(db_column='Potential', blank=True, null=True)  # Field name made lowercase.
+    transferredfrom = models.IntegerField(db_column='TransferredFrom', blank=True, null=True)  # Field name made lowercase.
+    reassignedid = models.IntegerField(db_column='ReassignedID', blank=True, null=True)  # Field name made lowercase.
+    title = models.CharField(db_column='Title', max_length=20, db_collation='SQL_Latin1_General_CP1_CI_AS', blank=True, null=True)  # Field name made lowercase.
+    occupation = models.CharField(db_column='Occupation', max_length=100, db_collation='SQL_Latin1_General_CP1_CI_AS', blank=True, null=True)  # Field name made lowercase.
+    country = models.CharField(db_column='Country', max_length=50, db_collation='SQL_Latin1_General_CP1_CI_AS', blank=True, null=True)  # Field name made lowercase.
+    state = models.CharField(db_column='State', max_length=500, db_collation='SQL_Latin1_General_CP1_CI_AS', blank=True, null=True)  # Field name made lowercase.
+    country2 = models.CharField(db_column='Country2', max_length=50, db_collation='SQL_Latin1_General_CP1_CI_AS', blank=True, null=True)  # Field name made lowercase.
+    resolvedcount = models.IntegerField(db_column='ResolvedCount')  # Field name made lowercase.
+    hyperlinks = models.CharField(db_column='Hyperlinks', max_length=500, db_collation='SQL_Latin1_General_CP1_CI_AS', blank=True, null=True)  # Field name made lowercase.
+    experience = models.IntegerField(db_column='Experience')  # Field name made lowercase.
+    hear_from = models.CharField(db_column='Hear_From', max_length=100, db_collation='SQL_Latin1_General_CP1_CI_AS', blank=True, null=True)  # Field name made lowercase.
+    reassignedperc = models.IntegerField(db_column='ReassignedPerc')  # Field name made lowercase.
+    age = models.IntegerField(db_column='Age', blank=True, null=True)  # Field name made lowercase.
+    notes = models.TextField(db_column='Notes', db_collation='SQL_Latin1_General_CP1_CI_AS', blank=True, null=True)  # Field name made lowercase.
+    comments = models.TextField(db_column='Comments', db_collation='SQL_Latin1_General_CP1_CI_AS', blank=True, null=True)  # Field name made lowercase.
+    appform = models.IntegerField(db_column='AppForm', blank=True, null=True)  # Field name made lowercase.
+    language = models.IntegerField(db_column='Language', blank=True, null=True)  # Field name made lowercase.
+    clientarealogin = models.CharField(max_length=50, db_collation='SQL_Latin1_General_CP1_CI_AS', blank=True, null=True)
+    resolvecomments = models.TextField(db_column='ResolveComments', db_collation='SQL_Latin1_General_CP1_CI_AS', blank=True, null=True)  # Field name made lowercase.
+    resolvedby = models.CharField(db_column='ResolvedBy', max_length=50, db_collation='SQL_Latin1_General_CP1_CI_AS', blank=True, null=True)  # Field name made lowercase.
+    accountno = models.IntegerField(blank=True, null=True)
+    meeting_counter = models.IntegerField(db_column='Meeting_Counter', blank=True, null=True)  # Field name made lowercase.
+    prior_act = models.IntegerField(db_column='Prior_Act', blank=True, null=True)  # Field name made lowercase.
+    scoring = models.FloatField(db_column='Scoring', blank=True, null=True)  # Field name made lowercase.
+    category = models.CharField(db_column='Category', max_length=50, db_collation='SQL_Latin1_General_CP1_CI_AS', blank=True, null=True)  # Field name made lowercase.
+    dob = models.CharField(max_length=50, db_collation='SQL_Latin1_General_CP1_CI_AS', blank=True, null=True)
+    subject = models.TextField(db_column='Subject', db_collation='SQL_Latin1_General_CP1_CI_AS', blank=True, null=True)  # Field name made lowercase.
+    converteddate = models.DateField(db_column='ConvertedDate', blank=True, null=True)  # Field name made lowercase.
+    id = models.CharField(max_length=50, db_collation='SQL_Latin1_General_CP1_CI_AS', blank=True, null=True)
+    nationality = models.CharField(max_length=50, db_collation='SQL_Latin1_General_CP1_CI_AS', blank=True, null=True)
+    annualincome = models.CharField(max_length=50, db_collation='SQL_Latin1_General_CP1_CI_AS', blank=True, null=True)
+    networth = models.CharField(max_length=50, db_collation='SQL_Latin1_General_CP1_CI_AS', blank=True, null=True)
+    seminars = models.TextField(db_collation='SQL_Latin1_General_CP1_CI_AS', blank=True, null=True)
+    attending = models.TextField(db_collation='SQL_Latin1_General_CP1_CI_AS', blank=True, null=True)
+    noemail = models.IntegerField(blank=True, null=True)
+    sms = models.TextField(db_collation='SQL_Latin1_General_CP1_CI_AS', blank=True, null=True)
+    maybe = models.TextField(db_collation='SQL_Latin1_General_CP1_CI_AS', blank=True, null=True)
+    inquirycomments = models.TextField(db_column='InquiryComments', db_collation='SQL_Latin1_General_CP1_CI_AS', blank=True, null=True)  # Field name made lowercase.
+    salesrep = models.CharField(max_length=50, db_collation='SQL_Latin1_General_CP1_CI_AS', blank=True, null=True)
+    reassignedrep = models.CharField(max_length=50, db_collation='SQL_Latin1_General_CP1_CI_AS', blank=True, null=True)
+    ip = models.CharField(db_column='IP', max_length=100, db_collation='SQL_Latin1_General_CP1_CI_AS', blank=True, null=True)  # Field name made lowercase.
+    ibid = models.IntegerField(db_column='IBID', blank=True, null=True)  # Field name made lowercase.
+    training = models.CharField(db_column='Training', max_length=10, db_collation='SQL_Latin1_General_CP1_CI_AS', blank=True, null=True)  # Field name made lowercase.
+
+    class Meta:
+        managed = False
+        db_table = 'tbl_SalesLead'
 class TblClients(models.Model):
     login = models.IntegerField(db_column='Login', primary_key=True)  # Field name made lowercase.
-    ticket = models.CharField(db_column='Ticket', max_length=200, db_collation='SQL_Latin1_General_CP1_CI_AS', blank=True, null=True)  # Field name made lowercase.
+    ticket = models.ForeignKey(TblSaleslead,db_column='Ticket', max_length=200,blank=True, null=True,on_delete=models.CASCADE)  # Field name made lowercase.
     name = models.TextField(db_column='Name', db_collation='SQL_Latin1_General_CP1_CI_AS')  # Field name made lowercase.
     groups = models.CharField(db_column='Groups', max_length=100, db_collation='SQL_Latin1_General_CP1_CI_AS', blank=True, null=True)  # Field name made lowercase.
-    country = models.IntegerField(db_column='Country', blank=True, null=True)  # Field name made lowercase.
+    country = models.ForeignKey(TblCountry,db_column='Country', blank=True, null=True,on_delete=models.CASCADE)  # Field name made lowercase.
     city = models.CharField(db_column='City', max_length=200, db_collation='SQL_Latin1_General_CP1_CI_AS', blank=True, null=True)  # Field name made lowercase.
     zip = models.IntegerField(db_column='Zip', blank=True, null=True)  # Field name made lowercase.
     address = models.TextField(db_column='Address', db_collation='SQL_Latin1_General_CP1_CI_AS', blank=True, null=True)  # Field name made lowercase.
@@ -128,19 +219,7 @@ class TblClients(models.Model):
         managed = False
         db_table = 'tbl_Clients'
     
-class TblUser(models.Model):
-    userid = models.AutoField(db_column='UserID', primary_key=True)  # Field name made lowercase.
-    userlogin = models.CharField(db_column='UserLogin', max_length=100, db_collation='SQL_Latin1_General_CP1_CI_AS', blank=True, null=True)  # Field name made lowercase.
-    password = models.CharField(db_column='Password', max_length=100, db_collation='SQL_Latin1_General_CP1_CI_AS', blank=True, null=True)  # Field name made lowercase.
-    email = models.CharField(db_column='Email', max_length=100, db_collation='SQL_Latin1_General_CP1_CI_AS', blank=True, null=True)  # Field name made lowercase.
-    status = models.BooleanField(db_column='Status', blank=True, null=True)  # Field name made lowercase.
-    username = models.CharField(db_column='UserName', max_length=100, db_collation='SQL_Latin1_General_CP1_CI_AS', blank=True, null=True)  # Field name made lowercase.
-    designationid = models.IntegerField(db_column='DesignationId', blank=True, null=True)  # Field name made lowercase.
-    isonline = models.IntegerField(db_column='IsOnline')  # Field name made lowercase.
 
-    class Meta:
-        managed = False
-        db_table = 'tbl_User'
         
 
 class TblTicketlogs(models.Model):
@@ -158,68 +237,4 @@ class TblTicketlogs(models.Model):
         db_table = 'tbl_TicketLogs'
 
 
-class TblSaleslead(models.Model):
-    ticket_no = models.CharField(db_column='Ticket_No', primary_key=True, max_length=50, db_collation='SQL_Latin1_General_CP1_CI_AS')  # Field name made lowercase.
-    name = models.TextField(db_column='Name', db_collation='SQL_Latin1_General_CP1_CI_AS')  # Field name made lowercase.
-    phone1 = models.TextField(db_column='Phone1', db_collation='SQL_Latin1_General_CP1_CI_AS', blank=True, null=True)  # Field name made lowercase.
-    phone2 = models.TextField(db_column='Phone2', db_collation='SQL_Latin1_General_CP1_CI_AS', blank=True, null=True)  # Field name made lowercase.
-    email1 = models.TextField(db_column='Email1', db_collation='SQL_Latin1_General_CP1_CI_AS', blank=True, null=True)  # Field name made lowercase.
-    email2 = models.TextField(db_column='Email2', db_collation='SQL_Latin1_General_CP1_CI_AS', blank=True, null=True)  # Field name made lowercase.
-    address = models.TextField(db_column='Address', db_collation='SQL_Latin1_General_CP1_CI_AS', blank=True, null=True)  # Field name made lowercase.
-    city = models.TextField(db_column='City', db_collation='SQL_Latin1_General_CP1_CI_AS', blank=True, null=True)  # Field name made lowercase.
-    zipcode = models.DecimalField(max_digits=18, decimal_places=0, blank=True, null=True)
-    source = models.TextField(db_column='Source', db_collation='SQL_Latin1_General_CP1_CI_AS', blank=True, null=True)  # Field name made lowercase.
-    ext = models.CharField(db_column='Ext', max_length=250, db_collation='SQL_Latin1_General_CP1_CI_AS', blank=True, null=True)  # Field name made lowercase.
-    fax = models.TextField(db_column='Fax', db_collation='SQL_Latin1_General_CP1_CI_AS', blank=True, null=True)  # Field name made lowercase.
-    salesrepid = models.IntegerField(db_column='SalesRepID', blank=True, null=True)  # Field name made lowercase.
-    status = models.CharField(db_column='Status', max_length=50, db_collation='SQL_Latin1_General_CP1_CI_AS', blank=True, null=True)  # Field name made lowercase.
-    regdate = models.DateTimeField(db_column='RegDate', blank=True, null=True)  # Field name made lowercase.
-    updateddate = models.DateTimeField(db_column='UpdatedDate', blank=True, null=True)  # Field name made lowercase.
-    potential = models.IntegerField(db_column='Potential', blank=True, null=True)  # Field name made lowercase.
-    transferredfrom = models.IntegerField(db_column='TransferredFrom', blank=True, null=True)  # Field name made lowercase.
-    reassignedid = models.IntegerField(db_column='ReassignedID', blank=True, null=True)  # Field name made lowercase.
-    title = models.CharField(db_column='Title', max_length=20, db_collation='SQL_Latin1_General_CP1_CI_AS', blank=True, null=True)  # Field name made lowercase.
-    occupation = models.CharField(db_column='Occupation', max_length=100, db_collation='SQL_Latin1_General_CP1_CI_AS', blank=True, null=True)  # Field name made lowercase.
-    country = models.CharField(db_column='Country', max_length=50, db_collation='SQL_Latin1_General_CP1_CI_AS', blank=True, null=True)  # Field name made lowercase.
-    state = models.CharField(db_column='State', max_length=500, db_collation='SQL_Latin1_General_CP1_CI_AS', blank=True, null=True)  # Field name made lowercase.
-    country2 = models.CharField(db_column='Country2', max_length=50, db_collation='SQL_Latin1_General_CP1_CI_AS', blank=True, null=True)  # Field name made lowercase.
-    resolvedcount = models.IntegerField(db_column='ResolvedCount')  # Field name made lowercase.
-    hyperlinks = models.CharField(db_column='Hyperlinks', max_length=500, db_collation='SQL_Latin1_General_CP1_CI_AS', blank=True, null=True)  # Field name made lowercase.
-    experience = models.IntegerField(db_column='Experience')  # Field name made lowercase.
-    hear_from = models.CharField(db_column='Hear_From', max_length=100, db_collation='SQL_Latin1_General_CP1_CI_AS', blank=True, null=True)  # Field name made lowercase.
-    reassignedperc = models.IntegerField(db_column='ReassignedPerc')  # Field name made lowercase.
-    age = models.IntegerField(db_column='Age', blank=True, null=True)  # Field name made lowercase.
-    notes = models.TextField(db_column='Notes', db_collation='SQL_Latin1_General_CP1_CI_AS', blank=True, null=True)  # Field name made lowercase.
-    comments = models.TextField(db_column='Comments', db_collation='SQL_Latin1_General_CP1_CI_AS', blank=True, null=True)  # Field name made lowercase.
-    appform = models.IntegerField(db_column='AppForm', blank=True, null=True)  # Field name made lowercase.
-    language = models.IntegerField(db_column='Language', blank=True, null=True)  # Field name made lowercase.
-    clientarealogin = models.CharField(max_length=50, db_collation='SQL_Latin1_General_CP1_CI_AS', blank=True, null=True)
-    resolvecomments = models.TextField(db_column='ResolveComments', db_collation='SQL_Latin1_General_CP1_CI_AS', blank=True, null=True)  # Field name made lowercase.
-    resolvedby = models.CharField(db_column='ResolvedBy', max_length=50, db_collation='SQL_Latin1_General_CP1_CI_AS', blank=True, null=True)  # Field name made lowercase.
-    accountno = models.IntegerField(blank=True, null=True)
-    meeting_counter = models.IntegerField(db_column='Meeting_Counter', blank=True, null=True)  # Field name made lowercase.
-    prior_act = models.IntegerField(db_column='Prior_Act', blank=True, null=True)  # Field name made lowercase.
-    scoring = models.FloatField(db_column='Scoring', blank=True, null=True)  # Field name made lowercase.
-    category = models.CharField(db_column='Category', max_length=50, db_collation='SQL_Latin1_General_CP1_CI_AS', blank=True, null=True)  # Field name made lowercase.
-    dob = models.CharField(max_length=50, db_collation='SQL_Latin1_General_CP1_CI_AS', blank=True, null=True)
-    subject = models.TextField(db_column='Subject', db_collation='SQL_Latin1_General_CP1_CI_AS', blank=True, null=True)  # Field name made lowercase.
-    converteddate = models.DateField(db_column='ConvertedDate', blank=True, null=True)  # Field name made lowercase.
-    id = models.CharField(max_length=50, db_collation='SQL_Latin1_General_CP1_CI_AS', blank=True, null=True)
-    nationality = models.CharField(max_length=50, db_collation='SQL_Latin1_General_CP1_CI_AS', blank=True, null=True)
-    annualincome = models.CharField(max_length=50, db_collation='SQL_Latin1_General_CP1_CI_AS', blank=True, null=True)
-    networth = models.CharField(max_length=50, db_collation='SQL_Latin1_General_CP1_CI_AS', blank=True, null=True)
-    seminars = models.TextField(db_collation='SQL_Latin1_General_CP1_CI_AS', blank=True, null=True)
-    attending = models.TextField(db_collation='SQL_Latin1_General_CP1_CI_AS', blank=True, null=True)
-    noemail = models.IntegerField(blank=True, null=True)
-    sms = models.TextField(db_collation='SQL_Latin1_General_CP1_CI_AS', blank=True, null=True)
-    maybe = models.TextField(db_collation='SQL_Latin1_General_CP1_CI_AS', blank=True, null=True)
-    inquirycomments = models.TextField(db_column='InquiryComments', db_collation='SQL_Latin1_General_CP1_CI_AS', blank=True, null=True)  # Field name made lowercase.
-    salesrep = models.CharField(max_length=50, db_collation='SQL_Latin1_General_CP1_CI_AS', blank=True, null=True)
-    reassignedrep = models.CharField(max_length=50, db_collation='SQL_Latin1_General_CP1_CI_AS', blank=True, null=True)
-    ip = models.CharField(db_column='IP', max_length=100, db_collation='SQL_Latin1_General_CP1_CI_AS', blank=True, null=True)  # Field name made lowercase.
-    ibid = models.IntegerField(db_column='IBID', blank=True, null=True)  # Field name made lowercase.
-    training = models.CharField(db_column='Training', max_length=10, db_collation='SQL_Latin1_General_CP1_CI_AS', blank=True, null=True)  # Field name made lowercase.
 
-    class Meta:
-        managed = False
-        db_table = 'tbl_SalesLead'

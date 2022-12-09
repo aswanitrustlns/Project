@@ -22,7 +22,7 @@ $(document).ready(function () {
     if(tabactive=="pending"){
         $("#live").hide()
         $("#pending").show()
-        switchtab(this,'#accounts_table','#rejected_table','#terminated_table','#closed_table')
+        switchtab(this,'#accounts_table','#rejected_table','#closed_table')
         $("#Lives").removeClass('bg-soft-purple')
         $("#Lives").removeClass('text-white')
         $("#Lives").removeClass('color-color1')
@@ -34,6 +34,17 @@ $(document).ready(function () {
     if(tabactive=="Live"){
         $("#live").show()
         $("#pending").hide()
+    }
+    if(tabactive=="Exist"){
+        $("#live").hide()
+        $("#pending").hide()
+        switchtab(this,'#accounts_table','#rejected_table','#closed_table')
+        $("#Lives").removeClass('bg-soft-purple')
+        $("#Lives").removeClass('text-white')
+        $("#Lives").removeClass('color-color1')
+        $("#Terminated").addClass('bg-soft-purple')
+        $("#Terminated").addClass('text-white')
+        $("#Terminated").addClass('color-color1')
     }
 
     
@@ -361,7 +372,7 @@ $(document).ready(function () {
 
 
 
-function switchtab($this, $displaytab, $hiddentab1,$hiddentab2,$hiddentab3) {
+function switchtab($this, $displaytab, $hiddentab1,$hiddentab2) {
     
    
     $($displaytab).addClass('d-block');
@@ -371,8 +382,8 @@ function switchtab($this, $displaytab, $hiddentab1,$hiddentab2,$hiddentab3) {
     $($hiddentab1).removeClass('d-block');
     $($hiddentab2).addClass('d-none');
     $($hiddentab2).removeClass('d-block');
-    $($hiddentab3).addClass('d-none');
-    $($hiddentab3).removeClass('d-block');    
+    // $($hiddentab3).addClass('d-none');
+    // $($hiddentab3).removeClass('d-block');    
     
 
 }

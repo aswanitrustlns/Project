@@ -20,6 +20,7 @@ urlpatterns=[
     path('createticket',create_ticket,name="CreateTicket"),
     path('LeadRegistration',lead_registration,name="LeadRegistration"),
     path('NewAccounts',new_accounts,name="NewAccounts"),# Navigate to new accounts page
+    path('ExtAccounts',existing_accounts,name='ExtAccounts'),
     path('NewAccountsClick',new_accounts_click,name="NewAccountsClick"),# Get New Accounts Page
     path('AccountsFilter',new_accounts_variants,name="AccountsFilter"),
     path('WeeklyFilter',new_accounts_variants_weekly,name="WeeklyFilter"),

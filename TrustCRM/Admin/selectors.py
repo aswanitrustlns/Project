@@ -15,6 +15,8 @@ from django.template.loader import render_to_string
 from django.core.mail import BadHeaderError, send_mail
 from django.core.mail import EmailMessage,EmailMultiAlternatives
 from django.template.loader import get_template
+from .models import TblClients,TblEwalletTransaction
+from django.db.models import OuterRef, Subquery,Max
 from django.conf import settings
 import imaplib
 import email
@@ -1907,6 +1909,209 @@ class Selector:
         finally:
             Cursor.close()
         return campaign_report
+    
+    #Get funded Today
+
+    def funded_today(self):
+        try:
+            funded_clients=[]
+            date_today=datetime.today().date()
+            week_day=datetime.today().weekday() # Monday is 0 and Sunday is 6
+            date_today=date_today.strftime("%Y-%m-%d")
+            if(week_day==0):
+                date_yesterday = datetime.today()-timedelta(3)
+                
+            else:
+                date_yesterday= datetime.today()-timedelta(1)
+
+            date_yesterday=date_yesterday.strftime("%Y-%m-%d")
+            new_clients_today=list(TblClients.objects.filter(livestatus="Live",converteddate__date__range=[date_yesterday,date_today]).exclude(isib=1).values_list('login',flat=True))
+            clients_today=TblEwalletTransaction.objects.using('svg').filter(accnt_no__in=new_clients_today).values('accnt_no').annotate(Max('id'))
+            get_today_id=TblEwalletTransaction.objects.using('svg').filter(id__in=Subquery(clients_today.values('id__max')))
+            disctinct_today_list=[]
+            for id in get_today_id.iterator():
+                disctinct_today_list.append(id.id)
+            print("Distinct today list====",disctinct_today_list)
+            funded_count=TblEwalletTransaction.objects.using('svg').filter(trans_type=0,trans_status=1,id__in=disctinct_today_list).count()
+            nonfunded_count=TblEwalletTransaction.objects.using('svg').filter(trans_type=0,trans_status__gt=1,id__in=disctinct_today_list).count()
+            funded_today_list=TblEwalletTransaction.objects.using('svg').filter(trans_type=0,trans_status=1,id__in=disctinct_today_list)
+            if funded_today_list:
+                funded_clients=TblClients.objects.filter(login__in=funded_today_list)
+            print("Funded Today------",funded_today_list)
+        except Exception as e:
+            print("Exception---",e)
+        return funded_count,nonfunded_count,funded_clients,date_today,date_yesterday
+    
+    #Get funded Weekly
+
+    def funded_weekly(self):
+        try:
+            funded_clients=[]
+            date_today=datetime.today().date()
+            week_day=datetime.today().weekday() # Monday is 0 and Sunday is 6
+            date_today=date_today.strftime("%Y-%m-%d")
+            if(week_day==0):
+                date_yesterday = datetime.today()-timedelta(3)
+                
+            else:
+                date_yesterday= datetime.today()-timedelta(week_day)
+
+            date_yesterday=date_yesterday.strftime("%Y-%m-%d")
+            new_clients_today=list(TblClients.objects.filter(livestatus="Live",converteddate__date__range=[date_yesterday,date_today]).exclude(isib=1).values_list('login',flat=True))
+            clients_today=TblEwalletTransaction.objects.using('svg').filter(accnt_no__in=new_clients_today).values('accnt_no').annotate(Max('id'))
+            get_today_id=TblEwalletTransaction.objects.using('svg').filter(id__in=Subquery(clients_today.values('id__max')))
+            disctinct_today_list=[]
+            for id in get_today_id.iterator():
+                disctinct_today_list.append(id.id)
+            print("Distinct today list====",disctinct_today_list)
+            funded_count=TblEwalletTransaction.objects.using('svg').filter(trans_type=0,trans_status=1,id__in=disctinct_today_list).count()
+            nonfunded_count=TblEwalletTransaction.objects.using('svg').filter(trans_type=0,trans_status__gt=1,id__in=disctinct_today_list).count()
+            funded_today_list=TblEwalletTransaction.objects.using('svg').filter(trans_type=0,trans_status=1,id__in=disctinct_today_list)
+            if funded_today_list:
+                funded_clients=TblClients.objects.filter(login__in=funded_today_list)
+            print("Funded Today------",funded_today_list)
+        except Exception as e:
+            print("Exception---",e)
+        return funded_count,nonfunded_count,funded_clients,date_today,date_yesterday
+
+     #Get nonfunded Weekly
+
+    def nonfunded_weekly(self):
+        try:
+            funded_clients=[]
+            date_today=datetime.today().date()
+            week_day=datetime.today().weekday() # Monday is 0 and Sunday is 6
+            date_today=date_today.strftime("%Y-%m-%d")
+            if(week_day==0):
+                date_yesterday = datetime.today()-timedelta(3)
+                
+            else:
+                date_yesterday= datetime.today()-timedelta(week_day)
+
+            date_yesterday=date_yesterday.strftime("%Y-%m-%d")
+            new_clients_today=list(TblClients.objects.filter(livestatus="Live",converteddate__date__range=[date_yesterday,date_today]).exclude(isib=1).values_list('login',flat=True))
+            clients_today=TblEwalletTransaction.objects.using('svg').filter(accnt_no__in=new_clients_today).values('accnt_no').annotate(Max('id'))
+            get_today_id=TblEwalletTransaction.objects.using('svg').filter(id__in=Subquery(clients_today.values('id__max')))
+            disctinct_today_list=[]
+            for id in get_today_id.iterator():
+                disctinct_today_list.append(id.id)
+            print("Distinct today list====",disctinct_today_list)
+            funded_count=TblEwalletTransaction.objects.using('svg').filter(trans_type=0,trans_status=1,id__in=disctinct_today_list).count()
+            nonfunded_count=TblEwalletTransaction.objects.using('svg').filter(trans_type=0,trans_status__gt=1,id__in=disctinct_today_list).count()
+            funded_today_list=TblEwalletTransaction.objects.using('svg').filter(trans_type=0,trans_status__gt=1,id__in=disctinct_today_list)
+            if funded_today_list:
+                funded_clients=TblClients.objects.filter(login__in=funded_today_list)
+            print("Funded Today------",funded_today_list)
+        except Exception as e:
+            print("Exception---",e)
+        return funded_count,nonfunded_count,funded_clients,date_today,date_yesterday
+
+    #Existing Funded Today
+    def existing_funded_today(self):
+        try:
+            existing_funded_clients=[]
+            existing_funded_today_list=[]
+            date_today=datetime.today().date()
+            week_day=datetime.today().weekday() # Monday is 0 and Sunday is 6
+            date_today=date_today.strftime("%Y-%m-%d")
+            if(week_day==0):
+                date_yesterday = datetime.today()-timedelta(3)
+                
+            else:
+                date_yesterday= datetime.today()-timedelta(1)
+
+            date_yesterday=date_yesterday.strftime("%Y-%m-%d")
+            one_week=datetime.today()-timedelta(days=7)
+            one_week=one_week.strftime("%Y-%m-%d")
+            existing_clients_today=list(TblClients.objects.filter(livestatus="Live",converteddate__date__lt=one_week).exclude(isib=1).values_list('login',flat=True))
+            existing_today=TblEwalletTransaction.objects.using('svg').filter(accnt_no__in=existing_clients_today).values('accnt_no').annotate(Max('id'))
+            get_ext_today_id=TblEwalletTransaction.objects.using('svg').filter(id__in=Subquery(existing_today.values('id__max')))
+            disctinct_ext_today_list=[]
+            for id in get_ext_today_id.iterator():
+                disctinct_ext_today_list.append(id.id)
+
+
+            existing_funded_today=TblEwalletTransaction.objects.using('svg').filter(trans_type=0,trans_status=1,trans_date__date__range=[date_yesterday,date_today],id__in=disctinct_ext_today_list).count()
+            existing_funded_today_list=list(TblEwalletTransaction.objects.using('svg').filter(trans_type=0,trans_status=1,trans_date__date__range=[date_yesterday,date_today],id__in=disctinct_ext_today_list).values_list('accnt_no',flat=True))
+            print("Ext=====",existing_funded_today_list)
+            if existing_funded_today_list:
+                existing_funded_clients=TblClients.objects.filter(login__in=existing_funded_today_list)
+            print("List====",existing_funded_clients)
+        except Exception as e:
+            print("Exception---",e)
+        return existing_funded_clients,date_today,date_yesterday
+
+    def existing_funded_week(self):
+        try:
+            existing_funded_clients=[]
+            existing_funded_today_list=[]
+            date_today=datetime.today().date()
+            week_day=datetime.today().weekday() # Monday is 0 and Sunday is 6
+            date_today=date_today.strftime("%Y-%m-%d")
+            if(week_day==0):
+                date_yesterday = datetime.today()-timedelta(3)
+                
+            else:
+                date_yesterday= datetime.today()-timedelta(week_day)
+
+            date_yesterday=date_yesterday.strftime("%Y-%m-%d")
+            one_week=datetime.today()-timedelta(days=7)
+            one_week=one_week.strftime("%Y-%m-%d")
+            existing_clients_today=list(TblClients.objects.filter(livestatus="Live",converteddate__date__lt=one_week).exclude(isib=1).values_list('login',flat=True))
+            existing_today=TblEwalletTransaction.objects.using('svg').filter(accnt_no__in=existing_clients_today).values('accnt_no').annotate(Max('id'))
+            get_ext_today_id=TblEwalletTransaction.objects.using('svg').filter(id__in=Subquery(existing_today.values('id__max')))
+            disctinct_ext_today_list=[]
+            for id in get_ext_today_id.iterator():
+                disctinct_ext_today_list.append(id.id)
+
+
+            existing_funded_today=TblEwalletTransaction.objects.using('svg').filter(trans_type=0,trans_status=1,trans_date__date__range=[date_yesterday,date_today],id__in=disctinct_ext_today_list).count()
+            existing_funded_today_list=list(TblEwalletTransaction.objects.using('svg').filter(trans_type=0,trans_status=1,trans_date__date__range=[date_yesterday,date_today],id__in=disctinct_ext_today_list).values_list('accnt_no',flat=True))
+            print("Ext=====",existing_funded_today_list)
+            existing_funded_clients=TblClients.objects.filter(login__in=existing_funded_today_list)
+            print("List====",existing_funded_clients)
+        except Exception as e:
+            print("Exception---",e)
+        return existing_funded_clients,date_today,date_yesterday
+
+
+    def existing_nonfunded_total(self):
+        try:
+            existing_funded_today_list=""
+            date_today=datetime.today().date()
+            week_day=datetime.today().weekday() # Monday is 0 and Sunday is 6
+            date_today=date_today.strftime("%Y-%m-%d")
+            if(week_day==0):
+                date_yesterday = datetime.today()-timedelta(3)
+                
+            else:
+                date_yesterday= datetime.today()-timedelta(week_day)
+
+            date_yesterday=date_yesterday.strftime("%Y-%m-%d")
+            one_week=datetime.today()-timedelta(days=7)
+            one_week=one_week.strftime("%Y-%m-%d")
+            existing_clients_today=list(TblClients.objects.filter(livestatus="Live",converteddate__date__lt=one_week).exclude(isib=1).values_list('login',flat=True))
+            existing_today=TblEwalletTransaction.objects.using('svg').filter(accnt_no__in=existing_clients_today).values('accnt_no').annotate(Max('id'))
+            get_ext_today_id=TblEwalletTransaction.objects.using('svg').filter(id__in=Subquery(existing_today.values('id__max')))
+            disctinct_ext_today_list=[]
+            for id in get_ext_today_id.iterator():
+                disctinct_ext_today_list.append(id.id)
+
+
+            existing_funded_today=TblEwalletTransaction.objects.using('svg').filter(trans_type=0,trans_status=1,trans_date__date__range=[date_yesterday,date_today],id__in=disctinct_ext_today_list).count()
+            existing_funded_today_list=list(TblEwalletTransaction.objects.using('svg').filter(trans_type=0,trans_status__gt=1,id__in=disctinct_ext_today_list).values_list('accnt_no',flat=True))
+            print("Ext=====",existing_funded_today_list)
+            existing_funded_clients=TblClients.objects.filter(login__in=existing_funded_today_list)
+            print("List====",existing_funded_clients)
+        except Exception as e:
+            print("Exception---",e)
+        return existing_funded_clients,date_today,date_yesterday
+
+        
+
+        
+
+    
 
 
         

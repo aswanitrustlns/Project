@@ -1,0 +1,571 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8" />
+    <title>Trust Capital CRM</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
+    <meta content="Themesbrand" name="author" />
+
+    {% load  static %}
+    <link href="{% static 'libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css' %}" rel="stylesheet" type="text/css" />
+    <link href="{% static 'libs/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css' %}" rel="stylesheet" type="text/css" />
+    <!-- plugin css -->
+    <!--<link href="assets/libs/admin-resources/jquery.vectormap/jquery-jvectormap-1.2.2.css" rel="stylesheet"
+        type="text/css" />-->
+     <!-- datepicker css -->
+     <link rel="stylesheet" href="{% static 'libs/flatpickr/flatpickr.min.css' %}">
+    {% include "common/link.html" %}
+   
+    {% include "common/scripts.html" %}
+    <script src="{%static 'js/pages/datatables-filtercolumn-nwaccountsales.init.js' %}"></script> 
+    
+</head>
+<body data-layout-mode="dark">
+
+    <!-- <body data-layout="horizontal"> -->
+    
+    <!-- Begin page -->
+    <div id="layout-wrapper">
+        {% include "common/header.html" %}
+        
+    
+        <!-- ========== Left Sidebar Start ========== -->
+        {% include "common/sidebar.html" %}
+        <!-- Left Sidebar End -->
+        <!-- ============================================================== -->
+    <!-- Start right Content here -->
+    <!-- ============================================================== -->
+    <div class="main-content">
+        
+        <div class="page-content" id="sales">
+            <div class="container-fluid"> <!--container-fluid px-md-5 me-md5-->
+
+                <!-- start page title -->
+                <div class="row">
+                    <div class="col-12">
+                        <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                            <h4 class="mb-sm-0 fs-23 almarenamonolight-type">New Accounts</h4><!--font-size-18-->
+
+                            <!--<div class="page-title-right">
+                                <ol class="breadcrumb m-0">
+                                    <li class="breadcrumb-item"><a href="javascript: void(0);">Dashboard</a></li>
+                                    <li class="breadcrumb-item active">New Accounts</li>
+                                </ol>
+                            </div>-->
+
+                        </div>
+                    </div>
+                </div>
+                <!-- end page title -->
+                <!--Analytics overview-->
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                           
+                            <div class="card-body ">
+                               
+                                <div class=" d-flex justify-content-between align-items-start">
+                                    <div>
+                                        <button type="button" class="btn btn-lg btn-primary   mb-3  mx-1 gilory-semibold-type bg-soft-purple text-white" id="Lives" style="background-color: var(--bs-card-bg) ;" onclick="addColor(this,'bg-soft-purple text-white', 'color-color1');changeAccount('Live');switchtab(this,'#accounts_table','#rejected_table','#closed_table')">Live</button>
+                                        <button type="button" class="btn btn-lg btn-primary  color-color1 mb-3 mx-1 gilory-semibold-type"  id="Pendings" style="background-color: var(--bs-card-bg); "  onclick="addColor(this,'bg-soft-purple text-white', 'color-color1');changeAccount('Pending');switchtab(this,'#accounts_table','#rejected_table','#closed_table')">Pending</button>
+                                        <button type="button" class="btn btn-lg btn-primary  color-color1 mb-3 mx-1 gilory-semibold-type"  id="Terminated" style="background-color: var(--bs-card-bg) ;"  onclick="addColor(this,'bg-soft-purple text-white','color-color1');changeAccount('Terminated');switchtab(this,'#accounts_table','#rejected_table','#closed_table')">Existing</button>
+                                        <button type="button" class="btn btn-lg btn-primary  color-color1 mb-3 mx-1 gilory-semibold-type"  id="Rejected" style="background-color: var(--bs-card-bg) ;" onclick="addColor(this,'bg-soft-purple text-white','color-color1');changeAccount('Rejected');switchtab(this,'#rejected_table','#accounts_table','#closed_table')">Rejected</button>
+                                        
+                                        <button type="button" class="btn btn-lg btn-primary  color-color1 mb-3 mx-1 gilory-semibold-type"  id="Closed" style="background-color: var(--bs-card-bg) ;"  onclick="addColor(this,'bg-soft-purple text-white','color-color1');changeAccount('Closed');switchtab(this,'#closed_table','#accounts_table','#rejected_table')">Closed</button>
+                                        <input type="hidden" name="selected_tab" id="selected_tab" value="Live">
+                                    </div>
+                                    
+                                    <div class=" mt-2  mt-md-0">
+                                       
+                                            <div class="row align-items-end justify-content-end">
+
+
+                                                    <div class="col-sm-3">
+                                                        <div class="mb-2">
+                                                            <label class="form-label " for="fromdate">From Date</label>
+                                                            <input type="text" id="fromdate" class="py-1" name="fromdate" value="{{from}}">
+    
+                                                           
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-3">
+
+                                                        <div class="mb-2">
+                                                            <label class="form-label " for="todate">To Date</label>
+    
+                                                            <input type="text" id="todate" class="py-1" name="todate" value="{{to}}">
+                                                            
+                                                        </div>
+
+
+
+
+                                                    </div>
+                                                    <div class="col-sm-3 ">
+                                                        <button class="btn btn-info btn-md mb-2 py-1" type="button" onclick="changeAccount('All');" id="load-btn">Load</button>
+                                                    </div>
+                                            </div>
+                                        
+                                    </div>
+                                   
+                                    
+                                </div>
+
+                                <div class="mb-4 mt-3 " id="live">
+
+                                    <ul class="gilory-medium-type list-unstyled color-color1 fs-18 d-flex ">
+
+                                        <li onclick="pageRedirect('Funded')" style="cursor:pointer"> <span class="rounded-circle  bg-danger d-inline-block me-1 "  style="height:13px ;width:13px;"></span><span>Funded</span> | <span class="text-white" id="fundspan">{{fundcount}}</span></li>
+                                        <li class="ms-5" onclick="pageRedirect('NonFunded')" style="cursor:pointer"> <span class="rounded-circle  bg-info d-inline-block me-1" style="height:13px ;width:13px;"></span> <span>Non Funded </span> | <span class="text-white" id="nonfundspan">{{nonfundcount}}</span></li>
+                                    </ul>
+                                </div>
+                                <div class="mb-4 mt-3 " id="pending">
+
+                                    <ul class="gilory-medium-type list-unstyled color-color1 fs-18 d-flex ">
+
+                                        <li onclick="pageRedirect('TempApproved')" style="cursor:pointer"> <span class="rounded-circle  bg-danger d-inline-block me-1 "  style="height:13px ;width:13px;"></span><span>Approved Temporarily</span> | <span class="text-white" id="approvespan">{{accounts_count.2}}</span></li>
+                                        <li class="ms-5" onclick="pageRedirect('WaitingApproval')" style="cursor:pointer"> <span class="rounded-circle  bg-info d-inline-block me-1" style="height:13px ;width:13px;"></span> <span>Waiting for approval</span> | <span class="text-white" id="waitingspan">{{accounts_count.3}}</span></li>
+                                    </ul>
+                                </div>
+
+                                <hr class="my-0">
+                                
+                                <div class=" px-1 table-responsive mt-4 d-block" id="accounts_table">
+                                    <table id="datatableleads" class="table dt-responsive  nowrap  w-100">
+                                        <thead>
+                                            <tr  class=" ">
+                                                <!-- <th  data-text="text" class="filterhead">Promo</th> -->
+                                                <th data-id="datepicker-range" class="filterhead">RegDate</th>
+                                                <!-- <th  data-text="text" class="filterhead">Promo</th> -->
+                                                
+                                                <!-- <th  data-timer="option" class="filterhead">Login</th> -->
+                                                <th  data-text="text" class="filterhead">Name</th>
+                                                <th  data-text="text" class="filterhead">Email</th>
+                                                <th  data-text="text" class="filterhead">Source</th>
+                                                <th  data-text="text" class="filterhead">SalesRep</th>
+                                                <th  data-text="text" class="filterhead">Ticket</th>
+                                                <th  data-text="text" class="filterhead ">Country</th>
+                                            </tr>
+                                        </thead>
+
+
+                                        <tbody id="newaccounts_data" style="cursor:pointer">
+                                            
+                                            {%for data in accounts_data %}   
+                                        <tr>
+                                            <td>{{data.regdate|date:"Y-m-d"}}</td>
+                                            <td>{{data.name}} </td>
+                                            <td>{{data.email}}</td>
+                                            <td>{{data.source}}</td>
+                                            <td>{{data.ticket.salesrepid.username}}</td>
+                                            <td>{{data.ticket.ticket_no}}</td>
+                                            <td>{{data.country.country}}</td>
+                                        </tr>
+                                            {%endfor%}
+                                        
+                                        </tbody>
+                                        <tfoot>
+                                            
+                                        </tfoot>
+                                    </table>
+                                </div>
+                                <div class=" px-1 table-responsive mt-4 d-none" id="rejected_table">
+                                    <table id="datatableleadsR" class="table dt-responsive  nowrap  w-100">
+                                        <thead>
+                                            <tr  class=" ">
+                                                <!-- <th data-id="datepicker-range-reject" class="filterhead">RegDate</th> -->
+                                                <th data-text="text" class="filterhead">RegDate</th>
+                                                <!-- <th  data-text="text" class="filterhead">Promo</th> -->
+                                                <th  data-text="text" class="filterhead">Rejectd</th>
+                                                <th  data-timer="option" class="filterhead">Login</th>
+                                                <th  data-text="text" class="filterhead">Name</th>
+                                                <th  data-text="text" class="filterhead">Email</th>
+                                                <th  data-text="text" class="filterhead">Source</th>
+                                                <th  data-text="text" class="filterhead">Currency</th>
+                                                <th  data-text="text" class="filterhead">Country</th>                                                
+                                                <th  data-text="text" class="filterhead">Ticket</th>
+                                                <th  data-text="text" class="filterhead">IP</th>
+                                            </tr>
+                                        </thead>
+
+
+                                        <tbody>
+                                      
+                                        
+                                        </tbody>
+                                        <tfoot>
+                                            
+                                        </tfoot>
+                                    </table>
+                                </div>
+                                <!-- <div class=" px-1 table-responsive mt-4 d-none" id="terminated_table">
+                                    <table id="datatableleadsT" class="table dt-responsive  nowrap  w-100">
+                                        <thead>
+                                            <tr  class=" ">
+                                             
+                                                <th data-text="text" class="filterhead">RegDate</th>
+                                                <th data-text="text" class="filterhead">Terminated</th>
+                                                <th  data-text="text" class="filterhead">Login</th>
+                                                <th  data-text="text" class="filterhead">Name</th>
+                                                <th  data-text="text" class="filterhead">Email</th>
+                                                <th  data-text="text" class="filterhead">Source</th>
+                                                <th  data-text="text" class="filterhead">Currency</th>
+                                                <th  data-text="text" class="filterhead">Country</th>
+                                                <th  data-text="text" class="filterhead">Ticket</th>
+                                                <th  data-text="text" class="filterhead">IP</th>
+                                            </tr>
+                                            
+                                        </thead>
+
+
+                                        <tbody>
+                                           
+                                        
+                                        </tbody>
+                                        <tfoot>
+                                            
+                                        </tfoot>
+                                    </table>
+                                </div> -->
+                                <div class=" px-1 table-responsive mt-4 d-none" id="closed_table">
+                                    <table id="datatableleadsC" class="table dt-responsive  nowrap  w-100">
+                                        <thead>
+                                            <tr  class=" ">
+                                                
+                                                <th data-id="datepicker-range" class="filterhead">RegDate</th>
+                                                <th  data-text="text" class="filterhead">Closed</th>
+                                                <th  data-text="text" class="filterhead">Closed By</th>
+                                                <th  data-timer="option" class="filterhead">Login</th>
+                                                <th  data-text="text" class="filterhead">Name</th>
+                                                <th  data-text="text" class="filterhead">Email</th>
+                                                <th  data-text="text" class="filterhead">Source</th>
+                                                <th  data-text="text" class="filterhead">Currency</th>
+                                                <th  data-text="text" class="filterhead">Country</th>
+                                                <th  data-text="text" class="filterhead">Ticket</th>
+                                                <th  data-text="text" class="filterhead">IP</th>
+                                            </tr>
+                                        </thead>
+
+
+                                        <tbody id="newaccounts_data" style="cursor:pointer">
+                                      
+                                        
+                                        </tbody>
+                                        <tfoot>
+                                            
+                                        </tfoot>
+                                    </table>
+                                </div>
+
+                                
+
+                            </div>
+                        </div>
+                    </div> <!-- end col -->
+
+
+
+                </div>
+                <!-- end row-->
+
+                </div>
+                <!-- container -->
+            </div>
+            <!-- End Page-content -->
+
+            
+        </div>
+ {% include "common/right-sidebar.html" %}
+ <div class="rightbar-overlay"></div>
+
+    <script>
+           
+        var tabactive={{active|safe}}
+        console.log("Tab active====",tabactive)
+        var role={{role|safe}}
+        function changeAccount(change){
+
+if(change!='All'){
+    $("#selected_tab").val(change)
+}
+var status=$("#selected_tab").val()
+console.log("changed status----"+status)
+console.log("Onclick change----------------------"+change)
+if((change=="Rejected" || change =="All") &&status=="Rejected"){
+    $("#live").hide()
+    $("#pending").hide()
+    rejectedAccount(change,status);
+}
+if((change=="Closed" || change =="All" ) && status=="Closed"){
+    $("#live").hide()
+    $("#pending").hide()
+    closedAccount(change,status)
+}
+if((change=="Terminated"|| change =="All") && status=="Terminated"){
+    $("#live").hide()
+    $("#pending").hide()
+    terminateAccount(change,status)
+}
+if(change=="Live" || change =="Pending" || change =="All" || status=="Live" || status=="Pending"){
+    if((change=="Live" || change =="All" ) && status=="Live"){
+        $("#live").show()
+        $("#pending").hide()
+    }
+    if((change=="Pending" || change =="All") && status=="Pending"){
+        $("#live").hide()
+        $("#pending").show()
+    }
+    liveAccount(change,status)
+}                
+
+
+}
+function liveAccount(change,status){
+fromdate=document.getElementById("fromdate").value
+todate=document.getElementById("todate").value
+var json_data;
+var from
+var to
+$("#datatableleads").DataTable({
+'paging':true, 
+'destroy': true,               
+'ajax':{
+   "url": "{% url 'Admin:NewAccounts' %}",
+   "type": "GET",
+   "data":{
+    'change':change,
+    'from':fromdate,
+    'to':todate,
+    'status':status,
+   },
+   "dataSrc":function(data){
+    json_data=data.data
+    count=data.count
+    from=data.from
+    to=data.to
+    console.log("Count========="+count[0])
+    var fundspan=document.getElementById("fundspan")
+    var nonfundspan=document.getElementById("nonfundspan")
+    var approvespan=document.getElementById("approvespan")
+    var waitingspan=document.getElementById("waitingspan")
+    fundspan.innerHTML=count[0]
+    nonfundspan.innerHTML=count[1]
+    approvespan.innerHTML=count[2]
+    waitingspan.innerHTML=count[3]
+    var items = [];
+    for ( var i=0, ien=json_data.length ; i<ien ; i++ ) {
+
+        items[i] = [json_data[i][1],json_data[i][0],json_data[i][2],json_data[i][3],json_data[i][4],json_data[i][5],json_data[i][6],json_data[i][9],json_data[i][8]]; 
+            
+        }
+        
+        return items;
+   }
+},
+responsive: true,
+orderCellsTop: true,
+fixedHeader: true,
+initComplete: function () {
+    var api = this.api();
+
+        api
+        .columns()
+        .eq(0)
+        .each(function (colIdx) {
+        var column = this;
+// Set the header cell to contain the input element
+
+ var cell = $('.filters th').eq(
+ $(api.column(colIdx).header()).index()
+);
+var $myindex=$(api.column(colIdx).header()).index();
+var $myhead=$("#datatableleads thead tr th").eq($myindex);
+var title = $myhead.text();
+var id = $myhead.attr('data-id');
+//var datatext=$(cell).attr('data-text');
+var select1 = $('<select   id="' + id + '" placeholder="' + title + '"  class="fs-14 form-control w-100"><option value=""></option></select>');
+if ($(cell).attr('data-text') == 'select') {
+ //console.log($(cell).index());
+ api.column($(cell).index())
+     .data()
+     .unique()
+     .sort()
+     .each(function (d, j) {
+
+
+         select1.append('<option value="' + d + '">' + d + '</option>');
+
+     });
+ $(cell).html(select1);
+
+
+
+
+} else {
+ $(cell).html('<input type="text" id="' + id + '" placeholder="' + title + '"  class="fs-14"   />');
+}
+
+
+// On every keypress in this input
+$(
+ 'input',
+ $('.filters th').eq($(api.column(colIdx).header()).index())
+)
+ .off('keyup change')
+ .on('change', function (e) {
+
+     if ($(this).attr('id') == 'datepicker-range') {
+         console.log("Heloooo");
+
+         //var vals=this.value ;
+
+
+
+     } else {
+         //console.log($(this).attr('id'));
+
+
+         // Get the search value
+         $(this).attr('title', $(this).val());
+
+         //var vals=this.value ;
+
+         var regexr = '({search})'; //$(this).parents('th').find('select').val();
+
+         var cursorPosition = this.selectionStart;
+         // Search the column for that value
+         api
+             .column(colIdx)
+             .search(
+                 this.value != ''
+                     ? regexr.replace('{search}', '(((' + this.value + ')))')
+                     : '',
+                 this.value != '',
+                 this.value == ''
+             )
+             .draw();
+
+     }
+
+
+ })
+ .on('keyup', function (e) {
+     e.stopPropagation();
+
+     $(this).trigger('change');
+     $(this)
+         .focus()[0]
+         .setSelectionRange(cursorPosition, cursorPosition);
+ });
+
+$(
+ 'select',
+ $('.filters th').eq($(api.column(colIdx).header()).index())
+)
+ .off('keyup change')
+ .on('change', function (e) {
+
+     if ($(this).attr('id') == 'datepicker-range') {
+         console.log("Heloooo");
+
+         //var vals=this.value ;
+
+
+
+     } else {
+         //console.log($(this).attr('id'));
+
+
+         // Get the search value
+         $(this).attr('title', $(this).val());
+
+         //var vals=this.value ;
+
+         var regexr = '({search})'; //$(this).parents('th').find('select').val();
+
+         var cursorPosition = this.selectionStart;
+         // Search the column for that value
+         api
+             .column(colIdx)
+             .search(
+                 this.value != ''
+                     ? regexr.replace('{search}', '(((' + this.value + ')))')
+                     : '',
+                 this.value != '',
+                 this.value == ''
+             )
+             .draw();
+
+     }
+
+ })
+ .on('keyup', function (e) {
+     e.stopPropagation();
+
+     $(this).trigger('change');
+     $(this)
+         .focus()[0]
+         .setSelectionRange(cursorPosition, cursorPosition);
+ });
+});
+flatpickr('#fromdate').clear()
+flatpickr('#fromdate', {
+        //inline: true,
+        "allowInput":true,
+        dateFormat: "Y-m-d",//MMMM Do YYYY
+        altFormat: "Y-m-d",
+        altInput: true,
+        mode: "single",
+        defaultDate: from
+    });
+    flatpickr('#todate').clear()
+flatpickr('#todate', {
+        //inline: true,
+        "allowInput":true,
+        dateFormat: "Y-m-d",//MMMM Do YYYY
+        altFormat: "Y-m-d",
+        altInput: true,
+        mode: "single",
+        defaultDate: to
+    });
+flatpikrCall("datatableleads")
+},
+
+
+});     
+
+
+}
+
+
+
+
+    </script>
+
+    <script src="{%static 'libs/flatpickr/flatpickr.min.js' %}"></script>
+    <!-- Required datatable js -->
+    <script src="{%static 'libs/datatables.net/js/jquery.dataTables.min.js' %}"></script>
+    <script src="{%static 'libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js' %}"></script>
+
+
+    <!-- Responsive examples -->
+       <!---Commmented Now Later might needed
+ 
+    <script src="assets/libs/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="assets/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js"></script>
+       -->  
+
+    <!-- Datatable init js -->
+    
+
+    <!-- init js -->
+    <!--<script src="assets/js/pages/form-advancedcustom.init.js"></script>-->
+
+    <script src="{%static 'js/app.js' %}"></script>
+
+    </body>
+
+    </html>

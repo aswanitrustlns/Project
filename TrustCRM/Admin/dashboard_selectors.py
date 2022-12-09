@@ -1,7 +1,9 @@
 from django.db import connection
 from datetime import datetime, timedelta
 from .models import TblActionreasons,TblClients,TblEwalletTransaction
-from django.db.models import Q
+from django.db.models import OuterRef, Subquery,Max
+from django.db.models import Count
+from django.db.models import Q,F
 import calendar
 import json
 
@@ -442,24 +444,74 @@ class DashboardSelector:
             date_yesterday_for_week=date_yesterday_for_week.strftime("%Y-%m-%d")
             one_week=datetime.today()-timedelta(days=7)
             one_week=one_week.strftime("%Y-%m-%d")
-            
-            print("week datya",date_today,date_yesterday_for_week)
-            new_clients_today=list(TblClients.objects.filter(Q(livestatus="Live")|Q(livestatus="ReadOnly"),converteddate__date__range=((datetime.strptime(date_yesterday_for_today,'%Y-%m-%d'),datetime.strptime(date_today,'%Y-%m-%d')))).values_list('login',flat=True))
-            funded_today=TblEwalletTransaction.objects.using('svg').filter(trans_type=1,trans_status=1,accnt_no__in=new_clients_today).count()
-            nonfunded_today=TblEwalletTransaction.objects.using('svg').filter(trans_type=0,accnt_no__in=new_clients_today).exclude(trans_status=0).count()
+
+            new_clients_today=list(TblClients.objects.filter(livestatus="Live",converteddate__date__range=[date_yesterday_for_today,date_today]).exclude(isib=1).values_list('login',flat=True))
+            clients_today=TblEwalletTransaction.objects.using('svg').filter(accnt_no__in=new_clients_today).values('accnt_no').annotate(Max('id'))
+            get_today_id=TblEwalletTransaction.objects.using('svg').filter(id__in=Subquery(clients_today.values('id__max')))
+            disctinct_today_list=[]
+            for id in get_today_id.iterator():
+                disctinct_today_list.append(id.id)
+            print("Distinct today list====",disctinct_today_list)
+            funded_today=TblEwalletTransaction.objects.using('svg').filter(trans_type=0,trans_status=1,id__in=disctinct_today_list).count()
+            nonfunded_today=TblEwalletTransaction.objects.using('svg').filter(trans_type=0,trans_status__gt=1,id__in=disctinct_today_list).count()
             print("New Funded Non Funded Today",funded_today,nonfunded_today)
-            new_clients_week=list(TblClients.objects.filter(Q(livestatus="Live")|Q(livestatus="ReadOnly"),converteddate__date__range=((datetime.strptime(date_yesterday_for_week,'%Y-%m-%d'),datetime.strptime(date_today,'%Y-%m-%d')))).values_list('login',flat=True))
-            funded_week=TblEwalletTransaction.objects.using('svg').filter(trans_type=1,trans_status=1,accnt_no__in=new_clients_week).count()
-            nonfunded_week=TblEwalletTransaction.objects.using('svg').filter(trans_type=0,accnt_no__in=new_clients_week).exclude(trans_status=0).count()
+
+            new_clients_week=list(TblClients.objects.filter(livestatus="Live",converteddate__date__range=[date_yesterday_for_week,date_today]).exclude(isib=1).values_list('login',flat=True))
+            clients_week=TblEwalletTransaction.objects.using('svg').filter(accnt_no__in=new_clients_week).values('accnt_no').annotate(Max('id'))
+            get_week_id=TblEwalletTransaction.objects.using('svg').filter(id__in=Subquery(clients_week.values('id__max')))
+            disctinct_week_list=[]
+            for id in get_week_id.iterator():
+                disctinct_week_list.append(id.id)
+
+            funded_week=TblEwalletTransaction.objects.using('svg').filter(trans_type=0,trans_status=1,id__in=disctinct_week_list).count()
+            nonfunded_week=TblEwalletTransaction.objects.using('svg').filter(trans_type=0,trans_status__gt=1,id__in=disctinct_week_list).count()
             print("New Funded Non Funded Week",funded_today,nonfunded_today,funded_week,nonfunded_week)
-            existing_clients_today=list(TblClients.objects.filter(Q(livestatus="Live")|Q(livestatus="ReadOnly"),converteddate__date__lt=datetime.strptime(one_week,'%Y-%m-%d')).values_list('login',flat=True))
-            existing_funded_today=TblEwalletTransaction.objects.using('svg').filter(trans_type=1,trans_status=1,trans_date__date__range=(datetime.strptime(date_yesterday_for_today,'%Y-%m-%d'),datetime.strptime(date_today,'%Y-%m-%d')),accnt_no__in=new_clients_today).count()
-            existing_nonfunded_today=TblEwalletTransaction.objects.using('svg').filter(trans_type=0,accnt_no__in=new_clients_today).exclude(trans_status=0).count()
+
+
+            existing_clients_today=list(TblClients.objects.filter(livestatus="Live",converteddate__date__lt=one_week).exclude(isib=1).values_list('login',flat=True))
+            existing_today=TblEwalletTransaction.objects.using('svg').filter(accnt_no__in=existing_clients_today).values('accnt_no').annotate(Max('id'))
+            get_ext_today_id=TblEwalletTransaction.objects.using('svg').filter(id__in=Subquery(existing_today.values('id__max')))
+            disctinct_ext_today_list=[]
+            for id in get_ext_today_id.iterator():
+                disctinct_ext_today_list.append(id.id)
+
+
+            existing_funded_today=TblEwalletTransaction.objects.using('svg').filter(trans_type=0,trans_status=1,trans_date__date__range=[date_yesterday_for_today,date_today],id__in=disctinct_ext_today_list).count()
+            
+            fu=list(TblEwalletTransaction.objects.using('svg').filter(trans_type=0,trans_status=1,trans_date__date__range=[date_yesterday_for_today,date_today],id__in=disctinct_ext_today_list))
+            print("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++fu",fu)
+            for i in fu:
+                print("fufufuufu",i.accnt_no)
+            existing_nonfunded_today=TblEwalletTransaction.objects.using('svg').filter(trans_type=0,trans_status__gt=1,id__in=disctinct_ext_today_list).count()
+
             print("Existing Funded Non Funded Today",funded_today,nonfunded_today,funded_week,nonfunded_week,existing_funded_today,existing_nonfunded_today)
-            existing_clients_week=list(TblClients.objects.filter(Q(livestatus="Live")|Q(livestatus="ReadOnly"),converteddate__date__lt=datetime.strptime(one_week,'%Y-%m-%d')).values_list('login',flat=True))
-            existing_funded_week=TblEwalletTransaction.objects.using('svg').filter(trans_type=1,trans_status=1,trans_date__date__range=(datetime.strptime(date_yesterday_for_week,'%Y-%m-%d'),datetime.strptime(date_today,'%Y-%m-%d')),accnt_no__in=new_clients_today).count()
-            print("Existing Funded Non Funded Week",funded_today,nonfunded_today,funded_week,nonfunded_week,existing_funded_today,existing_nonfunded_today,existing_funded_week)
-            # existing_nonfunded_today=TblEwalletTransaction.objects.using('svg').filter(trans_type=0,accnt_no__in=new_clients_today).exclude(trans_status=0).count()
+
+
+
+            existing_clients_week=list(TblClients.objects.filter(livestatus="Live",converteddate__date__gt=one_week).exclude(isib=1).values_list('login',flat=True))
+           
+            all_existing=list(TblClients.objects.filter(livestatus="Live",converteddate__date__lt=one_week).exclude(isib=1).values_list('login',flat=True))
+
+            total_existing=TblEwalletTransaction.objects.using('svg').filter(accnt_no__in=existing_clients_week).values('accnt_no').annotate(Max('id'))
+            get_id=TblEwalletTransaction.objects.using('svg').filter(id__in=Subquery(total_existing.values('id__max')))
+            distinct_list=[]
+           
+            for total in get_id.iterator():
+                distinct_list.append(total.id)
+            
+            
+            total_all_existing=TblEwalletTransaction.objects.using('svg').filter(accnt_no__in=all_existing).values('accnt_no').annotate(Max('id'))
+            all_get_id=TblEwalletTransaction.objects.using('svg').filter(id__in=Subquery(total_all_existing.values('id__max')))
+            all_distinct_list=[]
+           
+            for total in all_get_id.iterator():
+                all_distinct_list.append(total.id)
+                
+
+            existing_funded_week=TblEwalletTransaction.objects.using('svg').filter(trans_type=0,trans_status=1,trans_date__date__range=[date_yesterday_for_week,date_today],id__in=distinct_list).count()
+            
+            total_nonfun_existing=TblEwalletTransaction.objects.using('svg').filter(trans_type=0,trans_status__gt=1,id__in=all_distinct_list).count()
+            
 
             Cursor=connection.cursor()
             Cursor.execute("set nocount on;exec SP_GetNewAccountsCount %s,%s",[date_yesterday_for_week,date_today])
@@ -635,11 +687,12 @@ class DashboardSelector:
             manager_data={'funded_today':live_funded_today,'nonfunded_today':live_nonfund_today,'funded_week':live_funded_week,'nonfunded_week':live_nonfund_week,'webinars':weekly_webinar,'livechat':live_chat,'calls':spokencall,'campaigns':active_campaigns,'reminders':reminders,
                            'approved':pending_approved,'waiting':pending_waiting,'summary':monthly_summary,'ticket_summary':ticket_summary_bar,'remindercount':reminder_count,'reminder_count_show':reminder_count_show,'campaign_count':active_campaigns_count,
                            'leads_graph':status_bar,'meeting_daily_pie': meeting_daily_pie,'meeting_weekly_pie':meeting_weekly_pie,'seminar_weekly_pie': seminar_weekly_pie,'seminar_daily_pie':seminar_daily_pie,'halfyearly_bar':halfyearly_bar,'dues':due_tickets,
-                           'new_fund_today':funded_today,'new_nonfund_today':nonfunded_today,'new_fund_week':funded_week,'new_nonfund_week':nonfunded_week,'ext_fund_today':existing_funded_today,'ext_nonfund_today':existing_nonfunded_today,'ext_fund_week':existing_funded_week
+                           'new_fund_today':funded_today,'new_nonfund_today':nonfunded_today,'new_fund_week':funded_week,'new_nonfund_week':nonfunded_week,'ext_fund_today':existing_funded_today,'ext_nonfund_today':existing_nonfunded_today,'ext_fund_week':existing_funded_week,
+                           'total_nonfun':total_nonfun_existing
                            
                            }    
         except Exception as e:
-            print("!!!!!!!!!!!!!!!!!!!!!!Exception!!!!!!!!!!!!!!!!!!!!!!!!!!",e.__class__)   
+            print("!!!!!!!!!!!!!!!!!!!!!!Exception!!!!!!!!!!!!!!!!!!!!!!!!!!",e.__class__,e)   
              
         finally:
             Cursor.close()

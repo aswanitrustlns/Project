@@ -471,52 +471,55 @@ def resolved_tckts_load_all(request):
     else:
         return redirect('/login')
 
-def new_accounts(request):
-    active="Live"
-    if 'UserId' in request.session:
-        role=request.session.get("role")
+# def new_accounts(request):
+#     active="Live"
+#     if 'UserId' in request.session:
+#         role=request.session.get("role")
         
-        change=request.GET.get("change")
-        from_date=request.GET.get("from")
-        to_date=request.GET.get("to")
-        status=request.GET.get("status")
-        date_today=datetime.today().date()    
-        date_today=date_today.strftime("%Y-%m-%d")
-        week_day=datetime.today().weekday() # Monday is 0 and Sunday is 6
-        if(week_day==0):
-                date_yesterday = datetime.today()-timedelta(3)
-        else:
-                date_yesterday = datetime.today()-timedelta(1)
+#         change=request.GET.get("change")
+#         from_date=request.GET.get("from")
+#         to_date=request.GET.get("to")
+#         status=request.GET.get("status")
+#         date_today=datetime.today().date()    
+#         date_today=date_today.strftime("%Y-%m-%d")
+#         week_day=datetime.today().weekday() # Monday is 0 and Sunday is 6
+#         if(week_day==0):
+#                 date_yesterday = datetime.today()-timedelta(3)
+#         else:
+#                 date_yesterday = datetime.today()-timedelta(1)
 
-        date_yesterday=date_yesterday.strftime("%Y-%m-%d")
-        if from_date=="":
-            from_date=date_yesterday
-        if to_date=="":
-            to_date=date_today
+#         date_yesterday=date_yesterday.strftime("%Y-%m-%d")
+#         if from_date=="":
+#             from_date=date_yesterday
+#         if to_date=="":
+#             to_date=date_today
         
         
-        if(change):
-            if status=="Live":
-                status="Funded"
-            if status=="Pending":
-                status="TempApproved"
-            accounts_data=selector.get_new_accounts(change,status,from_date,to_date)
-            accounts_count=selector.get_new_accounts_count(from_date,to_date)
-            print("change is---------------",change)
+#         if(change):
+#             if status=="Live":
+#                 status="Funded"
+#             if status=="Pending":
+#                 status="TempApproved"
             
-            return HttpResponse(json.dumps({"data":accounts_data,"count":accounts_count,'from':from_date,'to':to_date}), content_type="application/json")
-        else:
+#             accounts_data=selector.get_new_accounts(change,status,from_date,to_date)
+#             accounts_count=selector.get_new_accounts_count(from_date,to_date)
+#             print("change is---------------",change)
+            
+#             return HttpResponse(json.dumps({"data":accounts_data,"count":accounts_count,'from':from_date,'to':to_date}), content_type="application/json")
+#         else:
            
+#             funded_count,nonfunded_count,funded_clients,date_today,date_yesterday=selector.funded_today()
+#             # funded_clients=selector.existing_funded_today()
+#             print("Exist====",funded_clients)
+#             accounts_data=selector.get_new_accounts("Funded","",date_yesterday,date_today)
+#             accounts_count=selector.get_new_accounts_count(date_yesterday,date_today)
             
-            accounts_data=selector.get_new_accounts("Funded","",date_yesterday,date_today)
-            accounts_count=selector.get_new_accounts_count(date_yesterday,date_today)
-            
-            # terminated_data=selector.get_new_accounts("Terminated")
-            return render(request,'admin/newAccounts.html',{'accounts_data':accounts_data,'from':date_yesterday,'to':date_today,'accounts_count':accounts_count,"active":json.dumps(active),'role':json.dumps(role)})
-            # return render(request,'sales/allclients.html',{'accounts_data':accounts_data,'accounts_count':accounts_count,"active":json.dumps(active)})
+#             # terminated_data=selector.get_new_accounts("Terminated")
+#             return render(request,'sales/newAccounts.html',{'accounts_data':funded_clients,'from':date_yesterday,'to':date_today,'fundcount':funded_count,'nonfundcount':nonfunded_count,'accounts_count':accounts_count,"active":json.dumps(active),'role':json.dumps(role)})
+#             # return render(request,'sales/allclients.html',{'accounts_data':accounts_data,'accounts_count':accounts_count,"active":json.dumps(active)})
                 
-    else:
-        return redirect('/login')
+#     else:
+#         return redirect('/login')
 #new account variants
 def new_accounts_variants(request):
     active="Live"
@@ -1334,6 +1337,52 @@ def livechatreport_load_all(request):
         return JsonResponse(livechat,safe=False)
     else:
         return redirect('/login')
+#New Account from side bar and New Account Funded Today from dashboard
+def new_accounts(request):
+    active="Live"
+    if 'UserId' in request.session:
+        change=request.GET.get('change')
+        role=request.session.get("role")
+        if(change=='fundToday'):
+            funded_count,nonfunded_count,funded_clients,date_today,date_yesterday=selector.funded_today()
+        if(change=='fundWeekly'):
+            funded_count,nonfunded_count,funded_clients,date_today,date_yesterday=selector.funded_weekly()
+        if(change=='nonfudTotal'):
+            funded_count,nonfunded_count,funded_clients,date_today,date_yesterday=selector.nonfunded_weekly()
+        else:
+            funded_count,nonfunded_count,funded_clients,date_today,date_yesterday=selector.funded_today()
+            
+        print("Exist====",funded_clients)
+        accounts_count=selector.get_new_accounts_count(date_yesterday,date_today)
+        return render(request,'sales/newAccounts.html',{'accounts_data':funded_clients,'from':date_yesterday,'to':date_today,'fundcount':funded_count,'nonfundcount':nonfunded_count,'accounts_count':accounts_count,"active":json.dumps(active),'role':json.dumps(role)})
+        
+    else:
+        return redirect('/login')
+
+#Existing Accounts
+def existing_accounts(request):
+    active="Exist"
+    if 'UserId' in request.session:
+        
+        change=request.GET.get('change')
+        role=request.session.get("role")
+        print("Existing======================",change)
+        if(change=='fundToday'):
+            funded_clients,date_today,date_yesterday=selector.existing_funded_today()
+        if(change=='fundWeekly'):
+            funded_clients,date_today,date_yesterday=selector.existing_funded_week()
+        if(change=='nonfundTotal'):
+            funded_clients,date_today,date_yesterday=selector.existing_nonfunded_total()
+        
+            
+        print("Exist====",funded_clients)
+        accounts_count=selector.get_new_accounts_count(date_yesterday,date_today)
+        return render(request,'sales/newAccounts.html',{'accounts_data':funded_clients,'from':date_yesterday,'to':date_today,'accounts_count':accounts_count,"active":json.dumps(active),'role':json.dumps(role)})
+        
+    else:
+        return redirect('/login')
+
+
 
 
 def salescampaigns(request):
@@ -1436,6 +1485,7 @@ def funded_accounts(request):
     
     else:
         return redirect('/login')
+
 #Assign to manager
 def assign_to_manager(request):
     if 'UserId' in request.session:
