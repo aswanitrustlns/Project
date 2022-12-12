@@ -5,6 +5,7 @@ from django.db import connections
 import string
 import random
 from django.template.loader import render_to_string
+from .models import TblScoresheet,TblScorecalcQns,TblScorecalcOpt
 import binascii
 from datetime import datetime,timedelta
 import re
@@ -164,27 +165,179 @@ class Selector:
                 Cursor.close()
         return category
 
-    #temperory approve client
-    def tmpApproveClient(self,user,server,password,accno,userId):
-        try:
-            Cursor=connection.cursor()           
-            Cursor.execute("set nocount on;exec SP_TmpApproveClient %s,%s",[accno,userId]) 
-            # category=Cursor.fetchone()
-            msg="Account approved successfully in database"
-            accno=int(accno)
-            info=dllservice.dll_client_info(user,server,password,accno)
-            iseditable=dllservice.dll_enable_update(user,server,password,accno)
-            if(info!=""):
+    # #temperory approve client
+    # def tmpApproveClient(self,user,server,password,accno,userId):
+    #     try:
+    #         Cursor=connection.cursor()           
+    #         Cursor.execute("set nocount on;exec SP_TmpApproveClient %s,%s",[accno,userId]) 
+    #         # category=Cursor.fetchone()
+    #         msg="Account approved successfully in database"
+    #         accno=int(accno)
+    #         info=dllservice.dll_client_info(user,server,password,accno)
+    #         iseditable=dllservice.dll_enable_update(user,server,password,accno)
+    #         if(info!=""):
                 
-                if(iseditable!=0 and iseditable==str(accno)):
-                    update=dllservice.dll_update_status(user,server,password,"TmpMaster")
-                    if(update==str(accno)):
-                        msg="Account Approved Successfully"
-                else:
-                    update=dllservice.dll_update_status(user,server,password,"TmpMultiAcc")
+    #             if(iseditable!=0 and iseditable==str(accno)):
+    #                 update=dllservice.dll_update_status(user,server,password,"TmpMaster")
+    #                 if(update==str(accno)):
+    #                     msg="Account Approved Successfully"
+    #             else:
+    #                 update=dllservice.dll_update_status(user,server,password,"TmpMultiAcc")
 
-            else:
-                msg="Account is not live in MT4"
+    #         else:
+    #             msg="Account is not live in MT4"
+    #     except Exception as e:
+    #             print("Exception------",e)
+    #     finally:
+    #             Cursor.close()
+    #     return msg
+
+        #temperory approve Syechell
+    def tmpApproveClient(self,user,server,password,accno,userId,request):
+        try:
+            Cursor=connection.cursor()    
+            accno=int(accno)       
+            isAccount=dllservice.dll_client_info(user,server,password,accno)
+            if(isAccount==""):
+                ticket=request.POST.get('ticket')
+                name=request.POST.get('firstname')
+                groups=request.POST.get('Group')
+                
+                country=int(request.POST.get('country1'))
+                city=request.POST.get('city')
+
+                zipcode=request.POST.get('zipcode')
+                if zipcode!=None:
+                    zipcode=int(zipcode)
+                else:
+                    zipcode=0
+                print("Zip code========",zipcode)
+                address=request.POST.get('address')
+                if(address==None):
+                    address=""
+                phone=request.POST.get('phone')
+                if(phone==None):
+                    phone=""
+                email1=request.POST.get('email1')
+                idno=request.POST.get('idno')
+                leverage=int(request.POST.get('Leverage'))
+                print("Leverage======",leverage)
+                regdates=request.POST.get('regdate')
+                print("reg dates======",regdates,type(regdates))
+                if regdates!="":
+                    regdates=datetime.strptime(regdates,"%Y-%m-%d")
+                print("Reg date======",regdates,type(regdates))
+                comment=request.POST.get('comment')
+                taxrate=0.0
+                tinno=request.POST.get('tinno')
+                enabled=request.POST.get('enabled')
+                if(enabled=="on"):
+                    enabled=1
+                else:
+                    enabled=0
+                color=request.POST.get('color')
+                if color!=None:
+                    color=int(color)
+                else:
+                    color=0
+                agent=request.POST.get('agent')
+                if agent!=None:
+                    agent=int(agent)
+                else:
+                    agent=0
+                rdonly=request.POST.get('readonly')
+                if(rdonly=="on"):
+                    rdonly=1
+                else:
+                    rdonly=0
+                sendreport=request.POST.get('sendreport')
+                if(sendreport=="on"):
+                    sendreport=1
+                else:
+                    sendreport=0
+                changepwd=request.POST.get('changepwd')
+                if(changepwd=="on"):
+                    changepwd=1
+                else:
+                    changepwd=0
+                ppwd=request.POST.get('ppwd')
+                refcode=request.POST.get('refcode')
+                source=request.POST.get('source')
+                mothername=request.POST.get('mothername')
+                nationality=int(request.POST.get('nationality'))
+                
+                created=request.POST.get('createdby')
+                if created!=None:
+                    created=int(created)
+                else:
+                    created=0
+                dob=request.POST.get('dob')
+                income=request.POST.get('income')
+                if income!=None:
+                    income=float(income)
+                else:
+                    income=0
+                worth=request.POST.get('worth')
+                if worth!=None:
+                    worth=float(worth)
+                else:
+                    worth=0
+                deposit=request.POST.get('deposit')
+                
+                if deposit!=None:
+                    deposit=float(deposit)
+                else:
+                    deposit=0
+                profession=request.POST.get('profession')
+                risk=request.POST.get('Risk')
+                riskCategory=int(request.POST.get('RiskCategory'))
+                acctype=request.POST.get('Account')
+                if acctype!=None:
+                    acctype=int(acctype)
+                else:
+                    acctype=0
+                email2=request.POST.get('email2')
+                phone2=request.POST.get('phone2')
+                title=request.POST.get('title')
+                terminated=request.POST.get('terminated')
+                if terminated=="on":
+                    terminated=1
+                else:
+                    terminated=0
+                state=request.POST.get('state')
+                
+                red=0
+                blue=0
+                green=0
+                score=request.POST.get('score')
+                if score!=None:
+                    score=float(score)
+                else:
+                    score=0.0
+                termComment=request.POST.get('terComment')
+                rdonlycomment=request.POST.get('comment')
+                country2=request.POST.get('country2')
+                if country2!=None:
+                    country2=int(country2)
+                else:
+                    country2=0
+                user=request.session.get('UserId')
+                mpwd=request.POST.get('mpwd')
+                ipwd=request.POST.get('ipwd')
+                master_pwd=random_pwd_gen()
+                investor_pwd=random_pwd_gen()
+                phone_pwd=random_pwd_gen()
+                update_data="NAME="+name+"^GROUP="+groups+"^CITY="+city+"^ZIPCODE="+str(zipcode)+"^ADDRESS="+address+"^PHONE="+phone+"^EMAIL="+email1+"^COMMENT"+comment+"^USERID="+user+"^USER_STATUS=NR^USER_AGENT=0^USER_LEVERAGE="+str(leverage)+"^USER_STATE="+state+"^USER_TAXES="+str(taxrate)+"^USER_PASSWORD="+str(master_pwd)+"^USER_PASSWORD_INVESTOR="+str(investor_pwd)+"^USER_PASSWORD_PHONE="+str(phone_pwd)+"^USER_COUNTRY="+str(country)+"^LOGIN_NO="+str(accno)+"^USER_ENABLE="+str(enabled)+"^USER_ENABLE_READONLY="+str(rdonly)+"^USER_ENABLE_CHANGE_PASSWORD="+str(changepwd)+"^USER_SEND_REPORTS="+str(sendreport)+"^USER_COLOR_NONE="+str(color)+"^RED="+str(red)+"^GREEN="+str(green)+"^BLUE="+str(blue)+"^GROUPCHANGE="+str(groups)
+                update_data=bytes(update_data.encode())
+                result=dllservice.dll_update_user(user,server,password,update_data)
+                if result==accno:
+                    Cursor.execute("set nocount on;exec SP_GetAccountStatus %s",[accno])
+                    status=Cursor.fetchone()
+                    update=dllservice.dll_update_status(user,server,password,"TmpMaster")
+                    
+
+                print("Result===",result)
+                msg="MT4 Account created successfully and Email sent to Client"
         except Exception as e:
                 print("Exception------",e)
         finally:
@@ -1036,7 +1189,14 @@ class Selector:
         finally:
                 Cursor.close()
         return generatedList
-  
+    #Score generate page details===
+    def get_score_info(self):
+        try:
+            score_qns=TblScorecalcQns.objects.using('seychelles').all()
+            score_opt=TblScorecalcOpt.objects.using('seychelles').all()
+        except Exception as e:
+                print("Exception------",e)
+        return score_qns,score_opt
      
 
     

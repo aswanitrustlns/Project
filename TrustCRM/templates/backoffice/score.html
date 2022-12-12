@@ -1,0 +1,1221 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8" />
+    <title>Trust Capital CRM</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
+    <meta content="Themesbrand" name="author" />
+    <!-- App favicon -->
+    {% load  static %}
+    <link href="{% static 'libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css' %}" rel="stylesheet" type="text/css" />
+    <link href="{% static 'libs/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css' %}" rel="stylesheet" type="text/css" />
+    <!-- plugin css -->
+    <!--<link href="assets/libs/admin-resources/jquery.vectormap/jquery-jvectormap-1.2.2.css" rel="stylesheet"
+        type="text/css" />-->
+     <!-- datepicker css -->
+     <link rel="stylesheet" href="{% static 'libs/flatpickr/flatpickr.min.css' %}">
+    {% include "common/link.html" %}
+    {% include "common/scripts.html" %}
+    <!-- DataTables -->
+  
+    
+
+ 
+</head>
+
+<body data-layout-mode="dark">
+
+<!-- <body data-layout="horizontal"> -->
+
+<!-- Begin page -->
+<div id="layout-wrapper">
+
+    {% include "common/header.html" %}
+    
+
+    <!-- ========== Left Sidebar Start ========== -->
+    {% include "common/sidebar.html" %}
+    <!-- Left Sidebar End -->
+
+    
+
+    <!-- ============================================================== -->
+    <!-- Start right Content here -->
+    <!-- ============================================================== -->
+    <div class="main-content">
+
+        <div class="page-content" id="sales">
+            <div class="container-fluid"> <!--container-fluid px-md-5 me-md5-->
+
+                <div class="row">
+                    <div class="mb-3">
+                        <a class="btn bg-soft-secondarycolor btn-sm text-white me-2" style="cursor:pointer" onclick="history.back()"><i class="fa fa-chevron-left me-2"></i>Back</a>
+                    </div>
+                  
+                    <div class="col-xl-2    col-md-6 col-sm-6 ">
+                        <!-- card -->
+                        <div class="card card-h-100 ">
+                            <!-- card body -->
+                            <div class="card-body py-2">
+                                <div class="">
+                                    <a onclick="leadsClick('TotLeadsToday','0')"  style="cursor:pointer;">
+                                    <div class="d-flex align-items-center  flex-xl-column flex-xxl-row">
+                                        <div class="ms-3 ms-xl-0 me-1 ms-xxl-2 flex-shrink-0">
+                                           
+                                            <div class="text-wrap mb-1 text-xl-center text-xxl-start" >
+                                                <!--<span class="badge bg-soft-success text-success">+$20.9k</span>-->
+                                                <span class=" color-color1 fs-20 almarenamonolight-type">Login</span>
+                                            </div>
+                                            
+                                            <h2 class=" gilory-semibold-type fs-40 mb-0 text-xl-center text-xxl-start" data-target="12",id="total">{{leads_count.0}}</h2>
+                                            
+                                        </div>
+                                           
+                                            
+                                            
+                                    </div>
+                                </a>
+
+
+                                </div>
+                                
+                            </div><!-- end card body -->
+                        </div>
+                        <!-- end card -->
+                    </div><!-- end col -->
+                    <div class="col-xl-2    col-md-6 col-sm-6 ">
+                        <!-- card -->
+                        <div class="card card-h-100 ">
+                            <!-- card body -->
+                            <div class="card-body py-2">
+                                <div class="">
+                                    <a  onclick="leadsClick('OpenLeadsToday','0')"  style="cursor:pointer;">
+                                    <div class=" d-flex align-items-center  flex-xl-column flex-xxl-row">
+                                        <!-- <a onclick="leadsClick('OpenLeadsToday')"> -->
+                                        <div class="ms-3 ms-xl-0 me-1 ms-xxl-2 flex-shrink-0">
+                                           
+                                            <div class="text-wrap mb-1 text-xl-center text-xxl-start" >
+                                                <!--<span class="badge bg-soft-success text-success">+$20.9k</span>-->
+                                                <span class=" color-color1 fs-20 almarenamonolight-type">Name</span>
+                                            </div>
+                                            
+                                            <h2 class=" gilory-semibold-type fs-40 mb-0 text-xl-center text-xxl-start" data-target="12" id="open">{{leads_count.1}}</h2>
+                                            
+                                        </div>
+                                    
+                                    </div>
+                                </a>
+
+                                </div>
+                                
+                            </div><!-- end card body -->
+                        </div>
+                        <!-- end card -->
+                    </div><!-- end col -->
+                    <div class="col-xl-2   col-md-6 col-sm-6 ">
+                        <!-- card -->
+                        <div class="card card-h-100 ">
+                            <!-- card body -->
+                            <div class="card-body py-2">
+                                <div class="">
+                                    <a  onclick="leadsClick('ClosedLeadsToday','0')" style="cursor:pointer;">
+                                    <div class=" d-flex align-items-center  flex-xl-column flex-xxl-row">
+                                        
+                                        
+                                        <!-- <a onclick="leadsClick('ClosedLeadsToday')"> -->
+                                        <div class="ms-3 ms-xl-0 me-1 ms-xxl-2 flex-shrink-0">
+                                           
+                                            <div class="text-wrap mb-1 text-xl-center text-xxl-start" >
+                                                <!--<span class="badge bg-soft-success text-success">+$20.9k</span>-->
+                                                <span class=" color-color1 fs-20 almarenamonolight-type">E Score</span>
+                                            </div>
+                                            
+                                            <h2 class=" gilory-semibold-type fs-40 mb-0 text-xl-center text-xxl-start" data-target="12" id="closed">{{leads_count.2}}</h2>
+                                            
+                                        </div>
+                                    
+                                        
+                                    </div>
+                                </a>
+
+                                </div>
+                                
+                            </div><!-- end card body -->
+                        </div>
+                        <!-- end card -->
+                    </div><!-- end col -->
+                    <div class="col-xl-2    col-md-6 col-sm-6 ">
+                        <!-- card -->
+                        <div class="card card-h-100 ">
+                            <!-- card body -->
+                            <div class="card-body py-2">
+                                <div class="">
+                                    <a onclick="leadsClick('TotalOpen','200')" style="cursor:pointer;"> 
+                                    <div class=" d-flex align-items-center  flex-xl-column flex-xxl-row">
+                                   
+                                        
+                                        <!-- <a onclick="leadsClick('TotalOpen')"> -->
+                                        <div class="ms-3 ms-xl-0 me-1 ms-xxl-2 flex-shrink-0">
+                                           
+                                            <div class="text-wrap mb-1 text-xl-center text-xxl-start" >
+                                                <!--<span class="badge bg-soft-success text-success">+$20.9k</span>-->
+                                                <span class=" color-color1 fs-20 almarenamonolight-type">KScore</span>
+                                            </div>
+                                            
+                                            <h2 class="  gilory-semibold-type fs-40 mb-0 text-xl-center text-xxl-start" data-target="12" id="totalopen" value={{leads_count.3}}>{{leads_count.3}}</h2>
+                                            
+                                        </div>
+                                        
+                                        
+                                    </div>
+                                </a>
+
+                                </div>
+                                
+                            </div><!-- end card body -->
+                        </div>
+                        <!-- end card -->
+                    </div><!-- end col -->
+                    <div class="col-xl-2    col-md-6 col-sm-6 ">
+                        <!-- card -->
+                        <div class="card card-h-100 ">
+                            <!-- card body -->
+                            <div class="card-body py-2">
+                                <div class="">
+                                    <a onclick="leadsClick('TotalOpen','200')" style="cursor:pointer;"> 
+                                    <div class=" d-flex align-items-center  flex-xl-column flex-xxl-row">
+                                   
+                                        
+                                        <!-- <a onclick="leadsClick('TotalOpen')"> -->
+                                        <div class="ms-3 ms-xl-0 me-1 ms-xxl-2 flex-shrink-0">
+                                           
+                                            <div class="text-wrap mb-1 text-xl-center text-xxl-start" >
+                                                <!--<span class="badge bg-soft-success text-success">+$20.9k</span>-->
+                                                <span class=" color-color1 fs-20 almarenamonolight-type">Total Score</span>
+                                            </div>
+                                            
+                                            <h2 class="  gilory-semibold-type fs-40 mb-0 text-xl-center text-xxl-start" data-target="12" id="totalopen" value={{leads_count.3}}>{{leads_count.3}}</h2>
+                                            
+                                        </div>
+                                        
+                                        
+                                    </div>
+                                </a>
+
+                                </div>
+                                
+                            </div><!-- end card body -->
+                        </div>
+                        <!-- end card -->
+                    </div>
+                  
+
+                   
+
+
+                </div>
+
+
+
+                
+                <!--Analytics overview-->
+                <div class="row">
+
+                    <div class="col-12">
+                        <div class="card">
+                           
+                            <div class="card-body ">
+                                <!-- <h4 class="card-title almarenamonolight-type mb-4 fs-23">Leads</h4>
+                                <div class="d-md-flex flex-no-wrap justify-content-between align-items-start  mb-4">
+
+                                    <p class="gilroymedium-type fs-15 color-color1 mb-0">This page allows you to view details of leads<br>
+                                        from website and social sites.</p>
+                                    <div class=" mt-2  mt-md-0">
+                                      
+                                            <div class="row align-items-end justify-content-end">
+
+
+                                                    <div class="col-sm-3">
+                                                        <div class="mb-2">
+                                                            <label class="form-label " for="fromdate">From Date</label>
+                                                            <input type="text" id="fromdate" class="py-1" value={{from}}>
+    
+                                                           
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-3">
+
+                                                        <div class="mb-2">
+                                                            <label class="form-label " for="todate">To Date</label>
+    
+                                                            <input type="text" id="todate" class="py-1" value={{to}}>
+                                                            
+                                                        </div>
+
+
+
+
+                                                    </div>
+                                                    <div class="col-sm-3 ">
+                                                        <button class="btn btn-info btn-md mb-2 py-1" type="button" onclick="loadAll()">Load</button>
+                                                        
+
+
+
+
+                                                    </div>
+                                                   
+
+
+
+
+
+                                            </div>
+
+
+                                        
+                                    </div>
+                                       
+                                </div> -->
+                                    
+                                
+                                <div class=" px-1 table-responsive" >
+                                    <table class="table dt-responsive  nowrap w-100 ">
+                                        <thead>
+                                            <tr  class=" ">
+                                                <th   class="filterhead">Id</th>
+                                                <!-- <th >Id</th> -->
+                                                <th  >Section</th>
+                                                <th >Question</th>
+                                                <!-- <th  data-text="text" class="filterhead">ID</th> -->
+                                                <th >Options</th>
+                                                <th  >value</th>
+                                                <th >Score</th>
+                                                <th  >KScore_Acheived</th>
+                                                <th  >Escore_Acheived</th>
+                                            </tr>
+                                        </thead>
+    
+    
+                                        <tbody>
+                                      
+                                        {%for data in leads_data %}
+                                        <tr onclick='checkticket("{{data.1}}","{{data.2}}","{{data.4}}")' style="cursor: pointer;">
+                                            <td >{{data.0}}</td>
+                                            <td>{{data.3}}</td>
+                                            <td>{{data.2}}</td>
+                                            
+                                            <!-- <td>{{data.1}}</td> -->
+                                            <td>{{data.4}}</td>
+                                            <td>{{data.5}}</td>
+                                            <td>{{data.10}}</td>
+                                            <td>{{data.11}}</td>
+                                            <td>{{data.7}}</td>
+                                        </tr>
+                                        
+                                        {%endfor%}
+                                       
+                                        </tbody>
+                                        <tfoot>
+                                            
+                                        </tfoot>
+                                    </table>
+                                </div>
+                                
+
+                            </div>
+                        </div>
+                    </div> <!-- end col -->
+
+
+
+                </div>
+                <!-- end row-->
+
+                </div>
+                <!-- container -->
+            </div>
+            <!-- End Page-content -->
+
+            
+        </div>
+        <!-- end main content-->
+
+    </div>
+    <!-- END layout-wrapper -->
+
+    
+    {% include "common/right-sidebar.html" %}
+
+    <!-- Right bar overlay-->
+    <div class="rightbar-overlay"></div>
+
+    
+    <div class="modal fade bs-example-modal-insta" tabindex="-1" role="dialog" aria-hidden="true" id="permission_model">
+        <div class="modal-dialog modal-dialog-centered"   style="z-index: 10555;">
+            <div class="modal-content">
+                <div class="modal-header border-0">
+                    <!--<h5 class="modal-title fs-21">@title</h5>-->
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                                        
+                <div class="modal-body" >
+    
+    
+                    <div data-simplebar style="max-height: 230px;">
+    
+                         <!--User-->
+                    <div class="d-flex align-items-center">
+                    
+                        <!-- <div class="flex-shrink-0 me-3">
+                            <div class="avatar-sm align-self-center">
+                                <span class="avatar-title rounded-circle bg-soft-primary text-primary">
+                                    J
+                                </span>
+                            </div>
+                        </div> -->
+                        <div class="flex-grow-1">
+                            <div id="ticket"></div>
+                            <br>
+                            <h6 class="mb-0">You dont have permission to view this Ticket</h6>
+                            <!--<div class="font-size-13 text-muted">
+                                <p class="mb-1">It will seem like simplified English.</p>
+                                <p class="mb-0"><i class="mdi mdi-clock-outline"></i> <span>1 hour ago</span></p>
+                            </div>-->
+                        </div>
+                    </div>
+                  
+                  
+    
+                    </div>
+               
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    
+    <div class="col-12">
+     
+
+        <div class="modal fade  bs-example-modal-leads" tabindex="-1" role="dialog" aria-hidden="true" id="duplicate_model"> 
+              
+               <div class="modal-dialog modal-dialog-centered  modal-xl d-block">
+                
+
+            
+
+                   <div class="modal-content">
+                    
+                       
+              
+                    <div class="modal-body ">
+
+                        <!--<button class="btn btn-lg btn-info  ms-3" type="submit">Load</button>-->
+
+                      <div class="border rounded-3 px-2 py-2">
+                        <div class="modal-header border-0 ">
+                            <h5 class="modal-title fs-21 ">Duplicate phone   <a href="" class="btn btn-md btn-success  ms-3" onclick="create_new_ticket()">Create new ticket</a> </h5>
+                            
+                            <a href="" data-bs-dismiss="modal" aria-label="Close">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M9.16992 14.83L14.8299 9.17" stroke="var(--white)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M14.8299 14.83L9.16992 9.17" stroke="var(--white)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M9 22H15C20 22 22 20 22 15V9C22 4 20 2 15 2H9C4 2 2 4 2 9V15C2 20 4 22 9 22Z" stroke="white" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                    
+                                </a>
+                        </div>
+                     
+
+                        <div class="table-responsive mx-3 my-2" data-simplebar style="max-height: 352px;">
+                            <input type="hidden" name="demo" id="demo">
+                            <table class="table mb-0 ">
+
+                                <thead>
+                                    <tr class="almarenamonolight-type fs-12">
+                                        <th>
+    
+                                                <span>User Name</span>
+
+                                            </div>
+                                            </th>
+                                        <th>Ticket</th>
+                                        <th>Phone1</th>
+                                        <th>Phone2</th>
+                                        <th>Email</th>
+                                        <th>&nbsp;</th>
+                                        <th class="text-end">&nbsp;</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="gilroyregular-type fs-15 text-white" style="vertical-align:middle ; cursor: pointer;" id="duplicate_body">
+                                 
+
+
+
+
+
+
+
+                                </tbody>
+                            </table>
+                        </div> 
+
+                      </div>
+                        
+                     
+                     
+
+
+                     
+                    
+                        
+                    </div>
+
+                    
+                </div><!-- /.modal-content -->
+
+                  
+
+               </div><!-- /.modal-dialog -->
+        </div>
+    </div>    
+        <!-- /.modal -->
+        <div class="modal fade" id="unconvertedmodel" tabindex="-1" >
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+        
+                    <div class="modal-body ">
+
+                        <div class="  px-3 border rounded-3 py-4">
+                        
+                            <div class="modal-header py-0 px-0 border-bottom-0">
+                                <h5 class="modal-title mb-3" id="modal-title">Load Pending Leads</h5>
+
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
+
+                            </div>
+                       
+                            
+                                
+                                <div class="row">
+                                
+                                    <div class="col-12">
+                                        <div class="mb-3">
+                                            <!--<label class="form-label">Event Name</label>-->
+                                            <input type="radio" id="twenty" name="optOpen" value="20" checked>
+                                            <label for="html">Load Top 20 Leads</label><br>
+                                            <input type="radio" id="all" name="optOpen" value="all">
+                                            <input type="hidden" name="total" id="ttOpen">
+                                            <label for="html">Load All <span id="leadTotal"></span> Leads</label><br>
+                                            <input type="radio" id="all" name="optOpen" value="options" >
+                                            <label for="html">Load <input type="text" name="opt" id="selValue" required> Leads</label><br>
+                                            
+                                        </div>
+                                        <div class="row mt-2">
+                                            <div class="col-6">
+                                                <button type="button"  class="btn btn-success" id="btn-save-event" onclick="countPopUpSelection()">Load</button>
+                                                <button type="button" data-bs-dismiss="modal" class="btn btn-danger" id="btn-delete-event">Cancel</button>
+                                            </div>
+                                          
+                                        </div>
+                                    </div>
+                               
+                                </div>
+                                
+                            
+                        </div>
+                    
+                    </div>
+                </div> <!-- end modal-content-->
+            </div> <!-- end modal dialog-->
+        </div>
+        
+
+    <!-- JAVASCRIPT -->
+  
+  
+
+    <!-- Plugins js-->
+    <!--<script src="assets/libs/admin-resources/jquery.vectormap/jquery-jvectormap-1.2.2.min.js"></script>
+    <script src="assets/libs/admin-resources/jquery.vectormap/maps/jquery-jvectormap-world-mill-en.js"></script>-->
+    <!-- dashboard init -->
+    <script>
+
+$(function(){
+    
+    $('#datatableleads tbody').on('click', 'tr', function (e) {
+        var table = $("#datatableleads").DataTable();
+        console.log("row clicked----")
+        var data = table.row( this ).data();       
+        demo=document.getElementById("id_demo"+data[0]).value    
+            
+        checkticket(demo,data[2],data[3])
+    })
+    $("#selValue").on('keyup',function(e){
+        document.getElementById("btn-save-event").disabled=false
+    })
+})
+
+
+        function checkticket(demo_id,lead_email,lead_phone){
+            $("#demo").val(demo_id)
+            var duplicates;
+            $.ajax({
+               type : "GET", 
+               url: "{% url 'Admin:Duplicate' %}",
+               dataType: 'json',
+               data: {
+                'phone':lead_phone,
+                'email':lead_email
+               },
+               
+               success: function(data){
+                console.log(data)
+                if(data.success){
+                    $("#duplicate_model tbody").empty();
+                    var element=data.duplicate;
+                    
+                    var duplicate_data=new Array();
+                    
+                    for(var i=0;i<element.length;i++){
+                        var phone1=element[i][2]
+                        var phone2=element[i][3]
+                        console.log("Phone 1================",phone1)
+                        if(phone1 != null){
+                            phone1=phone1.replace(/[^a-zA-Z0-9]/g, '');
+                        }
+                        if(phone2 != null){
+                            phone2=phone2.replace(/[^a-zA-Z0-9]/g, '');
+                        }
+                        if(phone1== null){
+                            phone1="";
+                        }
+                        if(phone2== null){
+                            phone2="";
+                        }
+                        duplicates+="<tr style='cursor:pointer'><th scope='row'><div class='d-flex my-1 ms-2 align-items-center'><div class='activity-icon avatar-sm me-3'><span class='avatar-title   rounded-circle'>"+
+                        "<img class='rounded-circle avatar-md' src='../static/images/users/"+element[i][4]+".png' onerror=this.src='../static/images/users/user.png' >"+
+                        "</span></div>"+element[i][4]+"</th><td>"+element[i][1]+"</td><td>"+phone1+"</td><td>"+phone2+"</td><td>"+element[i][5]+"</td>"+
+                        "<td  class='text-success'><a  style='color:rgba(114, 212, 171, 1); cursor: pointer;' onclick=viewticket('"+element[i][1]+"','"+phone1+"','"+phone2+"','"+element[i][5]+"')>View ticket</a></td><td class='text-end'>"+
+                            "<a style='color:rgba(85, 206, 215, 1) ; cursor: pointer;' onclick=merge('"+demo_id+"','"+element[i][1]+"','"+phone1+"','"+phone2+"','"+element[i][5]+"')>View n merge</a></td></tr>";
+                   
+                            // var hidden_name="<input type='hidden' name='name' id='ticket_name' value='"+element[i][0]+"'><input type='hidden' name='demoid' value='"+demo_id+"' id='demo_id'>";
+                        
+                    }
+                    
+                    console.log("duplicate rows created")
+                    
+                    // var duplicate="<tr><th scope='row'><td><button class='btn btn-primary btn-md mt-3' onclick=viewticket('"+element[1]+"','"+element[2]+"','"+element[3]+"','"+element[5]+"')>View Ticket</button></th><td><button class='btn btn-primary btn-md mt-3' onClick=merge('"+demo_id+"','"+element[1]+"','"+element[2]+"','"+element[3]+"','"+element[5]+"')>View and Merge</button></td><td>"+
+                    //             element[0]+"</td><td>"+element[1]+"</td><td>"+element[2]+"</td><td>"+element[3]+"</td><td>"+element[4]+"</td><td class='text-end'>"+element[5]+"</td></tr>";                            
+                    
+                   
+                    $("#duplicate_body").append(duplicates)
+                    // $("#duplicate_body").append(hidden_name)   
+                   $("#duplicate_model").modal('show');
+                    }
+                else{
+                    var url="{% url 'Admin:LeadProcessing'%}"
+                    window.location.href=url+"?&id="+demo_id
+                }
+               }
+            })
+
+
+
+        }
+        
+        function viewticket(ticket,phone1,phone2,email){
+            console.log("View ticket clicked---------------------------")
+            var email2=""
+            var tick_name=document.getElementById("ticket_name").value
+            
+            var url="{% url 'Admin:LeadProcessing'%}"
+            window.location.href=url+"?&ticket="+ticket+"&email1="+email+"&email2="+email2+"&mobile="+phone1+"&telephone="+phone2
+        }
+        function merge(demo_id,ticket,phone1,phone2,email){
+            var email2=""
+            $.ajax({
+               type : "GET", 
+               url: "{% url 'Admin:ViewMerge' %}",
+               dataType: 'json',
+               data: {
+                'demoid':demo_id,
+                'ticket':ticket,
+                'email1':email,
+                'email2':"",
+                'mobile':phone1,
+                'telephone':phone2
+               },
+               
+               success: function(data){
+                    
+                    var url="{% url 'Admin:LeadProcessing'%}"
+                    window.location.href=url+"?&ticket="+ticket
+               }
+            });
+           
+        }
+
+        function create_new_ticket(){
+            var demo_id=document.getElementById("demo").value
+            
+
+            $.ajax({
+               type : "GET", 
+               url: "{% url 'Admin:CreateTicket' %}",
+               dataType: 'json',
+               data: {
+              'id':demo_id                
+               },
+               
+               success: function(data){
+                
+                if(data.success){
+                    console.log("Data=====",data)
+                    email=data.email
+                    phone=data.phone
+                    ticket=data.ticket
+                    var url="{% url 'Admin:LeadProcessing'%}"
+                    window.location.href=url+"?&ticket="+ticket
+
+                }
+               }
+            })
+
+        }
+
+        function loadCountPopUp(totalCount){
+            document.getElementById('leadTotal').innerHTML=""
+            document.getElementById('leadTotal').innerHTML=totalCount
+            $("#ttOpen").val(totalCount)
+            $("#selValue").val("")
+            $("#unconvertedmodel").modal('show')
+        }
+        function countPopUpSelection(){
+            var sel=document.querySelector('input[name="optOpen"]:checked').value;
+            var count=0
+            if(sel=="20"){
+                count=20
+            }
+            if(sel=="all"){
+                count=document.getElementById('ttOpen').value
+            }
+            if(sel=="options"){
+                count=document.getElementById("selValue").value
+                console.log("Count================================"+count)
+                if(count==""){
+                    document.getElementById('selValue').focus();
+                    document.getElementById("btn-save-event").disabled=true
+                }
+            }
+            console.log("Chosen count value is========================"+count)
+            if(count>0){
+                document.getElementById("btn-save-event").disabled=false
+                leadsClick("TotalOpen",count)
+                // $('input[name=optOpen]').attr('checked',false);
+                $("#unconvertedmodel").modal('hide')
+            }
+            
+        }
+
+      function leadsClick(status,counts){
+        console.log("count============",counts)
+        // var values=$("#"+ids).val()
+        // var values=document.getElementById(ids).value
+        // console.log("values====================",values)
+        console.log("Status================="+status)
+        
+        $('#datatableleads').dataTable().fnClearTable();
+            $('#datatableleads').dataTable().fnDestroy();
+            $("#datatableleads").DataTable({
+                
+                "language": {
+                            'loadingRecords': "<span class='fa-stack fa-lg'>\n\
+                            <i class='fa fa-spinner fa-spin fa-stack-2x fa-fw'></i>\n\
+                            </span>&emsp;Loading Details ...",
+                                },
+                
+                "paging":true,   
+                           
+                "ajax":{
+                   url: "{% url 'Admin:LeadClick' %}",
+                   data:{
+                    'status':status,
+                    'count':counts
+                   },
+                  dataSrc:function(json_data){
+                    
+               
+                    var items = [];
+                    for ( var i=0, ien=json_data.length ; i<ien ; i++ ) {
+
+                         items[i] =[json_data[i][0],json_data[i][3],json_data[i][2],json_data[i][4],json_data[i][5],json_data[i][10],json_data[i][11],json_data[i][7]+"<input type='hidden' name='id' id='id_demo"+json_data[i][0]+"' value='"+json_data[i][1]+"'>"]; 
+                        
+                            
+                        }
+                        
+                        return items;
+                   }
+     
+                },
+                responsive: true,
+                orderCellsTop: true,
+                fixedHeader: true,
+                initComplete: function () {
+                    var api = this.api();    
+                api
+                .columns()
+                .eq(0)
+                 .each(function (colIdx) {
+             var column = this;
+             // Set the header cell to contain the input element
+
+             var cell = $('.filters th').eq(
+                 $(api.column(colIdx).header()).index()
+             );
+             var $myindex=$(api.column(colIdx).header()).index();
+             var $myhead=$("#datatableleads thead tr th").eq($myindex);
+             var title = $myhead.text();
+             var id = $myhead.attr('data-id');
+             //var datatext=$(cell).attr('data-text');
+             var select1 = $('<select   id="' + id + '" placeholder="' + title + '"  class="fs-14 form-control w-100"><option value=""></option></select>');
+             if ($(cell).attr('data-text') == 'select') {
+                 //console.log($(cell).index());
+                 api.column($(cell).index())
+                     .data()
+                     .unique()
+                     .sort()
+                     .each(function (d, j) {
+
+
+                         select1.append('<option value="' + d + '">' + d + '</option>');
+
+                     });
+                 $(cell).html(select1);
+
+
+
+
+             } else {
+                 $(cell).html('<input type="text" id="' + id + '" placeholder="' + title + '"  class="fs-14"   />');
+             }
+
+
+             // On every keypress in this input
+             $(
+                 'input',
+                 $('.filters th').eq($(api.column(colIdx).header()).index())
+             )
+                 .off('keyup change')
+                 .on('change', function (e) {
+
+                     if ($(this).attr('id') == 'datepicker-range') {
+                         console.log("Heloooo");
+
+                         //var vals=this.value ;
+
+
+
+                     } else {
+                         //console.log($(this).attr('id'));
+
+
+                         // Get the search value
+                         $(this).attr('title', $(this).val());
+
+                         //var vals=this.value ;
+
+                         var regexr = '({search})'; //$(this).parents('th').find('select').val();
+
+                         var cursorPosition = this.selectionStart;
+                         // Search the column for that value
+                         api
+                             .column(colIdx)
+                             .search(
+                                 this.value != ''
+                                     ? regexr.replace('{search}', '(((' + this.value + ')))')
+                                     : '',
+                                 this.value != '',
+                                 this.value == ''
+                             )
+                             .draw();
+
+                     }
+
+
+                 })
+                 .on('keyup', function (e) {
+                     e.stopPropagation();
+
+                     $(this).trigger('change');
+                     $(this)
+                         .focus()[0]
+                         .setSelectionRange(cursorPosition, cursorPosition);
+                 });
+
+             $(
+                 'select',
+                 $('.filters th').eq($(api.column(colIdx).header()).index())
+             )
+                 .off('keyup change')
+                 .on('change', function (e) {
+
+                     if ($(this).attr('id') == 'datepicker-range') {
+                         console.log("Heloooo");
+
+                         //var vals=this.value ;
+
+
+
+                     } else {
+                         //console.log($(this).attr('id'));
+
+
+                         // Get the search value
+                         $(this).attr('title', $(this).val());
+
+                         //var vals=this.value ;
+
+                         var regexr = '({search})'; //$(this).parents('th').find('select').val();
+
+                         var cursorPosition = this.selectionStart;
+                         // Search the column for that value
+                         api
+                             .column(colIdx)
+                             .search(
+                                 this.value != ''
+                                     ? regexr.replace('{search}', '(((' + this.value + ')))')
+                                     : '',
+                                 this.value != '',
+                                 this.value == ''
+                             )
+                             .draw();
+
+                     }
+
+                 })
+                 .on('keyup', function (e) {
+                     e.stopPropagation();
+
+                     $(this).trigger('change');
+                     $(this)
+                         .focus()[0]
+                         .setSelectionRange(cursorPosition, cursorPosition);
+                 });
+         });
+         flatpikrCall()
+
+        },
+               
+              
+               
+            });
+        
+    }
+
+
+
+        function loadAll(){
+            fromdate=document.getElementById("fromdate").value
+            todate=document.getElementById("todate").value
+            $('#datatableleads').dataTable().fnClearTable();
+            $('#datatableleads').dataTable().fnDestroy();
+            $("#datatableleads").DataTable({
+                
+                "language": {
+                            'loadingRecords': "<span class='fa-stack fa-lg'>\n\
+                            <i class='fa fa-spinner fa-spin fa-stack-2x fa-fw'></i>\n\
+                            </span>&emsp;Loading Details ...",
+                                },
+                
+                "paging":true,   
+                           
+                "ajax":{
+                   url: "{% url 'Admin:LoadAll' %}",
+                   data:{
+                    'from':fromdate,
+                    'to':todate
+                   },
+                  dataSrc:function(json_data){
+                    
+               
+                    var items = [];
+                    for ( var i=0, ien=json_data.length ; i<ien ; i++ ) {
+
+                         items[i] =[json_data[i][0],json_data[i][3],json_data[i][2],json_data[i][4],json_data[i][5],json_data[i][10],json_data[i][11],json_data[i][7]+"<input type='hidden' name='id' id='id_demo"+json_data[i][0]+"' value='"+json_data[i][1]+"'>"]; 
+                        
+                            
+                        }
+                        
+                        return items;
+                   }
+     
+                },
+                responsive: true,
+                orderCellsTop: true,
+                fixedHeader: true,
+                initComplete: function () {
+                    var api = this.api();    
+                api
+                .columns()
+                .eq(0)
+                 .each(function (colIdx) {
+             var column = this;
+             // Set the header cell to contain the input element
+
+             var cell = $('.filters th').eq(
+                 $(api.column(colIdx).header()).index()
+             );
+             var $myindex=$(api.column(colIdx).header()).index();
+             var $myhead=$("#datatableleads thead tr th").eq($myindex);
+             var title = $myhead.text();
+             var id = $myhead.attr('data-id');
+             //var datatext=$(cell).attr('data-text');
+             var select1 = $('<select   id="' + id + '" placeholder="' + title + '"  class="fs-14 form-control w-100"><option value=""></option></select>');
+             if ($(cell).attr('data-text') == 'select') {
+                 //console.log($(cell).index());
+                 api.column($(cell).index())
+                     .data()
+                     .unique()
+                     .sort()
+                     .each(function (d, j) {
+
+
+                         select1.append('<option value="' + d + '">' + d + '</option>');
+
+                     });
+                 $(cell).html(select1);
+
+
+
+
+             } else {
+                 $(cell).html('<input type="text" id="' + id + '" placeholder="' + title + '"  class="fs-14"   />');
+             }
+
+
+             // On every keypress in this input
+             $(
+                 'input',
+                 $('.filters th').eq($(api.column(colIdx).header()).index())
+             )
+                 .off('keyup change')
+                 .on('change', function (e) {
+
+                     if ($(this).attr('id') == 'datepicker-range') {
+                         console.log("Heloooo");
+
+                         //var vals=this.value ;
+
+
+
+                     } else {
+                         //console.log($(this).attr('id'));
+
+
+                         // Get the search value
+                         $(this).attr('title', $(this).val());
+
+                         //var vals=this.value ;
+
+                         var regexr = '({search})'; //$(this).parents('th').find('select').val();
+
+                         var cursorPosition = this.selectionStart;
+                         // Search the column for that value
+                         api
+                             .column(colIdx)
+                             .search(
+                                 this.value != ''
+                                     ? regexr.replace('{search}', '(((' + this.value + ')))')
+                                     : '',
+                                 this.value != '',
+                                 this.value == ''
+                             )
+                             .draw();
+
+                     }
+
+
+                 })
+                 .on('keyup', function (e) {
+                     e.stopPropagation();
+
+                     $(this).trigger('change');
+                     $(this)
+                         .focus()[0]
+                         .setSelectionRange(cursorPosition, cursorPosition);
+                 });
+
+             $(
+                 'select',
+                 $('.filters th').eq($(api.column(colIdx).header()).index())
+             )
+                 .off('keyup change')
+                 .on('change', function (e) {
+
+                     if ($(this).attr('id') == 'datepicker-range') {
+                         console.log("Heloooo");
+
+                         //var vals=this.value ;
+
+
+
+                     } else {
+                         //console.log($(this).attr('id'));
+
+
+                         // Get the search value
+                         $(this).attr('title', $(this).val());
+
+                         //var vals=this.value ;
+
+                         var regexr = '({search})'; //$(this).parents('th').find('select').val();
+
+                         var cursorPosition = this.selectionStart;
+                         // Search the column for that value
+                         api
+                             .column(colIdx)
+                             .search(
+                                 this.value != ''
+                                     ? regexr.replace('{search}', '(((' + this.value + ')))')
+                                     : '',
+                                 this.value != '',
+                                 this.value == ''
+                             )
+                             .draw();
+
+                     }
+
+                 })
+                 .on('keyup', function (e) {
+                     e.stopPropagation();
+
+                     $(this).trigger('change');
+                     $(this)
+                         .focus()[0]
+                         .setSelectionRange(cursorPosition, cursorPosition);
+                 });
+         });
+         flatpikrCall()
+ },
+               
+              
+               
+            });
+            
+
+        }
+        
+function flatpikrCall(){
+    
+    minDateFilter = "";
+    maxDateFilter = "";
+
+
+    //Flat Picker Date
+    flatpickr('#datepicker-range', {
+
+        //const fp = flatpickr(".test-calendar", {  altFormat: "F j, Y", dateFormat: "Y-m-d", showMonths: 3, disableMobile: true, inline: true, mode: "range", 
+        //altInput: true,
+        "allowInput": true,
+        dateFormat: "Y-m-d",//MMMM Do YYYY
+        altFormat: "Y-m-d",
+        mode: "range",
+        //enableTime: false,
+        altInput: true, // Human Readable
+        //minDate: new Date().fp_incr(-60), // 60 days from today
+        //maxDate: defaultEnd,
+        //locale: { firstDayOfWeek: 1},
+
+        onChange:
+            function (selectedDates, dateStr, instance) {
+              
+                var table = $('#datatableleads').DataTable();
+                function rangefilter(ev, picker) {
+                            minDateFilter = Date.parse(selectedDates[0]);
+                            maxDateFilter = Date.parse(selectedDates[1]);
+                            //console.log( 'maxDateFilter'+ maxDateFilter);
+                            //console.log( 'minDateFilter'+ minDateFilter);
+                           // console.log( $(this).index()+1);
+                            $.fn.dataTable.ext.search.push(function(settings, data, dataIndex) {
+                            var date = Date.parse(data[ $(this).index()+1]);
+                        
+                            if (
+                            (isNaN(minDateFilter) && isNaN(maxDateFilter)) ||
+                            (isNaN(minDateFilter) && date <= maxDateFilter) ||
+                            (minDateFilter <= date && isNaN(maxDateFilter)) ||
+                            (minDateFilter <= date && date <= maxDateFilter)
+                            ) {
+                            return true;
+                            }
+                            return false;
+                        });
+                        table.draw();
+                        }
+
+                rangefilter();
+        },
+        onReady: function (selectedDates, dateStr, instance) {
+           
+        },
+          // https://codepen.io/bintux/pen/rgYeyp
+        onClose: function (selectedDates, dateStr, instance) {
+            var table = $('#datatableleads').DataTable();
+            function rangefilter(ev, picker) {
+                            minDateFilter = Date.parse(selectedDates[0]);
+                            maxDateFilter = Date.parse(selectedDates[1]);
+                            //console.log( 'maxDateFilter'+ maxDateFilter);
+                            //console.log( 'minDateFilter'+ minDateFilter);
+                           // console.log( $(this).index()+1);
+                            $.fn.dataTable.ext.search.push(function(settings, data, dataIndex) {
+                            var date = Date.parse(data[ $(this).index()+1]);
+                        
+                            if (
+                            (isNaN(minDateFilter) && isNaN(maxDateFilter)) ||
+                            (isNaN(minDateFilter) && date <= maxDateFilter) ||
+                            (minDateFilter <= date && isNaN(maxDateFilter)) ||
+                            (minDateFilter <= date && date <= maxDateFilter)
+                            ) {
+                            return true;
+                            }
+                            return false;
+                        });
+                        table.draw();
+                        }
+
+            rangefilter();
+
+                         //console.log(selectedDates.attr('value'));
+          
+            
+        }
+
+    });
+
+}
+
+
+
+
+
+    </script>
+    
+    <!-- Required datatable js -->
+    <script src="{%static 'libs/flatpickr/flatpickr.min.js' %}"></script>
+    <script src="{% static 'libs/datatables.net/js/jquery.dataTables.min.js' %}"></script>
+    <script src="{% static 'libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js' %}"></script>
+
+  
+
+    <!-- Datatable init js -->
+    <script src="{% static 'js/pages/datatables-filtercolumn-leads.init.js' %}"></script> 
+    <script src="{% static 'js/app.js' %}"></script>
+
+    </body>
+
+    </html>

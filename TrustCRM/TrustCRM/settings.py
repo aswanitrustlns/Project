@@ -111,6 +111,17 @@ DATABASES = {
             'driver': 'ODBC Driver 17 for SQL Server',
         },
     },
+    'seychelles': {
+        'ENGINE': 'mssql',
+        'NAME': 'SYCTcCRM',
+        'USER': 'TCSCRM',
+        'PASSWORD': 'TCSY@22!!',
+        'HOST': '185.4.178.134 ',
+        'PORT': '1433',
+         'OPTIONS': {
+            'driver': 'ODBC Driver 17 for SQL Server',
+        },
+    },
     'ib': {
         'ENGINE': 'mssql',
         'NAME': 'CyTcCRM',

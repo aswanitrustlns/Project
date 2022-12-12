@@ -2023,6 +2023,7 @@ class Selector:
 
             # date_yesterday=date_yesterday.strftime("%Y-%m-%d")
             new_clients_today=list(TblClients.objects.filter(livestatus="Live",converteddate__date__range=[from_date,to_date]).exclude(isib=1).values_list('login',flat=True))
+            print("New clients today===",new_clients_today)
             clients_today=TblEwalletTransaction.objects.using('svg').filter(accnt_no__in=new_clients_today).values('accnt_no').annotate(Max('id'))
             get_today_id=TblEwalletTransaction.objects.using('svg').filter(id__in=Subquery(clients_today.values('id__max')))
             disctinct_today_list=[]

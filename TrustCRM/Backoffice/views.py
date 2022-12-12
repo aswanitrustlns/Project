@@ -448,12 +448,13 @@ def temperory_approval(request):
     if 'UserId' in request.session:
         message="Please try again"
         userid=int(request.session.get('UserId'))
-        accno=request.GET.get('account')
+        accno=request.POST.get('formacc')
+        print("Account no",accno)
         user=request.session.get('user')
         server=request.session.get('server')
         password=request.session.get('password')
         status=selector.get_docs_verified_poi(accno)
-        print("Status=========",status[3])
+        print("Status=========",status)
         docverified=1
         POIstatus=""
         if status:
@@ -462,7 +463,7 @@ def temperory_approval(request):
         if docverified==0 or POIstatus=="Not Verified":
             message="POI is mandatory for temporary approval"
         else:
-           message=selector.tmpApproveClient(user,server,password,accno,userid)
+           message=selector.tmpApproveClient(user,server,password,accno,userid,request)
         
         userdetails=selector.get_email_details(accno)
         if userdetails:
@@ -833,6 +834,15 @@ def generate_login_report(request):
         all_details=selector.generate_report_monthly_agent(month,year,login)
         
         return render(request,'backoffice/reports.html',{'datas':all_details})
+    else:
+        return redirect('/login')
+#Score
+def get_score(request):
+    if 'UserId' in request.session:
+        qns,opt=selector.get_score_info()
+        print("Questions====",qns)
+        print("Options====",opt)
+        return render(request,'backoffice/score.html',{'qns':qns,'opt':opt})
     else:
         return redirect('/login')
 

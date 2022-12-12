@@ -1378,8 +1378,8 @@ def new_accounts_funded_click(request):
     active="Live"
     if 'UserId' in request.session:
         status=request.GET.get('status')
-        from_date=request.GET.get('fromdate')
-        to_date=request.GET.get('todate')
+        from_date=request.GET.get('from')
+        to_date=request.GET.get('to')
         print("HEHEHEHEHE",status,from_date,to_date)
         if(status=="Funded" or status=="Live"):
             funded_count,nonfunded_count,funded_clients,date_today,date_yesterday=selector.funded_by_date(from_date,to_date)

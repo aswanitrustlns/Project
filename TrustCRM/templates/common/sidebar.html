@@ -70,7 +70,7 @@
                     </ul>
                 </li>
                 {%endif%}
-                <li>
+                <!-- <li>
                     <a href="{% url 'Backoffice:Affiliates' %}" >
                         
                         <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -84,14 +84,8 @@
                             
                         <span data-key="t-affiliates" >Affiliates</span>
                     </a>
-                    <!-- <ul class="sub-menu" aria-expanded="false">
-                        <li><a href="#" data-key="t-liveaffiliates">Live Affiliates</a></li>
-                        <li><a href="#" data-key="t-pendingaffiliates">Pending Affiliates</a></li>
-                        <li><a href="#" data-key="t-rejectedaffiliates">Rejected Affiliates</a></li>
-                        
-                        
-                    </ul> -->
-                </li>
+                  
+                </li> -->
                 {%if request.session.role != "backoffice" %}  
                 <li>
                     <a  href="javascript: void(0);" class="has-arrow">

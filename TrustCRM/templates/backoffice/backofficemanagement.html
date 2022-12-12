@@ -442,7 +442,7 @@
                                                                                         <div class="mb-3">
                                                                                             <label class="form-label" for="Clientarealogin">Client area login<span class="color-orange">*</span></label>
                                                                                             
-                                                                                            <input type="text" class="form-control" name="clientarealogin" id="Clientarealogin" placeholder="" required>
+                                                                                            <input type="text" class="form-control" name="clientarealogin" id="Clientarealogin" placeholder="" required readonly>
                                                                                             <div class="invalid-feedback position-absolute bottom-0" >
                                                                                                 Please provide a valid  Email.
                                                                                             </div>
@@ -458,17 +458,17 @@
                                                                                             </div>
                                                                                         </div>
                                                                                     </div>
-                                                                                    <!-- <div class="col-sm-6 col-md-4  col-lg-6 col-xxl-3 ">
+                                                                                    <div class="col-sm-6 col-md-4  col-lg-6 col-xxl-3 ">
                                                                                         <div class="mb-3">
                                                                                             <label class="form-label" for="Score">Risk<span class="color-orange">*</span></label>
-                                                                                            <input type="text" class="form-control" name="risk" id="Risk" placeholder="" required>
-                                                                                            <div class="invalid-feedback position-absolute bottom-0">
-                                                                                                .
-                                                                                            </div>
+                                                                                            <select class="form-select" name="risk" id="Risk" placeholder="" required disabled="disabled"> 
+                                                                                           <option>Low</option>
+                                                                                           <option>High</option>
+                                                                                           </select>
                                                                                         </div>
-                                                                                    </div> -->
+                                                                                    </div>
                                                                                    
-                                                                                    <div class="col-sm-6 col-md-4  col-lg-6 col-xxl-3 ">
+                                                                                    <!-- <div class="col-sm-6 col-md-4  col-lg-6 col-xxl-3 ">
                                                                                         <div class="mb-3">
                                                                                             <label class="form-label" for="Riskcategory">Risk category<span class="color-orange">*</span></label>
                                                                                             <select  class="form-select" id="RiskCategory"  name="RiskCategory" value="" required>
@@ -483,7 +483,7 @@
                                                                                             </div>
                                                                                         </div>
                                                                                         
-                                                                                    </div>
+                                                                                    </div> -->
                                                                                     <div class="col-sm-6 col-md-4  col-lg-6 col-xxl-3 ">
                                                                                         <div class="mb-3">
                                                                                             <label class="form-label" for="IDNo">ID No<span class="color-orange">*</span></label>
@@ -511,6 +511,24 @@
                                                                                             <div class="invalid-feedback position-absolute bottom-0">
                                                                                                 Please provide a Profession.
                                                                                             </div>
+                                                                                        </div>
+                                                                                        
+                                                                                    </div>
+                                                                                    <div class="col-sm-6 col-md-4  col-lg-6 col-xxl-3 ">
+                                                                                        <div class="mb-3">
+                                                                                            <label class="form-label" for="Networth">Networth<span class="color-orange">*</span></label>
+                                                                                            <input type="text" class="form-control" id="Networth" name="networth" placeholder="" required>
+                                                                                            <div class="invalid-feedback position-absolute bottom-0">
+                                                                                                Please provide a Profession.
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        
+                                                                                    </div>
+                                                                                    <div class="col-sm-6 col-md-4  col-lg-6 col-xxl-3 ">
+                                                                                        <div class="mb-3">
+                                                                                            <label class="form-label" for="Networth">Stipluated Annual Income<span class="color-orange">*</span></label>
+                                                                                            <input type="text" class="form-control" id="StIncome" name="StIncome" placeholder="" required>
+                                                                                            
                                                                                         </div>
                                                                                         
                                                                                     </div>
@@ -1873,6 +1891,7 @@
                                         <button type="button" class="btn bg-soft-secondarycolor text-white me-2" onclick="viewDocs()">View documents</button>
                                         <!-- <button type="button" class="btn bg-soft-secondarycolor text-white me-2" data-bs-toggle="modal" data-bs-target=".bs-example-modal-seminars" style="background-color: var(--bs-card-bg) ;">Close account</button> -->
                                         <button type="button" class="btn bg-soft-secondarycolor text-white me-2" onclick="terminate()">Close Account</button>
+                                        <button type="button" class="btn bg-soft-secondarycolor text-white me-2" onclick="viewscore()">View Score</button>
                                         </div>
     
                             </div>
@@ -1882,7 +1901,7 @@
     
                             <button id="submitftype" class="btn btn-lg btn-primary me-2  " type="button"  onclick="mt4pwdCheck('update')">Update</button>
                             <!-- <button id="resetftype" class="btn   btn-lg btn-outline-light me-2 " type="button" >Reset</button> -->
-                            <button  class="btn   btn-lg btn-outline-light  color-color1 me-2 " onclick="mt4pwdCheck('temp')" id="tempApprove">Temporary approve</button>
+                            <button  class="btn   btn-lg btn-outline-light  color-color1 me-2 " onclick="tempApproval()" id="tempApprove">Temporary approve</button>
                             <button  class="btn   btn-lg btn-outline-light  color-color1 me-2 "  onclick="mt4pwdCheck('final')" id="FinalApprove">Final approve</button>
                             <button  class="btn   btn-lg btn-outline-light  color-color1 me-2 "  onclick="mt4pwdCheck('approve')" id="Approve">Approve</button>
                         </div>
@@ -2777,6 +2796,20 @@
                 $("#terminate").modal('show')
         }
     }
+    function viewscore(){
+        var accno=$("#Accountno").val()
+        if(accno==""){
+            $("#userMsg").empty()
+            $("#userMsg").append("Please enter account number")
+            $("#alertpopup").modal('show')
+
+        }else{
+            var url="{% url 'Backoffice:ScorePage'%}"
+            window.location.href=url
+        }
+
+    }
+
     function terminProceed(){
         $("#terminate").modal('hide')
         var ticket=$("#tickets").val()
@@ -3374,15 +3407,34 @@
     }
     function tempApproval(){
         var accno=$("#Accountno").val()
+        $("#form-accno").val(accno)
+        var cliarea=$("#ClientArealogin").val()
+        var risk=$("#Risk").val()
+        if(cliarea==""){
+            $("#userMsg").empty()
+            $("#userMsg").append("Client Area is not linked to this account. Please contact IT for assistance")
+            $("#alertpopup").modal('show')
 
-        $.ajax({
-                    
-                    type : "GET", 
+        }
+        if(risk=="High"){
+            $("#userMsg").empty()
+            $("#userMsg").append("High Risk clients cannot be approved")
+            $("#alertpopup").modal('show')
+        }
+
+        else{
+                    var formdata=$("#office-form,#formtype_account,#formtype_contact").serialize()
+                    let csrftoken = '{{ csrf_token }}'
+            $.ajax({
+                    type : "POST", 
+                    headers:{
+                        "X-CSRFToken": csrftoken
+                    },
+                    dataType: 'json',
+                   
                     url: "{% url 'Backoffice:TemporaryApproval' %}",
                     dataType: 'json',
-                    data:{
-                        'account':accno,
-                    },
+                    data:formdata,
                     success: function(data){
                         message=data.message
                         $("#userMsg").empty()
@@ -3391,6 +3443,10 @@
                         
                     }
                 })
+
+        }
+
+        
 
     }
     function Approval(){
@@ -3535,9 +3591,9 @@
                             if(check=="final"){
                                 finalApproval()
                             }
-                            if(check=="temp"){
-                                tempApproval()
-                            }
+                            // if(check=="temp"){
+                            //     tempApproval()
+                            // }
                             if(check=="approve"){
                                 Approval()
                             }
