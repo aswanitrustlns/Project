@@ -471,55 +471,44 @@ def resolved_tckts_load_all(request):
     else:
         return redirect('/login')
 
-# def new_accounts(request):
-#     active="Live"
-#     if 'UserId' in request.session:
-#         role=request.session.get("role")
+def new_accounts_pend(request):
+    active="Live"
+    if 'UserId' in request.session:
+        role=request.session.get("role")
         
-#         change=request.GET.get("change")
-#         from_date=request.GET.get("from")
-#         to_date=request.GET.get("to")
-#         status=request.GET.get("status")
-#         date_today=datetime.today().date()    
-#         date_today=date_today.strftime("%Y-%m-%d")
-#         week_day=datetime.today().weekday() # Monday is 0 and Sunday is 6
-#         if(week_day==0):
-#                 date_yesterday = datetime.today()-timedelta(3)
-#         else:
-#                 date_yesterday = datetime.today()-timedelta(1)
+        change=request.GET.get("change")
+        from_date=request.GET.get("from")
+        to_date=request.GET.get("to")
+        status=request.GET.get("status")
+        date_today=datetime.today().date()    
+        date_today=date_today.strftime("%Y-%m-%d")
+        week_day=datetime.today().weekday() # Monday is 0 and Sunday is 6
+        if(week_day==0):
+                date_yesterday = datetime.today()-timedelta(3)
+        else:
+                date_yesterday = datetime.today()-timedelta(1)
 
-#         date_yesterday=date_yesterday.strftime("%Y-%m-%d")
-#         if from_date=="":
-#             from_date=date_yesterday
-#         if to_date=="":
-#             to_date=date_today
+        date_yesterday=date_yesterday.strftime("%Y-%m-%d")
+        if from_date=="":
+            from_date=date_yesterday
+        if to_date=="":
+            to_date=date_today
         
         
-#         if(change):
-#             if status=="Live":
-#                 status="Funded"
-#             if status=="Pending":
-#                 status="TempApproved"
+        if(change):
+            if status=="Live":
+                status="Funded"
+            if status=="Pending":
+                status="TempApproved"
             
-#             accounts_data=selector.get_new_accounts(change,status,from_date,to_date)
-#             accounts_count=selector.get_new_accounts_count(from_date,to_date)
-#             print("change is---------------",change)
+            accounts_data=selector.get_new_accounts(change,status,from_date,to_date)
+            accounts_count=selector.get_new_accounts_count(from_date,to_date)
+            print("change is---------------",change)
             
-#             return HttpResponse(json.dumps({"data":accounts_data,"count":accounts_count,'from':from_date,'to':to_date}), content_type="application/json")
-#         else:
-           
-#             funded_count,nonfunded_count,funded_clients,date_today,date_yesterday=selector.funded_today()
-#             # funded_clients=selector.existing_funded_today()
-#             print("Exist====",funded_clients)
-#             accounts_data=selector.get_new_accounts("Funded","",date_yesterday,date_today)
-#             accounts_count=selector.get_new_accounts_count(date_yesterday,date_today)
-            
-#             # terminated_data=selector.get_new_accounts("Terminated")
-#             return render(request,'sales/newAccounts.html',{'accounts_data':funded_clients,'from':date_yesterday,'to':date_today,'fundcount':funded_count,'nonfundcount':nonfunded_count,'accounts_count':accounts_count,"active":json.dumps(active),'role':json.dumps(role)})
-#             # return render(request,'sales/allclients.html',{'accounts_data':accounts_data,'accounts_count':accounts_count,"active":json.dumps(active)})
+            return HttpResponse(json.dumps({"data":accounts_data,"count":accounts_count,'from':from_date,'to':to_date}), content_type="application/json")
                 
-#     else:
-#         return redirect('/login')
+    else:
+        return redirect('/login')
 #new account variants
 def new_accounts_variants(request):
     active="Live"
@@ -570,6 +559,7 @@ def new_accounts_variants_weekly(request):
                 
     else:
         return redirect('/login')
+        
 #new accounts click
 def new_accounts_click(request):
     active="Live"
@@ -1352,7 +1342,7 @@ def new_accounts(request):
         else:
             funded_count,nonfunded_count,funded_clients,date_today,date_yesterday=selector.funded_today()
             
-        print("Exist====",funded_clients)
+        
         accounts_count=selector.get_new_accounts_count(date_yesterday,date_today)
         return render(request,'sales/newAccounts.html',{'accounts_data':funded_clients,'from':date_yesterday,'to':date_today,'fundcount':funded_count,'nonfundcount':nonfunded_count,'accounts_count':accounts_count,"active":json.dumps(active),'role':json.dumps(role)})
         
@@ -1363,7 +1353,9 @@ def new_accounts(request):
 def existing_accounts(request):
     active="Exist"
     if 'UserId' in request.session:
-        
+        funded_clients=[]
+        date_today=""
+        date_yesterday=""
         change=request.GET.get('change')
         role=request.session.get("role")
         print("Existing======================",change)
@@ -1379,6 +1371,25 @@ def existing_accounts(request):
         accounts_count=selector.get_new_accounts_count(date_yesterday,date_today)
         return render(request,'sales/newAccounts.html',{'accounts_data':funded_clients,'from':date_yesterday,'to':date_today,'accounts_count':accounts_count,"active":json.dumps(active),'role':json.dumps(role)})
         
+    else:
+        return redirect('/login')
+#new accounts funded click
+def new_accounts_funded_click(request):
+    active="Live"
+    if 'UserId' in request.session:
+        status=request.GET.get('status')
+        from_date=request.GET.get('fromdate')
+        to_date=request.GET.get('todate')
+        print("HEHEHEHEHE",status,from_date,to_date)
+        if(status=="Funded" or status=="Live"):
+            funded_count,nonfunded_count,funded_clients,date_today,date_yesterday=selector.funded_by_date(from_date,to_date)
+
+        else:
+             funded_count,nonfunded_count,funded_clients,date_today,date_yesterday=selector.nonfunded_by_date(from_date,to_date)
+        print("Accounts data===",funded_clients,funded_count,nonfunded_count)
+        return HttpResponse(json.dumps({"data":funded_clients,"funded":funded_count,"nonfund":nonfunded_count}), content_type="application/json")
+        # return render(request,'admin/newAccounts.html',{'accounts_data':accounts_data,'accounts_count':accounts_count,"active":json.dumps(active)})
+                
     else:
         return redirect('/login')
 

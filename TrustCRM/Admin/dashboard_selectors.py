@@ -452,7 +452,7 @@ class DashboardSelector:
             for id in get_today_id.iterator():
                 disctinct_today_list.append(id.id)
             print("Distinct today list====",disctinct_today_list)
-            funded_today=TblEwalletTransaction.objects.using('svg').filter(trans_type=0,trans_status=1,id__in=disctinct_today_list).count()
+            funded_today=TblEwalletTransaction.objects.using('svg').filter(Q(trans_type=0,trans_status=1)|Q(trans_type=1,trans_status=1),id__in=disctinct_today_list).count()
             nonfunded_today=TblEwalletTransaction.objects.using('svg').filter(trans_type=0,trans_status__gt=1,id__in=disctinct_today_list).count()
             print("New Funded Non Funded Today",funded_today,nonfunded_today)
 
@@ -463,7 +463,7 @@ class DashboardSelector:
             for id in get_week_id.iterator():
                 disctinct_week_list.append(id.id)
 
-            funded_week=TblEwalletTransaction.objects.using('svg').filter(trans_type=0,trans_status=1,id__in=disctinct_week_list).count()
+            funded_week=TblEwalletTransaction.objects.using('svg').filter(Q(trans_type=0,trans_status=1)|Q(trans_type=1,trans_status=1),id__in=disctinct_week_list).count()
             nonfunded_week=TblEwalletTransaction.objects.using('svg').filter(trans_type=0,trans_status__gt=1,id__in=disctinct_week_list).count()
             print("New Funded Non Funded Week",funded_today,nonfunded_today,funded_week,nonfunded_week)
 
@@ -476,7 +476,7 @@ class DashboardSelector:
                 disctinct_ext_today_list.append(id.id)
 
 
-            existing_funded_today=TblEwalletTransaction.objects.using('svg').filter(trans_type=0,trans_status=1,trans_date__date__range=[date_yesterday_for_today,date_today],id__in=disctinct_ext_today_list).count()
+            existing_funded_today=TblEwalletTransaction.objects.using('svg').filter(Q(trans_type=0,trans_status=1)|Q(trans_type=1,trans_status=1),trans_date__date__range=[date_yesterday_for_today,date_today],id__in=disctinct_ext_today_list).count()
             
             fu=list(TblEwalletTransaction.objects.using('svg').filter(trans_type=0,trans_status=1,trans_date__date__range=[date_yesterday_for_today,date_today],id__in=disctinct_ext_today_list))
             print("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++fu",fu)
@@ -508,7 +508,7 @@ class DashboardSelector:
                 all_distinct_list.append(total.id)
                 
 
-            existing_funded_week=TblEwalletTransaction.objects.using('svg').filter(trans_type=0,trans_status=1,trans_date__date__range=[date_yesterday_for_week,date_today],id__in=distinct_list).count()
+            existing_funded_week=TblEwalletTransaction.objects.using('svg').filter(Q(trans_type=0,trans_status=1)|Q(trans_type=1,trans_status=1),trans_date__date__range=[date_yesterday_for_week,date_today],id__in=distinct_list).count()
             
             total_nonfun_existing=TblEwalletTransaction.objects.using('svg').filter(trans_type=0,trans_status__gt=1,id__in=all_distinct_list).count()
             

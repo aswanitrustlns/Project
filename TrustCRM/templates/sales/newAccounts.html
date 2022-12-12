@@ -118,8 +118,8 @@
 
                                     <ul class="gilory-medium-type list-unstyled color-color1 fs-18 d-flex ">
 
-                                        <li onclick="pageRedirect('Funded')" style="cursor:pointer"> <span class="rounded-circle  bg-danger d-inline-block me-1 "  style="height:13px ;width:13px;"></span><span>Funded</span> | <span class="text-white" id="fundspan">{{fundcount}}</span></li>
-                                        <li class="ms-5" onclick="pageRedirect('NonFunded')" style="cursor:pointer"> <span class="rounded-circle  bg-info d-inline-block me-1" style="height:13px ;width:13px;"></span> <span>Non Funded </span> | <span class="text-white" id="nonfundspan">{{nonfundcount}}</span></li>
+                                        <li onclick="pagenewRedirect('Funded')" style="cursor:pointer"> <span class="rounded-circle  bg-danger d-inline-block me-1 "  style="height:13px ;width:13px;"></span><span>Funded</span> | <span class="text-white" id="fundspan">{{fundcount}}</span></li>
+                                        <li class="ms-5" onclick="pagenewRedirect('NonFunded')" style="cursor:pointer"> <span class="rounded-circle  bg-info d-inline-block me-1" style="height:13px ;width:13px;"></span> <span>Non Funded </span> | <span class="text-white" id="nonfundspan">{{nonfundcount}}</span></li>
                                     </ul>
                                 </div>
                                 <div class="mb-4 mt-3 " id="pending">
@@ -286,44 +286,48 @@
         var tabactive={{active|safe}}
         console.log("Tab active====",tabactive)
         var role={{role|safe}}
-        function changeAccount(change){
 
-if(change!='All'){
-    $("#selected_tab").val(change)
-}
-var status=$("#selected_tab").val()
-console.log("changed status----"+status)
-console.log("Onclick change----------------------"+change)
-if((change=="Rejected" || change =="All") &&status=="Rejected"){
-    $("#live").hide()
-    $("#pending").hide()
-    rejectedAccount(change,status);
-}
-if((change=="Closed" || change =="All" ) && status=="Closed"){
-    $("#live").hide()
-    $("#pending").hide()
-    closedAccount(change,status)
-}
-if((change=="Terminated"|| change =="All") && status=="Terminated"){
-    $("#live").hide()
-    $("#pending").hide()
-    terminateAccount(change,status)
-}
-if(change=="Live" || change =="Pending" || change =="All" || status=="Live" || status=="Pending"){
-    if((change=="Live" || change =="All" ) && status=="Live"){
-        $("#live").show()
-        $("#pending").hide()
+    function changeAccount(change){
+
+                    if(change!='All'){
+                        $("#selected_tab").val(change)
+                    }
+                    var status=$("#selected_tab").val()
+                    console.log("changed status----"+status)
+                    console.log("Onclick change----------------------"+change)
+                    if((change=="Rejected" || change =="All") &&status=="Rejected"){
+                        $("#live").hide()
+                        $("#pending").hide()
+                        rejectedAccount(change,status);
+                    }
+                    if((change=="Closed" || change =="All" ) && status=="Closed"){
+                        $("#live").hide()
+                        $("#pending").hide()
+                        closedAccount(change,status)
+                    }
+                    if((change=="Terminated"|| change =="All") && status=="Terminated"){
+                        $("#live").hide()
+                        $("#pending").hide()
+                        terminateAccount(change,status)
+                    }
+                    if((change=="Pending"|| change =="All") && status=="Pending"){
+                        $("#live").hide()
+                        $("#pending").hide()
+                    pendingAccount(change,status)
+                    }
+                    if(change=="Live" || change =="All" || status=="Live"){
+                        if((change=="Live" || change =="All" ) && status=="Live"){
+                            $("#live").show()
+                            $("#pending").hide()
+                        }
+                        
+                        liveAccount(change,status)
+                    }                
+
+
     }
-    if((change=="Pending" || change =="All") && status=="Pending"){
-        $("#live").hide()
-        $("#pending").show()
-    }
-    liveAccount(change,status)
-}                
-
-
-}
 function liveAccount(change,status){
+
 fromdate=document.getElementById("fromdate").value
 todate=document.getElementById("todate").value
 var json_data;
@@ -333,7 +337,7 @@ $("#datatableleads").DataTable({
 'paging':true, 
 'destroy': true,               
 'ajax':{
-   "url": "{% url 'Admin:NewAccounts' %}",
+   "url": "{% url 'Admin:NewAccountsFundedClick' %}",
    "type": "GET",
    "data":{
     'change':change,
@@ -343,18 +347,19 @@ $("#datatableleads").DataTable({
    },
    "dataSrc":function(data){
     json_data=data.data
-    count=data.count
+    fund=data.funded
+    nonfund=data.nonfund
     from=data.from
     to=data.to
-    console.log("Count========="+count[0])
+    
     var fundspan=document.getElementById("fundspan")
     var nonfundspan=document.getElementById("nonfundspan")
     var approvespan=document.getElementById("approvespan")
     var waitingspan=document.getElementById("waitingspan")
-    fundspan.innerHTML=count[0]
-    nonfundspan.innerHTML=count[1]
-    approvespan.innerHTML=count[2]
-    waitingspan.innerHTML=count[3]
+    fundspan.innerHTML=fund
+    nonfundspan.innerHTML=nonfund
+    
+    
     var items = [];
     for ( var i=0, ien=json_data.length ; i<ien ; i++ ) {
 
@@ -535,10 +540,909 @@ flatpikrCall("datatableleads")
 },
 
 
-});     
+});   
+} 
+
+function pendingAccount(change,status){
+            fromdate=document.getElementById("fromdate").value
+            todate=document.getElementById("todate").value
+            var json_data;
+            var from
+            var to
+                $("#datatableleads").DataTable({
+                'paging':true, 
+                'destroy': true,               
+                'ajax':{
+                   "url": "{% url 'Admin:NewAccountsPend' %}",
+                   "type": "GET",
+                   "data":{
+                    'change':change,
+                    'from':fromdate,
+                    'to':todate,
+                    'status':status,
+                   },
+                   "dataSrc":function(data){
+                    json_data=data.data
+                    count=data.count
+                    from=data.from
+                    to=data.to
+                    console.log("Count========="+count[0])
+                    var fundspan=document.getElementById("fundspan")
+                    var nonfundspan=document.getElementById("nonfundspan")
+                    var approvespan=document.getElementById("approvespan")
+                    var waitingspan=document.getElementById("waitingspan")
+                    fundspan.innerHTML=count[0]
+                    nonfundspan.innerHTML=count[1]
+                    approvespan.innerHTML=count[2]
+                    waitingspan.innerHTML=count[3]
+                    var items = [];
+                    for ( var i=0, ien=json_data.length ; i<ien ; i++ ) {
+
+                        items[i] = [json_data[i][1],json_data[i][0],json_data[i][2],json_data[i][3],json_data[i][4],json_data[i][5],json_data[i][6],json_data[i][9],json_data[i][8]]; 
+                            
+                        }
+                        
+                        return items;
+                   }
+                },
+                responsive: true,
+                orderCellsTop: true,
+                fixedHeader: true,
+                initComplete: function () {
+                    var api = this.api();
+     
+                        api
+                        .columns()
+                        .eq(0)
+                        .each(function (colIdx) {
+                        var column = this;
+             // Set the header cell to contain the input element
+
+                 var cell = $('.filters th').eq(
+                 $(api.column(colIdx).header()).index()
+             );
+             var $myindex=$(api.column(colIdx).header()).index();
+             var $myhead=$("#datatableleads thead tr th").eq($myindex);
+             var title = $myhead.text();
+             var id = $myhead.attr('data-id');
+             //var datatext=$(cell).attr('data-text');
+             var select1 = $('<select   id="' + id + '" placeholder="' + title + '"  class="fs-14 form-control w-100"><option value=""></option></select>');
+             if ($(cell).attr('data-text') == 'select') {
+                 //console.log($(cell).index());
+                 api.column($(cell).index())
+                     .data()
+                     .unique()
+                     .sort()
+                     .each(function (d, j) {
 
 
-}
+                         select1.append('<option value="' + d + '">' + d + '</option>');
+
+                     });
+                 $(cell).html(select1);
+
+
+
+
+             } else {
+                 $(cell).html('<input type="text" id="' + id + '" placeholder="' + title + '"  class="fs-14"   />');
+             }
+
+
+             // On every keypress in this input
+             $(
+                 'input',
+                 $('.filters th').eq($(api.column(colIdx).header()).index())
+             )
+                 .off('keyup change')
+                 .on('change', function (e) {
+
+                     if ($(this).attr('id') == 'datepicker-range') {
+                         console.log("Heloooo");
+
+                         //var vals=this.value ;
+
+
+
+                     } else {
+                         //console.log($(this).attr('id'));
+
+
+                         // Get the search value
+                         $(this).attr('title', $(this).val());
+
+                         //var vals=this.value ;
+
+                         var regexr = '({search})'; //$(this).parents('th').find('select').val();
+
+                         var cursorPosition = this.selectionStart;
+                         // Search the column for that value
+                         api
+                             .column(colIdx)
+                             .search(
+                                 this.value != ''
+                                     ? regexr.replace('{search}', '(((' + this.value + ')))')
+                                     : '',
+                                 this.value != '',
+                                 this.value == ''
+                             )
+                             .draw();
+
+                     }
+
+
+                 })
+                 .on('keyup', function (e) {
+                     e.stopPropagation();
+
+                     $(this).trigger('change');
+                     $(this)
+                         .focus()[0]
+                         .setSelectionRange(cursorPosition, cursorPosition);
+                 });
+
+             $(
+                 'select',
+                 $('.filters th').eq($(api.column(colIdx).header()).index())
+             )
+                 .off('keyup change')
+                 .on('change', function (e) {
+
+                     if ($(this).attr('id') == 'datepicker-range') {
+                         console.log("Heloooo");
+
+                         //var vals=this.value ;
+
+
+
+                     } else {
+                         //console.log($(this).attr('id'));
+
+
+                         // Get the search value
+                         $(this).attr('title', $(this).val());
+
+                         //var vals=this.value ;
+
+                         var regexr = '({search})'; //$(this).parents('th').find('select').val();
+
+                         var cursorPosition = this.selectionStart;
+                         // Search the column for that value
+                         api
+                             .column(colIdx)
+                             .search(
+                                 this.value != ''
+                                     ? regexr.replace('{search}', '(((' + this.value + ')))')
+                                     : '',
+                                 this.value != '',
+                                 this.value == ''
+                             )
+                             .draw();
+
+                     }
+
+                 })
+                 .on('keyup', function (e) {
+                     e.stopPropagation();
+
+                     $(this).trigger('change');
+                     $(this)
+                         .focus()[0]
+                         .setSelectionRange(cursorPosition, cursorPosition);
+                 });
+         });
+         flatpickr('#fromdate').clear()
+         flatpickr('#fromdate', {
+                        //inline: true,
+                        "allowInput":true,
+                        dateFormat: "Y-m-d",//MMMM Do YYYY
+                        altFormat: "Y-m-d",
+                        altInput: true,
+                        mode: "single",
+                        defaultDate: from
+                    });
+                    flatpickr('#todate').clear()
+        flatpickr('#todate', {
+                        //inline: true,
+                        "allowInput":true,
+                        dateFormat: "Y-m-d",//MMMM Do YYYY
+                        altFormat: "Y-m-d",
+                        altInput: true,
+                        mode: "single",
+                        defaultDate: to
+                    });
+         flatpikrCall("datatableleads")
+ },
+                
+               
+            });     
+            
+           
+        }
+
+
+
+
+
+function rejectedAccount(change,status){
+            fromdate=document.getElementById("fromdate").value
+            todate=document.getElementById("todate").value
+           $("#fromdate").val("")
+            $('#datatableleadsR').dataTable().fnClearTable();
+                $('#datatableleadsR').dataTable().fnDestroy();
+            
+                $("#datatableleadsR").DataTable({
+                // 'processing' : true,
+                
+                'paging':true,               
+                'ajax':{
+                   "url": "{% url 'Admin:NewAccounts' %}",
+                   "type": "GET",
+                   "data":{
+                    "change":change,
+                    'from':fromdate,
+                    'to':todate,
+                    'status':status,
+                   },
+                   "dataSrc":function(data){
+                    json_data=data.data
+               
+                    var items = [];
+                    for ( var i=0, ien=json_data.length ; i<ien ; i++ ) {
+
+                        items[i] = [json_data[i][0],json_data[i][1],json_data[i][2],json_data[i][3],json_data[i][4],json_data[i][5],json_data[i][6],json_data[i][7],json_data[i][8],json_data[i][9]]; 
+                            
+                        }
+                        
+                        return items;
+                   }
+                },
+                responsive: true,
+        orderCellsTop: true,  
+
+       
+        fixedHeader: true,
+        initComplete: function () {
+            var api = this.api();
+ 
+            // For each column
+            api
+                .columns()
+                .eq(0)
+                
+                .each(function (colIdx) {
+                   
+                    // Set the header cell to contain the input element
+                  
+                    var cell = $('.filters th').eq(
+                        $(api.column(colIdx).header()).index()
+                    );
+                    var title = $(cell).text();
+                    var id = $(cell).attr('data-id');
+                    
+                    $(cell).html('<input type="text" id="'+id+'" placeholder="' + title + '"  class="fs-14"   />');
+                    
+                    // On every keypress in this input
+                    $(
+                        'input',
+                        $('.filters th').eq($(api.column(colIdx).header()).index())
+                    )
+                        .off('keyup change')
+                        .on('change', function (e) {
+
+                            console.log($(this).attr('id'));
+
+                            if($(this).attr('id')=='datepicker-range'){
+                                
+                                api
+                                .column(colIdx)
+                                .search(
+                                        function( data, colIdx ) {
+                                            //var min = minDate;
+                                            // var max = maxDate;
+                                            // console.log(min);
+                                                //date = new Date( colIdx[0] );
+                                            var min = minDate;
+                                            var max = maxDate;
+                                            var date = new Date(data[0]);
+                                            
+
+                                            //colIdx
+                                     
+                                            if (
+                                                ( min === null && max === null ) ||
+                                                ( min === null && date <= max ) ||
+                                                ( min <= date   && max === null ) ||
+                                                ( min <= date   && date <= max )
+                                            ) {
+                                                return true;
+                                                console.log('searching-date-start' +min  );
+                                                console.log('searching-date-endt' +max  );
+                                            }
+                                            return false;
+                                            console.log('searching-date-start' +min  );
+                                            console.log('searching-date-endt' +max  );
+                                        }
+                                    
+                                ).draw();
+                               
+
+                                
+                            }
+                            else{
+
+                                    // Get the search value
+                                $(this).attr('title', $(this).val());
+                                var regexr = '({search})'; //$(this).parents('th').find('select').val();
+                                var cursorPosition = this.selectionStart;
+                                // Search the column for that value
+                                api
+                                .column(colIdx)
+                                .search(
+                                    this.value != ''
+                                        ? regexr.replace('{search}', '(((' + this.value + ')))')
+                                        : '',
+                                    this.value != '',
+                                    this.value == ''
+                                )
+                                .draw();
+
+
+                            }
+                            
+                        })
+                        .on('keyup', function (e) {
+                            e.stopPropagation();
+ 
+                            $(this).trigger('change');
+                            $(this)
+                                .focus()[0]
+                                .setSelectionRange(cursorPosition, cursorPosition);
+                        });
+                });
+                
+        },
+                
+               
+            });     
+            flatpikrCall("datatableleadsR")
+        }
+
+
+
+        function closedAccount(change,status){
+            fromdate=document.getElementById("fromdate").value
+            todate=document.getElementById("todate").value
+            $('#datatableleadsC').dataTable().fnClearTable();
+                $('#datatableleadsC').dataTable().fnDestroy();
+                $("#datatableleadsC").DataTable({
+                // 'processing' : true,
+                
+                'paging':true,               
+                'ajax':{
+                   "url": "{% url 'Admin:NewAccounts' %}",
+                   "type": "GET",
+                   "data":{
+                    "change":change,
+                    'from':fromdate,
+                    'to':todate,
+                    'status':status,
+                   },
+                   "dataSrc":function(data){
+                    json_data=data.data
+               
+                    var items = [];
+                    for ( var i=0, ien=json_data.length ; i<ien ; i++ ) {
+
+                        items[i] = [json_data[i][0],json_data[i][1],json_data[i][2],json_data[i][3],json_data[i][4],json_data[i][5],json_data[i][6],json_data[i][7],json_data[i][8],json_data[i][9]]; 
+                            
+                        }
+                        
+                        return items;
+                   }
+                },
+                responsive: true,
+        orderCellsTop: true,  
+
+       
+        fixedHeader: true,
+        initComplete: function () {
+            var api = this.api();
+ 
+            // For each column
+            api
+                .columns()
+                .eq(0)
+                
+                .each(function (colIdx) {
+                   
+                    // Set the header cell to contain the input element
+                  
+                    var cell = $('.filters th').eq(
+                        $(api.column(colIdx).header()).index()
+                    );
+                    var title = $(cell).text();
+                    var id = $(cell).attr('data-id');
+                    
+                    $(cell).html('<input type="text" id="'+id+'" placeholder="' + title + '"  class="fs-14"   />');
+                    
+                    // On every keypress in this input
+                    $(
+                        'input',
+                        $('.filters th').eq($(api.column(colIdx).header()).index())
+                    )
+                        .off('keyup change')
+                        .on('change', function (e) {
+
+                            console.log($(this).attr('id'));
+
+                            if($(this).attr('id')=='datepicker-range'){
+                                
+                                api
+                                .column(colIdx)
+                                .search(
+                                        function( data, colIdx ) {
+                                            //var min = minDate;
+                                            // var max = maxDate;
+                                            // console.log(min);
+                                                //date = new Date( colIdx[0] );
+                                            var min = minDate;
+                                            var max = maxDate;
+                                            var date = new Date(data[0]);
+                                            
+
+                                            //colIdx
+                                     
+                                            if (
+                                                ( min === null && max === null ) ||
+                                                ( min === null && date <= max ) ||
+                                                ( min <= date   && max === null ) ||
+                                                ( min <= date   && date <= max )
+                                            ) {
+                                                return true;
+                                                console.log('searching-date-start' +min  );
+                                                console.log('searching-date-endt' +max  );
+                                            }
+                                            return false;
+                                            console.log('searching-date-start' +min  );
+                                            console.log('searching-date-endt' +max  );
+                                        }
+                                    
+                                ).draw();
+                               
+
+                                
+                            }
+                            else{
+
+                                    // Get the search value
+                                $(this).attr('title', $(this).val());
+                                var regexr = '({search})'; //$(this).parents('th').find('select').val();
+                                var cursorPosition = this.selectionStart;
+                                // Search the column for that value
+                                api
+                                .column(colIdx)
+                                .search(
+                                    this.value != ''
+                                        ? regexr.replace('{search}', '(((' + this.value + ')))')
+                                        : '',
+                                    this.value != '',
+                                    this.value == ''
+                                )
+                                .draw();
+
+
+                            }
+                            
+                        })
+                        .on('keyup', function (e) {
+                            e.stopPropagation();
+ 
+                            $(this).trigger('change');
+                            $(this)
+                                .focus()[0]
+                                .setSelectionRange(cursorPosition, cursorPosition);
+                        });
+                });
+                
+        },
+               
+               
+            });     
+            flatpikrCall("datatableleadsC")
+           
+        }  
+
+function pagenewRedirect(variant){
+        var fromdate=document.getElementById("fromdate").value
+        var todate=document.getElementById("todate").value
+        console.log("From date=================="+fromdate)
+        console.log("To date======"+todate)
+        console.log("Variant==================="+variant)
+        // var url="{% url 'Admin:NewAccountsClick' %}"
+                // window.location.href=url+"?&status="+variant+"&fromdate="+fromdate+"&todate="+todate
+
+                var json_data;
+                $("#datatableleads").DataTable({
+                'paging':true, 
+                'destroy': true,               
+                'ajax':{
+                   "url": "{% url 'Admin:NewAccountsFundedClick' %}",
+                   "type": "GET",
+                   "data":{
+                    'status':variant,
+                    'fromdate':fromdate,
+                    'todate':todate                    
+                   },
+                   "dataSrc":function(data){
+                    json_data=data.data
+                    fund=data.funded
+                    nonfund=data.nonfund
+                    var fundspan=document.getElementById("fundspan")
+                    var nonfundspan=document.getElementById("nonfundspan")
+                    var approvespan=document.getElementById("approvespan")
+                    var waitingspan=document.getElementById("waitingspan")
+                    fundspan.innerHTML=fund
+                    nonfundspan.innerHTML=nonfund
+
+
+                    var items = [];
+                    for ( var i=0, ien=json_data.length ; i<ien ; i++ ) {
+
+                        items[i] = [json_data[i][1],json_data[i][0],json_data[i][2],json_data[i][3],json_data[i][4],json_data[i][5],json_data[i][6],json_data[i][9],json_data[i][8]]; 
+                            
+                        }
+                        
+                        return items;
+                   }
+                },
+                responsive: true,
+                orderCellsTop: true,
+                fixedHeader: true,
+                initComplete: function () {
+                    var api = this.api();
+     
+                        api
+                        .columns()
+                        .eq(0)
+                        .each(function (colIdx) {
+                        var column = this;
+             // Set the header cell to contain the input element
+
+                 var cell = $('.filters th').eq(
+                 $(api.column(colIdx).header()).index()
+             );
+             var $myindex=$(api.column(colIdx).header()).index();
+             var $myhead=$("#datatableleads thead tr th").eq($myindex);
+             var title = $myhead.text();
+             var id = $myhead.attr('data-id');
+             //var datatext=$(cell).attr('data-text');
+             var select1 = $('<select   id="' + id + '" placeholder="' + title + '"  class="fs-14 form-control w-100"><option value=""></option></select>');
+             if ($(cell).attr('data-text') == 'select') {
+                 //console.log($(cell).index());
+                 api.column($(cell).index())
+                     .data()
+                     .unique()
+                     .sort()
+                     .each(function (d, j) {
+
+
+                         select1.append('<option value="' + d + '">' + d + '</option>');
+
+                     });
+                 $(cell).html(select1);
+
+
+
+
+             } else {
+                 $(cell).html('<input type="text" id="' + id + '" placeholder="' + title + '"  class="fs-14"   />');
+             }
+
+
+             // On every keypress in this input
+             $(
+                 'input',
+                 $('.filters th').eq($(api.column(colIdx).header()).index())
+             )
+                 .off('keyup change')
+                 .on('change', function (e) {
+
+                     if ($(this).attr('id') == 'datepicker-range') {
+                         console.log("Heloooo");
+
+                         //var vals=this.value ;
+
+
+
+                     } else {
+                         //console.log($(this).attr('id'));
+
+
+                         // Get the search value
+                         $(this).attr('title', $(this).val());
+
+                         //var vals=this.value ;
+
+                         var regexr = '({search})'; //$(this).parents('th').find('select').val();
+
+                         var cursorPosition = this.selectionStart;
+                         // Search the column for that value
+                         api
+                             .column(colIdx)
+                             .search(
+                                 this.value != ''
+                                     ? regexr.replace('{search}', '(((' + this.value + ')))')
+                                     : '',
+                                 this.value != '',
+                                 this.value == ''
+                             )
+                             .draw();
+
+                     }
+
+
+                 })
+                 .on('keyup', function (e) {
+                     e.stopPropagation();
+
+                     $(this).trigger('change');
+                     $(this)
+                         .focus()[0]
+                         .setSelectionRange(cursorPosition, cursorPosition);
+                 });
+
+             $(
+                 'select',
+                 $('.filters th').eq($(api.column(colIdx).header()).index())
+             )
+                 .off('keyup change')
+                 .on('change', function (e) {
+
+                     if ($(this).attr('id') == 'datepicker-range') {
+                         console.log("Heloooo");
+
+                         //var vals=this.value ;
+
+
+
+                     } else {
+                         //console.log($(this).attr('id'));
+
+
+                         // Get the search value
+                         $(this).attr('title', $(this).val());
+
+                         //var vals=this.value ;
+
+                         var regexr = '({search})'; //$(this).parents('th').find('select').val();
+
+                         var cursorPosition = this.selectionStart;
+                         // Search the column for that value
+                         api
+                             .column(colIdx)
+                             .search(
+                                 this.value != ''
+                                     ? regexr.replace('{search}', '(((' + this.value + ')))')
+                                     : '',
+                                 this.value != '',
+                                 this.value == ''
+                             )
+                             .draw();
+
+                     }
+
+                 })
+                 .on('keyup', function (e) {
+                     e.stopPropagation();
+
+                     $(this).trigger('change');
+                     $(this)
+                         .focus()[0]
+                         .setSelectionRange(cursorPosition, cursorPosition);
+                 });
+         });
+         flatpikrCall("datatableleads")
+    },
+                
+               
+            });  
+ }
+function pageRedirect(variant){
+        var fromdate=document.getElementById("fromdate").value
+        var todate=document.getElementById("todate").value
+        console.log("From date=================="+fromdate)
+        console.log("To date======"+todate)
+        console.log("Variant==================="+variant)
+        // var url="{% url 'Admin:NewAccountsClick' %}"
+                // window.location.href=url+"?&status="+variant+"&fromdate="+fromdate+"&todate="+todate
+
+                var json_data;
+                $("#datatableleads").DataTable({
+                'paging':true, 
+                'destroy': true,               
+                'ajax':{
+                   "url": "{% url 'Admin:NewAccountsClick' %}",
+                   "type": "GET",
+                   "data":{
+                    'status':variant,
+                    'fromdate':fromdate,
+                    'todate':todate                    
+                   },
+                   "dataSrc":function(data){
+                    json_data=data.data
+                    count=data.count
+                    console.log("Count========="+count[0])
+                    var fundspan=document.getElementById("fundspan")
+                    var nonfundspan=document.getElementById("nonfundspan")
+                    var approvespan=document.getElementById("approvespan")
+                    var waitingspan=document.getElementById("waitingspan")
+                    fundspan.innerHTML=count[0]
+                    nonfundspan.innerHTML=count[1]
+                    approvespan.innerHTML=count[2]
+                    waitingspan.innerHTML=count[3]
+                    var items = [];
+                    for ( var i=0, ien=json_data.length ; i<ien ; i++ ) {
+
+                        items[i] = [json_data[i][1],json_data[i][0],json_data[i][2],json_data[i][3],json_data[i][4],json_data[i][5],json_data[i][6],json_data[i][9],json_data[i][8]]; 
+                            
+                        }
+                        
+                        return items;
+                   }
+                },
+                responsive: true,
+                orderCellsTop: true,
+                fixedHeader: true,
+                initComplete: function () {
+                    var api = this.api();
+     
+                        api
+                        .columns()
+                        .eq(0)
+                        .each(function (colIdx) {
+                        var column = this;
+             // Set the header cell to contain the input element
+
+                 var cell = $('.filters th').eq(
+                 $(api.column(colIdx).header()).index()
+             );
+             var $myindex=$(api.column(colIdx).header()).index();
+             var $myhead=$("#datatableleads thead tr th").eq($myindex);
+             var title = $myhead.text();
+             var id = $myhead.attr('data-id');
+             //var datatext=$(cell).attr('data-text');
+             var select1 = $('<select   id="' + id + '" placeholder="' + title + '"  class="fs-14 form-control w-100"><option value=""></option></select>');
+             if ($(cell).attr('data-text') == 'select') {
+                 //console.log($(cell).index());
+                 api.column($(cell).index())
+                     .data()
+                     .unique()
+                     .sort()
+                     .each(function (d, j) {
+
+
+                         select1.append('<option value="' + d + '">' + d + '</option>');
+
+                     });
+                 $(cell).html(select1);
+
+
+
+
+             } else {
+                 $(cell).html('<input type="text" id="' + id + '" placeholder="' + title + '"  class="fs-14"   />');
+             }
+
+
+             // On every keypress in this input
+             $(
+                 'input',
+                 $('.filters th').eq($(api.column(colIdx).header()).index())
+             )
+                 .off('keyup change')
+                 .on('change', function (e) {
+
+                     if ($(this).attr('id') == 'datepicker-range') {
+                         console.log("Heloooo");
+
+                         //var vals=this.value ;
+
+
+
+                     } else {
+                         //console.log($(this).attr('id'));
+
+
+                         // Get the search value
+                         $(this).attr('title', $(this).val());
+
+                         //var vals=this.value ;
+
+                         var regexr = '({search})'; //$(this).parents('th').find('select').val();
+
+                         var cursorPosition = this.selectionStart;
+                         // Search the column for that value
+                         api
+                             .column(colIdx)
+                             .search(
+                                 this.value != ''
+                                     ? regexr.replace('{search}', '(((' + this.value + ')))')
+                                     : '',
+                                 this.value != '',
+                                 this.value == ''
+                             )
+                             .draw();
+
+                     }
+
+
+                 })
+                 .on('keyup', function (e) {
+                     e.stopPropagation();
+
+                     $(this).trigger('change');
+                     $(this)
+                         .focus()[0]
+                         .setSelectionRange(cursorPosition, cursorPosition);
+                 });
+
+             $(
+                 'select',
+                 $('.filters th').eq($(api.column(colIdx).header()).index())
+             )
+                 .off('keyup change')
+                 .on('change', function (e) {
+
+                     if ($(this).attr('id') == 'datepicker-range') {
+                         console.log("Heloooo");
+
+                         //var vals=this.value ;
+
+
+
+                     } else {
+                         //console.log($(this).attr('id'));
+
+
+                         // Get the search value
+                         $(this).attr('title', $(this).val());
+
+                         //var vals=this.value ;
+
+                         var regexr = '({search})'; //$(this).parents('th').find('select').val();
+
+                         var cursorPosition = this.selectionStart;
+                         // Search the column for that value
+                         api
+                             .column(colIdx)
+                             .search(
+                                 this.value != ''
+                                     ? regexr.replace('{search}', '(((' + this.value + ')))')
+                                     : '',
+                                 this.value != '',
+                                 this.value == ''
+                             )
+                             .draw();
+
+                     }
+
+                 })
+                 .on('keyup', function (e) {
+                     e.stopPropagation();
+
+                     $(this).trigger('change');
+                     $(this)
+                         .focus()[0]
+                         .setSelectionRange(cursorPosition, cursorPosition);
+                 });
+         });
+         flatpikrCall("datatableleads")
+    },
+                
+               
+            });  
+ }
 
 
 
