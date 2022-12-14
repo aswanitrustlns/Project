@@ -17,12 +17,15 @@ from django.core.mail import EmailMessage,EmailMultiAlternatives
 from django.template.loader import get_template
 from .models import TblClients,TblEwalletTransaction
 from django.db.models import OuterRef, Subquery,Max,Q
+from django.core import serializers
 from django.conf import settings
 import imaplib
 import email
 import html2text
 import os
+import json
 from .emailservices import EmailServices
+from django.core.serializers.json import DjangoJSONEncoder
 
 emailservice=EmailServices()
 
@@ -1861,6 +1864,7 @@ class Selector:
         finally:
                 Cursor.close()
         return webinars
+  
 
     #Get Live chat salesrep
     def get_livechat_reps(self):
@@ -2032,9 +2036,12 @@ class Selector:
             print("Distinct today list====",disctinct_today_list)
             funded_count=TblEwalletTransaction.objects.using('svg').filter(Q(trans_type=0,trans_status=1)|Q(trans_type=1,trans_status=1),id__in=disctinct_today_list).count()
             nonfunded_count=TblEwalletTransaction.objects.using('svg').filter(trans_type=0,trans_status__gt=1,id__in=disctinct_today_list).count()
-            funded_today_list=TblEwalletTransaction.objects.using('svg').filter(Q(trans_type=0,trans_status=1)|Q(trans_type=1,trans_status=1),id__in=disctinct_today_list)
+            funded_today_list=list(TblEwalletTransaction.objects.using('svg').filter(Q(trans_type=0,trans_status=1)|Q(trans_type=1,trans_status=1),id__in=disctinct_today_list).values_list('accnt_no',flat=True))
+            print("Funded today list====",funded_today_list)
             if funded_today_list:
                 funded_clients=TblClients.objects.filter(login__in=funded_today_list)
+                
+                
             
         except Exception as e:
             print("Exception---",e)
