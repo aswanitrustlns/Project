@@ -25,17 +25,21 @@ class TblScorecalcQns(models.Model):
     class Meta:
         managed = False
         db_table = 'tbl_ScoreCalc_qns'
+    def __unicode__(self):
+        return u'%s' % (self.title)
 
 class TblScorecalcOpt(models.Model):
     id = models.AutoField(db_column='Id', primary_key=True)  # Field name made lowercase.
     options = models.TextField(db_collation='SQL_Latin1_General_CP1_CI_AS')
     value = models.IntegerField()
     score = models.IntegerField()
-    qn_id = models.IntegerField(db_column='qn_Id', blank=True, null=True)  # Field name made lowercase.
+    qn_id = models.ForeignKey(TblScorecalcQns,on_delete=models.CASCADE,db_column='qn_Id', blank=True, null=True,related_name='qun')  # Field name made lowercase.
 
     class Meta:
         managed = False
         db_table = 'tbl_ScoreCalc_opt'
+    def __unicode__(self):
+        return u'%s' % (self.title)
 
 class TblScoresheet(models.Model):
     login = models.IntegerField(db_column='Login', primary_key=True)  # Field name made lowercase.

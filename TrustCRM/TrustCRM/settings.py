@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'Backoffice',
     'CRF',
     'Automation',
+    'rest_framework'
     
     
 ]
@@ -218,14 +219,13 @@ CKEDITOR_IMAGE_BACKEND = "pillow"
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-
 #Email settings
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'mail.trusttc.com'
+EMAIL_HOST = 'euk-110535.eukservers.com'
 EMAIL_USE_TSL=False
 EMAIL_USE_SSL = True
 EMAIL_PORT = 465
-EMAIL_HOST_USER = 'cs@trusttc.com'
-EMAIL_HOST_PASSWORD = 'Hl@zb492'
-DEFAULT_FROM_EMAIL ='Trust Capital cs@trusttc.com'
+EMAIL_HOST_USER = 'cs@trustcapital.com'
+EMAIL_HOST_PASSWORD = 'CT16ca20sa'
+DEFAULT_FROM_EMAIL ='Trust Capital cs@trustcapital.com'

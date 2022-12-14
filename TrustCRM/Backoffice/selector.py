@@ -5,6 +5,7 @@ from django.db import connections
 import string
 import random
 from django.template.loader import render_to_string
+from django.db.models import Prefetch, Subquery,Max,Count,OuterRef
 from .models import TblScoresheet,TblScorecalcQns,TblScorecalcOpt
 import binascii
 from datetime import datetime,timedelta
@@ -470,6 +471,17 @@ class Selector:
         try:
             Cursor=connection.cursor()           
             Cursor.execute("set nocount on;exec SP_CheckDocsVerifiedPOI %s",[accno]) 
+            result=Cursor.fetchone()
+        except Exception as e:
+                print("Exception------",e)
+        finally:
+                Cursor.close()
+        return result
+    #Get documents verified poa
+    def get_docs_verified_poa(self,accno):
+        try:
+            Cursor=connection.cursor()           
+            Cursor.execute("set nocount on;exec SP_CheckDocsVerifiedPOA %s",[accno]) 
             result=Cursor.fetchone()
         except Exception as e:
                 print("Exception------",e)
@@ -1192,12 +1204,28 @@ class Selector:
     #Score generate page details===
     def get_score_info(self):
         try:
-            score_qns=TblScorecalcQns.objects.using('seychelles').all()
+            Cursor=connection.cursor()  
             score_opt=TblScorecalcOpt.objects.using('seychelles').all()
+            
+           
+            score_qns=TblScorecalcQns.objects.using('seychelles').all()
         except Exception as e:
                 print("Exception------",e)
-        return score_qns,score_opt
-     
+        return score_qns
+      #Save client category
+    def save_client_category(self,userid,login,category):
+        try:
+            message="Please try again"
+            Cursor=connection.cursor()   
+            saved=Cursor.execute("set nocount on;exec SP_ClientCategorize %s,%s,%s",[login,category,userid]) 
+            
+            message="Updation done"
+            print("Saved===",saved)
+        except Exception as e:
+                print("Exception------",e)
+        finally:
+                Cursor.close()
+        return message 
 
     
    

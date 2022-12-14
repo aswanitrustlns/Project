@@ -385,11 +385,11 @@ class Selector:
            print("Change and status====",change,status,date_yesterday,date_today)
            if(change == "All"):
                 
-                Cursor.execute("set nocount on;exec SP_GetNewActsFromDashboard %s,%s,%s",[from_date,to_date,status])  
+                Cursor.execute("set nocount on;exec SP_GetNewAccountsListing %s,%s,%s",[from_date,to_date,status])  
                 live_accounts=Cursor.fetchall()
            else: 
                 
-                Cursor.execute("set nocount on;exec SP_GetNewActsFromDashboard %s,%s,%s",[date_yesterday,date_today,change])   #exec SP_GetNewAccountsListing
+                Cursor.execute("set nocount on;exec SP_GetNewAccountsListing %s,%s,%s",[date_yesterday,date_today,change])   #exec SP_GetNewAccountsListing
                 live_accounts=Cursor.fetchall()
            
         except Exception as e:
@@ -517,7 +517,7 @@ class Selector:
             meeting_details=Cursor.fetchone()
             Cursor.execute("set nocount on;exec SP_GetTicket_PY %s",[token])
             client_details=Cursor.fetchone()
-            email_from = 'cs@trusttc.com'
+            email_from = 'cs@trustcapital.com '
             receiver=client_details[2]
             template_data={
                 "title":client_details[0],
@@ -750,8 +750,8 @@ class Selector:
         count=0
         try:
             inbox_list=[]
-            username="backoffice@trusttc.com"
-            app_password="WmY&SF9sX8kv"
+            username="backoffice@trustcapital.com "
+            app_password="n59K3x_p"
             
             mail_server = 'mail.trusttc.com'
 
@@ -791,8 +791,8 @@ class Selector:
         count=0
         try:
             inbox_list=[]
-            username="sales@trusttc.com"
-            app_password="otBa62~1"
+            username="sales@trustcapital.com"
+            app_password="Sa1936bb2k"
 
             mail_server = 'mail.trusttc.com'
 
@@ -832,8 +832,8 @@ class Selector:
         count=0
         try:
             inbox_list=[]
-            username="support@trusttc.com"
-            app_password="yA8g3m9&"
+            username="support@truscapital.com"
+            app_password="zvXi98_9"
 
             mail_server = 'mail.trusttc.com'
 
@@ -944,9 +944,9 @@ class Selector:
     def read_mail_senditems_backoffice(self,emailname,message):
        
         multipart="false"
-        username="backoffice@trusttc.com"
+        username="backoffice@trustcapital.com"
         app_password="WmY&SF9sX8kv"
-        mail_server = 'mail.trusttc.com'
+        mail_server = 'n59K3x_p'
         mail = imaplib.IMAP4_SSL(mail_server)
         message_data=""
         subject=""
@@ -1015,8 +1015,8 @@ class Selector:
     def read_mail_senditems_sales(self,emailname,message):
        
         multipart="false"
-        username="sales@trusttc.com"
-        app_password="otBa62~1"
+        username="sales@trustcapital.com"
+        app_password="Sa1936bb2k"
         mail_server = 'mail.trusttc.com'
         mail = imaplib.IMAP4_SSL(mail_server)
         message_data=""
@@ -1086,8 +1086,8 @@ class Selector:
     def read_mail_senditems_support(self,emailname,message):
        
         multipart="false"
-        username="support@trusttc.com"
-        app_password="yA8g3m9&"
+        username="support@trustcapital.com"
+        app_password="zxXi98_9"
         mail_server = 'mail.trusttc.com'
         mail = imaplib.IMAP4_SSL(mail_server)
         message_data=""
@@ -2016,16 +2016,22 @@ class Selector:
     def funded_by_date(self,from_date,to_date):
         try:
             funded_clients=[]
-            # date_today=datetime.today().date()
-            # week_day=datetime.today().weekday() # Monday is 0 and Sunday is 6
-            # date_today=date_today.strftime("%Y-%m-%d")
-            # if(week_day==0):
-            #     date_yesterday = datetime.today()-timedelta(3)
-                
-            # else:
-            #     date_yesterday= datetime.today()-timedelta(1)
+            
 
-            # date_yesterday=date_yesterday.strftime("%Y-%m-%d")
+            date_today=datetime.today().date()
+            week_day=datetime.today().weekday() # Monday is 0 and Sunday is 6
+           
+            if(week_day==0):
+                date_yesterday = datetime.today()-timedelta(3)
+                
+            else:
+                date_yesterday= datetime.today()-timedelta(1)
+            date_yesterday=date_yesterday.strftime("%Y-%m-%d")
+            if from_date=="":
+                from_date=date_yesterday
+            if to_date=="":
+                to_date=date_today.strftime("%Y-%m-%d")
+            
             new_clients_today=list(TblClients.objects.filter(livestatus="Live",converteddate__date__range=[from_date,to_date]).exclude(isib=1).values_list('login',flat=True))
             print("New clients today===",new_clients_today)
             clients_today=TblEwalletTransaction.objects.using('svg').filter(accnt_no__in=new_clients_today).values('accnt_no').annotate(Max('id'))
@@ -2062,7 +2068,7 @@ class Selector:
             print("Distinct today list====",disctinct_today_list)
             funded_count=TblEwalletTransaction.objects.using('svg').filter(Q(trans_type=0,trans_status=1)|Q(trans_type=1,trans_status=1),id__in=disctinct_today_list).count()
             nonfunded_count=TblEwalletTransaction.objects.using('svg').filter(trans_type=0,trans_status__gt=1,id__in=disctinct_today_list).count()
-            funded_today_list=TblEwalletTransaction.objects.using('svg').filter(trans_type=0,trans_status__gt=1,id__in=disctinct_today_list)
+            funded_today_list=list(TblEwalletTransaction.objects.using('svg').filter(trans_type=0,trans_status__gt=1,id__in=disctinct_today_list).values_list('accnt_no',flat=True))
             if funded_today_list:
                 funded_clients=TblClients.objects.filter(login__in=funded_today_list)
             print("Funded Today------",funded_today_list)
@@ -2093,9 +2099,6 @@ class Selector:
             disctinct_ext_today_list=[]
             for id in get_ext_today_id.iterator():
                 disctinct_ext_today_list.append(id.id)
-
-
-            # existing_funded_today=TblEwalletTransaction.objects.using('svg').filter(Q(trans_type=0,trans_status=1)|Q(trans_type=1,trans_status=1),trans_date__date__range=[date_yesterday,date_today],id__in=disctinct_ext_today_list).count()
             existing_funded_today_list=list(TblEwalletTransaction.objects.using('svg').filter(Q(trans_type=0,trans_status=1)|Q(trans_type=1,trans_status=1),trans_date__date__range=[date_yesterday,date_today],id__in=disctinct_ext_today_list).values_list('accnt_no',flat=True))
             print("Ext=====",existing_funded_today_list)
             if existing_funded_today_list:
@@ -2172,6 +2175,86 @@ class Selector:
         except Exception as e:
             print("Exception---",e)
         return existing_funded_clients,date_today,date_yesterday
+
+    def existing_nonfunded_click(self,fromdate,todate):
+        try:
+            existing_funded_today_list=""
+            date_today=datetime.today().date()
+            week_day=datetime.today().weekday() # Monday is 0 and Sunday is 6
+            date_today=date_today.strftime("%Y-%m-%d")
+            if(week_day==0):
+                date_yesterday = datetime.today()-timedelta(3)
+                
+            else:
+                date_yesterday= datetime.today()-timedelta(week_day)
+            
+            
+            date_yesterday=date_yesterday.strftime("%Y-%m-%d")
+            one_week=datetime.today()-timedelta(days=7)
+            one_week=one_week.strftime("%Y-%m-%d")
+
+            if fromdate=="":
+                
+                existing_clients_today=list(TblClients.objects.filter(livestatus="Live",converteddate__date__lt=one_week).exclude(isib=1).values_list('login',flat=True))
+            else:
+                existing_clients_today=list(TblClients.objects.filter(livestatus="Live",converteddate__date__range=[fromdate,todate]).exclude(isib=1).values_list('login',flat=True))
+           
+            existing_today=TblEwalletTransaction.objects.using('svg').filter(accnt_no__in=existing_clients_today).values('accnt_no').annotate(Max('id'))
+            get_ext_today_id=TblEwalletTransaction.objects.using('svg').filter(id__in=Subquery(existing_today.values('id__max')))
+            
+            disctinct_ext_today_list=[]
+            for id in get_ext_today_id.iterator():
+                disctinct_ext_today_list.append(id.id)
+
+            print("Existing clinets today====",disctinct_ext_today_list)
+            # existing_funded_today=TblEwalletTransaction.objects.using('svg').filter(Q(trans_type=0,trans_status=1)|Q(trans_type=1,trans_status=1),trans_date__date__range=[date_yesterday,date_today],id__in=disctinct_ext_today_list).count()
+            existing_funded_today_list=list(TblEwalletTransaction.objects.using('svg').filter(trans_type=0,trans_status__gt=1,id__in=disctinct_ext_today_list).values_list('accnt_no',flat=True))
+            print("Ext=====",existing_funded_today_list)
+            existing_funded_clients=TblClients.objects.filter(login__in=existing_funded_today_list)
+            print("List====",existing_funded_clients)
+        except Exception as e:
+            print("Exception---",e)
+        return existing_funded_clients,date_today,date_yesterday
+    #Existing funded click
+    def existing_funded_click(self,fromdate,todate):
+        try:
+            existing_funded_today_list=""
+            date_today=datetime.today().date()
+            week_day=datetime.today().weekday() # Monday is 0 and Sunday is 6
+            date_today=date_today.strftime("%Y-%m-%d")
+            if(week_day==0):
+                date_yesterday = datetime.today()-timedelta(3)
+                
+            else:
+                date_yesterday= datetime.today()-timedelta(week_day)
+            
+            
+            date_yesterday=date_yesterday.strftime("%Y-%m-%d")
+            one_week=datetime.today()-timedelta(days=7)
+            one_week=one_week.strftime("%Y-%m-%d")
+            if fromdate=="":
+                
+                existing_clients_today=list(TblClients.objects.filter(livestatus="Live",converteddate__date__lt=one_week).exclude(isib=1).values_list('login',flat=True))
+            else:
+                existing_clients_today=list(TblClients.objects.filter(livestatus="Live",converteddate__date__range=[fromdate,todate]).exclude(isib=1).values_list('login',flat=True))
+           
+            existing_today=TblEwalletTransaction.objects.using('svg').filter(accnt_no__in=existing_clients_today).values('accnt_no').annotate(Max('id'))
+            get_ext_today_id=TblEwalletTransaction.objects.using('svg').filter(id__in=Subquery(existing_today.values('id__max')))
+            
+            disctinct_ext_today_list=[]
+            for id in get_ext_today_id.iterator():
+                disctinct_ext_today_list.append(id.id)
+
+            print("Existing clinets today====",disctinct_ext_today_list)
+            # existing_funded_today=TblEwalletTransaction.objects.using('svg').filter(Q(trans_type=0,trans_status=1)|Q(trans_type=1,trans_status=1),trans_date__date__range=[date_yesterday,date_today],id__in=disctinct_ext_today_list).count()
+            existing_funded_today_list=list(TblEwalletTransaction.objects.using('svg').filter(Q(trans_type=0,trans_status=1)|Q(trans_type=1,trans_status=1),id__in=disctinct_ext_today_list).values_list('accnt_no',flat=True))
+            print("Ext=====",existing_funded_today_list)
+            existing_funded_clients=TblClients.objects.filter(login__in=existing_funded_today_list)
+            print("List====",existing_funded_clients)
+        except Exception as e:
+            print("Exception---",e)
+        return existing_funded_clients,date_today,date_yesterday
+
 
         
 

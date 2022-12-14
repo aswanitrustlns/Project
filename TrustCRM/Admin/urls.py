@@ -20,8 +20,9 @@ urlpatterns=[
     path('createticket',create_ticket,name="CreateTicket"),
     path('LeadRegistration',lead_registration,name="LeadRegistration"),
     path('NewAccounts',new_accounts,name="NewAccounts"),# Navigate to new accounts page
-     path('NewAccountsPend',new_accounts_pend,name="NewAccountsPend"),
+    path('NewAccountsPend',new_accounts_pend,name="NewAccountsPend"),
     path('ExtAccounts',existing_accounts,name='ExtAccounts'),
+    path('ExtClick',ext_accounts_funded_click,name='ExtClick'),
     path('NewAccountsClick',new_accounts_click,name="NewAccountsClick"),# Get New Accounts Page clicks
     path('NewAccountsFundedClick',new_accounts_funded_click,name="NewAccountsFundedClick"),# Get New Accounts Page Funded clicks
     path('AccountsFilter',new_accounts_variants,name="AccountsFilter"),
@@ -70,6 +71,7 @@ urlpatterns=[
     path('SelectCampaign',load_sales_campaign,name="SelectCampaign"),
     path('MissedChat',missed_live_chat,name="MissedChat"),
     path('Funded',funded_accounts,name="Funded"),
+    
     #seminar=============================================================
     path('Upcoming',upcomingSeminars,name="Upcoming"),
     path('RegisterSeminar',registerSeminars,name="RegisterSeminar"),

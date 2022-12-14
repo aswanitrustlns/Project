@@ -20,6 +20,8 @@ import json
 from .dashboard_selectors import DashboardSelector
 from .services import Services
 from .selectors import Selector
+from django.core.serializers import serialize
+from .serializers import ClentsSerializer
 from .emailservices import EmailServices
 
 insta_username = "Tc_limited"
@@ -81,7 +83,7 @@ def login_check(request):
             adminrole="sales" 
             request.session['role']="salesrep"
         # request.session['UserId'] = 30
-        connect=selector.exe_connection(username,server_name,password)
+        connect=selector.dll_connection(username,server_name,password)
         
     except Exception as e:
         print("Exception------------",e.__class__)
@@ -1386,9 +1388,31 @@ def new_accounts_funded_click(request):
 
         else:
              funded_count,nonfunded_count,funded_clients,date_today,date_yesterday=selector.nonfunded_by_date(from_date,to_date)
+        
+        funded_clients=ClentsSerializer(funded_clients,many=True).data
         print("Accounts data===",funded_clients,funded_count,nonfunded_count)
-        return HttpResponse(json.dumps({"data":funded_clients,"funded":funded_count,"nonfund":nonfunded_count}), content_type="application/json")
-        # return render(request,'admin/newAccounts.html',{'accounts_data':accounts_data,'accounts_count':accounts_count,"active":json.dumps(active)})
+        return HttpResponse(json.dumps({"data":funded_clients,"funded":funded_count,"nonfund":nonfunded_count,'to':date_yesterday,'from':date_today}), content_type="application/json")
+        
+                
+    else:
+        return redirect('/login')
+#new accounts funded click
+def ext_accounts_funded_click(request):
+    active="Live"
+    if 'UserId' in request.session:
+        status=request.GET.get('status')
+        from_date=request.GET.get('from')
+        to_date=request.GET.get('to')
+        print("HEHEHEHEHE",status,from_date,to_date)
+       
+        funded_clients,date_today,date_yesterday=selector.existing_funded_click(from_date,to_date)
+
+       
+        
+        funded_clients=ClentsSerializer(funded_clients,many=True).data
+        print("Accounts data===",funded_clients)
+        return HttpResponse(json.dumps({"data":funded_clients}), content_type="application/json")
+        
                 
     else:
         return redirect('/login')
@@ -1550,7 +1574,8 @@ def upload_csv_file(request):
         return JsonResponse({"message":message})	
     else:
         return redirect('/login')   
-#Existing user details======
+
+
 
 
 

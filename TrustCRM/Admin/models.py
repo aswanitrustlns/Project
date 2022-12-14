@@ -36,7 +36,7 @@ class TblEwalletTransaction(models.Model):
 
 class TblCountry(models.Model):
     id = models.AutoField(db_column='ID', primary_key=True)  # Field name made lowercase.
-    country = models.CharField(db_column='Country', max_length=250, db_collation='SQL_Latin1_General_CP1_CI_AS')  # Field name made lowercase.
+    country = models.CharField(db_column='Country', max_length=250, db_collation='SQL_Latin1_General_CP1_CI_AS',blank=True, null=True)  # Field name made lowercase.
     code = models.CharField(db_column='Code', max_length=100, db_collation='SQL_Latin1_General_CP1_CI_AS', blank=True, null=True)  # Field name made lowercase.
     ccode = models.CharField(db_column='CCode', max_length=100, db_collation='SQL_Latin1_General_CP1_CI_AS', blank=True, null=True)  # Field name made lowercase.
 
@@ -45,7 +45,7 @@ class TblCountry(models.Model):
         db_table = 'tbl_Country'
 
 class TblUser(models.Model):
-    userid = models.AutoField(db_column='UserID', primary_key=True)  # Field name made lowercase.
+    userid = models.IntegerField(db_column='UserID', primary_key=True)  # Field name made lowercase.
     userlogin = models.CharField(db_column='UserLogin', max_length=100, db_collation='SQL_Latin1_General_CP1_CI_AS', blank=True, null=True)  # Field name made lowercase.
     password = models.CharField(db_column='Password', max_length=100, db_collation='SQL_Latin1_General_CP1_CI_AS', blank=True, null=True)  # Field name made lowercase.
     email = models.CharField(db_column='Email', max_length=100, db_collation='SQL_Latin1_General_CP1_CI_AS', blank=True, null=True)  # Field name made lowercase.
@@ -57,9 +57,10 @@ class TblUser(models.Model):
     class Meta:
         managed = False
         db_table = 'tbl_User'
+    
 
 class TblSaleslead(models.Model):
-    ticket_no = models.CharField(db_column='Ticket_No', primary_key=True, max_length=50, db_collation='SQL_Latin1_General_CP1_CI_AS')  # Field name made lowercase.
+    ticket_no = models.IntegerField(db_column='Ticket_No', primary_key=True,  blank=True)  # Field name made lowercase.
     name = models.TextField(db_column='Name', db_collation='SQL_Latin1_General_CP1_CI_AS')  # Field name made lowercase.
     phone1 = models.TextField(db_column='Phone1', db_collation='SQL_Latin1_General_CP1_CI_AS', blank=True, null=True)  # Field name made lowercase.
     phone2 = models.TextField(db_column='Phone2', db_collation='SQL_Latin1_General_CP1_CI_AS', blank=True, null=True)  # Field name made lowercase.
@@ -71,7 +72,7 @@ class TblSaleslead(models.Model):
     source = models.TextField(db_column='Source', db_collation='SQL_Latin1_General_CP1_CI_AS', blank=True, null=True)  # Field name made lowercase.
     ext = models.CharField(db_column='Ext', max_length=250, db_collation='SQL_Latin1_General_CP1_CI_AS', blank=True, null=True)  # Field name made lowercase.
     fax = models.TextField(db_column='Fax', db_collation='SQL_Latin1_General_CP1_CI_AS', blank=True, null=True)  # Field name made lowercase.
-    salesrepid = models.ForeignKey(TblUser,max_length=50,on_delete=models.CASCADE,db_column='SalesRepID', blank=True, null=True)  # Field name made lowercase.
+    salesrepid = models.ForeignKey(TblUser,on_delete=models.CASCADE,db_column='SalesRepID', blank=True, null=True)  # Field name made lowercase.
     status = models.CharField(db_column='Status', max_length=50, db_collation='SQL_Latin1_General_CP1_CI_AS', blank=True, null=True)  # Field name made lowercase.
     regdate = models.DateTimeField(db_column='RegDate', blank=True, null=True)  # Field name made lowercase.
     updateddate = models.DateTimeField(db_column='UpdatedDate', blank=True, null=True)  # Field name made lowercase.
@@ -125,7 +126,7 @@ class TblSaleslead(models.Model):
         db_table = 'tbl_SalesLead'
 class TblClients(models.Model):
     login = models.IntegerField(db_column='Login', primary_key=True)  # Field name made lowercase.
-    ticket = models.ForeignKey(TblSaleslead,db_column='Ticket', max_length=200,blank=True, null=True,on_delete=models.CASCADE)  # Field name made lowercase.
+    ticket = models.ForeignKey(TblSaleslead,db_column='Ticket', max_length=200,blank=True, null=True,on_delete=models.CASCADE,related_name='ticket')  # Field name made lowercase.
     name = models.TextField(db_column='Name', db_collation='SQL_Latin1_General_CP1_CI_AS')  # Field name made lowercase.
     groups = models.CharField(db_column='Groups', max_length=100, db_collation='SQL_Latin1_General_CP1_CI_AS', blank=True, null=True)  # Field name made lowercase.
     country = models.ForeignKey(TblCountry,db_column='Country', blank=True, null=True,on_delete=models.CASCADE)  # Field name made lowercase.

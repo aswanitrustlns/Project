@@ -17,7 +17,7 @@ class EmailServices:
             receiver_mail=Cursor.fetchone()
             print("Receiver mail-----------------------------",receiver_mail)
             subject="SalesRep Assigned"   
-            email_from = 'cs@trusttc.com'
+            email_from = 'cs@trustcapital.com '
             
             template_data={
                 "repname":repname,
@@ -46,7 +46,7 @@ class EmailServices:
             receiver_mail=Cursor.fetchone()
             print("Receiver mail-----------------------------",receiver_mail)
             subject="SalesRep Assigned"   
-            email_from = 'cs@trusttc.com'
+            email_from = 'cs@trustcapital.com '
             
             # receiver_mail="aswani.technology@gmail.com"
             template_data={
@@ -75,7 +75,7 @@ class EmailServices:
             print("Receiver mail-----------------------------",receiver_mail)
             # bcc='crm@trusttc.com'
             title=" "
-            fromaddr="cs@trusttc.com"
+            fromaddr="cs@trustcapital.com "
             
             template_data={
                 "title":title,
@@ -191,10 +191,10 @@ class EmailServices:
                 # msg=EmailMessage(subject,email_template_render,email_from,[receiver],[receiver])
             print("Email service---------------------------------------")   
             bcc1="crm@trusttc.com"
-            bcc2="cs@trusttc.com"
+            bcc2="cs@trustcapital.com "
             
            
-            email_from = 'cs@trusttc.com'
+            email_from = 'cs@trustcapital.com '
             # receiver_mail="aswani.technology@gmail.com"
             template_data={
                 "title":title,

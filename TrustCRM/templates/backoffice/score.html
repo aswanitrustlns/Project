@@ -294,26 +294,20 @@
                                                 <th >Options</th>
                                                 <th  >value</th>
                                                 <th >Score</th>
-                                                <th  >KScore_Acheived</th>
-                                                <th  >Escore_Acheived</th>
+                                                <th  >Score_Acheived</th>
+                                                
                                             </tr>
                                         </thead>
     
     
                                         <tbody>
                                       
-                                        {%for data in leads_data %}
-                                        <tr onclick='checkticket("{{data.1}}","{{data.2}}","{{data.4}}")' style="cursor: pointer;">
-                                            <td >{{data.0}}</td>
-                                            <td>{{data.3}}</td>
-                                            <td>{{data.2}}</td>
-                                            
-                                            <!-- <td>{{data.1}}</td> -->
-                                            <td>{{data.4}}</td>
-                                            <td>{{data.5}}</td>
-                                            <td>{{data.10}}</td>
-                                            <td>{{data.11}}</td>
-                                            <td>{{data.7}}</td>
+                                        {%for qn in qns %}
+                                        <tr>
+                                            <td >{{qn.id}}</td>
+                                            <td >{{qn.qns}}</td>
+                                            <td>{{qn.question}}</td>
+                                        
                                         </tr>
                                         
                                         {%endfor%}

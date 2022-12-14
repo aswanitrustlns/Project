@@ -462,8 +462,10 @@
                                                                                         <div class="mb-3">
                                                                                             <label class="form-label" for="Score">Risk<span class="color-orange">*</span></label>
                                                                                             <select class="form-select" name="risk" id="Risk" placeholder="" required disabled="disabled"> 
-                                                                                           <option>Low</option>
-                                                                                           <option>High</option>
+                                                                                           <option value="0">Select</option>
+                                                                                                <option value="Low">Low</option>
+                                                                                           <option value="Medium">Medium</option>
+                                                                                           <option value="High">High</option>
                                                                                            </select>
                                                                                         </div>
                                                                                     </div>
@@ -1891,7 +1893,8 @@
                                         <button type="button" class="btn bg-soft-secondarycolor text-white me-2" onclick="viewDocs()">View documents</button>
                                         <!-- <button type="button" class="btn bg-soft-secondarycolor text-white me-2" data-bs-toggle="modal" data-bs-target=".bs-example-modal-seminars" style="background-color: var(--bs-card-bg) ;">Close account</button> -->
                                         <button type="button" class="btn bg-soft-secondarycolor text-white me-2" onclick="terminate()">Close Account</button>
-                                        <button type="button" class="btn bg-soft-secondarycolor text-white me-2" onclick="viewscore()">View Score</button>
+                                        <!-- <button type="button" class="btn bg-soft-secondarycolor text-white me-2" onclick="viewscore()">View Score</button> -->
+                                        <button type="button" class="btn bg-soft-secondarycolor text-white me-2" onclick="categorization()">Client Categorization</button>
                                         </div>
     
                             </div>
@@ -1901,9 +1904,9 @@
     
                             <button id="submitftype" class="btn btn-lg btn-primary me-2  " type="button"  onclick="mt4pwdCheck('update')">Update</button>
                             <!-- <button id="resetftype" class="btn   btn-lg btn-outline-light me-2 " type="button" >Reset</button> -->
-                            <button  class="btn   btn-lg btn-outline-light  color-color1 me-2 " onclick="tempApproval()" id="tempApprove">Temporary approve</button>
-                            <button  class="btn   btn-lg btn-outline-light  color-color1 me-2 "  onclick="mt4pwdCheck('final')" id="FinalApprove">Final approve</button>
-                            <button  class="btn   btn-lg btn-outline-light  color-color1 me-2 "  onclick="mt4pwdCheck('approve')" id="Approve">Approve</button>
+                            <button  class="btn   btn-lg btn-outline-light  color-color1 me-2 " onclick="tempApproval()" id="tempApprove">Approve</button>
+                            <!-- <button  class="btn   btn-lg btn-outline-light  color-color1 me-2 "  onclick="mt4pwdCheck('final')" id="FinalApprove">Final approve</button>
+                            <button  class="btn   btn-lg btn-outline-light  color-color1 me-2 "  onclick="mt4pwdCheck('approve')" id="Approve">Approve</button> -->
                         </div>
     
                         <!-- end row-->
@@ -1978,6 +1981,68 @@
                                       
                                     </div>
                                 </div>
+                           
+                            </div>
+                            
+                        
+                    </div>
+                
+                </div>
+            </div> <!-- end modal-content-->
+        </div> <!-- end modal dialog-->
+    </div>
+    <div class="modal fade" id="category" tabindex="-1" >
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+    
+                <div class="modal-body ">
+
+                    <div class="border-dashed rounded-3 px-3 py-3">
+                    
+                        <div class="modal-header border-0 px-0">
+                            <h5 class="modal-title fs-21" id="modal-title">Client Categorization</h5>
+
+                            <a href="" data-bs-dismiss="modal" aria-label="Close">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M9.16992 14.83L14.8299 9.17" stroke="var(--white)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M14.8299 14.83L9.16992 9.17" stroke="var(--white)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M9 22H15C20 22 22 20 22 15V9C22 4 20 2 15 2H9C4 2 2 4 2 9V15C2 20 4 22 9 22Z" stroke="white" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+
+                                </a>
+
+                        </div>
+                   
+                        
+                            
+                            <div class="row">
+                            
+                                <div class="col-12">
+                                    <div class="mb-3">
+                                        <label class="form-label">Risk</label><br>
+                                        <input clas="form-control" type="radio" id="Low" name="optRisk" value="Low" > Low
+                                        <input clas="form-control" type="radio" id="Medium" name="optRisk" value="Medium" > Medium
+                                        <input clas="form-control" type="radio" id="High" name="optRisk" value="High" > High
+
+                                        
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="mb-3">
+                                        <label class="form-label">Client Category</label><br>
+                                        <input clas="form-control" type="radio" id="all" name="optclient" value="RC" > Retail Client
+                                        <input clas="form-control" type="radio" id="all" name="optclient" value="PC" > Professional Client
+
+                                        
+                                    </div>
+                                </div>
+                                        <div class="col-6">
+                                            <button type="button" data-bs-dismiss="modal" class="btn btn-success" id="btn-save-event" onclick="categorysubmit()">Submit</button>
+                                            <!-- <button type="button" data-bs-dismiss="modal" class="btn btn-danger" id="btn-delete-event">Cancel</button> -->
+                                        </div>
+                                      
+                                    
+                                
                            
                             </div>
                             
@@ -2336,6 +2401,10 @@
         }
 
     }
+    function categorization(){
+        $("#category").modal('show')
+        
+    }
     function addNewEvent(info) {
                 console.log("New event added ======"+info)
                 addEvent.modal('show');
@@ -2405,6 +2474,8 @@
         
     }
 
+    
+
     function sendReminder(ticket,timer,chatText,category,selDate,flag){
 
                 var ticket=document.getElementById("tickets").value
@@ -2469,7 +2540,29 @@
         }
 
     }
+    function categorysubmit(){
+        var accno=document.getElementById("Accountno").value
+        var category=$("input[name='optclient']:checked").val()
+        $.ajax({
+                   
+                   type : "GET", 
+                   url: "{% url 'Backoffice:CategorySubmit' %}",
+                   data:{
+                       "login":accno,
+                       "category":category
+                   },             
+                                       
+                                       
+                   success: function(data){
+                    var message=data.message
+                    $("#userMsg").empty()
+                    $("#userMsg").append(message)
+                    $("#alertpopup").modal('show')
 
+                   }
+                })
+       
+    }
 
     function readSendItems(msgId){
        
@@ -2909,7 +3002,8 @@
 
         }else{
             console.log("Email bank details")
-            $("#Email-Bank").modal('show')
+            // $("#Email-Bank").modal('show')
+            sendBankDetails()
            
         }
 
@@ -2925,36 +3019,13 @@
         var beneficiary=$("#beneficiary").val()
         var ffc=$("#ffc").val()
         var validflag=0
-        if(bankname==""){
+        if(accno==""){
             $("#userMsg").empty()
-            $("#userMsg").append("Please enter bank name")
+            $("#userMsg").append("Please enter Account Number")
             $("#alertpopup").modal('show')
             validflag=1
         }
-        if(bankaddr==""){
-            $("#userMsg").empty()
-            $("#userMsg").append("Please enter bank address")
-            $("#alertpopup").modal('show')
-            validflag=1
-        }
-        if(bankiban==""){
-            $("#userMsg").empty()
-            $("#userMsg").append("Please enter bank iban")
-            $("#alertpopup").modal('show')
-            validflag=1
-        }
-        if(beneficiary==""){
-            $("#userMsg").empty()
-            $("#userMsg").append("Please enter beneficiary")
-            $("#alertpopup").modal('show')
-            validflag=1
-        }
-        if(ffc==""){
-            $("#userMsg").empty()
-            $("#userMsg").append("Please enter ffc")
-            $("#alertpopup").modal('show')
-            validflag=1
-        }
+        
         if (validflag==0){
             $.ajax({
                     
@@ -2963,12 +3034,12 @@
                     dataType: 'json',
                     data:{
                         'account':accno,
-                        'name':bankname,
-                        'address':bankaddr,
-                        'swift':bankswift,
-                        'iban':bankiban,
-                        'beneficiary':beneficiary,
-                        'ffc':ffc
+                        // 'name':bankname,
+                        // 'address':bankaddr,
+                        // 'swift':bankswift,
+                        // 'iban':bankiban,
+                        // 'beneficiary':beneficiary,
+                        // 'ffc':ffc
                     },
                     success: function(data){
                         $("#userMsg").empty()
@@ -3108,7 +3179,23 @@
                             var score=details[51]
                             $("#Score").val(score)
                             var risk=details[41]
+                            console.log("Risk=====",risk)
                             $("#Risk").val(risk)
+                            if(risk=="Low"){
+                                $("#Low").attr('checked',true)
+                                $("#Medium").attr('disabled','disabled');
+                                $("#High").attr('disabled','disabled');
+                            }
+                            if(risk=="Mediym"){
+                                $("#Medium").attr('checked',true)
+                                $("#Low").attr('disabled','disabled');
+                                $("#High").attr('disabled','disabled');
+                            }
+                            if(risk=="High"){
+                                $("#High").attr('checked',true)
+                                $("#Low").attr('disabled','disabled');
+                                $("#Medium").attr('disabled','disabled');
+                            }
                             var riskcategory=details[42]
                             $("#RiskCategory").val(riskcategory)
                            

@@ -454,14 +454,20 @@ def temperory_approval(request):
         server=request.session.get('server')
         password=request.session.get('password')
         status=selector.get_docs_verified_poi(accno)
+        poastatus=selector.get_docs_verified_poa(accno)
+        poadocverified=1
+        POAstatus=""
+        if poastatus:
+            poadocverified=poastatus[0]
+            POAstatus=poastatus[3]
         print("Status=========",status)
         docverified=1
         POIstatus=""
         if status:
             docverified=status[0]
             POIstatus=status[3]
-        if docverified==0 or POIstatus=="Not Verified":
-            message="POI is mandatory for temporary approval"
+        if ((docverified==0 or POIstatus=="Not Verified") and (poadocverified==0 or POIstatus=="NotVerified")):
+            message="POI and POA is mandatory for temporary approval"
         else:
            message=selector.tmpApproveClient(user,server,password,accno,userid,request)
         
@@ -526,20 +532,20 @@ def email_bank_details(request):
         print("Email bank details===")
         message="Please try again"
         accno=request.GET.get('account')
-        bankname=request.GET.get('name')
-        address=request.GET.get('address')
-        beneficiary=request.GET.get('beneficiary')
-        swift=request.GET.get('swift')
-        iban=request.GET.get('iban')
-        ffc=request.GET.get('ffc')
-        print("Email Bank account")
+        # bankname=request.GET.get('name')
+        # address=request.GET.get('address')
+        # beneficiary=request.GET.get('beneficiary')
+        # swift=request.GET.get('swift')
+        # iban=request.GET.get('iban')
+        # ffc=request.GET.get('ffc')
+        # print("Email Bank account")
         userdetails=selector.get_email_details(accno)
         if userdetails:
            
             title=userdetails[3]
             name=userdetails[1]
             email=userdetails[0]
-        emailservice.sendBankDetails(accno,bankname,address,beneficiary,swift,iban,ffc,title,name,email)
+        emailservice.sendBankDetails(title,name,email)
         message="Email send successfully"
         return JsonResponse({"message":message}) 
     else:
@@ -839,10 +845,23 @@ def generate_login_report(request):
 #Score
 def get_score(request):
     if 'UserId' in request.session:
-        qns,opt=selector.get_score_info()
+        login=request.GET.get('login')
+        qns=selector.get_score_info()
         print("Questions====",qns)
-        print("Options====",opt)
-        return render(request,'backoffice/score.html',{'qns':qns,'opt':opt})
+     
+        return render(request,'backoffice/score.html',{'qns':qns})
+    else:
+        return redirect('/login')
+#Client Categorization======
+def client_categorisation(request):
+    if 'UserId' in request.session:
+        message="Please try again"
+        userid=request.session.get('UserId')
+        login=request.GET.get('login')
+        category=request.GET.get('category')
+        print("Details=====",userid,login,category)
+        message=selector.save_client_category(userid,login,category)
+        return JsonResponse({"message":message})
     else:
         return redirect('/login')
 

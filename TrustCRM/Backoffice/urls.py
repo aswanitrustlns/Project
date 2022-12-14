@@ -64,7 +64,8 @@ urlpatterns=[
       path("AffiliatesLoad",affiliates_load,name="AffiliatesLoad"),
       path('AffiliateDetails',affiliate_details,name="AffiliateDetails"),
       path('ClientDetails',affiliate_client_details,name="ClientDetails"),
-      path('ScorePage',get_score,name="ScorePage")
+      path('ScorePage',get_score,name="ScorePage"),
+      path('CategorySubmit',client_categorisation,name="CategorySubmit")
       # path('ckeditor','ckeditor_uploader.urls'),
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
