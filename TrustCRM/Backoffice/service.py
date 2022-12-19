@@ -13,8 +13,8 @@ from .dllservice import DllService
 import os
 from .selector import Selector
 demoserver = "50.57.14.224:443"
-demopwd = "Tc2022"
-demouser = "601"
+demopwd = "trust123"
+demouser = "505"
 dllservice=DllService(demoserver,demopwd,demouser)
 selector=Selector()
 emailservice=EmailServices()
@@ -553,6 +553,36 @@ class Services:
         finally:
             Cursor.close()
         return message
+    #Add Expiry
+    def add_expiry_documents(self,request):
+        try:
+            
+            accno=int(request.POST.get('accno'))
+            Cursor=connection.cursor() 
+            expdate=request.POST.get('expdateed')
+            #docId=request.POST.get('doctype')
+            
+            Id=request.POST.get('id')
+            print("Id=====",Id)
+            if(Id=="" or Id==None):
+                Id=0
+            else:
+                Id=int(Id)                      
+            userid=int(request.session.get('UserId'))          
+           
+            message="Please try again"
+             
+            print("Data======",accno,Id,expdate,userid)
+            Cursor.execute("exec SP_AddExpiryDate %s,%s,%s,%s",[accno,Id,expdate,userid]) 
+            message="Updated Successfully"
+            
+        except Exception as e:
+            print("Exception----",e)
+            message=str(e)+str(accno)
+        finally:
+            Cursor.close()
+        return message
+    
     #Approve client documnets
     def approve_client_documents(self,accno,docs,status,reasons,userid):
         try:

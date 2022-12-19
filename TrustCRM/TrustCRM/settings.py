@@ -101,12 +101,23 @@ WSGI_APPLICATION = 'TrustCRM.wsgi.application'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
 DATABASES = {
+    # 'default': {
+    #     'ENGINE': 'mssql',
+    #     'NAME': 'SVGTcCRM20220926',
+    #     'USER': 'tinstcrm',
+    #     'PASSWORD': 'Trust_2021',
+    #     'HOST': '213.175.205.19',
+    #     'PORT': '1433',
+    #      'OPTIONS': {
+    #         'driver': 'ODBC Driver 17 for SQL Server',
+    #     },
+    # },
     'default': {
         'ENGINE': 'mssql',
-        'NAME': 'SVGTcCRM20220926',
-        'USER': 'tinstcrm',
-        'PASSWORD': 'Trust_2021',
-        'HOST': '213.175.205.19',
+        'NAME': 'TCCRM_SYC',
+        'USER': 'TCSCRM',
+        'PASSWORD': 'TCSY@22!!',
+        'HOST': '185.4.178.134',
         'PORT': '1433',
          'OPTIONS': {
             'driver': 'ODBC Driver 17 for SQL Server',
@@ -114,10 +125,10 @@ DATABASES = {
     },
     'seychelles': {
         'ENGINE': 'mssql',
-        'NAME': 'SYCTcCRM',
+        'NAME': 'TCCRM_SYC',
         'USER': 'TCSCRM',
         'PASSWORD': 'TCSY@22!!',
-        'HOST': '185.4.178.134 ',
+        'HOST': '185.4.178.134',
         'PORT': '1433',
          'OPTIONS': {
             'driver': 'ODBC Driver 17 for SQL Server',
@@ -137,9 +148,9 @@ DATABASES = {
        'crf': {
         'ENGINE': 'mssql',
         'NAME': 'CRF',
-        'USER': 'tinstcrm',
-        'PASSWORD': 'Trust_2021',
-        'HOST': '213.175.205.19',
+        'USER': 'TCSCRM',
+        'PASSWORD': 'TCSY@22!!',
+        'HOST': '185.4.178.134',
         'PORT': '1433',
          'OPTIONS': {
             'driver': 'ODBC Driver 17 for SQL Server',
@@ -147,10 +158,10 @@ DATABASES = {
     },
      'svg': {
         'ENGINE': 'mssql',
-        'NAME': 'SVGClientarea',
-        'USER': 'tinstcrm',
-        'PASSWORD': 'Trust_2021',
-        'HOST': '213.175.205.19',
+        'NAME': 'TCCRMClientarea_SYC',
+        'USER': 'TCSCRM',
+        'PASSWORD': 'TCSY@22!!',
+        'HOST': '185.4.178.134',
         'PORT': '1433',
          'OPTIONS': {
             'driver': 'ODBC Driver 17 for SQL Server',

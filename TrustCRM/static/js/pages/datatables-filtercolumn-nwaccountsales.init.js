@@ -16,8 +16,9 @@ File: Datatables Js File
 //.DataTable.datetime('D MMM YYYY');
 
 $(document).ready(function () {
-     
-
+    $("#live").hide()
+        $("#pending").hide()
+        
     //var minDate,maxDate;
     if(tabactive=="pending"){
         $("#live").hide()
@@ -46,7 +47,7 @@ $(document).ready(function () {
         $("#Terminated").addClass('text-white')
         $("#Terminated").addClass('color-color1')
     }
-
+   
     
    // Setup - add a text input to each footer cell
    $('#datatableleads thead tr')

@@ -25,6 +25,7 @@ urlpatterns=[
       path('CardView',load_card_front,name="CardView"),
       path('ViewandUploadDocument',view_document,name="ViewandUploadDocument"),
       path('UploadDocumnents',upload_document,name="UploadDocuments"),
+      path('AddExpiryDocuments',addexpiry_document,name="AddExpiryDocuments"),
       path('LogUpdate',update_log,name="LogUpdate"),
       path('ApproveDocument',approve_document,name="ApproveDocument"),
       path('ExpiryAlert',send_expiry_alert,name='ExpiryAlert'),
@@ -65,7 +66,9 @@ urlpatterns=[
       path('AffiliateDetails',affiliate_details,name="AffiliateDetails"),
       path('ClientDetails',affiliate_client_details,name="ClientDetails"),
       path('ScorePage',get_score,name="ScorePage"),
-      path('CategorySubmit',client_categorisation,name="CategorySubmit")
+      path('CategorySubmit',client_categorisation,name="CategorySubmit"),
+      path('Updatedetails',update_clientdetails,name="Updatedetails"),
+      path('AccountOpening',account_opening,name="AccountOpening")
       # path('ckeditor','ckeditor_uploader.urls'),
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

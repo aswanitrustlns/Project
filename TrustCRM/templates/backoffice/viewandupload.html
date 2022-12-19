@@ -23,6 +23,14 @@
       <link href="{% static 'css/input-tel.min.css' %}" rel="stylesheet"   type="text/css" />
     {% include "common/link.html" %}
     {% include "common/scripts.html" %}
+    <style>
+        table td .dropdown-menu.show{
+                right: 0px;
+        left: auto;
+        transform: none;
+        display: flex;
+        }
+    </style>
 
    
 
@@ -224,10 +232,15 @@
                                       
                                     <div class=" card   card-h-100" >
                                         <div class="card-body" id="upload-docs-div">
-                                            <h4 class="card-title almarenamonolight-type mb-4 fs-23">Upload Documents
-                                                Details
-                                            </h4>
-                                          
+                                            <div class="d-flex flex-no-wrap align-items-center ">
+                                                <h4 class="card-title almarenamonolight-type mb-4 fs-23">Upload Documents
+                                                    Details
+                                                </h4>
+                                                <div class="ms-auto">
+                                                <button class="position-relative btn  btn-sm  color-green fs-15" style="background-color:
+                                                rgba(0, 165, 79, 0.15) ;" onclick="accountOpening()">Account Opening Form</button>
+                                                </div>
+                                            </div>
                                             <div class="table-responsive " id="uploaddocumentsdetails" style="max-height:500px">
                                                 <table  class="table dt-responsive  nowrap  w-100 change" id="doc-data-table">
                                                     <thead >
@@ -291,7 +304,7 @@
                                                             <div class="dropdown-menu">
                                                                 <a class="dropdown-item" style="cursor: pointer;" onclick="viewDocs({{doc.6}})">View</a>
                                                                 <a class="dropdown-item" style="cursor: pointer;" onclick="editDocs({{doc.6}},{{doc.7}},'{{doc.4}}')">Edit</a>
-                                                                
+                                                                <a class="dropdown-item" style="cursor: pointer;" onclick="addexpDocs({{doc.6}},{{doc.7}},'{{doc.4}}')">Expiry</a>
                                                             </div>
                                                         </div></td>
                                                         
@@ -665,6 +678,73 @@
         </div> <!-- end modal dialog-->
     </div>
 
+    <div class="modal fade" id="edit-exp-document" tabindex="-1" >
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+    
+                <div class="modal-body ">
+
+                    <div class="border-dashed rounded-3 px-3 py-3">
+                    
+                        <div class="modal-header border-0 px-0">
+                            <h5 class="modal-title fs-21" id="modal-title">Edit Document</h5>
+
+                            <a href="" data-bs-dismiss="modal" aria-label="Close">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M9.16992 14.83L14.8299 9.17" stroke="var(--white)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M14.8299 14.83L9.16992 9.17" stroke="var(--white)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M9 22H15C20 22 22 20 22 15V9C22 4 20 2 15 2H9C4 2 2 4 2 9V15C2 20 4 22 9 22Z" stroke="white" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+
+                                </a>
+
+                        </div>
+                   
+                        
+                            
+                            
+                                        
+                                        <form id="add-doc-form-2" enctype="multipart/form-data">  
+                                            {% csrf_token %}  
+                                          
+                                            <div class="row">
+                            
+                                                
+                                                <div class="col-12">
+                                                    <div class="mb-3">
+                                                        <label class="form-label w-100 " for="email1">Expiry Date</label>
+                                            <input  type="text" class="form-control" id="expdateed" name="expdateed" required />
+                                                    </div>
+                                                </div>
+                                                
+                                                <div class="col-12">
+                                                    <div class="mb-3">
+                                                        <input type="hidden" name="accno" id="documentexpAcno">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        
+                                            <input type="hidden" name="id" id="IDexp">
+                                         </form>   
+                                    
+                                        <div class="col-6">
+                                            <button type="button"  class="btn btn-success" id="btn-save-evented" onclick="updateexpDocs()">Save</button>
+                                            <!-- <button type="button" data-bs-dismiss="modal" class="btn btn-danger" id="btn-delete-event">Close</button> -->
+                                        </div>
+                                      
+                                    
+                                
+                           
+                            
+                            
+                        
+                    </div>
+                
+                </div>
+            </div> <!-- end modal-content-->
+        </div> <!-- end modal dialog-->
+    </div>
+
 <script>
      $(document).ready(function () {
         var searchParams = new URLSearchParams(window.location.search)
@@ -736,6 +816,22 @@
                     });
         $("#edit-document").modal('show')
      }
+     function addexpDocs(Id){
+        $("#IDexp").val(Id)        
+        let ft=flatpickr('#expdateed', {
+                        //inline: true,
+                        "allowInput":true,
+                        dateFormat: "Y-m-d",//MMMM Do YYYY
+                        altFormat: "Y-m-d",
+                        altInput: true,
+                        mode: "single",
+                        
+                      
+                        
+                        defaultDate: Date.now
+                    });
+        $("#edit-exp-document").modal('show')
+     }
      function multidocmodel(){
         $("#multidocument-upload").modal('show')
      }
@@ -767,6 +863,40 @@
                             $("#alertpopup").modal('show')
 
                         }
+            })
+            document.getElementById("document-img").value = null;
+     }
+
+     function updateexpDocs(){
+        $("#edit-exp-document").modal('hide')
+        //$("#expdateed").val("")
+        var accno=$("#Accountno").val()
+        $("#documentexpAcno").val(accno)
+        var id=$("#IDexp").val()
+        //alert(id)
+        //var form = $('#add-doc-form-2')[0];
+        //var formData = new FormData(form);
+        var formdata=$("#add-doc-form-2").serialize()
+        let csrftoken = '{{ csrf_token }}'
+            $.ajax({
+                        
+                type : "POST", 
+                    headers:{
+                        "X-CSRFToken": csrftoken
+                    },
+                    dataType: 'json',
+                    url: "{% url 'Backoffice:AddExpiryDocuments' %}",
+                    data:formdata,
+                        success: function(data){
+                            var message=data.message
+                            //alert(message)
+                            $('#upload-docs-div').load(document.URL +  ' #upload-docs-div')
+                            $("#userMsg").empty()
+                            $("#userMsg").append(message)
+                            $("#alertpopup").modal('show')
+
+                        }
+                        
             })
             document.getElementById("document-img").value = null;
      }
@@ -841,6 +971,13 @@
                     })
            
         }
+
+    }
+    function accountOpening(){
+        var accountno=$("#Accountno").val()
+        var url="{% url 'Backoffice:AccountOpening'%}"
+        window.open(url+"?&login="+accountno)
+        
 
     }
     function uploadDoc(){

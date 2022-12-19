@@ -113,7 +113,7 @@
                             
                                                         </div>
                                                         <div class="col-12 col-md-4">
-                                                            <button class="btn btn-info btn-lg me-2 mb-2 py-1" type="button" onclick="LoadData()">Load</button>
+                                                            <button class="btn btn-info btn-lg me-2 mb-2 py-1" type="button"  onclick="LoadData()">Load</button>
                                                             <button class="btn btn-outline-light  me-2  btn-lg rounded-2 mb-2 py-1" type="button" onclick="resetForm()">Reset</button>
                                                         </div>
                                                         <div class="col-12  col-md-4  ms-lg-auto flex-shrink-0 d-md-flex  justify-content-end">
@@ -280,7 +280,7 @@
                                                                 <div class="col-xxl-4 col-md-3 col-sm-4">
                                                             
                                                                     <div class=" gilroyregular-type  mb-2 ">
-                                                                        <p class=" mb-0   color-color1 fs-16"> Approvel date </p>
+                                                                        <p class=" mb-0   color-color1 fs-16"> Approval date </p>
                                                                         <span class=" text-white  fs-14" id="approval-date"></span>
                                                                         
                                                                     
@@ -299,7 +299,7 @@
                                                             
                                                                     <div class=" gilroyregular-type  mb-2 ">
                                                                         <p class=" mb-0   color-color1 fs-16"> Ticket </p>
-                                                                        <span class=" text-white  fs-14" id="ticket"></span>
+                                                                        <span class=" text-white  fs-14" id="ticket" name="ticket"></span>
                                                                         
                                                                     
                                                                     </div>
@@ -348,6 +348,13 @@
                                                                         
                                                                     
                                                                     </div>
+                                                                </div>
+                                                                <div class="col-xxl-4 col-md-3 col-sm-4">
+                                                                    <div class=" gilroyregular-type  mb-2 ">
+                                                                        <p class=" mb-0   color-color1 fs-16"> Color</p>
+                                                                        <span class=" text-white  fs-14" id="color" name="color" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                                                    </div>
+                                                                    
                                                                 </div>
                                                                 
                                                             </div>  
@@ -409,7 +416,7 @@
                                                                                     
                                                                                     <div class="col-sm-6 col-md-4  col-lg-6 col-xxl-3">
                                                                                         <div class="mb-3">
-                                                                                            <label class="form-label" for="Agent">Agent<span class="color-orange">*</span></label>
+                                                                                            <label class="form-label" for="Agent">Agent</label>
                                                                                             
                                                                                             <input type="text" class="form-control" id="Agent" placeholder=" " required name="agent">
                                                                                             <div class="invalid-feedback position-absolute bottom-0">
@@ -461,7 +468,7 @@
                                                                                     <div class="col-sm-6 col-md-4  col-lg-6 col-xxl-3 ">
                                                                                         <div class="mb-3">
                                                                                             <label class="form-label" for="Score">Risk<span class="color-orange">*</span></label>
-                                                                                            <select class="form-select" name="risk" id="Risk" placeholder="" required disabled="disabled"> 
+                                                                                            <select class="form-select" name="Risk" id="Risk" placeholder="" value="" required > 
                                                                                            <option value="0">Select</option>
                                                                                                 <option value="Low">Low</option>
                                                                                            <option value="Medium">Medium</option>
@@ -488,20 +495,20 @@
                                                                                     </div> -->
                                                                                     <div class="col-sm-6 col-md-4  col-lg-6 col-xxl-3 ">
                                                                                         <div class="mb-3">
-                                                                                            <label class="form-label" for="IDNo">ID No<span class="color-orange">*</span></label>
+                                                                                            <label class="form-label" for="IDNo">ID No</label>
                                                                                             <input type="text" class="form-control" id="IDNo" name="idno" placeholder="" required>
                                                                                             <div class="invalid-feedback position-absolute bottom-0">
-                                                                                                Please provide a Profession.
+                                                                                                Please provide ID No.
                                                                                             </div>
                                                                                         </div>
                                                                                         
                                                                                     </div>
                                                                                     <div class="col-sm-6 col-md-4  col-lg-6 col-xxl-3 ">
                                                                                         <div class="mb-3">
-                                                                                            <label class="form-label" for="Initialdeposit">Initial deposit<span class="color-orange">*</span></label>
+                                                                                            <label class="form-label" for="Initialdeposit">Initial deposit</label>
                                                                                             <input type="text" class="form-control" id="Initialdeposit" name="deposit" placeholder="" required>
                                                                                             <div class="invalid-feedback position-absolute bottom-0">
-                                                                                                Please provide a Profession.
+                                                                                                Please provide Initial Deposit.
                                                                                             </div>
                                                                                         </div>
                                                                                         
@@ -511,7 +518,7 @@
                                                                                             <label class="form-label" for="Annualincome">Annual income<span class="color-orange">*</span></label>
                                                                                             <input type="text" class="form-control" id="Annualincome" name="income" placeholder="" required>
                                                                                             <div class="invalid-feedback position-absolute bottom-0">
-                                                                                                Please provide a Profession.
+                                                                                                Please provide Annual Income.
                                                                                             </div>
                                                                                         </div>
                                                                                         
@@ -521,7 +528,7 @@
                                                                                             <label class="form-label" for="Networth">Networth<span class="color-orange">*</span></label>
                                                                                             <input type="text" class="form-control" id="Networth" name="networth" placeholder="" required>
                                                                                             <div class="invalid-feedback position-absolute bottom-0">
-                                                                                                Please provide a Profession.
+                                                                                                Please provide Networth.
                                                                                             </div>
                                                                                         </div>
                                                                                         
@@ -540,77 +547,68 @@
                                                                                             <select  class="form-select" id="Group"  name="Group" value="" required>
 
                                                                                                 <option value="14">Select</option>
-                                                                                                <option value="Manager">Manager</option>
-                                                                                                <option value="SVG-1">SVG-1</option>
-                                                                                                <option value="SVG-2">SVG-2</option>
-                                                                                                <option value="SVG-3">SVG-3</option>
-                                                                                                <option value="SVG-4">SVG-4</option>
-                                                                                                <option value="SVG-5">SVG-5</option>
-                                                                                                <option value="SVG-6">SVG-6</option>
-                                                                                                <option value="SVG-7">SVG-7</option>
-                                                                                                <option value="SVG-8">SVG-8</option>
-                                                                                                <option value="SVG-9">SVG-9</option>
-                                                                                                <option value="SVG-10">SVG-10</option>
-                                                                                                <option value="SVG-11">SVG-11</option>
-                                                                                                <option value="SVG-Promo">SVG-Promo</option>
-                                                                                                <option value="SVG-50">SVG-50</option>
+                                                                                                {%for group in groups%}
+                                                                                                <option value={{group}}>{{group}}</option>
+                                                                                                {%endfor%}
+                                                                                                <!-- <option value="TCSY-1">TCSY-1</option>
+                                                                                                <option value="demoSY">demoSY</option> -->
+                                                                                                
                                         
                                                                                             </select>
                                                                                             <div class="invalid-feedback position-absolute bottom-0" >
-                                                                                                Please provide a Profession.
+                                                                                                Please provide group.
                                                                                             </div>
                                                                                         </div>
                                                                                         
                                                                                     </div>
                                                                                     <div class="col-sm-6 col-md-4  col-lg-6 col-xxl-3 ">
                                                                                         <div class="mb-3">
-                                                                                            <label class="form-label" for=" Account type"> Account type</label>
+                                                                                            <label class="form-label" for=" Account type"> Account type<span class="color-orange">*</span></label>
                                                                                             <select  class="form-select" id="Account"  name="Account" value="" required>
 
                                                                                                 <option value="0">Select</option>
-                                                                                                <option value="1">Standard</option>
-                                                                                                <option value="2">Prime</option>
-                                                                                                <option value="3">VIP</option>
-                                                                                                <option value="4">Professional</option>
-                                                                                                <option value="5">Joint Account</option>
+                                                                                                {%for acc in account%}
+                                                                                                <option value={{acc.0}}>{{acc.1}}</option>
+                                                                                                {%endfor%}
+                                                                                                <!-- <option value="9">Starter</option>
                                                                                                 <option value="7">Islamic</option>
-                                                                                                <option value="8">Elite</option>
+                                                                                                <option value="10">Performer</option> -->                                                                                                
                                                                                             </select>
                                                                                             <div class="invalid-feedback position-absolute bottom-0">
-                                                                                                Please provide a Profession.
+                                                                                                Please provide AccountType.
                                                                                             </div>
                                                                                         </div>
                                                                                         
                                                                                     </div>
                                                                                     <div class="col-sm-6 col-md-4  col-lg-6 col-xxl-3 ">
                                                                                         <div class="mb-3">
-                                                                                            <label class="form-label" for=" Tinno"> Tin no<span class="color-orange">*</span></label>
+                                                                                            <label class="form-label" for=" Tinno"> Tin no</label>
                                                                                             <input type="text" class="form-control" name="tinno" id="Tinno" placeholder="" >
                                                                                             <div class="invalid-feedback position-absolute bottom-0" required>
-                                                                                                Please provide a Profession.
+                                                                                                Please provide tin no.
                                                                                             </div>
                                                                                         </div>
                                                                                         
                                                                                     </div>
                                                                                     
                                                                                  
-                                                                                    <div class="col-sm-6 col-md-4  col-lg-6 col-xxl-3 ">
+                                                                                    <!-- <div class="col-sm-6 col-md-4  col-lg-6 col-xxl-3 ">
                                                                                         <div class="mb-3">
                                                                                             <label class="form-label" for=" Color">    Color<span class="color-orange">*</span></label>
-                                                                                            <input type="text" class="form-control" name="color" id="Color" placeholder="" >
+                                                                                            <input type="text"   style="background-color: yellow;" name="color" id="Color" placeholder="" >
                                                                                             <div class="invalid-feedback position-absolute bottom-0" required>
-                                                                                                Please provide a Profession.
+                                                                                                Please provide a color.
                                                                                             </div>
                                                                                         </div>
                                                                                         
-                                                                                    </div>
+                                                                                    </div> -->
                                                                                     <div class="col-sm-6 col-md-4  col-lg-6 col-xxl-4 ">
                                                                                         <div class="">
                                                                                             <label class="form-label" for="Comment">Comment<span class="color-orange">*</span></label>
-                                                                                            <textarea name="comment" id="RDComment" cols="20" rows="5" class="form-control" required></textarea>
+                                                                                            <textarea name="comment" id="RDComment" cols="20" rows="5" class="form-control" placeholder="Readonly Comments" required></textarea>
                                                                                         </div>
                                                                                         <div class="invalid-feedback position-absolute bottom-0">
-                                                                                            Please provide a valid Age.
+                                                                                            Please provide a valid comment
                                                                                         </div>
                                             
                                                                                         <div class="">
@@ -619,7 +617,7 @@
                                                                                             <div class="my-1">
                                                                                               
                                                                                                 <div class="form-check">
-                                                                                                    <input type="checkbox" class="form-check-input" id="Readonly" required="">
+                                                                                                    <input type="checkbox" class="form-check-input" name="Readonly"  id="Readonly" required="">
                                                                                                     <label class="form-check-label fs-12" for="Readonly1"> Read only</label>
                                                                                                     <div class="invalid-feedback position-absolute bottom-0 ">
                                                                                                         Read only
@@ -678,18 +676,18 @@
                                                                                                     </div>
                                                     
                                                                                                     <div class="form-check me-2">
-                                                                                                        <input type="checkbox" class="form-check-input" id="AllowchangePWD" required="">
+                                                                                                        <input type="checkbox" class="form-check-input" name="AllowchangePWD" id="AllowchangePWD" required="">
                                                                                                         <label class="form-check-label fs-12" for="AllowchangePWD"> Allow change PWD</label>
                                                                                                         <div class="invalid-feedback fs-10 py-0 ">
-                                                                                                            Read only
+                                                                                                            Allow change PWD
                                                                                                         </div>
                                                                                                     </div>
                                                     
                                                                                                     <div class="form-check">
-                                                                                                        <input type="checkbox" class="form-check-input" id="Sendreports" required="">
+                                                                                                        <input type="checkbox" class="form-check-input" name="Sendreports" id="Sendreports" required="">
                                                                                                         <label class="form-check-label fs-12" for="Sendreports"> Send reports</label>
                                                                                                         <div class="invalid-feedback fs-10 py-0 ">
-                                                                                                            Read only
+                                                                                                            Send reports
                                                                                                         </div>
                                                                                                     </div>
                                                                                                 </div>
@@ -2030,8 +2028,8 @@
                                 <div class="col-12">
                                     <div class="mb-3">
                                         <label class="form-label">Client Category</label><br>
-                                        <input clas="form-control" type="radio" id="all" name="optclient" value="RC" > Retail Client
-                                        <input clas="form-control" type="radio" id="all" name="optclient" value="PC" > Professional Client
+                                        <input clas="form-control" type="radio" id="allrc" name="optclient" value="RC" > Retail Client
+                                        <input clas="form-control" type="radio" id="allpc" name="optclient" value="PC" > Professional Client
 
                                         
                                     </div>
@@ -3070,6 +3068,7 @@
                         'account':accno,
                     },
                     success: function(data){
+                        $("#Accountno").attr("readonly","readonly")
                         $("#created").html("")
                         $("#regdate").html("")
                         $("#regIP").html("")
@@ -3098,7 +3097,8 @@
                         
                         var details=data.detail
                         
-
+                        var stp_income=data.stp_income
+                        $("#StIncome").val(stp_income)
                         var other=data.other
                         var ip=data.ip
                         var ebalance=data.ebalance
@@ -3182,19 +3182,26 @@
                             console.log("Risk=====",risk)
                             $("#Risk").val(risk)
                             if(risk=="Low"){
+                                $("#Low").removeAttr('disabled')
                                 $("#Low").attr('checked',true)
                                 $("#Medium").attr('disabled','disabled');
                                 $("#High").attr('disabled','disabled');
+                                $("#color").attr('style','background-color:yellow');
+
                             }
-                            if(risk=="Mediym"){
+                            if(risk=="Medium"){
+                                $("#Medium").removeAttr('disabled')
                                 $("#Medium").attr('checked',true)
                                 $("#Low").attr('disabled','disabled');
                                 $("#High").attr('disabled','disabled');
+                                $("#color").attr('style','background-color:orange');
                             }
                             if(risk=="High"){
+                                $("#High").removeAttr('disabled')
                                 $("#High").attr('checked',true)
                                 $("#Low").attr('disabled','disabled');
                                 $("#Medium").attr('disabled','disabled');
+                                $("#color").attr('style','background-color:red');
                             }
                             var riskcategory=details[42]
                             $("#RiskCategory").val(riskcategory)
@@ -3216,6 +3223,7 @@
                             var networth=details[38]
                             $("#Networth").val(networth)
                             var group=details[3]
+                            
                             $("#Group").val(group)
                             var actype=details[43]
                             $("#Account").val(actype)
@@ -3242,9 +3250,14 @@
                             regdate=regdate.toISOString().substring(0, 10)
                             $("#hiddregdate").val(regdate)
                             var approve=details[63]
-                            approve=new Date(approve)
+                            console.log("approval date====",approve)
+                            if(approve!=null){
+                                approve=new Date(approve)
                             approve=approve.toISOString().substring(0, 10)
                             $("#approval-date").append(approve)
+
+                            }
+                            
                             var approvalby=details[64]
                             $("#approvedby").append(approvalby)
                             var currency=details[66]
@@ -3287,8 +3300,8 @@
                             //     $("#Terminated").attr('checked',false)
                             // }
                             var salesrepId=details[60]
-                            
-                            if(salesrepId==20){
+                            repname=salesrepId
+                            /* if(salesrepId==20){
                                 repname="Farah Hawilo"
                             }
                             if(salesrepId==30){
@@ -3311,10 +3324,25 @@
                             }
                             if(salesrepId==60){
                                 repname="Online"
-                            }
+                            } */
 
                             var cliIp=details[61]
                             var regIP=details[68]
+                            var acTypeCategory=details[69]
+                            if(acTypeCategory=='RC')
+                            {
+                                $("#allrc").attr("checked",true)
+                                
+                                $("#allpc").removeAttr('checked',false)
+                            }
+                            else if(acTypeCategory=='PC'){
+                                $("#allpc").attr("checked",true)
+                                $("#allrc").removeAttr('checked',false)
+                            }
+                            else{
+                                $("[name=optclient]").removeAttr("checked");
+                            }
+                            
                             var master=details[0]
                             var mpwd=details[24]
                             var Ipwd=details[25]
@@ -3455,7 +3483,7 @@
         resetForm()
         $("#Accountno").val(multi)
         LoadData()
-        $("#tempApprove").hide()
+        $("#tempApprove").show()
         $("#FinalApprove").hide()
         $("#Approve").show()
         
@@ -3501,7 +3529,6 @@
             $("#userMsg").empty()
             $("#userMsg").append("Client Area is not linked to this account. Please contact IT for assistance")
             $("#alertpopup").modal('show')
-
         }
         if(risk=="High"){
             $("#userMsg").empty()
@@ -3559,6 +3586,33 @@
                     }
                 })
 
+    }
+    function Updatedetails(){
+        var accno=$("#Accountno").val()
+        $("#form-accno").val(accno)
+        
+                    var formdata=$("#office-form,#formtype_account,#formtype_contact").serialize()
+                    let csrftoken = '{{ csrf_token }}'
+            $.ajax({
+                    type : "POST", 
+                    headers:{
+                        "X-CSRFToken": csrftoken
+                    },
+                    dataType: 'json',
+                   
+                    url: "{% url 'Backoffice:Updatedetails' %}",
+                    dataType: 'json',
+                    data:formdata,
+                    success: function(data){
+                        message=data.message
+                        $("#userMsg").empty()
+                        $("#userMsg").append(message)
+                        $("#alertpopup").modal('show')
+                        
+                    }
+                })
+
+        
     }
     function duplicateCheckFun(){
         $("#mt4PWD").modal('hide')
@@ -3678,9 +3732,10 @@
                             if(check=="final"){
                                 finalApproval()
                             }
-                            // if(check=="temp"){
-                            //     tempApproval()
-                            // }
+                             if(check=="update"){
+                                Updatedetails()
+                                
+                             }
                             if(check=="approve"){
                                 Approval()
                             }
@@ -3830,6 +3885,7 @@
     
     function resetForm(){
         $("#Accountno").val("")
+        $("#Accountno").removeAttr("readonly")
         $("#office-form")[0].reset()
         $("#formtype_account")[0].reset()
         $("#formtype_contact")[0].reset()
@@ -3851,6 +3907,12 @@
         $("#Sendreports").attr('checked',false)
         $("#AllowchangePWD").attr('checked',false)
         $("#Readonly").attr('checked',false)
+        $("#Low").attr('checked',false)
+        $("#Medium").attr('checked',false)
+        $("#High").attr('checked',false)
+        //$('input[name="optclient"]').attr('checked', false);
+        $("[name=optclient]").removeAttr("checked");
+        $("#color").removeAttr('style')
         // $("#Terminated").attr('checked',false)
         $("#ticketsummary").empty()
         $("#activityList").empty()

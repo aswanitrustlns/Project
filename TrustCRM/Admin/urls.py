@@ -6,6 +6,7 @@ from django.conf import settings
 from django.views.generic import TemplateView
 from .views import *
 urlpatterns=[
+     path('',login,name="Login"),
     path('login/',login,name="Login"),
     path('login_check',login_check,name="Check"),
     path('dashboard/',dashboard,name="Dashboard"),

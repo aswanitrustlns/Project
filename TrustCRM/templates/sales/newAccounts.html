@@ -72,9 +72,9 @@
                                         <button type="button" class="btn btn-lg btn-primary   mb-3  mx-1 gilory-semibold-type bg-soft-purple text-white" id="Lives" style="background-color: var(--bs-card-bg) ;" onclick="addColor(this,'bg-soft-purple text-white', 'color-color1');changeAccount('Live');switchtab(this,'#accounts_table','#rejected_table','#closed_table')">Live</button>
                                         <button type="button" class="btn btn-lg btn-primary  color-color1 mb-3 mx-1 gilory-semibold-type"  id="Pendings" style="background-color: var(--bs-card-bg); "  onclick="addColor(this,'bg-soft-purple text-white', 'color-color1');changeAccount('Pending');switchtab(this,'#accounts_table','#rejected_table','#closed_table')">Pending</button>
                                         <button type="button" class="btn btn-lg btn-primary  color-color1 mb-3 mx-1 gilory-semibold-type"  id="Terminated" style="background-color: var(--bs-card-bg) ;"  onclick="addColor(this,'bg-soft-purple text-white','color-color1');changeAccount('Terminated');switchtab(this,'#accounts_table','#rejected_table','#closed_table')">Existing</button>
-                                        <button type="button" class="btn btn-lg btn-primary  color-color1 mb-3 mx-1 gilory-semibold-type"  id="Rejected" style="background-color: var(--bs-card-bg) ;" onclick="addColor(this,'bg-soft-purple text-white','color-color1');changeAccount('Rejected');switchtab(this,'#rejected_table','#accounts_table','#closed_table')">Rejected</button>
+                                        <button type="button" class="btn btn-lg btn-primary  color-color1 mb-3 mx-1 gilory-semibold-type"  id="Rejected" style="background-color: var(--bs-card-bg) ;" onclick="addColor(this,'bg-soft-purple text-white','color-color1');changeAccount('Rejected');switchtab(this,'#accounts_table','#rejected_table','#closed_table')">Rejected</button>
                                         
-                                        <button type="button" class="btn btn-lg btn-primary  color-color1 mb-3 mx-1 gilory-semibold-type"  id="Closed" style="background-color: var(--bs-card-bg) ;"  onclick="addColor(this,'bg-soft-purple text-white','color-color1');changeAccount('Closed');switchtab(this,'#closed_table','#accounts_table','#rejected_table')">Closed</button>
+                                        <button type="button" class="btn btn-lg btn-primary  color-color1 mb-3 mx-1 gilory-semibold-type"  id="Closed" style="background-color: var(--bs-card-bg) ;"  onclick="addColor(this,'bg-soft-purple text-white','color-color1');changeAccount('Closed');switchtab(this,'#accounts_table','#closed_table','#accounts_table','#rejected_table')">Closed</button>
                                         <input type="hidden" name="selected_tab" id="selected_tab" value="Live">
                                     </div>
                                     
@@ -166,6 +166,18 @@
                                             <td>{{data.country.country}}</td>
                                         </tr>
                                             {%endfor%}
+                                            {%for data in account_data %}   
+                                            <tr>
+                                                <td>{{data.1}}</td>
+                                                <td>{{data.4}}</td>
+                                                <td>{{data.5}} </td>
+                                                <td>{{data.6}}</td>
+                                                <td>{{data.7}}</td>
+                                                <!-- <td>{{data.ticket.salesrepid.username}}</td> -->
+                                                <td>{{data.11}}</td>
+                                                <td>{{data.10}}</td>
+                                            </tr>
+                                                {%endfor%}
                                         
                                         </tbody>
                                         <tfoot>
@@ -174,21 +186,20 @@
                                     </table>
                                 </div>
                                 <div class=" px-1 table-responsive mt-4 d-none" id="rejected_table">
-                                    <table id="datatableleadsR" class="table dt-responsive  nowrap  w-100">
+                                    <!-- <table id="datatableleadsR" class="table dt-responsive  nowrap  w-100">
                                         <thead>
                                             <tr  class=" ">
-                                                <!-- <th data-id="datepicker-range-reject" class="filterhead">RegDate</th> -->
-                                                <th data-text="text" class="filterhead">RegDate</th>
-                                                <!-- <th  data-text="text" class="filterhead">Promo</th> -->
-                                                <th  data-text="text" class="filterhead">Rejectd</th>
+                                                
+                                                <th data-id="datepicker-range" class="filterhead">RegDate</th>
+                                                
+                                                
                                                 <th  data-timer="option" class="filterhead">Login</th>
                                                 <th  data-text="text" class="filterhead">Name</th>
                                                 <th  data-text="text" class="filterhead">Email</th>
                                                 <th  data-text="text" class="filterhead">Source</th>
-                                                <th  data-text="text" class="filterhead">Currency</th>
-                                                <th  data-text="text" class="filterhead">Country</th>                                                
+                                                
                                                 <th  data-text="text" class="filterhead">Ticket</th>
-                                                <th  data-text="text" class="filterhead">IP</th>
+                                                <th  data-text="text" class="filterhead ">Country</th>
                                             </tr>
                                         </thead>
 
@@ -200,7 +211,7 @@
                                         <tfoot>
                                             
                                         </tfoot>
-                                    </table>
+                                    </table> -->
                                 </div>
                                 <!-- <div class=" px-1 table-responsive mt-4 d-none" id="terminated_table">
                                     <table id="datatableleadsT" class="table dt-responsive  nowrap  w-100">
@@ -232,7 +243,7 @@
                                     </table>
                                 </div> -->
                                 <div class=" px-1 table-responsive mt-4 d-none" id="closed_table">
-                                    <table id="datatableleadsC" class="table dt-responsive  nowrap  w-100">
+                                    <!-- <table id="datatableleadsC" class="table dt-responsive  nowrap  w-100">
                                         <thead>
                                             <tr  class=" ">
                                                 
@@ -259,7 +270,7 @@
                                             
                                         </tfoot>
                                     </table>
-                                </div>
+                                </div> -->
 
                                 
 
@@ -285,6 +296,7 @@
     <script>
            
         var tabactive={{active|safe}}
+
         console.log("Tab active====",tabactive)
         var role={{role|safe}}
         $(function(){
@@ -380,7 +392,7 @@
                     }
                     if((change=="Pending"|| change =="All") && status=="Pending"){
                         $("#live").hide()
-                        $("#pending").hide()
+                        $("#pending").show()
                     pendingAccount(change,status)
                     }
                     if(change=="Live" || change =="All" && status=="Live"){
@@ -606,7 +618,7 @@ flatpickr('#todate', {
         mode: "single",
         defaultDate: to
     });
-flatpikrCall("datatableleads")
+// flatpikrCall("datatableleads")
 },
 
 
@@ -1046,15 +1058,15 @@ function rejectedAccount(change,status){
             fromdate=document.getElementById("fromdate").value
             todate=document.getElementById("todate").value
            $("#fromdate").val("")
-            $('#datatableleadsR').dataTable().fnClearTable();
-                $('#datatableleadsR').dataTable().fnDestroy();
+            $('#datatableleads').dataTable().fnClearTable();
+                $('#datatableleads').dataTable().fnDestroy();
             
-                $("#datatableleadsR").DataTable({
+                $("#datatableleads").DataTable({
                 // 'processing' : true,
                 
                 'paging':true,               
                 'ajax':{
-                   "url": "{% url 'Admin:NewAccounts' %}",
+                   "url": "{% url 'Admin:AccountsFilter' %}",
                    "type": "GET",
                    "data":{
                     "change":change,
@@ -1068,7 +1080,7 @@ function rejectedAccount(change,status){
                     var items = [];
                     for ( var i=0, ien=json_data.length ; i<ien ; i++ ) {
 
-                        items[i] = [json_data[i][0],json_data[i][1],json_data[i][2],json_data[i][3],json_data[i][4],json_data[i][5],json_data[i][6],json_data[i][7],json_data[i][8],json_data[i][9]]; 
+                        items[i] = [json_data[i][0],json_data[i][1],json_data[i][2],json_data[i][3],json_data[i][4],json_data[i][5],json_data[i][6]]; 
                             
                         }
                         
@@ -1183,7 +1195,7 @@ function rejectedAccount(change,status){
                 
                
             });     
-            flatpikrCall("datatableleadsR")
+            flatpikrCall("datatableleads")
         }
 
 
@@ -1191,14 +1203,14 @@ function rejectedAccount(change,status){
         function closedAccount(change,status){
             fromdate=document.getElementById("fromdate").value
             todate=document.getElementById("todate").value
-            $('#datatableleadsC').dataTable().fnClearTable();
-                $('#datatableleadsC').dataTable().fnDestroy();
-                $("#datatableleadsC").DataTable({
+            $('#datatableleads').dataTable().fnClearTable();
+                $('#datatableleads').dataTable().fnDestroy();
+                $("#datatableleads").DataTable({
                 // 'processing' : true,
                 
                 'paging':true,               
                 'ajax':{
-                   "url": "{% url 'Admin:NewAccounts' %}",
+                   "url": "{% url 'Admin:AccountsFilter' %}",
                    "type": "GET",
                    "data":{
                     "change":change,
@@ -1212,7 +1224,7 @@ function rejectedAccount(change,status){
                     var items = [];
                     for ( var i=0, ien=json_data.length ; i<ien ; i++ ) {
 
-                        items[i] = [json_data[i][0],json_data[i][1],json_data[i][2],json_data[i][3],json_data[i][4],json_data[i][5],json_data[i][6],json_data[i][7],json_data[i][8],json_data[i][9]]; 
+                        items[i] = [json_data[i][0],json_data[i][1],json_data[i][2],json_data[i][3],json_data[i][4],json_data[i][5],json_data[i][6]]; 
                             
                         }
                         
@@ -1327,7 +1339,7 @@ function rejectedAccount(change,status){
                
                
             });     
-            flatpikrCall("datatableleadsC")
+            flatpikrCall("datatableleads")
            
         }  
 
@@ -1568,7 +1580,7 @@ function pageRedirect(variant){
                     var items = [];
                     for ( var i=0, ien=json_data.length ; i<ien ; i++ ) {
 
-                        items[i] = [json_data[i][1],json_data[i][0],json_data[i][2],json_data[i][3],json_data[i][4],json_data[i][5],json_data[i][6],json_data[i][9],json_data[i][8]]; 
+                        items[i] = [json_data[i][1],json_data[i][4],json_data[i][5],json_data[i][6],json_data[i][7],json_data[i][11],json_data[i][6],json_data[i][10]]; 
                             
                         }
                         
@@ -1727,6 +1739,92 @@ function pageRedirect(variant){
                
             });  
  }
+ function flatpikrCall(id){
+    
+    minDateFilter = "";
+    maxDateFilter = "";
+
+
+    //Flat Picker Date
+    flatpickr('#datepicker-range', {
+
+        //const fp = flatpickr(".test-calendar", {  altFormat: "F j, Y", dateFormat: "Y-m-d", showMonths: 3, disableMobile: true, inline: true, mode: "range", 
+        //altInput: true,
+        "allowInput": true,
+        dateFormat: "Y-m-d",//MMMM Do YYYY
+        altFormat: "Y-m-d",
+        mode: "range",
+        //enableTime: false,
+        altInput: true, // Human Readable
+        //minDate: new Date().fp_incr(-60), // 60 days from today
+        //maxDate: defaultEnd,
+        //locale: { firstDayOfWeek: 1},
+
+        onChange:
+            function (selectedDates, dateStr, instance) {
+              
+                var table = $('#'+id).DataTable();
+                function rangefilter(ev, picker) {
+                            minDateFilter = Date.parse(selectedDates[0]);
+                            maxDateFilter = Date.parse(selectedDates[1]);
+                            //console.log( 'maxDateFilter'+ maxDateFilter);
+                            //console.log( 'minDateFilter'+ minDateFilter);
+                           // console.log( $(this).index()+1);
+                            $.fn.dataTable.ext.search.push(function(settings, data, dataIndex) {
+                            var date = Date.parse(data[ $(this).index()+1]);
+                        
+                            if (
+                            (isNaN(minDateFilter) && isNaN(maxDateFilter)) ||
+                            (isNaN(minDateFilter) && date <= maxDateFilter) ||
+                            (minDateFilter <= date && isNaN(maxDateFilter)) ||
+                            (minDateFilter <= date && date <= maxDateFilter)
+                            ) {
+                            return true;
+                            }
+                            return false;
+                        });
+                        table.draw();
+                        }
+
+                rangefilter();
+        },
+        onReady: function (selectedDates, dateStr, instance) {
+           
+        },
+          // https://codepen.io/bintux/pen/rgYeyp
+        onClose: function (selectedDates, dateStr, instance) {
+            var table = $('#datatableleads').DataTable();
+            function rangefilter(ev, picker) {
+                            minDateFilter = Date.parse(selectedDates[0]);
+                            maxDateFilter = Date.parse(selectedDates[1]);
+                            //console.log( 'maxDateFilter'+ maxDateFilter);
+                            //console.log( 'minDateFilter'+ minDateFilter);
+                           // console.log( $(this).index()+1);
+                            $.fn.dataTable.ext.search.push(function(settings, data, dataIndex) {
+                            var date = Date.parse(data[ $(this).index()+1]);
+                        
+                            if (
+                            (isNaN(minDateFilter) && isNaN(maxDateFilter)) ||
+                            (isNaN(minDateFilter) && date <= maxDateFilter) ||
+                            (minDateFilter <= date && isNaN(maxDateFilter)) ||
+                            (minDateFilter <= date && date <= maxDateFilter)
+                            ) {
+                            return true;
+                            }
+                            return false;
+                        });
+                        table.draw();
+                        }
+
+            rangefilter();
+
+                         //console.log(selectedDates.attr('value'));
+          
+            
+        }
+
+    });
+}
 
 
 

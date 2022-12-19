@@ -444,10 +444,13 @@ class DashboardSelector:
             date_yesterday_for_week=date_yesterday_for_week.strftime("%Y-%m-%d")
             one_week=datetime.today()-timedelta(days=7)
             one_week=one_week.strftime("%Y-%m-%d")
-
+            print("999999999999999999999999999999999999999999999",date_yesterday_for_today,date_today)
             new_clients_today=list(TblClients.objects.filter(livestatus="Live",converteddate__date__range=[date_yesterday_for_today,date_today]).exclude(isib=1).values_list('login',flat=True))
+            print("New clients today=====",new_clients_today)
             clients_today=TblEwalletTransaction.objects.using('svg').filter(accnt_no__in=new_clients_today).values('accnt_no').annotate(Max('id'))
+            print("Clients today===",clients_today)
             get_today_id=TblEwalletTransaction.objects.using('svg').filter(id__in=Subquery(clients_today.values('id__max')))
+            print("today id===",get_today_id)
             disctinct_today_list=[]
             for id in get_today_id.iterator():
                 disctinct_today_list.append(id.id)
@@ -687,10 +690,11 @@ class DashboardSelector:
             manager_data={'funded_today':live_funded_today,'nonfunded_today':live_nonfund_today,'funded_week':live_funded_week,'nonfunded_week':live_nonfund_week,'webinars':weekly_webinar,'livechat':live_chat,'calls':spokencall,'campaigns':active_campaigns,'reminders':reminders,
                            'approved':pending_approved,'waiting':pending_waiting,'summary':monthly_summary,'ticket_summary':ticket_summary_bar,'remindercount':reminder_count,'reminder_count_show':reminder_count_show,'campaign_count':active_campaigns_count,
                            'leads_graph':status_bar,'meeting_daily_pie': meeting_daily_pie,'meeting_weekly_pie':meeting_weekly_pie,'seminar_weekly_pie': seminar_weekly_pie,'seminar_daily_pie':seminar_daily_pie,'halfyearly_bar':halfyearly_bar,'dues':due_tickets,
-                           'new_fund_today':funded_today,'new_nonfund_today':nonfunded_today,'new_fund_week':funded_week,'new_nonfund_week':nonfunded_week,'ext_fund_today':existing_funded_today,'ext_nonfund_today':existing_nonfunded_today,'ext_fund_week':existing_funded_week,
+                           'new_fund_today':live_funded_today,'new_nonfund_today':live_nonfund_today,'new_fund_week':live_funded_week,'new_nonfund_week':live_nonfund_week,'ext_fund_today':existing_funded_today,'ext_nonfund_today':existing_nonfunded_today,'ext_fund_week':existing_funded_week,
                            'total_nonfun':total_nonfun_existing
                            
-                           }    
+                           }  
+                        #    'new_fund_today':funded_today,'new_nonfund_today':nonfunded_today,'new_fund_week':funded_week,'new_nonfund_week':nonfunded_week,  
         except Exception as e:
             print("!!!!!!!!!!!!!!!!!!!!!!Exception!!!!!!!!!!!!!!!!!!!!!!!!!!",e.__class__,e)   
              

@@ -135,6 +135,118 @@ class Selector:
         finally:
             Cursor.close()
         return country_list
+    #Load nationality
+    def load_nationality(self):
+        try:
+            Cursor=connection.cursor()           
+            Cursor.execute("set nocount on;exec SP_GetNationality") 
+            nationality=Cursor.fetchall()
+        except Exception as e:
+            print("Exception------",e)
+        finally:
+            Cursor.close()
+        return nationality
+    #Load Country
+    def loadCountry(self):
+        try:
+            Cursor=connection.cursor()           
+            Cursor.execute("set nocount on;exec SP_GetSalesLeadCountry") 
+            all_country=Cursor.fetchall()
+        except Exception as e:
+            print("Exception------",e)
+        finally:
+            Cursor.close()
+        return all_country
+    #Load Risk category
+    def loadRiskCategory(self):
+        try:
+            Cursor=connection.cursor()           
+            Cursor.execute("set nocount on;exec SP_GetRiskCategory") 
+            risk_category=Cursor.fetchall()
+        except Exception as e:
+            print("Exception------",e)
+        finally:
+            Cursor.close()
+        return risk_category
+    #Load Leverage
+    def loadLeverage(self):
+        try:
+            Cursor=connection.cursor()           
+            Cursor.execute("set nocount on;exec SP_GetLeverage") 
+            leverage=Cursor.fetchall()
+        except Exception as e:
+            print("Exception------",e)
+        finally:
+            Cursor.close()
+        return leverage
+    #Load Account Types
+    def loadAccountType(self):
+        try:
+            Cursor=connection.cursor()           
+            Cursor.execute("set nocount on;exec SP_GetAccountTypes") 
+            account_type=Cursor.fetchall()
+        except Exception as e:
+            print("Exception------",e)
+        finally:
+            Cursor.close()
+        return account_type
+
+
+    def loadgroups(self,user,server,password):
+        try:
+            
+            hllDll = CDLL(r"C:\\pyenv\\TrustManagerAPI.dll") 
+            GetGroups = hllDll.GetGroups_withLP
+            hllDll.GetGroups_withLP.argtype = c_char_p,c_int,c_char_p
+            hllDll.GetGroups_withLP.restype = POINTER(c_char_p)
+            username=int(user)
+            login = c_int(username)
+            groups=GetGroups(c_char_p(server.encode('utf-8')).value,login.value,c_char_p(password.encode('utf-8')).value)
+            resul=string_at(groups)
+            dataset=str(resul, 'utf-8')
+            
+            if(len(dataset)!=0):  
+                dataset=dataset.split(",")              
+                output_str=dataset
+                output_str=' '.join(output_str).split()
+            else:
+                output_str =""    
+            
+            print("Data set======",output_str)
+        except Exception as e:
+            print("Exception------",e)
+        
+        return output_str
+    #Load account type category
+    def loadAccountCategory(self,acno):
+        try:
+            Cursor=connection.cursor()           
+            Cursor.execute("set nocount on;exec SP_GetAccTypeClientCategory %s",[acno]) 
+            account_category=Cursor.fetchall()
+        except Exception as e:
+            print("Exception------",e)
+        finally:
+            Cursor.close()
+        return account_category
+
+    def dll_get_groups(self,user,server,password):
+       
+        hllDll = CDLL(r"C:\\pyenv\\TrustManagerAPI.dll") 
+        GetGroups = hllDll.GetGroups_withLP
+        hllDll.GetGroups_withLP.argtype = c_char_p,c_int,c_char_p
+        hllDll.GetGroups_withLP.restype = POINTER(c_char_p)
+        username=int(user)
+        login = c_int(username)
+        groups=GetGroups(c_char_p(server.encode('utf-8')).value,login.value,c_char_p(password.encode('utf-8')).value)
+        resul=string_at(groups)
+        dataset=str(resul, 'utf-8')
+        if(len(dataset)!=0):                
+            output_str=dataset
+        else:
+            output_str =""    
+        return output_str
+
+
     #Get Country Code
     def get_code_country(self,cry_id):
         try:
@@ -402,7 +514,7 @@ class Selector:
     def get_new_accounts_click(self,status,from_date,to_date):
         try:
            Cursor=connection.cursor()
-
+           print("Status=====",status)
            Cursor.execute("set nocount on;exec SP_GetNewAccountsListing %s,%s,%s",[from_date,to_date,status])  
            live_accounts=Cursor.fetchall()
           
@@ -2507,8 +2619,6 @@ def open_html(body):
     open(filepath, "w",encoding="utf-8").write(body)
     # open in the default browser
     return filepath
-
-
 
 
         

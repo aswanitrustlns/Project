@@ -671,7 +671,7 @@ $(function(){
         function viewticket(ticket,phone1,phone2,email){
             console.log("View ticket clicked---------------------------")
             var email2=""
-            var tick_name=document.getElementById("ticket_name").value
+            // var tick_name=document.getElementById("ticket_name").value
             
             var url="{% url 'Admin:LeadProcessing'%}"
             window.location.href=url+"?&ticket="+ticket+"&email1="+email+"&email2="+email2+"&mobile="+phone1+"&telephone="+phone2

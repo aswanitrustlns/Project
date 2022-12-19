@@ -115,7 +115,7 @@
 
                                         <div class="d-flex w-100 justify-content-between">
                                             <!-- <a href="{% url 'Admin:AccountsFilter' %}?&change=NonFunded"> <p class=" gilory-semibold-type color-color1 fs-16 m-0 text-red me-2 text-xl-center ">Today <span class="badge  rounded-pill  p-2 fs-11 ms-2" style="background-color:rgba(238, 110, 110, 0.2) ;">{%if nonfunded_today < 9 %} 0{{nonfunded_today}}{%else%}{{nonfunded_today}}{%endif%}</span></p></a> -->
-                                            <a href="{% url 'Admin:NewAccounts' %}?&change=nonfundWeekly"><p class=" gilory-semibold-type color-color1 fs-16 m-0 text-green text-xl-center">This week  <span class="badge  rounded-pill  p-2 fs-11 ms-2" style="background-color:rgba(38, 171, 95, 0.2) ;">{%if new_nonfund_week < 9 %} 0{{new_nonfund_week}}{%else%}{{new_nonfund_week}}{%endif%}</span></p></a>
+                                            <a href="{% url 'Admin:WeeklyFilter'%}?&change=NonFunded"><p class=" gilory-semibold-type color-color1 fs-16 m-0 text-green text-xl-center">This week  <span class="badge  rounded-pill  p-2 fs-11 ms-2" style="background-color:rgba(38, 171, 95, 0.2) ;">{%if new_nonfund_week < 9 %} 0{{new_nonfund_week}}{%else%}{{new_nonfund_week}}{%endif%}</span></p></a>
                                             
 
                                         </div>
@@ -220,7 +220,7 @@
                                 <div class="row align-items-center">
 
                                     <div class="col-xl-6  mb-2  mb-xl-0 flex-shrink-0 ">
-                                        <a href="{% url 'Admin:AccountsFilter' %}?&change=TempApproved">
+                                        <a href="{% url 'Admin:AccountsFilter' %}?&status=Pending&change=TempApproved">
                                         <div class="border-0 rounded-3  p-2 font-size-20  text-center " style="background-color:rgba(28, 29, 52, 1) ;">
                                             
                                                 <h1 class="m-0 gilory-medium-type fs-25 mb-2 m-0">{{approved}}</h1>
@@ -235,7 +235,7 @@
 
                                     </div>
                                     <div class="col-xl-6  flex-shrink-0 ">
-                                        <a href="{% url 'Admin:AccountsFilter' %}?&change=WaitingApproval">
+                                        <a href="{% url 'Admin:AccountsFilter' %}?&status=Pending&change=WaitingApproval">
                                         <div class="border-0 rounded-3  p-2 font-size-20  text-center " style="background-color:rgba(28, 29, 52, 1) ;">
                                                 <h1 class="m-0 gilory-medium-type fs-25 mb-2 m-0">{{waiting}}</h1>
                                                 <p class="m-0 color-color1 fs-15">Waiting for approval</p>

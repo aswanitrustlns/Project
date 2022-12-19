@@ -14,8 +14,8 @@ import calendar
 import json
 from .dllservice import DllService
 demoserver = "50.57.14.224:443"
-demopwd = "Tc2022"
-demouser = "601"
+demopwd = "trust123"
+demouser = "505"
 dllservice=DllService(demoserver,demopwd,demouser)
 
 class Selector: 
@@ -106,6 +106,38 @@ class Selector:
         finally:
                 Cursor.close()
         return account_details,otherdetails,ip
+    #Load stipulated annual income
+    def get_stipulated_income(self,login):
+        try:
+            next_12=TblScoresheet.objects.get(login=login)
+            stp_income=0
+            if next_12:
+                id=int(next_12.dep_nex_12)
+                if(id==1):
+                    stp_income=20000
+                if(id==2):
+                    stp_income=50000
+                if(id==3):
+                    stp_income=250000
+                if(id==4):
+                    stp_income=500000
+                if(id==5):
+                    stp_income=100000
+                print("Next 12=====",id)
+        except Exception as e:
+                print("Exception------",e)
+        return stp_income
+
+    def loadgroups(self,user,server,password):
+        try:
+            
+            groups=dllservice.dll_get_groups(user,server,password)
+            print("Other details====",groups)
+            
+        except Exception as e:
+                print("Exception------",e)
+        
+        return groups
     #Load account type category
     def loadAccountCategory(self,acno):
         try:
@@ -197,153 +229,514 @@ class Selector:
     def tmpApproveClient(self,user,server,password,accno,userId,request):
         try:
             Cursor=connection.cursor()    
-            accno=int(accno)       
-            isAccount=dllservice.dll_client_info(user,server,password,accno)
-            if(isAccount==""):
-                ticket=request.POST.get('ticket')
-                name=request.POST.get('firstname')
-                groups=request.POST.get('Group')
-                
+            if accno!=None:
+                accno=int(str(accno))       
+            else:
+                accno=0
+            #isAccount=dllservice.dll_client_info(user,server,password,accno)
+            #if(isAccount!=""):
+            ticket=request.POST.get('ticket')
+            if ticket==None:
+                ticket=""
+            name=request.POST.get('firstname')
+            if name==None:
+                name=""
+            groups=request.POST.get('Group')
+            if groups==None:
+                groups=""
+            country=request.POST.get('country1')
+            if country!=None:
                 country=int(request.POST.get('country1'))
-                city=request.POST.get('city')
-
-                zipcode=request.POST.get('zipcode')
-                if zipcode!=None:
-                    zipcode=int(zipcode)
-                else:
-                    zipcode=0
-                print("Zip code========",zipcode)
-                address=request.POST.get('address')
-                if(address==None):
-                    address=""
-                phone=request.POST.get('phone')
-                if(phone==None):
-                    phone=""
-                email1=request.POST.get('email1')
-                idno=request.POST.get('idno')
+            else:
+                country="0"
+            
+            city=request.POST.get('city')
+            if city==None:
+                city=""
+            zipcode=request.POST.get('zipcode')
+            if zipcode!=None:
+                zipcode=int(zipcode)
+            else:
+                zipcode=0
+            print("Zip code========",zipcode)
+            address=request.POST.get('address')
+            if(address==None):
+                address=""
+            phone=request.POST.get('phone')
+            if(phone==None):
+                phone=""
+            email1=request.POST.get('email1')
+            if email1==None:
+                email1=""
+            idno=request.POST.get('idno')
+            if idno==None:
+                idno=""
+            leverage=request.POST.get('Leverage')
+            if leverage!=None:
                 leverage=int(request.POST.get('Leverage'))
-                print("Leverage======",leverage)
-                regdates=request.POST.get('regdate')
-                print("reg dates======",regdates,type(regdates))
-                if regdates!="":
+            else:
+                leverage=0
+            print("Leverage======",leverage)
+            regdates=request.POST.get('regdate')
+            print("reg dates======",regdates,type(regdates))
+            if regdates!="":
+                if regdates!=None:
                     regdates=datetime.strptime(regdates,"%Y-%m-%d")
-                print("Reg date======",regdates,type(regdates))
-                comment=request.POST.get('comment')
-                taxrate=0.0
-                tinno=request.POST.get('tinno')
-                enabled=request.POST.get('enabled')
-                if(enabled=="on"):
-                    enabled=1
                 else:
-                    enabled=0
-                color=request.POST.get('color')
-                if color!=None:
-                    color=int(color)
-                else:
-                    color=0
-                agent=request.POST.get('agent')
-                if agent!=None:
-                    agent=int(agent)
-                else:
-                    agent=0
-                rdonly=request.POST.get('readonly')
-                if(rdonly=="on"):
-                    rdonly=1
-                else:
-                    rdonly=0
-                sendreport=request.POST.get('sendreport')
-                if(sendreport=="on"):
-                    sendreport=1
-                else:
-                    sendreport=0
-                changepwd=request.POST.get('changepwd')
-                if(changepwd=="on"):
-                    changepwd=1
-                else:
-                    changepwd=0
-                ppwd=request.POST.get('ppwd')
-                refcode=request.POST.get('refcode')
-                source=request.POST.get('source')
-                mothername=request.POST.get('mothername')
+                    regdates=""
+            print("Reg date======",regdates,type(regdates))
+            comment=request.POST.get('comment')
+            if comment==None:
+                comment=""
+            taxrate=0.0
+            tinno=request.POST.get('tinno')
+            if tinno==None:
+                tinno=""
+            enabled=request.POST.get('enabled')
+            if(enabled=="on"):
+                enabled=1
+            else:
+                enabled=0
+            color=request.POST.get('color')
+            if color!=None:
+                color=int(color)
+            else:
+                color=0
+            agent=request.POST.get('agent')
+            if agent!=None:
+                agent=int(agent)
+            else:
+                agent=0
+            rdonly=request.POST.get('readonly')
+            if(rdonly=="on"):
+                rdonly=1
+            else:
+                rdonly=0
+            sendreport=request.POST.get('sendreport')
+            if(sendreport=="on"):
+                sendreport=1
+            else:
+                sendreport=0
+            changepwd=request.POST.get('changepwd')
+            if(changepwd=="on"):
+                changepwd=1
+            else:
+                changepwd=0
+            ppwd=request.POST.get('ppwd')
+            if ppwd==None:
+                ppwd=""
+            refcode=request.POST.get('refcode')
+            if refcode==None:
+                refcode=""
+            source=request.POST.get('source')
+            if source==None:
+                source=""
+            mothername=request.POST.get('mothername')
+            if mothername==None:
+                mothername=""
+            nationality=request.POST.get('nationality')
+            if nationality!=None:
                 nationality=int(request.POST.get('nationality'))
+            else:
+                nationality=0
+            
                 
-                created=request.POST.get('createdby')
-                if created!=None:
-                    created=int(created)
-                else:
-                    created=0
-                dob=request.POST.get('dob')
-                income=request.POST.get('income')
-                if income!=None:
-                    income=float(income)
-                else:
-                    income=0
-                worth=request.POST.get('worth')
-                if worth!=None:
-                    worth=float(worth)
-                else:
-                    worth=0
-                deposit=request.POST.get('deposit')
+            created=request.POST.get('createdby')
+            if created!=None:
+                created=int(created)
+            else:
+                created=0
+            dob=request.POST.get('dob')
+            if dob==None:
+                dob=""
+            income=request.POST.get('income')
+            if income!=None:
+                income=float(income)
+            else:
+                income=0
+            worth=request.POST.get('worth')
+            if worth!=None:
+                worth=float(worth)
+            else:
+                worth=0
+            deposit=request.POST.get('deposit')
                 
-                if deposit!=None:
-                    deposit=float(deposit)
-                else:
-                    deposit=0
-                profession=request.POST.get('profession')
-                risk=request.POST.get('Risk')
-                riskCategory=int(request.POST.get('RiskCategory'))
-                acctype=request.POST.get('Account')
-                if acctype!=None:
-                    acctype=int(acctype)
-                else:
-                    acctype=0
-                email2=request.POST.get('email2')
-                phone2=request.POST.get('phone2')
-                title=request.POST.get('title')
-                terminated=request.POST.get('terminated')
-                if terminated=="on":
-                    terminated=1
-                else:
-                    terminated=0
-                state=request.POST.get('state')
-                
+            if deposit!=None:
+                deposit=float(deposit)
+            else:
+                deposit=0
+            profession=request.POST.get('profession')
+            if profession==None:
+                profession=""
+            risk=request.POST.get('Risk')
+            if risk==None or risk=="":
+                risk=""
                 red=0
                 blue=0
                 green=0
-                score=request.POST.get('score')
-                if score!=None:
-                    score=float(score)
-                else:
-                    score=0.0
-                termComment=request.POST.get('terComment')
-                rdonlycomment=request.POST.get('comment')
-                country2=request.POST.get('country2')
-                if country2!=None:
-                    country2=int(country2)
-                else:
-                    country2=0
-                user=request.session.get('UserId')
-                mpwd=request.POST.get('mpwd')
-                ipwd=request.POST.get('ipwd')
-                master_pwd=random_pwd_gen()
-                investor_pwd=random_pwd_gen()
-                phone_pwd=random_pwd_gen()
-                update_data="NAME="+name+"^GROUP="+groups+"^CITY="+city+"^ZIPCODE="+str(zipcode)+"^ADDRESS="+address+"^PHONE="+phone+"^EMAIL="+email1+"^COMMENT"+comment+"^USERID="+user+"^USER_STATUS=NR^USER_AGENT=0^USER_LEVERAGE="+str(leverage)+"^USER_STATE="+state+"^USER_TAXES="+str(taxrate)+"^USER_PASSWORD="+str(master_pwd)+"^USER_PASSWORD_INVESTOR="+str(investor_pwd)+"^USER_PASSWORD_PHONE="+str(phone_pwd)+"^USER_COUNTRY="+str(country)+"^LOGIN_NO="+str(accno)+"^USER_ENABLE="+str(enabled)+"^USER_ENABLE_READONLY="+str(rdonly)+"^USER_ENABLE_CHANGE_PASSWORD="+str(changepwd)+"^USER_SEND_REPORTS="+str(sendreport)+"^USER_COLOR_NONE="+str(color)+"^RED="+str(red)+"^GREEN="+str(green)+"^BLUE="+str(blue)+"^GROUPCHANGE="+str(groups)
+                color=0
+            if risk=="Low":
+                red=255
+                green=255
+                blue=0
+                color=1
+            if risk=="Medium":
+                red=255
+                green=140
+                blue=0
+                color=1
+            if risk=="High":
+                red=255
+                green=0
+                blue=0
+                color=1
+            riskCategory=request.POST.get('RiskCategory')
+            if riskCategory!=None:
+                riskCategory=int(request.POST.get('RiskCategory'))
+            else:
+                riskCategory=""
+            acctype=request.POST.get('Account')
+            if acctype!=None:
+                acctype=int(acctype)
+            else:
+                acctype=0
+            email2=request.POST.get('email2')
+            if email2==None:
+                email2=""
+            phone2=request.POST.get('phone2')
+            if phone2==None:
+                phone2=""
+            title=request.POST.get('title')
+            if title==None:
+                title=""
+            terminated=request.POST.get('terminated')
+            if terminated=="on":
+                terminated=1
+            else:
+                terminated=0
+            state=request.POST.get('state')
+            if state==None:
+                state=""
+            
+            score=request.POST.get('score')
+            if score!=None:
+                score=float(score)
+            else:
+                score=0.0
+            termComment=request.POST.get('terComment')
+            if termComment==None:
+                termComment=""
+            rdonlycomment=request.POST.get('comment')
+            if rdonlycomment==None:
+                rdonlycomment=""
+            country2=request.POST.get('country2')
+            if country2!=None:
+                country2=int(country2)
+            else:
+                country2=0
+            user=request.session.get('UserLogin')
+            userid=request.session.get('UserId')
+            mpwd=request.POST.get('mpwd')
+            if mpwd==None:
+                mpwd=""
+            ipwd=request.POST.get('ipwd')
+            if ipwd==None:
+                ipwd=""
+            clarelogin=request.POST.get('clientarealogin')
+            if clarelogin==None:
+                clarelogin=""
+            master_pwd=random_pwd_gen()
+            investor_pwd=random_pwd_gen()
+            phone_pwd=random_pwd_gen()
+            Cursor.execute("set nocount on;exec SP_GetCountryByID %s",[country])
+            countryname=Cursor.fetchone()
+            countryname=str(countryname[0])
+            Cursor.execute("set nocount on;exec SP_GetUserName %s",[userid])
+            username=Cursor.fetchone()
+            username=str(username[0])
+            #isAccount=dllservice.dll_client_info(user,server,password,accno)
+            Cursor.execute("set nocount on; exec SP_GetAccountStatus %s",[accno])
+            isAccount=Cursor.fetchone()
+            isAccount=str(isAccount[0])
+            if(isAccount=="Pending"):
+                update_data="NAME="+name+"^GROUP="+str(groups)+"^CITY="+str(city)+"^ZIPCODE="+str(zipcode)+"^ADDRESS="+str(address)+"^PHONE="+str(phone)+"^EMAIL="+str(email1)+"^COMMENT"+str(comment)+"^USERID="+str(user)+"^USER_STATUS=NR^USER_AGENT=0^USER_LEVERAGE="+str(leverage)+"^USER_STATE="+str(state)+"^USER_TAXES=0^USER_PASSWORD="+str(master_pwd)+"^USER_PASSWORD_INVESTOR="+str(investor_pwd)+"^USER_PASSWORD_PHONE="+str(phone_pwd)+"^USER_COUNTRY="+countryname+"^LOGIN_NO="+str(accno)+"^USER_ENABLE="+str(enabled)+"^USER_ENABLE_READONLY="+str(rdonly)+"^USER_ENABLE_CHANGE_PASSWORD="+str(changepwd)+"^USER_SEND_REPORTS="+str(sendreport)+"^USER_COLOR_NONE="+str(color)+"^RED="+str(red)+"^GREEN="+str(green)+"^BLUE="+str(blue)
                 update_data=bytes(update_data.encode())
-                result=dllservice.dll_update_user(user,server,password,update_data)
+                result=dllservice.dll_create_user(user,server,password,update_data)
                 if result==accno:
-                    Cursor.execute("set nocount on;exec SP_GetAccountStatus %s",[accno])
-                    status=Cursor.fetchone()
-                    update=dllservice.dll_update_status(user,server,password,"TmpMaster")
-                    
-
-                print("Result===",result)
-                msg="MT4 Account created successfully and Email sent to Client"
+                    #Cursor.execute("set nocount on;exec SP_GetAccountStatus %s",[accno])
+                    #status=Cursor.fetchone()
+                    update=dllservice.dll_update_status(user,server,password,accno,"LiveMaster")
+                    Cursor.execute("set nocount on;exec SP_UpdateAccountStatusReadOnly %s,%s,%s,%s",["Live",accno,clarelogin,userid])    
+                    Cursor.execute("set nocount on;exec SP_UpdateClientDetailsWithLog %s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s",[accno,ticket,name,groups,country,city,zipcode,address,phone,email1,idno,leverage,regdates,comment,taxrate,tinno,enabled,color,agent,rdonly,sendreport,changepwd,phone_pwd,refcode,source,mothername,nationality,userid,dob,income,worth,deposit,profession,risk,riskCategory,acctype,email2,phone2,title,terminated,state,red,blue,green,score,termComment,rdonlycomment,country2,user,master_pwd,investor_pwd])   
+                    Cursor.execute("set nocount on;exec SP_UpdateCurrency %s,%s,%s",[accno,userid,"USD"]) 
+                    msg="MT4 Account created successfully and Email sent to Client"
+                else:
+                    msg="Action Failed. Please contact IT!"
+            else:
+                msg="Account already Live in MT4"
+            #print("Result===",result)            
+            #msg=update
         except Exception as e:
                 print("Exception------",e)
+                msg=str(e)
         finally:
                 Cursor.close()
         return msg
+
+    def updateClientdetails(self,user,server,password,accno,userId,request):
+        try:
+            Cursor=connection.cursor()    
+            if accno!=None:
+                accno=int(str(accno))       
+            else:
+                accno=0
+            
+            ticket=request.POST.get('ticket')
+            if ticket==None:
+                ticket=""
+            name=request.POST.get('firstname')
+            if name==None:
+                name=""
+            groups=request.POST.get('Group')
+            if groups==None:
+                groups=""
+            country=request.POST.get('country1')
+            if country!=None:
+                country=int(request.POST.get('country1'))
+            else:
+                country="0"
+            
+            city=request.POST.get('city')
+            if city==None:
+                city=""
+            zipcode=request.POST.get('zipcode')
+            if zipcode!=None:
+                zipcode=int(zipcode)
+            else:
+                zipcode=0
+            print("Zip code========",zipcode)
+            address=request.POST.get('address')
+            if(address==None):
+                address=""
+            phone=request.POST.get('phone')
+            if(phone==None):
+                phone=""
+            email1=request.POST.get('email1')
+            if email1==None:
+                email1=""
+            idno=request.POST.get('idno')
+            if idno==None:
+                idno=""
+            leverage=request.POST.get('Leverage')
+            if leverage!=None:
+                leverage=int(request.POST.get('Leverage'))
+            else:
+                leverage=0
+            print("Leverage======",leverage)
+            regdates=request.POST.get('regdate')
+            print("reg dates======",regdates,type(regdates))
+            if regdates!="":
+                if regdates!=None:
+                    regdates=datetime.strptime(regdates,"%Y-%m-%d")
+                else:
+                    regdates=""
+            print("Reg date======",regdates,type(regdates))
+            comment=request.POST.get('comment')
+            if comment==None:
+                comment=""
+            taxrate=0.0
+            tinno=request.POST.get('tinno')
+            if tinno==None:
+                tinno=""
+            enabled=request.POST.get('enabled')
+            if(enabled=="on"):
+                enabled=1
+            else:
+                enabled=0
+            color=request.POST.get('color')
+            if color!=None:
+                color=int(color)
+            else:
+                color=0
+            agent=request.POST.get('agent')
+            if agent!=None:
+                agent=int(agent)
+            else:
+                agent=0
+            rdonly=request.POST.get('readonly')
+            if(rdonly=="on"):
+                rdonly=1
+            else:
+                rdonly=0
+            sendreport=request.POST.get('sendreport')
+            if(sendreport=="on"):
+                sendreport=1
+            else:
+                sendreport=0
+            changepwd=request.POST.get('changepwd')
+            if(changepwd=="on"):
+                changepwd=1
+            else:
+                changepwd=0
+            ppwd=request.POST.get('ppwd')
+            if ppwd==None:
+                ppwd=""
+            refcode=request.POST.get('refcode')
+            if refcode==None:
+                refcode=""
+            source=request.POST.get('source')
+            if source==None:
+                source=""
+            mothername=request.POST.get('mothername')
+            if mothername==None:
+                mothername=""
+            nationality=request.POST.get('nationality')
+            if nationality!=None:
+                nationality=int(request.POST.get('nationality'))
+            else:
+                nationality=0
+            
+                
+            created=request.POST.get('createdby')
+            if created!=None:
+                created=int(created)
+            else:
+                created=0
+            dob=request.POST.get('dob')
+            if dob==None:
+                dob=""
+            income=request.POST.get('income')
+            if income!=None:
+                income=float(income)
+            else:
+                income=0
+            worth=request.POST.get('worth')
+            if worth!=None:
+                worth=float(worth)
+            else:
+                worth=0
+            deposit=request.POST.get('deposit')
+                
+            if deposit!=None:
+                deposit=float(deposit)
+            else:
+                deposit=0
+            profession=request.POST.get('profession')
+            if profession==None:
+                profession=""
+            risk=request.POST.get('Risk')
+            if risk==None or risk=="":
+                risk=""
+                red=0
+                blue=0
+                green=0
+                color=0
+            if risk=="Low":
+                red=255
+                green=255
+                blue=0
+                color=1
+            if risk=="Medium":
+                red=255
+                green=140
+                blue=0
+                color=1
+            if risk=="High":
+                red=255
+                green=0
+                blue=0
+                color=1
+            riskCategory=request.POST.get('RiskCategory')
+            if riskCategory!=None:
+                riskCategory=int(request.POST.get('RiskCategory'))
+            else:
+                riskCategory=""
+            acctype=request.POST.get('Account')
+            if acctype!=None:
+                acctype=int(acctype)
+            else:
+                acctype=0
+            email2=request.POST.get('email2')
+            if email2==None:
+                email2=""
+            phone2=request.POST.get('phone2')
+            if phone2==None:
+                phone2=""
+            title=request.POST.get('title')
+            if title==None:
+                title=""
+            terminated=request.POST.get('terminated')
+            if terminated=="on":
+                terminated=1
+            else:
+                terminated=0
+            state=request.POST.get('state')
+            if state==None:
+                state=""
+            
+            score=request.POST.get('score')
+            if score!=None:
+                score=float(score)
+            else:
+                score=0.0
+            termComment=request.POST.get('terComment')
+            if termComment==None:
+                termComment=""
+            rdonlycomment=request.POST.get('comment')
+            if rdonlycomment==None:
+                rdonlycomment=""
+            country2=request.POST.get('country2')
+            if country2!=None:
+                country2=int(country2)
+            else:
+                country2=0
+            user=request.session.get('UserLogin')
+            userid=request.session.get('UserId')
+            mpwd=request.POST.get('mpwd')
+            if mpwd==None:
+                mpwd=""
+            ipwd=request.POST.get('ipwd')
+            if ipwd==None:
+                ipwd=""
+            clarelogin=request.POST.get('clientarealogin')
+            if clarelogin==None:
+                clarelogin=""
+            master_pwd=random_pwd_gen()
+            investor_pwd=random_pwd_gen()
+            phone_pwd=random_pwd_gen()
+            Cursor.execute("set nocount on;exec SP_GetCountryByID %s",[country])
+            countryname=Cursor.fetchone()
+            countryname=str(countryname[0])
+            Cursor.execute("set nocount on;exec SP_GetUserName %s",[userid])
+            username=Cursor.fetchone()
+            username=str(username[0])
+            #isAccount=dllservice.dll_client_info(user,server,password,accno)
+            Cursor.execute("set nocount on; exec SP_GetAccountStatus %s",[accno])
+            isAccount=Cursor.fetchone()
+            isAccount=str(isAccount[0])
+            if(isAccount=="Live" or isAccount=="Closed" or isAccount=="Terminated"):
+                update_data="NAME="+name+"^GROUP="+str(groups)+"^CITY="+str(city)+"^ZIPCODE="+str(zipcode)+"^ADDRESS="+str(address)+"^PHONE="+str(phone)+"^EMAIL="+str(email1)+"^COMMENT"+str(comment)+"^USERID="+str(user)+"^USER_AGENT=0^USER_LEVERAGE="+str(leverage)+"^USER_STATE="+str(state)+"^USER_TAXES=0^USER_COUNTRY="+countryname+"^LOGIN_NO="+str(accno)+"^USER_ENABLE="+str(enabled)+"^USER_ENABLE_READONLY="+str(rdonly)+"^USER_ENABLE_CHANGE_PASSWORD="+str(changepwd)+"^USER_SEND_REPORTS="+str(sendreport)+"^USER_COLOR_NONE="+str(color)+"^RED="+str(red)+"^GREEN="+str(green)+"^BLUE="+str(blue)+"^GROUPCHANGE=0"
+                update_data=bytes(update_data.encode())
+                result=dllservice.dll_update_user(user,server,password,update_data)
+                if result=="Updated Successfully":                   
+                    Cursor.execute("set nocount on;exec SP_UpdateClientDetailsWithLog %s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s",[accno,ticket,name,groups,country,city,zipcode,address,phone,email1,idno,leverage,regdates,comment,taxrate,tinno,enabled,color,agent,rdonly,sendreport,changepwd,phone_pwd,refcode,source,mothername,nationality,userid,dob,income,worth,deposit,profession,risk,riskCategory,acctype,email2,phone2,title,terminated,state,red,blue,green,score,termComment,rdonlycomment,country2,user,master_pwd,investor_pwd])   
+                    Cursor.execute("set nocount on;exec SP_UpdateCurrency %s,%s,%s",[accno,userid,"USD"]) 
+                    msg="MT4 Account updated successfully"
+                else:
+                    msg="Update Failed. Please contact IT!"
+            else:
+                Cursor.execute("set nocount on;exec SP_UpdateClientDetailsWithLog %s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s",[accno,ticket,name,groups,country,city,zipcode,address,phone,email1,idno,leverage,regdates,comment,taxrate,tinno,enabled,color,agent,rdonly,sendreport,changepwd,phone_pwd,refcode,source,mothername,nationality,userid,dob,income,worth,deposit,profession,risk,riskCategory,acctype,email2,phone2,title,terminated,state,red,blue,green,score,termComment,rdonlycomment,country2,user,master_pwd,investor_pwd])   
+                Cursor.execute("set nocount on;exec SP_UpdateCurrency %s,%s,%s",[accno,userid,"USD"]) 
+                msg="MT4 Account updated successfully"
+            #print("Result===",result)            
+            #msg=result
+        except Exception as e:
+                print("Exception------",e)
+                msg=str(e)
+        finally:
+                Cursor.close()
+        return msg
+    
      #approve client
     def approveClient(self,user,server,password,accno,userId):
         try:
@@ -422,6 +815,17 @@ class Selector:
         finally:
                 Cursor.close()
         return account_details
+
+    def get_accnt_passwords(self,accno):
+        try:
+            Cursor=connection.cursor()
+            Cursor.execute("set nocount on;exec SP_GetAccPasswords %s",[accno]) 
+            account_passwords=Cursor.fetchone()
+        except Exception as e:
+                print("Exception------",e)
+        finally:
+                Cursor.close()
+        return account_passwords
     
 
     #Reject documnet
@@ -707,6 +1111,14 @@ class Selector:
         finally:
             Cursor.close
         return result
+    #Check live
+    def check_live_status(self,accno):
+        isAccount=""
+        Cursor.execute("set nocount on; exec SP_GetAccountStatus %s",[accno])
+        isAccount=Cursor.fetchone()
+        if isAccount:
+            isAccount=isAccount[0]
+        return isAccount
     #Get reject reasons Using reason id 
     def get_reason(self,reasons):
         try:
@@ -1219,7 +1631,7 @@ class Selector:
             Cursor=connection.cursor()   
             saved=Cursor.execute("set nocount on;exec SP_ClientCategorize %s,%s,%s",[login,category,userid]) 
             
-            message="Updation done"
+            message="Client Category Updated"
             print("Saved===",saved)
         except Exception as e:
                 print("Exception------",e)

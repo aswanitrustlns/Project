@@ -69,13 +69,13 @@
                                
                                 <div class=" d-flex justify-content-between align-items-start">
                                     <div>
-                                        <button type="button" class="btn btn-lg btn-primary   mb-3  mx-1 gilory-semibold-type bg-soft-purple text-white" id="Lives" style="background-color: var(--bs-card-bg) ;" onclick="addColor(this,'bg-soft-purple text-white', 'color-color1');changeAccount('Live');switchtab(this,'#accounts_table','#rejected_table','#terminated_table','#closed_table')">Live</button>
-                                        <button type="button" class="btn btn-lg btn-primary  color-color1 mb-3 mx-1 gilory-semibold-type"  id="Pendings" style="background-color: var(--bs-card-bg); "  onclick="addColor(this,'bg-soft-purple text-white', 'color-color1');changeAccount('Pending');switchtab(this,'#accounts_table','#rejected_table','#terminated_table','#closed_table')">Pending</button>
-                                        <button type="button" class="btn btn-lg btn-primary  color-color1 mb-3 mx-1 gilory-semibold-type"  id="Terminated" style="background-color: var(--bs-card-bg) ;"  onclick="addColor(this,'bg-soft-purple text-white','color-color1');changeAccount('Terminated');switchtab(this,'#terminated_table','#rejected_table','#accounts_table','#closed_table')">Existing</button>
-                                        <button type="button" class="btn btn-lg btn-primary  color-color1 mb-3 mx-1 gilory-semibold-type"  id="Rejected" style="background-color: var(--bs-card-bg) ;" onclick="addColor(this,'bg-soft-purple text-white','color-color1');changeAccount('Rejected');switchtab(this,'#rejected_table','#accounts_table','#terminated_table','#closed_table')">Rejected</button>
+                                        <button type="button" class="btn btn-lg btn-primary   mb-3  mx-1 gilory-semibold-type bg-soft-purple text-white" id="Lives" style="background-color: var(--bs-card-bg) ;" onclick="addColor(this,'bg-soft-purple text-white', 'color-color1');changeAccount('Live');switchtab(this,'#accounts_table');">Live</button>
+                                        <button type="button" class="btn btn-lg btn-primary  color-color1 mb-3 mx-1 gilory-semibold-type"  id="Pendings" style="background-color: var(--bs-card-bg); "  onclick="addColor(this,'bg-soft-purple text-white', 'color-color1');changeAccount('Pending');switchtab(this,'#accounts_table')">Pending</button>
+                                        <button type="button" class="btn btn-lg btn-primary  color-color1 mb-3 mx-1 gilory-semibold-type"  id="Terminated" style="background-color: var(--bs-card-bg) ;"  onclick="addColor(this,'bg-soft-purple text-white','color-color1');changeAccount('Terminated');switchtab(this,'#accounts_table')">Existing</button>
+                                        <button type="button" class="btn btn-lg btn-primary  color-color1 mb-3 mx-1 gilory-semibold-type"  id="Rejected" style="background-color: var(--bs-card-bg) ;" onclick="addColor(this,'bg-soft-purple text-white','color-color1');changeAccount('Rejected');switchtab(this,'#accounts_table')">Rejected</button>
                                         
-                                        <button type="button" class="btn btn-lg btn-primary  color-color1 mb-3 mx-1 gilory-semibold-type"  id="Closed" style="background-color: var(--bs-card-bg) ;"  onclick="addColor(this,'bg-soft-purple text-white','color-color1');changeAccount('Closed');switchtab(this,'#closed_table','#accounts_table','#terminated_table','#rejected_table')">Closed</button>
-                                        <input type="hidden" name="selected_tab" id="selected_tab" value="Live">
+                                        <button type="button" class="btn btn-lg btn-primary  color-color1 mb-3 mx-1 gilory-semibold-type"  id="Closed" style="background-color: var(--bs-card-bg) ;"  onclick="addColor(this,'bg-soft-purple text-white','color-color1');changeAccount('Closed');switchtab(this,'#accounts_table')">Closed</button>
+                                        <input type="hidden" name="selected_tab" id="selected_tab" value="{{active}}">
                                     </div>
                                     
                                     <div class=" mt-2  mt-md-0">
@@ -140,12 +140,13 @@
                                                 <!-- <th  data-text="text" class="filterhead">Promo</th> -->
                                                 <th data-id="datepicker-range" class="filterhead">RegDate</th>
                                                 <!-- <th  data-text="text" class="filterhead">Promo</th> -->
-                                                
-                                                <!-- <th  data-timer="option" class="filterhead">Login</th> -->
+                                                <th data-id="datepicker-range" class="filterhead">Status</th>
+                                                <th data-id="datepicker-range" class="filterhead">StatusDate</th>
+                                                 <th  data-timer="option" class="filterhead">Login</th>
                                                 <th  data-text="text" class="filterhead">Name</th>
                                                 <th  data-text="text" class="filterhead">Email</th>
                                                 <th  data-text="text" class="filterhead">Source</th>
-                                                <!-- <th  data-text="text" class="filterhead">SalesRep</th> -->
+                                                 <th  data-text="text" class="filterhead">SalesRep</th> 
                                                 <th  data-text="text" class="filterhead">Ticket</th>
                                                 <th  data-text="text" class="filterhead ">Country</th>
                                             </tr>
@@ -156,16 +157,17 @@
                                             {%for data in accounts_data %}   
                                         <tr>
                                             <td>{{data.1}}</td>
-                                            <td>{{data.0}} </td>
+                                             <!--<td>{{data.0}} </td> -->
                                             
                                             <td>{{data.2}}</td>
                                             <td>{{data.3}}</td>
                                             <td>{{data.4}}</td>
                                             <td>{{data.5}}</td>
-                                            <!-- <td>{{data.6}}</td> -->
                                             <td>{{data.6}}</td>
-                                            <td>{{data.9}}</td>
-                                            <td class="text-end">{{data.8}}</td>
+                                            <td>{{data.7}}</td>
+                                            <td>{{data.8}}</td>
+                                            <td>{{data.11}}</td>
+                                            <td class="text-end">{{data.10}}</td>
                                         </tr>
                                             {%endfor%}
                                         
@@ -175,21 +177,22 @@
                                         </tfoot>
                                     </table>
                                 </div>
-                                <div class=" px-1 table-responsive mt-4 d-none" id="rejected_table">
+                               <!--  <div class=" px-1 table-responsive mt-4 d-none" id="rejected_table">
                                     <table id="datatableleadsR" class="table dt-responsive  nowrap  w-100">
                                         <thead>
                                             <tr  class=" ">
-                                                <!-- <th data-id="datepicker-range-reject" class="filterhead">RegDate</th> -->
+                                                <th data-id="datepicker-range-reject" class="filterhead">RegDate</th> 
                                                 <th data-text="text" class="filterhead">RegDate</th>
-                                                <!-- <th  data-text="text" class="filterhead">Promo</th> -->
+                                                <th  data-text="text" class="filterhead">Promo</th>
                                                 <th  data-text="text" class="filterhead">Rejectd</th>
                                                 <th  data-timer="option" class="filterhead">Login</th>
                                                 <th  data-text="text" class="filterhead">Name</th>
                                                 <th  data-text="text" class="filterhead">Email</th>
                                                 <th  data-text="text" class="filterhead">Source</th>
                                                 <th  data-text="text" class="filterhead">Currency</th>
-                                                <th  data-text="text" class="filterhead">Country</th>                                                
                                                 <th  data-text="text" class="filterhead">Ticket</th>
+                                                <th  data-text="text" class="filterhead">Country</th>                                                
+                                               
                                                 <th  data-text="text" class="filterhead">IP</th>
                                             </tr>
                                         </thead>
@@ -203,8 +206,8 @@
                                             
                                         </tfoot>
                                     </table>
-                                </div>
-                                <div class=" px-1 table-responsive mt-4 d-none" id="terminated_table">
+                                </div> -->
+                               <!--  <div class=" px-1 table-responsive mt-4 d-none" id="terminated_table">
                                     <table id="datatableleadsT" class="table dt-responsive  nowrap  w-100">
                                         <thead>
                                             <tr  class=" ">
@@ -219,7 +222,7 @@
                                                 <th  data-text="text" class="filterhead">Country</th>
                                                 <th  data-text="text" class="filterhead">Ticket</th>
                                                 <th  data-text="text" class="filterhead">IP</th>
-                                            </tr>
+                                            </tr> -->
                                             <!-- <tr class="filters" role="row">
                                                 <th data-text="text" class="filterhead" rowspan="1" colspan="1">
                                                     <input type="text" placeholder="Promo" class="fs-14">
@@ -255,7 +258,7 @@
                                                     <input type="text" placeholder="IP" class="fs-14">
                                                 </th>
                                             </tr> -->
-                                        </thead>
+                                      <!--   </thead>
 
 
                                         <tbody>
@@ -266,8 +269,8 @@
                                             
                                         </tfoot>
                                     </table>
-                                </div>
-                                <div class=" px-1 table-responsive mt-4 d-none" id="closed_table">
+                                </div> -->
+                              <!--   <div class=" px-1 table-responsive mt-4 d-none" id="closed_table">
                                     <table id="datatableleadsC" class="table dt-responsive  nowrap  w-100">
                                         <thead>
                                             <tr  class=" ">
@@ -295,7 +298,7 @@
                                             
                                         </tfoot>
                                     </table>
-                                </div>
+                                </div> -->
 
                                 
 
@@ -324,16 +327,49 @@
         console.log("Role===="+role)
         console.log("Active============="+tabactive)
 
+        $(document).ready(function () { 
+            var activtab=$("#selected_tab").val();
+            //alert(activtab);
+            if(activtab=="Rejected"){
+                $("#Lives").class("btn btn-lg btn-primary   mb-3  mx-1 gilory-semibold-type bg-soft-purple text-white");
+            }
+            if(activtab=="Rejected"){
+                    $("#live").hide();
+                    $("#pending").show();
+                    //liveAccount(change,status);
+                }
+                if(activtab=="Closed"){
+                    $("#live").show();
+                    $("#pending").hide();
+                    //liveAccount(change,status)
+                }
+                if(activtab=="Terminated"){
+                    $("#live").show()
+                    $("#pending").hide()
+                    //liveAccount(change,status)
+                }
+                if(activtab=="Live"){
+                    $("#live").show()
+                    $("#pending").hide()
+                    //liveAccount(change,status)
+                }
+                if(activtab=="pending"){
+                    $("#live").hide()
+                    $("#pending").show()
+                    //liveAccount(change,status)
+                }                
+        });
+
         $(function(){
     
     $('#datatableleads tbody').on('click', 'tr', function (e) {
         var table = $("#datatableleads").DataTable();
         console.log("row clicked----")
         var data = table.row( this ).data();  
-        var login=data[2]  
+        var login=data[3]  
         console.log("Login====="+login)   
-        console.log("Ticket----------"+data[7])  
-        var ticket=data[7]
+        console.log("Ticket----------"+data[8])  
+        var ticket=data[8]
         if(role=="backoffice" || role=="manager" ){
             var url="{% url 'Backoffice:Manage'%}"
             window.location.href=url+"?&login="+login
@@ -343,8 +379,8 @@
             window.location.href=url+"?&ticket="+ticket
         }
         
-    })
-    $('#datatableleadsR tbody').on('click', 'tr', function (e) {
+    });
+    /* $('#datatableleadsR tbody').on('click', 'tr', function (e) {
         var table = $("#datatableleadsR").DataTable();
         console.log("row clicked----")
         var data = table.row( this ).data();       
@@ -358,8 +394,8 @@
         var url="{% url 'Admin:LeadProcessing'%}"
         window.location.href=url+"?&ticket="+ticket
         }
-    })
-    $('#datatableleadsT tbody').on('click', 'tr', function (e) {
+    }); */
+    /* $('#datatableleadsT tbody').on('click', 'tr', function (e) {
         var table = $("#datatableleadsT").DataTable();
         console.log("row clicked----")
         var data = table.row( this ).data();       
@@ -373,7 +409,7 @@
         var url="{% url 'Admin:LeadProcessing'%}"
         window.location.href=url+"?&ticket="+ticket
         }
-    })
+    });
     $('#datatableleadsC tbody').on('click', 'tr', function (e) {
         var table = $("#datatableleadsC").DataTable();
         console.log("row clicked----")
@@ -388,8 +424,8 @@
         var url="{% url 'Admin:LeadProcessing'%}"
         window.location.href=url+"?&ticket="+ticket
         }
-    })
-})
+    }); */
+});
 
 
         
@@ -398,23 +434,61 @@
                 if(change!='All'){
                     $("#selected_tab").val(change)
                 }
-               var status=$("#selected_tab").val()
+                var status=$("#selected_tab").val()
                 console.log("changed status----"+status)
                 console.log("Onclick change----------------------"+change)
-                if((change=="Rejected" || change =="All") &&status=="Rejected"){
+                if(change=="Live")
+                {
+                    var url="{% url 'Admin:AccountsFilter' %}?change=NonFunded&status=Live"
+                    window.location.href=url
+                }
+                if(change=="Existing")
+                {
+                    var url="{% url 'Admin:AccountsFilter' %}?change=NonFunded&status=Live"
+                    window.location.href=url
+                }
+                if(change=="Pending")
+                {
+                    var url="{% url 'Admin:AccountsFilter' %}?change=WaitingApproval&status=Pending"
+                    window.location.href=url
+                }
+                if(change=="Rejected")
+                {
+                    var url="{% url 'Admin:AccountsFilter' %}?change=WaitingApproval&status=Rejected"
+                    window.location.href=url
+                }
+                if(change=="Closed")
+                {
+                    var url="{% url 'Admin:AccountsFilter' %}?change=NonFunded&status=Closed"
+                    window.location.href=url
+                }
+                if(change=="Terminated")
+                {
+                    var url="{% url 'Admin:AccountsFilter' %}?change=NonFunded&status=Terminated"
+                    window.location.href=url
+                }
+                if(change=="All"){
+                    
+                    var fromd=$("#fromdate").val()
+                    var tod=$("#todate").val()
+                    //alert("&fromd="+fromd+"&tod="+tod);
+                    url=window.location.href
+                    window.location.href=url+"&fromd="+fromd+"&tod="+tod                    
+                }
+                /* if((change=="Rejected" || change =="All") && status=="Rejected"){
                     $("#live").hide()
                     $("#pending").hide()
-                    rejectedAccount(change,status);
+                    liveAccount(change,status);
                 }
                 if((change=="Closed" || change =="All" ) && status=="Closed"){
                     $("#live").hide()
                     $("#pending").hide()
-                    closedAccount(change,status)
+                    liveAccount(change,status)
                 }
                 if((change=="Terminated"|| change =="All") && status=="Terminated"){
                     $("#live").hide()
                     $("#pending").hide()
-                    terminateAccount(change,status)
+                    liveAccount(change,status)
                 }
                 if(change=="Live" || change =="Pending" || change =="All" || status=="Live" || status=="Pending"){
                     if((change=="Live" || change =="All" ) && status=="Live"){
@@ -426,17 +500,19 @@
                         $("#pending").show()
                     }
                     liveAccount(change,status)
-                }                
+                }   */              
                 
 
             }
             function liveAccount(change,status){
             fromdate=document.getElementById("fromdate").value
             todate=document.getElementById("todate").value
+            /* $("#accounts_table").destroy();
+            $("#accounts_table").destroy(); */
             var json_data;
             var from
             var to
-                $("#datatableleads").DataTable({
+             var table=   $("#datatableleads").DataTable({
                 'paging':true, 
                 'destroy': true,               
                 'ajax':{
@@ -450,6 +526,7 @@
                    },
                    "dataSrc":function(data){
                     json_data=data.data
+
                     count=data.count
                     from=data.from
                     to=data.to
@@ -655,10 +732,10 @@ function rejectedAccount(change,status){
             fromdate=document.getElementById("fromdate").value
             todate=document.getElementById("todate").value
            $("#fromdate").val("")
-            $('#datatableleadsR').dataTable().fnClearTable();
-                $('#datatableleadsR').dataTable().fnDestroy();
+            $('#datatableleads').dataTable().fnClearTable();
+                $('#datatableleads').dataTable().fnDestroy();
             
-                $("#datatableleadsR").DataTable({
+                $("#datatableleads").DataTable({
                 // 'processing' : true,
                 
                 'paging':true,               
@@ -792,7 +869,7 @@ function rejectedAccount(change,status){
                 
                
             });     
-            flatpikrCall("datatableleadsR")
+            flatpikrCall("datatableleads")
         }
 
 
@@ -800,9 +877,9 @@ function rejectedAccount(change,status){
         function closedAccount(change,status){
             fromdate=document.getElementById("fromdate").value
             todate=document.getElementById("todate").value
-            $('#datatableleadsC').dataTable().fnClearTable();
-                $('#datatableleadsC').dataTable().fnDestroy();
-                $("#datatableleadsC").DataTable({
+            $('#datatableleads').dataTable().fnClearTable();
+                $('#datatableleads').dataTable().fnDestroy();
+                $("#datatableleads").DataTable({
                 // 'processing' : true,
                 
                 'paging':true,               
@@ -936,7 +1013,7 @@ function rejectedAccount(change,status){
                
                
             });     
-            flatpikrCall("datatableleadsC")
+            flatpikrCall("datatableleads")
            
         }  
         
@@ -1145,7 +1222,7 @@ function rejectedAccount(change,status){
             fromdate=document.getElementById("fromdate").value
             todate=document.getElementById("todate").value
             
-                $("#datatableleadsT").DataTable({
+                $("#datatableleads").DataTable({
                 // 'processing' : true,
                 
                 'paging':true, 
@@ -1193,7 +1270,7 @@ function rejectedAccount(change,status){
              );
              console.log("Celllllll"+cell)
              var $myindex=$(api.column(colIdx).header()).index();
-             var $myhead=$("#datatableleadsT thead tr th").eq($myindex);
+             var $myhead=$("#datatableleads thead tr th").eq($myindex);
              var title = $myhead.text();
              var id = $myhead.attr('data-id');
              //var datatext=$(cell).attr('data-text');
@@ -1322,7 +1399,7 @@ function rejectedAccount(change,status){
                          .setSelectionRange(cursorPosition, cursorPosition);
                  });
          });
-         flatpikrCall("datatableleadsT")
+         flatpikrCall("datatableleads")
  },
                 
                

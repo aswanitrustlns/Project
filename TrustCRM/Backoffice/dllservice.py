@@ -31,10 +31,25 @@ class DllService:
         username=int(user)
         login = c_int(username)
         
-        user=Update_User(c_char_p(server.encode('utf-8')).value,login.value,c_char_p(password.encode('utf-8')).value,c_char_p(recvdata))
-        resul=string_at(user)
-        dataset=str(resul, 'utf-8')
-        return dataset
+        userc=Update_User(c_char_p(server.encode('utf-8')).value,login.value,c_char_p(password.encode('utf-8')).value,c_char_p(recvdata))
+        #resul=string_at(user)
+        #dataset=str(resul, 'utf-8')
+        return "Updated Successfully"
+
+     #dll create client MT4
+    def dll_create_user(self,user,server,password,recvdata):
+        
+        hllDll = CDLL(r"C:\\pyenv\\TrustManagerAPI.dll")
+        Create_User = hllDll.create_new_user
+        hllDll.create_new_user.argtype = c_char_p,c_int,c_char_p,c_char_p
+        hllDll.create_new_user.restype = c_int
+        username=int(user)
+        login = c_int(username)
+        
+        userc=Create_User(c_char_p(server.encode('utf-8')).value,login.value,c_char_p(password.encode('utf-8')).value,c_char_p(recvdata))
+        #resul=string_at(userc)
+        #dataset=str(resul, 'utf-8')
+        return userc
         
 
     #dll update status
@@ -65,6 +80,25 @@ class DllService:
         account_no=c_int(accountno)
         currency=GetCurrency(c_char_p(server.encode('utf-8')).value,login.value,c_char_p(password.encode('utf-8')).value,account_no)
         return currency
+    def dll_get_groups(self,user,server,password):
+       
+        hllDll = CDLL(r"C:\\pyenv\\TrustManagerAPI.dll") 
+        GetGroups = hllDll.GetGroups_withLP
+        hllDll.GetGroups_withLP.argtype = c_char_p,c_int,c_char_p
+        hllDll.GetGroups_withLP.restype = POINTER(c_char_p)
+        username=int(user)
+        login = c_int(username)
+        groups=GetGroups(c_char_p(server.encode('utf-8')).value,login.value,c_char_p(password.encode('utf-8')).value)
+        resul=string_at(groups)
+        output_str=[]
+        dataset=str(resul, 'utf-8')
+        if(len(dataset)!=0):                
+            dataset=dataset.split(",")              
+            output_str=dataset
+            output_str=' '.join(output_str).split()
+        else:
+            output_str =[]    
+        return output_str
     #DLL connection in server
     def dll_connection(self,username,server_name,password):
             hllDll = CDLL(r"C:\\pyenv\\TrustManagerAPI.dll") 

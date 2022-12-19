@@ -9,6 +9,8 @@ from .selector import Selector
 from .emailservice import EmailServices
 from .models import TblActionreasons
 from datetime import datetime, timedelta
+import requests
+from django.http import HttpResponseRedirect
 
 selector=Selector()
 service=Services()
@@ -38,12 +40,16 @@ def change_password_request(request):
 #Manage Account page
 def manage_account(request):
     if 'UserId' in request.session:
+        user=request.session.get('user')
+        server=request.session.get('server')
+        password=request.session.get('password')
         nationality=selector.load_nationality()
         country=selector.get_all_country()
         leverage=selector.loadLeverage()
         accountType=selector.loadAccountType()
         risk=selector.loadRiskCategory()
-        return render(request,'backoffice/backofficemanagement.html',{"nations":nationality,'country_list':country,'leverage':leverage,'account':accountType,'risks':risk}) 
+        groups=selector.loadgroups(user,server,password)
+        return render(request,'backoffice/backofficemanagement.html',{"nations":nationality,'country_list':country,'leverage':leverage,'account':accountType,'risks':risk, 'groups':groups}) 
     else:
         return redirect('/login')
 
@@ -55,8 +61,9 @@ def load_account_details(request):
         server=request.session.get('server')
         password=request.session.get('password')
         details,otherdetails,ip=selector.loadAccountDetails(user,server,password,acc_no)
+        income=selector.get_stipulated_income(acc_no)
         ebalance=selector.loadEwalletBalance(acc_no)
-        return JsonResponse({"detail":details,"other":otherdetails,"ip":ip,"ebalance":ebalance}) 
+        return JsonResponse({"detail":details,"other":otherdetails,"ip":ip,"ebalance":ebalance,"stp_income":income}) 
     else:
         return redirect('/login')
 #Load account details
@@ -229,6 +236,13 @@ def load_document_image(request):
 def upload_document(request):
     if 'UserId' in request.session:
         message=service.save_cliet_documents(request)
+        return JsonResponse({"message":message})
+    else:
+        return redirect('/login')
+#Add Expiry date
+def addexpiry_document(request):
+    if 'UserId' in request.session:
+        message=service.add_expiry_documents(request)
         return JsonResponse({"message":message})
     else:
         return redirect('/login')
@@ -470,16 +484,38 @@ def temperory_approval(request):
             message="POI and POA is mandatory for temporary approval"
         else:
            message=selector.tmpApproveClient(user,server,password,accno,userid,request)
-        
-        userdetails=selector.get_email_details(accno)
-        if userdetails:
-           
-            title=userdetails[3]
-            name=userdetails[1]
-            email=userdetails[0]
-            acctype=userdetails[9]
-            emailservice.SendTempAccountDetails(title,name,email,accno,acctype)
+        check_live=selector.check_live_status(accno)
+        print("Check live====",check_live)
+        if(check_live=="Live"):
+            userdetails=selector.get_email_details(accno)
+            if userdetails:
             
+                title=userdetails[3]
+                name=userdetails[1]
+                email=userdetails[0]
+                acctype=userdetails[9]
+                emailservice.SendLiveAccountDetails(title,name,email,accno,acctype)
+                accountpasswords = selector.get_accnt_passwords(accno)   
+                if accountpasswords:
+                    password=accountpasswords[0]
+                    ppassword=accountpasswords[1]
+                    ipassword=accountpasswords[2]
+                    emailservice.SendNewAccountPasswords(title,name,email,accno,password,ppassword,ipassword)
+                    emailservice.newacc_password_notification(accno)
+        return JsonResponse({"message":message}) 
+    else:
+        return redirect('/login')
+
+def update_clientdetails(request):
+    if 'UserId' in request.session:
+        message="Please try again"
+        userid=int(request.session.get('UserId'))
+        accno=request.POST.get('formacc')
+        print("Account no",accno)
+        user=request.session.get('user')
+        server=request.session.get('server')
+        password=request.session.get('password')
+        message=selector.updateClientdetails(user,server,password,accno,userid,request)       
         
         return JsonResponse({"message":message}) 
     else:
@@ -864,4 +900,19 @@ def client_categorisation(request):
         return JsonResponse({"message":message})
     else:
         return redirect('/login')
+#Account Opening
+def account_opening(request):
+    if 'UserId' in request.session:
+        accno=request.GET.get('login')
+        print("Account no====",accno)
+        url="http://185.4.178.134:15934/GetQuestionnaireURL.aspx?login="+accno
+        data=requests.get(url)
+        statuscode=data.status_code
+        if statuscode==200:
+            data=data.json()
+            print("Url data====",data['URL'])
+        return HttpResponseRedirect(data['URL'])
+    else:
+        return redirect('/login')
+
 

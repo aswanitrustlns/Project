@@ -3,6 +3,7 @@ from django.template.loader import get_template
 from django.core.mail import BadHeaderError
 from django.template.loader import render_to_string
 from django.db import connection
+
 class EmailServices:
     def change_password_notification(self,login):
         try:
@@ -13,14 +14,38 @@ class EmailServices:
         
             subject="Account Passwords Notification"   
             email_from = 'cs@trustcapital.com'
-            bcc_mail="crm@trusttc.com"
-            cc_mail="magt@trusttc.com"
-            receiver_mail="backoffice@trusttc.com"
+            bcc_mail="crm@trustcapital.com"
+            cc_mail="magt@trustcapital.com"
+            receiver_mail="backoffice@trustcapital.com"
             template_data={
                 "login":login
             }
             print("Templatedata=====",template_data)
             email_template_render=render_to_string("email/PasswordChangeNotificationTC.html",template_data)
+            msg = EmailMultiAlternatives(subject=subject,from_email=email_from,to=[receiver_mail],bcc=[bcc_mail],cc=[cc_mail])
+            msg.attach_alternative(email_template_render, "text/html")
+            msg.send(fail_silently=False)
+            print("Email send-----------------------------------------------------------")   
+        except Exception as e:
+            print("EXCEPTION-----------------------") 
+
+    def newacc_password_notification(self,login):
+        try:
+                #send_mail(subject," ",email_from,[receiver],fail_silently=False,html_message=email_template_render)
+                # msg=EmailMessage(subject,email_template_render,email_from,[receiver],[receiver])
+            print("Email service---------------------------------------",login)   
+            
+        
+            subject="NewAccount Passwords Notification"   
+            email_from = 'cs@trustcapital.com'
+            bcc_mail="crm@trustcapital.com"
+            cc_mail="magt@trustcapital.com"
+            receiver_mail="backoffice@trustcapital.com"
+            template_data={
+                "Login":login
+            }
+            print("Templatedata=====",template_data)
+            email_template_render=render_to_string("email/NewAccountPasswordsNotification.html",template_data)
             msg = EmailMultiAlternatives(subject=subject,from_email=email_from,to=[receiver_mail],bcc=[bcc_mail],cc=[cc_mail])
             msg.attach_alternative(email_template_render, "text/html")
             msg.send(fail_silently=False)
@@ -46,7 +71,7 @@ class EmailServices:
             }  
             subject="Account Passwords"
             email_from = 'cs@trustcapital.com'
-            bcc_mail="crm@trusttc.com"
+            bcc_mail="crm@trustcapital.com"
             email_template_render=render_to_string("email/PasswordResetInfofromTrustCapitalTC.html",template_data)
             msg = EmailMultiAlternatives(subject=subject,from_email=email_from,to=[receiver_mail],bcc=[bcc_mail])
             msg.attach_alternative(email_template_render, "text/html")
@@ -63,8 +88,8 @@ class EmailServices:
             Cursor=connection.cursor()  
             subject = "Account Rejected - Trust Capital"
             email_from = 'cs@trustcapital.com'
-            bcc1="crm@trusttc.com"
-            bcc2="backoffice@trusttc.com"
+            bcc1="crm@trustcapital.com"
+            bcc2="backoffice@trustcapital.com"
             template_data={
                 "title":title,
                 "name":name,
@@ -99,10 +124,10 @@ class EmailServices:
             Cursor=connection.cursor()  
             subject = "Account Terminated - Trust Capital"
             email_from = 'cs@trustcapital.com'
-            bcc1="crm@trusttc.com"
-            bcc2="backoffice@trusttc.com"
-            bcc3="compliance@trusttc.com"
-            bcc4="magt@trusttc.com"
+            bcc1="crm@trustcapital.com"
+            bcc2="backoffice@trustcapital.com"
+            bcc3="compliance@trustcapital.com"
+            bcc4="magt@trustcapital.com"
             template_data={
                 "title":title,
                 "name":name,
@@ -135,10 +160,10 @@ class EmailServices:
             Cursor=connection.cursor()  
             print("email data====",title,name,remail,tempId)
             email_from = 'cs@trustcapital.com'
-            bcc1="crm@trusttc.com"
-            # bcc2="backoffice@trusttc.com"
-            # bcc3="compliance@trusttc.com"
-            # bcc4="magt@trusttc.com"
+            bcc1="crm@trustcapital.com"
+            # bcc2="backoffice@trustcapital.com"
+            # bcc3="compliance@trustcapital.com"
+            # bcc4="magt@trustcapital.com"
             template_data={
                 "title":title,
                 "name":name,
@@ -205,10 +230,10 @@ class EmailServices:
             Cursor=connection.cursor()  
             subject = "Your Live Trust Capital Account Details"
             email_from = 'cs@trustcapital.com'
-            bcc1="crm@trusttc.com"
-            bcc2="backoffice@trusttc.com"
-            bcc3="compliance@trusttc.com"
-            bcc4="magt@trusttc.com"
+            bcc1="crm@trustcapital.com"
+            bcc2="backoffice@trustcapital.com"
+            bcc3="compliance@trustcapital.com"
+            bcc4="magt@trustcapital.com"
             template_data={
                 "title":title,
                 "name":name,
@@ -233,10 +258,10 @@ class EmailServices:
             Cursor=connection.cursor()  
             subject = "Your Live Trust Capital Account Details"
             email_from = 'cs@trustcapital.com'
-            bcc1="crm@trusttc.com"
-            bcc2="backoffice@trusttc.com"
-            bcc3="compliance@trusttc.com"
-            bcc4="magt@trusttc.com"
+            bcc1="crm@trustcapital.com"
+            bcc2="backoffice@trustcapital.com"
+            bcc3="compliance@trustcapital.com"
+            bcc4="magt@trustcapital.com"
             template_data={
                 "title":title,
                 "name":name,
@@ -256,6 +281,33 @@ class EmailServices:
         finally:
             Cursor.close() 
 
+    def SendNewAccountPasswords(self,title,name,remail,accno,mpassword, ppassword, ipassword):
+        try:
+            Cursor=connection.cursor()  
+            subject = "New Account Passwords"
+            email_from = 'cs@trustcapital.com'
+            bcc1="crm@trustcapital.com"
+            template_data={
+                "title":title,
+                "name":name,
+                "MPassword":mpassword,
+                "account":accno,
+                "PPassword":ppassword,
+                "IPassword":ipassword
+                
+            }  
+            email_template_render=render_to_string("email/backoffice/NewAccountPasswords.html",template_data)
+            msg = EmailMultiAlternatives(subject=subject,from_email=email_from,to=[remail],bcc=[bcc1])
+            msg.attach_alternative(email_template_render, "text/html")
+            msg.send(fail_silently=False)
+            print("Email send-----------------------------------------------------------")  
+                    
+
+        except Exception as e:
+            print("EXCEPTION-----------------------")  
+        finally:
+            Cursor.close() 
+
      #Card approval
     def SendCardApprovalmail(self,title,name,remail,cardno,cardtype,status):
         try:
@@ -265,10 +317,10 @@ class EmailServices:
             
             email_from = 'cs@trustcapital.com'
             print("Mail======",title,name,remail,cardno,subject,cardtype)
-            bcc1="crm@trusttc.com"
-            bcc2="backoffice@trusttc.com"
-            bcc3="compliance@trusttc.com"
-            bcc4="magt@trusttc.com"
+            bcc1="crm@trustcapital.com"
+            bcc2="backoffice@trustcapital.com"
+            bcc3="compliance@trustcapital.com"
+            bcc4="magt@trustcapital.com"
             
             template_data={
                 "title":title,
@@ -315,10 +367,10 @@ class EmailServices:
             Cursor=connection.cursor()  
             subject = "Trust Capital - Final Approval"
             email_from = 'cs@trustcapital.com'
-            bcc1="crm@trusttc.com"
-            bcc2="backoffice@trusttc.com"
-            bcc3="compliance@trusttc.com"
-            bcc4="magt@trusttc.com"
+            bcc1="crm@trustcapital.com"
+            bcc2="backoffice@trustcapital.com"
+            bcc3="compliance@trustcapital.com"
+            bcc4="magt@trustcapital.com"
             template_data={
                 "title":title,
                 "name":name,
@@ -341,11 +393,11 @@ class EmailServices:
     #     try:
     #         Cursor=connection.cursor()  
     #         subject = "Your Live Trust Capital Account Details"
-    #         email_from = 'cs@trusttc.com'
-    #         bcc1="crm@trusttc.com"
-    #         bcc2="backoffice@trusttc.com"
-    #         bcc3="compliance@trusttc.com"
-    #         bcc4="magt@trusttc.com"
+    #         email_from = 'cs@trustcapital.com'
+    #         bcc1="crm@trustcapital.com"
+    #         bcc2="backoffice@trustcapital.com"
+    #         bcc3="compliance@trustcapital.com"
+    #         bcc4="magt@trustcapital.com"
     #         template_data={
     #             "title":title,
     #             "name":name,
@@ -369,10 +421,10 @@ class EmailServices:
             Cursor=connection.cursor()  
             subject = "Client Area Credential Update"
             email_from = 'cs@trustcapital.com'
-            toEmail = "backoffice@trusttc.com"
-            bcc1="crm@trusttc.com"
+            toEmail = "backoffice@trustcapital.com"
+            bcc1="crm@trustcapital.com"
           
-            bcc4="magt@trusttc.com"
+            bcc4="magt@trustcapital.com"
             template_data={
              
                 "account":accno
@@ -396,9 +448,9 @@ class EmailServices:
             subject = "Client Portal Update"
             email_from = 'cs@trustcapital.com'
            
-            bcc1="crm@trusttc.com"
+            bcc1="crm@trustcapital.com"
           
-            bcc4="backoffice@trusttc.com"
+            bcc4="backoffice@trustcapital.com"
             template_data={
                 "title":title,
                 "name":name,
@@ -422,7 +474,7 @@ class EmailServices:
             email_from = 'cs@trustcapital.com'
             
             
-            bcc1="crm@trusttc.com"
+            bcc1="crm@trustcapital.com"
             template_data={
               
                 "name":name,
@@ -446,7 +498,7 @@ class EmailServices:
             subject = "Phone Password Reset"
             email_from = 'cs@trustcapital.com'
            
-            bcc1="crm@trusttc.com"
+            bcc1="crm@trustcapital.com"
           
            
             # template_data={
@@ -469,32 +521,26 @@ class EmailServices:
     def sendBankDetails(self,title,name,remail):
         try:
             # Cursor=connection.cursor()  
-            # subject = "Bank Transfer Details"
+            subject = "Bank Transfer Details"
             email_from = 'cs@trustcapital.com'
-            remail="aswani.technology@gmail.com"
-            # bcc1="crm@trusttc.com"
-            # bcc2="backoffice@trusttc.com"
-            # bcc3="magt@trusttc.com"
+            remail="oshin@trustlns.ae"
+            bcc1="crm@trustcapital.com"
+            bcc2="backoffice@trustcapital.com"
+            bcc3="magt@trustcapital.com"
             
            
-            # template_data={
-            #     "title":title,
-            #     "name":name,
-            #     "bankname":bankname,
-            #     "address":address,
-            #     "beneficiary":beneficiary,
-            #     "swift":swift,
-            #     "iban":iban,
-            #     "ffc":ffc
-            # }  
-            # email_template_render=render_to_string("email/backoffice/BankTransferDetails.html",template_data)
-            # msg = EmailMultiAlternatives(subject=subject,from_email=email_from,to=[remail],bcc=[bcc1,bcc2,bcc3])
-            # msg.attach_alternative(email_template_render, "text/html")
-            # msg.send(fail_silently=False)
-            mail=EmailMessage("BankDetails","",'cs@trustcapital.com',[remail])
-            mail.attach_file("templates/email/backoffice/bankdetails.pdf")
-          
-            mail.send()
+            template_data={
+                "title":title,
+                "name":name                
+            }  
+            email_template_render=render_to_string("email/backoffice/BankTransferDetails.html",template_data)
+            msg = EmailMultiAlternatives(subject=subject,from_email=email_from,to=[remail],bcc=[bcc1,bcc2,bcc3])
+            msg.attach_alternative(email_template_render, "text/html")
+            msg.attach_file("templates/email/backoffice/bankdetails.pdf")
+            #mail=EmailMessage("BankDetails","",'cs@trustcapital.com',[remail],attachments="templates/email/backoffice/bankdetails.pdf")
+            #mail.attach_file("templates/email/backoffice/bankdetails.pdf")
+            msg.send(fail_silently=False)
+            #mail.send()
             print("Email send-----------------------------------------------------------")  
                     
 
@@ -509,8 +555,8 @@ class EmailServices:
             subject = "Phone Password Reset"
             email_from = 'cs@trustcapital.com'
            
-            bcc1="crm@trusttc.com"
-            bcc2="backoffice@trusttc.com"
+            bcc1="crm@trustcapital.com"
+            bcc2="backoffice@trustcapital.com"
             if(message=="15 Days Before POR Expiry Alert"):
                 subject="POR Expiry Notification"
                 path="email/backoffice/BeforePORExpiration.html"
@@ -551,9 +597,9 @@ class EmailServices:
             print("Reason strin-====",reasonstring)
             email_from = 'cs@trustcapital.com'
             subject = "Live Account Documents Rejected"
-            bcc1="crm@trusttc.com"
-            # bcc2="magt@trusttc.com"
-            # bcc3="backoffice@trusttc.com"
+            bcc1="crm@trustcapital.com"
+            # bcc2="magt@trustcapital.com"
+            # bcc3="backoffice@trustcapital.com"
           
            
             template_data={
@@ -580,9 +626,9 @@ class EmailServices:
             subject = "Credit In Confirmation from Trust Capital"
             email_from = 'cs@trustcapital.com'
           
-            bcc1="crm@trusttc.com"
-            bcc2="backoffice@trusttc.com"
-            bcc3="magt@trusttc.com"
+            bcc1="crm@trustcapital.com"
+            bcc2="backoffice@trustcapital.com"
+            bcc3="magt@trustcapital.com"
             template_data={
                 "title":title,
                 "name":name,
@@ -612,9 +658,9 @@ class EmailServices:
             subject = "Credit Out Confirmation from Trust Capital"
             email_from = 'cs@trustcapital.com'
            
-            bcc1="crm@trusttc.com"
-            bcc2="backoffice@trusttc.com"
-            bcc3="magt@trusttc.com"
+            bcc1="crm@trustcapital.com"
+            bcc2="backoffice@trustcapital.com"
+            bcc3="magt@trustcapital.com"
             template_data={
                 "title":title,
                 "name":name,
@@ -644,9 +690,9 @@ class EmailServices:
             subject = "Deposit Confirmation from Trust Capital"
             email_from = 'cs@trustcapital.com'
            
-            bcc1="crm@trusttc.com"
-            bcc2="backoffice@trusttc.com"
-            bcc3="magt@trusttc.com"
+            bcc1="crm@trustcapital.com"
+            bcc2="backoffice@trustcapital.com"
+            bcc3="magt@trustcapital.com"
             template_data={
                 "title":title,
                 "name":name,
@@ -676,9 +722,9 @@ class EmailServices:
             subject = "Deposit Confirmation from Trust Capital"
             email_from = 'cs@trustcapital.com'
            
-            bcc1="crm@trusttc.com"
-            bcc2="backoffice@trusttc.com"
-            bcc3="magt@trusttc.com"
+            bcc1="crm@trustcapital.com"
+            bcc2="backoffice@trustcapital.com"
+            bcc3="magt@trustcapital.com"
             template_data={
                 "title":title,
                 "name":name,
@@ -709,9 +755,9 @@ class EmailServices:
             subject = "Withdrawal Confirmation from Trust Capital"
             email_from = 'cs@trustcapital.com'
            
-            bcc1="crm@trusttc.com"
-            bcc2="backoffice@trusttc.com"
-            bcc3="magt@trusttc.com"
+            bcc1="crm@trustcapital.com"
+            bcc2="backoffice@trustcapital.com"
+            bcc3="magt@trustcapital.com"
             template_data={
                 "title":title,
                 "name":name,
@@ -741,9 +787,9 @@ class EmailServices:
             subject = "Inter Account Transfer Confirmation from Trust Capital"
             email_from = 'cs@trustcapital.com'
            
-            bcc1="crm@trusttc.com"
-            bcc2="backoffice@trusttc.com"
-            bcc3="magt@trusttc.com"
+            bcc1="crm@trustcapital.com"
+            bcc2="backoffice@trustcapital.com"
+            bcc3="magt@trustcapital.com"
             template_data={
                 "title":title,
                 "name":name,
@@ -773,10 +819,10 @@ class EmailServices:
             Cursor=connection.cursor()  
             subject = "Dormant Account has deposited Money"
             email_from = 'cs@trustcapital.com'
-            bcc1="crm@trusttc.com"
-            bcc2="backoffice@trusttc.com"
-            bcc3="compliance@trusttc.com"
-            bcc4="magt@trusttc.com"
+            bcc1="crm@trustcapital.com"
+            bcc2="backoffice@trustcapital.com"
+            bcc3="compliance@trustcapital.com"
+            bcc4="magt@trustcapital.com"
             template_data={
                 "title":title,
                 "name":name,
@@ -806,10 +852,10 @@ class EmailServices:
             Cursor=connection.cursor()  
             
             email_from = 'cs@trustcapital.com'
-            bcc1="crm@trusttc.com"
-            bcc2="backoffice@trusttc.com"
-            bcc3="compliance@trusttc.com"
-            bcc4="magt@trusttc.com"
+            bcc1="crm@trustcapital.com"
+            bcc2="backoffice@trustcapital.com"
+            bcc3="compliance@trustcapital.com"
+            bcc4="magt@trustcapital.com"
             template_data={
                 "title":title,
                 "name":name,

@@ -68,6 +68,7 @@ def login_check(request):
         UserId=selector.get_loged_user_info(username)  
         
         request.session['UserId'] = UserId
+        request.session['UserLogin'] = username
         if UserId==21:
             
             adminrole="admin" 
@@ -198,6 +199,7 @@ def dashboard(request):
             return render(request,"backoffice/dashboard.html",dashbord_data)
 
         if complaints:
+            request.session['role']="complaints"
             dashbord_data=sales_dash.complaint_dashboard(UserId)
             return render(request,"compliance/dashboard.html",dashbord_data)
 
@@ -499,9 +501,9 @@ def new_accounts_pend(request):
         
         if(change):
             if status=="Live":
-                status="Funded"
+                status="FundedLive"
             if status=="Pending":
-                status="TempApproved"
+                status="TempApprovedPending"
             
             accounts_data=selector.get_new_accounts(change,status,from_date,to_date)
             accounts_count=selector.get_new_accounts_count(from_date,to_date)
@@ -517,6 +519,15 @@ def new_accounts_variants(request):
     if 'UserId' in request.session:
         role=request.session.get("role")
         change=request.GET.get("change")
+        if(change=="" or change==None):
+            change="NonFunded"
+        status=request.GET.get("status")
+        fromd=request.GET.get("fromd")
+        tod=request.GET.get("tod")
+        print("status from first===",status)
+        if(status=="" or status==None):
+            status="Live"
+
         date_today=datetime.today().date()    
         date_today=date_today.strftime("%Y-%m-%d")
         week_day=datetime.today().weekday() # Monday is 0 and Sunday is 6
@@ -524,16 +535,72 @@ def new_accounts_variants(request):
                 date_yesterday = datetime.today()-timedelta(3)
         else:
                 date_yesterday = datetime.today()-timedelta(1)
-
+        #date_yesterday = "1900-01-01"
         date_yesterday=date_yesterday.strftime("%Y-%m-%d")
-        
+        if(fromd!=None and fromd!=""):
+            date_yesterday=fromd
+        if(tod!=None and tod!=""):
+            date_today=tod
+
         if (change =="TempApproved" or change=="WaitingApproval"):
             active="pending"
+        accounts_count=selector.get_new_accounts_count(date_yesterday,date_today)  
         print("Statues==========",active)
-        accounts_data=selector.get_new_accounts_click(change,date_yesterday,date_today)#get_new_accounts_filter
+        if(status=="Pending" or status=="pending"):
+            print("Pending status====",status)
+            active="pending"
+            if(change=="TempApproved"):
+                accounts_data=selector.get_new_accounts_click("TempApprovedPending",date_yesterday,date_today)#get_new_accounts_filter
+            else:
+                if(change=="WaitingApproval"):
+                    accounts_data=selector.get_new_accounts_click("WaitingApprovalPending",date_yesterday,date_today)#get_new_accounts_filter
+                else:
+                    accounts_data=selector.get_new_accounts_click("WaitingApprovalPending",date_yesterday,date_today)#get_new_accounts_filter
+        
+        if(status=="Rejected"):
+            active="Rejected"
+            if(change=="TempApproved"):
+                accounts_data=selector.get_new_accounts_click("TempApprovedRejected",date_yesterday,date_today)#get_new_accounts_filter
+            else:
+                if(change=="WaitingApproval"):
+                    accounts_data=selector.get_new_accounts_click("WaitingApprovalRejected",date_yesterday,date_today)#get_new_accounts_filter
+                else:
+                    accounts_data=selector.get_new_accounts_click("WaitingApprovalRejected",date_yesterday,date_today)#get_new_accounts_filter
+            return HttpResponse(json.dumps({"data":accounts_data,"count":accounts_count,'from':date_yesterday,'to':date_today}), content_type="application/json")
+        if(status=="Live"):
+            active="Live"
+            if(change=="Funded"):
+                accounts_data=selector.get_new_accounts_click("FundedLive",date_yesterday,date_today)#get_new_accounts_filter
+            else:
+                if(change=="NonFunded"):
+                    accounts_data=selector.get_new_accounts_click("NonFundedLive",date_yesterday,date_today)#get_new_accounts_filter
+                else:
+                    accounts_data=selector.get_new_accounts_click("NonFundedLive",date_yesterday,date_today)#get_new_accounts_filter
+        if(status=="Closed"):
+            active="Closed"
+            if(change=="Funded"):
+                accounts_data=selector.get_new_accounts_click("FundedClosed",date_yesterday,date_today)#get_new_accounts_filter
+            else:
+                if(change=="NonFunded"):
+                    accounts_data=selector.get_new_accounts_click("NonFundedClosed",date_yesterday,date_today)#get_new_accounts_filter
+                else:
+                    accounts_data=selector.get_new_accounts_click("NonFundedClosed",date_yesterday,date_today)#get_new_accounts_filter
+            return HttpResponse(json.dumps({"data":accounts_data,"count":accounts_count,'from':date_yesterday,'to':date_today}), content_type="application/json")
+        if(status=="Terminated"):
+            active="Exist"
+            if(change=="Funded"):
+
+                accounts_data=selector.get_new_accounts_click("FundedTerminated",date_yesterday,date_today)#get_new_accounts_filter
+            else:
+                if(change=="NonFunded"):
+                    accounts_data=selector.get_new_accounts_click("NonFundedTerminated",date_yesterday,date_today)#get_new_accounts_filter
+                else:
+                    accounts_data=selector.get_new_accounts_click("NonFundedTerminated",date_yesterday,date_today)#get_new_accounts_filter
+
         print("Accounts data====",accounts_data)
-        accounts_count=selector.get_new_accounts_count(date_yesterday,date_today)   
-        return render(request,'admin/newAccounts.html',{'accounts_data':accounts_data,'from':date_yesterday,'to':date_today,'accounts_count':accounts_count,"active":json.dumps(active),'role':json.dumps(role)})
+        print("Active======",active)
+         
+        return render(request,'sales/newAccounts.html',{'account_data':accounts_data,'from':date_yesterday,'to':date_today,'accounts_count':accounts_count,"active":json.dumps(active),'role':json.dumps(role)})
                 
     else:
         return redirect('/login')
@@ -557,7 +624,8 @@ def new_accounts_variants_weekly(request):
             active="pending"
         accounts_data=selector.get_new_accounts_weekly_filter(change,date_yesterday,date_today)
         accounts_count=selector.get_new_accounts_count(date_yesterday,date_today)   
-        return render(request,'admin/newAccounts.html',{'accounts_data':accounts_data,'from':date_yesterday,'to':date_today,'accounts_count':accounts_count,"active":json.dumps(active),'role':json.dumps(role)})
+        print("Accounts count====",accounts_count)
+        return render(request,'sales/newAccounts.html',{'account_data':accounts_data,'from':date_yesterday,'to':date_today,'accounts_count':accounts_count,"active":json.dumps(active),'role':json.dumps(role)})
                 
     else:
         return redirect('/login')
@@ -568,8 +636,15 @@ def new_accounts_click(request):
     if 'UserId' in request.session:
         
         status=request.GET.get("status")
-        if (status =="TempApproved" or status=="WaitingApproval"):
+        if (status =="TempApproved"):
+        
             active="pending"
+            status="TempApprovedPending"
+
+        if (status=="WaitingApproval"):
+            active="pending"
+            status="WaitingApprovalPending"
+
         fromdate=request.GET.get('fromdate')
         todate=request.GET.get("todate")
         date_today=datetime.today().date()    
@@ -590,8 +665,8 @@ def new_accounts_click(request):
         
         accounts_count=selector.get_new_accounts_count(fromdate,todate)
         print("Accounts data===",accounts_data)
-        return HttpResponse(json.dumps({"data":accounts_data,"count":accounts_count}), content_type="application/json")
-        # return render(request,'admin/newAccounts.html',{'accounts_data':accounts_data,'accounts_count':accounts_count,"active":json.dumps(active)})
+        return HttpResponse(json.dumps({"data":accounts_data,"count":accounts_count,'from':fromdate,'to':todate},default=str), content_type="application/json")
+        
                 
     else:
         return redirect('/login')
@@ -1335,6 +1410,7 @@ def new_accounts(request):
     if 'UserId' in request.session:
         change=request.GET.get('change')
         role=request.session.get("role")
+        status=request.GET.get('status')
         if(change=='fundToday'):
             funded_count,nonfunded_count,funded_clients,date_today,date_yesterday=selector.funded_today()
         if(change=='fundWeekly'):
@@ -1546,7 +1622,17 @@ def remind_rep_nonfunded(request):
 #Compliance manage Acccount
 def compliance_manage_accounts(request):
     if 'UserId' in request.session:
-        return render(request,'compliance/manageaccount.html')
+        user=request.session.get('user')
+        server=request.session.get('server')
+        password=request.session.get('password')
+        nationality=selector.load_nationality()
+        country=selector.get_all_country()
+        leverage=selector.loadLeverage()
+        accountType=selector.loadAccountType()
+        risk=selector.loadRiskCategory()
+        groups=selector.loadgroups(user,server,password)
+        print("type of grous===",type(groups))
+        return render(request,'compliance/manageaccountnew.html',{"nations":nationality,'country_list':country,'leverage':leverage,'account':accountType,'risks':risk, 'groups':groups})
     else:
         return redirect('/login')
 #File CSV upload

@@ -74,7 +74,7 @@ class EmailServices:
             print("Email service---------------------------------------")   
             
             print("Receiver mail-----------------------------",receiver_mail)
-            # bcc='crm@trusttc.com'
+            # bcc='crm@trustcapital.com'
            
             fromaddr="cs@trustcapital.com "
             
@@ -170,7 +170,7 @@ class EmailServices:
             print("Email service---------------------------------------")             
             
            
-            email_from = 'crm@trusttc.com'
+            email_from = 'crm@trustcapital.com'
            
             print("Receiver mail-----------------------------",to,sub,emailbody)
             email_template_render=emailbody
@@ -190,7 +190,7 @@ class EmailServices:
                 #send_mail(subject," ",email_from,[receiver],fail_silently=False,html_message=email_template_render)
                 # msg=EmailMessage(subject,email_template_render,email_from,[receiver],[receiver])
             print("Email service---------------------------------------")   
-            bcc1="crm@trusttc.com"
+            bcc1="crm@trustcapital.com"
             bcc2="cs@trustcapital.com "
             
            
@@ -219,8 +219,8 @@ class EmailServices:
         try:
             
             subject = "Trust Capital - Webinar Confirmation"
-            from_addr="crm@trusttc.com"
-            bcc="crm@trusttc.com"
+            from_addr="crm@trustcapital.com"
+            bcc="crm@trustcapital.com"
             Cursor=connection.cursor()           
             Cursor.execute("set nocount on;exec SP_SeminarConfirmationEmail %s",[seminartitle]) 
             seminar_details=Cursor.fetchone()
@@ -257,10 +257,10 @@ class EmailServices:
     def account_update_email(self,accountno,ticket,request,update_result):
         try:
             subject = "Updated Account "+accountno
-            # from_addr="crm@trusttc.com"
-            from_addr="crm@trusttc.com"
-            bcc="backoffice@trusttc.com"
-            to_addr="compliance@trusttc.com"
+            # from_addr="crm@trustcapital.com"
+            from_addr="crm@trustcapital.com"
+            bcc="backoffice@trustcapital.com"
+            to_addr="compliance@trustcapital.com"
             # to_addr="aswani.technology@gmail.com"
             Cursor=connection.cursor()           
             Cursor.execute("set nocount on;exec SP_GetEmailDetails %s",[accountno]) 
@@ -299,8 +299,8 @@ class EmailServices:
         try:
             message="Please try again"
             subject = "Complaint #"+complaint_id
-            from_addr="compliance@trusttc.com"
-            bcc="crm@trusttc.com"
+            from_addr="compliance@trustcapital.com"
+            bcc="crm@trustcapital.com"
             template_data={
                 "name":name,
                 "complaint_id":complaint_id,
