@@ -126,8 +126,8 @@
 
                                     <ul class="gilory-medium-type list-unstyled color-color1 fs-18 d-flex ">
 
-                                        <li onclick="pageRedirect('TempApproved')" style="cursor:pointer"> <span class="rounded-circle  bg-danger d-inline-block me-1 "  style="height:13px ;width:13px;"></span><span>Approved Temporarily</span> | <span class="text-white" id="approvespan">{{accounts_count.2}}</span></li>
-                                        <li class="ms-5" onclick="pageRedirect('WaitingApproval')" style="cursor:pointer"> <span class="rounded-circle  bg-info d-inline-block me-1" style="height:13px ;width:13px;"></span> <span>Waiting for approval</span> | <span class="text-white" id="waitingspan">{{accounts_count.3}}</span></li>
+                                        <li onclick="pageRedirect('TempApproved')" style="cursor:pointer"> <span class="rounded-circle  bg-danger d-inline-block me-1 "  style="height:13px ;width:13px;"></span><span>Approved Temporarily</span> | <span class="text-white" id="approvespan">{{approved}}</span></li>
+                                        <li class="ms-5" onclick="pageRedirect('WaitingApproval')" style="cursor:pointer"> <span class="rounded-circle  bg-info d-inline-block me-1" style="height:13px ;width:13px;"></span> <span>Waiting for approval</span> | <span class="text-white" id="waitingspan">{{waiting}}</span></li>
                                     </ul>
                                 </div>
 
@@ -137,46 +137,51 @@
                                     <table id="datatableleads" class="table dt-responsive  nowrap  w-100">
                                         <thead>
                                             <tr  class=" ">
-                                                <!-- <th  data-text="text" class="filterhead">Promo</th> -->
-                                                <th data-id="datepicker-range" class="filterhead">RegDate</th>
-                                                <!-- <th  data-text="text" class="filterhead">Promo</th> -->
-                                                
-                                                <th  data-timer="option" class="filterhead">Login</th>
-                                                <th  data-text="text" class="filterhead">Name</th>
-                                                <th  data-text="text" class="filterhead">Email</th>
-                                                <th  data-text="text" class="filterhead">Source</th>
-                                                <!-- <th  data-text="text" class="filterhead">SalesRep</th> -->
-                                                <th  data-text="text" class="filterhead">Ticket</th>
-                                                <th  data-text="text" class="filterhead ">Country</th>
+                                                 <!-- <th  data-text="text" class="filterhead">Promo</th> -->
+                                                 <th data-id="datepicker-range" class="filterhead">RegDate</th>
+                                                 <!-- <th  data-text="text" class="filterhead">Promo</th> -->
+                                                 <th data-id="datepicker-range" class="filterhead">Status</th>
+                                                 <th data-id="datepicker-range" class="filterhead">StatusDate</th>
+                                                  <th  data-timer="option" class="filterhead">Login</th>
+                                                 <th  data-text="text" class="filterhead">Name</th>
+                                                 <th  data-text="text" class="filterhead">Email</th>
+                                                 <th  data-text="text" class="filterhead">Source</th>
+                                                  <th  data-text="text" class="filterhead">SalesRep</th> 
+                                                 <th  data-text="text" class="filterhead">Ticket</th>
+                                                 <th  data-text="text" class="filterhead ">Country</th>
                                             </tr>
                                         </thead>
 
 
                                         <tbody id="newaccounts_data" style="cursor:pointer">
                                             
-                                            {%for data in accounts_data %}   
+                                            <!-- {%for data in accounts_data %}   
                                         <tr>
                                             <td>{{data.regdate|date:"Y-m-d"}}</td>
                                             <td>{{data.login}}</td>
                                             <td>{{data.name}} </td>
                                             <td>{{data.email}}</td>
                                             <td>{{data.source}}</td>
-                                            <!-- <td>{{data.ticket.salesrepid.username}}</td> -->
+                                            <td>{{data.ticket.salesrepid.username}}</td> 
                                             <td>{{data.ticket.ticket_no}}</td>
                                             <td>{{data.country.country}}</td>
                                         </tr>
-                                            {%endfor%}
-                                            {%for data in account_data %}   
+                                            {%endfor%} -->
+                                            {%for data in account_data %} 
                                             <tr>
-                                                <td>{{data.1}}</td>
-                                                <td>{{data.4}}</td>
-                                                <td>{{data.5}} </td>
-                                                <td>{{data.6}}</td>
-                                                <td>{{data.7}}</td>
-                                                <!-- <td>{{data.ticket.salesrepid.username}}</td> -->
-                                                <td>{{data.11}}</td>
-                                                <td>{{data.10}}</td>
-                                            </tr>
+                                            <td>{{data.1}}</td>
+                                            <!--<td>{{data.0}} </td> -->
+                                           
+                                           <td>{{data.2}}</td>
+                                           <td>{{data.3}}</td>
+                                           <td>{{data.4}}</td>
+                                           <td>{{data.5}}</td>
+                                           <td>{{data.6}}</td>
+                                           <td>{{data.7}}</td>
+                                           <td>{{data.8}}</td>
+                                           <td>{{data.11}}</td>
+                                           <td class="text-end">{{data.10}}</td>
+                                        </tr>  
                                                 {%endfor%}
                                         
                                         </tbody>
@@ -305,9 +310,9 @@
         var table = $("#datatableleads").DataTable();
         console.log("row clicked----")
         var data = table.row( this ).data();  
-        var login=data[1]  
+        var login=data[3]  
         console.log("Login====="+login)   
-        console.log("Ticket----------"+data[5])  
+        console.log("Ticket----------"+data[8])  
         var ticket=data[7]
         if(role=="backoffice" || role=="manager" ){
             var url="{% url 'Backoffice:Manage'%}"
@@ -427,8 +432,8 @@ $("#datatableleads").DataTable({
    },
    "dataSrc":function(data){
     json_data=data.data
-    fund=data.funded
-    nonfund=data.nonfund
+    fund=data.fundcount
+    nonfund=data.nonfundcount
     from=data.from
     to=data.to
     console.log("Data====",json_data)
@@ -442,10 +447,11 @@ $("#datatableleads").DataTable({
     
     var items = [];
     for ( var i=0, ien=json_data.length ; i<ien ; i++ ) {
-        var country=json_data[i]['country']
-        var regdate = new Date(json_data[i]['regdate']);
-        regdate=regdate.toISOString().substring(0, 10);
-        items[i] = [regdate,json_data[i]['login'],json_data[i]['name'],json_data[i]['email'],json_data[i]['source'],json_data[i]['ticket'],country['country']]; 
+        // var country=json_data[i]['country']
+        // var regdate = new Date(json_data[i]['regdate']);
+        // regdate=regdate.toISOString().substring(0, 10);
+        // items[i] = [regdate,json_data[i]['login'],json_data[i]['name'],json_data[i]['email'],json_data[i]['source'],json_data[i]['ticket'],country['country']]; 
+        items[i] = [json_data[i][1],json_data[i][2],json_data[i][3],json_data[i][4],json_data[i][5],json_data[i][6],json_data[i][7],json_data[i][8],json_data[i][11],json_data[i][10]]; 
             
         }
         
@@ -665,10 +671,10 @@ function terminateAccount(change,status){
                     
                     var items = [];
                     for ( var i=0, ien=json_data.length ; i<ien ; i++ ) {
-                        var country=json_data[i]['country']
-                        var regdate = new Date(json_data[i]['regdate']);
-                        regdate=regdate.toISOString().substring(0, 10);
-                        items[i] = [regdate,json_data[i]['login'],json_data[i]['name'],json_data[i]['email'],json_data[i]['source'],json_data[i]['ticket'],country['country']]; 
+                        // var country=json_data[i]['country']
+                        // var regdate = new Date(json_data[i]['regdate']);
+                        // regdate=regdate.toISOString().substring(0, 10);
+                        items[i] = [json_data[i][1],json_data[i][2],json_data[i][3],json_data[i][4],json_data[i][5],json_data[i][6],json_data[i][7],json_data[i][8],json_data[i][11],json_data[i][10]]; 
                             
                         }
                         
@@ -868,7 +874,7 @@ function pendingAccount(change,status){
                     var items = [];
                     for ( var i=0, ien=json_data.length ; i<ien ; i++ ) {
 
-                        items[i] = [json_data[i][1],json_data[i][0],json_data[i][2],json_data[i][3],json_data[i][4],json_data[i][5],json_data[i][6],json_data[i][9],json_data[i][8]]; 
+                        items[i] = [json_data[i][1],json_data[i][2],json_data[i][3],json_data[i][4],json_data[i][5],json_data[i][6],json_data[i][7],json_data[i][8],json_data[i][11],json_data[i][10]]; 
                             
                         }
                         
@@ -1080,7 +1086,7 @@ function rejectedAccount(change,status){
                     var items = [];
                     for ( var i=0, ien=json_data.length ; i<ien ; i++ ) {
 
-                        items[i] = [json_data[i][0],json_data[i][1],json_data[i][2],json_data[i][3],json_data[i][4],json_data[i][5],json_data[i][6]]; 
+                        items[i] = [json_data[i][1],json_data[i][2],json_data[i][3],json_data[i][4],json_data[i][5],json_data[i][6],json_data[i][7],json_data[i][8],json_data[i][11],json_data[i][10]]; 
                             
                         }
                         
@@ -1224,7 +1230,7 @@ function rejectedAccount(change,status){
                     var items = [];
                     for ( var i=0, ien=json_data.length ; i<ien ; i++ ) {
 
-                        items[i] = [json_data[i][0],json_data[i][1],json_data[i][2],json_data[i][3],json_data[i][4],json_data[i][5],json_data[i][6]]; 
+                        items[i] = [json_data[i][1],json_data[i][2],json_data[i][3],json_data[i][4],json_data[i][5],json_data[i][6],json_data[i][7],json_data[i][8],json_data[i][11],json_data[i][10]]; 
                             
                         }
                         
@@ -1366,8 +1372,8 @@ function pagenewRedirect(variant){
                    },
                    "dataSrc":function(data){
                     json_data=data.data
-                    fund=data.funded
-                    nonfund=data.nonfund
+                    fund=data.fundcount
+                    nonfund=data.nonfundcount
                     from=data.from
                     to=data.to
                     console.log("Data====",json_data)
@@ -1382,10 +1388,10 @@ function pagenewRedirect(variant){
                     var items = [];
                     for ( var i=0, ien=json_data.length ; i<ien ; i++ ) {
 
-                        var country=json_data[i]['country']
-                        var regdate = new Date(json_data[i]['regdate']);
-                        regdate=regdate.toISOString().substring(0, 10);
-                        items[i] = [regdate,json_data[i]['login'],json_data[i]['name'],json_data[i]['email'],json_data[i]['source'],json_data[i]['ticket'],country['country']]; 
+                        // var country=json_data[i]['country']
+                        // var regdate = new Date(json_data[i]['regdate']);
+                        // regdate=regdate.toISOString().substring(0, 10);
+                        items[i] = [json_data[i][1],json_data[i][2],json_data[i][3],json_data[i][4],json_data[i][5],json_data[i][6],json_data[i][7],json_data[i][8],json_data[i][11],json_data[i][10]]; 
                             
                         }
                         
@@ -1580,7 +1586,7 @@ function pageRedirect(variant){
                     var items = [];
                     for ( var i=0, ien=json_data.length ; i<ien ; i++ ) {
 
-                        items[i] = [json_data[i][1],json_data[i][4],json_data[i][5],json_data[i][6],json_data[i][7],json_data[i][11],json_data[i][6],json_data[i][10]]; 
+                        items[i] = [json_data[i][1],json_data[i][2],json_data[i][3],json_data[i][4],json_data[i][5],json_data[i][6],json_data[i][7],json_data[i][8],json_data[i][11],json_data[i][10]]; 
                             
                         }
                         

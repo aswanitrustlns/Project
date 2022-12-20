@@ -62,10 +62,12 @@
                     <ul class="sub-menu" aria-expanded="false">
                         <!-- <li> <a  href="{% url 'Backoffice:BackofficeDashboard' %}" >Dashboard</a></li> -->
                         <li> <a  href="{% url 'Backoffice:ChangePassword' %}" >Change Password</a></li>
+                        {%if request.session.role != 'complaints' %}
                         <li> <a  href="{% url 'Backoffice:Manage' %}" >Manage Account</a></li>                        
                         <li> <a  href="{% url 'Backoffice:Approval' %}" >Approval</a></li>
                         <li> <a  href="{% url 'Backoffice:Transactions' %}" >Transactions</a></li>
                         <li> <a  href="{% url 'Backoffice:TransactionHistory' %}" >Transactions History</a></li>
+                        {%endif%}
                         <!-- <li> <a  href="{% url 'Backoffice:WorldCheck' %}" >World Check</a></li> -->
                     </ul>
                 </li>
@@ -86,7 +88,8 @@
                     </a>
                   
                 </li> -->
-                {%if request.session.role != "backoffice" %}  
+                {%if request.session.role != "backoffice"  %}  
+                {%if request.session.role != "complaints" %}
                 <li>
                     <a  href="javascript: void(0);" class="has-arrow">
                         
@@ -131,7 +134,10 @@
                     </ul>
                 </li>
                 {%endif%}
+                {%endif%}
                 {%if request.session.role != "backoffice" %} 
+                {%if request.session.role != "complaints" %}
+                
                 <li>
                     <a  href="javascript: void(0);" class="has-arrow">
                         
@@ -158,6 +164,7 @@
                         
                     </ul>
                 </li>
+                {%endif%}
                 {%endif%}
                 <li>
                     <a  href="javascript: void(0);" class="has-arrow">

@@ -904,14 +904,14 @@ def client_categorisation(request):
 def account_opening(request):
     if 'UserId' in request.session:
         accno=request.GET.get('login')
-        print("Account no====",accno)
-        url="http://185.4.178.134:15934/GetQuestionnaireURL.aspx?login="+accno
-        data=requests.get(url)
-        statuscode=data.status_code
-        if statuscode==200:
-            data=data.json()
-            print("Url data====",data['URL'])
-        return HttpResponseRedirect(data['URL'])
+        # url="http://185.4.178.134:15934/GetQuestionnaireURL.aspx?login="+accno
+        url="http://185.4.178.134:15934/Questionnaire/IndividualForms/QuestionnaireForm_"+str(accno)+".pdf"
+        # data=requests.get(url)
+        # statuscode=data.status_code
+        # if statuscode==200:
+        #     data=data.json()
+        #     print("Url data====",data['URL'])
+        return HttpResponseRedirect(url)
     else:
         return redirect('/login')
 

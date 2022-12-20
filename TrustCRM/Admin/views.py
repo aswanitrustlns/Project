@@ -597,10 +597,25 @@ def new_accounts_variants(request):
                 else:
                     accounts_data=selector.get_new_accounts_click("NonFundedTerminated",date_yesterday,date_today)#get_new_accounts_filter
 
-        print("Accounts data====",accounts_data)
-        print("Active======",active)
+        Cursor.execute("set nocount on;exec SP_GetNewAccountsListingCount %s,%s,%s",[date_yesterday,date_today,"FundedLive"])
+        live_funded_today=Cursor.fetchone()
+        if live_funded_today:
+            live_funded_today=live_funded_today[0]
+           
+        Cursor.execute("set nocount on;exec SP_GetNewAccountsListingCount %s,%s,%s",[date_yesterday,date_today,"NonFundedLive"])
+        live_nonfund=Cursor.fetchone()
+        if live_nonfund:
+            live_nonfund=live_nonfund[0]
+        Cursor.execute("set nocount on;exec SP_GetNewAccountsListingCount %s,%s,%s",[date_yesterday,date_today,"TempApprovedPending"])
+        pending_approved=Cursor.fetchone()
+        if pending_approved:
+            pending_approved=pending_approved[0]
+        Cursor.execute("set nocount on;exec SP_GetNewAccountsListingCount %s,%s,%s",[date_yesterday,date_today,"WaitingApprovalPending"])
+        pending_waiting=Cursor.fetchone()
+        if pending_waiting:
+            pending_waiting=pending_waiting[0]
          
-        return render(request,'sales/newAccounts.html',{'account_data':accounts_data,'from':date_yesterday,'to':date_today,'accounts_count':accounts_count,"active":json.dumps(active),'role':json.dumps(role)})
+        return render(request,'sales/newAccounts.html',{'account_data':accounts_data,'from':date_yesterday,'to':date_today,'fundcount':live_funded_today,'nonfundcount':live_nonfund,'approved':pending_approved,'waiting':pending_waiting,"active":json.dumps(active),'role':json.dumps(role)})
                 
     else:
         return redirect('/login')
@@ -620,12 +635,37 @@ def new_accounts_variants_weekly(request):
                 date_yesterday = datetime.today()-timedelta(week_day)
 
         date_yesterday=date_yesterday.strftime("%Y-%m-%d")
-        if (change =="TempApproved" or change=="WaitingApproval"):
+        if (change =="TempApproved"):
             active="pending"
-        accounts_data=selector.get_new_accounts_weekly_filter(change,date_yesterday,date_today)
-        accounts_count=selector.get_new_accounts_count(date_yesterday,date_today)   
-        print("Accounts count====",accounts_count)
-        return render(request,'sales/newAccounts.html',{'account_data':accounts_data,'from':date_yesterday,'to':date_today,'accounts_count':accounts_count,"active":json.dumps(active),'role':json.dumps(role)})
+            accounts_data=selector.get_new_accounts_click("TempApprovedPending",date_yesterday,date_today)
+        if(change=="WaitingApproval"):
+            active="pending"
+            accounts_data=selector.get_new_accounts_click("WaitingApprovalPending",date_yesterday,date_today)
+        if(change=="NonFunded"):
+            accounts_data=selector.get_new_accounts_click("NonFundedLive",date_yesterday,date_today)
+        if(change=="Funded"):
+            accounts_data=selector.get_new_accounts_click("FundedLive",date_yesterday,date_today)
+        # accounts_data=selector.get_new_accounts_weekly_filter(change,date_yesterday,date_today)
+        # accounts_count=selector.get_new_accounts_count(date_yesterday,date_today)   
+        # print("Accounts count====",accounts_count)
+        Cursor.execute("set nocount on;exec SP_GetNewAccountsListingCount %s,%s,%s",[date_yesterday,date_today,"FundedLive"])
+        live_funded_today=Cursor.fetchone()
+        if live_funded_today:
+            live_funded_today=live_funded_today[0]
+           
+        Cursor.execute("set nocount on;exec SP_GetNewAccountsListingCount %s,%s,%s",[date_yesterday,date_today,"NonFundedLive"])
+        live_nonfund=Cursor.fetchone()
+        if live_nonfund:
+            live_nonfund=live_nonfund[0]
+        Cursor.execute("set nocount on;exec SP_GetNewAccountsListingCount %s,%s,%s",[date_yesterday,date_today,"TempApprovedPending"])
+        pending_approved=Cursor.fetchone()
+        if pending_approved:
+            pending_approved=pending_approved[0]
+        Cursor.execute("set nocount on;exec SP_GetNewAccountsListingCount %s,%s,%s",[date_yesterday,date_today,"WaitingApprovalPending"])
+        pending_waiting=Cursor.fetchone()
+        if pending_waiting:
+            pending_waiting=pending_waiting[0]
+        return render(request,'sales/newAccounts.html',{'account_data':accounts_data,'from':date_yesterday,'to':date_today,'fundcount':live_funded_today,'nonfundcount':live_nonfund,'approved':pending_approved,'waiting':pending_waiting,"active":json.dumps(active),'role':json.dumps(role)})
                 
     else:
         return redirect('/login')
@@ -1411,18 +1451,46 @@ def new_accounts(request):
         change=request.GET.get('change')
         role=request.session.get("role")
         status=request.GET.get('status')
-        if(change=='fundToday'):
-            funded_count,nonfunded_count,funded_clients,date_today,date_yesterday=selector.funded_today()
-        if(change=='fundWeekly'):
-            funded_count,nonfunded_count,funded_clients,date_today,date_yesterday=selector.funded_weekly()
-        if(change=='nonfudTotal'):
-            funded_count,nonfunded_count,funded_clients,date_today,date_yesterday=selector.nonfunded_weekly()
+        date_today=datetime.today().date()    
+        date_today=date_today.strftime("%Y-%m-%d")
+        week_day=datetime.today().weekday() # Monday is 0 and Sunday is 6
+        if(week_day==0):
+                date_yesterday = datetime.today()-timedelta(3)
         else:
-            funded_count,nonfunded_count,funded_clients,date_today,date_yesterday=selector.funded_today()
+                date_yesterday = datetime.today()-timedelta(1)
+        #date_yesterday = "1900-01-01"
+        date_yesterday=date_yesterday.strftime("%Y-%m-%d")
+        accounts_data=selector.get_new_accounts_click("FundedLive",date_yesterday,date_today)#get_new_accounts_filter
+        
+        Cursor.execute("set nocount on;exec SP_GetNewAccountsListingCount %s,%s,%s",[date_yesterday,date_today,"FundedLive"])
+        live_funded_today=Cursor.fetchone()
+        if live_funded_today:
+            live_funded_today=live_funded_today[0]
+           
+        Cursor.execute("set nocount on;exec SP_GetNewAccountsListingCount %s,%s,%s",[date_yesterday,date_today,"NonFundedLive"])
+        live_nonfund=Cursor.fetchone()
+        if live_nonfund:
+            live_nonfund=live_nonfund[0]
+        Cursor.execute("set nocount on;exec SP_GetNewAccountsListingCount %s,%s,%s",[date_yesterday,date_today,"TempApprovedPending"])
+        pending_approved=Cursor.fetchone()
+        if pending_approved:
+            pending_approved=pending_approved[0]
+        Cursor.execute("set nocount on;exec SP_GetNewAccountsListingCount %s,%s,%s",[date_yesterday,date_today,"WaitingApprovalPending"])
+        pending_waiting=Cursor.fetchone()
+        if pending_waiting:
+            pending_waiting=pending_waiting[0]
+        # if(change=='fundToday'):
+        #     funded_count,nonfunded_count,funded_clients,date_today,date_yesterday=selector.funded_today()
+        # if(change=='fundWeekly'):
+        #     funded_count,nonfunded_count,funded_clients,date_today,date_yesterday=selector.funded_weekly()
+        # if(change=='nonfudTotal'):
+        #     funded_count,nonfunded_count,funded_clients,date_today,date_yesterday=selector.nonfunded_weekly()
+        # else:
+        #     funded_count,nonfunded_count,funded_clients,date_today,date_yesterday=selector.funded_today()
             
         
         accounts_count=selector.get_new_accounts_count(date_yesterday,date_today)
-        return render(request,'sales/newAccounts.html',{'accounts_data':funded_clients,'from':date_yesterday,'to':date_today,'fundcount':funded_count,'nonfundcount':nonfunded_count,'accounts_count':accounts_count,"active":json.dumps(active),'role':json.dumps(role)})
+        return render(request,'sales/newAccounts.html',{'accounts_data':accounts_data,'from':date_yesterday,'to':date_today,'fundcount':live_funded_today,'nonfundcount':live_nonfund,'accounts_count':accounts_count,"active":json.dumps(active),'role':json.dumps(role)})
         
     else:
         return redirect('/login')
@@ -1455,19 +1523,45 @@ def existing_accounts(request):
 def new_accounts_funded_click(request):
     active="Live"
     if 'UserId' in request.session:
+        change=request.GET.get('change')
         status=request.GET.get('status')
         from_date=request.GET.get('from')
         to_date=request.GET.get('to')
         print("HEHEHEHEHE",status,from_date,to_date)
-        if(status=="Funded" or status=="Live"):
-            funded_count,nonfunded_count,funded_clients,date_today,date_yesterday=selector.funded_by_date(from_date,to_date)
-
-        else:
-             funded_count,nonfunded_count,funded_clients,date_today,date_yesterday=selector.nonfunded_by_date(from_date,to_date)
         
-        funded_clients=ClentsSerializer(funded_clients,many=True).data
-        print("Accounts data===",funded_clients,funded_count,nonfunded_count)
-        return HttpResponse(json.dumps({"data":funded_clients,"funded":funded_count,"nonfund":nonfunded_count,'to':date_yesterday,'from':date_today}), content_type="application/json")
+        if(status=="Funded" or change=="Live"):
+            accounts_data=selector.get_new_accounts_click("FundedLive",from_date,to_date)#get_new_accounts_filter
+        
+        if(status=="NonFunded"):
+            accounts_data=selector.get_new_accounts_click("NonFundedLive",from_date,to_date)#get_new_accounts_filter
+        Cursor.execute("set nocount on;exec SP_GetNewAccountsListingCount %s,%s,%s",[from_date,to_date,"FundedLive"])
+        live_funded_today=Cursor.fetchone()
+        if live_funded_today:
+            live_funded_today=live_funded_today[0]
+           
+        Cursor.execute("set nocount on;exec SP_GetNewAccountsListingCount %s,%s,%s",[from_date,to_date,"NonFundedLive"])
+        live_nonfund=Cursor.fetchone()
+        if live_nonfund:
+            live_nonfund=live_nonfund[0]
+        Cursor.execute("set nocount on;exec SP_GetNewAccountsListingCount %s,%s,%s",[from_date,to_date,"TempApprovedPending"])
+        pending_approved=Cursor.fetchone()
+        if pending_approved:
+            pending_approved=pending_approved[0]
+        Cursor.execute("set nocount on;exec SP_GetNewAccountsListingCount %s,%s,%s",[from_date,to_date,"WaitingApprovalPending"])
+        pending_waiting=Cursor.fetchone()
+        if pending_waiting:
+            pending_waiting=pending_waiting[0]
+            
+        # if(status=="Funded" or status=="Live"):
+        #     funded_count,nonfunded_count,funded_clients,date_today,date_yesterday=selector.funded_by_date(from_date,to_date)
+
+        # else:
+        #      funded_count,nonfunded_count,funded_clients,date_today,date_yesterday=selector.nonfunded_by_date(from_date,to_date)
+        
+        # funded_clients=ClentsSerializer(funded_clients,many=True).data
+        # print("Accounts data===",funded_clients,funded_count,nonfunded_count)
+
+        return HttpResponse(json.dumps({"data":accounts_data,'fundcount':live_funded_today,'nonfundcount':live_nonfund,'approved':pending_approved,'waiting':pending_waiting,'to':to_date,'from':from_date},default=str), content_type="application/json")
         
                 
     else:

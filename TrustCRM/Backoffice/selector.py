@@ -122,7 +122,10 @@ class Selector:
                 if(id==4):
                     stp_income=500000
                 if(id==5):
-                    stp_income=100000
+                    stp_income=1000000
+                if(id==6):
+                    stp_income=5000000
+
                 print("Next 12=====",id)
         except Exception as e:
                 print("Exception------",e)

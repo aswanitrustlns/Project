@@ -431,7 +431,7 @@
                                                                                             
                                                                                             <select  class="form-select" id="Leverage"  name="Leverage" value="" required>
 
-                                                                                                <option value="">Select</option>
+                                                                                                <option value="0">Select</option>
                                                                                                 {%for lvrg in leverage%}
                                                                                                 <option value={{lvrg.0}}>{{lvrg.1}}</option>
                                                                                                 {%endfor%}
@@ -3563,6 +3563,12 @@
         
 
     }
+    // function approval_validation(){
+        
+    //     var leverage=$("#Leverage").val()
+    //     var risk=$("#Risk").val()
+        
+    // }
     function Approval(){
         var accno=$("#Accountno").val()
         var clientarea=$("#Clientarealogin").val()
