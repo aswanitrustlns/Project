@@ -47,7 +47,11 @@ class DllService:
         login = c_int(username)
         
         userc=Create_User(c_char_p(server.encode('utf-8')).value,login.value,c_char_p(password.encode('utf-8')).value,c_char_p(recvdata))
-        #resul=string_at(userc)
+        # print("Userc=====",userc)
+        # result=string_at(userc)
+        
+        # dataset=str(result, 'utf-8')
+        # print("Dataset====",dataset)
         #dataset=str(resul, 'utf-8')
         return userc
         
@@ -134,7 +138,9 @@ class DllService:
         info=Get_ClientInfo(c_char_p(server.encode('utf-8')).value,login.value,c_char_p(password.encode('utf-8')).value,account_no.value)
         
         resul=string_at(info)
+        print("Result=======",resul)
         dataset=str(resul, 'utf-8')
+        print("data set======",dataset)
         details=[]
         if(len(dataset)!=0):
                 

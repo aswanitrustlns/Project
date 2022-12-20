@@ -96,16 +96,11 @@ class EmailServices:
                 "salesrep":salesrep
             }  
 
-            if (reason == 24):
+            if (reason == 23):
                 path = "email/backoffice/RejectionofAccountBelgium.html"
-            elif (reason == 25):
+            if (reason == 25):
                 path = "email/backoffice/RejectionofAccountThirdCountry.html"
-            elif (reason == 26):
-                path = "email/backoffice/RejectionofAccountVulnerable.html"
-            elif (reason == 27):
-                path = "email/backoffice/RejectionofAccountApprpriatenessTest.html"
-            else: 
-                path = "email/backoffice/RejectionofAccountGeneric.html"
+            
             email_template_render=render_to_string(path,template_data)
             msg = EmailMultiAlternatives(subject=subject,from_email=email_from,to=[remail],bcc=[bcc1,bcc2])
             msg.attach_alternative(email_template_render, "text/html")
@@ -591,24 +586,34 @@ class EmailServices:
     def rejectLiveaccountDocs(self,title,name,remail,reasons):
         try:
             Cursor=connection.cursor()  
-            reasonstring=""
-            for reason in reasons:
-                reasonstring+=reason+" "
-            print("Reason strin-====",reasonstring)
-            email_from = 'cs@trustcapital.com'
+            print("Reason=======",reasons)
             subject = "Live Account Documents Rejected"
+            if(reasons=="gen"):
+                
+                path="email/backoffice/RejectionGN.html"
+            if(reasons=="por"):
+                
+                path="email/backoffice/RejectionPOR.html"
+            if(reasons=="blurry"):
+                path="email/backoffice/BlurryPassportReject.html"
+            if(reasons=="expired"):
+                path="email/backoffice/ExpiredPassportReject.html"
+
+            email_from = 'cs@trustcapital.com'
+            
             bcc1="crm@trustcapital.com"
-            # bcc2="magt@trustcapital.com"
-            # bcc3="backoffice@trustcapital.com"
+            
+            # # bcc2="magt@trustcapital.com"
+            # # bcc3="backoffice@trustcapital.com"
           
            
             template_data={
                 "title":title,
                 "name":name,
-                'reasons':reasons,
-                
             }  
-            email_template_render=render_to_string("email/backoffice/LiveAccountDocumentsRejected.html",template_data)
+            
+            email_template_render=render_to_string(path,template_data)
+            
             msg = EmailMultiAlternatives(subject=subject,from_email=email_from,to=[remail],bcc=[bcc1])
             msg.attach_alternative(email_template_render, "text/html")
             msg.send(fail_silently=False)
@@ -616,7 +621,7 @@ class EmailServices:
                     
 
         except Exception as e:
-            print("EXCEPTION-----------------------")  
+            print("EXCEPTION-----------------------",e)  
         finally:
             Cursor.close() 
     #send credit In confirmation

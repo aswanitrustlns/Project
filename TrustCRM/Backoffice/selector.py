@@ -109,8 +109,10 @@ class Selector:
     #Load stipulated annual income
     def get_stipulated_income(self,login):
         try:
-            next_12=TblScoresheet.objects.get(login=login)
+            next_12=0
             stp_income=0
+            next_12=TblScoresheet.objects.get(login=login)
+            
             if next_12:
                 id=int(next_12.dep_nex_12)
                 if(id==1):
@@ -460,11 +462,13 @@ class Selector:
             #isAccount=dllservice.dll_client_info(user,server,password,accno)
             Cursor.execute("set nocount on; exec SP_GetAccountStatus %s",[accno])
             isAccount=Cursor.fetchone()
+            print("Is account====",isAccount)
             isAccount=str(isAccount[0])
             if(isAccount=="Pending"):
                 update_data="NAME="+name+"^GROUP="+str(groups)+"^CITY="+str(city)+"^ZIPCODE="+str(zipcode)+"^ADDRESS="+str(address)+"^PHONE="+str(phone)+"^EMAIL="+str(email1)+"^COMMENT"+str(comment)+"^USERID="+str(user)+"^USER_STATUS=NR^USER_AGENT=0^USER_LEVERAGE="+str(leverage)+"^USER_STATE="+str(state)+"^USER_TAXES=0^USER_PASSWORD="+str(master_pwd)+"^USER_PASSWORD_INVESTOR="+str(investor_pwd)+"^USER_PASSWORD_PHONE="+str(phone_pwd)+"^USER_COUNTRY="+countryname+"^LOGIN_NO="+str(accno)+"^USER_ENABLE="+str(enabled)+"^USER_ENABLE_READONLY="+str(rdonly)+"^USER_ENABLE_CHANGE_PASSWORD="+str(changepwd)+"^USER_SEND_REPORTS="+str(sendreport)+"^USER_COLOR_NONE="+str(color)+"^RED="+str(red)+"^GREEN="+str(green)+"^BLUE="+str(blue)
                 update_data=bytes(update_data.encode())
                 result=dllservice.dll_create_user(user,server,password,update_data)
+                print("Result======",result)
                 if result==accno:
                     #Cursor.execute("set nocount on;exec SP_GetAccountStatus %s",[accno])
                     #status=Cursor.fetchone()
@@ -849,21 +853,21 @@ class Selector:
         finally:
                 Cursor.close()
         return message
+
     #Update account status
     def update_account_status(self,livestatus,accno,clientarealogin,userId):
         try:
+            message="Account is not able to Reject. Please verify the Details"
+            result=0
             Cursor=connection.cursor()           
             Cursor.execute("set nocount on;exec SP_UpdateAccountStatusReadOnly %s,%s,%s,%s",[livestatus,accno,clientarealogin,userId]) 
-            result=Cursor.fetchone()
-            print("rsult======",result)
-            if result:
-                result=result[0]
+            message="Account Rejected"
             
         except Exception as e:
                 print("Exception------",e)
         finally:
                 Cursor.close()
-        return result
+        return message
     #Get reject date
     def get_reject_date(self,accno):
         try:
@@ -1116,11 +1120,17 @@ class Selector:
         return result
     #Check live
     def check_live_status(self,accno):
-        isAccount=""
-        Cursor.execute("set nocount on; exec SP_GetAccountStatus %s",[accno])
-        isAccount=Cursor.fetchone()
-        if isAccount:
-            isAccount=isAccount[0]
+        try:
+            Cursor=connection.cursor() 
+            isAccount=""
+            Cursor.execute("set nocount on; exec SP_GetAccountStatus %s",[accno])
+            isAccount=Cursor.fetchone()
+            if isAccount:
+                isAccount=isAccount[0]
+        except Exception as e:
+            print("Exception----",e)
+        finally:
+            Cursor.close
         return isAccount
     #Get reject reasons Using reason id 
     def get_reason(self,reasons):

@@ -56,14 +56,16 @@ def manage_account(request):
 #Load account details
 def load_account_details(request):
     if 'UserId' in request.session:
+        income=0
         acc_no=request.GET.get('account')
         user=request.session.get('user')
         server=request.session.get('server')
         password=request.session.get('password')
         details,otherdetails,ip=selector.loadAccountDetails(user,server,password,acc_no)
+        check_live=selector.check_live_status(acc_no)
         income=selector.get_stipulated_income(acc_no)
         ebalance=selector.loadEwalletBalance(acc_no)
-        return JsonResponse({"detail":details,"other":otherdetails,"ip":ip,"ebalance":ebalance,"stp_income":income}) 
+        return JsonResponse({"detail":details,"other":otherdetails,"ip":ip,"ebalance":ebalance,"stp_income":income,'status':check_live}) 
     else:
         return redirect('/login')
 #Load account details
@@ -288,7 +290,7 @@ def approve_document(request):
         accno=int(request.GET.get('accno'))
         # docs=selector.get_client_documents(accno)
         docs=request.GET.getlist('docsId[]')
-        reasons=request.GET.getlist('reasons[]')
+        reasons=request.GET.get('reasons')
         status=request.GET.get('status')
         print("Docs========",docs,reasons,status)
         # docslist=[x[6] for x in docs]
@@ -312,8 +314,8 @@ def approve_document(request):
                 title=userdetails[2]
                 name=userdetails[1]
                 email=userdetails[0]
-            reason=selector.get_reason(reasons)
-            emailservice.rejectLiveaccountDocs(title,name,email,reason)
+            # reason=selector.get_reason(reasons)
+            emailservice.rejectLiveaccountDocs(title,name,email,reasons)
             msg="Document rejected successfully"
         return JsonResponse({"message":msg})
     else:
@@ -614,6 +616,40 @@ def terminate_account(request):
             email=userdetails[0]
             
             emailservice.terminationofaccount(title,name,email,reasonid)
+            
+        
+        return JsonResponse({"message":message}) 
+    else:
+        return redirect('/login')
+#Reject Account
+def reject_account(request):
+    if 'UserId' in request.session:
+        message="Please try again"
+        userid=int(request.session.get('UserId'))
+        cliarea=request.GET.get('cliarea')
+        accno=request.GET.get('account')
+        reasonid=request.GET.get('reasonId')
+        description=request.GET.get('description')
+        status="Rejected"
+        user=request.session.get('user')
+        server=request.session.get('server')
+        password=request.session.get('password')
+        print("data====",accno,reasonid,description,status,userid,cliarea)
+        # status=selector.get_docs_verified(accno)
+        # docverified=1
+        # PORstatus=""
+        # if status:
+        #     docverified=status[0]
+        #     PORstatus=status[3]
+        message=selector.rejectdocument(accno,reasonid,description,status,userid,user,server,password)
+        message=selector.update_account_status("Rejected",accno,cliarea,userid)
+        userdetails=selector.get_email_details(accno)
+        if userdetails:
+            title=userdetails[3]
+            name=userdetails[1]
+            email=userdetails[0]
+            emailservice.rejectionofaccount(title,name,email,salesrep,reasonid)
+            # emailservice.terminationofaccount(title,name,email,reasonid)
             
         
         return JsonResponse({"message":message}) 

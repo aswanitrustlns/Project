@@ -495,14 +495,15 @@ class Selector:
                 date_yesterday = datetime.today()-timedelta(1)
            date_yesterday=date_yesterday.strftime("%Y-%m-%d")
            print("Change and status====",change,status,date_yesterday,date_today)
-           if(change == "All"):
+           Cursor.execute("set nocount on;exec SP_GetNewAccountsListing %s,%s,%s",[from_date,to_date,status])  
+           live_accounts=Cursor.fetchall()
+            #    if(change == "All"):
                 
-                Cursor.execute("set nocount on;exec SP_GetNewAccountsListing %s,%s,%s",[from_date,to_date,status])  
-                live_accounts=Cursor.fetchall()
-           else: 
+            
+             #    else: 
                 
-                Cursor.execute("set nocount on;exec SP_GetNewAccountsListing %s,%s,%s",[date_yesterday,date_today,change])   #exec SP_GetNewAccountsListing
-                live_accounts=Cursor.fetchall()
+                #         Cursor.execute("set nocount on;exec SP_GetNewAccountsListing %s,%s,%s",[date_yesterday,date_today,change])   #exec SP_GetNewAccountsListing
+            #         live_accounts=Cursor.fetchall()
            
         except Exception as e:
             print("Exception---",e)

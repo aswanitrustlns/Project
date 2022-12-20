@@ -546,7 +546,7 @@
                                                                                             <label class="form-label" for="Group">Group<span class="color-orange">*</span></label>
                                                                                             <select  class="form-select" id="Group"  name="Group" value="" required>
 
-                                                                                                <option value="14">Select</option>
+                                                                                                <option value="0">Select</option>
                                                                                                 {%for group in groups%}
                                                                                                 <option value={{group}}>{{group}}</option>
                                                                                                 {%endfor%}
@@ -1890,7 +1890,8 @@
                                         
                                         <button type="button" class="btn bg-soft-secondarycolor text-white me-2" onclick="viewDocs()">View documents</button>
                                         <!-- <button type="button" class="btn bg-soft-secondarycolor text-white me-2" data-bs-toggle="modal" data-bs-target=".bs-example-modal-seminars" style="background-color: var(--bs-card-bg) ;">Close account</button> -->
-                                        <button type="button" class="btn bg-soft-secondarycolor text-white me-2" onclick="terminate()">Close Account</button>
+                                        <button type="button" id="closeAccount" class="btn bg-soft-secondarycolor text-white me-2" onclick="terminate()">Close Account</button>
+                                        <button type="button" id="rejectAccount" class="btn bg-soft-secondarycolor text-white me-2" onclick="reject()">Reject Account</button>
                                         <!-- <button type="button" class="btn bg-soft-secondarycolor text-white me-2" onclick="viewscore()">View Score</button> -->
                                         <button type="button" class="btn bg-soft-secondarycolor text-white me-2" onclick="categorization()">Client Categorization</button>
                                         </div>
@@ -1974,6 +1975,74 @@
                                     <div class="row mt-2">
                                         <div class="col-6">
                                             <button type="button"  class="btn btn-success" id="btn-save-event" onclick="terminProceed()">Proceed</button>
+                                            <!-- <button type="button" data-bs-dismiss="modal" class="btn btn-danger" id="btn-delete-event">Close</button> -->
+                                        </div>
+                                      
+                                    </div>
+                                </div>
+                           
+                            </div>
+                            
+                        
+                    </div>
+                
+                </div>
+            </div> <!-- end modal-content-->
+        </div> <!-- end modal dialog-->
+    </div>
+    <div class="modal fade" id="rejectPending" tabindex="-1" >
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+    
+                <div class="modal-body ">
+    
+                    <div class="border-dashed rounded-3 px-3 py-3">
+                    
+                        <div class="modal-header border-0 px-0">
+                            <h5 class="modal-title fs-21" id="modal-title">Reason for Rejection</h5>
+    
+                            <a href="" data-bs-dismiss="modal" aria-label="Close">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M9.16992 14.83L14.8299 9.17" stroke="var(--white)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M14.8299 14.83L9.16992 9.17" stroke="var(--white)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M9 22H15C20 22 22 20 22 15V9C22 4 20 2 15 2H9C4 2 2 4 2 9V15C2 20 4 22 9 22Z" stroke="white" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+
+                                </a>
+    
+                        </div>
+                   
+                        
+                            
+                            <div class="row">
+                            
+                                <div class="col-12">
+                                    <div class="mb-3">
+                                        <select  class="form-select" id="rejectreasonId">
+                                            <option value="0">Select</option>
+                                            <option value="23">Generic</option>
+                                            <option value="25">Country Prohibited (we don’t offer services to)</option>
+                                            <!-- <option value="28">Other</option> -->
+                                            <!-- <option value="29">Appropriateness Test; Vulnerable;(Remaining balance is refunded)</option>
+                                            <option value="30">AML Documents not provided</option>
+                                           <option value="31">AML (generic)</option>  
+                                             <option value="34">KYC Documents not provided</option>
+                                            <option value="35">KYC (generic)</option>   -->
+                                              
+            
+                                        </select>
+            
+                                            
+                                        
+                                    </div>
+                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                        <textarea class="form-control" rows="3" id="rejectdescription" runat="server" placeholder="Description"></textarea>
+                                            
+                                      </div>
+              
+                                    <div class="row mt-2">
+                                        <div class="col-6">
+                                            <button type="button"  class="btn btn-success" id="btn-save-event" onclick="rejectionProceed()">Proceed</button>
                                             <!-- <button type="button" data-bs-dismiss="modal" class="btn btn-danger" id="btn-delete-event">Close</button> -->
                                         </div>
                                       
@@ -2402,6 +2471,42 @@
     function categorization(){
         $("#category").modal('show')
         
+    }
+    function reject(){
+        $("#rejectPending").modal('show')
+    }
+    function rejectionProceed(){
+        $("#rejectPending").modal('hide')
+        var cliarea=$("#Clientarealogin").val()
+        console.log("Client area ====",cliarea)
+        var ticket=$("#tickets").val()
+        var accno=$("#Accountno").val()
+        var reason=$("#rejectreasonId").val()
+        var desc=$("#rejectdescription").val()
+        console.log("Termin proceed"+reason+desc)
+        $.ajax({
+                            
+                            type : "GET", 
+                            url: "{% url 'Backoffice:RejectAccount' %}",
+                            dataType: 'json',
+                            data:{
+                                'cliarea':cliarea,
+                                'account':accno,
+                                'reasonId':reason,
+                                'description':desc,
+                            },
+                            success: function(data){
+                                $("#userMsg").empty()
+                                $("#userMsg").append(data.message)
+                                $("#alertpopup").modal('show')
+                            }
+                })
+                if(ticket!=null){
+                    LoadData()
+                    updateTicketSummary(ticket)
+                    updatejournal(ticket)
+
+                }
     }
     function addNewEvent(info) {
                 console.log("New event added ======"+info)
@@ -2877,6 +2982,7 @@
 
 
     function terminate(){
+
         var accno=$("#Accountno").val()
         if(accno==""){
             $("#userMsg").empty()
@@ -3096,7 +3202,20 @@
                             }
                         
                         var details=data.detail
-                        
+                        var status=data.status
+                        console.log("Status=====",status)
+                        if(status=="Live"){
+                            $("#closeAccount").show()
+                            $("#rejectAccount").hide()
+                        }
+                        if(status=="Pending"){
+                            $("#closeAccount").hide()
+                            $("#rejectAccount").show()
+                        }
+                        else{
+                            $("#closeAccount").show()
+                            $("#rejectAccount").hide()
+                        }
                         var stp_income=data.stp_income
                         $("#StIncome").val(stp_income)
                         var other=data.other
@@ -3116,7 +3235,7 @@
                         }
                         if(details=="" || details==null){
                             $("#userMsg").empty()
-                            $("#userMsg").append("Account number not exists")
+                            $("#userMsg").append("Invalid MT4 Account")
                             $("#alertpopup").modal('show')
                         }
                         else{
@@ -3223,8 +3342,14 @@
                             var networth=details[38]
                             $("#Networth").val(networth)
                             var group=details[3]
+                            console.log("Group===",group)
+                            if(group==""){
+                                console.log("Group value empty===")
+                                $("#Group").val("0")  
+                            }else{
+                                $("#Group").val(group)
+                            }
                             
-                            $("#Group").val(group)
                             var actype=details[43]
                             $("#Account").val(actype)
                             var tinno=details[62]
@@ -3523,8 +3648,10 @@
     function tempApproval(){
         var accno=$("#Accountno").val()
         $("#form-accno").val(accno)
-        var cliarea=$("#ClientArealogin").val()
+        var cliarea=$("#Clientarealogin").val()
         var risk=$("#Risk").val()
+        var flag=approval_validation()
+        console.log("Approval validation====",flag)
         if(cliarea==""){
             $("#userMsg").empty()
             $("#userMsg").append("Client Area is not linked to this account. Please contact IT for assistance")
@@ -3533,6 +3660,11 @@
         if(risk=="High"){
             $("#userMsg").empty()
             $("#userMsg").append("High Risk clients cannot be approved")
+            $("#alertpopup").modal('show')
+        }
+        if(flag==1){
+            $("#userMsg").empty()
+            $("#userMsg").append("Please fill all required fields")
             $("#alertpopup").modal('show')
         }
 
@@ -3563,12 +3695,49 @@
         
 
     }
-    // function approval_validation(){
-        
-    //     var leverage=$("#Leverage").val()
-    //     var risk=$("#Risk").val()
-        
-    // }
+    function approval_validation(){
+        var flag=0
+        var leverage=$("#Leverage").val()
+        var risk=$("#Risk").val()
+        var initial_deposit=$("#Initialdeposit").val()
+        var annualIncome=$("#Annualincome").val()
+        var networth=$("#Networth").val()
+        var stincome=$("#StIncome").val()
+        var group=$("#Group").val()
+        var actype=$("#Account").val()
+        var rdcheck=$('#Readonly').is(':checked')
+        var comment=$("#RDComment").val()
+        if(leverage=="0"){
+            flag=1
+        }
+        if(risk=="0"){
+            flag=1
+        }
+        if(initial_deposit==""){
+            flag=1
+        }
+        if(annualIncome==""){
+            flag=1
+        }
+        if(networth==""){
+            flag=1
+        }
+        if(stincome==""){
+            flag=1
+        }
+        if(group=="0"){
+            flag=1
+        }
+        if(actype=="0"){
+            flag=1
+        }
+        if(rdcheck){
+            if(comment==""){
+                flag=1
+            }
+        }
+        return flag
+    }
     function Approval(){
         var accno=$("#Accountno").val()
         var clientarea=$("#Clientarealogin").val()
@@ -3767,8 +3936,7 @@
             var tercomment=$("#terComment").val()
             var flag=0
             var rdcheck=$('#Readonly').is(':checked')
-            // var trcheck=$('#Terminated').is(':checked')
-            console.log("rd check===="+rdcheck)
+            
             
             if(rdcheck){
                 $("#userMsg").empty()

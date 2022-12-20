@@ -199,7 +199,7 @@
                                                     <tbody class="text-white gilory-regular-type fs-16">
                                                         {%for log in logs%}
                                                         <tr>
-                                                            <td class="ps-0">{{log.0}}</td>
+                                                            <td class="ps-0">{{log.0|date:"Y-m-d"}}</td>
                                                             <td><div class="activity-icon avatar-sm me-3">
                                                                 <div class="d-flex align-items-center  ">
     
@@ -237,8 +237,7 @@
                                                     Details
                                                 </h4>
                                                 <div class="ms-auto">
-                                                <button class="position-relative btn  btn-sm  color-green fs-15" style="background-color:
-                                                rgba(0, 165, 79, 0.15) ;" onclick="accountOpening()">Account Opening Form</button>
+                                                <button class="position-relative btn  btn-sm  btn-primary fs-15"  onclick="accountOpening()">Account Opening Form</button>
                                                 </div>
                                             </div>
                                             <div class="table-responsive " id="uploaddocumentsdetails" style="max-height:500px">
@@ -279,7 +278,7 @@
                               
                                                        
                                                         <td>{{doc.2}}</td>
-                                                        <td>{{doc.3}}</td>
+                                                        <td>{{doc.3|date:"Y-m-d"}}</td>
                                                         <td>{{doc.4}}</td>
                                                         
                                                         <td>
@@ -373,34 +372,29 @@
                             </div>
                             <div class="col-12">
                                 <div class="mb-3">
-                                    <input type="checkbox" class="form-check-input" id="generic" required="" name="reasons[]" value="23">
+                                    <input type="radio" class="form-check-input" id="generic" required="" name="reasons" value="gen">
                                     <label class="form-check-label fs-12" for="Readonly1">Generic</label>
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="mb-3">
-                                    <input type="checkbox" class="form-check-input" id="belgium" required="" name="reasons[]" value="24">
-                                    <label class="form-check-label fs-12" for="Readonly1">Belgium</label>
+                                    <input type="radio" class="form-check-input" id="por-rej" required="" name="reasons" value="por">
+                                    <label class="form-check-label fs-12" for="Readonly1">POR Rejection</label>
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="mb-3">
-                                    <input type="checkbox" class="form-check-input" id="thirdcountry" required=""name="reasons[]" value="25">
-                                    <label class="form-check-label fs-12" for="Readonly1">Third Country (we don't offer services to)</label>
+                                    <input type="radio" class="form-check-input" id="blurry" required=""name="reasons" value="blurry">
+                                    <label class="form-check-label fs-12" for="Readonly1">Blurry Passport Copy</label>
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="mb-3">
-                                    <input type="checkbox" class="form-check-input" id="vulnerable" required="" name="reasons[]" value="26">
-                                    <label class="form-check-label fs-12" for="Readonly1">Vulnerable</label>
+                                    <input type="radio" class="form-check-input" id="expired" required="" name="reasons" value="expired">
+                                    <label class="form-check-label fs-12" for="Readonly1">Passport Expired</label>
                                 </div>
                             </div>
-                            <div class="col-12">
-                                <div class="mb-3">
-                                    <input type="checkbox" class="form-check-input" id="generic" required="" name="reasons[]" value="27">
-                                    <label class="form-check-label fs-12" for="Readonly1">Appropriateness Test</label>
-                                </div>
-                            </div>
+                           
                                     <div class="col-12">
                                         <button type="button"  class="btn btn-success" id="btn-save-event" onclick="rejectProceed()">Proceed</button>
                                         <!-- <button type="button" data-bs-dismiss="modal" class="btn btn-danger" id="btn-delete-event">Close</button> -->
@@ -910,7 +904,7 @@
         
         var selected = [];
         var status="A"
-        var reasons=[]
+        var reasons=""
         $('[name="uploadcheck[]"]:checked').each(function(checkbox) {
         
         selected.push(this.value);
@@ -1046,24 +1040,28 @@
         $("#reject-doc").modal('hide')
         var accno=$("#Accountno").val()
         
-        var reasons= [];
+        var reasons= $('[name="reasons"]:checked').val();
         var selected= [];
-        $('[name="reasons[]"]:checked').each(function(checkbox) {
-        
-        reasons.push(this.value);
-        });
+       
         $('[name="uploadcheck[]"]:checked').each(function(checkbox) {
         
         selected.push(this.value);
         });
         console.log("Selected====="+selected)
         console.log("Reasons====="+reasons)
-        if(reasons==[]){
+        if(reasons==""){
             $("#userMsg").empty()
             $("#userMsg").append("Please select the reason to reject")
             $("#alertpopup").modal('show')
 
-        }else{
+        }
+        if(selected==""){
+            $("#userMsg").empty()
+            $("#userMsg").append("Please select the document to reject")
+            $("#alertpopup").modal('show')
+
+        }
+        else{
             $.ajax({
                     type : "GET", 
                     url: "{% url 'Backoffice:ApproveDocument' %}",

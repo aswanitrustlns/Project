@@ -588,12 +588,12 @@ class Services:
         try:
             print("Request=======",accno,docs,status,reasons,userid)
             strdoclist=','.join([str(elem) for elem in docs])
-            strreasons=','.join([str(elem) for elem in reasons])
+            # strreasons=','.join([str(elem) for elem in reasons])
             # docs=str(docs)
             print("Strrrrrr",strdoclist)
-            print("Strrrrrr",strreasons)
+            
             Cursor=connection.cursor()   
-            Cursor.execute("exec SP_RejectDocumentWithEmail %s,%s,%s,%s,%s",[accno,userid,status,strreasons,strdoclist])
+            Cursor.execute("exec SP_RejectDocumentWithEmail %s,%s,%s,%s,%s",[accno,userid,status,reasons,strdoclist])
             print("Query execurted")
         except Exception as e:
             print("Exception----",e)

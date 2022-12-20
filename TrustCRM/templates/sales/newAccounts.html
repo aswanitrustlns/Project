@@ -425,10 +425,10 @@ $("#datatableleads").DataTable({
    "url": "{% url 'Admin:NewAccountsFundedClick' %}",
    "type": "GET",
    "data":{
-    'change':change,
+    'change':status,
     'from':fromdate,
     'to':todate,
-    'status':status,
+    'status':change,
    },
    "dataSrc":function(data){
     json_data=data.data
